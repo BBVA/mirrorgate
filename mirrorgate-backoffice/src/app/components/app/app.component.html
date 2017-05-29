@@ -1,0 +1,46 @@
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3">
+      </div>
+
+      <div class="col-sm-6 text-center navbar-title">
+          <h1><span class="font-ae">MIRRORGATE</span> console</h1>
+      </div>
+
+      <div class="col-sm-3 text-right menu">
+        <div class="dropdown">
+          <button type="button" id="menuBtn" class="dropdown__button" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </button>
+
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="menuBtn">
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/list']">Dashboards list</a></li>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/about']">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,9 @@
+bower_components
+node_modules
+dist
+target
+coverage
+.vscode
+*.iml
+.idea
+nbproject

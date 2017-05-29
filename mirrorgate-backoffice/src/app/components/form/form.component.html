@@ -1,0 +1,117 @@
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div class="form">
+  <h2 *ngIf="!edit">New dashboard</h2>
+  <h2 *ngIf="dashboard && edit">Edit: {{dashboard.name}}</h2>
+
+  <div class="white-bg">
+    <form (ngSubmit)="onSave(dashboard)" #dashboardForm="ngForm" *ngIf="dashboard">
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" required [(ngModel)]="dashboard.name" name="name" [readonly]="edit" #name="ngModel">
+          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+            Name is required
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label for="applications">Applications</label>
+          <div class="collapse" id="applications-help">
+            <div class="well">
+              Add a comma separated list with your market applications
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#applications-help" aria-expanded="false"
+              aria-controls="applications-help">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+            <input type="text" class="form-control" id="applications" [(ngModel)]="temp.applications" (ngModelChange)="mirrorTempValues()"
+              name="applications">
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="displayName">Display Name</label>
+          <input type="text" class="form-control" id="displayName" [(ngModel)]="dashboard.displayName" name="displayName" #name="ngModel">
+        </div>
+        <div class="col-sm-6">
+          <label for="logoURL">URL Logo</label>
+          <div class="collapse" id="icon-url-help">
+            <div class="well">
+              Please specify a public absolute URL pointing to your logo file.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#icon-url-help" aria-expanded="false" aria-controls="icon-url-help">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+            <input type="text" class="form-control" id="logoURL" [(ngModel)]="dashboard.logoUrl" name="logoURL">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="codeRepos">Repositories</label>
+          <div class="collapse" id="code-repos-help">
+            <div class="well">
+              Add a comma separated list with your repositorios. You can use regular expressions to match both, the repo name, or the project
+              name. Note that several items will represent an 'Or' match and not an 'And'.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#code-repos-help" aria-expanded="false" aria-controls="code-repos-help">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+            <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" (ngModelChange)="mirrorTempValues()"
+              name="codeRepos">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label for="boards">Story keywords</label>
+          <div class="collapse" id="boards-help">
+            <div class="well">
+              Add a comma separated list with your jira keywords. You can use the team names, project names or project codes as keywords
+              to match jira issues.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#boards-help" aria-expanded="false" aria-controls="boards-help">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+            <input type="text" class="form-control" id="boards" [(ngModel)]="temp.boards" (ngModelChange)="mirrorTempValues()" name="boards">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-6">
+          <button type="button" class="btn btn-danger" (click)="back()">Cancel</button>
+          <button type="button" class="btn btn-default" (click)="dashboardForm.reset()">Reset</button>
+        </div>
+        <div class="col-xs-6 text-right">
+          <button type="submit" class="btn btn-success" [disabled]="!dashboardForm.form.valid">Save</button>
+        </div>
+      </div>
+
+    </form>
+  </div>

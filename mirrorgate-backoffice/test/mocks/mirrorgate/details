@@ -1,0 +1,12 @@
+{
+  "name": "mirrorgate",
+  "logoUrl": "/img/logo.png",
+  "codeRepos": [
+    "mirrorgate-app",
+    "jenkins-plugin-collector",
+    "jira-collector",
+    "design"
+  ],
+  "sProductName": "MirrorGate",
+  "applications": []
+}

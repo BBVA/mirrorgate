@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  selenium:
+    image: "selenium/standalone-chrome:3.0.1-aluminum"
+    volumes:
+      - /dev/shm:/dev/shm
+  install:
+      image: "monostream/nodejs-gulp-bower"
+      volumes:
+        - .:/tmp/repo
+      working_dir: "/tmp/repo"
+      command: bash -c "npm install && bower install --allow-root"
+  build:
+      image: "monostream/nodejs-gulp-bower"
+      volumes:
+        - .:/tmp/repo
+      working_dir: "/tmp/repo"
+      command: "./node_modules/gulp/bin/gulp.js dist"
+  test:
+    image: "monostream/nodejs-gulp-bower"
+    links:
+      - selenium
+    environment:
+      - SELENIUM_HOST=selenium
+    volumes:
+      - .:/tmp/repo
+    working_dir: "/tmp/repo"
+    command: "npm test"

@@ -1,0 +1,11 @@
+{
+  "name": "All data",
+  "logoUrl": "img/logo.png",
+  "codeRepos": [
+    "all"
+  ],
+  "boards": [
+    "all"
+  ],
+  "applications": ["all"]
+}

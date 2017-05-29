@@ -1,0 +1,398 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- build:js component.min.js -->
+<script src="model-story.js"></script>
+<script src="model-sprint.js"></script>
+<script src="controller.js"></script>
+<!-- endbuild -->
+
+<template>
+  <style>
+    @import "css/styles.css";
+  </style>
+  <style>
+    svg text {
+      fill: white;
+      text-anchor: middle;
+      font-size: 71px;
+    }
+
+    svg text.days-left {
+      fill: #eeeeee;
+    }
+
+    text.rate-completed {
+      font-size: 277px;
+    }
+
+    text.text-completed {
+      font-size: 83px;
+    }
+
+    svg span {
+      font-size: 40px;
+    }
+
+    svg p>span {
+      text-align: center;
+      display: block;
+    }
+
+    .story-name {
+      font-size: 40px;
+      line-height: 55px;
+      max-height: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+    }
+
+    .story-estimate {
+      padding-top: 20px;
+      font-size: 30px;
+    }
+
+    .story-points {
+      margin: 0px;
+      padding: 0px;
+      font-size: 200px;
+      line-height: 180px;
+    }
+
+    .dimmed .outher path {
+      fill-opacity: 0.3;
+      stroke-opacity: 0.3;
+    }
+
+    .dimmed path:hover {
+      fill-opacity: 1;
+      stroke-opacity: 1;
+      cursor: pointer;
+    }
+
+    svg path {
+      fill: #7e7e7e;
+    }
+
+    .status-in-progress {
+      color: #2CE6FB;
+    }
+
+    .status-done {
+      color: #24D268;
+    }
+
+    .status-to-rework {
+      color: #FF2B2B;
+    }
+
+    .status-impeded {
+      color: #FF2B2B;
+    }
+
+    .status-bad {
+      color: #FF2B2B;
+    }
+
+    .status-good {
+      color: #FDD80D;
+    }
+
+    .status-excellent {
+      color: #24D268;
+    }
+
+    svg path.status-in-progress {
+      fill: #2CE6FB;
+    }
+
+    svg path.status-done {
+      fill: #24D268;
+    }
+
+    svg path.status-to-rework {
+      fill: #FF2B2B;
+    }
+
+    svg path.status-impeded {
+      fill: #FF2B2B;
+    }
+
+    svg path.status-bad {
+      fill: #FF2B2B;
+    }
+
+    svg path.status-good {
+      fill: #FDD80D;
+    }
+
+    svg path.status-excellent {
+      fill: #24D268;
+    }
+  </style>
+
+  <div class="team component__content">
+    <div class="component__header">
+      <h2 class="title">Current Sprint</h2>
+      <h3 class="title-desc" rv-show="dateRange">{dateRange}</h3>
+    </div>
+    <div class="component__body">
+      <svg>
+        <g class="main">
+          <g class="original"></g>
+          <g class="outher"></g>
+          <g class="data">
+            <g rv-show="selected">
+              <switch>
+                <foreignObject x="-250" y="-250" width="500" height="500">
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                    <p>
+                      <span class="story-name">{selected.name}</span>
+                      <span class="story-estimate">Estimate</span>
+                      <span class="story-points">{selected.points}</span>
+                      <span class="story-status" rv-pclass-status="selected.status">Status: {selected.status}</span>
+                    </p>
+                  </div>
+                </foreignObject>
+                <text x="20" y="20"></text>
+              </switch>
+            </g>
+            <g rv-hide="selected">
+              <g rv-show="sprint">
+                <text class="rate-completed" y="0">{sprint.doneRatio}%</text>
+                <text class="text-completed" y="100">completed</text>
+                <text class="days-left" y="300">
+                  {sprint.daysLeft} days left
+                </text>
+              </g>
+            </g>
+          </g>
+          <g class="time"></g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</template>
+
+<script>
+  (function (window, document, undefined) {
+
+    // Refers to the "importee", which is components/team-dashboard.html
+    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
+    var tmpl = thisDoc.querySelector('template');
+
+    // Creates an object based in the HTML Element prototype
+    var MyElementProto = Object.create(Tile);
+
+    var order = {
+      'Done': 0,
+      'In Progress': 1,
+      'To Rework': 2,
+      'Impeded': 3,
+      'Waiting': 4,
+      'Backlog': 4
+    };
+
+    var outherArc = d3.svg.arc()
+      .innerRadius(483)
+      .padAngle(Math.PI / 90)
+      .outerRadius(500)
+      .cornerRadius(17);
+
+    var pie = d3.layout.pie()
+      .startAngle(-Math.PI * 3 / 4)
+      .endAngle(Math.PI * 3 / 4)
+      .padAngle(Math.PI / 45)
+      .value(function (d) { return d.points || 0.5; })
+      .sort(null);
+
+    function storyClassBuilder(prefix) {
+      return function (d) {
+        return prefix + Utils.toClassName(d.data.status);
+      }
+    }
+
+    MyElementProto.getControllerClass = function () {
+      return TeamController;
+    };
+
+    MyElementProto.getTemplate = function () {
+      return tmpl;
+    };
+
+    MyElementProto.render = function (sprintData) {
+      var sprint = sprintData && sprintData.currentSprint;
+
+      Utils.raiseEvent(this, {
+        status: sprintData ? {
+          'Bad': 'error',
+          'Good': 'warn'
+        }[sprint.getAdvanceSprintStatus()] || 'ok' : 'server-error'
+      });
+      var self = this;
+
+
+      var format = "MMMM Do";
+
+      var range = sprint && sprint.startDate ? moment(sprint.startDate).format(format) + ' - ' +
+        moment(sprint.endDate).format(format) :
+        'No active sprints found';
+      self.getModel().dateRange = range;
+
+      if (sprint && sprint.startDate) {
+        self.getModel().sprint = {
+          doneRatio: sprint.getDoneRatio(),
+          daysLeft: sprint.getDaysLeft()
+        };
+      } else {
+        self.getModel().sprint = undefined;
+      }
+
+      setTimeout(function () {
+
+
+        var style = window.getComputedStyle(self.shadowRoot.querySelector('.component__body'));
+
+        var marginTop = 0;
+
+        var width = parseFloat(style.width.substring(0, style.width.length - 2)),
+          height = parseFloat(style.height.substring(0, style.height.length - 2)),
+          radius = Math.min(width, height) / 2;
+
+        width = 2 * radius;
+
+        var container = d3.select(self.shadowRoot).select("svg");
+
+        container
+          .attr('preserveAspectRatio', 'xMidYMid meet')
+          .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
+        var svg = container
+          .select("g.main").attr("transform",
+          "translate(" + radius + "," + (radius + marginTop) + ") " +
+          "scale(" + (radius / 530) + ")"
+          );
+
+
+        var daysPassed = 2;
+        var daysInSprint = 10;
+        var dayProgress = Math.PI * 2 * daysPassed / daysInSprint - Math.PI / 2;
+
+        var items = sprint ? sprint.stories.sort(function (a, b) {
+          return order[a.status] < order[b.status] ? -1 : 1;
+        }) : [];
+
+        if (items.length === 0) {
+          items.push({
+            points: 0,
+            hide: true
+          });
+        }
+
+        var joinedItemsMap = items.reduce(function (acc, item) {
+          var pos = order[item.status];
+          acc[pos] = acc[pos] || new Story('', 0, item.status);
+          acc[pos].points += item.points || 0.5;
+          return acc;
+        }, {});
+
+        var joinedItems = [];
+
+        for (var status in joinedItemsMap) {
+          joinedItems.push(joinedItemsMap[status]);
+        }
+
+        joinedItems = joinedItems.sort(function (a, b) {
+          return order[a.status] < order[b.status] ? -1 : 1;
+        });
+
+        var arc = d3.svg.arc()
+          .innerRadius(400)
+          .outerRadius(450)
+          .cornerRadius(function (d, i) {
+            return (i === 0 || i === joinedItems.length - 1) && 100;
+          });
+
+        svg.on('mouseout', function (d) {
+          svg.classed('dimmed', false)
+          self.getModel().selected = undefined;
+        });
+
+        var innerUpdated = svg.select('.original')
+          .selectAll("g")
+          .data(pie(joinedItems));
+
+        innerUpdated.select("path.item")
+          .attr("class", storyClassBuilder('item status-'))
+          .attr("d", arc);
+
+        innerUpdated.exit().remove();
+
+        var innerEntered = innerUpdated.enter().append('g');
+        innerEntered.append("path")
+          .attr("class", storyClassBuilder('item status-'))
+          .attr("d", arc);
+
+        //Rounded corner patch for hemicircle
+        innerUpdated.select("path.patch")
+          .attr("class", storyClassBuilder('patch status-'))
+          .attr("d", function (d, i) {
+            return arc({
+              startAngle: i === 0 ? d.startAngle + Math.PI / 45 : d.startAngle,
+              endAngle: i === joinedItems.length - 1 ? d.endAngle - Math.PI / 45 : d.endAngle,
+              padAngle: Math.PI / 180
+            });
+          });
+        innerEntered.append("path").attr("class", "patch")
+          .attr("class", storyClassBuilder('patch status-'))
+          .attr("d", function (d, i) {
+            return arc({
+              startAngle: i === 0 ? d.startAngle + Math.PI / 45 : d.startAngle,
+              endAngle: i === joinedItems.length - 1 ? d.endAngle - Math.PI / 45 : d.endAngle,
+              padAngle: Math.PI / 180
+            });
+          });
+        //-//Rounded patch
+
+        var outherUpdate = svg.select('.outher')
+          .selectAll("path")
+          .data(pie(items))
+          .attr("d", outherArc)
+          .attr("class", storyClassBuilder('status-'));
+        outherUpdate.enter().append("path")
+          .on('mouseenter', function (d) {
+            var model = self.getModel();
+            if (!d.data.hide) {
+              model.selected = d.data;
+              svg.classed('dimmed', true);
+            }
+          })
+          .attr("d", outherArc)
+          .attr("class", storyClassBuilder('status-'));
+        outherUpdate.exit().remove();
+
+      });
+    };
+
+    window.MyElement = document.registerElement('current-sprint-tile', {
+      prototype: MyElementProto
+    });
+  })(window, document);
+
+</script>

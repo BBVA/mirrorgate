@@ -1,0 +1,50 @@
+{
+  "name": "mirrogate-dashboard",
+  "version": "0.0.1",
+  "description": "Dashboard of MirrorGate project",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/gulp/bin/gulp.js test",
+    "postinstall": "java -version && ./node_modules/.bin/selenium-standalone install || true"
+  },
+  "keywords": [
+    "Dashboard",
+    "BBVA",
+    "MirrorGate"
+  ],
+  "author": "",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "glob": "^7.1.1",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-gzip": "^1.4.0",
+    "gulp-if": "^2.0.2",
+    "gulp-jshint": "^2.0.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sequence": "^0.4.6",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-tar": "^1.9.0",
+    "gulp-uglify": "^2.1.2",
+    "gulp-useref": "^3.1.2",
+    "gulp-watch": "^4.3.11",
+    "jasmine-core": "^2.5.2",
+    "jshint": "^2.9.4",
+    "karma": "^1.4.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-read-json": "^1.1.0",
+    "karma-sinon": "^1.0.5",
+    "karma-webdriver-launcher": "^1.0.5",
+    "lodash": "^4.17.4",
+    "selenium-standalone": "^6.1.0",
+    "sinon": "^2.1.0",
+    "uglify-js-harmony": "^2.7.5"
+  },
+  "dependencies": {
+    "bower": "^1.8.0"
+  }
+}

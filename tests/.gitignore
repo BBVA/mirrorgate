@@ -1,0 +1,6 @@
+temp
+node_modules
+reports/eyebot/*/report
+reports/eyebot/*/screenshots/diff
+reports/eyebot/*/screenshots/20*
+logs

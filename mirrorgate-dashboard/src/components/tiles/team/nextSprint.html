@@ -1,0 +1,168 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- build:js component.min.js -->
+<script src="model-story.js"></script>
+<script src="model-sprint.js"></script>
+<script src="controller.js"></script>
+<!-- endbuild -->
+
+
+<template>
+  <style>
+    @import "css/styles.css";
+  </style>
+  <style>
+    .backlog-progress {
+      width: 100%;
+      height: 20px;
+      background-color: #8a8a8a;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .backlog-progress-bar {
+      height: 20px;
+    }
+
+    .backlog-progress-bar-success {
+      background-color: #25d268;
+    }
+
+    .velocity-line {
+      height: 33px;
+      position: absolute;
+      width: 1px;
+      background-color: white;
+      top: 12px;
+      left: 70%;
+    }
+
+    .velocity-info {
+      width: 60%;
+      text-align: center;
+      float: right;
+      font-size: 1.5rem;
+      line-height: 20px;
+    }
+
+    .team.component__content h3 {
+      font-size: 3rem;
+      padding-top: 5px;
+      margin: 5px;
+      line-height: 0.7;
+    }
+
+    .backlog-story-points {
+      text-align: left;
+      width: 100%;
+      display: inline-block;
+    }
+  </style>
+
+  <div class="team component__content">
+    <div class="component__header">
+      <h2 class="title">Backlog status</h2>
+    </div>
+    <div class="component__body">
+      <span class="backlog-story-points">{stats.backlogEstimate} story points</span>
+      <div rv-show="stats.sprintStats">
+        <div class="velocity-line"></div>
+        <div class="backlog-progress">
+          <div class="backlog-progress-bar backlog-progress-bar-success" role="progressbar" rv-width="stats.backlogFillRate"></div>
+        </div>
+        <div class="velocity-info">
+          <h3>{stats.velocity}</h3>
+          <span>Average velocity</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  (function (window, document, undefined) {
+
+    // Refers to the "importee", which is components/team-dashboard.html
+    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
+    var tmpl = thisDoc.querySelector('template');
+
+    // Creates an object based in the HTML Element prototype
+    var MyElementProto = Object.create(Tile);
+
+    var order = {
+      'Done': 0,
+      'In Progress': 1,
+      'To Rework': 2,
+      'Impeded': 3,
+      'Waiting': 4,
+      'Backlog': 4
+    };
+
+    var outherArc = d3.svg.arc()
+      .innerRadius(483)
+      .padAngle(Math.PI / 90)
+      .outerRadius(500)
+      .cornerRadius(17);
+
+    var pie = d3.layout.pie()
+      .startAngle(-Math.PI * 3 / 4)
+      .endAngle(Math.PI * 3 / 4)
+      .padAngle(Math.PI / 45)
+      .value(function (d) { return d.points || 0.5; })
+      .sort(null);
+
+    function storyClassBuilder(prefix) {
+      return function (d) {
+        return prefix + Utils.toClassName(d.data.status);
+      }
+    }
+
+    MyElementProto.getControllerClass = function () {
+      return TeamController;
+    };
+
+    MyElementProto.getTemplate = function () {
+      return tmpl;
+    };
+
+    MyElementProto.render = function (sprintData) {
+      Utils.raiseEvent(this, {
+        status: sprintData ? 'unknown' : 'server-error'
+      });
+
+      if (sprintData) {
+        var model = this.getModel();
+        model.stats = sprintData.stats || {};
+
+        if (model.stats.sprintStats) {
+          model.stats.velocity = Math.floor(sprintData.currentSprint.getTotalDays() *
+            model.stats.sprintStats.estimateAvg / model.stats.sprintStats.daysDurationAvg);
+
+          model.stats.backlogFillRate = 70 * model.stats.backlogEstimate / model.stats.velocity;
+        }
+
+      }
+
+    };
+
+    window.MyElement = document.registerElement('next-sprint-tile', {
+      prototype: MyElementProto
+    });
+  })(window, document);
+
+</script>

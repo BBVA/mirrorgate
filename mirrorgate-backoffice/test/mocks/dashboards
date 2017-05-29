@@ -1,0 +1,34 @@
+[
+  {
+    "name": "mirrorgate",
+    "logoUrl": "/img/logo.svg",
+    "codeRepos": [
+      "mirrorgate-app",
+      "jenkins-plugin-collector",
+      "jira-collector",
+      "design"
+    ],
+    "sProductName": "Global Devops Dashboard",
+    "applications": []
+  },
+  {
+      "name":"App",
+      "applications":["App"]
+  },
+  {
+    "name": "empty",
+    "codeRepos": [
+        "aa"
+    ],
+    "sProductName": "aa",
+    "applications": ["aa"]
+  },
+  {
+    "name": "errors",
+    "logoUrl": "",
+    "codeRepos": [
+      "mirrorgate-app",
+    ],
+    "applications": ["app"]
+  }
+]

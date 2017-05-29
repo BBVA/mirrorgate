@@ -1,0 +1,20 @@
+[
+  {
+    "appname":"123412343412",
+    "rate":2.5,
+    "platform":"IOS",
+    "last_review_author": "Pedro García",
+    "last_review_rate": 4.5,
+    "last_review_timestamp": 1587861673755,
+    "last_review_comment": "This is an awesome app. It works really well."
+  },
+  {
+    "appname":"123412343412",
+    "rate":4.0,
+    "platform":"Android",
+    "last_review_author": "José Luis",
+    "last_review_rate": 2,
+    "last_review_timestamp": 1687861673755,
+    "last_review_comment": "It doesn't work as expected"
+  }
+]

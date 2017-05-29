@@ -1,0 +1,216 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- build:js component.min.js -->
+<script src="model.js"></script>
+<script src="controller.js"></script>
+<!-- endbuild -->
+
+<template>
+  <style>
+    @import "css/styles.css";
+  </style>
+
+  <div class="builds component__content">
+    <div class="component__header">
+      <h2 class="title">Last Build</h2>
+      <h3 class="title-desc" rv-show="stats.lastBuildTimestamp">{stats.lastBuildTimestamp | dateFromNow}</h3>
+    </div>
+    <div class="component__body">
+      <svg class="build__svg">
+        <g class="main">
+          <g class="slices"></g>
+          <g class="text" rv-show="selectedBuild">
+            <foreignObject x="-215" y="-215" width="430" height="430">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="build-info">
+                <h1>{ selectedBuild.projectName | textCleanUp }</h1>
+                <h2 rv-show="selectedBuild.repoName">{ selectedBuild.repoName | textCleanUp}</h2>
+
+                <span class="branch-info">
+                        <p rv-pclass-status="selectedBuild.buildStatus"><span rv-show="selectedBuild.branch">{ selectedBuild.branch | textCleanUp} :  </span>{selectedBuild.buildStatus}</p>
+                <h3>{ selectedBuild.timestamp | dateFromNow }</h3>
+                </span>
+
+                <span class="branch-info" rv-show="selDevelopBuild">
+                        <p rv-pclass-status="selDevelopBuild.buildStatus">{ selDevelopBuild.branch | textCleanUp} :  {selDevelopBuild.buildStatus}</p>
+                        <h3>{ selDevelopBuild.timestamp | dateFromNow }</h3>
+                    </span>
+              </div>
+            </foreignObject>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</template>
+
+<script>
+  (function (window, document, undefined) {
+
+    // Refers to the "importee", which is components/builds-dashboard.html
+    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
+    var tmpl = thisDoc.querySelector('template');
+
+    // Creates an object based in the HTML Element prototype
+    var MyElementProto = Object.create(Tile);
+
+    function getState(build, deep) {
+      var levelMapping = {
+        InProgress: 0,
+        Success: 1,
+        Unstable: 2,
+        Failure: 3
+      };
+
+      return Math.max(0, build.children.reduce((level, build) => {
+        return Math.max(level, getState(build, deep + 1));
+      }, levelMapping[build.status] || 0) - deep);
+    }
+
+    MyElementProto.processAlerts = function (data) {
+      var levelEvent = ['unknown', 'ok', 'warn', 'error', 'critical', 'server-error'];
+      Utils.raiseEvent(this, {
+        status: data ? levelEvent[getState(data.buildRoot, 0)] : levelEvent[5]
+      });
+    }
+
+    MyElementProto.getControllerClass = function () {
+      return BuildsController;
+    };
+
+    MyElementProto.getTemplate = function () {
+      return tmpl;
+    };
+
+    // Fires when an instance of the element is created
+    MyElementProto.render = function (data) {
+      function classBuilder(d) {
+        var classes = 'build-result status-' + Utils.toClassName(d.status);
+        var data = (d.data || d.developData);
+        if (data && data.buildUrl) {
+          classes += ' clickable'
+        }
+        return classes;
+      }
+
+      var self = this;
+      this.processAlerts(data);
+
+      setTimeout(function () {
+        var style = window.getComputedStyle(self.shadowRoot.querySelector('.component__body'));
+
+        var model = self.getModel();
+        model.stats = data ? data.stats : {};
+
+        var buildRoot = data && data.buildRoot;
+
+        //Chage sizes so that all the repos take the same size
+        buildRoot && buildRoot.children.forEach(function (repoBuild) {
+          repoBuild.children.forEach(function (branchBuild) {
+            branchBuild.size = 100 / repoBuild.children.length
+          });
+        });
+
+        buildRoot = buildRoot || {};
+
+        var width = parseFloat(style.width.substring(0, style.width.length - 2)),
+          height = parseFloat(style.height.substring(0, style.height.length - 2)),
+          radius = Math.min(width, height) / 2;
+        width = 2 * radius;
+
+        var formatNumber = d3.format(',d');
+
+        var x = d3.scale.linear().range([0, 2 * Math.PI]);
+        var y = d3.scale.pow().exponent(0.3).range([0, 340]);
+
+        var partition = d3.layout.partition().value(function (d) {
+          return d.size;
+        }).sort(function (d) {
+          return d.name;
+        });
+
+        var arc = d3.svg.arc()
+          .startAngle(function (d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+          .endAngle(function (d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))) - (d.y && 0.04); })
+          .cornerRadius(50)
+          .innerRadius(function (d) { return Math.max(0, y(d.y)) + (d.y && (13)); })
+          .outerRadius(function (d) { return Math.max(0, y(d.y + d.dy)) - 13; });
+
+        var container = d3.select(self.shadowRoot).select("svg");
+
+        var svg = container
+          .attr('preserveAspectRatio', 'xMidYMid meet')
+          .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
+
+          .select('g.main').attr('transform',
+          'translate(' + radius + ',' + radius + ') ' +
+          'scale(' + (radius / 350) + ')'
+          );
+
+        var buildsData = svg.select('.slices').selectAll('path')
+          .data(partition.nodes(buildRoot));
+
+        buildsData
+          .attr('d', arc)
+          .attr('class', classBuilder);
+
+        buildsData.enter()
+          .append('path')
+          .on('mouseenter', function (d) {
+            var model = self.getModel();
+            model.selectedBuild = d.data || d.developData;
+            if (d.data) {
+              model.selDevelopBuild = d.developData;
+            } else {
+              model.selDevelopBuild = undefined;
+            }
+
+            if (model.selectedBuild) {
+              container
+                .select('.slices')
+                .classed('dimmed', true)
+                .select('path:first-child')
+                .style('fill', 'transparent')
+            }
+          })
+          .on('click', function (d) {
+            var data = (d.data || d.developData);
+            data && window.open(data.buildUrl, "JenkinsBuild");
+          })
+          .attr('d', arc)
+          .attr('class', classBuilder);
+
+        buildsData.exit().remove();
+
+        svg.select('.slices').on('mouseout', function (d) {
+          container
+            .select('.slices')
+            .classed('dimmed', false)
+            .select('path:first-child')
+            .style('fill', null);
+          self.getModel().selectedBuild = undefined;
+          self.getModel().selDevelopBuild = undefined;
+        });
+      });
+    };
+
+    window.MyElement = document.registerElement('builds-tile', {
+      prototype: MyElementProto
+    });
+  })(window, document);
+
+</script>

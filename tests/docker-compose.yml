@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+  mongo-populate:
+    image: "mongo"
+    volumes:
+      - .:/temp
+    working_dir: "/temp"
+    entrypoint: "/usr/bin/env bash -c 'until mongo dashboarddb --host mongo < data/main.js; do >&2 echo Mongo is unavailable - sleeping & sleep 1; done'"
+    links:
+      - mongo
+  app:
+    image: "openjdk:8-jdk"
+    volumes:
+      - ../mirrorgate-api/build/libs:/temp
+      - ../mirrorgate-dashboard/dist:/temp/public
+      - ../mirrorgate-backoffice/dist:/temp/public/backoffice
+    links:
+      - mongo
+    working_dir: "/temp"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/dashboarddb
+      - SPRING_PROFILES_ACTIVE=embedded
+      - SERVER_CONTEXT_PATH=/mirrorgate
+      - SPRING_RESOURCE_CACHE_PERIOD=0
+      - SPRING_RESOURCE_STATIC_LOCATIONS=classpath:/public/
+    entrypoint: "sh -c 'java -jar $$(ls *.jar)'"
+    ports:
+      - "8080:8080"
