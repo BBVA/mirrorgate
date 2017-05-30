@@ -38,9 +38,10 @@ var BuildsController = (function(dashboardId) {
 
       if (response.lastBuilds) {
         // We structure the build list in a tree.
-        data = {stats: response.stats, buildRoot: new Build(dashboardId)};
+        data = {stats: response.stats, buildRoot: []};
         data.stats.lastBuildTimestamp = 0;
         var mainBranches = {};
+        var developBranches = {};
 
         for (var index in response.lastBuilds) {
           var item = response.lastBuilds[index];
@@ -60,26 +61,39 @@ var BuildsController = (function(dashboardId) {
 
           var key = item.projectName + '/' + item.repoName;
           var mainBuild = mainBranches[key];
+          var devBuilds = developBranches[key]
           if (!mainBuild) {
             mainBranches[key] = mainBuild = new Build(key);
-            data.buildRoot.addChild(mainBuild);
+            data.buildRoot.push(mainBuild);
+            //data.buildRoot.addChild(mainBuild);
+          }
+          if(item.branch !== null) {
+            if (!devBuilds) {
+              devBuilds = developBranches[key] = {};
+            }
+            key += '/develop';
+            var devBuild = devBuilds[key];
+            if (!devBuild) {
+              devBuild = devBuilds[key] = new Build(key);
+              mainBuild.addChild(devBuild);
+            }
+            key += '/' + item.branch;
           }
 
           switch (item.branch) {
             case 'master':
             case null:
               mainBuild.data = item;
-              accumulateBuildStatus(data.buildRoot, item);
-              accumulateBuildStatus(mainBuild, item);
+              mainBuild.status = item.buildStatus;
               break;
             case 'develop':
-              mainBuild.developData = item;
-              accumulateBuildStatus(mainBuild, item);
+              devBuild.data = item;
+              devBuild.status = item.buildStatus;
               break;
             default:
-              var build = new Build(key + '/' + item.branch, item.buildStatus);
+              var build = new Build(key, item.buildStatus);
+              devBuild.addChild(build);
               build.data = item;
-              mainBuild.addChild(build);
           }
 
           data.stats.lastBuildTimestamp =
