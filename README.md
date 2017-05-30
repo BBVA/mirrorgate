@@ -25,6 +25,11 @@ We expect to be adding much more information in the near future so keep tuned.
 
 Aditionally MirrorGate offers a backoffice aplication where dashboards can be configured.
 
+## Spinning up a simple local environment
+
+To execute a simple local environment with Jira and Jenkins capabilities, please check the [mirrorgate-sample-deployment](https://github.com/BBVA/mirrorgate-sample-deployment) project.
+
+
 # Architecture
 
 In order to operate, the MirrorGate requires several components:
