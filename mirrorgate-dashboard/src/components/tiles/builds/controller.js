@@ -61,7 +61,8 @@ var BuildsController = (function(dashboardId) {
 
           var key = item.projectName + '/' + item.repoName;
           var mainBuild = mainBranches[key];
-          var devBuilds = developBranches[key]
+          var devBuilds = developBranches[key];
+          var devBuild;
           if (!mainBuild) {
             mainBranches[key] = mainBuild = new Build(key);
             data.buildRoot.push(mainBuild);
@@ -72,7 +73,7 @@ var BuildsController = (function(dashboardId) {
               devBuilds = developBranches[key] = {};
             }
             key += '/develop';
-            var devBuild = devBuilds[key];
+            devBuild = devBuilds[key];
             if (!devBuild) {
               devBuild = devBuilds[key] = new Build(key);
               mainBuild.addChild(devBuild);
