@@ -29,9 +29,4 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = "com.bbva.arq.devops.ae.mirrorgate")
 public class EmbeddedConfig {
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapterImpl();
-    }
-
 }

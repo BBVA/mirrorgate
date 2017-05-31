@@ -41,12 +41,14 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public List<String> getReposByDashboardName(String name) {
-        return dashboardRepository.findOneByName(name).getCodeRepos();
+        Dashboard dashboard = dashboardRepository.findOneByName(name);
+        return dashboard == null ? null : dashboard.getCodeRepos();
     }
 
     @Override
     public List<String> getApplicationsByDashboardName(String name) {
-        return dashboardRepository.findOneByName(name).getApplications();
+        Dashboard dashboard = dashboardRepository.findOneByName(name);
+        return dashboard == null ? null : dashboard.getApplications();
     }
 
     @Override
