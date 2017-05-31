@@ -25,12 +25,39 @@ var BuildsController = (function(dashboardId) {
   var config;
 
   function getLastBuilds(response) {
-    function accumulateBuildStatus(build, item) {
-      build.status = build.status || item.buildStatus;
-      if (build.status !== 'Failure' && item.buildStatus !== 'Success') {
-        build.status = item.buildStatus;
+    var mainBranches = {};
+    var developBranches = {};
+
+    function getMainBranch(item, data) {
+      var key = item.projectName + '/' + item.repoName;
+      var mainBuild = mainBranches[key];
+      if(!mainBuild) {
+        mainBranches[key] = mainBuild = new Build(key);
+        mainBuild.data = {branch: 'master'};
+        data.buildRoot.push(mainBuild);
       }
+      return mainBuild;
     }
+    function getDevelopBranch(item, data) {
+      var key = item.projectName + '/' + item.repoName;
+      var devBuild;
+      var devBuilds = developBranches[key]
+
+      if(item.branch !== null) {
+        if (!devBuilds) {
+          devBuilds = developBranches[key] = {};
+        }
+        key += '/develop';
+        devBuild = devBuilds[key];
+        if (!devBuild) {
+          devBuild = devBuilds[key] = new Build(key);
+          getMainBranch(item,data).addChild(devBuild);
+        }
+      }
+
+      return devBuild;
+    }
+
 
     var data;
     if (response) {
@@ -40,8 +67,6 @@ var BuildsController = (function(dashboardId) {
         // We structure the build list in a tree.
         data = {stats: response.stats, buildRoot: []};
         data.stats.lastBuildTimestamp = 0;
-        var mainBranches = {};
-        var developBranches = {};
 
         for (var index in response.lastBuilds) {
           var item = response.lastBuilds[index];
@@ -60,39 +85,28 @@ var BuildsController = (function(dashboardId) {
           }
 
           var key = item.projectName + '/' + item.repoName;
-          var mainBuild = mainBranches[key];
-          var devBuilds = developBranches[key];
-          var devBuild;
-          if (!mainBuild) {
-            mainBranches[key] = mainBuild = new Build(key);
-            data.buildRoot.push(mainBuild);
-            //data.buildRoot.addChild(mainBuild);
-          }
           if(item.branch !== null) {
-            if (!devBuilds) {
-              devBuilds = developBranches[key] = {};
-            }
-            key += '/develop';
-            devBuild = devBuilds[key];
-            if (!devBuild) {
-              devBuild = devBuilds[key] = new Build(key);
-              mainBuild.addChild(devBuild);
-            }
             key += '/' + item.branch;
           }
+          var mainBuild = getMainBranch(item, data);
+          var devBuild;
 
           switch (item.branch) {
             case 'master':
+              getDevelopBranch(item, data);
             case null:
+            case undefined:
               mainBuild.data = item;
               mainBuild.status = item.buildStatus;
               break;
             case 'develop':
+              devBuild = getDevelopBranch(item,data);
               devBuild.data = item;
               devBuild.status = item.buildStatus;
               break;
             default:
               var build = new Build(key, item.buildStatus);
+              devBuild = getDevelopBranch(item,data)
               devBuild.addChild(build);
               build.data = item;
           }
