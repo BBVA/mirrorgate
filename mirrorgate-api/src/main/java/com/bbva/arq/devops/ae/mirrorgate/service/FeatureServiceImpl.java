@@ -82,4 +82,9 @@ public class FeatureServiceImpl implements FeatureService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteStory(Long id) {
+        repository.deleteBysId(id.toString());
+    }
+
 }

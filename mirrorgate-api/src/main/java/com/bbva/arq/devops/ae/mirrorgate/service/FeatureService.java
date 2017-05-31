@@ -37,4 +37,7 @@ public interface FeatureService {
     FeatureStats getFeatureStatsByKeywords(List<String> boards);
 
     Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues);
+
+    void deleteStory(Long id);
+
 }

@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -75,6 +76,12 @@ public class FeatureController {
     @RequestMapping(value = "/api/issues", method = POST, produces = APPLICATION_JSON_VALUE)
     public Iterable<IssueDTO> saveOrUpdateIssues(@Valid @RequestBody List<IssueDTO> issues) {
         return featureService.saveOrUpdateStories(issues);
+    }
+
+    @RequestMapping(value = "/api/issues/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
+    public String saveOrUpdateIssues(@PathVariable("id") Long id) {
+        featureService.deleteStory(id);
+        return "ok";
     }
 
 }
