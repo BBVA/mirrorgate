@@ -41,7 +41,7 @@ var BuildsController = (function(dashboardId) {
     function getDevelopBranch(item, data) {
       var key = item.projectName + '/' + item.repoName;
       var devBuild;
-      var devBuilds = developBranches[key]
+      var devBuilds = developBranches[key];
 
       if(item.branch !== null) {
         if (!devBuilds) {
@@ -94,6 +94,7 @@ var BuildsController = (function(dashboardId) {
           switch (item.branch) {
             case 'master':
               getDevelopBranch(item, data);
+              /* falls through */
             case null:
             case undefined:
               mainBuild.data = item;
@@ -106,7 +107,7 @@ var BuildsController = (function(dashboardId) {
               break;
             default:
               var build = new Build(key, item.buildStatus);
-              devBuild = getDevelopBranch(item,data)
+              devBuild = getDevelopBranch(item,data);
               devBuild.addChild(build);
               build.data = item;
           }
