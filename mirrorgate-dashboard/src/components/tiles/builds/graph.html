@@ -35,20 +35,16 @@
         <g class="main">
           <g class="slices"></g>
           <g class="text" rv-show="selectedBuild">
-            <foreignObject x="-215" y="-215" width="430" height="430">
+            <foreignObject x="-200" y="-190" width="400" height="360">
               <div xmlns="http://www.w3.org/1999/xhtml" class="build-info">
                 <h1>{ selectedBuild.projectName | textCleanUp }</h1>
                 <h2 rv-show="selectedBuild.repoName">{ selectedBuild.repoName | textCleanUp}</h2>
 
                 <span class="branch-info">
-                        <p rv-pclass-status="selectedBuild.buildStatus"><span rv-show="selectedBuild.branch">{ selectedBuild.branch | textCleanUp} :  </span>{selectedBuild.buildStatus}</p>
-                <h3>{ selectedBuild.timestamp | dateFromNow }</h3>
+                  <p rv-pclass-status="selectedBuild.buildStatus"><span rv-show="selectedBuild.branch">{ selectedBuild.branch | textCleanUp} :  </span>{selectedBuild.buildStatus}</p>
+                  <h3>{ selectedBuild.timestamp | dateFromNow }</h3>
                 </span>
 
-                <span class="branch-info" rv-show="selDevelopBuild">
-                        <p rv-pclass-status="selDevelopBuild.buildStatus">{ selDevelopBuild.branch | textCleanUp} :  {selDevelopBuild.buildStatus}</p>
-                        <h3>{ selDevelopBuild.timestamp | dateFromNow }</h3>
-                    </span>
               </div>
             </foreignObject>
           </g>
@@ -77,7 +73,7 @@
       };
 
       return Math.max(0, build.children.reduce((level, build) => {
-        return Math.max(level, getState(build, deep + 1));
+        return Math.max(level, getState(build, deep));
       }, levelMapping[build.status] || 0) - deep);
     }
 

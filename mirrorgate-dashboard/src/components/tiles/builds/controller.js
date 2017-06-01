@@ -33,7 +33,6 @@ var BuildsController = (function(dashboardId) {
       var mainBuild = mainBranches[key];
       if(!mainBuild) {
         mainBranches[key] = mainBuild = new Build(key);
-        mainBuild.data = {branch: 'master'};
         data.buildRoot.push(mainBuild);
       }
       return mainBuild;

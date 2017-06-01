@@ -48,13 +48,6 @@
 .branch-info {
     display: block;
 }
-.branch-info::before {
-    background: linear-gradient(to right, rgba(110,110,110,0) 5%, #323232 30%, #323232 70%, rgba(110,110,110,0) 95%);
-    content: " ";
-    height: 2px;
-    min-width: 100px;
-    display: block;
-}
 
 .branch-info p {
     margin-bottom: 0;
@@ -86,7 +79,6 @@
 .build-info h3 {
     font-size: 25px;
     margin-top: 0;
-    margin-bottom: 5px;
 }
 
 .build-info p {
