@@ -20,7 +20,7 @@ def build() {
 
       stage('Dashboard - Install dependencies') {
           sh """
-              docker-compose -p \${BUILD_TAG} run install
+              docker-compose -p \${BUILD_TAG} run -u \$(id -u) install
           """
       }
 
