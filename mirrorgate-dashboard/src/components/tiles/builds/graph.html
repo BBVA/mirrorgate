@@ -64,7 +64,7 @@
     // Creates an object based in the HTML Element prototype
     var MyElementProto = Object.create(Tile);
 
-    function getState(build, deep) {
+    function getState(builds) {
       var levelMapping = {
         InProgress: 0,
         Success: 1,
@@ -72,15 +72,15 @@
         Failure: 3
       };
 
-      return Math.max(0, build.children.reduce((level, build) => {
-        return Math.max(level, getState(build, deep));
-      }, levelMapping[build.status] || 0) - deep);
+      return builds.reduce((level, build) => {
+        return Math.max(level, levelMapping[build.status] || 0, getState(build.children) -1);
+      },0);
     }
 
     MyElementProto.processAlerts = function (data) {
       var levelEvent = ['unknown', 'ok', 'warn', 'error', 'critical', 'server-error'];
       Utils.raiseEvent(this, {
-        status: data ? levelEvent[getState({children: data.buildRoot}, 0)] : levelEvent[5]
+        status: data ? levelEvent[getState(data.buildRoot)] : levelEvent[5]
       });
     }
 
