@@ -60,6 +60,23 @@ rivets.formatters.textCleanUp = function(value) {
   return decodeURIComponent(decodeURIComponent(value));
 };
 
+rivets.formatters.duration = function(value) {
+  if(!value) {
+    return "";
+  }
+  var duration = moment.duration(value);
+  var rt = "" + duration.seconds() + " sec";
+  if(duration.asMinutes() >= 1) {
+    if(duration.seconds() < 1) {
+      rt = "";
+    } else {
+      rt = " " + rt;
+    }
+    rt = "" + Math.round(duration.asMinutes()) + " min" + rt;
+  }
+  return rt;
+};
+
 rivets.binders['pclass-*'] = function(el, value) {
   var prefix = this.args[0] + '-';
   var $el = $(el);

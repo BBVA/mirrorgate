@@ -87,8 +87,8 @@ var BuildsController = (function(dashboardId) {
           if(item.branch !== null) {
             key += '/' + item.branch;
           }
-          var mainBuild = getMainBranch(item, data);
-          var devBuild;
+
+          var build;
 
           switch (item.branch) {
             case 'master':
@@ -96,23 +96,30 @@ var BuildsController = (function(dashboardId) {
               /* falls through */
             case null:
             case undefined:
-              mainBuild.data = item;
-              mainBuild.status = item.buildStatus;
+              build = getMainBranch(item, data);
+              build.data = item;
+              build.status = item.buildStatus;
               break;
             case 'develop':
-              devBuild = getDevelopBranch(item,data);
-              devBuild.data = item;
-              devBuild.status = item.buildStatus;
+              build = getDevelopBranch(item,data);
+              build.data = item;
+              build.status = item.buildStatus;
               break;
             default:
-              var build = new Build(key, item.buildStatus);
-              devBuild = getDevelopBranch(item,data);
-              devBuild.addChild(build);
+              build = new Build(key, item.buildStatus);
+              getDevelopBranch(item,data).addChild(build);
               build.data = item;
           }
 
-          data.stats.lastBuildTimestamp =
-              Math.max(item.timestamp, data.stats.lastBuildTimestamp);
+          if(item.timestamp > data.stats.lastBuildTimestamp) {
+            data.stats.lastBuildTimestamp = item.timestamp;
+          }
+
+          if((build.status === 'Failure' || build.status === 'Unstable') &&
+                (!data.lastRelevantBuild || data.lastRelevantBuild.data.timestamp < item.timestamp)) {
+            data.lastRelevantBuild = build;
+          }
+
         }
       }
     }

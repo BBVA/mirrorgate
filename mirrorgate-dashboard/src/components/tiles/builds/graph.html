@@ -27,8 +27,8 @@
 
   <div class="builds component__content">
     <div class="component__header">
-      <h2 class="title">Last Build</h2>
-      <h3 class="title-desc" rv-show="stats.lastBuildTimestamp">{stats.lastBuildTimestamp | dateFromNow}</h3>
+      <h2 class="title">Builds</h2>
+      <h3 class="title-desc" rv-show="stats.lastBuildTimestamp">Last was {stats.lastBuildTimestamp | dateFromNow}</h3>
     </div>
     <div class="component__body">
       <svg class="build__svg">
@@ -37,14 +37,18 @@
           <g class="text" rv-show="selectedBuild">
             <foreignObject x="-200" y="-190" width="400" height="360">
               <div xmlns="http://www.w3.org/1999/xhtml" class="build-info">
-                <h1>{ selectedBuild.projectName | textCleanUp }</h1>
-                <h2 rv-show="selectedBuild.repoName">{ selectedBuild.repoName | textCleanUp}</h2>
-
-                <span class="branch-info">
-                  <p rv-pclass-status="selectedBuild.buildStatus"><span rv-show="selectedBuild.branch">{ selectedBuild.branch | textCleanUp} :  </span>{selectedBuild.buildStatus}</p>
-                  <h3>{ selectedBuild.timestamp | dateFromNow }</h3>
+                <span class="date">{ selectedBuild.timestamp | dateFromNow }</span>
+                <span class="status" rv-pclass-status="selectedBuild.buildStatus">{selectedBuild.buildStatus}</span>
+                <span class="box">
+                  <span class="project" rv-show="selectedBuild.repoName">{ selectedBuild.projectName | textCleanUp }/</span>
+                  <span class="repo" rv-show="selectedBuild.repoName">{ selectedBuild.repoName | textCleanUp} <span class="branch" rv-show="selectedBuild.branch">/{ selectedBuild.branch | textCleanUp}</span></span>
+                  <span class="repo" rv-hide="selectedBuild.repoName">{ selectedBuild.projectName | textCleanUp}</span>
                 </span>
-
+              </div>
+            </foreignObject>
+            <foreignObject x="-200" y="120" width="400" height="40">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="build-info">
+                <div class="duration"><span>Took { selectedBuild.duration | duration }</span></div>
               </div>
             </foreignObject>
           </g>
@@ -111,14 +115,14 @@
 
         var model = self.getModel();
         model.stats = data ? data.stats : {};
+        if(!model.hover) {
+          model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
+        }
 
         var buildRoot = data && {children: data.buildRoot};
 
         //Chage sizes so that all the repos take the same size
         buildRoot && buildRoot.children.forEach(function (repoBuild) {
-          //repoBuild.children.forEach(function (branchBuild) {
-            //branchBuild.size = 100 / repoBuild.children.length
-          //});
           repoBuild.size = 100;
         });
 
@@ -169,12 +173,8 @@
           .append('path')
           .on('mouseenter', function (d) {
             var model = self.getModel();
-            model.selectedBuild = d.data || d.developData;
-            if (d.data) {
-              model.selDevelopBuild = d.developData;
-            } else {
-              model.selDevelopBuild = undefined;
-            }
+            model.hover = true;
+            model.selectedBuild = d.data;
 
             if (model.selectedBuild) {
               container
@@ -199,8 +199,8 @@
             .classed('dimmed', false)
             .select('path:first-child')
             .style('fill', null);
-          self.getModel().selectedBuild = undefined;
-          self.getModel().selDevelopBuild = undefined;
+          self.getModel().hover = false;
+          self.getModel().selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
         });
       });
     };
