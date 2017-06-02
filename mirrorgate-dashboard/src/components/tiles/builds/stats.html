@@ -75,24 +75,20 @@
     // Fires when an instance of the element is created
     MyElementProto.render = function (data) {
       this.processAlerts(data);
-      var self = this;
 
-      setTimeout(function () {
-        var model = self.getModel();
-        model.stats = data ? data.stats : {};
-        model.avgBuildTime = {};
+      var model = this.getModel();
+      model.stats = data ? data.stats : {};
+      model.avgBuildTime = {};
 
-        if (data) {
-          var avgBuildTime = moment.duration(data.stats.duration);
+      if (data) {
+        var avgBuildTime = moment.duration(data.stats.duration);
 
-          model.avgBuildTime = {
-            secs: avgBuildTime.seconds(),
-            mins: avgBuildTime.minutes(),
-            hours: Math.floor(avgBuildTime.asHours())
-          };
-        }
-
-      });
+        model.avgBuildTime = {
+          secs: avgBuildTime.seconds(),
+          mins: avgBuildTime.minutes(),
+          hours: Math.floor(avgBuildTime.asHours())
+        };
+      }
     };
 
     window.MyElement = document.registerElement('buildsstats-tile', {

@@ -239,6 +239,7 @@
 
     MyElementProto.render = function (sprintData) {
       var sprint = sprintData && sprintData.currentSprint;
+      var model = this.getModel();
 
       Utils.raiseEvent(this, {
         status: sprintData ? {
@@ -246,148 +247,141 @@
           'Good': 'warn'
         }[sprint.getAdvanceSprintStatus()] || 'ok' : 'server-error'
       });
-      var self = this;
-
 
       var format = "MMMM Do";
 
       var range = sprint && sprint.startDate ? moment(sprint.startDate).format(format) + ' - ' +
         moment(sprint.endDate).format(format) :
         'No active sprints found';
-      self.getModel().dateRange = range;
+        model.dateRange = range;
 
       if (sprint && sprint.startDate) {
-        self.getModel().sprint = {
+        model.sprint = {
           doneRatio: sprint.getDoneRatio(),
           daysLeft: sprint.getDaysLeft()
         };
       } else {
-        self.getModel().sprint = undefined;
+        model.sprint = undefined;
       }
 
-      setTimeout(function () {
+      var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
+
+      var marginTop = 0;
+
+      var width = parseFloat(style.width.substring(0, style.width.length - 2)),
+        height = parseFloat(style.height.substring(0, style.height.length - 2)),
+        radius = Math.min(width, height) / 2;
+
+      width = 2 * radius;
+
+      var container = d3.select(this.shadowRoot).select("svg");
+
+      container
+        .attr('preserveAspectRatio', 'xMidYMid meet')
+        .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
+      var svg = container
+        .select("g.main").attr("transform",
+        "translate(" + radius + "," + (radius + marginTop) + ") " +
+        "scale(" + (radius / 530) + ")"
+        );
 
 
-        var style = window.getComputedStyle(self.shadowRoot.querySelector('.component__body'));
+      var daysPassed = 2;
+      var daysInSprint = 10;
+      var dayProgress = Math.PI * 2 * daysPassed / daysInSprint - Math.PI / 2;
 
-        var marginTop = 0;
+      var items = sprint ? sprint.stories.sort(function (a, b) {
+        return order[a.status] < order[b.status] ? -1 : 1;
+      }) : [];
 
-        var width = parseFloat(style.width.substring(0, style.width.length - 2)),
-          height = parseFloat(style.height.substring(0, style.height.length - 2)),
-          radius = Math.min(width, height) / 2;
-
-        width = 2 * radius;
-
-        var container = d3.select(self.shadowRoot).select("svg");
-
-        container
-          .attr('preserveAspectRatio', 'xMidYMid meet')
-          .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
-        var svg = container
-          .select("g.main").attr("transform",
-          "translate(" + radius + "," + (radius + marginTop) + ") " +
-          "scale(" + (radius / 530) + ")"
-          );
-
-
-        var daysPassed = 2;
-        var daysInSprint = 10;
-        var dayProgress = Math.PI * 2 * daysPassed / daysInSprint - Math.PI / 2;
-
-        var items = sprint ? sprint.stories.sort(function (a, b) {
-          return order[a.status] < order[b.status] ? -1 : 1;
-        }) : [];
-
-        if (items.length === 0) {
-          items.push({
-            points: 0,
-            hide: true
-          });
-        }
-
-        var joinedItemsMap = items.reduce(function (acc, item) {
-          var pos = order[item.status];
-          acc[pos] = acc[pos] || new Story('', 0, item.status);
-          acc[pos].points += item.points || 0.5;
-          return acc;
-        }, {});
-
-        var joinedItems = [];
-
-        for (var status in joinedItemsMap) {
-          joinedItems.push(joinedItemsMap[status]);
-        }
-
-        joinedItems = joinedItems.sort(function (a, b) {
-          return order[a.status] < order[b.status] ? -1 : 1;
+      if (items.length === 0) {
+        items.push({
+          points: 0,
+          hide: true
         });
+      }
 
-        var arc = d3.svg.arc()
-          .innerRadius(400)
-          .outerRadius(450)
-          .cornerRadius(function (d, i) {
-            return (i === 0 || i === joinedItems.length - 1) && 100;
-          });
+      var joinedItemsMap = items.reduce(function (acc, item) {
+        var pos = order[item.status];
+        acc[pos] = acc[pos] || new Story('', 0, item.status);
+        acc[pos].points += item.points || 0.5;
+        return acc;
+      }, {});
 
-        svg.on('mouseout', function (d) {
-          svg.classed('dimmed', false)
-          self.getModel().selected = undefined;
-        });
+      var joinedItems = [];
 
-        var innerUpdated = svg.select('.original')
-          .selectAll("g")
-          .data(pie(joinedItems));
+      for (var status in joinedItemsMap) {
+        joinedItems.push(joinedItemsMap[status]);
+      }
 
-        innerUpdated.select("path.item")
-          .attr("class", storyClassBuilder('item status-'))
-          .attr("d", arc);
-
-        innerUpdated.exit().remove();
-
-        var innerEntered = innerUpdated.enter().append('g');
-        innerEntered.append("path")
-          .attr("class", storyClassBuilder('item status-'))
-          .attr("d", arc);
-
-        //Rounded corner patch for hemicircle
-        innerUpdated.select("path.patch")
-          .attr("class", storyClassBuilder('patch status-'))
-          .attr("d", function (d, i) {
-            return arc({
-              startAngle: i === 0 ? d.startAngle + Math.PI / 45 : d.startAngle,
-              endAngle: i === joinedItems.length - 1 ? d.endAngle - Math.PI / 45 : d.endAngle,
-              padAngle: Math.PI / 180
-            });
-          });
-        innerEntered.append("path").attr("class", "patch")
-          .attr("class", storyClassBuilder('patch status-'))
-          .attr("d", function (d, i) {
-            return arc({
-              startAngle: i === 0 ? d.startAngle + Math.PI / 45 : d.startAngle,
-              endAngle: i === joinedItems.length - 1 ? d.endAngle - Math.PI / 45 : d.endAngle,
-              padAngle: Math.PI / 180
-            });
-          });
-        //-//Rounded patch
-
-        var outherUpdate = svg.select('.outher')
-          .selectAll("path")
-          .data(pie(items))
-          .attr("d", outherArc)
-          .attr("class", storyClassBuilder('status-'));
-        outherUpdate.enter().append("path")
-          .on('mouseenter', function (d) {
-            var model = self.getModel();
-            if (!d.data.hide) {
-              model.selected = d.data;
-              svg.classed('dimmed', true);
-            }
-          })
-          .attr("d", outherArc)
-          .attr("class", storyClassBuilder('status-'));
-        outherUpdate.exit().remove();
-
+      joinedItems = joinedItems.sort(function (a, b) {
+        return order[a.status] < order[b.status] ? -1 : 1;
       });
+
+      var arc = d3.svg.arc()
+        .innerRadius(400)
+        .outerRadius(450)
+        .cornerRadius(function (d, i) {
+          return (i === 0 || i === joinedItems.length - 1) && 100;
+        });
+
+      svg.on('mouseout', function (d) {
+        svg.classed('dimmed', false)
+        model.selected = undefined;
+      });
+
+      var innerUpdated = svg.select('.original')
+        .selectAll("g")
+        .data(pie(joinedItems));
+
+      innerUpdated.select("path.item")
+        .attr("class", storyClassBuilder('item status-'))
+        .attr("d", arc);
+
+      innerUpdated.exit().remove();
+
+      var innerEntered = innerUpdated.enter().append('g');
+      innerEntered.append("path")
+        .attr("class", storyClassBuilder('item status-'))
+        .attr("d", arc);
+
+      //Rounded corner patch for hemicircle
+      innerUpdated.select("path.patch")
+        .attr("class", storyClassBuilder('patch status-'))
+        .attr("d", function (d, i) {
+          return arc({
+            startAngle: i === 0 ? d.startAngle + Math.PI / 45 : d.startAngle,
+            endAngle: i === joinedItems.length - 1 ? d.endAngle - Math.PI / 45 : d.endAngle,
+            padAngle: Math.PI / 180
+          });
+        });
+      innerEntered.append("path").attr("class", "patch")
+        .attr("class", storyClassBuilder('patch status-'))
+        .attr("d", function (d, i) {
+          return arc({
+            startAngle: i === 0 ? d.startAngle + Math.PI / 45 : d.startAngle,
+            endAngle: i === joinedItems.length - 1 ? d.endAngle - Math.PI / 45 : d.endAngle,
+            padAngle: Math.PI / 180
+          });
+        });
+      //-//Rounded patch
+
+      var outherUpdate = svg.select('.outher')
+        .selectAll("path")
+        .data(pie(items))
+        .attr("d", outherArc)
+        .attr("class", storyClassBuilder('status-'));
+      outherUpdate.enter().append("path")
+        .on('mouseenter', function (d) {
+          if (!d.data.hide) {
+            model.selected = d.data;
+            svg.classed('dimmed', true);
+          }
+        })
+        .attr("d", outherArc)
+        .attr("class", storyClassBuilder('status-'));
+      outherUpdate.exit().remove();
+
     };
 
     window.MyElement = document.registerElement('current-sprint-tile', {
