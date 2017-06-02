@@ -63,8 +63,10 @@
         display: -webkit-box;
         word-break: break-all;
         margin-top: 20px;
-        font-size: 25px;
-        line-height: 40px;
+        &, span {
+          font-size: 25px;
+          line-height: 40px;
+        }
     }
 
     .date {
