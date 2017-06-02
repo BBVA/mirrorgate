@@ -109,7 +109,7 @@ gulp.task(
                             },
                             coverageReporter: {type: 'html', dir: 'coverage/'}
                           },
-                          () => { done(); })
+                          done)
                           .start());
 
 gulp.task(
@@ -119,7 +119,7 @@ gulp.task(
                                    autoWatch: true,
                                    configFile: __dirname + '/karma.conf.js',
                                  },
-                                 () => { done(); })
+                                 done)
                                  .start());
 
 var seleniumServer;
