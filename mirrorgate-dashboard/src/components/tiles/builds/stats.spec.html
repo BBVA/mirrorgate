@@ -36,8 +36,8 @@
       function appendComponent() {
         component = document.createElement('buildsstats-tile');
         document.body.appendChild(component);
-        component.setAttribute('enabled', 'true');
         component.setAttribute('pconfig', '{}');
+        component.setAttribute('enabled', 'true');
         component.setAttribute('pid', dashboardForTesting);
       }
 
@@ -47,6 +47,7 @@
 
       afterEach(() => {
         server.restore();
+        component.setAttribute('enabled', 'false');
       });
 
       describe('events', () => {

@@ -48,6 +48,7 @@
 
       afterEach(() => {
         server.restore();
+        component.setAttribute('enabled', 'false');
       });
 
       it('should show last builds component', () => {
@@ -79,7 +80,7 @@
           appendComponent();
           testHandler = function (e) {
             expect(e.detail.status).toBe('ok');
-            done();
+            setTimeout(done);
           }
           server.respond();
         });
@@ -91,7 +92,7 @@
 
           testHandler = function (e) {
             expect(e.detail.status).toBe('server-error');
-            done();
+            setTimeout(done);
           };
 
           server.lastRequest.respond(404, {});

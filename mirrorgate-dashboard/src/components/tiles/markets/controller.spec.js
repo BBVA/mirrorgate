@@ -35,8 +35,13 @@ describe('MarketsController', () => {
 
     for (var index in appsForTesting) {
       var app = new Market(
-          appsForTesting[index].appname, appsForTesting[index].rate,
-          appsForTesting[index].platform);
+        appsForTesting[index].appname,
+        appsForTesting[index].rate,
+        appsForTesting[index].platform,
+        appsForTesting[index].last_review_author,
+        appsForTesting[index].last_review_rate,
+        appsForTesting[index].last_review_timestamp,
+        appsForTesting[index].last_review_comment);
       apps.push(app);
     }
 

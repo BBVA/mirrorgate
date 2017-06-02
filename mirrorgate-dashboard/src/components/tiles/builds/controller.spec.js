@@ -32,7 +32,7 @@ describe('BuildsController', () => {
 
   it('should get last builds properly', (done) => {
     controller.observable.attach((response) => {
-      expect(response.buildRoot.children.length).toBe(4);
+      expect(response.buildRoot[0].children[0].children.length).toBe(3);
       done();
     });
   });
@@ -47,7 +47,7 @@ describe('BuildsController', () => {
   it('should get builds hierarchically structured by branches', (done) => {
     controller.observable.attach((response) => {
       expect(response.buildRoot).not.toBeNull();
-      expect(response.buildRoot.children[1].children[0].status).toBe('Success');
+      expect(response.buildRoot[1].children[0].children[0].status).toBe('Success');
       done();
     });
 

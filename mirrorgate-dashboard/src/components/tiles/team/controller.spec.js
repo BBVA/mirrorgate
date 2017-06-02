@@ -34,17 +34,17 @@ describe('TeamController', () => {
     var stories = storiesForTesting.currentSprint;
 
     var name = stories[0].sSprintName;
-    var startDate = stories[0].sSprintBeginDate ?
-        new Date(stories[0].sSprintBeginDate) :
+    var startDate = stories[0].sprintBeginDate ?
+        stories[0].sprintBeginDate :
         new Date();
-    var endDate = stories[0].sSprintEndDate ?
-        new Date(stories[0].sSprintEndDate) :
+    var endDate = stories[0].sprintEndDate ?
+        stories[0].sprintEndDate :
         new Date();
     var sprint = new Sprint(name, startDate, endDate);
 
     for (var index in stories) {
       var story = new Story(
-          stories[index].sName, stories[index].sEstimate,
+          stories[index].sName, stories[index].dEstimate,
           stories[index].sStatus);
       sprint.addStory(story);
     }
