@@ -52,8 +52,8 @@ var Utils = {
   toClassName: function(s) { return s && s.toLowerCase().replace(' ', '-'); }
 };
 
-rivets.formatters.dateFromNow = function(value) {
-  return moment(value).fromNow();
+rivets.formatters.dateFrom = function(value, now) {
+  return moment(value).from(now);
 };
 
 rivets.formatters.textCleanUp = function(value) {

@@ -28,7 +28,7 @@
   <div class="builds component__content">
     <div class="component__header">
       <h2 class="title">Builds</h2>
-      <h3 class="title-desc" rv-show="stats.lastBuildTimestamp">Last was {stats.lastBuildTimestamp | dateFromNow}</h3>
+      <h3 class="title-desc" rv-show="stats.lastBuildTimestamp">Last was {stats.lastBuildTimestamp | dateFromNow updatedDate}</h3>
     </div>
     <div class="component__body">
       <svg class="build__svg">
@@ -37,7 +37,7 @@
           <g class="text" rv-show="selectedBuild">
             <foreignObject x="-200" y="-190" width="400" height="360">
               <div xmlns="http://www.w3.org/1999/xhtml" class="build-info">
-                <span class="date">{ selectedBuild.timestamp | dateFromNow }</span>
+                <span class="date">{ selectedBuild.timestamp | dateFromNow updatedDate}</span>
                 <span class="status" rv-pclass-status="selectedBuild.buildStatus">{selectedBuild.buildStatus}</span>
                 <span class="box">
                   <span class="project" rv-show="selectedBuild.repoName">{ selectedBuild.projectName | textCleanUp }/</span>

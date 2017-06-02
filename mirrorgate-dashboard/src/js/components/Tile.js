@@ -94,7 +94,12 @@ var Tile = (function() {
     var config = this.getConfig();
     if (typeof(this.getDashboardId()) === 'string' && config) {
       this._controller = new (this.getControllerClass())(this.getDashboardId());
-      this._controller.observable.attach(this.render.bind(this));
+      this._controller.observable.attach(function (data) {
+        if(data) {
+          this.getModel().updatedDate = Date.now();
+        }
+        this.render(data);
+      }.bind(this));
       this._controller.init(config);
     }
   };
