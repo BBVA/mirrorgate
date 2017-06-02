@@ -115,7 +115,7 @@
 
         var model = self.getModel();
         model.stats = data ? data.stats : {};
-        if(!model.hover) {
+        if(data && !model.hover) {
           model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
         }
 

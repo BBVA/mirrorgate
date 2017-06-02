@@ -64,6 +64,10 @@
       var container = this.shadowRoot.querySelector('#container');
       container.innerHTML= '';
 
+      if(!apps) {
+        return;
+      }
+
       var last_review_timestamp = -1;
       var lastAppReview = apps[0];
 
