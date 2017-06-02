@@ -63,10 +63,8 @@
         display: -webkit-box;
         word-break: break-all;
         margin-top: 20px;
-    }
-
-    .repo {
         font-size: 25px;
+        line-height: 40px;
     }
 
     .date {
@@ -77,11 +75,8 @@
 
     .duration {
         font-size: 40px;
+        line-height: 50px;
         text-align: center;
-    }
-
-    .branch {
-        font-size: 25px;
     }
 
 }
