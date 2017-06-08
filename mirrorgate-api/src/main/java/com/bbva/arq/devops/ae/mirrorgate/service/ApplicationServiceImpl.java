@@ -42,10 +42,25 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     public List<ApplicationReviewsDTO> getApplicationsAndReviews(){
-        //TODO refactor to make logic clearer
-        List<String> applicationNames = getApplicationNames(getActiveApplications());
 
-        List<ApplicationReviewsDTO> appsWithReview = reviewRepository.getLastReviewPerApplication(applicationNames);
+        List<String> activeApplicationNames = getApplicationNames(getActiveApplications());
+
+        List<ApplicationReviewsDTO> appsWithReview = reviewRepository.getLastReviewPerApplication(activeApplicationNames);
+        List<String> appsWithoutReview = getApplicationsWithoutReviews(activeApplicationNames, appsWithReview);
+
+        List<ApplicationReviewsDTO> appsReviews = new ArrayList<>();
+
+        appsReviews.addAll(buildApplicationsWithoutReviews(appsWithoutReview));
+        appsReviews.addAll(appsWithReview);
+
+        return appsReviews;
+    }
+
+    private List<String> getApplicationsWithoutReviews(List<String> activeApplicationNames,
+        List<ApplicationReviewsDTO> appsWithReview){
+
+        List<String> applicationWithoutReviewNames = new ArrayList<>();
+        applicationWithoutReviewNames.addAll(activeApplicationNames);
 
         List<String> applicationsWithReviewNames =
             appsWithReview
@@ -53,26 +68,28 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .map(ApplicationReviewsDTO::getAppName)
                 .collect(Collectors.toList());
 
-        applicationNames.removeAll(applicationsWithReviewNames);
+        applicationWithoutReviewNames.removeAll(applicationsWithReviewNames);
 
-        List<ApplicationReviewsDTO> appsReviews = new ArrayList<>();
+        return applicationWithoutReviewNames;
+    }
 
-        applicationNames.forEach(
+    private List<ApplicationReviewsDTO> buildApplicationsWithoutReviews(List<String> activeApplicationNames){
+
+        List<ApplicationReviewsDTO> applicationsWithoutReviews = new ArrayList<>();
+
+        activeApplicationNames.forEach(
             name -> {
                 ApplicationReviewsDTO newApplicationReview = new ApplicationReviewsDTO();
 
                 newApplicationReview.setAppName(name);
-                //TODO Ugly hack before we decide how we distinguish between platforms
-                newApplicationReview.setPlatform(Platform.IOS);
                 newApplicationReview.setAppId(name);
                 newApplicationReview.setCommentId("0");
 
-                appsReviews.add(newApplicationReview);
+                applicationsWithoutReviews.add(newApplicationReview);
             }
         );
 
-        appsReviews.addAll(appsWithReview);
-        return appsReviews;
+        return applicationsWithoutReviews;
     }
 
     private Iterable<Dashboard> getActiveApplications(){
