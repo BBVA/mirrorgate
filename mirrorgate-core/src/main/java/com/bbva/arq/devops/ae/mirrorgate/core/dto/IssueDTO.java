@@ -32,6 +32,9 @@ public class IssueDTO implements Serializable {
     private String type;
     private IssueStatus status;
     private Double estimate=0.0;
+    private String jiraKey;
+    private String parentKey;
+    private String piName;
 
     private SprintDTO sprint;
     private ProjectDTO project;
@@ -75,6 +78,14 @@ public class IssueDTO implements Serializable {
         return this;
     }
 
+    public String getJiraKey() {
+        return jiraKey;
+    }
+
+    public void setJiraKey(String jiraKey) {
+        this.jiraKey = jiraKey;
+    }
+
     public Double getEstimate() {
         return estimate;
     }
@@ -82,6 +93,22 @@ public class IssueDTO implements Serializable {
     public IssueDTO setEstimate(Double estimate) {
         this.estimate = estimate;
         return this;
+    }
+
+    public String getParentKey() {
+        return parentKey;
+    }
+
+    public void setParentKey(String parentKey) {
+        this.parentKey = parentKey;
+    }
+
+    public String getPiName() {
+        return piName;
+    }
+
+    public void setPiName(String piName) {
+        this.piName = piName;
     }
 
     public List<String> getKeywords() {
