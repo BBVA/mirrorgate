@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
+import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
@@ -57,16 +58,17 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return groupResults.getMappedResults();
     }
 
+    @Override
     public List<ApplicationReviewsDTO> getLastReviewPerApplication(List<String> names){
 
         Aggregation aggregation = newAggregation(
             match(Criteria.where("appname").in(names)),
-            sort(new Sort("commentId")),
-            group("appname", "platform")
-                .last("platform").as("platform")
-                .last("appname").as("appName")
-                .last("appname").as("appId")
-                .last("commentId").as("commentId")
+                sort(new Sort(DESC, "timestamp")),
+                group("appname", "platform")
+                .first("platform").as("platform")
+                .first("appname").as("appName")
+                .first("appname").as("appId")
+                .first("commentId").as("commentId")
         );
 
         //Convert the aggregation result into a List
