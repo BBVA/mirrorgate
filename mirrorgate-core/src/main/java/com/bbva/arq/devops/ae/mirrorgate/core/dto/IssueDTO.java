@@ -82,8 +82,9 @@ public class IssueDTO implements Serializable {
         return jiraKey;
     }
 
-    public void setJiraKey(String jiraKey) {
+    public IssueDTO setJiraKey(String jiraKey) {
         this.jiraKey = jiraKey;
+        return this;
     }
 
     public Double getEstimate() {
@@ -99,16 +100,18 @@ public class IssueDTO implements Serializable {
         return parentKey;
     }
 
-    public void setParentKey(String parentKey) {
+    public IssueDTO setParentKey(String parentKey) {
         this.parentKey = parentKey;
+        return this;
     }
 
     public String getPiName() {
         return piName;
     }
 
-    public void setPiName(String piName) {
+    public IssueDTO setPiName(String piName) {
         this.piName = piName;
+        return this;
     }
 
     public List<String> getKeywords() {
