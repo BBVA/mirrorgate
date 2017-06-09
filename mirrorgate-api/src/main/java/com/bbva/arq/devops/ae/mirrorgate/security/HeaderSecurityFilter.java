@@ -46,6 +46,8 @@ public class HeaderSecurityFilter extends OncePerRequestFilter {
             headerNames.add((String) headers.nextElement());
         }
 
+        LOG.info("Request URI: " + request.getRequestURI());
+        LOG.info("Request Method: " + request.getMethod());
         LOG.info("Request headers {}", headerNames);
 
         String xForwardedUser = request.getHeader(USER_HEADER);
