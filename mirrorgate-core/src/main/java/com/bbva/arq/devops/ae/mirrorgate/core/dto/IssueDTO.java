@@ -34,7 +34,7 @@ public class IssueDTO implements Serializable {
     private Double estimate=0.0;
     private String jiraKey;
     private String parentKey;
-    private String piName;
+    private List<String> piNames;
 
     private SprintDTO sprint;
     private ProjectDTO project;
@@ -105,12 +105,12 @@ public class IssueDTO implements Serializable {
         return this;
     }
 
-    public String getPiName() {
-        return piName;
+    public List<String> getPiNames() {
+        return piNames;
     }
 
-    public IssueDTO setPiName(String piName) {
-        this.piName = piName;
+    public IssueDTO setPiNames(List<String> piNames) {
+        this.piNames = piNames;
         return this;
     }
 
