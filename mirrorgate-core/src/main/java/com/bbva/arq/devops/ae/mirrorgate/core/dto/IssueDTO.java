@@ -34,6 +34,7 @@ public class IssueDTO implements Serializable {
     private Double estimate=0.0;
     private String jiraKey;
     private String parentKey;
+    private String parentId;
     private List<String> piNames;
 
     private SprintDTO sprint;
@@ -103,6 +104,14 @@ public class IssueDTO implements Serializable {
     public IssueDTO setParentKey(String parentKey) {
         this.parentKey = parentKey;
         return this;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     public List<String> getPiNames() {
