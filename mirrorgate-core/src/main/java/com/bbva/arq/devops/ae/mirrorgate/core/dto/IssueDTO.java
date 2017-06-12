@@ -110,8 +110,9 @@ public class IssueDTO implements Serializable {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
+    public IssueDTO setParentId(String parentId) {
         this.parentId = parentId;
+        return this;
     }
 
     public List<String> getPiNames() {
