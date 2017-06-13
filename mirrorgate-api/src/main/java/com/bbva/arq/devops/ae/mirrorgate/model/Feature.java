@@ -52,6 +52,10 @@ public class Feature extends BaseModel{
     /* Associated project properties */
     private String sProjectId;
 
+    /* Associated PI properties */
+    private String sParentKey;
+    private Long lParentId;
+
     @Indexed
     private String sProjectName;
 
@@ -145,5 +149,21 @@ public class Feature extends BaseModel{
 
     public void setdEstimate(Double dEstimate) {
         this.dEstimate = dEstimate;
+    }
+
+    public String getsParentKey() {
+        return sParentKey;
+    }
+
+    public void setsParentKey(String sParentKey) {
+        this.sParentKey = sParentKey;
+    }
+
+    public Long getlParentId() {
+        return lParentId;
+    }
+
+    public void setlParentId(Long lParentId) {
+        this.lParentId = lParentId;
     }
 }
