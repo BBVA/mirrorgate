@@ -16,7 +16,9 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
@@ -88,8 +90,18 @@ public class FeatureServiceImpl implements FeatureService{
     }
 
     @Override
-    public Iterable<Feature> getActiveIncidencesByBoards(List<String> boards) {
-        return repository.findBySProjectNameInAndSTypeNameAndSStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
+    public List<IncidenceDTO> getActiveIncidencesByBoards(List<String> boards) {
+
+        List<Feature> incidences = repository.findBySProjectNameInAndSTypeNameAndSStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
+
+        return incidences.stream()
+                .map((incidence) -> new IncidenceDTO()
+                        .setId(incidence.getsNumber())
+                        .setPriority(IssuePriority.fromName(incidence.getPriority()))
+                        .setStatus(IssueStatus.fromName(incidence.getsStatus()))
+                )
+                .collect(Collectors.toList());
+
     }
 
 }

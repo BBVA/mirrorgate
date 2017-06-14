@@ -18,14 +18,11 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidencesDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,17 +46,10 @@ public class IncidenceController {
 
     @RequestMapping(value = "/dashboards/{name}/incidences",
             method = GET, produces = APPLICATION_JSON_VALUE)
-    public Map<String, Object> getIncidences(@PathVariable("name") String name) {
+    public List<IncidenceDTO> getIncidences(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
         List<String> boards = dashboard.getBoards();
-
-        Map<String, Object> response = new HashMap<>();
-
-        IncidencesDTO dto = new IncidencesDTO();
-        dto.setnIncidences(((Collection<?>) featureService.getActiveIncidencesByBoards(boards)).size());
-
-        response.put("Incidences", dto);
-        return response;
+        return featureService.getActiveIncidencesByBoards(boards);
     }
 
 }

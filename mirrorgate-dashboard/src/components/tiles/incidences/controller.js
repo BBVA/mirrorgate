@@ -24,14 +24,23 @@ var IncidencesController = (function(dashboardId) {
   var service = Service.get(Service.types.incidences, dashboardId);
 
   function getIncidences(response) {
+  
     var incidences;
-    
-    if(response) {
-      incidences = JSON.parse(response);
-    }
-    
-    observable.notify(incidences);
 
+    if(response) {
+      incidences = [];
+      response = JSON.parse(response);
+      for(var index in response) {
+          var incidence = new Incidence(
+            response[index].id,
+            response[index].priority,
+            response[index].status
+          );
+          incidences.push(incidence);
+      }
+    }
+
+    observable.notify(incidences);
   }
 
   this.observable = observable;

@@ -18,6 +18,8 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
@@ -83,7 +85,7 @@ public class FeatureServiceTests {
                 IssueStatus.DONE.getName())
         ).thenReturn(incidences);
 
-        Iterable<Feature> activeIncidencesByDashboardName
+        List<IncidenceDTO> activeIncidencesByDashboardName
                 = featureService.getActiveIncidencesByBoards(Arrays.asList(dashboard.getName()));
         verify(featureRepository, times(1))
                 .findBySProjectNameInAndSTypeNameAndSStatusNot(
@@ -92,8 +94,13 @@ public class FeatureServiceTests {
                         IssueStatus.DONE.getName()
                 );
 
-        assertThat(activeIncidencesByDashboardName.iterator().next().getsTypeName()).isEqualTo(IssueType.BUG.getName());
-        assertThat(activeIncidencesByDashboardName.iterator().next().getsTypeName()).isEqualTo(IssueType.BUG.getName());
+        assertThat(activeIncidencesByDashboardName.get(0).getId()).isEqualTo(inc1.getsNumber());
+        assertThat(activeIncidencesByDashboardName.get(0).getPriority()).isEqualTo(IssuePriority.fromName(inc1.getPriority()));
+        assertThat(activeIncidencesByDashboardName.get(0).getStatus()).isNotEqualTo(IssueStatus.DONE);
+
+        assertThat(activeIncidencesByDashboardName.get(1).getId()).isEqualTo(inc2.getsNumber());
+        assertThat(activeIncidencesByDashboardName.get(1).getPriority()).isEqualTo(IssuePriority.fromName(inc2.getPriority()));
+        assertThat(activeIncidencesByDashboardName.get(1).getStatus()).isNotEqualTo(IssueStatus.DONE);
     }
 
 }

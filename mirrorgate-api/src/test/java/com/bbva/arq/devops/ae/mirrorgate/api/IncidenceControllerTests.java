@@ -15,14 +15,12 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
@@ -69,10 +67,10 @@ public class IncidenceControllerTests {
 
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
-        Feature inc1 = TestObjectBuilder.createIncidence();
-        Feature inc2 = TestObjectBuilder.createIncidence();
+        IncidenceDTO inc1 = TestObjectBuilder.createIncidenceDTO();
+        IncidenceDTO inc2 = TestObjectBuilder.createIncidenceDTO();
 
-        List<Feature> incidences = new ArrayList<>();
+        List<IncidenceDTO> incidences = new ArrayList<>();
         incidences.add(inc1);
         incidences.add(inc2);
 
@@ -81,8 +79,7 @@ public class IncidenceControllerTests {
                 .thenReturn(incidences);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/incidences"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.Incidences.nIncidences", equalTo(incidences.size())));
+                .andExpect(status().isOk());
     }
 
 }

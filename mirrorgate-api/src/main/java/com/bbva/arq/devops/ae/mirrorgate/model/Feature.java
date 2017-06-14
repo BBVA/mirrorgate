@@ -15,12 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * Team story model.
@@ -38,6 +36,7 @@ public class Feature extends BaseModel{
     private String sTypeName;
     private String sStatus;
     private Double dEstimate;
+    private String priority;
 
     /* Associated sprint properties */
     @Indexed
@@ -145,5 +144,13 @@ public class Feature extends BaseModel{
 
     public void setdEstimate(Double dEstimate) {
         this.dEstimate = dEstimate;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 }

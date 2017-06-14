@@ -16,11 +16,14 @@
  */
 
 /**
- * Incidences model
- *
- * @param {Number} nIncicences     Number of incidences
-
+ * Incidence model
+ * 
+ * @param {String} id       Incidence Id
+ * @param {String} priority Incidence priority [CRITICAL, NORMAL, MAYOR, MINOR, ...]
+ * @param {String} status   Incidence status [BLOCK, IN_PROGRESS, DONE, ...]
  */
-function Incidences(nIncicences) {
-  this.nIncicences = nIncicences;
+function Incidence(id, priority, status) {
+  this.id = id;
+  this.priority = priority;
+  this.status = status; 
 }

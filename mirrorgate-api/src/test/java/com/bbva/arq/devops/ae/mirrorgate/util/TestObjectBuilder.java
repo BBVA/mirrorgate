@@ -17,6 +17,9 @@ package com.bbva.arq.devops.ae.mirrorgate.util;
 
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType.BUG;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import java.util.Arrays;
@@ -30,6 +33,8 @@ public class TestObjectBuilder {
 
     private static final String DASHBOARD_NAME = "mirrorgate";
     private static final String PROJECT_NAME = "mirrorgate";
+    private static final String FEATURE_NAME = "feature";
+
 
     public static Dashboard createDashboard() {
         Dashboard dashboard = new Dashboard();
@@ -52,7 +57,16 @@ public class TestObjectBuilder {
         story.setsId(ObjectId.get().toString());
         story.setsSprintAssetState("Active");
         story.setsProjectName(PROJECT_NAME);
+        story.setsNumber(FEATURE_NAME);
         return story;
+    }
+
+    public static IncidenceDTO createIncidenceDTO() {
+        IncidenceDTO incidence = new IncidenceDTO();
+        incidence.setId(FEATURE_NAME);
+        incidence.setPriority(IssuePriority.NORMAL);
+        incidence.setStatus(IssueStatus.IN_PROGRESS);
+        return incidence;
     }
 
 }

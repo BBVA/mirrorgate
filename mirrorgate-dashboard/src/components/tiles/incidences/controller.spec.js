@@ -27,8 +27,18 @@ describe('IncidencesController', () => {
   });
 
   it('should get active incidences', (done) => {
+    var incidences = [];
+
+    for (var index in incidencesForTesting) {
+      var incidence = new Incidence(
+        incidencesForTesting[index].id,
+        incidencesForTesting[index].priority,
+        incidencesForTesting[index].status);
+      incidences.push(incidence);
+    }
+    
     controller.observable.attach((response) => {
-      expect(_.isEqual(response, incidencesForTesting)).toBe(true);
+      expect(_.isEqual(response, incidences)).toBe(true);
       done();
     });
   });

@@ -31,8 +31,8 @@
     </div>
     <div class="component__body">
       <div class="indicator">
-        <div class="stat-desc" rv-hide="Incidences.nIncidences">No incidences</div>
-        <div class="stat" rv-show="Incidences.nIncidences">{Incidences.nIncidences} active incidences</div>
+        <div class="stat-desc" rv-hide="incidences">No incidences</div>
+        <div class="stat" rv-show="incidences">{incidences} active incidences</div>
       </div>
     </div>
   </div>
@@ -70,7 +70,7 @@
       var model = this.getModel();
 
       if (data) {
-        model.Incidences = data.Incidences;
+        model.incidences = data.length;
       }
     };
 
