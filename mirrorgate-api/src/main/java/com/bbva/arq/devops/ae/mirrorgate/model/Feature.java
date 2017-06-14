@@ -51,6 +51,11 @@ public class Feature extends BaseModel{
     /* Associated project properties */
     private String sProjectId;
 
+    /* Associated PI properties */
+    private List<String> sPiNames;
+    private String sParentKey;
+    private Long lParentId;
+
     @Indexed
     private String sProjectName;
 
@@ -152,5 +157,29 @@ public class Feature extends BaseModel{
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public String getsParentKey() {
+        return sParentKey;
+    }
+
+    public void setsParentKey(String sParentKey) {
+        this.sParentKey = sParentKey;
+    }
+
+    public Long getlParentId() {
+        return lParentId;
+    }
+
+    public void setlParentId(Long lParentId) {
+        this.lParentId = lParentId;
+    }
+
+    public List<String> getsPiNames() {
+        return sPiNames;
+    }
+
+    public void setsPiNames(List<String> sPiNames) {
+        this.sPiNames = sPiNames;
     }
 }
