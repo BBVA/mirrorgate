@@ -38,6 +38,7 @@ public class IssueMapper {
         target.setsNumber(source.getJiraKey());
         target.setlParentId(source.getParentId() == null ? null : Long.parseLong(source.getParentId()));
         target.setsParentKey(source.getParentKey());
+        target.setsPiNames(source.getPiNames());
         SprintDTO sprint = source.getSprint();
         if(sprint != null) {
             target.setsSprintID(sprint.getId());
