@@ -20,7 +20,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Team story model.
@@ -53,6 +52,7 @@ public class Feature extends BaseModel{
     private String sProjectId;
 
     /* Associated PI properties */
+    private List<String> sPiNames;
     private String sParentKey;
     private Long lParentId;
 
@@ -165,5 +165,13 @@ public class Feature extends BaseModel{
 
     public void setlParentId(Long lParentId) {
         this.lParentId = lParentId;
+    }
+
+    public List<String> getsPiNames() {
+        return sPiNames;
+    }
+
+    public void setsPiNames(List<String> sPiNames) {
+        this.sPiNames = sPiNames;
     }
 }
