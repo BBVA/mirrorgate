@@ -41,7 +41,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     public List<ApplicationDTO> getAverageRateByAppNames(List<String> names) {
 
         Aggregation aggregation = newAggregation(
-            match(Criteria.where("appname").all(names)),
+            match(Criteria.where("appname").in(names)),
             sort(new Sort("timestamp")),
             group("appname", "platform")
                 .avg("starrating").as("rate")
