@@ -35,16 +35,19 @@ public class TokenCreator {
 
         GrantedAuthority authority;
 
-        if(!StringUtils.isEmpty(headerValue)){
+        // We keep empty header for back compatibility
+        if(StringUtils.isEmpty(headerValue) || headerValue.contains("COLLECTOR")){
 
+            authority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString());
+
+        } else {
+            
             if(headerValue.contains("ANONYMOUS")) {
                 authority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.SCREEN.toString());
             } else {
                 authority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.REGULAR.toString());
             }
 
-        } else {
-            authority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString());
         }
 
         LOG.info("Role assigned: " + authority.getAuthority());
