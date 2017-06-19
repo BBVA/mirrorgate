@@ -44,13 +44,13 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public List<String> getReposByDashboardName(String name) {
-        Dashboard dashboard = dashboardRepository.findOneByName(name, SORT_BY_LAST_MODIFICATION);
+        Dashboard dashboard = this.getDashboard(name);
         return dashboard == null ? null : dashboard.getCodeRepos();
     }
 
     @Override
     public List<String> getApplicationsByDashboardName(String name) {
-        Dashboard dashboard = dashboardRepository.findOneByName(name, SORT_BY_LAST_MODIFICATION);
+        Dashboard dashboard = this.getDashboard(name);
         return dashboard == null ? null : dashboard.getApplications();
     }
 
@@ -61,7 +61,7 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public Boolean deleteDashboard(String name) {
-        Dashboard dashboard = dashboardRepository.findOneByName(name, SORT_BY_LAST_MODIFICATION);
+        Dashboard dashboard = this.getDashboard(name);
         if (dashboard != null) {
             dashboard.setStatus(DELETED);
             dashboard.setLastModification(System.currentTimeMillis());
@@ -78,7 +78,7 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public Dashboard newDashboard(Dashboard dashboard) throws MirrorGateException {
-        Dashboard oldDashboard = dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        Dashboard oldDashboard = this.getDashboard(dashboard.getName());
         if (oldDashboard != null) {
             if (oldDashboard.getStatus() != DELETED) {
                 throw new MirrorGateException("Dashboard with name '" + dashboard.getName() + "' already exists");
@@ -95,8 +95,7 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public Dashboard updateDashboard(Dashboard dashboard) {
-        Dashboard toUpdate = dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-
+        Dashboard toUpdate = this.getDashboard(dashboard.getName());
         if(toUpdate == null) {
             return null;
         } else {
