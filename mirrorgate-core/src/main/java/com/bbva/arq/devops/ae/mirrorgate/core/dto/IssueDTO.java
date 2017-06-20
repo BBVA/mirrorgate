@@ -32,7 +32,7 @@ public class IssueDTO implements Serializable {
     private String type;
     private IssueStatus status;
     private IssuePriority priority;
-    private Double estimate=0.0;
+    private Double estimate = 0.0;
     private String jiraKey;
     private String parentKey;
     private String parentId;
@@ -77,6 +77,15 @@ public class IssueDTO implements Serializable {
 
     public IssueDTO setStatus(IssueStatus status) {
         this.status = status;
+        return this;
+    }
+
+    public IssuePriority getPriority() {
+        return priority;
+    }
+
+    public IssueDTO setPriority(IssuePriority priority) {
+        this.priority = priority;
         return this;
     }
 
