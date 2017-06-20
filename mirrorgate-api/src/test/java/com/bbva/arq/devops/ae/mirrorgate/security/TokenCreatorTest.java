@@ -54,4 +54,12 @@ public class TokenCreatorTest {
         assertTrue(token.getCredentials().contains(expectedAuthority));
     }
 
+    @Test
+    public void testCollectorUser(){
+        MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken("COLLECTOR");
+        SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString());
+
+        assertTrue(token.getCredentials().contains(expectedAuthority));
+    }
+
 }

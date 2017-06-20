@@ -15,11 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import java.util.List;
-
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import java.util.List;
 
 /**
  * Service for Feature model
@@ -39,5 +38,7 @@ public interface FeatureService {
     Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues);
 
     void deleteStory(Long id);
+
+    Iterable<Feature> getActiveIncidencesByBoards(List<String> boards);
 
 }

@@ -1,0 +1,11 @@
+{
+  "name": "failures",
+  "logoUrl": "img/logo.png",
+  "codeRepos": [
+    "mirrorgate"
+  ],
+  "boards": [
+    "mirrorgate"
+  ],
+  "applications": []
+}
