@@ -17,12 +17,17 @@ package com.bbva.arq.devops.ae.mirrorgate.util;
 
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType.BUG;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
@@ -40,6 +45,12 @@ public class TestObjectBuilder {
         Dashboard dashboard = new Dashboard();
         dashboard.setId(ObjectId.get());
         dashboard.setName(DASHBOARD_NAME);
+        String urlRepo1 = "http.//repo1.git";
+        String urlRepo2 = "http.//repo2.git";
+        List<String> codeRepos = new ArrayList<>();
+        codeRepos.add(urlRepo1);
+        codeRepos.add(urlRepo2);
+        dashboard.setCodeRepos(codeRepos);
         dashboard.setsProductName(PROJECT_NAME);
         dashboard.setBoards(Arrays.asList(PROJECT_NAME));
         return dashboard;
@@ -69,4 +80,37 @@ public class TestObjectBuilder {
         return bug;
     }
 
+    public static DashboardDTO createDashboardDTO() {
+        DashboardDTO dashboard = new DashboardDTO();
+        dashboard.setName(DASHBOARD_NAME);
+        String urlRepo1 = "http.//repo1.git";
+        String urlRepo2 = "http.//repo2.git";
+        List<String> codeRepos = new ArrayList<>();
+        codeRepos.add(urlRepo1);
+        codeRepos.add(urlRepo2);
+        dashboard.setCodeRepos(codeRepos);
+        dashboard.setsProductName(PROJECT_NAME);
+        dashboard.setBoards(Arrays.asList(PROJECT_NAME));
+        return dashboard;
+    }
+
+    public static DashboardDTO createDashboardDTO(String name, List<String> applications) {
+        DashboardDTO dashboard = createDashboardDTO();
+
+        dashboard.setName(name);
+        dashboard.setApplications(applications);
+        return dashboard;
+    }
+
+    public static ApplicationReviewsDTO createApplicationDTO(String name, Platform platform) {
+
+        ApplicationReviewsDTO applicationReviewsDTO = new ApplicationReviewsDTO();
+
+        applicationReviewsDTO.setCommentId("12");
+        applicationReviewsDTO.setAppId(name);
+        applicationReviewsDTO.setAppName(name);
+        applicationReviewsDTO.setPlatform(platform);
+
+        return applicationReviewsDTO;
+    }
 }

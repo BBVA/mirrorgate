@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import java.util.List;
@@ -51,9 +52,9 @@ public interface DashboardService {
     /**
      * Get a list with all Dashboards with status Active
      *
-     * @return A list of Dashboards
+     * @return A list of DashboardDTO
      */
-    Iterable<Dashboard> getActiveDashboards();
+    List<DashboardDTO> getActiveDashboards();
 
     /**
      * Mark a Dashboard as a Delete

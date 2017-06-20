@@ -15,16 +15,11 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import org.bson.types.ObjectId;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.CrudRepository;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import java.util.List;
 
-/**
- * Dashboards Repository
- */
-public interface DashboardRepository extends CrudRepository<Dashboard, ObjectId>, DashboardRepositoryCustom {
+public interface DashboardRepositoryCustom {
 
-    Dashboard findOneByName(String name, Sort sort);
+    List<DashboardDTO> getActiveDashboards();
 
 }
