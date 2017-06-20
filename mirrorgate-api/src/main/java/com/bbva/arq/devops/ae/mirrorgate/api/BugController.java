@@ -18,7 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
@@ -33,23 +33,23 @@ import org.springframework.web.bind.annotation.RestController;
  * @author enrique
  */
 @RestController
-public class IncidenceController {
+public class BugController {
 
     private final DashboardService dashboardService;
     private final FeatureService featureService;
 
     @Autowired
-    public IncidenceController(DashboardService dashboardService, FeatureService featureService) {
+    public BugController(DashboardService dashboardService, FeatureService featureService) {
         this.dashboardService = dashboardService;
         this.featureService = featureService;
     }
 
-    @RequestMapping(value = "/dashboards/{name}/incidences",
+    @RequestMapping(value = "/dashboards/{name}/bugs",
             method = GET, produces = APPLICATION_JSON_VALUE)
-    public List<IncidenceDTO> getIncidences(@PathVariable("name") String name) {
+    public List<BugDTO> getBugs(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
         List<String> boards = dashboard.getBoards();
-        return featureService.getActiveIncidencesByBoards(boards);
+        return featureService.getActiveBugsByBoards(boards);
     }
 
 }

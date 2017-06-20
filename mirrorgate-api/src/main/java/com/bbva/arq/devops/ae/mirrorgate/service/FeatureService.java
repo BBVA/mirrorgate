@@ -15,8 +15,8 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import java.util.List;
@@ -40,6 +40,6 @@ public interface FeatureService {
 
     void deleteStory(Long id);
 
-    List<IncidenceDTO> getActiveIncidencesByBoards(List<String> boards);
+    List<BugDTO> getActiveBugsByBoards(List<String> boards);
 
 }

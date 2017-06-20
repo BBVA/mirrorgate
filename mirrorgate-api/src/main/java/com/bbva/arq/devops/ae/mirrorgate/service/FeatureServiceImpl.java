@@ -15,15 +15,19 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority.*;
+
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -90,18 +94,29 @@ public class FeatureServiceImpl implements FeatureService{
     }
 
     @Override
-    public List<IncidenceDTO> getActiveIncidencesByBoards(List<String> boards) {
+    public List<BugDTO> getActiveBugsByBoards(List<String> boards) {
 
-        List<Feature> incidences = repository.findBySProjectNameInAndSTypeNameAndSStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
+        List<Feature> issues = repository.findBySProjectNameInAndSTypeNameAndSStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
 
-        return incidences.stream()
-                .map((incidence) -> new IncidenceDTO()
-                        .setId(incidence.getsNumber())
-                        .setPriority(IssuePriority.fromName(incidence.getPriority()))
-                        .setStatus(IssueStatus.fromName(incidence.getsStatus()))
+        return issues.stream()
+                .map((issue) -> new BugDTO()
+                        .setId(issue.getsNumber())
+                        .setPriority(issuePriorityToBugPriority.get(issue.getPriority()))
+                        .setStatus(BugStatus.fromName(issue.getsStatus()))
                 )
                 .collect(Collectors.toList());
 
+    }
+
+    private static final HashMap<String, BugPriority> issuePriorityToBugPriority;
+
+    static {
+        issuePriorityToBugPriority = new HashMap();
+        issuePriorityToBugPriority.put("HIGHEST", CRITICAL);
+        issuePriorityToBugPriority.put("HIGH", MAJOR);
+        issuePriorityToBugPriority.put("MEDIUM", MEDIUM);
+        issuePriorityToBugPriority.put("LOW", MINOR);
+        issuePriorityToBugPriority.put("LOWEST", MINOR);
     }
 
 }

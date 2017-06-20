@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-describe('IncidencesController', () => {
+describe('BugsController', () => {
 
   var server;
   var controller;
@@ -22,23 +22,23 @@ describe('IncidencesController', () => {
   beforeEach(() => {
     server = buildFakeServer();
     server.autoRespond = true;
-    controller = new IncidencesController(dashboardForTesting);
+    controller = new BugsController(dashboardForTesting);
     controller.init();
   });
 
-  it('should get active incidences', (done) => {
-    var incidences = [];
+  it('should get active bugs', (done) => {
+    var bugs = [];
 
-    for (var index in incidencesForTesting) {
-      var incidence = new Incidence(
-        incidencesForTesting[index].id,
-        incidencesForTesting[index].priority,
-        incidencesForTesting[index].status);
-      incidences.push(incidence);
+    for (var index in bugsForTesting) {
+      var bug = new Bug(
+        bugsForTesting[index].id,
+        bugsForTesting[index].priority,
+        bugsForTesting[index].status);
+      bugs.push(bug);
     }
     
     controller.observable.attach((response) => {
-      expect(_.isEqual(response, incidences)).toBe(true);
+      expect(_.isEqual(response, bugs)).toBe(true);
       done();
     });
   });

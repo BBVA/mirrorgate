@@ -16,8 +16,8 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +31,7 @@ public class IssueDTO implements Serializable {
     private String name;
     private String type;
     private IssueStatus status;
+    private IssuePriority priority;
     private Double estimate=0.0;
     private String jiraKey;
     private String parentKey;

@@ -17,9 +17,9 @@ package com.bbva.arq.devops.ae.mirrorgate.util;
 
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType.BUG;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import java.util.Arrays;
@@ -45,10 +45,10 @@ public class TestObjectBuilder {
         return dashboard;
     }
 
-    public static Feature createIncidence() {
-        Feature incidence = createActiveStory();
-        incidence.setsTypeName(BUG.getName());
-        return incidence;
+    public static Feature createBug() {
+        Feature bug = createActiveStory();
+        bug.setsTypeName(BUG.getName());
+        return bug;
     }
 
     public static Feature createActiveStory() {
@@ -61,12 +61,12 @@ public class TestObjectBuilder {
         return story;
     }
 
-    public static IncidenceDTO createIncidenceDTO() {
-        IncidenceDTO incidence = new IncidenceDTO();
-        incidence.setId(FEATURE_NAME);
-        incidence.setPriority(IssuePriority.NORMAL);
-        incidence.setStatus(IssueStatus.IN_PROGRESS);
-        return incidence;
+    public static BugDTO createBugDTO() {
+        BugDTO bug = new BugDTO();
+        bug.setId(FEATURE_NAME);
+        bug.setPriority(BugPriority.MEDIUM);
+        bug.setStatus(BugStatus.IN_PROGRESS);
+        return bug;
     }
 
 }

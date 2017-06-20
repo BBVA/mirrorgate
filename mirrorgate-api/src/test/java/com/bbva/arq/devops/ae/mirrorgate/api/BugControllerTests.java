@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
@@ -44,9 +44,9 @@ import org.springframework.web.context.WebApplicationContext;
  * @author enrique
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(IncidenceController.class)
+@WebMvcTest(BugController.class)
 @WebAppConfiguration
-public class IncidenceControllerTests {
+public class BugControllerTests {
 
     private MockMvc mockMvc = null;
 
@@ -63,22 +63,22 @@ public class IncidenceControllerTests {
     }
 
     @Test
-    public void getIncidencesTest() throws Exception {
+    public void getBugsTest() throws Exception {
 
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
-        IncidenceDTO inc1 = TestObjectBuilder.createIncidenceDTO();
-        IncidenceDTO inc2 = TestObjectBuilder.createIncidenceDTO();
+        BugDTO bug1 = TestObjectBuilder.createBugDTO();
+        BugDTO bug2 = TestObjectBuilder.createBugDTO();
 
-        List<IncidenceDTO> incidences = new ArrayList<>();
-        incidences.add(inc1);
-        incidences.add(inc2);
+        List<BugDTO> bugs = new ArrayList<>();
+        bugs.add(bug1);
+        bugs.add(bug2);
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(featureService.getActiveIncidencesByBoards(Arrays.asList(dashboard.getsProductName())))
-                .thenReturn(incidences);
+        when(featureService.getActiveBugsByBoards(Arrays.asList(dashboard.getsProductName())))
+                .thenReturn(bugs);
 
-        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/incidences"))
+        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/bugs"))
                 .andExpect(status().isOk());
     }
 

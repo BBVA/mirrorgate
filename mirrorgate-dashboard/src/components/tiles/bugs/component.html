@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<!-- incidences:js component.min.js -->
+<!-- bugs:js component.min.js -->
 <script src="model.js"></script>
 <script src="controller.js"></script>
 <!-- endbuild -->
@@ -25,14 +25,14 @@
     @import "css/styles.css";
   </style>
 
-  <div class="incidences component__content">
+  <div class="bugs component__content">
     <div class="component__header">
-      <h2 class="title">Incidences</h2>
+      <h2 class="title">Bugs</h2>
     </div>
     <div class="component__body">
       <div class="indicator">
-        <div class="stat-desc" rv-hide="incidences">No incidences</div>
-        <div class="stat" rv-show="incidences">{incidences} active incidences</div>
+        <div class="stat-desc" rv-hide="bugs">No bugs</div>
+        <div class="stat" rv-show="bugs">{bugs} active bugs</div>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@
     }
 
     MyElementProto.getControllerClass = function () {
-      return IncidencesController;
+      return BugsController;
     };
 
     MyElementProto.getTemplate = function () {
@@ -70,11 +70,11 @@
       var model = this.getModel();
 
       if (data) {
-        model.incidences = data.length;
+        model.bugs = data.length;
       }
     };
 
-    window.MyElement = document.registerElement('incidences-tile', {
+    window.MyElement = document.registerElement('bugs-tile', {
       prototype: MyElementProto
     });
     

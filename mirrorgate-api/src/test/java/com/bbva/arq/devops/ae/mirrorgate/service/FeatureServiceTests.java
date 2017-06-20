@@ -18,8 +18,9 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidenceDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
@@ -68,25 +69,25 @@ public class FeatureServiceTests {
     }
 
     @Test
-    public void getActiveIncidencesByBoardsTest() {
+    public void getActiveBugsByBoardsTest() {
 
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
-        Feature inc1 = TestObjectBuilder.createIncidence();
-        Feature inc2 = TestObjectBuilder.createIncidence();
+        Feature bug1 = TestObjectBuilder.createBug();
+        Feature bug2 = TestObjectBuilder.createBug();
 
-        List<Feature> incidences = new ArrayList<>();
-        incidences.add(inc1);
-        incidences.add(inc2);
+        List<Feature> bugs = new ArrayList<>();
+        bugs.add(bug1);
+        bugs.add(bug2);
 
         when(featureRepository.findBySProjectNameInAndSTypeNameAndSStatusNot(
                 Arrays.asList(dashboard.getName()),
                 IssueType.BUG.getName(),
                 IssueStatus.DONE.getName())
-        ).thenReturn(incidences);
+        ).thenReturn(bugs);
 
-        List<IncidenceDTO> activeIncidencesByDashboardName
-                = featureService.getActiveIncidencesByBoards(Arrays.asList(dashboard.getName()));
+        List<BugDTO> activeBugsByDashboardName
+                = featureService.getActiveBugsByBoards(Arrays.asList(dashboard.getName()));
         verify(featureRepository, times(1))
                 .findBySProjectNameInAndSTypeNameAndSStatusNot(
                         Arrays.asList(dashboard.getName()),
@@ -94,13 +95,13 @@ public class FeatureServiceTests {
                         IssueStatus.DONE.getName()
                 );
 
-        assertThat(activeIncidencesByDashboardName.get(0).getId()).isEqualTo(inc1.getsNumber());
-        assertThat(activeIncidencesByDashboardName.get(0).getPriority()).isEqualTo(IssuePriority.fromName(inc1.getPriority()));
-        assertThat(activeIncidencesByDashboardName.get(0).getStatus()).isNotEqualTo(IssueStatus.DONE);
+        assertThat(activeBugsByDashboardName.get(0).getId()).isEqualTo(bug1.getsNumber());
+        assertThat(activeBugsByDashboardName.get(0).getPriority()).isEqualTo(BugPriority.fromName(bug1.getPriority()));
+        assertThat(activeBugsByDashboardName.get(0).getStatus()).isNotEqualTo(BugStatus.DONE);
 
-        assertThat(activeIncidencesByDashboardName.get(1).getId()).isEqualTo(inc2.getsNumber());
-        assertThat(activeIncidencesByDashboardName.get(1).getPriority()).isEqualTo(IssuePriority.fromName(inc2.getPriority()));
-        assertThat(activeIncidencesByDashboardName.get(1).getStatus()).isNotEqualTo(IssueStatus.DONE);
+        assertThat(activeBugsByDashboardName.get(1).getId()).isEqualTo(bug2.getsNumber());
+        assertThat(activeBugsByDashboardName.get(1).getPriority()).isEqualTo(BugPriority.fromName(bug2.getPriority()));
+        assertThat(activeBugsByDashboardName.get(1).getStatus()).isNotEqualTo(BugStatus.DONE);
     }
 
 }

@@ -16,13 +16,13 @@
  */
 
 /**
- * Incidence model
+ * Bug model
  * 
- * @param {String} id       Incidence Id
- * @param {String} priority Incidence priority [CRITICAL, NORMAL, MAYOR, MINOR, ...]
- * @param {String} status   Incidence status [BLOCK, IN_PROGRESS, DONE, ...]
+ * @param {String} id       Bug Id
+ * @param {String} priority Bug priority [CRITICAL, NORMAL, MAYOR, MINOR, ...]
+ * @param {String} status   Bug status [BLOCK, IN_PROGRESS, DONE, ...]
  */
-function Incidence(id, priority, status) {
+function Bug(id, priority, status) {
   this.id = id;
   this.priority = priority;
   this.status = status; 
