@@ -19,9 +19,11 @@ import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELET
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.validation.Valid;
@@ -72,7 +74,7 @@ public class DashboardController {
     }
 
     @RequestMapping(value = "/dashboards", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Iterable<Dashboard> getActiveDashboards() {
+    public List<DashboardDTO> getActiveDashboards() {
         return dashboardService.getActiveDashboards();
     }
 

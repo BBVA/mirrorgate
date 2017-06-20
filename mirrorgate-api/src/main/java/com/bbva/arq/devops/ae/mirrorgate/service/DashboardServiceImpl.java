@@ -18,12 +18,13 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -34,31 +35,33 @@ public class DashboardServiceImpl implements DashboardService {
     @Autowired
     private DashboardRepository dashboardRepository;
 
+    private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
+
     @Override
     public Dashboard getDashboard(String name) {
-        return dashboardRepository.findOneByName(name);
+        return dashboardRepository.findOneByName(name, SORT_BY_LAST_MODIFICATION);
     }
 
     @Override
     public List<String> getReposByDashboardName(String name) {
-        Dashboard dashboard = dashboardRepository.findOneByName(name);
+        Dashboard dashboard = this.getDashboard(name);
         return dashboard == null ? null : dashboard.getCodeRepos();
     }
 
     @Override
     public List<String> getApplicationsByDashboardName(String name) {
-        Dashboard dashboard = dashboardRepository.findOneByName(name);
+        Dashboard dashboard = this.getDashboard(name);
         return dashboard == null ? null : dashboard.getApplications();
     }
 
     @Override
-    public Iterable<Dashboard> getActiveDashboards() {
-        return dashboardRepository.findByStatusNotOrStatusIsNull(DashboardStatus.DELETED);
+    public List<DashboardDTO> getActiveDashboards() {
+        return dashboardRepository.getActiveDashboards();
     }
 
     @Override
     public Boolean deleteDashboard(String name) {
-        Dashboard dashboard = dashboardRepository.findOneByName(name);
+        Dashboard dashboard = this.getDashboard(name);
         if (dashboard != null) {
             dashboard.setStatus(DELETED);
             dashboard.setLastModification(System.currentTimeMillis());
@@ -75,12 +78,11 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public Dashboard newDashboard(Dashboard dashboard) throws MirrorGateException {
-        Dashboard oldDashboard = dashboardRepository.findOneByName(dashboard.getName());
+        Dashboard oldDashboard = this.getDashboard(dashboard.getName());
         if (oldDashboard != null) {
             if (oldDashboard.getStatus() != DELETED) {
                 throw new MirrorGateException("Dashboard with name '" + dashboard.getName() + "' already exists");
             }
-            dashboard.setId(oldDashboard.getId());
         }
         dashboard.setStatus(ACTIVE);
         dashboard.setLastModification(System.currentTimeMillis());
@@ -93,12 +95,10 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public Dashboard updateDashboard(Dashboard dashboard) {
-        Dashboard toUpdate = dashboardRepository.findOneByName(dashboard.getName());
-
+        Dashboard toUpdate = this.getDashboard(dashboard.getName());
         if(toUpdate == null) {
             return null;
         } else {
-            dashboard.setId(toUpdate.getId());
             dashboard.setLastModification(System.currentTimeMillis());
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null && null != auth.getPrincipal()) {

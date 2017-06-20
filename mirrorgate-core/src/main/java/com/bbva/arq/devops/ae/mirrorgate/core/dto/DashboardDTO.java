@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package com.bbva.arq.devops.ae.mirrorgate.model;
+package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Dashboard info model
+ * Dashboard Data Transfer Object
  */
-@Document(collection = "dashboards")
-public class Dashboard extends BaseModel {
+public class DashboardDTO {
 
-    @Indexed
     private String name;
     private String displayName;
     private String logoUrl;
@@ -40,7 +36,6 @@ public class Dashboard extends BaseModel {
     private Filters filters;
     private DashboardStatus status;
     private String lastUserEdit;
-    @Indexed
     private long lastModification;
 
     public String getName() {
