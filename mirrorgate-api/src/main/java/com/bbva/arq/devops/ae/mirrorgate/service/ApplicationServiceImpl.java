@@ -96,7 +96,12 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private List<String> getApplicationNames(Iterable<DashboardDTO> activeDashboards) {
         List<String> appNames = new ArrayList<>();
-        activeDashboards.forEach(dashboard -> appNames.addAll(dashboard.getApplications()));
+        activeDashboards.forEach(dashboard -> {
+            List<String> dApps = dashboard.getApplications();
+            if(dApps != null) {
+                appNames.addAll(dApps);
+            }
+        });
 
         return appNames;
     }
