@@ -21,8 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +53,7 @@ public class BugControllerTests {
     @Autowired
     private WebApplicationContext wac;
     @MockBean
-    private FeatureService featureService;
+    private BugService bugService;
     @MockBean
     private DashboardService dashboardService;
 
@@ -75,7 +75,7 @@ public class BugControllerTests {
         bugs.add(bug2);
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(featureService.getActiveBugsByBoards(Arrays.asList(dashboard.getsProductName())))
+        when(bugService.getActiveBugsByBoards(Arrays.asList(dashboard.getsProductName())))
                 .thenReturn(bugs);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/bugs"))

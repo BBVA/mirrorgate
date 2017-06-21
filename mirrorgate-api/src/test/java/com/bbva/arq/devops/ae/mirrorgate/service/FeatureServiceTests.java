@@ -18,11 +18,6 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
@@ -66,42 +61,6 @@ public class FeatureServiceTests {
 
         assertThat(activeStoriesByDashboardName.get(0)).isEqualTo(story1);
         assertThat(activeStoriesByDashboardName.get(1)).isEqualTo(story2);
-    }
-
-    @Test
-    public void getActiveBugsByBoardsTest() {
-
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-
-        Feature bug1 = TestObjectBuilder.createBug();
-        Feature bug2 = TestObjectBuilder.createBug();
-
-        List<Feature> bugs = new ArrayList<>();
-        bugs.add(bug1);
-        bugs.add(bug2);
-
-        when(featureRepository.findBySProjectNameInAndSTypeNameAndSStatusNot(
-                Arrays.asList(dashboard.getName()),
-                IssueType.BUG.getName(),
-                IssueStatus.DONE.getName())
-        ).thenReturn(bugs);
-
-        List<BugDTO> activeBugsByDashboardName
-                = featureService.getActiveBugsByBoards(Arrays.asList(dashboard.getName()));
-        verify(featureRepository, times(1))
-                .findBySProjectNameInAndSTypeNameAndSStatusNot(
-                        Arrays.asList(dashboard.getName()),
-                        IssueType.BUG.getName(),
-                        IssueStatus.DONE.getName()
-                );
-
-        assertThat(activeBugsByDashboardName.get(0).getId()).isEqualTo(bug1.getsNumber());
-        assertThat(activeBugsByDashboardName.get(0).getPriority()).isEqualTo(BugPriority.fromName(bug1.getPriority()));
-        assertThat(activeBugsByDashboardName.get(0).getStatus()).isNotEqualTo(BugStatus.DONE);
-
-        assertThat(activeBugsByDashboardName.get(1).getId()).isEqualTo(bug2.getsNumber());
-        assertThat(activeBugsByDashboardName.get(1).getPriority()).isEqualTo(BugPriority.fromName(bug2.getPriority()));
-        assertThat(activeBugsByDashboardName.get(1).getStatus()).isNotEqualTo(BugStatus.DONE);
     }
 
 }

@@ -20,8 +20,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,12 +36,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class BugController {
 
     private final DashboardService dashboardService;
-    private final FeatureService featureService;
+    private final BugService bugService;
+
 
     @Autowired
-    public BugController(DashboardService dashboardService, FeatureService featureService) {
+    public BugController(DashboardService dashboardService, BugService bugService) {
         this.dashboardService = dashboardService;
-        this.featureService = featureService;
+        this.bugService = bugService;
     }
 
     @RequestMapping(value = "/dashboards/{name}/bugs",
@@ -49,7 +50,7 @@ public class BugController {
     public List<BugDTO> getBugs(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
         List<String> boards = dashboard.getBoards();
-        return featureService.getActiveBugsByBoards(boards);
+        return bugService.getActiveBugsByBoards(boards);
     }
 
 }

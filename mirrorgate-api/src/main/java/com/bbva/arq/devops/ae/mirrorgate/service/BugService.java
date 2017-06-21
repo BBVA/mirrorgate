@@ -15,28 +15,15 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import java.util.List;
 
 /**
- * Service for Feature model
+ *
+ * @author enrique
  */
-public interface FeatureService {
+public interface BugService {
 
-    /**
-     * Get active user stories of a project
-     *
-     * @param boards List of boards names
-     * @return List of active Features
-     */
-    List<Feature> getActiveUserStoriesByBoards(List<String> boards);
-
-    FeatureStats getFeatureStatsByKeywords(List<String> boards);
-
-    Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues);
-
-    void deleteStory(Long id);
+    List<BugDTO> getActiveBugsByBoards(List<String> boards);
 
 }
