@@ -30,6 +30,9 @@ public interface FeatureRepository extends CrudRepository<Feature, ObjectId>, Fe
     @Query(value = "{$or:[{sProjectName: {$in: ?0 }},{keywords:{$elemMatch:{$in: ?0 }}}], sSprintAssetState: 'ACTIVE'}")
     List<Feature> findActiveUserStoriesByBoards(List<String> boards, Sort sort);
 
+    @Query(value = "{sPiNames:{$elemMatch:{$in: ?0}}}")
+    List<Feature> findProductIncrementFeatures(String piName);
+
     List<Feature> findAllBysIdIn(Iterable<String> ids);
 
     void deleteBysId(String id);

@@ -39,6 +39,7 @@ public class Dashboard extends BaseModel {
     private DashboardStatus status;
     private String lastUserEdit;
     private long lastModification;
+    private String piName;
 
     public String getName() {
         return name;
@@ -122,4 +123,11 @@ public class Dashboard extends BaseModel {
         this.lastModification = lastModification;
     }
 
+    public String getPiName() {
+        return piName;
+    }
+
+    public void setPiName(String piName) {
+        this.piName = piName;
+    }
 }
