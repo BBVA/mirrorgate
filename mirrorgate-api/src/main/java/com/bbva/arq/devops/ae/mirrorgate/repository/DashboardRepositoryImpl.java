@@ -40,6 +40,7 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
                 sort(new Sort(Sort.Direction.DESC, "lastModification")),
                 group("name")
                 .first("name").as("name")
+                .first("status").as("status")
                 .first("logoUrl").as("logoUrl")
                 .first("applications").as("applications")
         );
