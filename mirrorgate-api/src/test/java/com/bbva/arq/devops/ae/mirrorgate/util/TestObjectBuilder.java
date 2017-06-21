@@ -18,7 +18,10 @@ package com.bbva.arq.devops.ae.mirrorgate.util;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType.BUG;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
@@ -35,6 +38,8 @@ public class TestObjectBuilder {
 
     private static final String DASHBOARD_NAME = "mirrorgate";
     private static final String PROJECT_NAME = "mirrorgate";
+    private static final String FEATURE_NAME = "feature";
+
 
     public static Dashboard createDashboard() {
         Dashboard dashboard = new Dashboard();
@@ -51,10 +56,10 @@ public class TestObjectBuilder {
         return dashboard;
     }
 
-    public static Feature createIncidence() {
-        Feature incidence = createActiveStory();
-        incidence.setsTypeName(BUG.getName());
-        return incidence;
+    public static Feature createBug() {
+        Feature bug = createActiveStory();
+        bug.setsTypeName(BUG.getName());
+        return bug;
     }
 
     public static Feature createActiveStory() {
@@ -63,7 +68,16 @@ public class TestObjectBuilder {
         story.setsId(ObjectId.get().toString());
         story.setsSprintAssetState("Active");
         story.setsProjectName(PROJECT_NAME);
+        story.setsNumber(FEATURE_NAME);
         return story;
+    }
+
+    public static BugDTO createBugDTO() {
+        BugDTO bug = new BugDTO();
+        bug.setId(FEATURE_NAME);
+        bug.setPriority(BugPriority.MEDIUM);
+        bug.setStatus(BugStatus.IN_PROGRESS);
+        return bug;
     }
 
     public static DashboardDTO createDashboardDTO() {

@@ -1,11 +1,11 @@
 /*
- * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A..
+ * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.core.utils;
 
 import java.util.HashMap;
@@ -22,25 +23,20 @@ import java.util.Map;
  *
  * @author enrique
  */
-public enum IssueType {
+public enum BugStatus {
 
-    EPIC("Epic"),
-    STORY("Story"),
-    FEATURE("Feature"),
-    BUG("Bug"),
-    TASK("Task");
+    IN_PROGRESS("In Progress"), DONE("Done"), BACKLOG("Backlog"), WAITING("Waiting"), IMPEDED("Impeded");
 
-    private static final Map<String, IssueStatus> NAME_MAP = new HashMap<String, IssueStatus>() {
+    private static final Map<String, BugStatus> NAME_MAP = new HashMap<String, BugStatus>() {
         {
-            for (IssueStatus st : IssueStatus.values()) {
-                put(st.getName(), st);
-            }
+            for (BugStatus st : BugStatus.values()) {
+            put(st.getName(), st);
         }
-    };
+    }};
 
-    private final String name;
+    private String name;
 
-    IssueType(String name) {
+    BugStatus(String name) {
         this.name = name;
     }
 
@@ -48,7 +44,7 @@ public enum IssueType {
         return name;
     }
 
-    public static IssueStatus fromName(String name) {
+    public static BugStatus fromName(String name) {
         return name == null ? null : NAME_MAP.get(name);
     }
 

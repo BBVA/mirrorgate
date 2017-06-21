@@ -18,14 +18,11 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IncidencesDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,30 +33,24 @@ import org.springframework.web.bind.annotation.RestController;
  * @author enrique
  */
 @RestController
-public class IncidenceController {
+public class BugController {
 
     private final DashboardService dashboardService;
-    private final FeatureService featureService;
+    private final BugService bugService;
+
 
     @Autowired
-    public IncidenceController(DashboardService dashboardService, FeatureService featureService) {
+    public BugController(DashboardService dashboardService, BugService bugService) {
         this.dashboardService = dashboardService;
-        this.featureService = featureService;
+        this.bugService = bugService;
     }
 
-    @RequestMapping(value = "/dashboards/{name}/incidences",
+    @RequestMapping(value = "/dashboards/{name}/bugs",
             method = GET, produces = APPLICATION_JSON_VALUE)
-    public Map<String, Object> getIncidences(@PathVariable("name") String name) {
+    public List<BugDTO> getBugs(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
         List<String> boards = dashboard.getBoards();
-
-        Map<String, Object> response = new HashMap<>();
-
-        IncidencesDTO dto = new IncidencesDTO();
-        dto.setnIncidences(((Collection<?>) featureService.getActiveIncidencesByBoards(boards)).size());
-
-        response.put("Incidences", dto);
-        return response;
+        return bugService.getActiveBugsByBoards(boards);
     }
 
 }
