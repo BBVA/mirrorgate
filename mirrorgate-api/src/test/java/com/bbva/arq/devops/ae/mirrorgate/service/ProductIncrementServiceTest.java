@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,9 +37,22 @@ public class ProductIncrementServiceTest {
         PINamesAggregationResult piNames = new FeatureRepositoryImpl.PINamesAggregationResult(piNamesList);
 
         when(featureRepository.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
-        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"));
+        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"), Optional.ofNullable(null));
 
         assertNull(activePIName);
+    }
+
+    @Test
+    public void testProductIncrementWithUserDefinedRegex(){
+
+        List<String> piNamesList = Arrays.asList("AE_2017_PI03_(2016/12/04-2017/01/28)", "AE_2016_PI02_(2016/11/04-2016/12/03)");
+        PINamesAggregationResult piNames = new FeatureRepositoryImpl.PINamesAggregationResult(piNamesList);
+
+        when(featureRepository.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
+        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"),
+            Optional.of("AE_2017_PI03_.*"));
+
+        assertEquals(activePIName, "AE_2017_PI03_(2016/12/04-2017/01/28)");
     }
 
     @Test
@@ -50,7 +64,7 @@ public class ProductIncrementServiceTest {
         PINamesAggregationResult piNames = new FeatureRepositoryImpl.PINamesAggregationResult(piNamesList);
 
         when(featureRepository.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
-        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"));
+        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"), Optional.ofNullable(null));
 
         assertEquals(activePIName, expectedProductIncrement);
     }
@@ -64,7 +78,7 @@ public class ProductIncrementServiceTest {
         PINamesAggregationResult piNames = new FeatureRepositoryImpl.PINamesAggregationResult(piNamesList);
 
         when(featureRepository.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
-        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"));
+        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"), Optional.ofNullable(null));
 
         assertEquals(activePIName, expectedProductIncrement);
     }

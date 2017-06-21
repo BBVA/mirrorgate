@@ -18,6 +18,7 @@ export class Dashboard {
   name: string;
   displayName: string;
   logoUrl: string;
+  productIncrement: string;
   applications: string[] = [];
   codeRepos: string[] = [];
   boards: string[] = [];

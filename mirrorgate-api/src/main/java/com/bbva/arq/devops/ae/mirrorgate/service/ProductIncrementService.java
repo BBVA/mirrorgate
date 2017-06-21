@@ -8,6 +8,7 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.PIName
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductIncrementService {
 
-    private Pattern dateRegex = Pattern.compile("(?<date1>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<date2>[0-9]{4}/[0-9]{2}/[0-9]{2})");
+    private Pattern dateRegex = Pattern.compile("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})");
 
     private FeatureRepository featureRepository;
     private DashboardRepository dashboardRepository;
@@ -33,13 +34,14 @@ public class ProductIncrementService {
 
         Dashboard dashboard = dashboardRepository.findOneByName(dashboardName);
         List<String> boards = dashboard.getBoards();
+        Optional<String> productIncrementExpression = Optional.ofNullable(dashboard.getProductIncrement());
 
-        String currentPIName = getProductIncrementNameForBoard(boards);
+        String currentPIName = getProductIncrementNameForBoard(boards, productIncrementExpression);
 
         return featureRepository.findProductIncrementFeatures(currentPIName);
     }
 
-    public String getProductIncrementNameForBoard(List<String> boards){
+    String getProductIncrementNameForBoard(List<String> boards, Optional<String> productIncrementExpression){
 
         PINamesAggregationResult result = featureRepository.getProductIncrementFromFeatures(boards);
 
@@ -51,16 +53,28 @@ public class ProductIncrementService {
         for(int i=0; i<piNames.size(); i++){
 
             String piName = piNames.get(i);
-            Matcher matcher = dateRegex.matcher(piName);
+            Pattern piRegex;
+
+            if(productIncrementExpression.isPresent()){
+                piRegex = Pattern.compile("^" + productIncrementExpression.get() + "$");
+            } else {
+                piRegex = dateRegex;
+            }
+
+            Matcher matcher = piRegex.matcher(piName);
 
             while(matcher.find()){
-                //get groups
-                String date1 = matcher.group("date1");
-                String date2 = matcher.group("date2");
+                if(matcher.groupCount()>1){
+                    //get groups
+                    String startDate = matcher.group("startDate");
+                    String endDate = matcher.group("endDate");
 
-                if(findIfLocalDateIsInRange(date1, date2)){
-                    //This is our PI!
-                    return piName;
+                    if(findIfLocalDateIsInRange(startDate, endDate)){
+                        //This is our PI!
+                        return piName;
+                    }
+                } else {
+                    return matcher.group();
                 }
             }
         }

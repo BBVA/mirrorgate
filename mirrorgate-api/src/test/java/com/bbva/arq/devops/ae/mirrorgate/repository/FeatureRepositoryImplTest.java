@@ -44,7 +44,6 @@ public class FeatureRepositoryImplTest {
     @Test
     public void testAggregationWithoutResults(){
         PINamesAggregationResult piNames = featureRepository.getProductIncrementFromFeatures(Arrays.asList("mirrorgate2"));
-
         assertEquals(piNames, null);
     }
 
