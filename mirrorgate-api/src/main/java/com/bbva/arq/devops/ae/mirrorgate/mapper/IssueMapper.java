@@ -35,7 +35,10 @@ public class IssueMapper {
         target.setsName(source.getName());
         target.setsId(source.getId().toString());
         target.setsStatus(source.getStatus().getName());
-        target.setPriority(source.getPriority().getName());
+        if(source.getPriority() != null) {
+            target.setPriority(source.getPriority().getName());
+        }
+        
         target.setKeywords(source.getKeywords());
         target.setsTypeName(source.getType());
         target.setsNumber(source.getJiraKey());
