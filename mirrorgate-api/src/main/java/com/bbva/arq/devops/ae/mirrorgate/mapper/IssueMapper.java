@@ -37,6 +37,8 @@ public class IssueMapper {
         target.setsStatus(source.getStatus().getName());
         if(source.getPriority() != null) {
             target.setPriority(source.getPriority().getName());
+        } else {
+            target.setPriority(null);
         }
         
         target.setKeywords(source.getKeywords());
@@ -52,11 +54,20 @@ public class IssueMapper {
             target.setsSprintAssetState(sprint.getStatus() == null ? null : sprint.getStatus().name());
             target.setSprintBeginDate(sprint.getStartDate());
             target.setSprintEndDate(sprint.getEndDate());
+        } else {
+            target.setsSprintID(null);
+            target.setsSprintName(null);
+            target.setsSprintAssetState(null);
+            target.setSprintBeginDate(null);
+            target.setSprintEndDate(null);
         }
         ProjectDTO project = source.getProject();
         if(project != null) {
             target.setsProjectId(project.getId() == null ? null : project.getId().toString());
             target.setsProjectName(project.getName());
+        } else {
+            target.setsProjectId(null);
+            target.setsProjectName(null);
         }
         return target;
     }
