@@ -16,6 +16,7 @@
   -->
 
 <html>
+
 <head>
   <title>MirrorGate dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,7 +30,7 @@
 
   <link rel="stylesheet" href="css/styles.css" />
 
-  <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
 
   <!-- build:js js/vendor.min.js -->
   <script src="bower_components/jquery/dist/jquery.slim.min.js"></script>
@@ -52,24 +53,26 @@
   <script src="js/app.js"></script>
   <!-- endbuild -->
 
-  <link rel="import" href="components/board-column/component.html" >
-  <link rel="import" href="components/tile-container/component.html" >
-  <link rel="import" href="components/details/component.html" >
-  <link rel="import" href="components/tiles/builds/graph.html" >
-  <link rel="import" href="components/tiles/builds/stats.html" >
-  <link rel="import" href="components/tiles/team/currentSprint.html" >
-  <link rel="import" href="components/tiles/team/nextSprint.html" >
-  <link rel="import" href="components/tiles/markets/component.html" >
-  <link rel="import" href="components/tiles/markets/reviews-component.html" >
-  <link rel="import" href="components/tiles/incidences/component.html" >
+  <link rel="import" href="components/board-column/component.html">
+  <link rel="import" href="components/tile-container/component.html">
+  <link rel="import" href="components/details/component.html">
+  <link rel="import" href="components/tiles/builds/graph.html">
+  <link rel="import" href="components/tiles/builds/stats.html">
+  <link rel="import" href="components/tiles/team/currentSprint.html">
+  <link rel="import" href="components/tiles/team/nextSprint.html">
+  <link rel="import" href="components/tiles/markets/component.html">
+  <link rel="import" href="components/tiles/markets/reviews-component.html">
+  <link rel="import" href="components/tiles/incidences/component.html">
+  <link rel="import" href="components/tiles/productIncrement/component.html">
 
 </head>
+
 <body>
 
   <div class="main-content">
     <div class="header">
       <div class="logos">
-        <img class="logo--ae" src="img/logo-ae.png"/>
+        <img class="logo--ae" src="img/logo-ae.png" />
       </div>
       <details-dashboard></details-dashboard>
       <div class="menu">
@@ -88,27 +91,30 @@
 
     <div class="dashboard">
       <board-column>
+        <tile-container class="tile--secondary">
+          <product-increment-tile class="tile component"></product-increment-tile>
+        </tile-container>
         <tile-container class="tile--primary">
-            <current-sprint-tile class="tile component tile--primary"></current-sprint-tile>
+          <current-sprint-tile class="tile component tile--primary"></current-sprint-tile>
 
-            <div class="legend">
-                <div class="legend__item">
-                    <span class="legend__color legend__color--green"></span>Done
-                </div>
-                <div class="legend__item">
-                    <span class="legend__color legend__color--blue"></span>In progress
-                </div>
-                <div class="legend__item">
-                    <span class="legend__color legend__color--red"></span>Blocked
-                </div>
-                <!--<div class="legend__item">
+          <div class="legend">
+            <div class="legend__item">
+              <span class="legend__color legend__color--green"></span>Done
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--blue"></span>In progress
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--red"></span>Blocked
+            </div>
+            <!--<div class="legend__item">
                     <span class="legend__color legend__color--yellow"></span>Unplanned
                 </div>-->
 
-                <div class="legend__item">
-                    <span class="legend__color"></span>To Do
-                </div>
+            <div class="legend__item">
+              <span class="legend__color"></span>To Do
             </div>
+          </div>
         </tile-container>
         <tile-container class="tile--secondary">
           <next-sprint-tile class="tile component"></next-sprint-tile>
@@ -119,37 +125,37 @@
           <incidences-tile class="tile component"></incidences-tile>
         </tile-container>
         <tile-container class="tile--primary">
-            <builds-tile class="tile component tile--primary"></builds-tile>
-            <div class="legend">
-                <div class="legend__item">
-                    <span class="legend__build-item legend__build-item--product"></span>Master
-                </div>
-                <div class="legend__item">
-                    <span class="legend__build-item legend__build-item--repos"></span>Develop
-                </div>
-                <div class="legend__item">
-                    <span class="legend__build-item  legend__build-item--branches"></span>Branches
-                </div>
+          <builds-tile class="tile component tile--primary"></builds-tile>
+          <div class="legend">
+            <div class="legend__item">
+              <span class="legend__build-item legend__build-item--product"></span>Master
             </div>
+            <div class="legend__item">
+              <span class="legend__build-item legend__build-item--repos"></span>Develop
+            </div>
+            <div class="legend__item">
+              <span class="legend__build-item  legend__build-item--branches"></span>Branches
+            </div>
+          </div>
         </tile-container>
         <tile-container class="tile--secondary">
-            <buildsstats-tile class="tile component"></buildsstats-tile>
+          <buildsstats-tile class="tile component"></buildsstats-tile>
         </tile-container>
       </board-column>
 
       <board-column>
         <tile-container class="tile markets tile--primary">
-            <markets-tile class="component"></markets-tile>
+          <markets-tile class="component"></markets-tile>
         </tile-container>
         <tile-container class="tile reviews tile--primary">
-            <reviews-tile class="component"></reviews-tile>
+          <reviews-tile class="component"></reviews-tile>
         </tile-container>
       </board-column>
 
     </div>
-      <!-- / .dashboard -->
+    <!-- / .dashboard -->
 
-      <!--<div class="bottom">
+    <!--<div class="bottom">
         <div class="notifications">
           <div class="notifications__column">
 
@@ -186,4 +192,5 @@
 
   </div>
 </body>
+
 </html>

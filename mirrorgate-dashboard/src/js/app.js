@@ -25,7 +25,8 @@ function MainController() {
       buildsstats: 'codeRepos',
       'current-sprint': 'boards',
       'next-sprint': 'boards',
-      incidences: 'boards'
+      incidences: 'boards',
+      'product-increment':'productIncrement',
     };
 
     // Display tiles only when details are avail

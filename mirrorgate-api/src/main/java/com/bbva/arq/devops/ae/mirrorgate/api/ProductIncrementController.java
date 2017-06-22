@@ -6,6 +6,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.service.ProductIncrementService;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductIncrementController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductIncrementController.class);
+
     private ProductIncrementService productIncrementService;
 
     @Autowired
@@ -21,10 +25,16 @@ public class ProductIncrementController {
         this.productIncrementService = productIncrementService;
     }
 
-    @RequestMapping(value = "/dashboards/{name}/pi", method = GET, produces = APPLICATION_JSON_VALUE)
-    public List<Feature> getAtiveUserStories(@PathVariable("name") String name) {
+    @RequestMapping(value = "/dashboards/{name}/productincrement", method = GET, produces = APPLICATION_JSON_VALUE)
+    public int getAtiveUserStories(@PathVariable("name") String name) {
 
-        return productIncrementService.getProductIncrementFeatures(name);
+        try{
+            List<Feature> features = productIncrementService.getProductIncrementFeatures(name);
+            return features != null ? features.size() : 0;
+        } catch(Exception e) {
+            LOGGER.error("Exception while retrieveing PI features",e);
+            return 0;
+        }
     }
 
 }

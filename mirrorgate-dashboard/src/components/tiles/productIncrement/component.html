@@ -1,0 +1,83 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- incidences:js component.min.js -->
+<script src="model.js"></script>
+<script src="controller.js"></script>
+<!-- endbuild -->
+
+<template>
+  <style>
+    @import "css/styles.css";
+  </style>
+
+  <div class="component__content">
+    <div class="component__header">
+      <h2 class="title">Product Increment</h2>
+    </div>
+    <div class="component__body">
+      <div class="indicator">
+        <div class="stat" rv-show="productIncrement.featuresNumber">{productIncrement.featuresNumber} ongoing features</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  (function (window, document, undefined) {
+
+    // Refers to the "importee", which is components/builds-dashboard.html
+    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
+    var tmpl = thisDoc.querySelector('template');
+
+    // Creates an object based in the HTML Element prototype
+    var MyElementProto = Object.create(Tile);
+
+    MyElementProto.processAlerts = function (data) {
+      Utils.raiseEvent(this, {
+        status: data ? 'unknown' : 'server-error'
+      });
+    }
+
+    MyElementProto.getControllerClass = function () {
+      return ProductIncrementController;
+    };
+
+    MyElementProto.getTemplate = function () {
+      return tmpl;
+    };
+
+    // Fires when an instance of the element is created
+    MyElementProto.render = function (data) {
+
+      this.processAlerts(data);
+
+      var model = this.getModel();
+
+      if (data) {
+        debugger;
+        model.productIncrement = data;
+      }
+    };
+
+    window.MyElement = document.registerElement('product-increment-tile', {
+      prototype: MyElementProto
+    });
+
+  })(window, document);
+
+</script>

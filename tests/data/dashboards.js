@@ -27,7 +27,21 @@ db.getCollection('dashboards').insertMany([
         "boards":[
             "MirrorGate"
         ]
-    },    
+    },
+    {
+        "name":"product-increment",
+        "displayName":"Product Increment",
+        "codeRepos":[
+            "mirrorgate-app",
+            "MirrorGate",
+            "jira-collector",
+            "design"
+        ],
+        "boards":[
+            "ProductIncrement"
+        ],
+        'productIncrement': 'PI0.*'
+    },
     {
         "name":"nothing"
     },

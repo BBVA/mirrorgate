@@ -11,11 +11,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductIncrementService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductIncrementService.class);
 
     private Pattern dateRegex = Pattern.compile("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})");
 
@@ -32,11 +36,15 @@ public class ProductIncrementService {
 
     public List<Feature> getProductIncrementFeatures(String dashboardName){
 
+        LOGGER.debug("Getting product increment information for dashboard : {}", dashboardName);
+
         Dashboard dashboard = dashboardRepository.findOneByName(dashboardName);
         List<String> boards = dashboard.getBoards();
         Optional<String> productIncrementExpression = Optional.ofNullable(dashboard.getProductIncrement());
 
         String currentPIName = getProductIncrementNameForBoard(boards, productIncrementExpression);
+
+        LOGGER.debug("Dashboard current product increment : {}", currentPIName);
 
         return featureRepository.findProductIncrementFeatures(currentPIName);
     }
