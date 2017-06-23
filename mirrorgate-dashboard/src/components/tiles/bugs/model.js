@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
@@ -14,28 +15,15 @@
  * limitations under the License.
  */
 
-describe('IncidencesController', () => {
-
-  var server;
-  var controller;
-  
-  beforeEach(() => {
-    server = buildFakeServer();
-    server.autoRespond = true;
-    controller = new IncidencesController(dashboardForTesting);
-    controller.init();
-  });
-
-  it('should get active incidences', (done) => {
-    controller.observable.attach((response) => {
-      expect(_.isEqual(response, incidencesForTesting)).toBe(true);
-      done();
-    });
-  });
-
-  afterEach(() => {
-    server.restore();
-    controller.dispose();
-  });
-
-});
+/**
+ * Bug model
+ * 
+ * @param {String} id       Bug Id
+ * @param {String} priority Bug priority [CRITICAL, NORMAL, MAYOR, MINOR, ...]
+ * @param {String} status   Bug status [BLOCK, IN_PROGRESS, DONE, ...]
+ */
+function Bug(id, priority, status) {
+  this.id = id;
+  this.priority = priority;
+  this.status = status; 
+}

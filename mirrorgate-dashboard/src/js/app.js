@@ -25,7 +25,7 @@ function MainController() {
       buildsstats: 'codeRepos',
       'current-sprint': 'boards',
       'next-sprint': 'boards',
-      incidences: 'boards'
+      bugs: 'boards'
     };
 
     // Display tiles only when details are avail

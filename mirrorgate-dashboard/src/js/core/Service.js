@@ -82,7 +82,7 @@ var Service = (function() {
 
   var self = {
     types: {
-      incidences: new ServiceType(Timer.frequently, 'incidences'),
+      bugs: new ServiceType(Timer.frequently, 'bugs'),
       builds: new ServiceType(Timer.frequently, 'builds'),
       stories: new ServiceType(Timer.eventually, 'stories'),
       apps: new ServiceType(Timer.eventually, 'applications'),

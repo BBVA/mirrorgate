@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bbva.arq.devops.ae.mirrorgate.repository;
+package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import org.bson.types.ObjectId;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.CrudRepository;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
+import java.util.List;
 
 /**
- * Dashboards Repository
+ *
+ * @author enrique
  */
-public interface DashboardRepository extends CrudRepository<Dashboard, ObjectId>, DashboardRepositoryCustom {
+public interface BugService {
 
-    Dashboard findOneByName(String name, Sort sort);
+    List<BugDTO> getActiveBugsByBoards(List<String> boards);
 
 }

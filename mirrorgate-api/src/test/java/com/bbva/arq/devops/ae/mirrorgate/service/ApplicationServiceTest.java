@@ -21,15 +21,14 @@ import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.when;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -50,14 +49,14 @@ public class ApplicationServiceTest {
 
     @Test
     public void testApplicationService(){
-        Dashboard dashboard1 = createDashboard("mirrorgate", Arrays.asList("mirrorgate", "mood"));
-        Dashboard dashboard2 = createDashboard("samuel", Arrays.asList("samuel1", "samuel2"));
-        List<Dashboard> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
+        DashboardDTO dashboard1 = TestObjectBuilder.createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
+        DashboardDTO dashboard2 = TestObjectBuilder.createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
+        List<DashboardDTO> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
 
-        ApplicationReviewsDTO applicationReviewsDTO1 = createApplicationDTO("mirrorgate", Platform.IOS);
+        ApplicationReviewsDTO applicationReviewsDTO1 = TestObjectBuilder.createApplicationDTO("mirrorgate", Platform.IOS);
         List<ApplicationReviewsDTO> applicationReviewsDTOList = Arrays.asList(applicationReviewsDTO1);
 
-        when(dashboardRepository.findByStatusNotOrStatusIsNull(DashboardStatus.DELETED)).thenReturn(listOfDashboards);
+        when(dashboardRepository.getActiveDashboards()).thenReturn(listOfDashboards);
         when(reviewRepository.getLastReviewPerApplication(anyList())).thenReturn(applicationReviewsDTOList);
 
         List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
@@ -67,47 +66,18 @@ public class ApplicationServiceTest {
 
     @Test
     public void testNoReviewsForAnyApp(){
-        Dashboard dashboard1 = createDashboard("mirrorgate", Arrays.asList("mirrorgate", "mood"));
-        Dashboard dashboard2 = createDashboard("samuel", Arrays.asList("samuel1", "samuel2"));
-        List<Dashboard> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
+        DashboardDTO dashboard1 = TestObjectBuilder.createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
+        DashboardDTO dashboard2 = TestObjectBuilder.createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
+        List<DashboardDTO> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
 
         List<ApplicationReviewsDTO> applicationReviewsDTOList = new ArrayList<>();
 
-        when(dashboardRepository.findByStatusNotOrStatusIsNull(DashboardStatus.DELETED)).thenReturn(listOfDashboards);
+        when(dashboardRepository.getActiveDashboards()).thenReturn(listOfDashboards);
         when(reviewRepository.getLastReviewPerApplication(anyList())).thenReturn(applicationReviewsDTOList);
 
         List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
 
         assertTrue(reviews.size() == 4);
-    }
-
-
-    private Dashboard createDashboard(String name, List<String> applications) {
-        Dashboard dashboard = new Dashboard();
-
-        dashboard.setId(ObjectId.get());
-        dashboard.setName(name);
-        String urlRepo1 = "http.//repo1.git";
-        String urlRepo2 = "http.//repo2.git";
-        List<String> codeRepos = new ArrayList<>();
-        codeRepos.add(urlRepo1);
-        codeRepos.add(urlRepo2);
-        dashboard.setCodeRepos(codeRepos);
-        dashboard.setApplications(applications);
-
-        return dashboard;
-    }
-
-    private ApplicationReviewsDTO createApplicationDTO(String name, Platform platform) {
-
-        ApplicationReviewsDTO applicationReviewsDTO = new ApplicationReviewsDTO();
-
-        applicationReviewsDTO.setCommentId("12");
-        applicationReviewsDTO.setAppId(name);
-        applicationReviewsDTO.setAppName(name);
-        applicationReviewsDTO.setPlatform(platform);
-
-        return applicationReviewsDTO;
     }
 
 }

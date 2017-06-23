@@ -112,6 +112,12 @@
           <button type="submit" class="btn btn-success" [disabled]="!dashboardForm.form.valid">Save</button>
         </div>
       </div>
+      
+      <div class="row" *ngIf="dashboard.lastModification">
+          <div class="col-sm-12">
+          <span> Last modification {{ dashboard.lastModification | date:'medium' }} </span> <span *ngIf="dashboard.lastUserEdit"> by {{ dashboard.lastUserEdit }} </span>
+        </div> 
+      </div>
 
     </form>
   </div>

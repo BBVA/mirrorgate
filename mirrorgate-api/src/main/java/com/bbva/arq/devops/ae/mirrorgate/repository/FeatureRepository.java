@@ -34,5 +34,5 @@ public interface FeatureRepository extends CrudRepository<Feature, ObjectId>, Fe
 
     void deleteBysId(String id);
 
-    Iterable<Feature> findBySProjectNameInAndSTypeNameAndSStatusNot(List<String> boards, String type, String status);
+    List<Feature> findBySProjectNameInAndSTypeNameAndSStatusNot(List<String> boards, String type, String status);
 }

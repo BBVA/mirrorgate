@@ -39,6 +39,4 @@ public interface FeatureService {
 
     void deleteStory(Long id);
 
-    Iterable<Feature> getActiveIncidencesByBoards(List<String> boards);
-
 }

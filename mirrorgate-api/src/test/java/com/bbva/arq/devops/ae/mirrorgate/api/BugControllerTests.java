@@ -15,16 +15,14 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,16 +44,16 @@ import org.springframework.web.context.WebApplicationContext;
  * @author enrique
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(IncidenceController.class)
+@WebMvcTest(BugController.class)
 @WebAppConfiguration
-public class IncidenceControllerTests {
+public class BugControllerTests {
 
     private MockMvc mockMvc = null;
 
     @Autowired
     private WebApplicationContext wac;
     @MockBean
-    private FeatureService featureService;
+    private BugService bugService;
     @MockBean
     private DashboardService dashboardService;
 
@@ -65,24 +63,23 @@ public class IncidenceControllerTests {
     }
 
     @Test
-    public void getIncidencesTest() throws Exception {
+    public void getBugsTest() throws Exception {
 
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
-        Feature inc1 = TestObjectBuilder.createIncidence();
-        Feature inc2 = TestObjectBuilder.createIncidence();
+        BugDTO bug1 = TestObjectBuilder.createBugDTO();
+        BugDTO bug2 = TestObjectBuilder.createBugDTO();
 
-        List<Feature> incidences = new ArrayList<>();
-        incidences.add(inc1);
-        incidences.add(inc2);
+        List<BugDTO> bugs = new ArrayList<>();
+        bugs.add(bug1);
+        bugs.add(bug2);
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(featureService.getActiveIncidencesByBoards(Arrays.asList(dashboard.getsProductName())))
-                .thenReturn(incidences);
+        when(bugService.getActiveBugsByBoards(Arrays.asList(dashboard.getsProductName())))
+                .thenReturn(bugs);
 
-        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/incidences"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.Incidences.nIncidences", equalTo(incidences.size())));
+        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/bugs"))
+                .andExpect(status().isOk());
     }
 
 }
