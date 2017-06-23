@@ -91,9 +91,6 @@
 
     <div class="dashboard">
       <board-column>
-        <tile-container class="tile--secondary">
-          <product-increment-tile class="tile component"></product-increment-tile>
-        </tile-container>
         <tile-container class="tile--primary">
           <current-sprint-tile class="tile component tile--primary"></current-sprint-tile>
 
@@ -117,13 +114,13 @@
           </div>
         </tile-container>
         <tile-container class="tile--secondary">
+          <product-increment-tile class="tile component"></product-increment-tile>
+        </tile-container>
+        <tile-container class="tile--secondary">
           <next-sprint-tile class="tile component"></next-sprint-tile>
         </tile-container>
       </board-column>
       <board-column>
-        <tile-container class="tile--secondary">
-          <incidences-tile class="tile component"></incidences-tile>
-        </tile-container>
         <tile-container class="tile--primary">
           <builds-tile class="tile component tile--primary"></builds-tile>
           <div class="legend">
@@ -137,6 +134,9 @@
               <span class="legend__build-item  legend__build-item--branches"></span>Branches
             </div>
           </div>
+        </tile-container>
+        <tile-container class="tile--secondary">
+          <incidences-tile class="tile component"></incidences-tile>
         </tile-container>
         <tile-container class="tile--secondary">
           <buildsstats-tile class="tile component"></buildsstats-tile>

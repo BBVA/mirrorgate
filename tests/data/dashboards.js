@@ -26,7 +26,8 @@ db.getCollection('dashboards').insertMany([
         "applications":['moods'],
         "boards":[
             "MirrorGate"
-        ]
+        ],
+        'productIncrement': 'MG02'
     },
     {
         "name":"product-increment",
