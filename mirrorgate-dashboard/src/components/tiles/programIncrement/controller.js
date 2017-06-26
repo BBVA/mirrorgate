@@ -18,29 +18,29 @@
  * ProductIncrementController controller to show product increment information
  */
 
-var ProductIncrementController = (
+var ProgramIncrementController = (
   function(dashboardId){
-    var observable = new Event('ProductIncrementController');
-    var service = Service.get(Service.types.productincrement, dashboardId);
+    var observable = new Event('ProgramIncrementController');
+    var service = Service.get(Service.types.programincrement, dashboardId);
 
-    function getProductIncrement(response) {
-      var productIncrement;
+    function getProgramIncrement(response) {
+      var programIncrement;
 
       if(response) {
-        productIncrement = new ProductIncrement(JSON.parse(response));
+        programIncrement = new ProgramIncrement(JSON.parse(response));
       }
 
-      observable.notify(productIncrement);
+      observable.notify(programIncrement);
 
     }
 
     this.observable = observable;
     this.dispose = function() {
       this.observable.reset();
-      service.removeListener(getProductIncrement);
+      service.removeListener(getProgramIncrement);
     };
     this.init = function() {
-      service.addListener(getProductIncrement);
+      service.addListener(getProgramIncrement);
     };
   }
 );

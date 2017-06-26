@@ -7,15 +7,15 @@ db.getCollection('feature').insertMany([
     'sStatus': 'Backlog',
     'dEstimate': 3,
     'sSprintID': '1225',
-    'sSprintName': 'PRODUCT_INCREMENT_SP4',
+    'sSprintName': 'PROGRAM_INCREMENT_SP4',
     'sSprintAssetState': 'ACTIVE',
     'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
     'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
     'sProjectId': null,
-    'sProjectName': 'ProductIncrement',
+    'sProjectName': 'ProgramIncrement',
     'sPiNames': ['PI02'],
     'keywords': [
-          'ProductIncrement'
+          'ProgramIncrement'
         ]
   },
   {
@@ -26,15 +26,15 @@ db.getCollection('feature').insertMany([
     'sStatus': 'Backlog',
     'dEstimate': 3,
     'sSprintID': '1225',
-    'sSprintName': 'PRODUCT_INCREMENT_SP4',
+    'sSprintName': 'PROGRAM_INCREMENT_SP4',
     'sSprintAssetState': 'ACTIVE',
     'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
     'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
     'sProjectId': null,
-    'sProjectName': 'ProductIncrement',
+    'sProjectName': 'ProgramIncrement',
     'sPiNames': ['PI01'],
         'keywords': [
-              'ProductIncrement'
+              'ProgramIncrement'
             ]
   },
   {
@@ -45,15 +45,15 @@ db.getCollection('feature').insertMany([
     'sStatus': 'Active',
     'dEstimate': 8,
     'sSprintID': '1225',
-    'sSprintName': 'PRODUCT_INCREMENT_SP4',
+    'sSprintName': 'PROGRAM_INCREMENT_SP4',
     'sSprintAssetState': 'ACTIVE',
     'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
     'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
     'sProjectId': null,
-    'sProjectName': 'ProductIncrement',
+    'sProjectName': 'ProgramIncrement',
     'sPiNames': ['PI01','PI02'],
         'keywords': [
-              'ProductIncrement'
+              'ProgramIncrement'
             ]
   }
 ]);

@@ -102,7 +102,7 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
     }
 
     @Override
-    public PINamesAggregationResult getProductIncrementFromFeatures(List<String> boards) {
+    public ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards) {
 
         Aggregation agg = newAggregation(
             match(Criteria
@@ -117,17 +117,17 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
                 .as("piNames")
         );
 
-        AggregationResults<PINamesAggregationResult> aggregationResult
-            = mongoTemplate.aggregate(agg, "feature", PINamesAggregationResult.class);
+        AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult
+            = mongoTemplate.aggregate(agg, "feature", ProgramIncrementNamesAggregationResult.class);
 
         return aggregationResult.getUniqueMappedResult();
     }
 
-    public static class PINamesAggregationResult{
+    public static class ProgramIncrementNamesAggregationResult {
 
         private List<String> piNames;
 
-        public PINamesAggregationResult(List<String> piNames){
+        public ProgramIncrementNamesAggregationResult(List<String> piNames){
             this.piNames = piNames;
         }
 

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.PINamesAggregationResult;
+import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
@@ -31,7 +31,7 @@ public class FeatureRepositoryImplTest {
 
     @Test
     public void testAggregationWithResults(){
-        PINamesAggregationResult piNames = featureRepository.getProductIncrementFromFeatures(Arrays.asList("mirrorgate"));
+        ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromFeatures(Arrays.asList("mirrorgate"));
 
         assertEquals(piNames.getPiNames().size(), 5);
         assertTrue(piNames.getPiNames().contains("PI1"));
@@ -43,7 +43,7 @@ public class FeatureRepositoryImplTest {
 
     @Test
     public void testAggregationWithoutResults(){
-        PINamesAggregationResult piNames = featureRepository.getProductIncrementFromFeatures(Arrays.asList("mirrorgate2"));
+        ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromFeatures(Arrays.asList("mirrorgate2"));
         assertEquals(piNames, null);
     }
 

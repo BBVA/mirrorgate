@@ -16,7 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.PINamesAggregationResult;
+import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.List;
 
 
@@ -26,5 +26,5 @@ public interface FeatureRepositoryCustom {
 
     SprintStats getSprintStatsByKeywords(List<String> boards);
 
-    PINamesAggregationResult getProductIncrementFromFeatures(List<String> boards);
+    ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards);
 }

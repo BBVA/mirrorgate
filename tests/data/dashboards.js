@@ -27,11 +27,11 @@ db.getCollection('dashboards').insertMany([
         "boards":[
             "MirrorGate"
         ],
-        'productIncrement': 'MG02'
+        'programIncrement': 'MG02'
     },
     {
-        "name":"product-increment",
-        "displayName":"Product Increment",
+        "name":"program-increment",
+        "displayName":"Program Increment",
         "codeRepos":[
             "mirrorgate-app",
             "MirrorGate",
@@ -39,9 +39,9 @@ db.getCollection('dashboards').insertMany([
             "design"
         ],
         "boards":[
-            "ProductIncrement"
+            "ProgramIncrement"
         ],
-        'productIncrement': 'PI0.*'
+        'programIncrement': 'PI0.*'
     },
     {
         "name":"nothing"

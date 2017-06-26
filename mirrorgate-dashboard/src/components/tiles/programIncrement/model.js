@@ -20,6 +20,6 @@
  * @param {Number} featuresNumber     Number of features in the PI
 
  */
-function ProductIncrement(featuresNumber){
+function ProgramIncrement(featuresNumber){
   this.featuresNumber = featuresNumber;
 }

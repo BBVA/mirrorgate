@@ -26,7 +26,7 @@ function MainController() {
       'current-sprint': 'boards',
       'next-sprint': 'boards',
       incidences: 'boards',
-      'product-increment':'productIncrement',
+      'program-increment':'programIncrement',
     };
 
     // Display tiles only when details are avail

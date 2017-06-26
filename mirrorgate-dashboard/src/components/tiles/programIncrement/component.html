@@ -27,11 +27,11 @@
 
   <div class="component__content">
     <div class="component__header">
-      <h2 class="title">Product Increment</h2>
+      <h2 class="title">Program Increment</h2>
     </div>
     <div class="component__body">
       <div class="indicator">
-        <div class="stat" rv-show="productIncrement.featuresNumber">{productIncrement.featuresNumber} ongoing features</div>
+        <div class="stat" rv-show="programIncrement.featuresNumber">{programIncrement.featuresNumber} ongoing features</div>
       </div>
     </div>
   </div>
@@ -54,7 +54,7 @@
     }
 
     MyElementProto.getControllerClass = function () {
-      return ProductIncrementController;
+      return ProgramIncrementController;
     };
 
     MyElementProto.getTemplate = function () {
@@ -70,11 +70,11 @@
 
       if (data) {
         debugger;
-        model.productIncrement = data;
+        model.programIncrement = data;
       }
     };
 
-    window.MyElement = document.registerElement('product-increment-tile', {
+    window.MyElement = document.registerElement('program-increment-tile', {
       prototype: MyElementProto
     });
 

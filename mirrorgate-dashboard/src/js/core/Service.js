@@ -88,7 +88,7 @@ var Service = (function() {
       apps: new ServiceType(Timer.eventually, 'applications'),
       dashboard: new ServiceType(Timer.never, 'details'),
       dashboards: new ServiceType(Timer.never),
-      productincrement: new ServiceType(Timer.eventually, 'productincrement'),
+      programincrement: new ServiceType(Timer.eventually, 'programincrement'),
     },
     get: function(type, dashboardId) {
       return (
