@@ -16,7 +16,6 @@
   -->
 
 <!-- bugs:js component.min.js -->
-<script src="model.js"></script>
 <script src="controller.js"></script>
 <!-- endbuild -->
 
@@ -28,11 +27,25 @@
   <div class="bugs component__content">
     <div class="component__header">
       <h2 class="title">Bugs</h2>
+      <h3 class="title-desc">
+        <span rv-hide="bugs">No active bugs</span>
+        <span rv-show="bugs">{bugs.count} active bugs</span>
+      </h3>
     </div>
     <div class="component__body">
-      <div class="indicator">
-        <div class="stat-desc" rv-hide="bugs">No bugs</div>
-        <div class="stat" rv-show="bugs">{bugs} active bugs</div>
+      <div class="progress" rv-show="bugs">
+        <div class="progress-bar progress-bar-minor" role="progressbar" rv-show="bugs.minor.count" rv-width="bugs.minor.pc"></div>
+        <div class="progress-bar progress-bar-normal" role="progressbar" rv-show="bugs.normal.count" rv-width="bugs.normal.pc"></div>
+        <div class="progress-bar progress-bar-major" role="progressbar" rv-show="bugs.major.count" rv-width="bugs.major.pc"></div>
+        <div class="progress-bar progress-bar-critical" role="progressbar" rv-show="bugs.critical.count" rv-width="bugs.critical.pc"></div>
+      </div>
+      <div>
+        <ul class="bugs" rv-show="bugs">
+          <li rv-show="bugs.minor"><span class="bug-number">{bugs.minor.count}</span> minor</li>
+          <li rv-show="bugs.normal"><span class="bug-number">{bugs.normal.count}</span> normal</li>
+          <li rv-show="bugs.major"><span class="bug-number">{bugs.major.count}</span> major</li>
+          <li rv-show="bugs.critical"><span class="bug-number">{bugs.critical.count}</span> critical</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -50,7 +63,7 @@
 
     MyElementProto.processAlerts = function (data) {
       Utils.raiseEvent(this, {
-        status: data ? 'unknown' : 'server-error'
+        status: data ? (data.critical ? 'error' : data.total ? 'ok': 'empty') : 'server-error'
       });
     }
 
@@ -64,20 +77,38 @@
 
     // Fires when an instance of the element is created
     MyElementProto.render = function (data) {
-      
+
       this.processAlerts(data);
 
       var model = this.getModel();
 
       if (data) {
-        model.bugs = data.length;
+        model.bugs = data.total && {
+          major: data.major && {
+            count: data.major,
+            pc: data.major / data.total * 100
+          },
+          normal: data.normal && {
+            count: data.normal,
+            pc: data.normal / data.total * 100
+          },
+          minor: data.minor && {
+            count: data.minor,
+            pc: data.minor / data.total * 100
+          },
+          critical: data.critical && {
+            count: data.critical,
+            pc: data.critical / data.total * 100
+          },
+          count: data.total
+        };
       }
     };
 
     window.MyElement = document.registerElement('bugs-tile', {
       prototype: MyElementProto
     });
-    
+
   })(window, document);
 
 </script>
