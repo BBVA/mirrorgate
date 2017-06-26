@@ -60,9 +60,9 @@ export class FormComponent {
   }
 
   mirrorTempValues() {
-    this.dashboard.boards = this.temp.boards.length ? this.temp.boards.split(',') : undefined;
-    this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',') : undefined;
-    this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',') : undefined;
+    this.dashboard.boards = this.temp.boards.length ? this.temp.boards.split(',').map((e) => e.trim()) : undefined;
+    this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',').map((e) => e.trim()) : undefined;
+    this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.programIncrement = this.temp.programIncrement.length ? this.temp.programIncrement.trim() : undefined;
   }
 

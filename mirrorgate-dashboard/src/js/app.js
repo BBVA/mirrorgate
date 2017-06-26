@@ -27,6 +27,7 @@ function MainController() {
       'next-sprint': 'boards',
       incidences: 'boards',
       'program-increment':'programIncrement',
+      bugs: 'boards'
     };
 
     // Display tiles only when details are avail

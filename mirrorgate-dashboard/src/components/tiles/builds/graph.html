@@ -38,7 +38,7 @@
             <foreignObject x="-200" y="-190" width="400" height="360">
               <div xmlns="http://www.w3.org/1999/xhtml" class="build-info">
                 <span class="date">{ selectedBuild.timestamp | dateFrom updatedDate}</span>
-                <span class="status" rv-pclass-status="selectedBuild.buildStatus">{selectedBuild.buildStatus}</span>
+                <span class="status">{selectedBuild.buildStatus}</span>
                 <span class="box">
                   <span class="project" rv-show="selectedBuild.repoName">{ selectedBuild.projectName | textCleanUp } /</span>
                   <span class="repo" rv-show="selectedBuild.repoName">{ selectedBuild.repoName | textCleanUp} <span class="branch" rv-show="selectedBuild.branch">/ { selectedBuild.branch | textCleanUp}</span></span>

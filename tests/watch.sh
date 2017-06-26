@@ -12,7 +12,7 @@ pushd ../mirrorgate-api
 popd
 
 pushd ../mirrorgate-dashboard
-gulp build:watch > ../tests/logs/dashboardboard.log & DASHBOARD_PID=$!
+$(npm bin)/gulp build:watch > ../tests/logs/dashboardboard.log & DASHBOARD_PID=$!
 popd
 
 pushd ../mirrorgate-backoffice

@@ -25,6 +25,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.data.domain.Sort;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProgramIncrementServiceTest {
@@ -43,19 +44,19 @@ public class ProgramIncrementServiceTest {
         List<Feature> featuresList = piService.getProgramIncrementFeatures("MirrorGate");
 
         assertNull(featuresList);
-        verify(dashboardRepository, times(1)).findOneByName(anyString());
+        verify(dashboardRepository, times(1)).findOneByName(anyString(), any(Sort.class));
         verify(featureRepository, times(0)).getProductIncrementFromFeatures(anyListOf(String.class));
     }
 
     @Test
     public void testNoCurrentPIName(){
 
-        when(dashboardRepository.findOneByName(anyString())).thenReturn(new Dashboard());
+        when(dashboardRepository.findOneByName(anyString(), any(Sort.class))).thenReturn(new Dashboard());
 
         List<Feature> featuresList = piService.getProgramIncrementFeatures("MirrorGate");
 
         assertTrue(featuresList.isEmpty());
-        verify(dashboardRepository, times(1)).findOneByName(anyString());
+        verify(dashboardRepository, times(1)).findOneByName(anyString(), any(Sort.class));
         verify(featureRepository, times(1)).getProductIncrementFromFeatures(anyListOf(String.class));
     }
 

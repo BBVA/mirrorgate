@@ -16,7 +16,9 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.*;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ProjectDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
@@ -33,6 +35,12 @@ public class IssueMapper {
         target.setsName(source.getName());
         target.setsId(source.getId().toString());
         target.setsStatus(source.getStatus().getName());
+        if(source.getPriority() != null) {
+            target.setPriority(source.getPriority().getName());
+        } else {
+            target.setPriority(null);
+        }
+        
         target.setKeywords(source.getKeywords());
         target.setsTypeName(source.getType());
         target.setsNumber(source.getJiraKey());
@@ -46,11 +54,20 @@ public class IssueMapper {
             target.setsSprintAssetState(sprint.getStatus() == null ? null : sprint.getStatus().name());
             target.setSprintBeginDate(sprint.getStartDate());
             target.setSprintEndDate(sprint.getEndDate());
+        } else {
+            target.setsSprintID(null);
+            target.setsSprintName(null);
+            target.setsSprintAssetState(null);
+            target.setSprintBeginDate(null);
+            target.setSprintEndDate(null);
         }
         ProjectDTO project = source.getProject();
         if(project != null) {
             target.setsProjectId(project.getId() == null ? null : project.getId().toString());
             target.setsProjectName(project.getName());
+        } else {
+            target.setsProjectId(null);
+            target.setsProjectName(null);
         }
         return target;
     }

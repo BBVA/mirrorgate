@@ -22,17 +22,16 @@ import java.util.Map;
  *
  * @author enrique
  */
-public enum IssueType {
+public enum BugPriority {
 
-    EPIC("Epic"),
-    STORY("Story"),
-    FEATURE("Feature"),
-    BUG("Bug"),
-    TASK("Task");
+    CRITICAL("Critical"),
+    MAJOR("Major"),
+    MEDIUM("Medium"),
+    MINOR("Minor");
 
-    private static final Map<String, IssueStatus> NAME_MAP = new HashMap<String, IssueStatus>() {
+    private static final Map<String, BugPriority> NAME_MAP = new HashMap<String, BugPriority>() {
         {
-            for (IssueStatus st : IssueStatus.values()) {
+            for (BugPriority st : BugPriority.values()) {
                 put(st.getName(), st);
             }
         }
@@ -40,7 +39,7 @@ public enum IssueType {
 
     private final String name;
 
-    IssueType(String name) {
+    BugPriority(String name) {
         this.name = name;
     }
 
@@ -48,7 +47,7 @@ public enum IssueType {
         return name;
     }
 
-    public static IssueStatus fromName(String name) {
+    public static BugPriority fromName(String name) {
         return name == null ? null : NAME_MAP.get(name);
     }
 

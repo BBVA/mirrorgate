@@ -26,5 +26,7 @@ export class Dashboard {
     timeSpan: number,
     branch: Map<string,boolean>,
     status: Map<string,boolean>
-  }
+  };
+  lastUserEdit: string;
+  lastModification: number;
 }

@@ -14,12 +14,14 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProgramIncrementServiceImpl.class);
+    private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
 
     private FeatureRepository featureRepository;
     private DashboardRepository dashboardRepository;
@@ -38,7 +40,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
         LOGGER.debug("Getting product increment information for dashboard : {}", dashboardName);
 
-        Dashboard dashboard = dashboardRepository.findOneByName(dashboardName);
+        Dashboard dashboard = dashboardRepository.findOneByName(dashboardName, SORT_BY_LAST_MODIFICATION);
 
         if(dashboard != null) {
             List<String> boards = dashboard.getBoards();
