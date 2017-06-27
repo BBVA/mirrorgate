@@ -23,9 +23,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,9 +96,9 @@ public class DashboardControllerTests {
 
     @Test
     public void getActiveDashboardsTest() throws Exception {
-        Dashboard dashboard1 = createDashboard();
-        Dashboard dashboard2 = createDashboard();
-        List<Dashboard> dashboards = new ArrayList<>();
+        DashboardDTO dashboard1 = TestObjectBuilder.createDashboardDTO();
+        DashboardDTO dashboard2 = TestObjectBuilder.createDashboardDTO();
+        List<DashboardDTO> dashboards = new ArrayList<>();
         dashboards.add(dashboard1);
         dashboards.add(dashboard2);
 

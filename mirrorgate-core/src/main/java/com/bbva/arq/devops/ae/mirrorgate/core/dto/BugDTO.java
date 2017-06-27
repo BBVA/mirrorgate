@@ -15,20 +15,44 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
+
 /**
  *
  * @author enrique
  */
-public class IncidencesDTO {
+public class BugDTO {
 
-    private int nIncidences;
+    private String id;
+    private BugPriority priority;
+    private BugStatus status;
 
-    public int getnIncidences() {
-        return nIncidences;
+    public String getId() {
+        return id;
     }
 
-    public void setnIncidences(int nIncidences) {
-        this.nIncidences = nIncidences;
+    public BugDTO setId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public BugPriority getPriority() {
+        return priority;
+    }
+
+    public BugDTO setPriority(BugPriority priority) {
+        this.priority = priority;
+        return this;
+    }
+
+    public BugStatus getStatus() {
+        return status;
+    }
+
+    public BugDTO setStatus(BugStatus status) {
+        this.status = status;
+        return this;
     }
 
 }

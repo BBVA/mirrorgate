@@ -17,8 +17,6 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
@@ -85,11 +83,6 @@ public class FeatureServiceImpl implements FeatureService{
     @Override
     public void deleteStory(Long id) {
         repository.deleteBysId(id.toString());
-    }
-
-    @Override
-    public Iterable<Feature> getActiveIncidencesByBoards(List<String> boards) {
-        return repository.findBySProjectNameInAndSTypeNameAndSStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
     }
 
 }

@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-describe('IncidencesController', () => {
+describe('BugsController', () => {
 
   var server;
   var controller;
-  
+
   beforeEach(() => {
     server = buildFakeServer();
     server.autoRespond = true;
-    controller = new IncidencesController(dashboardForTesting);
+    controller = new BugsController(dashboardForTesting);
     controller.init();
   });
 
-  it('should get active incidences', (done) => {
+  it('should get bugs type count', (done) => {
+    var bugs = { minor: 1, major: 0, critical: 0, medium: 1, total: 2 };
+
     controller.observable.attach((response) => {
-      expect(_.isEqual(response, incidencesForTesting)).toBe(true);
+      expect(response).toEqual(bugs);
       done();
     });
   });

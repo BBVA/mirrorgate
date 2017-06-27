@@ -18,8 +18,6 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
@@ -63,37 +61,6 @@ public class FeatureServiceTests {
 
         assertThat(activeStoriesByDashboardName.get(0)).isEqualTo(story1);
         assertThat(activeStoriesByDashboardName.get(1)).isEqualTo(story2);
-    }
-
-    @Test
-    public void getActiveIncidencesByBoardsTest() {
-
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-
-        Feature inc1 = TestObjectBuilder.createIncidence();
-        Feature inc2 = TestObjectBuilder.createIncidence();
-
-        List<Feature> incidences = new ArrayList<>();
-        incidences.add(inc1);
-        incidences.add(inc2);
-
-        when(featureRepository.findBySProjectNameInAndSTypeNameAndSStatusNot(
-                Arrays.asList(dashboard.getName()),
-                IssueType.BUG.getName(),
-                IssueStatus.DONE.getName())
-        ).thenReturn(incidences);
-
-        Iterable<Feature> activeIncidencesByDashboardName
-                = featureService.getActiveIncidencesByBoards(Arrays.asList(dashboard.getName()));
-        verify(featureRepository, times(1))
-                .findBySProjectNameInAndSTypeNameAndSStatusNot(
-                        Arrays.asList(dashboard.getName()),
-                        IssueType.BUG.getName(),
-                        IssueStatus.DONE.getName()
-                );
-
-        assertThat(activeIncidencesByDashboardName.iterator().next().getsTypeName()).isEqualTo(IssueType.BUG.getName());
-        assertThat(activeIncidencesByDashboardName.iterator().next().getsTypeName()).isEqualTo(IssueType.BUG.getName());
     }
 
 }

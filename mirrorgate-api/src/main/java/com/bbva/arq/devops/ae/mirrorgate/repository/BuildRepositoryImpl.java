@@ -54,6 +54,9 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                                 BuildStatus.Unknown.toString()
                         )
                         .orOperator(getCriteriaExpressionsForRepos(repos))),
+                //Avoid Mongo to "optimize" the sort operation.... Why Mongo, oh why?!
+                project("buildStatus","branch","projectName","repoName","timestamp","buildUrl","duration","startTime","endTime")
+                        .andExclude("_id"),
                 sort(Sort.Direction.ASC, "timestamp"),
                 group("branch","repoName","projectName")
                         .last("buildStatus").as("buildStatus")

@@ -18,9 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.ArrayList;
@@ -92,13 +90,18 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationsWithoutReviews;
     }
 
-    private Iterable<Dashboard> getActiveApplications(){
-        return dashboardRepository.findByStatusNotOrStatusIsNull(DashboardStatus.DELETED);
+    private List<DashboardDTO> getActiveApplications() {
+        return dashboardRepository.getActiveDashboards();
     }
 
-    private List<String> getApplicationNames(Iterable<Dashboard> activeDashboards){
+    private List<String> getApplicationNames(Iterable<DashboardDTO> activeDashboards) {
         List<String> appNames = new ArrayList<>();
-        activeDashboards.forEach(dashboard -> appNames.addAll(dashboard.getApplications()));
+        activeDashboards.forEach(dashboard -> {
+            List<String> dApps = dashboard.getApplications();
+            if(dApps != null) {
+                appNames.addAll(dApps);
+            }
+        });
 
         return appNames;
     }

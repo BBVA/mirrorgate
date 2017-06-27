@@ -15,32 +15,45 @@
  */
 
 /**
- * IncidencesController - Controller to handle incidences
+ * BugsController - Controller to handle bugs
  *
  */
-var IncidencesController = (function(dashboardId) {
+var BugsController = (function(dashboardId) {
 
-  var observable = new Event('IncidencesController');
-  var service = Service.get(Service.types.incidences, dashboardId);
+  var observable = new Event('BugsController');
+  var service = Service.get(Service.types.bugs, dashboardId);
 
-  function getIncidences(response) {
-    var incidences;
-    
+  function getBugs(response) {
+    var model;
+
     if(response) {
-      incidences = JSON.parse(response);
-    }
-    
-    observable.notify(incidences);
+      response = JSON.parse(response);
+      model = {
+        minor: 0,
+        major: 0,
+        critical: 0,
+        medium: 0,
+        total: 0
+      };
 
+      for(var index in response) {
+        if (response[index].priority) {
+          model[response[index].priority.toLowerCase()]++;
+        }
+        model.total++;
+      }
+    }
+
+    observable.notify(model);
   }
 
   this.observable = observable;
   this.dispose = function() {
     this.observable.reset();
-    service.removeListener(getIncidences);
+    service.removeListener(getBugs);
   };
-  this.init = function() { 
-    service.addListener(getIncidences); 
+  this.init = function() {
+    service.addListener(getBugs);
   };
 
 });

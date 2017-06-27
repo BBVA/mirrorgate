@@ -29,7 +29,7 @@ var storiesForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting 
 
 var appsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/applications');
 
-var incidencesForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/incidences');
+var bugsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/bugs');
 
 var notificationsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/notifications');
 
@@ -82,11 +82,11 @@ function buildFakeServer() {
   
   server.respondWith(
     'GET',
-    'dashboards/' + dashboardForTesting + '/incidences',
+    'dashboards/' + dashboardForTesting + '/bugs',
     [
       200,
       { "Content-Type": "application/json" },
-      JSON.stringify(incidencesForTesting)
+      JSON.stringify(bugsForTesting)
     ]
   );
   

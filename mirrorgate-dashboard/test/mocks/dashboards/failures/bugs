@@ -1,0 +1,12 @@
+[
+  {
+    "id":"BUG-1",
+    "priority":"MEDIUM",
+    "status":"IN_PROGRESS"
+  },
+  {
+    "id":"BUG-2",
+    "priority":"CRITICAL",
+    "status":"IMPEDED"
+  }
+]

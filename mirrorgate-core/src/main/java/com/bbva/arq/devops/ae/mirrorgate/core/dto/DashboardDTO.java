@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package com.bbva.arq.devops.ae.mirrorgate.model;
+package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Dashboard info model
+ * Dashboard Data Transfer Object
  */
-@Document(collection = "dashboards")
-public class Dashboard extends BaseModel {
+public class DashboardDTO {
 
-    @Indexed
     private String name;
     private String displayName;
     private String logoUrl;
@@ -38,13 +34,8 @@ public class Dashboard extends BaseModel {
     private List<String> applications = new ArrayList<>();
     private List<String> boards;
     private Filters filters;
-    private String slack_team;
-    private String slack_client_id;
-    private String slack_client_secret;
-    private String slack_token;
     private DashboardStatus status;
     private String lastUserEdit;
-    @Indexed
     private long lastModification;
 
     public String getName() {
@@ -95,38 +86,6 @@ public class Dashboard extends BaseModel {
 
     public void setFilters(Filters filters) {
         this.filters = filters;
-    }
-
-    public String getSlack_team() {
-        return slack_team;
-    }
-
-    public void setSlack_team(String slack_team) {
-        this.slack_team = slack_team;
-    }
-
-    public String getSlack_client_id() {
-        return slack_client_id;
-    }
-
-    public void setSlack_client_id(String slack_client_id) {
-        this.slack_client_id = slack_client_id;
-    }
-
-    public String getSlack_client_secret() {
-        return slack_client_secret;
-    }
-
-    public void setSlack_client_secret(String slack_client_secret) {
-        this.slack_client_secret = slack_client_secret;
-    }
-
-    public String getSlack_token() {
-        return slack_token;
-    }
-
-    public void setSlack_token(String slack_token) {
-        this.slack_token = slack_token;
     }
 
     public String getDisplayName() {
