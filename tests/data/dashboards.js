@@ -41,7 +41,7 @@ db.getCollection('dashboards').insertMany([
         "boards":[
             "ProgramIncrement"
         ],
-        'programIncrement': 'PI0.*'
+        'programIncrement': 'PI01'
     },
     {
         "name":"nothing"

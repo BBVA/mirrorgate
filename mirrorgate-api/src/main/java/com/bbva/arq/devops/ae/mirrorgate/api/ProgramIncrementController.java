@@ -29,7 +29,7 @@ public class ProgramIncrementController {
     public int getAtiveUserStories(@PathVariable("name") String name) {
 
         try{
-            List<Feature> features = programIncrementService.getProgramIncrementFeatures(name);
+            List<String> features = programIncrementService.getProgramIncrementFeatures(name);
             return features != null ? features.size() : 0;
         } catch(Exception e) {
             LOGGER.error("Exception while retrieveing PI features",e);

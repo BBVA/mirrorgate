@@ -8,6 +8,8 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.Arrays;
 import java.util.List;
+import org.bson.types.ObjectId;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +26,24 @@ public class FeatureRepositoryImplTest {
 
     @Before
     public void init(){
-        featureRepository.save(createFeature(Arrays.asList("PI1","PI2","PI3")));
-        featureRepository.save(createFeature(Arrays.asList("PI3","PI4","PI5")));
+        featureRepository.save(createFeature(Arrays.asList("PI1","PI2","PI3"), "feature1"));
+        featureRepository.save(createFeature(Arrays.asList("PI3","PI4","PI5"), "feature2"));
+        featureRepository.save(createActiveStory("mirrorgate", "feature1"));
+        featureRepository.save(createActiveStory("not_mirrorgate", "feature1"));
+        featureRepository.save(createActiveStory("mirrorgate", "feature2"));
+        featureRepository.save(createActiveStory("not_mirrorgate", "feature2"));
+    }
+
+    @After
+    public void clean(){
+        featureRepository.deleteAll();
+    }
+
+    @Test
+    public void testFeatureAndPIComeFromTeam(){
+        List<String> boardPIFeatures = featureRepository.programIncrementBoardFeatures(Arrays.asList("mirrorgate"), Arrays.asList("feature1", "feature2"));
+
+        assertEquals(boardPIFeatures.size(), 2);
     }
 
 
@@ -47,15 +65,31 @@ public class FeatureRepositoryImplTest {
         assertEquals(piNames, null);
     }
 
-    private Feature createFeature(List<String> piNames){
+    private Feature createFeature(List<String> piNames, String sNumber){
         Feature feature = new Feature();
 
         feature.setsProjectName("mirrorgate");
         feature.setsPiNames(piNames);
         feature.setsTypeName("Feature");
         feature.setKeywords(Arrays.asList("mirrorgate"));
+        feature.setsNumber(sNumber);
 
         return feature;
     }
+
+    private static Feature createActiveStory(String sProjectName, String sParentKey) {
+        Feature story = new Feature();
+
+        story.setId(ObjectId.get());
+        story.setsId(ObjectId.get().toString());
+        story.setsSprintAssetState("Active");
+        story.setsProjectName(sProjectName);
+        story.setsNumber("story_name");
+        story.setsParentKey(sParentKey);
+        story.setKeywords(Arrays.asList(sProjectName));
+
+        return story;
+    }
+
 
 }

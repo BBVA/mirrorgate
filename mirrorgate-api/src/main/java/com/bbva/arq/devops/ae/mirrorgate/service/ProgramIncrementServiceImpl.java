@@ -7,10 +7,12 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +36,10 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
         this.featureRepository = featureRepository;
     }
 
-    public List<Feature> getProgramIncrementFeatures(String dashboardName){
+    public List<String> getProgramIncrementFeatures(String dashboardName){
 
-        List<Feature> piFeatures = null;
+        List<Feature> piFeatures;
+        List<String> boardPIFeatures = null;
 
         LOGGER.debug("Getting product increment information for dashboard : {}", dashboardName);
 
@@ -52,10 +55,17 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
             LOGGER.debug("Dashboard current product increment : {}", currentPIName);
 
-            piFeatures = featureRepository.findProductIncrementFeatures(currentPIName);
+            piFeatures = featureRepository.findAllBysPiNamesIn(currentPIName);
+
+            List<String> piFeaturesKeys = piFeatures
+                                            .stream()
+                                            .map(Feature::getsNumber)
+                                            .collect(Collectors.toList());
+
+            boardPIFeatures = featureRepository.programIncrementBoardFeatures(Arrays.asList(dashboardName), piFeaturesKeys);
         }
 
-        return piFeatures;
+        return boardPIFeatures;
     }
 
     String getProductIncrementNameForBoard(List<String> boards, Optional<String> productIncrementExpression){

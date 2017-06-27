@@ -41,7 +41,7 @@ public class ProgramIncrementServiceTest {
     @Test
     public void testNoDashboardFound(){
 
-        List<Feature> featuresList = piService.getProgramIncrementFeatures("MirrorGate");
+        List<String> featuresList = piService.getProgramIncrementFeatures("MirrorGate");
 
         assertNull(featuresList);
         verify(dashboardRepository, times(1)).findOneByName(anyString(), any(Sort.class));
@@ -53,7 +53,7 @@ public class ProgramIncrementServiceTest {
 
         when(dashboardRepository.findOneByName(anyString(), any(Sort.class))).thenReturn(new Dashboard());
 
-        List<Feature> featuresList = piService.getProgramIncrementFeatures("MirrorGate");
+        List<String> featuresList = piService.getProgramIncrementFeatures("MirrorGate");
 
         assertTrue(featuresList.isEmpty());
         verify(dashboardRepository, times(1)).findOneByName(anyString(), any(Sort.class));

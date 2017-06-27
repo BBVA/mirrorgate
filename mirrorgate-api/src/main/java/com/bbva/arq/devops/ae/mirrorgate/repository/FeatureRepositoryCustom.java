@@ -27,4 +27,6 @@ public interface FeatureRepositoryCustom {
     SprintStats getSprintStatsByKeywords(List<String> boards);
 
     ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards);
+
+    List<String> programIncrementBoardFeatures(List<String> boards, List<String> programIncrementFeatures);
 }
