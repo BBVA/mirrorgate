@@ -6,7 +6,7 @@
   },
   {
     "id":"BUG-2",
-    "priority":"NORMAL",
+    "priority":"MEDIUM",
     "status":"IMPEDED"
   }
 ]
