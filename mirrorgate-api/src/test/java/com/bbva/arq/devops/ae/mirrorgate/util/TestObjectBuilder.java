@@ -17,6 +17,7 @@ package com.bbva.arq.devops.ae.mirrorgate.util;
 
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType.BUG;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import java.util.Arrays;
@@ -31,12 +32,24 @@ public class TestObjectBuilder {
     private static final String DASHBOARD_NAME = "mirrorgate";
     private static final String PROJECT_NAME = "mirrorgate";
 
+    private static final String SLACK_TEAM = "SLACK_TEAM";
+    private static final String SLACK_CLIENT_ID = "SLACK_CLIENT_ID";
+    private static final String SLACK_CLIENT_SECRET = "SLACK_CLIENT_SECRET";
+    private static final String SLACK_CODE = "SLACK_CODE";
+    private static final String SLACK_TOKEN = "SLACK_TOKEN";
+    private static final String SLACK_URL = "SLACK_URL";
+    private static final String SLACK_ERROR = "SLACK_ERROR";
+
     public static Dashboard createDashboard() {
         Dashboard dashboard = new Dashboard();
         dashboard.setId(ObjectId.get());
         dashboard.setName(DASHBOARD_NAME);
         dashboard.setsProductName(PROJECT_NAME);
         dashboard.setBoards(Arrays.asList(PROJECT_NAME));
+        dashboard.setSlack_team(SLACK_TEAM);
+        dashboard.setSlack_client_id(SLACK_CLIENT_ID);
+        dashboard.setSlack_client_secret(SLACK_CLIENT_SECRET);
+        dashboard.setSlack_token(SLACK_TOKEN);
         return dashboard;
     }
 
@@ -53,6 +66,21 @@ public class TestObjectBuilder {
         story.setsSprintAssetState("Active");
         story.setsProjectName(PROJECT_NAME);
         return story;
+    }
+
+    public static SlackDTO createSlackDTO() {
+        SlackDTO notification = new SlackDTO();
+        notification.setOk(true);
+        notification.setAccess_token(SLACK_TOKEN);
+        notification.setUrl(SLACK_URL);
+        return notification;
+    }
+
+    public static SlackDTO createSlackErrorDTO() {
+        SlackDTO notification = new SlackDTO();
+        notification.setOk(false);
+        notification.setError(SLACK_ERROR);
+        return notification;
     }
 
 }

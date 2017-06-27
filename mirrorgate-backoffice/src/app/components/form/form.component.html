@@ -1,4 +1,4 @@
-<!--
+  <!--
   ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,6 +99,64 @@
                             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </a>
             <input type="text" class="form-control" id="boards" [(ngModel)]="temp.boards" (ngModelChange)="mirrorTempValues()" name="boards">
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <h4 for="slack">Slack</h4>
+          <label for="slack">Team</label>
+          <div class="collapse" id="slack_team-help">
+            <div class="well">
+              Please specify a Slack Team to show notifications.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_team-help" aria-expanded="false" aria-controls="slack_team-help">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </a>
+            <input type="text" class="form-control" id="slack_team" [(ngModel)]="dashboard.slack_team" name="slack_team" #name="ngModel">
+          </div>
+          <br />
+          <label for="slack">Client Id</label>
+          <div class="collapse" id="slack_client_id-help">
+            <div class="well">
+              Add an application to your Slack Team and put here Client Id's Application to show notifications.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </a>
+            <input type="text" class="form-control" id="slack_client_id" [(ngModel)]="dashboard.slack_client_id" name="slack_client_id" #name="ngModel">
+          </div>
+          <br />
+          <label for="slack">Client Secret</label>
+          <div class="collapse" id="slack_client_secret-help">
+            <div class="well">
+              Add an application to your Slack Team and put here Client Secret's Application to show notifications.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_secret-help" aria-expanded="false" aria-controls="slack_client_secret-help">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </a>
+            <input type="password" class="form-control" id="slack_client_secret" [(ngModel)]="dashboard.slack_client_secret" name="slack_client_secret" #name="ngModel">
+          </div>
+          <br />
+          <label for="slack">Code</label>
+          <div class="collapse" id="slack_code-help">
+            <div class="well">
+              Add an application to your Slack Team and put here Code's Application to show notifications.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_code-help" aria-expanded="false" aria-controls="slack_code-help">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </a>
+            <!-- <input type="password" class="form-control" id="slack_code" [(ngModel)]="dashboard.slack_code" name="slack_code" #name="ngModel"> -->
+            <button type="button" class="btn btn-default" (click)="signSlack(dashboard)">Sign Slack</button>
           </div>
         </div>
       </div>

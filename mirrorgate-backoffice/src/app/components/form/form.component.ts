@@ -19,12 +19,13 @@ import { OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {DashboardsService} from '../../services/dashboards.service';
 import {Dashboard} from '../../model/dashboard';
+import {SlackService} from '../../services/slack.service';
 
 @Component({
   selector: 'new-and-edit-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  providers: [DashboardsService]
+  providers: [DashboardsService, SlackService]
 })
 export class FormComponent {
 
@@ -37,6 +38,7 @@ export class FormComponent {
   } = {};
 
   constructor(private dashboardsService: DashboardsService,
+              private slackService: SlackService,
               private router: Router,
               private route: ActivatedRoute) {}
 
@@ -75,4 +77,9 @@ export class FormComponent {
       }
     });
   }
+  
+  signSlack(dashboard: Dashboard): void {
+    this.slackService.signSlack(dashboard);
+  }
+  
 }
