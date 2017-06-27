@@ -32,7 +32,7 @@ var BugsController = (function(dashboardId) {
         minor: 0,
         major: 0,
         critical: 0,
-        normal: 0,
+        medium: 0,
         total: 0
       };
 

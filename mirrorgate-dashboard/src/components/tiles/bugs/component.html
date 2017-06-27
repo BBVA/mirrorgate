@@ -35,14 +35,14 @@
     <div class="component__body">
       <div class="progress" rv-show="bugs">
         <div class="progress-bar progress-bar-minor" role="progressbar" rv-show="bugs.minor.count" rv-width="bugs.minor.pc"></div>
-        <div class="progress-bar progress-bar-normal" role="progressbar" rv-show="bugs.normal.count" rv-width="bugs.normal.pc"></div>
+        <div class="progress-bar progress-bar-medium" role="progressbar" rv-show="bugs.medium.count" rv-width="bugs.medium.pc"></div>
         <div class="progress-bar progress-bar-major" role="progressbar" rv-show="bugs.major.count" rv-width="bugs.major.pc"></div>
         <div class="progress-bar progress-bar-critical" role="progressbar" rv-show="bugs.critical.count" rv-width="bugs.critical.pc"></div>
       </div>
       <div>
         <ul class="bugs" rv-show="bugs">
           <li rv-show="bugs.minor"><span class="bug-number">{bugs.minor.count}</span> minor</li>
-          <li rv-show="bugs.normal"><span class="bug-number">{bugs.normal.count}</span> normal</li>
+          <li rv-show="bugs.medium"><span class="bug-number">{bugs.medium.count}</span> medium</li>
           <li rv-show="bugs.major"><span class="bug-number">{bugs.major.count}</span> major</li>
           <li rv-show="bugs.critical"><span class="bug-number">{bugs.critical.count}</span> critical</li>
         </ul>
@@ -88,9 +88,9 @@
             count: data.major,
             pc: data.major / data.total * 100
           },
-          normal: data.normal && {
-            count: data.normal,
-            pc: data.normal / data.total * 100
+          medium: data.medium && {
+            count: data.medium,
+            pc: data.medium / data.total * 100
           },
           minor: data.minor && {
             count: data.minor,

@@ -27,7 +27,7 @@ describe('BugsController', () => {
   });
 
   it('should get bugs type count', (done) => {
-    var bugs = { minor: 1, major: 0, critical: 0, normal: 1, total: 2 };
+    var bugs = { minor: 1, major: 0, critical: 0, medium: 1, total: 2 };
 
     controller.observable.attach((response) => {
       expect(response).toEqual(bugs);
