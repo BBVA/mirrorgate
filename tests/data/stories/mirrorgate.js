@@ -102,7 +102,8 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
     'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'priority':'High'
   },
   {
     'sId': '48885',
@@ -117,7 +118,8 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
     'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'priority':'High'
   },
   {
     'sId': '41830',
@@ -147,7 +149,8 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
     'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'priority':'Lowest'
   },
   {
     'sId': '46419',

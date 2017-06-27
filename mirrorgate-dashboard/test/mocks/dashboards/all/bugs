@@ -1,7 +1,7 @@
 [
   {
     "id":"BUG-1",
-    "priority":"NORMAL",
+    "priority":"MINOR",
     "status":"IN_PROGRESS"
   },
   {

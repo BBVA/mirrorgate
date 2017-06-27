@@ -53,7 +53,7 @@
 
       it('should show active bugs', () => {
         appendComponent();
-        let div = component.querySelector('* /deep/ .indicator');
+        let div = component.querySelector('* /deep/ ul');
         server.respond();
         expect(div.children.length).not.toBe(0);
       });
@@ -78,9 +78,9 @@
 
         it('should raise an event when it succeds', (done) => {
           appendComponent();
-          
+
           testHandler = function (e) {
-            expect(e.detail.status).toBe('unknown');
+            expect(e.detail.status).toBe('ok');
             done();
           }
           server.respond();
@@ -89,7 +89,7 @@
         it('should raise an event when servers fail', (done) => {
           server.restore();
           server = sinon.fakeServer.create();
-          
+
           appendComponent();
 
           testHandler = function (e) {
