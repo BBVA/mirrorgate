@@ -1,12 +1,27 @@
 [
   {
     "id":"BUG-1",
-    "priority":"NORMAL",
+    "priority":"MINOR",
     "status":"IN_PROGRESS"
   },
   {
     "id":"BUG-2",
     "priority":"NORMAL",
+    "status":"IMPEDED"
+  },
+  {
+    "id":"BUG-3",
+    "priority":"MAJOR",
+    "status":"IMPEDED"
+  },
+  {
+    "id":"BUG-4",
+    "priority":"MAJOR",
+    "status":"IMPEDED"
+  },
+  {
+    "id":"BUG-5",
+    "priority":"CRITICAL",
     "status":"IMPEDED"
   }
 ]

@@ -59,11 +59,11 @@ public class BugServiceImpl implements BugService {
 
     static {
         issuePriorityToBugPriority = new HashMap();
-        issuePriorityToBugPriority.put("HIGHEST", CRITICAL);
-        issuePriorityToBugPriority.put("HIGH", MAJOR);
-        issuePriorityToBugPriority.put("MEDIUM", MEDIUM);
-        issuePriorityToBugPriority.put("LOW", MINOR);
-        issuePriorityToBugPriority.put("LOWEST", MINOR);
+        issuePriorityToBugPriority.put("Highest", CRITICAL);
+        issuePriorityToBugPriority.put("High", MAJOR);
+        issuePriorityToBugPriority.put("Medium", MEDIUM);
+        issuePriorityToBugPriority.put("Low", MINOR);
+        issuePriorityToBugPriority.put("Lowest", MINOR);
     }
 
 }

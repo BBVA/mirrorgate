@@ -24,23 +24,27 @@ var BugsController = (function(dashboardId) {
   var service = Service.get(Service.types.bugs, dashboardId);
 
   function getBugs(response) {
-  
-    var bugs;
+    var model;
 
     if(response) {
-      bugs = [];
       response = JSON.parse(response);
+      model = {
+        minor: 0,
+        major: 0,
+        critical: 0,
+        normal: 0,
+        total: 0
+      };
+
       for(var index in response) {
-          var bug = new Bug(
-            response[index].id,
-            response[index].priority,
-            response[index].status
-          );
-          bugs.push(bug);
+        if (response[index].priority) {
+          model[response[index].priority.toLowerCase()]++;
+        }
+        model.total++;
       }
     }
 
-    observable.notify(bugs);
+    observable.notify(model);
   }
 
   this.observable = observable;
@@ -48,8 +52,8 @@ var BugsController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getBugs);
   };
-  this.init = function() { 
-    service.addListener(getBugs); 
+  this.init = function() {
+    service.addListener(getBugs);
   };
 
 });

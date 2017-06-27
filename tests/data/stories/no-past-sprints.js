@@ -195,7 +195,8 @@ db.getCollection('feature').insertMany([
     "sProjectName": "no-past-sprints",
     "keywords": [
       "no-past-sprints"
-    ]
+    ],
+    'priority':'High'
   },
   {
     "sId": "54940",

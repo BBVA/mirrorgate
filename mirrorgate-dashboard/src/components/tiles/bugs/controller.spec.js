@@ -18,7 +18,7 @@ describe('BugsController', () => {
 
   var server;
   var controller;
-  
+
   beforeEach(() => {
     server = buildFakeServer();
     server.autoRespond = true;
@@ -26,19 +26,11 @@ describe('BugsController', () => {
     controller.init();
   });
 
-  it('should get active bugs', (done) => {
-    var bugs = [];
+  it('should get bugs type count', (done) => {
+    var bugs = { minor: 1, major: 0, critical: 0, normal: 1, total: 2 };
 
-    for (var index in bugsForTesting) {
-      var bug = new Bug(
-        bugsForTesting[index].id,
-        bugsForTesting[index].priority,
-        bugsForTesting[index].status);
-      bugs.push(bug);
-    }
-    
     controller.observable.attach((response) => {
-      expect(_.isEqual(response, bugs)).toBe(true);
+      expect(response).toEqual(bugs);
       done();
     });
   });
