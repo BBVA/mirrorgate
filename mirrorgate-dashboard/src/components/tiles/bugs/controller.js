@@ -37,7 +37,9 @@ var BugsController = (function(dashboardId) {
       };
 
       for(var index in response) {
-        model[response[index].priority.toLowerCase()]++;
+        if (response[index].priority) {
+          model[response[index].priority.toLowerCase()]++;
+        }
         model.total++;
       }
     }
