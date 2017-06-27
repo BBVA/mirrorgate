@@ -30,6 +30,10 @@ import {SlackService} from '../../services/slack.service';
 export class FormComponent {
 
   dashboard: Dashboard;
+  slack: {
+    clientId?: string,
+    clientSecret?: string
+  } = {};
   edit: boolean = false;
   temp: {
     applications?: string,
@@ -77,9 +81,12 @@ export class FormComponent {
       }
     });
   }
-  
+
   signSlack(dashboard: Dashboard): void {
-    this.slackService.signSlack(dashboard);
+    this.slackService.signSlack(this.dashboard.slackTeam, this.slack.clientId, this.slack.clientSecret)
+      .then((code: string) => {
+        this.dashboard.slackToken = code;
+      });
   }
-  
+
 }

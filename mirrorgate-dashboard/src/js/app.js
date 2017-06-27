@@ -26,7 +26,7 @@ function MainController() {
       'current-sprint': 'boards',
       'next-sprint': 'boards',
       bugs: 'boards',
-      notifications: 'slack_team'
+      notifications: 'slackTeam'
     };
 
     // Display tiles only when details are avail

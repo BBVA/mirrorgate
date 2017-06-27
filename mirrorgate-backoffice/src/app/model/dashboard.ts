@@ -26,10 +26,8 @@ export class Dashboard {
     branch: Map<string,boolean>,
     status: Map<string,boolean>
   }
-  slack_team: string;
-  slack_client_id: string;
-  slack_client_secret: string;
-  slack_code: string;
+  slackTeam: string;
+  slackToken: string;
   lastUserEdit: string;
   lastModification: number;
 }

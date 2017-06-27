@@ -102,50 +102,74 @@
           </div>
         </div>
       </div>
-      
+
       <div class="form-group row">
         <div class="col-sm-6">
-          <h4 for="slack">Slack</h4>
-          <label for="slack">Team</label>
+          <label for="slack">Slack</label>
           <div class="collapse" id="slack_team-help">
             <div class="well">
-              Please specify a Slack Team to show notifications.
+              Please specify a Slack Team to show notifications and click the config button to obtain a token.
             </div>
           </div>
           <div class="input-group">
             <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_team-help" aria-expanded="false" aria-controls="slack_team-help">
               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             </a>
-            <input type="text" class="form-control" id="slack_team" [(ngModel)]="dashboard.slack_team" name="slack_team" #name="ngModel">
+            <input type="text" class="form-control" id="slack_team" [(ngModel)]="dashboard.slackTeam" name="slack_team" #name="ngModel" placeholder="Your slack Team name">
+            <a *ngIf="dashboard.slackTeam" type="button" class="input-group-addon" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
           </div>
           <br />
-          <label for="slack">Client Id</label>
-          <div class="collapse" id="slack_client_id-help">
-            <div class="well">
-              Add an application to your Slack Team and put here Client Id's Application to show notifications.
+          <!-- Button trigger modal -->
+
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Slack app details</h4>
+                </div>
+                <div class="modal-body">
+                  <label for="slack">Client Id</label>
+                  <div class="collapse" id="slack_client_id-help">
+                    <div class="well">
+                      Add an application to your Slack Team and put here Client Id's Application to show notifications.
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
+                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    </a>
+                    <input type="text" class="form-control" id="slack_client_id" [(ngModel)]="slack.clientId" name="slack_client_id" #name="ngModel">
+
+                  </div>
+                  <br />
+                  <label for="slack">Client Secret</label>
+                  <div class="collapse" id="slack_client_secret-help">
+                    <div class="well">
+                      Add an application to your Slack Team and put here Client Secret's Application to show notifications.
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_secret-help" aria-expanded="false" aria-controls="slack_client_secret-help">
+                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    </a>
+                    <input type="password" class="form-control" id="slack_client_secret" [(ngModel)]="slack.clientSecret" name="slack_client_secret" #name="ngModel">
+                  </div>
+                  <br/>
+                  <button type="button" class="btn btn-primary" (click)="signSlack(dashboard)">Get token</button>
+                  <div *ngIf="dashboard.slackToken" class="alert alert-success" role="alert">Code generated: {{dashboard.slackToken}}</div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
-              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-            </a>
-            <input type="text" class="form-control" id="slack_client_id" [(ngModel)]="dashboard.slack_client_id" name="slack_client_id" #name="ngModel">
-          </div>
-          <br />
-          <label for="slack">Client Secret</label>
-          <div class="collapse" id="slack_client_secret-help">
-            <div class="well">
-              Add an application to your Slack Team and put here Client Secret's Application to show notifications.
-            </div>
-          </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_secret-help" aria-expanded="false" aria-controls="slack_client_secret-help">
-              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-            </a>
-            <input type="password" class="form-control" id="slack_client_secret" [(ngModel)]="dashboard.slack_client_secret" name="slack_client_secret" #name="ngModel">
-          </div>
-          <br />
-          <label for="slack">Code</label>
+          <!--<label for="slack">Code</label>
           <div class="collapse" id="slack_code-help">
             <div class="well">
               Add an application to your Slack Team and put here Code's Application to show notifications.
@@ -155,9 +179,9 @@
             <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_code-help" aria-expanded="false" aria-controls="slack_code-help">
               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             </a>
-            <!-- <input type="password" class="form-control" id="slack_code" [(ngModel)]="dashboard.slack_code" name="slack_code" #name="ngModel"> -->
+            <input type="text" class="form-control" id="slack_code" [(ngModel)]="dashboard.slackToken" name="slack_code" #name="ngModel">
             <button type="button" class="btn btn-default" (click)="signSlack(dashboard)">Sign Slack</button>
-          </div>
+          </div>-->
         </div>
       </div>
 
@@ -170,11 +194,11 @@
           <button type="submit" class="btn btn-success" [disabled]="!dashboardForm.form.valid">Save</button>
         </div>
       </div>
-      
+
       <div class="row" *ngIf="dashboard.lastModification">
           <div class="col-sm-12">
           <span> Last modification {{ dashboard.lastModification | date:'medium' }} </span> <span *ngIf="dashboard.lastUserEdit"> by {{ dashboard.lastUserEdit }} </span>
-        </div> 
+        </div>
       </div>
 
     </form>

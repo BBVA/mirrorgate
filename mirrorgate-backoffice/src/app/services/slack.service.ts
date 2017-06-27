@@ -17,14 +17,9 @@
 import { Injectable } from '@angular/core';
 
 import { Dashboard } from '../model/dashboard';
-import { Http } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
-
-function getWindow(): any {
-    return window;
-}
 
 function getLocation(): any {
     return location;
@@ -34,13 +29,40 @@ function getLocation(): any {
 export class SlackService {
 
   constructor(private http: Http) { }
-  
-  signSlack(dashboard: Dashboard): void {
-    return getWindow().open('https://' + dashboard.slack_team 
-            + '.slack.com/oauth/authorize?client_id=' + dashboard.slack_client_id 
-            + '&scope=identity.basic');
+
+  signSlack(team:string, clientId:string, clientSecret:string): Promise<string> {
+    var dummy: HTMLAnchorElement = document.createElement('a');
+    dummy.href = '../utils/slack-code-capturer';
+
+    var redirectUrl = encodeURIComponent(dummy.href);
+    return new Promise((resolve, reject) =>  {
+      var source = window.open(
+        `https://slack.com/oauth/authorize?client_id=${clientId}&scope=client&team=${team}`
+      );
+      var receiver = (msg: MessageEvent) =>  {
+        window.removeEventListener("message", receiver, false);
+        if(msg.source == source && msg.origin == document.location.origin) {
+          resolve(this.generateToken(msg.data, team, clientId, clientSecret));
+        }
+      };
+      window.addEventListener("message", receiver, false);
+    });
   }
-  
+
+  private generateToken(code:string, team:string, clientId:string, clientSecret:string): Promise<any> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('code', code);
+    params.set('team', team);
+    params.set('clientId', clientId);
+    params.set('clientSecret', clientSecret);
+
+    return this.http.get('../utils/slack-token-generator', {
+      search: params
+    }).toPromise().then((r) => {
+      return r.text();
+    });
+  }
+
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }

@@ -62,10 +62,8 @@ public class TestObjectBuilder {
         dashboard.setCodeRepos(codeRepos);
         dashboard.setsProductName(PROJECT_NAME);
         dashboard.setBoards(Arrays.asList(PROJECT_NAME));
-        dashboard.setSlack_team(SLACK_TEAM);
-        dashboard.setSlack_client_id(SLACK_CLIENT_ID);
-        dashboard.setSlack_client_secret(SLACK_CLIENT_SECRET);
-        dashboard.setSlack_token(SLACK_TOKEN);
+        dashboard.setSlackTeam(SLACK_TEAM);
+        dashboard.setSlackToken(SLACK_TOKEN);
         return dashboard;
     }
 

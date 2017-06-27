@@ -23,28 +23,26 @@
 <template>
   <style>
     @import "css/styles.css";
+    .notifications {
+      padding-top: 5px;
+    }
+    .notifications-content {
+      width: 100%;
+    }
   </style>
-  <div class="notifications">
-    <div class="notifications component__content">
-      <div class="component__header">
-        <h2 class="title">Notifications</h2>
+  <div class="notifications" rv-show="notification">
+      <div class="notification__icon color-info">
+        <i class="fa fa-slack" aria-hidden="true"></i>
       </div>
-      <div class="component__body">
-        <div class="notification__icon color-info">
-        </div>
-        <div class="indicator">
-          <div class="stat-desc" rv-hide="notification">No notifications</div>
-          <div class="stat" rv-show="notification">{ notification.description }</div>
-          <div class="stat" rv-show="notification">{ notification.data }</div>
-        </div>
+      <div class="notifications-content">
+        <div>{ notification.description }</div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
   (function (window, document, undefined) {
-    
+
     // Refers to the "importee", which is components/builds-dashboard.html
     var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
     var tmpl = thisDoc.querySelector('template');
@@ -68,7 +66,7 @@
 
     // Fires when an instance of the element is created
     MyElementProto.render = function (data) {
-      
+
       this.processAlerts(data);
 
       var model = this.getModel();
@@ -81,7 +79,7 @@
     window.MyElement = document.registerElement('notifications-tile', {
       prototype: MyElementProto
     });
-    
+
   })(window, document);
 
 </script>
