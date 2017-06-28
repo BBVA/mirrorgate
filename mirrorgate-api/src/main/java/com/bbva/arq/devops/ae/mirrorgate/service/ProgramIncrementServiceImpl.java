@@ -7,7 +7,6 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -62,7 +61,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
                                             .map(Feature::getsNumber)
                                             .collect(Collectors.toList());
 
-            boardPIFeatures = featureRepository.programIncrementBoardFeatures(Arrays.asList(dashboardName), piFeaturesKeys);
+            boardPIFeatures = featureRepository.programIncrementBoardFeatures(boards, piFeaturesKeys);
         }
 
         return boardPIFeatures;
