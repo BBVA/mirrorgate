@@ -64,6 +64,7 @@
   <link rel="import" href="components/tiles/markets/reviews-component.html">
   <link rel="import" href="components/tiles/programIncrement/component.html">
   <link rel="import" href="components/tiles/bugs/component.html" >
+  <link rel="import" href="components/tiles/notifications/component.html" >
 
 </head>
 
@@ -89,6 +90,7 @@
       </div>
     </div>
 
+    <!-- .dashboard -->
     <div class="dashboard">
       <board-column>
         <tile-container class="tile--primary">
@@ -155,40 +157,11 @@
     </div>
     <!-- / .dashboard -->
 
-    <!--<div class="bottom">
-        <div class="notifications">
-          <div class="notifications__column">
-
-            <notifications-dashboard class="component component--footer">
-
-              <div class="notification">
-                <div class="notification__icon color-info">
-                </div>
-                <div>
-                </div>
-              </div>
-
-            </notifications-dashboard>
-
-          </div>
-          <div class="notifications__column">
-
-            <notifications-dashboardiv class="component component--footer">
-
-              <div class="notification">
-                <div class="notification__icon color-info">
-
-                </div>
-                <div>
-
-                </div>
-              </div>
-
-            </notifications-dashboard>
-
-          </div>
-        </div>
-      </div><!-- / .bottom -->
+    <!-- .bottom -->
+    <board-column class="bottom">
+      <notifications-tile class="tile"></notifications-tile>
+    </board-column>
+    <!-- / .bottom -->
 
   </div>
 </body>

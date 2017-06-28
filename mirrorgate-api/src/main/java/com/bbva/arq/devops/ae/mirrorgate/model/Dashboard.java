@@ -20,6 +20,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -38,6 +39,8 @@ public class Dashboard extends BaseModel {
     private List<String> applications = new ArrayList<>();
     private List<String> boards;
     private Filters filters;
+    private String slackToken;
+    private String slackTeam;
     private DashboardStatus status;
     private String lastUserEdit;
     @Indexed
@@ -124,6 +127,22 @@ public class Dashboard extends BaseModel {
 
     public void setLastModification(long lastModification) {
         this.lastModification = lastModification;
+    }
+
+    public String getSlackToken() {
+        return slackToken;
+    }
+
+    public void setSlackToken(String slackToken) {
+        this.slackToken = slackToken;
+    }
+
+    public String getSlackTeam() {
+        return slackTeam;
+    }
+
+    public void setSlackTeam(String slackTeam) {
+        this.slackTeam = slackTeam;
     }
 
     public String getProgramIncrement() {

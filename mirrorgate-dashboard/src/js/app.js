@@ -27,7 +27,8 @@ function MainController() {
       'next-sprint': 'boards',
       incidences: 'boards',
       'program-increment':'programIncrement',
-      bugs: 'boards'
+      bugs: 'boards',
+      notifications: 'slackTeam'
     };
 
     // Display tiles only when details are avail
