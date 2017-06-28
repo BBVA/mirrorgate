@@ -45,15 +45,25 @@
 
       beforeEach(() => {
         server = buildFakeServer();
+        server.autoRespond = true;
+        server.respondImmediately = true;
+
+        ws = {
+            send: function (msg) {
+                this.onmessage({ data: msg });
+            },
+            onmessage: function (e) {
+                // stub
+            }
+        };    
+        this.sinon.stub(window, 'WebSocket').returns(ws);
+        
+        ws.send(JSON.stringify(lastNotification));    
       });
 
-      afterEach(() => {
-        server.restore();
-      });
-
-      xit('should show notifications', () => {
+      it('should show last notification', () => {
         appendComponent();
-        let div = component.querySelector('* /deep/ .indicator');
+        let div = component.querySelector('* /deep/ .notifications');
         server.respond();
         expect(div.children.length).not.toBe(0);
       });
@@ -71,12 +81,7 @@
           document.addEventListener('dashboard-updated', handler);
         });
 
-        afterEach(() => {
-          document.removeEventListener('dashboard-updated', handler);
-          testHandler = undefined;
-        });
-
-        xit('should raise an event when it succeds', (done) => {
+        it('should raise an event when it succeds', (done) => {
           appendComponent();
           
           testHandler = function (e) {
@@ -84,9 +89,10 @@
             done();
           }
           server.respond();
+          ws.send(JSON.stringify(lastNotification));    
         });
 
-        xit('should raise an event when servers fail', (done) => {
+        it('should raise an event when servers fail', (done) => {
           server.restore();
           server = sinon.fakeServer.create();
           
@@ -99,8 +105,19 @@
 
           server.lastRequest.respond(404, {});
         });
+        
+        afterEach(() => {
+          document.removeEventListener('dashboard-updated', handler);
+          testHandler = undefined;
+        });
 
       });
+      
+      afterEach(() => {
+        server.restore();
+        WebSocket.restore();
+      });
+      
     });
   </script>
 </body>

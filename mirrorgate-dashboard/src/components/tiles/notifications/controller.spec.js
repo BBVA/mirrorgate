@@ -23,36 +23,51 @@ describe('NotificationsController', () => {
   beforeEach(() => {
     server = buildFakeServer();
     server.autoRespond = true;
-    
-    sinon.stub(window, 'WebSocket').returns(ws);
+    server.respondImmediately = true;
+
+    ws = {
+        send: function (msg) {
+            this.onmessage({ data: msg });
+        },
+        onmessage: function (e) {
+            // stub
+        }
+    };    
+    this.sinon.stub(window, 'WebSocket').returns(ws);
 
     controller = new NotificationsController(dashboardForTesting);
     controller.init();
+    
+    ws.send(JSON.stringify(lastNotification));    
   });
 
-  xit('should get active notifications', (done) => {
-    var notifications = [];
+  it('should get last notification', (done) => {
+    
+    var notification;
 
-    for (var index in notificationsForTesting) {
-      var notification = new Notification(
-        notificationsForTesting[index].title,
-        notificationsForTesting[index].descrition,
-        notificationsForTesting[index].date);
-      notifications.push(notification);
+    if('message' === lastNotification.type) {
+      var attachment = (lastNotification.attachments &&
+          lastNotification.attachments[0]);
+
+      notification = new Notification(
+        lastNotification.text || (attachment && (attachment.pretext || attachment.fallback)),
+        new Date(parseFloat(lastNotification.ts) * 1000) ,
+        lastNotification.username,
+        (attachment && attachment.color) || 'fff'
+      );
     }
-        
+    
     controller.observable.attach((response) => {
-      
-      console.log('EEE');
-
-      expect(_.isEqual(response, notifications)).toBe(true);
+      expect(_.isEqual(response, notification)).toBe(true);
       done();
     });
+    
   });
 
   afterEach(() => {
     server.restore();
     controller.dispose();
+    WebSocket.restore();
   });
 
 });

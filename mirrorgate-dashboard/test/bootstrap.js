@@ -31,7 +31,7 @@ var appsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '
 
 var bugsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/bugs');
 
-var notificationsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/notifications');
+var lastNotification = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/notification');
 
 var fakeUrl = 'https:://fake.com';
 

@@ -26,13 +26,13 @@ var NotificationsController = (function(dashboardId) {
   function getWebSocketURL(response) {
 
     if(!response) {
-        return;
+        return observable.notify(undefined);
     }
-
+    
     var webSocket = new WebSocket(response);
 
     webSocket.onmessage = function (event) {
-
+      
       var slack_notification = JSON.parse(event.data);
 
       if('message' === slack_notification.type) {
