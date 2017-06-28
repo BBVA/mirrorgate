@@ -23,18 +23,13 @@
 <template>
   <style>
     @import "css/styles.css";
-    .notifications {
-      padding-top: 5px;
-    }
-    .notifications-content {
-      width: 100%;
-    }
   </style>
-  <div class="notifications" rv-show="notification">
+  <div class="notifications" rv-show="notification.description">
       <div class="notification__icon color-info">
         <i class="fa fa-slack" aria-hidden="true"></i>
       </div>
       <div class="notifications-content">
+        <div class="notification-type"><span class="notification-title">Slack message</span> <span class="date title-desc">{ notification.date | dateFrom}</span></div>
         <div>{ notification.description }</div>
       </div>
   </div>
