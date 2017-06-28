@@ -32,7 +32,7 @@ export class SlackService {
 
   signSlack(team:string, clientId:string, clientSecret:string): Promise<string> {
     var dummy: HTMLAnchorElement = document.createElement('a');
-    dummy.href = '../utils/slack-code-capturer';
+    dummy.href = 'utils/slack-code-capturer';
 
     var redirectUrl = encodeURIComponent(dummy.href);
     return new Promise((resolve, reject) =>  {
@@ -56,7 +56,7 @@ export class SlackService {
     params.set('clientId', clientId);
     params.set('clientSecret', clientSecret);
 
-    return this.http.get('../utils/slack-token-generator', {
+    return this.http.get('utils/slack-token-generator', {
       search: params
     }).toPromise().then((r) => {
       return r.text();

@@ -37,7 +37,7 @@ var NotificationsController = (function(dashboardId) {
 
       if('message' === slack_notification.type) {
         var attachment = (slack_notification.attachments &&
-            slack_notification.attachments[0])
+            slack_notification.attachments[0]);
 
         var notification = new Notification(
           slack_notification.text || (attachment && (attachment.pretext || attachment.fallback)),

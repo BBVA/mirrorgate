@@ -52,14 +52,14 @@ public class NotificationController {
         this.slackService = slackService;
     }
 
-    @RequestMapping(value = "/utils/slack-code-capturer",
+    @RequestMapping(value = "/backoffice/utils/slack-code-capturer",
             method = GET,
             produces = TEXT_HTML_VALUE)
     public String getSlackCode(@RequestParam("code") String code) {
         return "<html><head><script>opener.postMessage('"+code+"',document.location.origin);window.close();</script></head></html>";
     }
 
-    @RequestMapping(value = "/utils/slack-token-generator",
+    @RequestMapping(value = "/backoffice/utils/slack-token-generator",
             method = GET,
             produces = TEXT_PLAIN_VALUE)
     public ResponseEntity<?> getSlackToken(
