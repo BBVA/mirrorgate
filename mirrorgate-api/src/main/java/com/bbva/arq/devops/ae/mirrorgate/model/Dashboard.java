@@ -42,6 +42,7 @@ public class Dashboard extends BaseModel {
     private String lastUserEdit;
     @Indexed
     private long lastModification;
+    private String programIncrement;
 
     public String getName() {
         return name;
@@ -125,4 +126,11 @@ public class Dashboard extends BaseModel {
         this.lastModification = lastModification;
     }
 
+    public String getProgramIncrement() {
+        return programIncrement;
+    }
+
+    public void setProgramIncrement(String programIncrement) {
+        this.programIncrement = programIncrement;
+    }
 }

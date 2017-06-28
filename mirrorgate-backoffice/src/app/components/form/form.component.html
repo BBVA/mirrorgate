@@ -103,6 +103,23 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="programIncrement">Product Increment</label>
+          <div class="collapse" id="product-increment-help">
+            <div class="well">
+              Add a regular expression if you want to show Product Increment on your dashboard.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+            <input type="text" class="form-control" id="programIncrement" [(ngModel)]="temp.programIncrement" (ngModelChange)="mirrorTempValues()" name="programIncrement">
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-xs-6">
           <button type="button" class="btn btn-danger" (click)="back()">Cancel</button>

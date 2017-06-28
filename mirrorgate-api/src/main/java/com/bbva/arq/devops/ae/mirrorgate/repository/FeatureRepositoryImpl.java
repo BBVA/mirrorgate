@@ -15,11 +15,17 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
 import java.util.Arrays;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -31,8 +37,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 
 public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FeatureRepositoryImpl.class);
+
     @Autowired
-    MongoTemplate mongoTemplate;
+    private MongoTemplate mongoTemplate;
 
     private static class DoubleValue {
         Double value;
@@ -91,10 +99,80 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
                         .andExclude("_id")
         );
 
-
         AggregationResults<SprintStats> groupResults
                 = mongoTemplate.aggregate(agg, "feature", SprintStats.class);
         return groupResults.getUniqueMappedResult();
 
     }
+
+    public List<String> programIncrementBoardFeatures(List<String> boards, List<String> programIncrementFeatures){
+
+        Aggregation agg = newAggregation(
+            match(Criteria
+                    .where("sParentKey")
+                        .in(programIncrementFeatures)
+                    .and("keywords")
+                        .in(boards)
+                ),
+            group()
+                .addToSet("sParentKey")
+                .as("features"),
+            project("features")
+                .andExclude("_id")
+
+        );
+
+        AggregationResults<ProgramIncrementBoardFeatures> aggregationResult
+            = mongoTemplate.aggregate(agg, "feature", ProgramIncrementBoardFeatures.class);
+
+        return aggregationResult.getUniqueMappedResult().features;
+    }
+
+    @Override
+    public ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards) {
+
+        Aggregation agg = newAggregation(
+            match(Criteria
+                .where("keywords").in(boards)
+                .and("sTypeName").is("Feature")
+            ),
+            project("sPiNames")
+                .andExclude("_id"),
+            unwind("sPiNames"),
+            group()
+                .addToSet("sPiNames")
+                .as("piNames")
+        );
+
+        AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult
+            = mongoTemplate.aggregate(agg, "feature", ProgramIncrementNamesAggregationResult.class);
+
+        return aggregationResult.getUniqueMappedResult();
+    }
+
+    private static class ProgramIncrementBoardFeatures {
+        private List<String> features;
+
+        public ProgramIncrementBoardFeatures(List<String> features){
+            this.features = features;
+        }
+    }
+
+    public static class ProgramIncrementNamesAggregationResult {
+
+        private List<String> piNames;
+
+        public ProgramIncrementNamesAggregationResult(List<String> piNames){
+            this.piNames = piNames;
+        }
+
+        public List<String> getPiNames() {
+            return piNames;
+        }
+
+        public void setPiNames(List<String> piNames) {
+            this.piNames = piNames;
+        }
+    }
+
 }
