@@ -7,5 +7,6 @@
   "boards": [
    "error"
   ],
-  "applications": ["error"]
+  "applications": ["error"],
+  "slackTeam":"error"
 }

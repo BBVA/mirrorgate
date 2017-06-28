@@ -31,9 +31,7 @@ var appsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '
 
 var bugsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/bugs');
 
-var lastNotification = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/notification');
-
-var fakeUrl = 'https:://fake.com';
+var lastNotification = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/notifications');
 
 function buildFakeServer() {
 
@@ -79,7 +77,7 @@ function buildFakeServer() {
       JSON.stringify(appsForTesting)
     ]
   );
-  
+
   server.respondWith(
     'GET',
     'dashboards/' + dashboardForTesting + '/bugs',
@@ -89,14 +87,14 @@ function buildFakeServer() {
       JSON.stringify(bugsForTesting)
     ]
   );
-  
+
   server.respondWith(
     'GET',
     'dashboards/' + dashboardForTesting + '/notifications',
     [
       200,
       { "Content-Type": "application/json" },
-      JSON.stringify(fakeUrl)
+      JSON.stringify(lastNotification)
     ]
   );
 

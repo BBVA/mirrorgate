@@ -25,29 +25,36 @@ var NotificationsController = (function(dashboardId) {
 
   function getWebSocketURL(response) {
 
+    function loadNotification(notification) {
+
+      if('message' === notification.type) {
+        var attachment = (notification.attachments &&
+            notification.attachments[0]);
+
+        observable.notify(new Notification(
+          notification.text || (attachment && (attachment.pretext || attachment.fallback)),
+          new Date(parseFloat(notification.ts) * 1000) ,
+          notification.username,
+          (attachment && attachment.color) || 'fff'
+        ));
+      }
+    }
+
     if(!response) {
         return observable.notify(undefined);
     }
-    
-    var webSocket = new WebSocket(response);
 
-    webSocket.onmessage = function (event) {
-      
-      var slack_notification = JSON.parse(event.data);
+    if(response.indexOf('ws') === 0) {
 
-      if('message' === slack_notification.type) {
-        var attachment = (slack_notification.attachments &&
-            slack_notification.attachments[0]);
+      var webSocket = new WebSocket(response);
 
-        var notification = new Notification(
-          slack_notification.text || (attachment && (attachment.pretext || attachment.fallback)),
-          new Date(parseFloat(slack_notification.ts) * 1000) ,
-          slack_notification.username,
-          (attachment && attachment.color) || 'fff'
-        );
-        observable.notify(notification);
-      }
-    };
+      webSocket.onmessage = function (event) {
+        var notification = JSON.parse(event.data);
+        loadNotification(notification);
+      };
+    } else {
+      loadNotification(JSON.parse(response));
+    }
   }
 
   this.observable = observable;
