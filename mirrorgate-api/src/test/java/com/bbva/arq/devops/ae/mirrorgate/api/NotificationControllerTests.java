@@ -49,7 +49,6 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringRunner.class)
 @WebMvcTest(NotificationController.class)
 @WebAppConfiguration
-@Ignore
 public class NotificationControllerTests {
 
     private MockMvc mockMvc = null;
@@ -64,6 +63,7 @@ public class NotificationControllerTests {
     private DashboardService dashboardService;
 
     private static final String SLACK_CODE = "SLACK_CODE";
+    private static final String SLACK_DUMMY = "SLACK_DUMMY";
 
     @Before
     public void before() {
@@ -78,25 +78,16 @@ public class NotificationControllerTests {
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getToken(
                 dashboard.getSlackTeam(),
-                "dummy",
-                "dummy",
+                SLACK_DUMMY,
+                SLACK_DUMMY,
                 SLACK_CODE)).thenReturn(notification);
 
-        this.mockMvc.perform(get("/utils/slack-token-generator")
-                .param("code", SLACK_CODE))
+        this.mockMvc.perform(get("/backoffice/utils/slack-token-generator")
+                .param("code", SLACK_CODE)
+                .param("clientId", SLACK_DUMMY)
+                .param("clientSecret", SLACK_DUMMY)
+                .param("team", dashboard.getSlackTeam()))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    public void setSlackTokenFakeDashboardTest() throws Exception {
-        String name = "fake";
-        when(dashboardService.getDashboard(name)).thenReturn(null);
-
-        verify(slackService, never()).getToken(any(), any(), any(), any());
-
-        this.mockMvc.perform(get("/dashboards/" + name + "/slack")
-                .param("code", SLACK_CODE))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
@@ -107,12 +98,15 @@ public class NotificationControllerTests {
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getToken(
                 dashboard.getSlackTeam(),
-                any(),
-                any(),
+                SLACK_DUMMY,
+                SLACK_DUMMY,
                 SLACK_CODE)).thenReturn(error_notification);
 
-        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/slack")
-                .param("code", SLACK_CODE))
+        this.mockMvc.perform(get("/backoffice/utils/slack-token-generator")
+                .param("code", SLACK_CODE)
+                .param("clientId", SLACK_DUMMY)
+                .param("clientSecret", SLACK_DUMMY)
+                .param("team", dashboard.getSlackTeam()))
                 .andExpect(status().is(HttpStatus.CONFLICT.value()));
     }
 
@@ -124,7 +118,7 @@ public class NotificationControllerTests {
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getWebSocket(
                 dashboard.getSlackTeam(),
-                any()
+                dashboard.getSlackToken()
         )).thenReturn(notification);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/notifications"))
@@ -152,7 +146,7 @@ public class NotificationControllerTests {
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getWebSocket(
                 dashboard.getSlackTeam(),
-                any()
+                dashboard.getSlackToken()
         )).thenReturn(error_notification);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/notifications"))

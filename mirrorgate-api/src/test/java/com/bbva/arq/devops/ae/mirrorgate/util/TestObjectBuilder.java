@@ -43,9 +43,6 @@ public class TestObjectBuilder {
 
 
     private static final String SLACK_TEAM = "SLACK_TEAM";
-    private static final String SLACK_CLIENT_ID = "SLACK_CLIENT_ID";
-    private static final String SLACK_CLIENT_SECRET = "SLACK_CLIENT_SECRET";
-    private static final String SLACK_CODE = "SLACK_CODE";
     private static final String SLACK_TOKEN = "SLACK_TOKEN";
     private static final String SLACK_URL = "SLACK_URL";
     private static final String SLACK_ERROR = "SLACK_ERROR";
