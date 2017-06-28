@@ -21,8 +21,9 @@
  * @param {String} description Description of Notification
  * @param {Date} date        Date of Notification
  */
-function Notification(title, description, date) {
-  this.title = title;
+function Notification(description, date, user, color) {
   this.description = description;
-  this.date = date; 
+  this.date = date;
+  this.user = user;
+  this.color = color;
 }

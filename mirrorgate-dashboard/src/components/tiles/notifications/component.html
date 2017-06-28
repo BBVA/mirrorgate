@@ -25,11 +25,11 @@
     @import "css/styles.css";
   </style>
   <div class="notifications" rv-show="notification.description">
-      <div class="notification__icon color-info">
+      <div class="notification__icon" rv-color="notification.color">
         <i class="fa fa-slack" aria-hidden="true"></i>
       </div>
       <div class="notifications-content">
-        <div class="notification-type"><span class="notification-title">Slack message</span> <span class="date title-desc">{ notification.date | dateFrom}</span></div>
+        <div class="notification-type"><span class="notification-title">Slack message<span rv-show="notification.user"> from {notification.user}</span></span> <span class="date title-desc">{ notification.date | date updatedDate}</span></div>
         <div>{ notification.description }</div>
       </div>
   </div>

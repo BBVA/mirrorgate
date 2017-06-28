@@ -22,25 +22,28 @@ var NotificationsController = (function(dashboardId) {
 
   var observable = new Event('NotificationsController');
   var service = Service.get(Service.types.notifications, dashboardId);
-  
+
   function getWebSocketURL(response) {
-    
+
     if(!response) {
         return;
     }
 
     var webSocket = new WebSocket(response);
-    
+
     webSocket.onmessage = function (event) {
 
       var slack_notification = JSON.parse(event.data);
 
       if('message' === slack_notification.type) {
-        //TODO: improve slack notification mapping
+        var attachment = (slack_notification.attachments &&
+            slack_notification.attachments[0])
+
         var notification = new Notification(
-          'Notification', 
-          slack_notification.text,
-          new Date() 
+          slack_notification.text || (attachment && (attachment.pretext || attachment.fallback)),
+          new Date(parseFloat(slack_notification.ts) * 1000) ,
+          slack_notification.username,
+          (attachment && attachment.color) || 'fff'
         );
         observable.notify(notification);
       }
@@ -52,8 +55,8 @@ var NotificationsController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getWebSocketURL);
   };
-  this.init = function() { 
-    service.addListener(getWebSocketURL); 
+  this.init = function() {
+    service.addListener(getWebSocketURL);
   };
 
 });
