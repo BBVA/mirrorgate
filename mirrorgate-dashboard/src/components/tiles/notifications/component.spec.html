@@ -45,20 +45,6 @@
 
       beforeEach(() => {
         server = buildFakeServer();
-        server.autoRespond = true;
-        server.respondImmediately = true;
-
-        ws = {
-            send: function (msg) {
-                this.onmessage({ data: msg });
-            },
-            onmessage: function (e) {
-                // stub
-            }
-        };    
-        this.sinon.stub(window, 'WebSocket').returns(ws);
-        
-        ws.send(JSON.stringify(lastNotification));    
       });
 
       it('should show last notification', () => {
@@ -83,19 +69,18 @@
 
         it('should raise an event when it succeds', (done) => {
           appendComponent();
-          
+
           testHandler = function (e) {
             expect(e.detail.status).toBe('unknown');
             done();
           }
           server.respond();
-          ws.send(JSON.stringify(lastNotification));    
         });
 
         it('should raise an event when servers fail', (done) => {
           server.restore();
           server = sinon.fakeServer.create();
-          
+
           appendComponent();
 
           testHandler = function (e) {
@@ -105,19 +90,18 @@
 
           server.lastRequest.respond(404, {});
         });
-        
+
         afterEach(() => {
           document.removeEventListener('dashboard-updated', handler);
           testHandler = undefined;
         });
 
       });
-      
+
       afterEach(() => {
         server.restore();
-        WebSocket.restore();
       });
-      
+
     });
   </script>
 </body>

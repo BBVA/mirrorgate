@@ -18,31 +18,17 @@ describe('NotificationsController', () => {
 
   var server;
   var controller;
-  var ws;
-  
+
   beforeEach(() => {
     server = buildFakeServer();
     server.autoRespond = true;
-    server.respondImmediately = true;
-
-    ws = {
-        send: function (msg) {
-            this.onmessage({ data: msg });
-        },
-        onmessage: function (e) {
-            // stub
-        }
-    };    
-    this.sinon.stub(window, 'WebSocket').returns(ws);
 
     controller = new NotificationsController(dashboardForTesting);
     controller.init();
-    
-    ws.send(JSON.stringify(lastNotification));    
   });
 
   it('should get last notification', (done) => {
-    
+
     var notification;
 
     if('message' === lastNotification.type) {
@@ -56,18 +42,17 @@ describe('NotificationsController', () => {
         (attachment && attachment.color) || 'fff'
       );
     }
-    
+
     controller.observable.attach((response) => {
       expect(_.isEqual(response, notification)).toBe(true);
       done();
     });
-    
+
   });
 
   afterEach(() => {
     server.restore();
     controller.dispose();
-    WebSocket.restore();
   });
 
 });

@@ -6,5 +6,6 @@
   "boards": [
     "empty"
   ],
-  "applications": ["empty"]
+  "applications": ["empty"],
+  "slackTeam": "empty"
 }
