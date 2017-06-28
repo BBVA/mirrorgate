@@ -26,8 +26,23 @@ db.getCollection('dashboards').insertMany([
         "applications":['moods'],
         "boards":[
             "MirrorGate"
-        ]
-    },    
+        ],
+        'programIncrement': 'MG02'
+    },
+    {
+        "name":"program-increment",
+        "displayName":"Program Increment",
+        "codeRepos":[
+            "mirrorgate-app",
+            "MirrorGate",
+            "jira-collector",
+            "design"
+        ],
+        "boards":[
+            "ProgramIncrement"
+        ],
+        'programIncrement': 'PI01'
+    },
     {
         "name":"nothing"
     },

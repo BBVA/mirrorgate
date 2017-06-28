@@ -38,7 +38,8 @@ export class FormComponent {
   temp: {
     applications?: string,
     boards?: string,
-    codeRepos?: string
+    codeRepos?: string,
+    programIncrement?: string
   } = {};
 
   constructor(private dashboardsService: DashboardsService,
@@ -61,12 +62,14 @@ export class FormComponent {
     this.temp.boards = this.dashboard.boards ? this.dashboard.boards.join(',') : '';
     this.temp.applications = this.dashboard.applications ? this.dashboard.applications.join(',') : '';
     this.temp.codeRepos = this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
+    this.temp.programIncrement = this.dashboard.programIncrement;
   }
 
   mirrorTempValues() {
     this.dashboard.boards = this.temp.boards.length ? this.temp.boards.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',').map((e) => e.trim()) : undefined;
+    this.dashboard.programIncrement = this.temp.programIncrement.length ? this.temp.programIncrement.trim() : undefined;
   }
 
   back(): void {

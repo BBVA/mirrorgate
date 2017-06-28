@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-export class Dashboard {
-  name: string;
-  displayName: string;
-  logoUrl: string;
-  programIncrement: string;
-  applications: string[] = [];
-  codeRepos: string[] = [];
-  boards: string[] = [];
-  filter: {
-    timeSpan: number,
-    branch: Map<string,boolean>,
-    status: Map<string,boolean>
-  }
-  slackTeam: string;
-  slackToken: string;
-  lastUserEdit: string;
-  lastModification: number;
+/**
+ * Product Increment model
+ *
+ * @param {Number} featuresNumber     Number of features in the PI
+
+ */
+function ProgramIncrement(featuresNumber){
+  this.featuresNumber = featuresNumber;
 }
