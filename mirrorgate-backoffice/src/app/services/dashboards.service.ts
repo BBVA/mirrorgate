@@ -72,9 +72,7 @@ export class DashboardsService {
 
     let errMsg: string;
     if (error instanceof Response) {
-      const body = error._body || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${err}`;
+      errMsg = `${error.status} - ${error.text() }`;
     } else {
       errMsg = error.message ? error.message : error;
     }
