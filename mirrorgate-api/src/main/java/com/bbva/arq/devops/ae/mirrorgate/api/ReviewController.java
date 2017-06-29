@@ -19,10 +19,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
+import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,9 +57,9 @@ public class ReviewController {
         try {
             List<String> appNames = dashboardService.getApplicationsByDashboardName(name);
             return ResponseEntity.ok(reviewService.getAverageRateByAppNames(appNames));
-        } catch (com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException ex) {
+        } catch (MirrorGateException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
         }
     }
 
@@ -73,7 +73,7 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (MirrorGateException ex) {
             LOG.log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
         }
     }
 

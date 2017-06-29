@@ -60,7 +60,7 @@ public class DashboardController {
             dashboard = dashboardService.getDashboard(name);
         } catch (MirrorGateException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
         }
         return ResponseEntity.status(HttpStatus.OK).body(dashboard);
     }
@@ -75,7 +75,7 @@ public class DashboardController {
             dashboardService.deleteDashboard(name);
         } catch (MirrorGateException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
         }
         return ResponseEntity.status(HttpStatus.OK).body("Dashboard was delted successfully");
     }
@@ -94,7 +94,7 @@ public class DashboardController {
             dashboard = dashboardService.newDashboard(request);
         } catch (MirrorGateException ex) {
             LOG.log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
         }
         return ResponseEntity.ok(dashboard);
     }
@@ -123,7 +123,7 @@ public class DashboardController {
             dashboard = dashboardService.updateDashboard(dashboard);
         } catch (MirrorGateException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
         }
 
         return ResponseEntity.ok(dashboard);

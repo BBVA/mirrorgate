@@ -16,8 +16,8 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
+import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.List;
 
 /**
@@ -39,7 +39,7 @@ public interface ReviewService {
      *
      * @param reviews List of reviews to create
      * @return List of Id of new Reviews
-     * @throws com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException
+     * @throws com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException
      */
     List<String> create(Iterable<Review> reviews) throws MirrorGateException;
 }

@@ -84,7 +84,7 @@ public class NotificationController {
             dashboard = dashboardService.getDashboard(name);
         } catch (com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
         }
 
         if (dashboard == null) {

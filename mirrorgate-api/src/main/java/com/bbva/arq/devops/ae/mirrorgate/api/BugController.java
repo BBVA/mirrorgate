@@ -56,7 +56,7 @@ public class BugController {
             dashboard = dashboardService.getDashboard(name);
         } catch (MirrorGateException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
         }
         List<String> boards = dashboard.getBoards();
         return ResponseEntity.ok(bugService.getActiveBugsByBoards(boards));
