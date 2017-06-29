@@ -29,6 +29,7 @@ export class Dashboard {
   }
   slackTeam: string;
   slackToken: string;
+  slackChannel: string;
   lastUserEdit: string;
   lastModification: number;
 }

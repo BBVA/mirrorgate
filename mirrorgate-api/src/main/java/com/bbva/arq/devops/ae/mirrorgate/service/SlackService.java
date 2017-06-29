@@ -17,6 +17,8 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 
+import java.util.Map;
+
 /**
  *
  * @author enrique
@@ -43,4 +45,10 @@ public interface SlackService {
      */
     public SlackDTO getWebSocket(String team, String token);
 
+    /**
+     * Get channel list for team and token
+     * @param slackToken
+     * @return
+     */
+    Map<String,String> getChannelList(String slackToken);
 }

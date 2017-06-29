@@ -24,24 +24,17 @@ describe('NotificationsController', () => {
     server.autoRespond = true;
 
     controller = new NotificationsController(dashboardForTesting);
-    controller.init();
+    controller.init({});
   });
 
   it('should get last notification', (done) => {
 
-    var notification;
-
-    if('message' === lastNotification.type) {
-      var attachment = (lastNotification.attachments &&
-          lastNotification.attachments[0]);
-
-      notification = new Notification(
-        lastNotification.text || (attachment && (attachment.pretext || attachment.fallback)),
-        new Date(parseFloat(lastNotification.ts) * 1000) ,
-        lastNotification.username,
-        (attachment && attachment.color) || 'fff'
-      );
-    }
+    var notification = new Notification(
+      lastNotification.text,
+      new Date(parseFloat(lastNotification.ts) * 1000) ,
+      lastNotification.username,
+      'fff'
+    );
 
     controller.observable.attach((response) => {
       expect(_.isEqual(response, notification)).toBe(true);
