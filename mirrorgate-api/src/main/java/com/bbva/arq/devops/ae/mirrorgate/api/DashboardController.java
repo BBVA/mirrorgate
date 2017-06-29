@@ -113,6 +113,7 @@ public class DashboardController {
         dashboard.setLogoUrl(request.getLogoUrl());
         dashboard.setSlackTeam(request.getSlackTeam());
         dashboard.setSlackChannel(request.getSlackChannel());
+        dashboard.setProgramIncrement(request.getProgramIncrement());
         if(request.getSlackToken() != null) {
             dashboard.setSlackToken(request.getSlackToken());
         }
