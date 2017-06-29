@@ -30,6 +30,10 @@ import {SlackService} from '../../services/slack.service';
 export class FormComponent {
 
   dashboard: Dashboard;
+  slackChannels: {
+    keys?: string[],
+    values?: Map<string,string>
+  } = {};
   slack: {
     clientId?: string,
     clientSecret?: string
@@ -63,6 +67,7 @@ export class FormComponent {
     this.temp.applications = this.dashboard.applications ? this.dashboard.applications.join(',') : '';
     this.temp.codeRepos = this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
     this.temp.programIncrement = this.dashboard.programIncrement;
+    this.updateSlackChannels();
   }
 
   mirrorTempValues() {
@@ -76,6 +81,18 @@ export class FormComponent {
     this.router.navigate(['/list']);
   }
 
+  private updateSlackChannels(): void {
+    this.slackService.getChannels(this.dashboard).then((channels) => {
+      this.slackChannels.values = channels;
+      this.slackChannels.keys = channels && Object.keys(channels);
+    });
+  }
+
+  private setSlackToken(token:string): void {
+    this.dashboard.slackToken = token;
+    this.updateSlackChannels();
+  }
+
   onSave(dashboard: Dashboard): void {
     this.dashboardsService.saveDashboard(dashboard, this.edit).then(dashboard => {
       if(dashboard) {
@@ -87,9 +104,7 @@ export class FormComponent {
 
   signSlack(dashboard: Dashboard): void {
     this.slackService.signSlack(this.dashboard.slackTeam, this.slack.clientId, this.slack.clientSecret)
-      .then((code: string) => {
-        this.dashboard.slackToken = code;
-      });
+      .then((token) => this.setSlackToken(token));
   }
 
 }

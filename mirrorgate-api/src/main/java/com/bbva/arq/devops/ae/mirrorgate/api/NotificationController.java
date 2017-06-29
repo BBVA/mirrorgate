@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -50,32 +51,6 @@ public class NotificationController {
     public NotificationController(DashboardService dashboardService, SlackService slackService) {
         this.dashboardService = dashboardService;
         this.slackService = slackService;
-    }
-
-    @RequestMapping(value = "/backoffice/utils/slack-code-capturer",
-            method = GET,
-            produces = TEXT_HTML_VALUE)
-    public String getSlackCode(@RequestParam("code") String code) {
-        return "<html><head><script>opener.postMessage('"+code+"',document.location.origin);window.close();</script></head></html>";
-    }
-
-    @RequestMapping(value = "/backoffice/utils/slack-token-generator",
-            method = GET,
-            produces = TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> getSlackToken(
-            @RequestParam("code") String code,
-            @RequestParam("clientId") String clientId,
-            @RequestParam("team") String team,
-            @RequestParam("clientSecret") String clientSecret
-    ) {
-
-        SlackDTO notification = slackService.getToken(team, clientId, clientSecret, code);
-
-        if (!notification.isOk()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
-        }
-
-        return ResponseEntity.ok(notification.getAccess_token());
     }
 
     @RequestMapping(value = "/dashboards/{name}/notifications",
