@@ -20,6 +20,7 @@ import static com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType.BUG;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
@@ -41,6 +42,11 @@ public class TestObjectBuilder {
     private static final String FEATURE_NAME = "feature";
 
 
+    private static final String SLACK_TEAM = "SLACK_TEAM";
+    private static final String SLACK_TOKEN = "SLACK_TOKEN";
+    private static final String SLACK_URL = "SLACK_URL";
+    private static final String SLACK_ERROR = "SLACK_ERROR";
+
     public static Dashboard createDashboard() {
         Dashboard dashboard = new Dashboard();
         dashboard.setId(ObjectId.get());
@@ -53,6 +59,8 @@ public class TestObjectBuilder {
         dashboard.setCodeRepos(codeRepos);
         dashboard.setsProductName(PROJECT_NAME);
         dashboard.setBoards(Arrays.asList(PROJECT_NAME));
+        dashboard.setSlackTeam(SLACK_TEAM);
+        dashboard.setSlackToken(SLACK_TOKEN);
         return dashboard;
     }
 
@@ -70,6 +78,21 @@ public class TestObjectBuilder {
         story.setsProjectName(PROJECT_NAME);
         story.setsNumber(FEATURE_NAME);
         return story;
+    }
+
+    public static SlackDTO createSlackDTO() {
+        SlackDTO notification = new SlackDTO();
+        notification.setOk(true);
+        notification.setAccess_token(SLACK_TOKEN);
+        notification.setUrl(SLACK_URL);
+        return notification;
+    }
+
+    public static SlackDTO createSlackErrorDTO() {
+        SlackDTO notification = new SlackDTO();
+        notification.setOk(false);
+        notification.setError(SLACK_ERROR);
+        return notification;
     }
 
     public static BugDTO createBugDTO() {

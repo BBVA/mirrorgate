@@ -181,5 +181,63 @@ db.getCollection('feature').insertMany([
     'sprintEndDate': ISODate('2017-04-04T20:00:00.0000000'),
     'sProjectId': null,
     'sProjectName': 'MirrorGate'
+  },
+  {
+    'sId': '10047',
+    'sNumber': 'DOST05-100',
+    'sName': 'MirrorGate feature 1',
+    'sTypeName': 'Feature',
+    'sStatus': 'Active',
+    'dEstimate': 8,
+    'sSprintID': '1225',
+    'sSprintName': 'MIRRORGATE_SP1',
+    'sSprintAssetState': 'CLOSED',
+    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
+    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sProjectId': null,
+    'sProjectName': 'MirrorGate',
+    'sPiNames': ['MG01','MG02'],
+        'keywords': [
+              'MirrorGate', 'ProgramIncrement'
+            ]
+  },
+  {
+    'sId': '10048',
+    'sNumber': 'DOST05-101',
+    'sName': 'MirrorGate feature 2',
+    'sTypeName': 'Feature',
+    'sStatus': 'Active',
+    'dEstimate': 5,
+    'sSprintID': '1225',
+    'sSprintName': 'MIRRORGATE_SP1',
+    'sSprintAssetState': 'CLOSED',
+    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
+    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sProjectId': null,
+    'sProjectName': 'MirrorGate',
+    'sPiNames': ['MG02'],
+        'keywords': [
+              'MirrorGate', 'ProgramIncrement'
+            ]
+  },
+  {
+    'sId': '10049',
+    'sNumber': 'DOST05-102',
+    'sName': 'MirrorGate story in feature',
+    'sTypeName': 'Story',
+    'sStatus': 'Active',
+    'dEstimate': 5,
+    'sSprintID': '1225',
+    'sSprintName': 'MIRRORGATE_SP1',
+    'sSprintAssetState': 'CLOSED',
+    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
+    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sProjectId': null,
+    'sProjectName': 'MirrorGate',
+    'sParentKey': 'DOST05-101',
+    'sPiNames': ['MG02'],
+       'keywords': [
+              'MirrorGate', 'ProgramIncrement'
+            ]
   }
 ]);

@@ -56,6 +56,10 @@ rivets.formatters.dateFrom = function(value, now) {
   return moment(value).from(now);
 };
 
+rivets.formatters.date = function(value, now) {
+  return moment(value).calendar(now);
+};
+
 rivets.formatters.textCleanUp = function(value) {
   return decodeURIComponent(decodeURIComponent(value));
 };
@@ -93,4 +97,8 @@ rivets.binders['pclass-*'] = function(el, value) {
 
 rivets.binders.width = function(el, value) {
   $(el).css('width', '' + value + '%');
+};
+
+rivets.binders.color = function(el, value) {
+  $(el).css('color', '#' + value);
 };

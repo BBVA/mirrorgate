@@ -20,6 +20,8 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -38,10 +40,16 @@ public class Dashboard extends BaseModel {
     private List<String> applications = new ArrayList<>();
     private List<String> boards;
     private Filters filters;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String slackToken;
+    private String slackTeam;
+    private String slackChannel;
     private DashboardStatus status;
     private String lastUserEdit;
     @Indexed
     private long lastModification;
+    private String programIncrement;
 
     public String getName() {
         return name;
@@ -125,4 +133,35 @@ public class Dashboard extends BaseModel {
         this.lastModification = lastModification;
     }
 
+    public String getSlackToken() {
+        return slackToken;
+    }
+
+    public void setSlackToken(String slackToken) {
+        this.slackToken = slackToken;
+    }
+
+    public String getSlackTeam() {
+        return slackTeam;
+    }
+
+    public void setSlackTeam(String slackTeam) {
+        this.slackTeam = slackTeam;
+    }
+
+    public String getProgramIncrement() {
+        return programIncrement;
+    }
+
+    public void setProgramIncrement(String programIncrement) {
+        this.programIncrement = programIncrement;
+    }
+
+    public String getSlackChannel() {
+        return slackChannel;
+    }
+
+    public void setSlackChannel(String slackChannel) {
+        this.slackChannel = slackChannel;
+    }
 }

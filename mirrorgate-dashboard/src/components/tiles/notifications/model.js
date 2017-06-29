@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
@@ -14,22 +15,15 @@
  * limitations under the License.
  */
 
-export class Dashboard {
-  name: string;
-  displayName: string;
-  logoUrl: string;
-  programIncrement: string;
-  applications: string[] = [];
-  codeRepos: string[] = [];
-  boards: string[] = [];
-  filter: {
-    timeSpan: number,
-    branch: Map<string,boolean>,
-    status: Map<string,boolean>
-  }
-  slackTeam: string;
-  slackToken: string;
-  slackChannel: string;
-  lastUserEdit: string;
-  lastModification: number;
+/**
+ * Notification model
+ * @param {String} title       Title of Notification
+ * @param {String} description Description of Notification
+ * @param {Date} date        Date of Notification
+ */
+function Notification(description, date, user, color) {
+  this.description = description;
+  this.date = date;
+  this.user = user;
+  this.color = color;
 }

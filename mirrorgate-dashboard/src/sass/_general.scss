@@ -104,13 +104,13 @@ tile-container{
 .bottom{
     flex: 0 0 auto;
     min-height: $footer-height;
+    max-height: $footer-height;
     width: 100%;
 
     .component, .notification {
         width: 100%;
         overflow: visible;
     }
-
 
 }
 

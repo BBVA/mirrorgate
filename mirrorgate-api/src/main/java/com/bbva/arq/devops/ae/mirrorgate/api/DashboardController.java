@@ -105,7 +105,19 @@ public class DashboardController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
-        dashboard = dashboardService.updateDashboard(request);
+        dashboard.setApplications(request.getApplications());
+        dashboard.setBoards(request.getBoards());
+        dashboard.setCodeRepos(request.getCodeRepos());
+        dashboard.setDisplayName(request.getDisplayName());
+        dashboard.setFilters(request.getFilters());
+        dashboard.setLogoUrl(request.getLogoUrl());
+        dashboard.setSlackTeam(request.getSlackTeam());
+        dashboard.setSlackChannel(request.getSlackChannel());
+        if(request.getSlackToken() != null) {
+            dashboard.setSlackToken(request.getSlackToken());
+        }
+        dashboard.setsProductName(request.getsProductName());
+        dashboard = dashboardService.updateDashboard(dashboard);
         return ResponseEntity.ok(dashboard);
 
     }

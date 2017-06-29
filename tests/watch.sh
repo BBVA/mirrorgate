@@ -12,11 +12,11 @@ pushd ../mirrorgate-api
 popd
 
 pushd ../mirrorgate-dashboard
-$(npm bin)/gulp build:watch > ../tests/logs/dashboardboard.log & DASHBOARD_PID=$!
+./node_modules/gulp/bin/gulp.js build:watch > ../tests/logs/dashboardboard.log & DASHBOARD_PID=$!
 popd
 
 pushd ../mirrorgate-backoffice
-$(npm bin)/webpack --watch > ../tests/logs/backoffice.log & BACKOFFICE_PID=$!
+./node_modules/webpack/bin/webpack.js --watch > ../tests/logs/backoffice.log & BACKOFFICE_PID=$!
 popd
 
 ./run.sh

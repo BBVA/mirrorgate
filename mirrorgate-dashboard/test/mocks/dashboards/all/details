@@ -7,5 +7,7 @@
   "boards": [
     "all"
   ],
-  "applications": ["all"]
+  "applications": ["all"],
+  "slackTeam": "All",
+  "programIncrement": "blah"
 }

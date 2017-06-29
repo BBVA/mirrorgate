@@ -7,5 +7,7 @@
   "boards": [
     "mirrorgate"
   ],
-  "applications": []
+  "applications": [],
+  "slackTeam":"mirrorgate",
+  "programIncrement": "MG02"
 }

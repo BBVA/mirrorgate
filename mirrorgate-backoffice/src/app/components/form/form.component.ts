@@ -19,24 +19,35 @@ import { OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {DashboardsService} from '../../services/dashboards.service';
 import {Dashboard} from '../../model/dashboard';
+import {SlackService} from '../../services/slack.service';
 
 @Component({
   selector: 'new-and-edit-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  providers: [DashboardsService]
+  providers: [DashboardsService, SlackService]
 })
 export class FormComponent {
 
   dashboard: Dashboard;
+  slackChannels: {
+    keys?: string[],
+    values?: Map<string,string>
+  } = {};
+  slack: {
+    clientId?: string,
+    clientSecret?: string
+  } = {};
   edit: boolean = false;
   temp: {
     applications?: string,
     boards?: string,
-    codeRepos?: string
+    codeRepos?: string,
+    programIncrement?: string
   } = {};
 
   constructor(private dashboardsService: DashboardsService,
+              private slackService: SlackService,
               private router: Router,
               private route: ActivatedRoute) {}
 
@@ -55,16 +66,31 @@ export class FormComponent {
     this.temp.boards = this.dashboard.boards ? this.dashboard.boards.join(',') : '';
     this.temp.applications = this.dashboard.applications ? this.dashboard.applications.join(',') : '';
     this.temp.codeRepos = this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
+    this.temp.programIncrement = this.dashboard.programIncrement;
+    this.updateSlackChannels();
   }
 
   mirrorTempValues() {
     this.dashboard.boards = this.temp.boards.length ? this.temp.boards.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',').map((e) => e.trim()) : undefined;
+    this.dashboard.programIncrement = this.temp.programIncrement.length ? this.temp.programIncrement.trim() : undefined;
   }
 
   back(): void {
     this.router.navigate(['/list']);
+  }
+
+  private updateSlackChannels(): void {
+    this.slackService.getChannels(this.dashboard).then((channels) => {
+      this.slackChannels.values = channels;
+      this.slackChannels.keys = channels && Object.keys(channels);
+    });
+  }
+
+  private setSlackToken(token:string): void {
+    this.dashboard.slackToken = token;
+    this.updateSlackChannels();
   }
 
   onSave(dashboard: Dashboard): void {
@@ -75,4 +101,10 @@ export class FormComponent {
       }
     });
   }
+
+  signSlack(dashboard: Dashboard): void {
+    this.slackService.signSlack(this.dashboard.slackTeam, this.slack.clientId, this.slack.clientSecret)
+      .then((token) => this.setSlackToken(token));
+  }
+
 }
