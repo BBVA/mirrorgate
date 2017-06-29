@@ -18,7 +18,7 @@ import { Injectable } from '@angular/core';
 
 import { Dashboard } from '../model/dashboard';
 import { Http } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
+import { Headers, RequestOptions, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -69,7 +69,17 @@ export class DashboardsService {
   }
 
   private handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
+
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error._body || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error;
+    }
+
+    return Promise.reject(errMsg);
   }
 
 }

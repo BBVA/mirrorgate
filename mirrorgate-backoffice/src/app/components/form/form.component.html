@@ -188,6 +188,12 @@
         </div>
       </div>
 
+      <div class="row" *ngIf="errorMessage">
+          <div class="col-sm-12">
+            <p class="error">{{errorMessage}}</p>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-xs-6">
           <button type="button" class="btn btn-danger" (click)="back()">Cancel</button>

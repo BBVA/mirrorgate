@@ -17,7 +17,7 @@
 import { Injectable } from '@angular/core';
 
 import { Dashboard } from '../model/dashboard';
-import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -64,7 +64,17 @@ export class SlackService {
   }
 
   private handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
+
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error._body || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error;
+    }
+
+    return Promise.reject(errMsg);
   }
 
 }
