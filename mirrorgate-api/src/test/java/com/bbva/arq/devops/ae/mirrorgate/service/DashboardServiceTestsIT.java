@@ -19,6 +19,7 @@ import static junit.framework.TestCase.assertTrue;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
+import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -49,7 +50,7 @@ public class DashboardServiceTestsIT {
     }
 
     @Test
-    public void testMongo(){
+    public void testMongo() throws MirrorGateException {
 
         List<String> dashboardFromMongo = dashboardService.getApplicationsByDashboardName("mirrorgate");
 

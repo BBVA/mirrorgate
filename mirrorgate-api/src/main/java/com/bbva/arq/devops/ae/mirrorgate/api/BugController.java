@@ -18,12 +18,15 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,10 +50,16 @@ public class BugController {
 
     @RequestMapping(value = "/dashboards/{name}/bugs",
             method = GET, produces = APPLICATION_JSON_VALUE)
-    public List<BugDTO> getBugs(@PathVariable("name") String name) {
-        Dashboard dashboard = dashboardService.getDashboard(name);
+    public ResponseEntity<?> getBugs(@PathVariable("name") String name) {
+        Dashboard dashboard;
+        try {
+            dashboard = dashboardService.getDashboard(name);
+        } catch (MirrorGateException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex);
+        }
         List<String> boards = dashboard.getBoards();
-        return bugService.getActiveBugsByBoards(boards);
+        return ResponseEntity.ok(bugService.getActiveBugsByBoards(boards));
     }
 
 }

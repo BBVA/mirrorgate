@@ -19,7 +19,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -54,9 +53,14 @@ public class ReviewController {
     }
 
     @RequestMapping(value = "/dashboards/{name}/applications", method = GET, produces = APPLICATION_JSON_VALUE)
-    public List<ApplicationDTO> getApplicationReviewRatings(@PathVariable("name") String name) {
-        List<String> appNames = dashboardService.getApplicationsByDashboardName(name);
-        return reviewService.getAverageRateByAppNames(appNames);
+    public ResponseEntity<?> getApplicationReviewRatings(@PathVariable("name") String name) {
+        try {
+            List<String> appNames = dashboardService.getApplicationsByDashboardName(name);
+            return ResponseEntity.ok(reviewService.getAverageRateByAppNames(appNames));
+        } catch (com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex);
+        }
     }
 
     @RequestMapping(value = "/api/reviews",

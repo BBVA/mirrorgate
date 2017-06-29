@@ -15,14 +15,13 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,27 +49,35 @@ public class DashboardController {
         this.dashboardService = dashboardService;
     }
 
-    @RequestMapping(value = "/dashboards/{name}/details", method = GET, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(
+            value = "/dashboards/{name}/details",
+            method = GET,
+            produces = APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<?> getDashboard(@PathVariable("name") String name) {
-        Dashboard dashboard = dashboardService.getDashboard(name);
-        if (dashboard == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        if (DELETED.equals(dashboard.getStatus())) {
-            return ResponseEntity.status(HttpStatus.GONE).build();
+        Dashboard dashboard;
+        try {
+            dashboard = dashboardService.getDashboard(name);
+        } catch (MirrorGateException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex);
         }
         return ResponseEntity.status(HttpStatus.OK).body(dashboard);
     }
 
-    @RequestMapping(value = "/dashboards/{name}", method = DELETE, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(
+            value = "/dashboards/{name}",
+            method = DELETE,
+            produces = APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<?> deleteDashboard(@PathVariable("name") String name) {
-        Boolean result = dashboardService.deleteDashboard(name);
-
-        if (result) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        try {
+            dashboardService.deleteDashboard(name);
+        } catch (MirrorGateException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex);
         }
+        return ResponseEntity.status(HttpStatus.OK).body("Dashboard was delted successfully");
     }
 
     @RequestMapping(value = "/dashboards", method = GET, produces = APPLICATION_JSON_VALUE)
@@ -82,42 +89,43 @@ public class DashboardController {
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> newDashboard(@Valid @RequestBody Dashboard request) {
+        Dashboard dashboard;
         try {
-            Dashboard dashboard = dashboardService.newDashboard(request);
-            return ResponseEntity.ok(dashboard);
+            dashboard = dashboardService.newDashboard(request);
         } catch (MirrorGateException ex) {
             LOG.log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex);
         }
+        return ResponseEntity.ok(dashboard);
     }
 
     @RequestMapping(value = "/dashboards/{name}", method = PUT,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateDashboard(@PathVariable("name") String name, @Valid @RequestBody Dashboard request) {
-        Dashboard dashboard = dashboardService.getDashboard(name);
 
-        if (dashboard == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        Dashboard dashboard;
+
+        try {
+            dashboard = dashboardService.getDashboard(name);
+
+            dashboard.setApplications(request.getApplications());
+            dashboard.setBoards(request.getBoards());
+            dashboard.setCodeRepos(request.getCodeRepos());
+            dashboard.setDisplayName(request.getDisplayName());
+            dashboard.setFilters(request.getFilters());
+            dashboard.setLogoUrl(request.getLogoUrl());
+            dashboard.setSlackTeam(request.getSlackTeam());
+            if (request.getSlackToken() != null) {
+                dashboard.setSlackToken(request.getSlackToken());
+            }
+            dashboard.setsProductName(request.getsProductName());
+            dashboard = dashboardService.updateDashboard(dashboard);
+        } catch (MirrorGateException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            return ResponseEntity.status(ex.getStatus()).body(ex);
         }
 
-        if (!dashboard.getName().equals(request.getName())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-
-        dashboard.setApplications(request.getApplications());
-        dashboard.setBoards(request.getBoards());
-        dashboard.setCodeRepos(request.getCodeRepos());
-        dashboard.setDisplayName(request.getDisplayName());
-        dashboard.setFilters(request.getFilters());
-        dashboard.setLogoUrl(request.getLogoUrl());
-        dashboard.setSlackTeam(request.getSlackTeam());
-        if(request.getSlackToken() != null) {
-            dashboard.setSlackToken(request.getSlackToken());
-        }
-        dashboard.setsProductName(request.getsProductName());
-        dashboard = dashboardService.updateDashboard(dashboard);
         return ResponseEntity.ok(dashboard);
-
     }
 }

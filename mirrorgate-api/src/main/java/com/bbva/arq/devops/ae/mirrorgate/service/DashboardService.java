@@ -16,8 +16,8 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.List;
 
 /**
@@ -30,24 +30,27 @@ public interface DashboardService {
      *
      * @param name Name of the Dashboard.
      * @return Dashboard
+     * @throws com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException
      */
-    Dashboard getDashboard(String name);
+    Dashboard getDashboard(String name) throws MirrorGateException;
 
     /**
      * Get the repositories of a specific Dashboard
      *
      * @param name Name of the Dashboard
      * @return List of repositories
+     * @throws com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException
      */
-    List<String> getReposByDashboardName(String name);
+    List<String> getReposByDashboardName(String name) throws MirrorGateException;
 
     /**
      * Get all names of applications related to a Dashboard.
      *
      * @param name Name of the Dashboard
      * @return A list with the name of applications of the Dashboard
+     * @throws com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException
      */
-    List<String> getApplicationsByDashboardName(String name);
+    List<String> getApplicationsByDashboardName(String name) throws MirrorGateException;
 
     /**
      * Get a list with all Dashboards with status Active
@@ -60,16 +63,16 @@ public interface DashboardService {
      * Mark a Dashboard as a Delete
      *
      * @param name
-     * @return Boolean indicating if deletion was successful
+     * @throws com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException
      */
-    Boolean deleteDashboard(String name);
+    void deleteDashboard(String name) throws MirrorGateException;
 
     /**
      * Create a new Dashboard
      *
      * @param dashboard
      * @return Dashboard new persisted Dashboard
-     * @throws com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException
+     * @throws com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException
      */
     Dashboard newDashboard(Dashboard dashboard) throws MirrorGateException;
 
@@ -79,6 +82,7 @@ public interface DashboardService {
      *
      * @param dashboard
      * @return Dashboard persisted Dashboard or null if no existent
+     * @throws com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException
      */
-    Dashboard updateDashboard(Dashboard dashboard);
+    Dashboard updateDashboard(Dashboard dashboard) throws MirrorGateException;
 }

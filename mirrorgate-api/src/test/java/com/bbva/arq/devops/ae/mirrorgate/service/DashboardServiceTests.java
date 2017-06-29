@@ -15,16 +15,15 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
+import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -58,13 +57,13 @@ public class DashboardServiceTests {
 
     @Before
     public void before() {
-        when(auth.getPrincipal()).thenReturn("test_user");
+        when(auth.getPrincipal()).thenReturn(TestObjectBuilder.AUTH_NAME);
         when(securityContext.getAuthentication()).thenReturn(auth);
         SecurityContextHolder.setContext(securityContext);
     }
 
     @Test
-    public void getDashboardByNameTest() {
+    public void getDashboardByNameTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
@@ -78,7 +77,7 @@ public class DashboardServiceTests {
     }
 
     @Test
-    public void getReposByDashboardNameTest() {
+    public void getReposByDashboardNameTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
@@ -107,7 +106,7 @@ public class DashboardServiceTests {
     }
 
     @Test
-    public void newDashboardTest() throws Exception {
+    public void newDashboardTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
@@ -122,7 +121,7 @@ public class DashboardServiceTests {
     }
 
     @Test(expected = MirrorGateException.class)
-    public void newPreviusCreatedDashboardTest() throws Exception {
+    public void newPreviusCreatedDashboardTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
@@ -130,25 +129,18 @@ public class DashboardServiceTests {
         dashboardService.newDashboard(dashboard);
     }
 
-    @Test
-    public void newPreviusDeletedDashboardTest() throws Exception {
+    @Test(expected = MirrorGateException.class)
+    public void newPreviusDeletedDashboardTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectBuilder.createDashboard();
         dashboard.setStatus(DELETED);
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
-        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
 
-        Dashboard dashboard2 = dashboardService.newDashboard(dashboard);
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save(dashboard);
-
-        assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
-        assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
-        assertThat(dashboard2.getStatus()).isEqualTo(ACTIVE);
+        dashboardService.newDashboard(dashboard);
     }
 
     @Test
-    public void updateDashboardTest() throws Exception {
+    public void updateDashboardTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
@@ -162,42 +154,35 @@ public class DashboardServiceTests {
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
     }
 
-    @Test
-    public void updateWrongDashboardTest() throws Exception {
+    @Test(expected = MirrorGateException.class)
+    public void updateWrongDashboardTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
 
-        Dashboard d2 = dashboardService.updateDashboard(dashboard);
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-
-        assertThat(d2).isNull();
+        dashboardService.updateDashboard(dashboard);
     }
 
     @Test
-    public void deleteDashboardTest() throws Exception {
+    public void deleteDashboardTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
         when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
 
-        Boolean result = dashboardService.deleteDashboard(dashboard.getName());
+        dashboardService.deleteDashboard(dashboard.getName());
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save(dashboard);
-
-        assertThat(result).isTrue();
     }
 
-    @Test
-    public void deleteWrongDashboardTest() throws Exception {
+    @Test(expected = MirrorGateException.class)
+    public void deleteWrongDashboardTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectBuilder.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
 
-        Boolean result = dashboardService.deleteDashboard(dashboard.getName());
+        dashboardService.deleteDashboard(dashboard.getName());
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-
-        assertThat(result).isFalse();
     }
 
     @After
