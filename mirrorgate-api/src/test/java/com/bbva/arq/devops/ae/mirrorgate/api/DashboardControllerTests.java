@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestUtil;
 import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class DashboardControllerTests {
 
     @Test
     public void getDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
 
@@ -74,7 +74,7 @@ public class DashboardControllerTests {
 
     @Test
     public void getNonexistentDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new MirrorGateException(HttpStatus.NOT_FOUND, "")).when(dashboardService).getDashboard(dashboard.getName());
 
@@ -84,7 +84,7 @@ public class DashboardControllerTests {
 
     @Test
     public void getDeletedDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
         dashboard.setStatus(DELETED);
 
         doThrow(new MirrorGateException(HttpStatus.GONE, "")).when(dashboardService).getDashboard(dashboard.getName());
@@ -95,8 +95,8 @@ public class DashboardControllerTests {
 
     @Test
     public void getActiveDashboardsTest() throws Exception {
-        DashboardDTO dashboard1 = TestObjectBuilder.createDashboardDTO();
-        DashboardDTO dashboard2 = TestObjectBuilder.createDashboardDTO();
+        DashboardDTO dashboard1 = TestObjectFactory.createDashboardDTO();
+        DashboardDTO dashboard2 = TestObjectFactory.createDashboardDTO();
         List<DashboardDTO> dashboards = new ArrayList<>();
         dashboards.add(dashboard1);
         dashboards.add(dashboard2);
@@ -113,7 +113,7 @@ public class DashboardControllerTests {
 
     @Test
     public void newDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardService.newDashboard(dashboard)).thenReturn(dashboard);
 
@@ -125,7 +125,7 @@ public class DashboardControllerTests {
 
     @Test
     public void newPreviusDeletedDashboardTest() throws Exception {
-        Dashboard d = TestObjectBuilder.createDashboard();
+        Dashboard d = TestObjectFactory.createDashboard();
         d.setStatus(DELETED);
 
         when(dashboardService.getDashboard(d.getName())).thenReturn(d);
@@ -139,7 +139,7 @@ public class DashboardControllerTests {
 
     @Test
     public void newPreviusCreatedDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new MirrorGateException(HttpStatus.CONFLICT, "")).when(dashboardService).newDashboard(any());
 
@@ -152,7 +152,7 @@ public class DashboardControllerTests {
 
     @Test
     public void deleteDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
         doNothing().when(dashboardService).deleteDashboard(dashboard.getName());
 
@@ -162,7 +162,7 @@ public class DashboardControllerTests {
 
     @Test
     public void deleteWrongDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new MirrorGateException(HttpStatus.NOT_FOUND, "")).when(dashboardService).deleteDashboard(dashboard.getName());
 
@@ -172,7 +172,7 @@ public class DashboardControllerTests {
 
     @Test
     public void updateDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(dashboardService.updateDashboard(dashboard)).thenReturn(dashboard);
@@ -185,8 +185,8 @@ public class DashboardControllerTests {
 
     @Test
     public void updateWrongDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-        Dashboard wrongDashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
+        Dashboard wrongDashboard = TestObjectFactory.createDashboard();
         wrongDashboard.setName("Wrong");
 
         doThrow(new MirrorGateException(HttpStatus.CONFLICT, "")).when(dashboardService).getDashboard(dashboard.getName());
@@ -199,7 +199,7 @@ public class DashboardControllerTests {
 
     @Test
     public void updateNonexistentDashboardTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new MirrorGateException(HttpStatus.NOT_FOUND, "")).when(dashboardService).getDashboard(dashboard.getName());
 

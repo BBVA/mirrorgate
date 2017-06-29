@@ -35,7 +35,7 @@ import org.bson.types.ObjectId;
  *
  * @author enrique
  */
-public class TestObjectBuilder {
+public class TestObjectFactory {
 
     private static final String DASHBOARD_NAME = "mirrorgate";
     private static final String PROJECT_NAME = "mirrorgate";
