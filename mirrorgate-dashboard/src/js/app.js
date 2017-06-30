@@ -44,6 +44,12 @@ function MainController() {
           tile.setAttribute('pconfig', JSON.stringify(dashboardDetails));
         }
       }
+
+      if(dashboardDetails.slackTeam) {
+        document.querySelector('.dashboard').classList.add('with-footer');
+      } else {
+        document.querySelector('.dashboard').classList.remove('with-footer');
+      }
     }
   }
 

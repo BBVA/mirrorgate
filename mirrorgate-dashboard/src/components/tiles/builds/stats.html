@@ -29,6 +29,7 @@
     <div class="component__header">
       <h2 class="title">Build stats</h2>
       <div class="title-desc" rv-show="stats.count">7 days average ({stats.count} builds)</div>
+      <div class="title-desc" rv-hide="stats.count">No builds in the last 7 days</div>
     </div>
     <div class="component__body" rv-show="stats.count">
       <div class="indicator indicator--builds-failed">
@@ -38,11 +39,6 @@
       <div class="indicator indicator--build-time">
         <div class="stats"><span rv-show="avgBuildTime.hours">{avgBuildTime.hours}h </span><span rv-show="avgBuildTime.mins">{avgBuildTime.mins}m </span>{avgBuildTime.secs}s</div>
         <div class="stat-desc">average duration</div>
-      </div>
-    </div>
-    <div class="component__body" rv-hide="stats.count">
-      <div class="indicator">
-        <div class="stat-desc">No builds in the last 7 days</div>
       </div>
     </div>
   </div>
@@ -60,7 +56,7 @@
 
     MyElementProto.processAlerts = function (data) {
       Utils.raiseEvent(this, {
-        status: data ? 'unknown' : 'server-error'
+        status: data ? (data.stats && data.stats.count) ? 'unknown' : 'empty' : 'server-error'
       });
     }
 
