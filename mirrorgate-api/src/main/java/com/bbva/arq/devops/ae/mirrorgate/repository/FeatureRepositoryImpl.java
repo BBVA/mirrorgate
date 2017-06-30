@@ -119,13 +119,12 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
                 .as("features"),
             project("features")
                 .andExclude("_id")
-
         );
 
         AggregationResults<ProgramIncrementBoardFeatures> aggregationResult
             = mongoTemplate.aggregate(agg, "feature", ProgramIncrementBoardFeatures.class);
 
-        return aggregationResult.getUniqueMappedResult().features;
+        return aggregationResult.getUniqueMappedResult() != null ? aggregationResult.getUniqueMappedResult().features : null;
     }
 
     @Override

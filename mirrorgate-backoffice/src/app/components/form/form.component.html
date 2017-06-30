@@ -118,11 +118,15 @@
               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             </a>
             <input type="text" class="form-control" id="slack_team" [(ngModel)]="dashboard.slackTeam" name="slack_team" #name="ngModel" placeholder="Your slack Team name">
+            <select *ngIf="slackChannels.keys" class="form-control" [(ngModel)]="dashboard.slackChannel" name="slack_channel">
+              <option></option>
+              <option *ngFor="let id of slackChannels.keys" [value]="id">{{slackChannels.values[id]}}</option>
+            </select>
+
             <a *ngIf="dashboard.slackTeam" type="button" class="input-group-addon" data-toggle="modal" data-target="#myModal">
               <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </a>
           </div>
-          <br />
           <!-- Button trigger modal -->
 
 
@@ -183,7 +187,7 @@
             <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
                             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </a>
-            <input type="text" class="form-control" id="programIncrement" [(ngModel)]="temp.programIncrement" (ngModelChange)="mirrorTempValues()" name="programIncrement">
+            <input type="text" class="form-control" id="programIncrement" [(ngModel)]="dashboard.programIncrement" name="programIncrement">
           </div>
         </div>
       </div>

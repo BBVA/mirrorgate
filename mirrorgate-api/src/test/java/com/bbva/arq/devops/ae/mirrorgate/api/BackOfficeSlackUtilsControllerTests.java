@@ -1,11 +1,11 @@
 /*
- * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A..
+ * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,12 +15,9 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
@@ -46,9 +43,9 @@ import org.springframework.web.context.WebApplicationContext;
  * @author enrique
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(NotificationController.class)
+@WebMvcTest(BackOfficeSlackUtilsController.class)
 @WebAppConfiguration
-public class NotificationControllerTests {
+public class BackOfficeSlackUtilsControllerTests {
 
     private MockMvc mockMvc = null;
 
@@ -61,51 +58,51 @@ public class NotificationControllerTests {
     @MockBean
     private DashboardService dashboardService;
 
+    private static final String SLACK_CODE = "SLACK_CODE";
+    private static final String SLACK_DUMMY = "SLACK_DUMMY";
+
     @Before
     public void before() {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
-    public void getWebSocketTest() throws Exception {
+    public void setSlackTokenTest() throws Exception {
         Dashboard dashboard = TestObjectFactory.createDashboard();
         SlackDTO notification = TestObjectFactory.createSlackDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(slackService.getWebSocket(
+        when(slackService.getToken(
                 dashboard.getSlackTeam(),
-                dashboard.getSlackToken()
-        )).thenReturn(notification);
+                SLACK_DUMMY,
+                SLACK_DUMMY,
+                SLACK_CODE)).thenReturn(notification);
 
-        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/notifications"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$", is(notification.getUrl())));
+        this.mockMvc.perform(get("/backoffice/utils/slack/token-generator")
+                .param("code", SLACK_CODE)
+                .param("clientId", SLACK_DUMMY)
+                .param("clientSecret", SLACK_DUMMY)
+                .param("team", dashboard.getSlackTeam()))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void getWebSocketFakeDashboardTest() throws Exception {
-        String name = "fake";
-        when(dashboardService.getDashboard(name)).thenReturn(null);
-
-        verify(slackService, never()).getWebSocket(any(), any());
-
-        this.mockMvc.perform(get("/dashboards/" + name + "/notifications"))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
-    }
-
-    @Test
-    public void getWebSocketSlackErrorTest() throws Exception {
+    public void setSlackTokenSlackErrorTest() throws Exception {
         Dashboard dashboard = TestObjectFactory.createDashboard();
         SlackDTO error_notification = TestObjectFactory.createSlackErrorDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(slackService.getWebSocket(
+        when(slackService.getToken(
                 dashboard.getSlackTeam(),
-                dashboard.getSlackToken()
-        )).thenReturn(error_notification);
+                SLACK_DUMMY,
+                SLACK_DUMMY,
+                SLACK_CODE)).thenReturn(error_notification);
 
-        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/notifications"))
+        this.mockMvc.perform(get("/backoffice/utils/slack/token-generator")
+                .param("code", SLACK_CODE)
+                .param("clientId", SLACK_DUMMY)
+                .param("clientSecret", SLACK_DUMMY)
+                .param("team", dashboard.getSlackTeam()))
                 .andExpect(status().is(HttpStatus.CONFLICT.value()));
     }
 

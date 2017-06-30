@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -38,8 +39,11 @@ public class Dashboard extends BaseModel {
     private List<String> applications = new ArrayList<>();
     private List<String> boards;
     private Filters filters;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackToken;
     private String slackTeam;
+    private String slackChannel;
     private DashboardStatus status;
     private String lastUserEdit;
     @Indexed
@@ -161,4 +165,11 @@ public class Dashboard extends BaseModel {
         this.author = author;
     }
 
+    public String getSlackChannel() {
+        return slackChannel;
+    }
+
+    public void setSlackChannel(String slackChannel) {
+        this.slackChannel = slackChannel;
+    }
 }

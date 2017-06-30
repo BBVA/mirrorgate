@@ -28,11 +28,9 @@
   <div class="component__content">
     <div class="component__header">
       <h2 class="title">Program Increment</h2>
+      <h3 class="title-desc" rv-show="programIncrement.featuresNumber">{programIncrement.featuresNumber} features</h3>
     </div>
     <div class="component__body">
-      <div class="indicator">
-        <div class="stat" rv-show="programIncrement.featuresNumber">{programIncrement.featuresNumber} ongoing features</div>
-      </div>
     </div>
   </div>
 </template>
@@ -49,7 +47,7 @@
 
     MyElementProto.processAlerts = function (data) {
       Utils.raiseEvent(this, {
-        status: data ? 'unknown' : 'server-error'
+        status: data ? 'empty' : 'server-error'
       });
     }
 

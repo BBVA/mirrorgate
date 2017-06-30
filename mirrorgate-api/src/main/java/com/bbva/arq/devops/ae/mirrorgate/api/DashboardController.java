@@ -94,7 +94,9 @@ public class DashboardController {
         dashboard.setFilters(request.getFilters());
         dashboard.setLogoUrl(request.getLogoUrl());
         dashboard.setSlackTeam(request.getSlackTeam());
-        if (request.getSlackToken() != null) {
+        dashboard.setSlackChannel(request.getSlackChannel());
+        dashboard.setProgramIncrement(request.getProgramIncrement());
+        if(request.getSlackToken() != null) {
             dashboard.setSlackToken(request.getSlackToken());
         }
         dashboard.setsProductName(request.getsProductName());

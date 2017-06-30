@@ -15,7 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static org.springframework.http.MediaType.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
@@ -27,7 +27,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -44,32 +43,6 @@ public class NotificationController {
     public NotificationController(DashboardService dashboardService, SlackService slackService) {
         this.dashboardService = dashboardService;
         this.slackService = slackService;
-    }
-
-    @RequestMapping(value = "/backoffice/utils/slack-code-capturer",
-            method = GET,
-            produces = TEXT_HTML_VALUE)
-    public String getSlackCode(@RequestParam("code") String code) {
-        return "<html><head><script>opener.postMessage('"+code+"',document.location.origin);window.close();</script></head></html>";
-    }
-
-    @RequestMapping(value = "/backoffice/utils/slack-token-generator",
-            method = GET,
-            produces = TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> getSlackToken(
-            @RequestParam("code") String code,
-            @RequestParam("clientId") String clientId,
-            @RequestParam("team") String team,
-            @RequestParam("clientSecret") String clientSecret
-    ) {
-
-        SlackDTO notification = slackService.getToken(team, clientId, clientSecret, code);
-
-        if (!notification.isOk()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
-        }
-
-        return ResponseEntity.ok(notification.getAccess_token());
     }
 
     @RequestMapping(value = "/dashboards/{name}/notifications",
