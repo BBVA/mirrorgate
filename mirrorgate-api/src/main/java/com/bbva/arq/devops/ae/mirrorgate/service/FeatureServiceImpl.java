@@ -20,6 +20,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
+import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,6 +39,26 @@ public class FeatureServiceImpl implements FeatureService{
     @Override
     public List<Feature> getActiveUserStoriesByBoards(List<String> boards) {
         return repository.findActiveUserStoriesByBoards(boards, new Sort(new Order("sStatus")));
+    }
+
+    @Override
+    public List<Feature> getFeatureRelatedIssues(List<String> featuresKeys){
+        return repository.findAllBysParentKeyIn(featuresKeys);
+    }
+
+    @Override
+    public List<Feature> getProductIncrementFeatures(String name){
+        return repository.findAllBysPiNamesIn(name);
+    }
+
+    @Override
+    public ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards){
+        return repository.getProductIncrementFromFeatures(boards);
+    }
+
+    @Override
+    public List<String> getProgramIncrementFeaturesByBoard(List<String> boards, List<String> programIncrementFeatures){
+        return repository.programIncrementBoardFeatures(boards, programIncrementFeatures);
     }
 
     @Override

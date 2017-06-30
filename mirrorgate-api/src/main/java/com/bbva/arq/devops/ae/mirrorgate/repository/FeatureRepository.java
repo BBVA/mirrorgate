@@ -34,6 +34,8 @@ public interface FeatureRepository extends CrudRepository<Feature, ObjectId>, Fe
 
     List<Feature> findAllBysIdIn(Iterable<String> ids);
 
+    List<Feature> findAllBysParentKeyIn(List<String> keys);
+
     void deleteBysId(String id);
 
     List<Feature> findBySProjectNameInAndSTypeNameAndSStatusNot(List<String> boards, String type, String status);

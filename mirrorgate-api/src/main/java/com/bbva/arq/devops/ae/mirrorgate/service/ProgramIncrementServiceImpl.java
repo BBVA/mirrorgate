@@ -1,9 +1,11 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,52 +26,47 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProgramIncrementServiceImpl.class);
     private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
 
-    private FeatureRepository featureRepository;
-    private DashboardRepository dashboardRepository;
+    private FeatureService featureService;
+    private DashboardService dashboardService;
 
     @Autowired
-    public ProgramIncrementServiceImpl(FeatureRepository featureRepository,
-                                   DashboardRepository dashboardRepository){
+    public ProgramIncrementServiceImpl(FeatureService featureService,
+                                   DashboardService dashboardService){
 
-        this.dashboardRepository = dashboardRepository;
-        this.featureRepository = featureRepository;
+        this.dashboardService = dashboardService;
+        this.featureService = featureService;
     }
 
-    public List<String> getProgramIncrementFeatures(String dashboardName){
-
-        List<Feature> piFeatures;
-        List<String> boardPIFeatures = null;
-
+    @Override
+    public ProgramIncrementDTO getProgramIncrementFeatures(String dashboardName){
         LOGGER.debug("Getting product increment information for dashboard : {}", dashboardName);
 
-        Dashboard dashboard = dashboardRepository.findOneByName(dashboardName, SORT_BY_LAST_MODIFICATION);
+        Dashboard dashboard = dashboardService.getDashboard(dashboardName);
 
-        if(dashboard != null) {
-            List<String> boards = dashboard.getBoards();
-            Optional<String> productIncrementExpression = Optional
-                .ofNullable(dashboard.getProgramIncrement());
+        String currentPIName = getCurrentProgramIncrementName(dashboard);
 
-            String currentPIName = getProductIncrementNameForBoard(boards,
-                productIncrementExpression);
+        List<Feature> piFeatures = featureService.getProductIncrementFeatures(currentPIName);
 
-            LOGGER.debug("Dashboard current product increment : {}", currentPIName);
+        List<String> piFeaturesKeys = piFeatures
+                                        .stream()
+                                        .map(Feature::getsNumber)
+                                        .collect(Collectors.toList());
 
-            piFeatures = featureRepository.findAllBysPiNamesIn(currentPIName);
+        List<String> boardPIFeaturesKeys = featureService.getProgramIncrementFeaturesByBoard(dashboard.getBoards(), piFeaturesKeys);
 
-            List<String> piFeaturesKeys = piFeatures
-                                            .stream()
-                                            .map(Feature::getsNumber)
-                                            .collect(Collectors.toList());
+        return createResponse(piFeatures, boardPIFeaturesKeys);
+    }
 
-            boardPIFeatures = featureRepository.programIncrementBoardFeatures(boards, piFeaturesKeys);
-        }
+    private String getCurrentProgramIncrementName(Dashboard dashboard){
+        List<String> boards = dashboard.getBoards();
+        Optional<String> productIncrementExpression = Optional.ofNullable(dashboard.getProgramIncrement());
 
-        return boardPIFeatures;
+        return getProductIncrementNameForBoard(boards, productIncrementExpression);
     }
 
     String getProductIncrementNameForBoard(List<String> boards, Optional<String> productIncrementExpression){
 
-        ProgramIncrementNamesAggregationResult result = featureRepository.getProductIncrementFromFeatures(boards);
+        ProgramIncrementNamesAggregationResult result = featureService.getProductIncrementFromFeatures(boards);
 
         List<String> piNames = null;
         if (result != null) {
@@ -101,6 +98,22 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
             }
         }
         return null;
+    }
+
+    private ProgramIncrementDTO createResponse(List<Feature> piFeatures, List<String> boardPIFeaturesKeys){
+
+        //Get features belonging to this board
+        List<IssueDTO> boardPIFeatures = piFeatures.stream()
+            .filter(f -> boardPIFeaturesKeys.contains(f.getsNumber()))
+            .map(IssueMapper::map)
+            .collect(Collectors.toList());
+
+        //Get completed features for this board and PI
+        List<IssueDTO>completedFeatures = boardPIFeatures.stream()
+            .filter(f -> IssueStatus.DONE.equals(f.getStatus()))
+            .collect(Collectors.toList());
+
+        return new ProgramIncrementDTO(completedFeatures, boardPIFeatures, null);
     }
 
     private boolean findIfLocalDateIsInRange(String date1, String date2){

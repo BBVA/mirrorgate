@@ -20,6 +20,8 @@
  * @param {Number} featuresNumber     Number of features in the PI
 
  */
-function ProgramIncrement(featuresNumber){
-  this.featuresNumber = featuresNumber;
+function ProgramIncrement(programIncrementCompletedFeatures, programIncrementFeatures, programIncrementStories){
+  this.programIncrementCompletedFeatures = programIncrementCompletedFeatures.length;
+  this.programIncrementFeatures = programIncrementFeatures.length;
+  this.programIncrementStories = programIncrementStories;
 }

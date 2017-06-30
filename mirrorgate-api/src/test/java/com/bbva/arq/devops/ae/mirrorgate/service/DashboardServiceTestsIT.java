@@ -33,7 +33,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DashboardServiceTestsIT {
 
     @Autowired
-    private DashboardService dashboardService;
+    private com.bbva.arq.devops.ae.mirrorgate.service.DashboardService dashboardService;
 
     @Autowired
     private DashboardRepository dashboardRepository;

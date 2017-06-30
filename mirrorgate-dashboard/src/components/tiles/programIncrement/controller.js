@@ -27,7 +27,8 @@ var ProgramIncrementController = (
       var programIncrement;
 
       if(response) {
-        programIncrement = new ProgramIncrement(JSON.parse(response));
+        var arg = JSON.parse(response);
+        programIncrement = new ProgramIncrement(arg.programIncrementCompletedFeatures, arg.programIncrementFeatures, arg.programIncrementStories);
       }
 
       observable.notify(programIncrement);

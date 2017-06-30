@@ -1,10 +1,10 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import java.util.List;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
 
 
 public interface ProgramIncrementService {
 
-    List<String> getProgramIncrementFeatures(String dashboardName);
+    ProgramIncrementDTO getProgramIncrementFeatures(String dashboardName);
 
 }
