@@ -16,27 +16,22 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
+/**
+ * Created by alfonso on 30/6/17.
+ */
+public class ReviewDTO {
 
-import java.util.List;
-
-public class ApplicationDTO {
-
-    private String appname;
+    private String author;
     private double rate;
-    private Platform platform;
-    private List<ReviewDTO> reviews;
+    private long timestamp;
+    private String comment;
 
-    public ApplicationDTO() {
-
+    public String getAuthor() {
+        return author;
     }
 
-    public String getAppname() {
-        return appname;
-    }
-
-    public ApplicationDTO setAppname(String appname) {
-        this.appname = appname;
+    public ReviewDTO setAuthor(String author) {
+        this.author = author;
         return this;
     }
 
@@ -44,26 +39,26 @@ public class ApplicationDTO {
         return rate;
     }
 
-    public ApplicationDTO setRate(double rate) {
+    public ReviewDTO setRate(double rate) {
         this.rate = rate;
         return this;
     }
 
-    public Platform getPlatform() {
-        return platform;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public ApplicationDTO setPlatform(Platform platform) {
-        this.platform = platform;
+    public ReviewDTO setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
         return this;
     }
 
-    public List<ReviewDTO> getReviews() {
-        return reviews;
+    public String getComment() {
+        return comment;
     }
 
-    public ApplicationDTO setReviews(List<ReviewDTO> reviews) {
-        this.reviews = reviews;
+    public ReviewDTO setComment(String comment) {
+        this.comment = comment;
         return this;
     }
 }

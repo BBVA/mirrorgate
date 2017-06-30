@@ -19,11 +19,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.Test;
@@ -48,9 +50,33 @@ public class ReviewServiceTests {
         appsNames.add(appName1);
         appsNames.add(appName2);
 
-        ApplicationDTO app1 = new ApplicationDTO(appName1, 3, Platform.Android, "reviewer1", 2.0, 1, "comment");
-        ApplicationDTO app2 = new ApplicationDTO(appName2, 4.5, Platform.IOS, "reviewer2", 4.5, 2, "comment");
-
+        ApplicationDTO app1 = new ApplicationDTO()
+                .setAppname(appName1)
+                .setRate(3)
+                .setPlatform(Platform.Android)
+                .setReviews(Arrays.asList(
+                        new ReviewDTO()
+                                .setAuthor("reviewer1")
+                                .setRate(2.0)
+                                .setTimestamp(1L)
+                                .setComment("comment"),
+                        new ReviewDTO()
+                                .setAuthor("reviewer3")
+                                .setRate(3.0)
+                                .setTimestamp(2L)
+                                .setComment("comment2")
+                ));
+        ApplicationDTO app2 = new ApplicationDTO()
+                .setAppname(appName2)
+                .setRate(4.5)
+                .setPlatform(Platform.IOS)
+                .setReviews(Arrays.asList(
+                        new ReviewDTO()
+                                .setAuthor("reviewer2")
+                                .setRate(4.5)
+                                .setTimestamp(2L)
+                                .setComment("comment")
+                ));
         List<ApplicationDTO> apps = new ArrayList<>();
         apps.add(app1);
         apps.add(app2);

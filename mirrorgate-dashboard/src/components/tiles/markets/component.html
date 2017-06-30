@@ -56,7 +56,8 @@
       return tmpl;
     };
 
-    MyElementProto.render = function (apps) {
+    MyElementProto.render = function (data) {
+      var apps = data && data.apps;
 
       Utils.raiseEvent(this, {
         status: apps ? 'unknown' : 'server-error'
