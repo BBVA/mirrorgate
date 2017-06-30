@@ -26,9 +26,8 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.SlackService;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +68,8 @@ public class NotificationControllerTests {
 
     @Test
     public void getWebSocketTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-        SlackDTO notification = TestObjectBuilder.createSlackDTO();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
+        SlackDTO notification = TestObjectFactory.createSlackDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getWebSocket(
@@ -97,8 +96,8 @@ public class NotificationControllerTests {
 
     @Test
     public void getWebSocketSlackErrorTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-        SlackDTO error_notification = TestObjectBuilder.createSlackErrorDTO();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
+        SlackDTO error_notification = TestObjectFactory.createSlackErrorDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getWebSocket(

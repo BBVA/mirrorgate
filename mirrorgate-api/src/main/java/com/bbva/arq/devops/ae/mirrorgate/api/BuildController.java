@@ -21,12 +21,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatsUtils;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatsUtils;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,41 +59,43 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public Map<String, Object> getBuildsByBoardName(@PathVariable("name") String name) {
+    public ResponseEntity<?> getBuildsByBoardName(@PathVariable("name") String name) {
 
         Map<String, Object> response = new HashMap<>();
         List<String> repos = dashboardService.getReposByDashboardName(name);
-        if(repos == null) {
-            return null;
-        } else {
-            List<Build> builds = buildService.getAllBranchesLastByReposName(repos);
 
-            response.put("lastBuilds", builds);
-            response.put("stats", getStats(name));
-
-            return response;
+        if (repos == null) {
+            return ResponseEntity.ok(null);
         }
+
+        List<Build> builds = buildService.getAllBranchesLastByReposName(repos);
+
+        response.put("lastBuilds", builds);
+        response.put("stats", getStats(name));
+
+        return ResponseEntity.ok(response);
     }
 
     @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public BuildStats getStats(@PathVariable("name") String name) {
+    public ResponseEntity<?> getStats(@PathVariable("name") String name) {
 
         List<String> repos = dashboardService.getReposByDashboardName(name);
-        if(repos == null) {
-            return null;
-        } else {
-            Date sevenDaysBefore = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
-            Map<BuildStatus, BuildStats> info = buildService.getBuildStatusStatsAfterTimestamp(repos, sevenDaysBefore.getTime());
 
-            return BuildStatsUtils.combineBuildStats(info.values().toArray(new BuildStats[]{}));
+        if (repos == null) {
+            return ResponseEntity.ok(null);
         }
+
+        Date sevenDaysBefore = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
+        Map<BuildStatus, BuildStats> info = buildService.getBuildStatusStatsAfterTimestamp(repos, sevenDaysBefore.getTime());
+
+        return ResponseEntity.ok(BuildStatsUtils.combineBuildStats(info.values().toArray(new BuildStats[]{})));
     }
 
     @RequestMapping(value = "/api/builds", method = POST,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createBuilds(@Valid @RequestBody BuildDTO request) throws MirrorGateException {
+    public ResponseEntity<String> createBuilds(@Valid @RequestBody BuildDTO request) {
 
         String response = buildService.createOrUpdate(request);
 
