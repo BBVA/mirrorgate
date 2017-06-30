@@ -1,11 +1,11 @@
-/*!
- * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+/*
+ * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A..
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.bbva.arq.devops.ae.mirrorgate.exception;
 
-.white-bg{
-  background-color: #fff;
-  padding: 20px;
-}
+/**
+ *
+ * @author enrique
+ */
+public class ReviewsConflictException extends RuntimeException {
 
-.error {
-  color: #8B0000;
+    public ReviewsConflictException(String message) {
+        super(message);
+    }
+
 }

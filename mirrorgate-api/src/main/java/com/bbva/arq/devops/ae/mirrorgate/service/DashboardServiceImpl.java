@@ -19,7 +19,9 @@ import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIV
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import java.util.List;
@@ -39,19 +41,29 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public Dashboard getDashboard(String name) {
-        return dashboardRepository.findOneByName(name, SORT_BY_LAST_MODIFICATION);
+        Dashboard dashboard = dashboardRepository.findOneByName(name, SORT_BY_LAST_MODIFICATION);
+
+        if (dashboard == null) {
+            throw new DashboardNotFoundException("Dashboard not Found");
+        }
+
+        if (DELETED.equals(dashboard.getStatus())) {
+            throw new DashboardNotFoundException("Dashboard was deleted");
+        }
+
+        return dashboard;
     }
 
     @Override
     public List<String> getReposByDashboardName(String name) {
         Dashboard dashboard = this.getDashboard(name);
-        return dashboard == null ? null : dashboard.getCodeRepos();
+        return dashboard.getCodeRepos();
     }
 
     @Override
     public List<String> getApplicationsByDashboardName(String name) {
         Dashboard dashboard = this.getDashboard(name);
-        return dashboard == null ? null : dashboard.getApplications();
+        return dashboard.getApplications();
     }
 
     @Override
@@ -60,51 +72,67 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public Boolean deleteDashboard(String name) {
+    public void deleteDashboard(String name) {
         Dashboard dashboard = this.getDashboard(name);
-        if (dashboard != null) {
-            dashboard.setStatus(DELETED);
-            dashboard.setLastModification(System.currentTimeMillis());
+
+        if (null != dashboard.getAuthor()) {
+
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null && null != auth.getPrincipal()) {
-                dashboard.setLastUserEdit(auth.getPrincipal().toString());
+            if (auth == null || null == auth.getPrincipal()) {
+                throw new DashboardForbiddenException("Not auth found");
             }
-            dashboardRepository.save(dashboard);
-            return true;
-        } else {
-            return false;
+
+            if (!dashboard.getAuthor().equals(auth.getPrincipal().toString())) {
+                throw new DashboardForbiddenException("Do not allow edition");
+            }
+
+            dashboard.setLastUserEdit(auth.getPrincipal().toString());
         }
+
+        dashboard.setStatus(DELETED);
+        dashboard.setLastModification(System.currentTimeMillis());
+        dashboardRepository.save(dashboard);
     }
 
     @Override
-    public Dashboard newDashboard(Dashboard dashboard) throws MirrorGateException {
-        Dashboard oldDashboard = this.getDashboard(dashboard.getName());
-        if (oldDashboard != null) {
-            if (oldDashboard.getStatus() != DELETED) {
-                throw new MirrorGateException("Dashboard with name '" + dashboard.getName() + "' already exists");
-            }
+    public Dashboard newDashboard(Dashboard dashboard) {
+        Dashboard oldDashboard = dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        if (oldDashboard != null && oldDashboard.getStatus() != DELETED) {
+            throw new DashboardConflictException("Dashboard with name '" + dashboard.getName() + "' already exists");
         }
+
         dashboard.setStatus(ACTIVE);
         dashboard.setLastModification(System.currentTimeMillis());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         if (auth != null && null != auth.getPrincipal()) {
+            dashboard.setAuthor(auth.getPrincipal().toString());
             dashboard.setLastUserEdit(auth.getPrincipal().toString());
         }
+        dashboard.setLastModification(System.currentTimeMillis());
+
         return dashboardRepository.save(dashboard);
     }
 
     @Override
     public Dashboard updateDashboard(Dashboard dashboard) {
         Dashboard toUpdate = this.getDashboard(dashboard.getName());
-        if(toUpdate == null) {
-            return null;
-        } else {
-            dashboard.setLastModification(System.currentTimeMillis());
+
+        if (null != toUpdate.getAuthor()) {
+
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null && null != auth.getPrincipal()) {
-                dashboard.setLastUserEdit(auth.getPrincipal().toString());
+            if (auth == null || null == auth.getPrincipal()) {
+                throw new DashboardForbiddenException("Not auth found");
             }
-            return dashboardRepository.save(dashboard);
+
+            if (!toUpdate.getAuthor().equals(auth.getPrincipal().toString())) {
+                throw new DashboardForbiddenException("Do not allow edition");
+            }
+
+            dashboard.setLastUserEdit(auth.getPrincipal().toString());
         }
+
+        dashboard.setLastModification(System.currentTimeMillis());
+        return dashboardRepository.save(dashboard);
     }
 }

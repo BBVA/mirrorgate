@@ -20,8 +20,8 @@ import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
+import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class ReviewServiceTests {
 
 
     @Test
-    public void createReviewTest() throws MirrorGateException {
+    public void createReviewTest() {
         Review review1 = createReview();
         Review review2 = createReview();
 
@@ -116,8 +116,8 @@ public class ReviewServiceTests {
 
     }
 
-    @Test(expected = MirrorGateException.class)
-    public void createReviewThrowMirrorGateErrorTest() throws MirrorGateException {
+    @Test(expected = ReviewsConflictException.class)
+    public void createReviewThrowErrorTest() {
         Review review1 = createReview();
         Review review2 = createReview();
 

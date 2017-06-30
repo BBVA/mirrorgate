@@ -45,6 +45,7 @@ export class FormComponent {
     codeRepos?: string,
     programIncrement?: string
   } = {};
+  errorMessage: string;
 
   constructor(private dashboardsService: DashboardsService,
               private slackService: SlackService,
@@ -92,17 +93,23 @@ export class FormComponent {
   }
 
   onSave(dashboard: Dashboard): void {
-    this.dashboardsService.saveDashboard(dashboard, this.edit).then(dashboard => {
-      if(dashboard) {
-        this.dashboard = dashboard;
-        this.back();
-      }
-    });
-  }
+    this.dashboardsService.saveDashboard(dashboard, this.edit)
+      .then(dashboard => {
+        if(dashboard) {
+          this.dashboard = dashboard;
+          this.back();
+        }
+      })
+      .catch((error: any) => {
+        this.errorMessage = <any>error;
+      });  }
 
   signSlack(dashboard: Dashboard): void {
     this.slackService.signSlack(this.dashboard.slackTeam, this.slack.clientId, this.slack.clientSecret)
-      .then((token) => this.setSlackToken(token));
+      .then((token) => this.setSlackToken(token))
+      .catch((error: any) => {
+        this.errorMessage = <any>error;
+      });
   }
 
 }
