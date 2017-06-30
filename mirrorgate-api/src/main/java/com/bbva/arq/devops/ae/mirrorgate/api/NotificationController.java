@@ -19,11 +19,10 @@ import static org.springframework.http.MediaType.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.SlackService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,15 +76,8 @@ public class NotificationController {
     @RequestMapping(value = "/dashboards/{name}/notifications",
             method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getWebSocket(@PathVariable("name") String name) {
-        Dashboard dashboard;
-
-        try {
-            dashboard = dashboardService.getDashboard(name);
-        } catch (com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException ex) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
-        }
+    public ResponseEntity<?> getWebSocket(@PathVariable("name") String name) throws MirrorGateException {
+        Dashboard dashboard = dashboardService.getDashboard(name);
 
         if (dashboard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Dashboard not found");

@@ -19,12 +19,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
-import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,28 +52,17 @@ public class ReviewController {
     }
 
     @RequestMapping(value = "/dashboards/{name}/applications", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getApplicationReviewRatings(@PathVariable("name") String name) {
-        try {
-            List<String> appNames = dashboardService.getApplicationsByDashboardName(name);
-            return ResponseEntity.ok(reviewService.getAverageRateByAppNames(appNames));
-        } catch (MirrorGateException ex) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
-        }
+    public ResponseEntity<?> getApplicationReviewRatings(@PathVariable("name") String name) throws MirrorGateException {
+        List<String> appNames = dashboardService.getApplicationsByDashboardName(name);
+        return ResponseEntity.ok(reviewService.getAverageRateByAppNames(appNames));
     }
 
     @RequestMapping(value = "/api/reviews",
             method = POST,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createReviews(@Valid @RequestBody Iterable<Review> reviews) {
-        try {
-            List<String> response = reviewService.create(reviews);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (MirrorGateException ex) {
-            LOG.log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
-        }
+    public ResponseEntity<?> createReviews(@Valid @RequestBody Iterable<Review> reviews) throws MirrorGateException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.create(reviews));
     }
 
 }

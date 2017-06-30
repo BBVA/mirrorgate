@@ -19,13 +19,15 @@ import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIV
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
+import com.bbva.arq.devops.ae.mirrorgate.exceptions.DashboardConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.exceptions.DashboardForbiddenException;
+import com.bbva.arq.devops.ae.mirrorgate.exceptions.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
-import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -47,7 +49,7 @@ public class DashboardServiceImpl implements DashboardService {
         }
 
         if (DELETED.equals(dashboard.getStatus())) {
-            throw new MirrorGateException(HttpStatus.GONE, "Dashboard was deleted");
+            throw new DashboardNotFoundException("Dashboard was deleted");
         }
 
         return dashboard;
@@ -75,18 +77,18 @@ public class DashboardServiceImpl implements DashboardService {
         Dashboard dashboard = this.getDashboard(name);
 
         if (dashboard == null) {
-            throw new MirrorGateException(HttpStatus.NOT_FOUND, "Dashboard not found");
+            throw new DashboardNotFoundException("Dashboard not found");
         }
 
         if (null != dashboard.getAuthor()) {
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth == null || null == auth.getPrincipal()) {
-                throw new MirrorGateException(HttpStatus.FORBIDDEN, "Not auth found");
+                throw new DashboardForbiddenException("Not auth found");
             }
 
             if (!dashboard.getAuthor().equals(auth.getPrincipal().toString())) {
-                throw new MirrorGateException(HttpStatus.FORBIDDEN, "Do not allow edition");
+                throw new DashboardForbiddenException("Do not allow edition");
             }
 
             dashboard.setLastUserEdit(auth.getPrincipal().toString());
@@ -101,7 +103,7 @@ public class DashboardServiceImpl implements DashboardService {
     public Dashboard newDashboard(Dashboard dashboard) throws MirrorGateException {
         Dashboard oldDashboard = this.getDashboard(dashboard.getName());
         if (oldDashboard != null && oldDashboard.getStatus() != DELETED) {
-            throw new MirrorGateException(HttpStatus.CONFLICT, "Dashboard with name '" + dashboard.getName() + "' already exists");
+            throw new DashboardConflictException("Dashboard with name '" + dashboard.getName() + "' already exists");
         }
 
         dashboard.setStatus(ACTIVE);
@@ -120,18 +122,18 @@ public class DashboardServiceImpl implements DashboardService {
     public Dashboard updateDashboard(Dashboard dashboard) throws MirrorGateException {
         Dashboard toUpdate = this.getDashboard(dashboard.getName());
         if (toUpdate == null) {
-            throw new MirrorGateException(HttpStatus.NOT_FOUND, "Dashboard not found");
+            throw new DashboardNotFoundException("Dashboard not found");
         }
 
         if (null != dashboard.getAuthor()) {
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth == null || null == auth.getPrincipal()) {
-                throw new MirrorGateException(HttpStatus.FORBIDDEN, "Not auth found");
+                throw new DashboardForbiddenException("Not auth found");
             }
 
             if (!dashboard.getAuthor().equals(auth.getPrincipal().toString())) {
-                throw new MirrorGateException(HttpStatus.FORBIDDEN, "Do not allow edition");
+                throw new DashboardForbiddenException("Do not allow edition");
             }
 
             dashboard.setLastUserEdit(auth.getPrincipal().toString());

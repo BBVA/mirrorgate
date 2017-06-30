@@ -20,10 +20,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
+import com.bbva.arq.devops.ae.mirrorgate.exceptions.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
-import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -175,8 +176,8 @@ public class DashboardServiceTests {
         verify(dashboardRepository, times(1)).save(dashboard);
     }
 
-    @Test(expected = MirrorGateException.class)
-    public void deleteWrongDashboardTest() throws MirrorGateException {
+    @Test(expected = DashboardNotFoundException.class)
+    public void deleteNotFoundDashboardTest() throws MirrorGateException {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);

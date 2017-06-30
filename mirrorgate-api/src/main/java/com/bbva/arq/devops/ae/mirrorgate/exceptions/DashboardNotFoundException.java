@@ -13,26 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.bbva.arq.devops.ae.mirrorgate.exceptions;
 
-package com.bbva.arq.devops.ae.mirrorgate.utils;
+import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 
-import org.springframework.http.HttpStatus;
+/**
+ *
+ * @author enrique
+ */
+public class DashboardNotFoundException extends MirrorGateException {
 
-public class MirrorGateException extends Exception {
-
-    private HttpStatus status;
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public MirrorGateException(String message) {
+    public DashboardNotFoundException(String message) {
         super(message);
     }
-
-    public MirrorGateException(HttpStatus status, String message) {
-        super(message);
-        this.status = status;
-    }
-
 }

@@ -19,10 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
-import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;

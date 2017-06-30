@@ -17,9 +17,9 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static junit.framework.TestCase.assertTrue;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
-import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;

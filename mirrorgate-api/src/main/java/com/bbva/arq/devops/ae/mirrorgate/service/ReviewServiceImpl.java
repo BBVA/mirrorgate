@@ -15,12 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
-import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +48,7 @@ public class ReviewServiceImpl implements ReviewService {
         Iterable<Review> newReviews = repository.save(reviews);
 
         if (newReviews == null) {
-            throw new MirrorGateException(CONFLICT, "Save reviews error");
+            throw new MirrorGateException("Save reviews error");
         }
 
         return getReviewIds(reviews);

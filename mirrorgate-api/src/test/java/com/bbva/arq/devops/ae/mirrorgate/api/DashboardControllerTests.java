@@ -24,11 +24,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.exceptions.DashboardConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.exceptions.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestUtil;
-import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -76,7 +77,8 @@ public class DashboardControllerTests {
     public void getNonexistentDashboardTest() throws Exception {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
-        doThrow(new MirrorGateException(HttpStatus.NOT_FOUND, "")).when(dashboardService).getDashboard(dashboard.getName());
+        doThrow(new DashboardNotFoundException(""))
+                .when(dashboardService).getDashboard(dashboard.getName());
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/details"))
                 .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
@@ -87,10 +89,11 @@ public class DashboardControllerTests {
         Dashboard dashboard = TestObjectFactory.createDashboard();
         dashboard.setStatus(DELETED);
 
-        doThrow(new MirrorGateException(HttpStatus.GONE, "")).when(dashboardService).getDashboard(dashboard.getName());
+        doThrow(new DashboardNotFoundException(""))
+                .when(dashboardService).getDashboard(dashboard.getName());
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/details"))
-                .andExpect(status().is(HttpStatus.GONE.value()));
+                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
@@ -141,7 +144,8 @@ public class DashboardControllerTests {
     public void newPreviusCreatedDashboardTest() throws Exception {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
-        doThrow(new MirrorGateException(HttpStatus.CONFLICT, "")).when(dashboardService).newDashboard(any());
+        doThrow(new DashboardConflictException(""))
+                .when(dashboardService).newDashboard(any());
 
         this.mockMvc.perform(post("/dashboards")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -164,7 +168,8 @@ public class DashboardControllerTests {
     public void deleteWrongDashboardTest() throws Exception {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
-        doThrow(new MirrorGateException(HttpStatus.NOT_FOUND, "")).when(dashboardService).deleteDashboard(dashboard.getName());
+        doThrow(new DashboardNotFoundException(""))
+                .when(dashboardService).deleteDashboard(dashboard.getName());
 
         this.mockMvc.perform(delete("/dashboards/" + dashboard.getName()))
                 .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
@@ -189,7 +194,8 @@ public class DashboardControllerTests {
         Dashboard wrongDashboard = TestObjectFactory.createDashboard();
         wrongDashboard.setName("Wrong");
 
-        doThrow(new MirrorGateException(HttpStatus.CONFLICT, "")).when(dashboardService).getDashboard(dashboard.getName());
+        doThrow(new DashboardConflictException(""))
+                .when(dashboardService).getDashboard(dashboard.getName());
 
         this.mockMvc.perform(put("/dashboards/" + dashboard.getName())
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -201,7 +207,8 @@ public class DashboardControllerTests {
     public void updateNonexistentDashboardTest() throws Exception {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
-        doThrow(new MirrorGateException(HttpStatus.NOT_FOUND, "")).when(dashboardService).getDashboard(dashboard.getName());
+        doThrow(new DashboardNotFoundException(""))
+                .when(dashboardService).getDashboard(dashboard.getName());
 
         this.mockMvc.perform(put("/dashboards/" + dashboard.getName())
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

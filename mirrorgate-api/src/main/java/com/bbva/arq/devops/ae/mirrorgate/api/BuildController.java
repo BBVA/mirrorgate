@@ -31,8 +31,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,17 +60,10 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBuildsByBoardName(@PathVariable("name") String name) {
+    public ResponseEntity<?> getBuildsByBoardName(@PathVariable("name") String name) throws MirrorGateException {
 
         Map<String, Object> response = new HashMap<>();
-        List<String> repos;
-
-        try {
-            repos = dashboardService.getReposByDashboardName(name);
-        } catch (com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException ex) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
-        }
+        List<String> repos = dashboardService.getReposByDashboardName(name);
 
         if (repos == null) {
             return ResponseEntity.ok(null);
@@ -88,16 +79,9 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getStats(@PathVariable("name") String name) {
+    public ResponseEntity<?> getStats(@PathVariable("name") String name) throws MirrorGateException {
 
-        List<String> repos;
-
-        try {
-            repos = dashboardService.getReposByDashboardName(name);
-        } catch (com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateException ex) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
-        }
+        List<String> repos = dashboardService.getReposByDashboardName(name);
 
         if (repos == null) {
             return ResponseEntity.ok(null);
