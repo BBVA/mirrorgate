@@ -59,13 +59,13 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBuildsByBoardName(@PathVariable("name") String name) {
+    public Map<String, Object> getBuildsByBoardName(@PathVariable("name") String name) {
 
         Map<String, Object> response = new HashMap<>();
         List<String> repos = dashboardService.getReposByDashboardName(name);
 
         if (repos == null) {
-            return ResponseEntity.ok(null);
+            return null;
         }
 
         List<Build> builds = buildService.getAllBranchesLastByReposName(repos);
@@ -73,23 +73,23 @@ public class BuildController {
         response.put("lastBuilds", builds);
         response.put("stats", getStats(name));
 
-        return ResponseEntity.ok(response);
+        return response;
     }
 
     @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getStats(@PathVariable("name") String name) {
+    public BuildStats getStats(@PathVariable("name") String name) {
 
         List<String> repos = dashboardService.getReposByDashboardName(name);
 
         if (repos == null) {
-            return ResponseEntity.ok(null);
+            return null;
         }
 
         Date sevenDaysBefore = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
         Map<BuildStatus, BuildStats> info = buildService.getBuildStatusStatsAfterTimestamp(repos, sevenDaysBefore.getTime());
 
-        return ResponseEntity.ok(BuildStatsUtils.combineBuildStats(info.values().toArray(new BuildStats[]{})));
+        return BuildStatsUtils.combineBuildStats(info.values().toArray(new BuildStats[]{}));
     }
 
     @RequestMapping(value = "/api/builds", method = POST,

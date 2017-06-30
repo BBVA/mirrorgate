@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -27,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +50,7 @@ public class FeatureController {
     }
 
     @RequestMapping(value = "/dashboards/{name}/stories", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getAtiveUserStories(@PathVariable("name") String name) {
+    public Map<String, Object> getAtiveUserStories(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
 
         List<String> boards = dashboard.getBoards();
@@ -59,16 +59,16 @@ public class FeatureController {
 
         response.put("currentSprint", featureService.getActiveUserStoriesByBoards(boards));
         response.put("stats", getStoriesStats(name));
-        return ResponseEntity.ok(response);
+        return response;
     }
 
 
     @RequestMapping(value = "/dashboards/{name}/stories/_stats", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getStoriesStats(@PathVariable("name") String name) {
+    public FeatureStats getStoriesStats(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
 
         List<String> boards = dashboard.getBoards();
-        return ResponseEntity.ok(featureService.getFeatureStatsByKeywords(boards));
+        return featureService.getFeatureStatsByKeywords(boards);
     }
 
     @RequestMapping(value = "/api/issues", method = POST, produces = APPLICATION_JSON_VALUE)
