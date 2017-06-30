@@ -19,7 +19,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
@@ -51,7 +50,7 @@ public class FeatureController {
     }
 
     @RequestMapping(value = "/dashboards/{name}/stories", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getAtiveUserStories(@PathVariable("name") String name) throws MirrorGateException {
+    public ResponseEntity<?> getAtiveUserStories(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
 
         List<String> boards = dashboard.getBoards();
@@ -65,7 +64,7 @@ public class FeatureController {
 
 
     @RequestMapping(value = "/dashboards/{name}/stories/_stats", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getStoriesStats(@PathVariable("name") String name) throws MirrorGateException {
+    public ResponseEntity<?> getStoriesStats(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
 
         List<String> boards = dashboard.getBoards();

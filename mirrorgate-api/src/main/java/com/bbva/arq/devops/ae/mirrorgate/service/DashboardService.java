@@ -16,7 +16,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import java.util.List;
 
@@ -30,27 +29,24 @@ public interface DashboardService {
      *
      * @param name Name of the Dashboard.
      * @return Dashboard
-     * @throws com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException
      */
-    Dashboard getDashboard(String name) throws MirrorGateException;
+    Dashboard getDashboard(String name);
 
     /**
      * Get the repositories of a specific Dashboard
      *
      * @param name Name of the Dashboard
      * @return List of repositories
-     * @throws com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException
      */
-    List<String> getReposByDashboardName(String name) throws MirrorGateException;
+    List<String> getReposByDashboardName(String name);
 
     /**
      * Get all names of applications related to a Dashboard.
      *
      * @param name Name of the Dashboard
      * @return A list with the name of applications of the Dashboard
-     * @throws com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException
      */
-    List<String> getApplicationsByDashboardName(String name) throws MirrorGateException;
+    List<String> getApplicationsByDashboardName(String name);
 
     /**
      * Get a list with all Dashboards with status Active
@@ -63,18 +59,16 @@ public interface DashboardService {
      * Mark a Dashboard as a Delete
      *
      * @param name
-     * @throws com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException
      */
-    void deleteDashboard(String name) throws MirrorGateException;
+    void deleteDashboard(String name);
 
     /**
      * Create a new Dashboard
      *
      * @param dashboard
      * @return Dashboard new persisted Dashboard
-     * @throws com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException
      */
-    Dashboard newDashboard(Dashboard dashboard) throws MirrorGateException;
+    Dashboard newDashboard(Dashboard dashboard);
 
 
     /**
@@ -82,7 +76,6 @@ public interface DashboardService {
      *
      * @param dashboard
      * @return Dashboard persisted Dashboard or null if no existent
-     * @throws com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException
      */
-    Dashboard updateDashboard(Dashboard dashboard) throws MirrorGateException;
+    Dashboard updateDashboard(Dashboard dashboard);
 }

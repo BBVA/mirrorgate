@@ -19,7 +19,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import java.util.List;
@@ -53,7 +52,7 @@ public class DashboardController {
             method = GET,
             produces = APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> getDashboard(@PathVariable("name") String name) throws MirrorGateException {
+    public ResponseEntity<?> getDashboard(@PathVariable("name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(dashboardService.getDashboard(name));
     }
 
@@ -62,7 +61,7 @@ public class DashboardController {
             method = DELETE,
             produces = APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> deleteDashboard(@PathVariable("name") String name) throws MirrorGateException {
+    public ResponseEntity<?> deleteDashboard(@PathVariable("name") String name) {
         dashboardService.deleteDashboard(name);
         return ResponseEntity.status(HttpStatus.OK).body("Dashboard was delted successfully");
     }
@@ -75,14 +74,16 @@ public class DashboardController {
     @RequestMapping(value = "/dashboards", method = POST,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> newDashboard(@Valid @RequestBody Dashboard request) throws MirrorGateException {
+    public ResponseEntity<?> newDashboard(@Valid @RequestBody Dashboard request) {
         return ResponseEntity.ok(dashboardService.newDashboard(request));
     }
 
     @RequestMapping(value = "/dashboards/{name}", method = PUT,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateDashboard(@PathVariable("name") String name, @Valid @RequestBody Dashboard request) throws MirrorGateException {
+    public ResponseEntity<?> updateDashboard(
+            @PathVariable("name") String name,
+            @Valid @RequestBody Dashboard request) {
 
         Dashboard dashboard = dashboardService.getDashboard(name);
 

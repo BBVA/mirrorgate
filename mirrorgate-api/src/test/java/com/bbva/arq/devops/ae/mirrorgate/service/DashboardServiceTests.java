@@ -20,8 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
-import com.bbva.arq.devops.ae.mirrorgate.exceptions.DashboardNotFoundException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
@@ -64,7 +64,7 @@ public class DashboardServiceTests {
     }
 
     @Test
-    public void getDashboardByNameTest() throws MirrorGateException {
+    public void getDashboardByNameTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
@@ -78,7 +78,7 @@ public class DashboardServiceTests {
     }
 
     @Test
-    public void getReposByDashboardNameTest() throws MirrorGateException {
+    public void getReposByDashboardNameTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
@@ -107,7 +107,7 @@ public class DashboardServiceTests {
     }
 
     @Test
-    public void newDashboardTest() throws MirrorGateException {
+    public void newDashboardTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
@@ -121,8 +121,8 @@ public class DashboardServiceTests {
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
     }
 
-    @Test(expected = MirrorGateException.class)
-    public void newPreviusCreatedDashboardTest() throws MirrorGateException {
+    @Test(expected = DashboardConflictException.class)
+    public void newPreviusCreatedDashboardTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
@@ -130,8 +130,8 @@ public class DashboardServiceTests {
         dashboardService.newDashboard(dashboard);
     }
 
-    @Test(expected = MirrorGateException.class)
-    public void newPreviusDeletedDashboardTest() throws MirrorGateException {
+    @Test
+    public void newPreviusDeletedDashboardTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
         dashboard.setStatus(DELETED);
 
@@ -141,7 +141,7 @@ public class DashboardServiceTests {
     }
 
     @Test
-    public void updateDashboardTest() throws MirrorGateException {
+    public void updateDashboardTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
@@ -155,8 +155,8 @@ public class DashboardServiceTests {
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
     }
 
-    @Test(expected = MirrorGateException.class)
-    public void updateWrongDashboardTest() throws MirrorGateException {
+    @Test(expected = DashboardNotFoundException.class)
+    public void updateWrongDashboardTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
@@ -165,7 +165,7 @@ public class DashboardServiceTests {
     }
 
     @Test
-    public void deleteDashboardTest() throws MirrorGateException {
+    public void deleteDashboardTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
@@ -177,7 +177,7 @@ public class DashboardServiceTests {
     }
 
     @Test(expected = DashboardNotFoundException.class)
-    public void deleteNotFoundDashboardTest() throws MirrorGateException {
+    public void deleteNotFoundDashboardTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);

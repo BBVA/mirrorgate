@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bbva.arq.devops.ae.mirrorgate.exceptions;
+package com.bbva.arq.devops.ae.mirrorgate.config;
 
+import com.bbva.arq.devops.ae.mirrorgate.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,7 +44,11 @@ class GlobalControllerExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(DashboardConflictException.class)
+    @ExceptionHandler({
+        DashboardConflictException.class,
+        BuildConflictException.class,
+        ReviewsConflictException.class
+    })
     @ResponseBody
     String handleConflict(Exception ex) {
         return ex.getMessage();

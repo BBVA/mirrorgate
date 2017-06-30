@@ -21,7 +21,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatsUtils;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
@@ -60,7 +59,7 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBuildsByBoardName(@PathVariable("name") String name) throws MirrorGateException {
+    public ResponseEntity<?> getBuildsByBoardName(@PathVariable("name") String name) {
 
         Map<String, Object> response = new HashMap<>();
         List<String> repos = dashboardService.getReposByDashboardName(name);
@@ -79,7 +78,7 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getStats(@PathVariable("name") String name) throws MirrorGateException {
+    public ResponseEntity<?> getStats(@PathVariable("name") String name) {
 
         List<String> repos = dashboardService.getReposByDashboardName(name);
 
@@ -96,7 +95,7 @@ public class BuildController {
     @RequestMapping(value = "/api/builds", method = POST,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createBuilds(@Valid @RequestBody BuildDTO request) throws MirrorGateException {
+    public ResponseEntity<String> createBuilds(@Valid @RequestBody BuildDTO request) {
 
         String response = buildService.createOrUpdate(request);
 

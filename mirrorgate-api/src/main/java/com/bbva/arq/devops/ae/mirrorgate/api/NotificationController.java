@@ -19,7 +19,6 @@ import static org.springframework.http.MediaType.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.SlackService;
@@ -76,12 +75,13 @@ public class NotificationController {
     @RequestMapping(value = "/dashboards/{name}/notifications",
             method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getWebSocket(@PathVariable("name") String name) throws MirrorGateException {
+    public ResponseEntity<?> getWebSocket(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
 
         if (dashboard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Dashboard not found");
         }
+
         SlackDTO notification = slackService.getWebSocket(
                 dashboard.getSlackTeam(),
                 dashboard.getSlackToken());

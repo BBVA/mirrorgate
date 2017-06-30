@@ -16,7 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService {
         return repository.getAverageRateByAppNames(names);
     }
 
-    private List<String> getReviewIds(Iterable<Review> reviews) throws MirrorGateException {
+    private List<String> getReviewIds(Iterable<Review> reviews) {
         List<String> savedIDs = new ArrayList<>();
 
         reviews.forEach(request -> savedIDs.add(request.getId().toString()));
@@ -44,11 +44,11 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<String> create(Iterable<Review> reviews) throws MirrorGateException {
+    public List<String> create(Iterable<Review> reviews) {
         Iterable<Review> newReviews = repository.save(reviews);
 
         if (newReviews == null) {
-            throw new MirrorGateException("Save reviews error");
+            throw new ReviewsConflictException("Save reviews error");
         }
 
         return getReviewIds(reviews);

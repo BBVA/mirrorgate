@@ -3,7 +3,6 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.service.ProgramIncrementServiceImpl;
 import java.util.List;
 import org.slf4j.Logger;

@@ -52,7 +52,7 @@ public class ReviewController {
     }
 
     @RequestMapping(value = "/dashboards/{name}/applications", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getApplicationReviewRatings(@PathVariable("name") String name) throws MirrorGateException {
+    public ResponseEntity<?> getApplicationReviewRatings(@PathVariable("name") String name) {
         List<String> appNames = dashboardService.getApplicationsByDashboardName(name);
         return ResponseEntity.ok(reviewService.getAverageRateByAppNames(appNames));
     }

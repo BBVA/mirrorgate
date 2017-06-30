@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bbva.arq.devops.ae.mirrorgate.exceptions;
-
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
+package com.bbva.arq.devops.ae.mirrorgate.exception;
 
 /**
  *
  * @author enrique
  */
-public class DashboardConflictException extends MirrorGateException {
+public class DashboardForbiddenException extends RuntimeException {
 
-    public DashboardConflictException(String message) {
+    public DashboardForbiddenException(String message) {
         super(message);
     }
 
