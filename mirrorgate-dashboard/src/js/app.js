@@ -46,9 +46,9 @@ function MainController() {
       }
 
       if(dashboardDetails.slackTeam) {
-        document.querySelector('.dashboard').classList.add('with-footer');
+        document.querySelector('.dashboard.adaptable').classList.add('with-footer');
       } else {
-        document.querySelector('.dashboard').classList.remove('with-footer');
+        document.querySelector('.dashboard.adaptable').classList.remove('with-footer');
       }
     }
   }
