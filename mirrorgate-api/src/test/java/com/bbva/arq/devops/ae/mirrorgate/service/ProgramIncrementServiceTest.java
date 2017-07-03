@@ -35,11 +35,6 @@ public class ProgramIncrementServiceTest {
     @InjectMocks
     private ProgramIncrementServiceImpl piService;
 
-//    @Test(expected = DashboardNotFoundExcepion.class)
-//    public void testNoDashboardFound(){
-//
-//        ProgramIncrementDTO programIncrementDTO = piService.getProgramIncrementFeatures("MirrorGate");
-//    }
 
     @Test
     public void testNoCurrentPIName(){
