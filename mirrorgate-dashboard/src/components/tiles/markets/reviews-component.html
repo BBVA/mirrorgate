@@ -24,11 +24,27 @@
 
     <div class="reviews component__content">
       <div class="component__header">
-        <h2 class="title">Last Comment</h2>
+        <h2 class="title">Latest Comments</h2>
+        <h3 rv-show="count" class="title-desc">{index} of {count}</h3>
+        <h3 rv-hide="count" class="title-desc">No comments</h3>
       </div>
       <div class="component__body">
-        <div id="container">
-          <span><i aria-hidden="true" class="fa fa-apple"></i></span>
+        <div id="container" rv-show="review">
+          <div class="review">
+            <div class="review__header">
+              <div class="review__date">{review.timestamp | dateFrom updatedDate}</div>
+              {review.author}
+            </div>
+            <div class="review__rate">
+              <i aria-hidden="true" class="fa fa-apple"></i>
+              <span class="rate">
+                <i rv-each-star="stars" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
+              </span>
+            </div>
+            <div class="review__comment">
+              {review.comment}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -53,109 +69,51 @@
       return tmpl;
     };
 
-    MyElementProto.render = function (apps) {
+    MyElementProto.render = function (data) {
 
       Utils.raiseEvent(this,{
-          status: apps ? 'unknown':'server-error'
+          status: data && data.reviews ? (data.reviews.length > 0 ? 'unknown' : 'empty') :'server-error'
       });
 
-      var marginTop = 10;
-
-      var container = this.shadowRoot.querySelector('#container');
-      container.innerHTML= '';
-
-      if(!apps) {
-        return;
-      }
-
-      var last_review_timestamp = -1;
-      var lastAppReview = apps[0];
-
-      for(var index in apps) {
-        lastAppReview = apps[index].last_review_timestamp > last_review_timestamp ? apps[index] : lastAppReview;
-        last_review_timestamp = lastAppReview.last_review_timestamp;
-      }
-
-      if(lastAppReview) {
-        var reviewDiv = createReviewElement(lastAppReview)
-        container.appendChild(reviewDiv);
-      }
+      var model = this.getModel();
+      model.reviews = data && data.reviews;
+      model.count = data && data.reviews && data.reviews.length;
+      model.index = model.index ? model.index -1 : 0;
+      this._nextReview();
     }
 
-    function createReviewElement(app) {
-
-      var last_review = thisDoc.createElement('div');
-      last_review.setAttribute('class', 'review');
-
-      var appPlatformTextNode = thisDoc.createTextNode(app.platform);
-
-      var platformIcon = thisDoc.createElement('i');
-      platformIcon.setAttribute('aria-hidden', true);
-
-      if(app.platform == "IOS"){
-        platformIcon.setAttribute('class', 'fa fa-apple');
-        var appPlatformTextNode = platformIcon;
+    MyElementProto._nextReview = function () {
+      var model = this.getModel();
+      model.index = model.index + 1;
+      if(!model.reviews || model.reviews.length < model.index) {
+        model.index = 1;
       }
-      else if(app.platform == "Android"){
-        platformIcon.setAttribute('class', 'fa fa-android');
-        var appPlatformTextNode = platformIcon;
-      }
+      model.review = model.reviews && model.reviews[model.index - 1];
 
-      //header
-      var last_review_header_div = thisDoc.createElement('div');
-      last_review_header_div.setAttribute('class', 'review__header');
-
-      var last_review_date_div = thisDoc.createElement('div');
-      last_review_date_div.setAttribute('class', 'review__date');
-      var last_review_date = thisDoc.createTextNode(moment(new Date(app.last_review_timestamp)).format("lll"));
-
-      var last_review_author = thisDoc.createTextNode(app.last_review_author);
-
-      //Rate
-      var last_review_rate_div = thisDoc.createElement('div');
-      last_review_rate_div.setAttribute('class', 'review__rate');
-
-      var last_review_rate = createStarRatingElement(+ app.last_review_rate);
-      var last_review_comment = thisDoc.createTextNode(app.last_review_comment);
-
-      //Comment
-      var last_review_comment_div = thisDoc.createElement('div');
-      last_review_comment_div.setAttribute('class', 'review__comment');
-
-      //Construct
-      last_review.appendChild(last_review_header_div);
-      last_review_header_div.appendChild(last_review_date_div);
-      last_review_date_div.appendChild(last_review_date);
-      last_review_header_div.appendChild(last_review_author);
-
-      last_review.appendChild(last_review_rate_div);
-      last_review_rate_div.appendChild(appPlatformTextNode);
-      last_review_rate_div.appendChild(last_review_rate);
-
-      last_review.appendChild(last_review_comment_div);
-      last_review_comment_div.appendChild(last_review_comment);
-
-      return last_review;
-    }
-
-    function createStarRatingElement(rate) {
-      var stars = thisDoc.createElement('span');
-      stars.setAttribute("class", "rate");
-
-      for(i = 0; i < 5; i++ ) {
-        var star = thisDoc.createElement('i');
-        star.setAttribute('aria-hidden', true);
-        if(rate - i >= 1 ) {
-          star.setAttribute('class', 'fa fa-star');
-        } else if (rate - i > 0 ){
-          star.setAttribute('class', 'fa fa-star-half-o')
-        } else {
-          star.setAttribute('class', 'fa fa-star-o')
+      model.stars = [];
+      if(model.review) {
+        var rate = model.review.rate;
+        for(i = 0; i < 5; i++ ) {
+          if(rate - i >= 1 ) {
+            model.stars.push('star');
+          } else if (rate - i > 0 ){
+            model.stars.push('star-half-o');
+          } else {
+            model.stars.push('star-o');
+          }
         }
-        stars.appendChild(star);
       }
 
-      return stars;
+    }
+
+    MyElementProto.onInit = function () {
+      this.nextReviewHandle = setInterval(function () {
+        this._nextReview();
+      }.bind(this), 5000);
+    }
+
+    MyElementProto.onDispose = function () {
+      this.nextReviewHandle && clearInterval(this.nextReviewHandle);
     }
 
     // Registers <team-dashboard> in the main document

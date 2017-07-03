@@ -32,11 +32,11 @@ public interface FeatureRepository extends CrudRepository<Feature, ObjectId>, Fe
 
     List<Feature> findAllBysPiNamesIn(String piName);
 
-    List<Feature> findAllBysIdIn(Iterable<String> ids);
+    List<Feature> findAllBysIdInAndCollectorId(Iterable<String> ids, String collectorId);
 
     List<Feature> findAllBysParentKeyIn(List<String> keys);
 
-    void deleteBysId(String id);
+    void deleteBysIdAndCollectorId(String id, String collectorId);
 
     List<Feature> findBySProjectNameInAndSTypeNameAndSStatusNot(List<String> boards, String type, String status);
 }

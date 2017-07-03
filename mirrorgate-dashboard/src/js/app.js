@@ -53,20 +53,38 @@ function MainController() {
     }
   }
 
-  function dropMenuDraw(response) {
-    function compareFunction(dashboardA, dashboardB) {
-      var nameA = (dashboardA.displayName || dashboardA.name).toUpperCase();
-      var nameB = (dashboardB.displayName || dashboardB.name).toUpperCase();
-
-      return nameA > nameB ? 1 : nameA == nameB ? 0 : -1;
+  function getRecent() {
+    var recent = localStorage.recentDashboards ? JSON.parse(localStorage.recentDashboards) : [];
+    var currentPos = recent.indexOf(Utils.getDashboardId());
+    if (currentPos >= 0) {
+      recent.splice(currentPos,1);
     }
+    recent.unshift(Utils.getDashboardId());
+    if (recent.length > 8) {
+      recent.pop();
+    }
+    localStorage.recentDashboards = JSON.stringify(recent);
+
+    return recent;
+
+  }
+
+  function dropMenuDraw(response) {
+    var i, dashboard;
     dashboardsService.removeListener(dropMenuDraw);
     if (response) {
       var dashboards = JSON.parse(response);
       var menu = document.querySelector('.dropdown-menu');
+      var recent = getRecent();
+
       var html = '';
-      for (var i in dashboards.sort(compareFunction)) {
-        var dashboard = dashboards[i];
+      var dashboardMap = {};
+      for (i in dashboards) {
+        dashboard = dashboards[i];
+        dashboardMap[dashboard.name] = dashboard;
+      }
+      for (i of recent) {
+        dashboard = dashboardMap[i];
         html += '<li><a href="?board=' + encodeURIComponent(dashboard.name) +
             '">' + (dashboard.displayName || dashboard.name) + '</a></li>';
       }

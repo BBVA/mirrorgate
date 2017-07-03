@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
@@ -31,6 +32,7 @@ import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestUtil;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.Before;
@@ -76,8 +78,33 @@ public class ReviewControllerTests {
         appsNames.add(appName1);
         appsNames.add(appName2);
 
-        ApplicationDTO app1 = new ApplicationDTO(appName1, 3, Platform.Android, "reviewer1", 2.0, 1, "comment");
-        ApplicationDTO app2 = new ApplicationDTO(appName2, 4.5, Platform.IOS, "reviewer2", 4.5, 2, "comment");
+        ApplicationDTO app1 = new ApplicationDTO()
+                .setAppname(appName1)
+                .setRate(3)
+                .setPlatform(Platform.Android)
+                .setReviews(Arrays.asList(
+                        new ReviewDTO()
+                            .setAuthor("reviewer1")
+                            .setRate(2.0)
+                            .setTimestamp(1L)
+                            .setComment("comment"),
+                        new ReviewDTO()
+                                .setAuthor("reviewer3")
+                                .setRate(3.0)
+                                .setTimestamp(2L)
+                                .setComment("comment2")
+                ));
+        ApplicationDTO app2 = new ApplicationDTO()
+                .setAppname(appName2)
+                .setRate(4.5)
+                .setPlatform(Platform.IOS)
+                .setReviews(Arrays.asList(
+                        new ReviewDTO()
+                                .setAuthor("reviewer2")
+                                .setRate(4.5)
+                                .setTimestamp(2L)
+                                .setComment("comment")
+                ));
         List<ApplicationDTO> apps = new ArrayList<>();
         apps.add(app1);
         apps.add(app2);
@@ -90,14 +117,20 @@ public class ReviewControllerTests {
                 .andExpect(jsonPath("$[0].appname", equalTo(app1.getAppname())))
                 .andExpect(jsonPath("$[0].rate", equalTo((double) app1.getRate())))
                 .andExpect(jsonPath("$[0].platform", equalTo(app1.getPlatform().toString())))
-                .andExpect(jsonPath("$[0].last_review_author", equalTo(app1.getLast_review_author())))
-                .andExpect(jsonPath("$[0].last_review_rate", equalTo(app1.getLast_review_rate())))
-                .andExpect(jsonPath("$[0].last_review_comment", equalTo(app1.getLast_review_comment()))).andExpect(jsonPath("$[1].appname", equalTo(app2.getAppname())))
+                .andExpect(jsonPath("$[0].reviews[0].author", equalTo(app1.getReviews().get(0).getAuthor())))
+                .andExpect(jsonPath("$[0].reviews[0].rate", equalTo(app1.getReviews().get(0).getRate())))
+                .andExpect(jsonPath("$[0].reviews[0].timestamp", equalTo((int) app1.getReviews().get(0).getTimestamp())))
+                .andExpect(jsonPath("$[0].reviews[0].comment", equalTo(app1.getReviews().get(0).getComment())))
+                .andExpect(jsonPath("$[0].reviews[1].author", equalTo(app1.getReviews().get(1).getAuthor())))
+                .andExpect(jsonPath("$[0].reviews[1].rate", equalTo(app1.getReviews().get(1).getRate())))
+                .andExpect(jsonPath("$[0].reviews[1].timestamp", equalTo((int) app1.getReviews().get(1).getTimestamp())))
+                .andExpect(jsonPath("$[0].reviews[1].comment", equalTo(app1.getReviews().get(1).getComment())))
                 .andExpect(jsonPath("$[1].rate", equalTo((double) app2.getRate())))
                 .andExpect(jsonPath("$[1].platform", equalTo(app2.getPlatform().toString())))
-                .andExpect(jsonPath("$[1].last_review_author", equalTo(app2.getLast_review_author())))
-                .andExpect(jsonPath("$[1].last_review_rate", equalTo(app2.getLast_review_rate())))
-                .andExpect(jsonPath("$[1].last_review_comment", equalTo(app2.getLast_review_comment())));
+                .andExpect(jsonPath("$[1].reviews[0].author", equalTo(app2.getReviews().get(0).getAuthor())))
+                .andExpect(jsonPath("$[1].reviews[0].rate", equalTo(app2.getReviews().get(0).getRate())))
+                .andExpect(jsonPath("$[1].reviews[0].comment", equalTo(app2.getReviews().get(0).getComment())))
+                .andExpect(jsonPath("$[1].reviews[0].timestamp", equalTo((int) app2.getReviews().get(0).getTimestamp())));
     }
 
     @Test
