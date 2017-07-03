@@ -288,6 +288,11 @@ tile-container.module-data-error {
     }
 }
 
+.tile-m {
+    @include reduce-header();
+
+}
+
 svg {
   path {
     fill: #7e7e7e;
@@ -348,8 +353,4 @@ svg {
 
 .status-excellent {
   color: #24D268;
-
-.tile-m {
-    @include reduce-header();
-
 }
