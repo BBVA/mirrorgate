@@ -101,17 +101,14 @@
 //Modules states backgrounds
 $border-width: -5px;
 
-.module-empty {
-    height: auto;
+tile-container.module-empty {
+    max-height: 50px;
+    min-height: 50px;
 }
 
 .component {
     &.module-ok {
         box-shadow: inset 0 $border-width 0 $darker-grey;
-    }
-
-    &.module-empty {
-        padding-top: 15px;
     }
 
     &.module-warning {
@@ -249,7 +246,7 @@ tile-container.module-data-error {
     }
 }
 
-:host(.tile-s){
+@mixin reduce-header() {
     .title {
         font-size: $level-3;
     }
@@ -257,22 +254,39 @@ tile-container.module-data-error {
     .title-desc {
         font-size: $level-5;
     }
+}
+
+:host(.module-empty) .component__content {
+  padding-bottom: 0;
+}
+
+.module-empty .component__content {
+  padding-bottom: 0;
+}
+
+:host(.tile-s) {
+
+    @include reduce-header();
 
     .component__header {
-        margin-top: 10px;
+        margin-top: 15px;
     }
 
 }
 
-:host(.tile-m){
-    .title {
-        font-size: $level-3;
-    }
-    .title-desc {
-        font-size: $level-5;
-    }
+:host(.tile-m) {
+    @include reduce-header();
 }
 
+//For firefox... Doesn't support :host
+.tile-s {
+
+    @include reduce-header();
+
+    .component__header {
+        margin-top: 5px;
+    }
+}
 
 svg {
   path {
@@ -334,4 +348,8 @@ svg {
 
 .status-excellent {
   color: #24D268;
+
+.tile-m {
+    @include reduce-header();
+
 }

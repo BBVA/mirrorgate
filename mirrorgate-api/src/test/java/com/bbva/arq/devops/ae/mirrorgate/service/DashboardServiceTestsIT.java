@@ -17,6 +17,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static junit.framework.TestCase.assertTrue;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import java.util.Collections;
@@ -33,7 +34,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DashboardServiceTestsIT {
 
     @Autowired
-    private com.bbva.arq.devops.ae.mirrorgate.service.DashboardService dashboardService;
+    private DashboardService dashboardService;
 
     @Autowired
     private DashboardRepository dashboardRepository;
@@ -49,7 +50,7 @@ public class DashboardServiceTestsIT {
     }
 
     @Test
-    public void testMongo(){
+    public void testMongo() throws MirrorGateException {
 
         List<String> dashboardFromMongo = dashboardService.getApplicationsByDashboardName("mirrorgate");
 

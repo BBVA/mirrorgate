@@ -26,7 +26,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,10 +51,10 @@ public class BugServiceTests {
     @Test
     public void getActiveBugsByBoardsTest() {
 
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
-        Feature bug1 = TestObjectBuilder.createBug();
-        Feature bug2 = TestObjectBuilder.createBug();
+        Feature bug1 = TestObjectFactory.createBug();
+        Feature bug2 = TestObjectFactory.createBug();
 
         List<Feature> bugs = new ArrayList<>();
         bugs.add(bug1);

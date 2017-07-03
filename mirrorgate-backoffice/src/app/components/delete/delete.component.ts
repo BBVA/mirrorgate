@@ -29,6 +29,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DeleteComponent {
 
   dashboard: Dashboard;
+  errorMessage: string;
 
   constructor(private dashboardsService: DashboardsService,
               private router: Router,
@@ -44,6 +45,10 @@ export class DeleteComponent {
   }
 
   delete(): void {
-    this.dashboardsService.deleteDashboard(this.dashboard).then(() => this.back());
+    this.dashboardsService.deleteDashboard(this.dashboard)
+      .then(() => this.back())
+      .catch((error: any) => {
+        this.errorMessage = <any>error;
+      });
   }
 }

@@ -24,7 +24,6 @@
   <!-- build:css css/vendor.min.css -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="bower_components/roboto-fontface/css/roboto/roboto-fontface.css" />
-  <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css" />
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
   <!-- endbuild -->
 
@@ -83,15 +82,18 @@
           </button>
 
           <ul class="dropdown-menu" aria-labelledby="menuBtn">
-            <li><a href="dashboard.html" onclick="document.location.href = 'dashboard.html?board=' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-cogs" aria-hidden="true"></i> Classic view</a></li>
-            <li class="dropdown-header">Dashboards</li>
+            <li><a href="dashboard.html" onclick="document.location.href = 'dashboard.html?board=' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pie-chart" aria-hidden="true"></i> Simple view</a></li>
+            <li class="dropdown-header">Manage</li>
+            <li><a href="backoffice/index.html"><i class="fa fa-cogs" aria-hidden="true"></i> Admin panel </a></li>
+            <li><a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/edit/' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit panel</a></li>
+            <li class="dropdown-header">Recent dashboards</li>
           </ul>
         </div>
       </div>
     </div>
 
     <!-- .dashboard -->
-    <div class="dashboard">
+    <div class="dashboard adaptable">
       <board-column>
         <tile-container class="tile--primary">
           <current-sprint-tile class="tile component tile--primary"></current-sprint-tile>
