@@ -292,3 +292,65 @@ tile-container.module-data-error {
     @include reduce-header();
 
 }
+
+svg {
+  path {
+    fill: #7e7e7e;
+
+    &.status-in-progress {
+      fill: #2CE6FB;
+    }
+
+    &.status-done {
+      fill: #24D268;
+    }
+
+    &.status-to-rework {
+      fill: #FF2B2B;
+    }
+
+    &.status-impeded {
+      fill: #FF2B2B;
+    }
+
+    &.status-bad {
+      fill: #FF2B2B;
+    }
+
+    &.status-good {
+      fill: #FDD80D;
+    }
+
+    &.status-excellent {
+      fill: #24D268;
+    }
+  }
+}
+
+.status-in-progress {
+  color: #2CE6FB;
+}
+
+.status-done {
+  color: #24D268;
+}
+
+.status-to-rework {
+  color: #FF2B2B;
+}
+
+.status-impeded {
+  color: #FF2B2B;
+}
+
+.status-bad {
+  color: #FF2B2B;
+}
+
+.status-good {
+  color: #FDD80D;
+}
+
+.status-excellent {
+  color: #24D268;
+}

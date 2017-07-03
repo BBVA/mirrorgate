@@ -118,10 +118,30 @@
           </div>
         </tile-container>
         <tile-container class="tile--secondary">
-          <program-increment-tile class="tile component"></program-increment-tile>
-        </tile-container>
-        <tile-container class="tile--secondary">
           <next-sprint-tile class="tile component"></next-sprint-tile>
+        </tile-container>
+      </board-column>
+      <board-column>
+        <tile-container class="tile--primary">
+          <program-increment-tile class="tile component"></program-increment-tile>
+          <div class="legend">
+            <div class="legend__item">
+              <span class="legend__color legend__color--green"></span>Done
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--blue"></span>In progress
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--red"></span>Blocked
+            </div>
+            <!--<div class="legend__item">
+                    <span class="legend__color legend__color--yellow"></span>Unplanned
+                </div>-->
+
+            <div class="legend__item">
+              <span class="legend__color"></span>To Do
+            </div>
+          </div>
         </tile-container>
       </board-column>
       <board-column>
