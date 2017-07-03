@@ -18,6 +18,7 @@
 <div class="jumbotron white-bg" *ngIf="dashboard">
   <h1>You're about to delete the dashboard: '{{dashboard.name}}'</h1>
   <p>This action cannot be undone. Are you sure you want to proceed?</p>
+  <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
   <p>
     <a class="btn btn-danger btn-lg" (click)="delete()" role="button">Delete</a>
     <a class="btn btn-default btn-lg" (click)="back()" role="button">Cancel</a>

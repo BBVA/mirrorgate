@@ -15,11 +15,15 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.SlackService;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,13 +36,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 /**
@@ -71,8 +68,8 @@ public class BackOfficeSlackUtilsControllerTests {
 
     @Test
     public void setSlackTokenTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-        SlackDTO notification = TestObjectBuilder.createSlackDTO();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
+        SlackDTO notification = TestObjectFactory.createSlackDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getToken(
@@ -91,8 +88,8 @@ public class BackOfficeSlackUtilsControllerTests {
 
     @Test
     public void setSlackTokenSlackErrorTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-        SlackDTO error_notification = TestObjectBuilder.createSlackErrorDTO();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
+        SlackDTO error_notification = TestObjectFactory.createSlackErrorDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getToken(

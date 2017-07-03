@@ -18,10 +18,9 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -50,6 +49,7 @@ public class Dashboard extends BaseModel {
     @Indexed
     private long lastModification;
     private String programIncrement;
+    private String author;
 
     public String getName() {
         return name;
@@ -155,6 +155,14 @@ public class Dashboard extends BaseModel {
 
     public void setProgramIncrement(String programIncrement) {
         this.programIncrement = programIncrement;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getSlackChannel() {

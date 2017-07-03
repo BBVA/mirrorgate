@@ -21,13 +21,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -70,12 +67,7 @@ public class BuildServiceTests {
 
         when(buildRepository.save((Build)any())).thenReturn(build);
 
-        String id = null;
-        try {
-            id = buildService.createOrUpdate(request);
-        } catch (MirrorGateException ex) {
-            Logger.getLogger(BuildServiceTests.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String id = buildService.createOrUpdate(request);
 
         verify(buildRepository, times(1)).save((Build)any());
         assertThat(id).isEqualTo(build.getId().toString());
