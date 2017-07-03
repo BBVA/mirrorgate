@@ -25,12 +25,42 @@
     @import "css/styles.css";
   </style>
 
-  <div class="component__content">
+  <div class="pi component__content">
     <div class="component__header">
       <h2 class="title">Program Increment</h2>
-      <h3 class="title-desc" rv-show="programIncrement.features">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount} features completed</h3>
     </div>
     <div class="component__body">
+      <svg>
+        <g class="main">
+          <g class="original"></g>
+          <g class="outher"></g>
+          <g class="data">
+            <g rv-show="selected">
+              <switch>
+                <foreignObject x="-250" y="-250" width="500" height="500">
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                    <p>
+                      <span class="feature-name">{selected.name}</span>
+                      <span class="feature-status" rv-pclass-status="selected.status">Status: {selected.status}</span>
+                    </p>
+                  </div>
+                </foreignObject>
+                <text x="20" y="20"></text>
+              </switch>
+            </g>
+            <g rv-hide="selected">
+              <g rv-show="programIncrement.features">
+                <text class="rate-completed" y="0">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</text>
+                <text class="text-completed" y="100">features completed</text>
+                <!--<text class="days-left" y="300">
+                  {pi.daysLeft} days left
+                </text>-->
+              </g>
+            </g>
+          </g>
+          <g class="time"></g>
+        </g>
+      </svg>
     </div>
   </div>
 </template>
@@ -45,9 +75,28 @@
     // Creates an object based in the HTML Element prototype
     var MyElementProto = Object.create(Tile);
 
+    var outherArc = d3.svg.arc()
+      .innerRadius(483)
+      .padAngle(Math.PI / 90)
+      .outerRadius(500)
+      .cornerRadius(17);
+
+    var pie = d3.layout.pie()
+      .startAngle(-Math.PI * 3 / 4)
+      .endAngle(Math.PI * 3 / 4)
+      .padAngle(Math.PI / 45)
+      .value(function (d) { return d.points || 0.5; })
+      .sort(null);
+
+    function storyClassBuilder(prefix) {
+      return function (d) {
+        return prefix + Utils.toClassName(d.data.status);
+      }
+    }
+
     MyElementProto.processAlerts = function (data) {
       Utils.raiseEvent(this, {
-        status: data ? 'empty' : 'server-error'
+        status: data ? 'unknown' : 'server-error'
       });
     }
 
@@ -68,6 +117,85 @@
 
       if (data) {
         model.programIncrement = data;
+
+        var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
+
+        var marginTop = 0;
+
+        var width = parseFloat(style.width.substring(0, style.width.length - 2)),
+          height = parseFloat(style.height.substring(0, style.height.length - 2)),
+          radius = Math.min(width, height) / 2;
+
+        width = 2 * radius;
+
+        var container = d3.select(this.shadowRoot).select("svg");
+
+        container
+          .attr('preserveAspectRatio', 'xMidYMid meet')
+          .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
+        var svg = container
+          .select("g.main").attr("transform",
+          "translate(" + radius + "," + (radius + marginTop) + ") " +
+          "scale(" + (radius / 530) + ")"
+          );
+
+        var arc = d3.svg.arc()
+          .innerRadius(400)
+          .outerRadius(450)
+          .cornerRadius(function (d, i) {
+            return (i === 0 || i === model.programIncrement.features.length - 1) && 100;
+          });
+
+        svg.on('mouseout', function (d) {
+          svg.classed('dimmed', false)
+          model.selected = undefined;
+        });
+
+        var innerUpdated = svg.select('.original')
+          .selectAll("g")
+          .data(pie(model.programIncrement.features));
+
+        innerUpdated.select("path.item")
+          .attr("class", storyClassBuilder('item status-'))
+          .on('mouseenter', mouseEnterHandler)
+          .attr("d", arc);
+
+        innerUpdated.exit().remove();
+
+        function mouseEnterHandler (d) {
+          model.selected = d.data;
+          svg.classed('dimmed', true);
+        }
+
+        var innerEntered = innerUpdated.enter().append('g');
+        innerEntered.append("path")
+          .on('mouseenter', mouseEnterHandler)
+          .attr("class", storyClassBuilder('item status-'))
+          .attr("d", arc);
+
+        //Rounded corner patch for hemicircle
+        innerUpdated.select("path.patch")
+          .on('mouseenter', mouseEnterHandler)
+          .attr("class", storyClassBuilder('patch status-'))
+          .attr("d", function (d, i) {
+            return arc({
+              startAngle: i === 0 ? d.startAngle + Math.PI / 45 : d.startAngle,
+              endAngle: i === model.programIncrement.features.length - 1 ? d.endAngle - Math.PI / 45 : d.endAngle,
+              padAngle: Math.PI / 180
+            });
+          });
+        innerEntered.append("path").attr("class", "patch")
+          .on('mouseenter', mouseEnterHandler)
+          .attr("class", storyClassBuilder('patch status-'))
+          .attr("d", function (d, i) {
+            return arc({
+              startAngle: i === 0 ? d.startAngle + Math.PI / 45 : d.startAngle,
+              endAngle: i === model.programIncrement.features.length - 1 ? d.endAngle - Math.PI / 45 : d.endAngle,
+              padAngle: Math.PI / 180
+            });
+          });
+        //-//Rounded patch
+
       }
     };
 
