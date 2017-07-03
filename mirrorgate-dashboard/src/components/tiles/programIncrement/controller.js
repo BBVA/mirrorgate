@@ -28,7 +28,10 @@ var ProgramIncrementController = (
 
       if(response) {
         var arg = JSON.parse(response);
-        programIncrement = new ProgramIncrement(arg.programIncrementCompletedFeatures, arg.programIncrementFeatures, arg.programIncrementStories);
+        var completed = arg.programIncrementFeatures ? arg.programIncrementFeatures.filter(function(element) {
+          return element.status === 'DONE';
+        }, this) : [];
+        programIncrement = new ProgramIncrement(completed, arg.programIncrementFeatures, arg.programIncrementStories);
       }
 
       observable.notify(programIncrement);

@@ -6,15 +6,12 @@ import java.util.List;
 public class ProgramIncrementDTO {
 
     private List<IssueDTO> programIncrementFeatures;
-    private List<IssueDTO> programIncrementCompletedFeatures;
     private List<IssueDTO> programIncrementStories;
 
     public ProgramIncrementDTO(List<IssueDTO> programIncrementFeatures,
-                               List<IssueDTO> programIncrementCompletedFeatures,
                                List<IssueDTO> programIncrementStories) {
 
         this.programIncrementFeatures = programIncrementFeatures;
-        this.programIncrementCompletedFeatures = programIncrementCompletedFeatures;
         this.programIncrementStories = programIncrementStories;
     }
 
@@ -25,15 +22,6 @@ public class ProgramIncrementDTO {
     public void setProgramIncrementFeatures(
         List<IssueDTO> programIncrementFeatures) {
         this.programIncrementFeatures = programIncrementFeatures;
-    }
-
-    public List<IssueDTO> getProgramIncrementCompletedFeatures() {
-        return programIncrementCompletedFeatures;
-    }
-
-    public void setProgramIncrementCompletedFeatures(
-        List<IssueDTO> programIncrementCompletedFeatures) {
-        this.programIncrementCompletedFeatures = programIncrementCompletedFeatures;
     }
 
     public List<IssueDTO> getProgramIncrementStories() {

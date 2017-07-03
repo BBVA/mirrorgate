@@ -108,12 +108,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
             .map(IssueMapper::map)
             .collect(Collectors.toList());
 
-        //Get completed features for this board and PI
-        List<IssueDTO>completedFeatures = boardPIFeatures.stream()
-            .filter(f -> IssueStatus.DONE.equals(f.getStatus()))
-            .collect(Collectors.toList());
-
-        return new ProgramIncrementDTO(completedFeatures, boardPIFeatures, null);
+        return new ProgramIncrementDTO(boardPIFeatures, null);
     }
 
     private boolean findIfLocalDateIsInRange(String date1, String date2){
