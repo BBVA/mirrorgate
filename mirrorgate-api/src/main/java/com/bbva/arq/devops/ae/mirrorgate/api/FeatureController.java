@@ -28,10 +28,7 @@ import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -72,13 +69,13 @@ public class FeatureController {
     }
 
     @RequestMapping(value = "/api/issues", method = POST, produces = APPLICATION_JSON_VALUE)
-    public Iterable<IssueDTO> saveOrUpdateIssues(@Valid @RequestBody List<IssueDTO> issues) {
-        return featureService.saveOrUpdateStories(issues);
+    public Iterable<IssueDTO> saveOrUpdateIssues(@Valid @RequestBody List<IssueDTO> issues, @RequestParam("collectorId") String collectorId) {
+        return featureService.saveOrUpdateStories(issues, collectorId);
     }
 
     @RequestMapping(value = "/api/issues/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public String saveOrUpdateIssues(@PathVariable("id") Long id) {
-        featureService.deleteStory(id);
+    public String deleteStory(@PathVariable("id") Long id, @RequestParam("collectorId") String collectorId) {
+        featureService.deleteStory(id, collectorId);
         return "ok";
     }
 

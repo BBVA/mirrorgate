@@ -44,6 +44,8 @@ public class IssueDTO implements Serializable {
 
     private List<String> keywords = null;
 
+    private String collectorId;
+
     public Long getId() {
         return id;
     }
@@ -173,4 +175,13 @@ public class IssueDTO implements Serializable {
         this.updatedDate = updatedDate;
         return this;
     }
+
+    public String getCollectorId() {
+        return collectorId;
+    }
+
+    public void setCollectorId(String collectorId) {
+        this.collectorId = collectorId;
+    }
+
 }
