@@ -8,5 +8,6 @@
     "mirrorgate"
   ],
   "applications": [],
-  "slackTeam":"mirrorgate"
+  "slackTeam":"mirrorgate",
+  "urlAlerts": "dashboards/mirrorgate/alerts"
 }

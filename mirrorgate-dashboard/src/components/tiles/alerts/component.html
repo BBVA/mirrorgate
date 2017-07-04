@@ -1,0 +1,181 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- alerts:js component.min.js -->
+<script src="model.js"></script>
+<script src="controller.js"></script>
+<!-- endbuild -->
+
+<template>
+  <style>
+    @import "css/styles.css";
+    
+    .alerts {
+      background-color: #F0F0F0;
+      width: 100%;
+      color: #191919;
+      text-align: center;
+    }
+    
+    .alerts .group {
+      display: flow-root;
+      border-bottom-style: solid;
+      padding-bottom: 20px;
+    }
+    
+    .alerts .alerts_header {
+      font-weight: 300;
+      font-size: 4.5rem;
+      color: black;
+    }
+    
+    .alerts .alert {
+      width: 50%;
+      float: left;
+      padding-top: 10px;
+      padding-botton: 10px;
+      font-size: 2.5rem;
+    }
+    
+    .alerts .item  {
+      background-color: #888;
+      border-color: #010001;
+      border-radius: 15px;
+      border-style: solid;
+      border-width: 1px;
+      height: 15px;
+      width: 15px;
+      display: inline-block;
+    }
+    
+    .alerts .GREEN {
+      background-color: #24D268;
+      border-radius: 15px;
+      border-style: solid;
+      border-width: 1px;
+      height: 15px;
+      width: 15px;
+      display: inline-block;
+    }
+    
+    .alerts .YELLOW {
+      background-color: #FEB10F;
+      border-radius: 15px;
+      border-style: solid;
+      border-width: 1px;
+      height: 15px;
+      width: 15px;
+      display: inline-block;
+    }
+    
+    .alerts .RED {
+      background-color: #FF2B2B;
+      border-radius: 15px;
+      border-style: solid;
+      border-width: 1px;
+      height: 15px;
+      width: 15px;
+      display: inline-block;
+    }
+    
+    .alerts .image {
+      height: 30px;
+      width: 30px;
+      display: -webkit-inline-box;
+    }
+    
+    .alerts img {
+      max-height: 30px;
+      max-width: 30px;
+    }
+
+  </style>
+
+  <div class="alerts">
+    <div class="group" rv-each-alerts="alerts">
+      <div class="alerts_header">
+        <span class="item" rv-if="alerts.state" rv-class="alerts.state"></span>
+        <div rv-if="alerts.image" class="image">
+          <img rv-if="alerts.image.url" rv-src="alerts.image.url"></img>
+          <span rv-if="alerts.image.glyphName" rv-class="alerts.image.glyphName"></span>
+          <svg rv-if="alerts.image.commands" rv-html="alerts.image.commands"></svg>
+          <span rv-if="alerts.image.encoded" rv-html="alerts.image.encoded"></span>
+        </div>
+        <br />
+        <span>{ alerts.title }</span>
+      </div>
+      <div class="alert" rv-each-alert="alerts.children">
+        <span class="item" rv-if="alert.state" rv-class="alert.state"></span>
+        <div rv-if="alert.image" class="image">
+          <img rv-if="alert.image.url" rv-src="alert.image.url"></img>
+          <span rv-if="alert.image.glyphName" rv-class="alert.image.glyphName"></span>
+          <svg rv-if="alert.image.commands" rv-html="alert.image.commands"></svg>
+          <span rv-if="alert.image.encoded" rv-html="alert.image.encoded"></span>
+        </div>
+        <br />
+        <span>{ alert.title }</span>
+        <br />
+      </div>
+      <br />
+    </div>
+  </div>
+  
+</template>
+
+<script>
+  (function (window, document, undefined) {
+
+    // Refers to the "importee", which is components/builds-dashboard.html
+    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
+    var tmpl = thisDoc.querySelector('template');
+
+    // Creates an object based in the HTML Element prototype
+    var MyElementProto = Object.create(Tile);
+
+    MyElementProto.processAlerts = function (data) {
+      Utils.raiseEvent(this, {
+        status: data ? (data.length > 0 ? 'ok': 'empty') : 'server-error'
+      });
+    }
+
+    MyElementProto.getControllerClass = function () {
+      return AlertsController;
+    };
+
+    MyElementProto.getTemplate = function () {
+      return tmpl;
+    };
+
+    // Fires when an instance of the element is created
+    MyElementProto.render = function (data) {
+      
+      this.processAlerts(data);
+
+      var model = this.getModel();
+
+      if (data) {
+        model.alerts = data || undefined;
+      }
+    };
+
+    window.MyElement = document.registerElement('alerts-tile', {
+      prototype: MyElementProto
+    });
+
+  })(window, document);
+
+</script>

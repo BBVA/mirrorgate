@@ -116,6 +116,7 @@ public class DashboardController {
             dashboard.setSlackToken(request.getSlackToken());
         }
         dashboard.setsProductName(request.getsProductName());
+        dashboard.setUrlAlerts(request.getUrlAlerts());
         dashboard = dashboardService.updateDashboard(dashboard);
         return ResponseEntity.ok(dashboard);
 

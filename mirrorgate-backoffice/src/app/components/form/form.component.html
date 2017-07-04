@@ -180,14 +180,31 @@
             </div>
           </div>
           <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="product-increment-help">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </a>
             <input type="text" class="form-control" id="programIncrement" [(ngModel)]="temp.programIncrement" (ngModelChange)="mirrorTempValues()" name="programIncrement">
           </div>
         </div>
       </div>
-
+      
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="urlAlerts">URL Alerts</label>
+          <div class="collapse" id="urlAlerts-help">
+            <div class="well">
+              MirrorGate will ask to this URL to get Alerts.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#urlAlerts-help" aria-expanded="false" aria-controls="urlAlerts-help">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </a>
+            <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="dashboard.urlAlerts" name="urlAlerts">
+          </div>
+        </div>
+      </div>
+      
       <div class="row">
         <div class="col-xs-6">
           <button type="button" class="btn btn-danger" (click)="back()">Cancel</button>

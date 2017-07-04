@@ -8,5 +8,6 @@
     "all"
   ],
   "applications": ["all"],
-  "slackTeam": "All"
+  "slackTeam": "All",
+  "urlAlerts": "dashboards/all/alerts"
 }

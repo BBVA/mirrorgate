@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
@@ -14,22 +15,27 @@
  * limitations under the License.
  */
 
-export class Dashboard {
-  name: string;
-  displayName: string;
-  logoUrl: string;
-  programIncrement: string;
-  applications: string[] = [];
-  codeRepos: string[] = [];
-  boards: string[] = [];
-  filter: {
-    timeSpan: number,
-    branch: Map<string,boolean>,
-    status: Map<string,boolean>
-  }
-  slackTeam: string;
-  slackToken: string;
-  urlAlerts: string;
-  lastUserEdit: string;
-  lastModification: number;
+/**
+ * Alerts model. This may be both an Alert or a group of Alerts.
+ * 
+ * @param {String} title  Title's Alert.
+ * @param {Object} state  State's Alert.
+ * @param {Object} image  Image's Alert.
+ */
+function Alerts(title, state, image) {
+  this.title = title;
+  this.state = state;
+  this.image = image;
+  this.children = [];
 }
+
+
+Alerts.prototype = {
+
+  /**
+   * Add a child alerts to current group
+   * @param {Alerts} alerts
+   */
+  addChild: function(alerts) { this.children.push(alerts); }
+
+};
