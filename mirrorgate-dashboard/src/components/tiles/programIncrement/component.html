@@ -73,17 +73,29 @@
     var tmpl = thisDoc.querySelector('template');
 
     var order = {
-      'DONE': 0,
-      'IN_PROGRESS': 1,
-      'IMPEDED': 2,
-      'WAITING': 3,
-      'BACKLOG': 4
+      'DONE': 3,
+      'IN_PROGRESS': 2,
+      'IMPEDED': 1,
+      'WAITING': 0,
+      'BACKLOG': 0
     };
 
     //D3JS initializations
+    function completedRate(item) {
+      var children = item.children;
+      if(!children || !children.length) {
+        return order[item.status];
+      }
+      var count = 0;
+      children.forEach(function(element) {
+        count+= completedRate(element);
+      });
+      return count / children.length;
+    }
+
     var partition = d3.layout.partition()
         .sort(function (a, b) {
-          return order[a.status] < order[b.status] ? -1 : 1;
+          return completedRate(a) > completedRate(b) ? -1 : 1;
         })
         .size([3/2 * Math.PI, 1])
         .value(function(d) { return d.size; });
