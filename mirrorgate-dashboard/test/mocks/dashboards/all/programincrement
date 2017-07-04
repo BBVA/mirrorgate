@@ -6,6 +6,7 @@
       "type": "Feature",
       "status": "BACKLOG",
       "estimate": 3.0,
+      "jiraKey": "PIT05-42",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",
@@ -26,6 +27,52 @@
       "type": "Feature",
       "status": "DONE",
       "estimate": 8.0,
+      "jiraKey": "PIT05-47",
+      "sprint": {
+        "id": "1225",
+        "name": "PROGRAM_INCREMENT_SP4",
+        "status": "ACTIVE",
+        "startDate": 1490133650305,
+        "endDate": 1491343200000
+      },
+      "project": {
+        "name": "ProgramIncrement"
+      },
+      "keywords": [
+        "ProgramIncrement"
+      ]
+    }
+  ],
+  "programIncrementStories": [
+    {
+      "id": 10024,
+      "name": "Login",
+      "type": "Story",
+      "estimate": 8.0,
+      "jiraKey": "PIT05-49",
+      "parentKey": "PIT05-42",
+      "sprint": {
+        "id": "1225",
+        "name": "PROGRAM_INCREMENT_SP4",
+        "status": "ACTIVE",
+        "startDate": 1490133650305,
+        "endDate": 1491343200000
+      },
+      "project": {
+        "name": "ProgramIncrement"
+      },
+      "keywords": [
+        "ProgramIncrement"
+      ]
+    },
+    {
+      "id": 10023,
+      "name": "Login",
+      "type": "Story",
+      "status": "DONE",
+      "estimate": 8.0,
+      "jiraKey": "PIT05-48",
+      "parentKey": "PIT05-47",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",

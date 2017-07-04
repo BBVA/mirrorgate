@@ -81,6 +81,20 @@ board-column {
     flex-grow: 1;
 }
 
+board-row {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+    position: relative;
+    height: 100%;
+    flex-grow: 1;
+}
+
+board-row.board--secondary {
+    //Ugly hack!! :-(... Please fix me.... eventually
+    flex-shrink: 3.5!important;
+}
+
 //TILES
 
 tile-container{

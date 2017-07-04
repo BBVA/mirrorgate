@@ -45,6 +45,10 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
         String currentPIName = getCurrentProgramIncrementName(dashboard);
 
+        if(currentPIName == null) {
+            return new ProgramIncrementDTO(null, null);
+        }
+
         List<Feature> piFeatures = featureService.getProductIncrementFeatures(currentPIName);
 
         List<String> piFeaturesKeys = piFeatures
@@ -54,7 +58,8 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
         List<String> boardPIFeaturesKeys = featureService.getProgramIncrementFeaturesByBoard(dashboard.getBoards(), piFeaturesKeys);
 
-        return createResponse(piFeatures, boardPIFeaturesKeys);
+        return createResponse(dashboard, piFeatures, boardPIFeaturesKeys);
+
     }
 
     private String getCurrentProgramIncrementName(Dashboard dashboard){
@@ -100,15 +105,32 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
         return null;
     }
 
-    private ProgramIncrementDTO createResponse(List<Feature> piFeatures, List<String> boardPIFeaturesKeys){
+    private ProgramIncrementDTO createResponse(Dashboard dashboard, List<Feature> piFeatures, List<String> boardPIFeaturesKeys){
 
         //Get features belonging to this board
         List<IssueDTO> boardPIFeatures = piFeatures.stream()
-            .filter(f -> boardPIFeaturesKeys.contains(f.getsNumber()))
+            .filter(f -> boardPIFeaturesKeys.contains(f.getsNumber()) || containsDashboardKeyword(dashboard, f))
             .map(IssueMapper::map)
             .collect(Collectors.toList());
 
-        return new ProgramIncrementDTO(boardPIFeatures, null);
+        List<String> keys = boardPIFeatures.stream()
+                .map(IssueDTO::getJiraKey)
+                .collect(Collectors.toList());
+
+        List<Feature> piIssues = featureService.getFeatureRelatedIssues(keys);
+
+        List<IssueDTO> boardPIIssues = piIssues.stream()
+                .filter((f) -> containsDashboardKeyword(dashboard, f))
+                .map(IssueMapper::map)
+                .collect(Collectors.toList());
+
+        return new ProgramIncrementDTO(boardPIFeatures, boardPIIssues);
+    }
+
+    private boolean containsDashboardKeyword(Dashboard dashboard, Feature f) {
+        return f.getKeywords() != null && f.getKeywords().stream()
+                .filter((k) -> dashboard.getBoards().contains(k))
+                .count() > 0;
     }
 
     private boolean findIfLocalDateIsInRange(String date1, String date2){

@@ -43,9 +43,8 @@ public class ProgramIncrementServiceTest {
 
         ProgramIncrementDTO programIncrementDTO = piService.getProgramIncrementFeatures("MirrorGate");
 
-        assertEquals(programIncrementDTO.getProgramIncrementFeatures().size(), 0);
+        assertNull(programIncrementDTO.getProgramIncrementFeatures());
         verify(dashboardService, times(1)).getDashboard(anyString());
-        verify(featureService, times(1)).getProductIncrementFromFeatures(anyListOf(String.class));
     }
 
 

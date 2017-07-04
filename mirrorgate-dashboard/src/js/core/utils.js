@@ -49,7 +49,7 @@ var Utils = {
         new CustomEvent('dashboard-updated', {bubbles: true, detail: detail}));
   },
 
-  toClassName: function(s) { return s && s.toLowerCase().replace(' ', '-'); }
+  toClassName: function(s) { return s && s.toLowerCase().replace(' ', '-').replace('_','-'); }
 };
 
 rivets.formatters.dateFrom = function(value, now) {

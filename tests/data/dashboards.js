@@ -39,9 +39,9 @@ db.getCollection('dashboards').insertMany([
             "design"
         ],
         "boards":[
-            "ProgramIncrement"
+            "MirrorGate"
         ],
-        'programIncrement': 'PI01'
+        'programIncrement': '2017_PI03'
     },
     {
         "name":"nothing"
