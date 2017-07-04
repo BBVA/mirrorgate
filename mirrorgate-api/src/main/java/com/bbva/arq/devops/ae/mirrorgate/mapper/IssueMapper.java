@@ -96,6 +96,9 @@ public class IssueMapper {
                 .setId(source.getsProjectId() == null ? null : Long.parseLong(source.getsProjectId()))
                 .setName(source.getsProjectName())
         );
+        target.setParentKey(source.getsParentKey());
+        target.setParentKey(source.getsParentKey());
+        target.setJiraKey(source.getsNumber());
         target.setKeywords(source.getKeywords());
         return target;
     }

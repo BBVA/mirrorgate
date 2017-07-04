@@ -324,6 +324,10 @@ svg {
     &.status-excellent {
       fill: #24D268;
     }
+
+    &.status-hidden {
+      fill: transparent;
+    }
   }
 }
 

@@ -28,10 +28,26 @@ var ProgramIncrementController = (
 
       if(response) {
         var arg = JSON.parse(response);
-        var completed = arg.programIncrementFeatures ? arg.programIncrementFeatures.filter(function(element) {
-          return element.status === 'DONE';
-        }, this) : [];
-        programIncrement = new ProgramIncrement(completed, arg.programIncrementFeatures, arg.programIncrementStories);
+        //See: mirrorgate-api/src/main/java/com/bbva/arq/devops/ae/mirrorgate/dto/ProgramIncrementDTO.java
+        if(arg.programIncrementStories) {
+          var completed = arg.programIncrementFeatures.filter(function(element) {
+            return element.status === 'DONE';
+          }, this);
+          var featMap = {};
+          arg.programIncrementFeatures.forEach(function(feat) {
+            featMap[feat.jiraKey] = feat;
+            feat.children = [];
+          }, this);
+          if(arg.programIncrementStories) {
+            arg.programIncrementStories.forEach(function(story) {
+              feat = featMap[story.parentKey];
+              if (feat) { feat.children.push(story); }
+            }, this);
+          }
+          programIncrement = new ProgramIncrement(completed, arg.programIncrementFeatures, arg.programIncrementStories);
+        } else {
+          programIncrement = {};
+        }
       }
 
       observable.notify(programIncrement);
