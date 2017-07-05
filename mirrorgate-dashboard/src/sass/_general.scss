@@ -170,6 +170,11 @@ tile-container{
     html{
         font-size: $default-size - 0.2;
     }
+
+
+    board-column.alerts-column {
+      max-width: 300px;
+    }
 }
 
 @media all and (min-width: $xxl){
@@ -185,4 +190,13 @@ tile-container{
 /* Bootstrap overwrites */
 .dropdown-menu>li>a{
     font-weight: $font-weight-medium;
+}
+
+tile-container.alerts {
+  background: #F0F0F0;
+  border-radius: 8px;
+
+  &.module-data-error:before{
+    color: #444;
+  }
 }
