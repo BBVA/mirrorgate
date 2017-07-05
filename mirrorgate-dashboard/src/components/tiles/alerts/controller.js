@@ -21,55 +21,48 @@
 var AlertsController = (function(dashboardId) {
 
   var observable = new Event('AlertsController');
-  
-  var service = Service.get(Service.types.alerts, dashboardId);
 
-  function getAlerts(response) {
-    
-    if(!response) {
-      return observable.notify(undefined);
-    }
-      
-    response = JSON.parse(response);
-    
-    if(response.urlAlerts) {
-      
-      httpGetAsync(response.urlAlerts, function(data) {
+  var config;
 
-        function buildAlerts(data, limit) {
-          
-          var state;
-          if(data.state) {
-            state = data.state.currentState || data.state;
-          }
-          
-          var alert = new Alerts(
-            data.title,
-            state,
-            data.image
-          );
-          
-          for (var j in data.alerts) {
-            /* Just show limited alerts for group */
-            if(limit && j == limit) {
-              break;
-            }
-            
-            var children = buildAlerts(data.alerts[j]);
-            alert.addChild(children);
-          }
-          
-          return alert;
+  function getAlerts() {
+
+    httpGetAsync(config.urlAlerts, function(data) {
+
+      function buildAlerts(data, limit) {
+
+        var state;
+        if(data.state) {
+          state = data.state.currentState || data.state;
         }
-        
-        if(!data) {
-          return observable.notify(undefined);
-        }
-        data = JSON.parse(data);
 
-        var alert_groups = [];
-        
-        //TODO: to improve
+        var alert = new Alerts(
+          data.title,
+          state,
+          data.image
+        );
+
+        for (var j in data.alerts) {
+          /* Just show limited alerts for group */
+          if(limit && j == limit) {
+            break;
+          }
+
+          var children = buildAlerts(data.alerts[j]);
+          alert.addChild(children);
+        }
+
+        return alert;
+      }
+
+      if(!data) {
+        return observable.notify(undefined);
+      }
+      data = JSON.parse(data);
+
+      var alert_groups = [];
+
+      //TODO: to improve
+      if(data.alerts) {
         if(data.alerts[0].alerts) { //It is a group
 
           for (var i in data.alerts) {
@@ -82,20 +75,23 @@ var AlertsController = (function(dashboardId) {
         } else {
           alert_groups.push(buildAlerts(data, 12));
         }
+      }
 
-        observable.notify(alert_groups);       
-      });
-
-    }
+      observable.notify(alert_groups);
+    });
   }
+
 
   this.observable = observable;
   this.dispose = function() {
-    this.observable.reset();
-    service.removeListener(getAlerts);
+    Timer.eventually.detach(getAlerts);
   };
-  this.init = function() {
-    service.addListener(getAlerts);
+  this.init = function(_config) {
+    config = _config;
+    if(config.urlAlerts) {
+      Timer.eventually.attach(getAlerts);
+      getAlerts();
+    }
   };
 
 });

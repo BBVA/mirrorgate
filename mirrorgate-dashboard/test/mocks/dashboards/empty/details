@@ -8,5 +8,5 @@
   ],
   "applications": ["empty"],
   "slackTeam": "empty",
-  "alertsUrl": "dashboards/empty/alerts"
+  "urlAlerts": "dashboards/empty/alerts"
 }

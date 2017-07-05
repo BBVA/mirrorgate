@@ -21,14 +21,13 @@ describe('AlertsController', () => {
 
   beforeEach(() => {
     server = buildFakeServer();
-    
     server.autoRespond = true;
     controller = new AlertsController(dashboardForTesting);
-    controller.init();
+    controller.init(detailsForTesting);
   });
 
   it('should get alerts', (done) => {
-    
+
     alert_groups = [];
     for (var i in alertsForTesting.alerts) {
       alert_groups.push(buildAlerts(alertsForTesting.alerts[i], 6));
@@ -48,30 +47,30 @@ describe('AlertsController', () => {
     server.restore();
     controller.dispose();
   });
-  
+
   function buildAlerts(data, limit) {
-    
+
     var state;
     if(data.state) {
       state = data.state.currentState || data.state;
     }
-    
+
     var alert = new Alerts(
       data.title,
       state,
       data.image
     );
-    
+
     for (var j in data.alerts) {
       /* Just show limited alerts for group */
       if(limit && j == limit) {
         break;
       }
-      
+
       var children = buildAlerts(data.alerts[j]);
       alert.addChild(children);
     }
-    
+
     return alert;
   }
 });
