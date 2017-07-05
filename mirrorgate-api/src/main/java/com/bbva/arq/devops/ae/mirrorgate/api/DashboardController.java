@@ -63,7 +63,7 @@ public class DashboardController {
     )
     public ResponseEntity<?> deleteDashboard(@PathVariable("name") String name) {
         dashboardService.deleteDashboard(name);
-        return ResponseEntity.status(HttpStatus.OK).body("Dashboard was delted successfully");
+        return ResponseEntity.status(HttpStatus.OK).body("Dashboard was deleted successfully");
     }
 
     @RequestMapping(value = "/dashboards", method = GET, produces = APPLICATION_JSON_VALUE)
@@ -85,24 +85,10 @@ public class DashboardController {
             @PathVariable("name") String name,
             @Valid @RequestBody Dashboard request) {
 
-        Dashboard dashboard = dashboardService.getDashboard(name);
+        Dashboard updatedDashboard = dashboardService.updateDashboard(name, request);
 
-        dashboard.setApplications(request.getApplications());
-        dashboard.setBoards(request.getBoards());
-        dashboard.setCodeRepos(request.getCodeRepos());
-        dashboard.setDisplayName(request.getDisplayName());
-        dashboard.setFilters(request.getFilters());
-        dashboard.setLogoUrl(request.getLogoUrl());
-        dashboard.setSlackTeam(request.getSlackTeam());
-        dashboard.setSlackChannel(request.getSlackChannel());
-        dashboard.setProgramIncrement(request.getProgramIncrement());
-        if(request.getSlackToken() != null) {
-            dashboard.setSlackToken(request.getSlackToken());
-        }
-        dashboard.setsProductName(request.getsProductName());
-        dashboard.setUrlAlerts(request.getUrlAlerts());
-        dashboard = dashboardService.updateDashboard(dashboard);
+        return ResponseEntity.ok(updatedDashboard);
 
-        return ResponseEntity.ok(dashboard);
     }
+
 }

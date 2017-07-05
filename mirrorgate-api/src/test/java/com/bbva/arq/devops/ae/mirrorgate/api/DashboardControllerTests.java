@@ -132,7 +132,7 @@ public class DashboardControllerTests {
         d.setStatus(DELETED);
 
         when(dashboardService.getDashboard(d.getName())).thenReturn(d);
-        when(dashboardService.updateDashboard(d)).thenReturn(d);
+        when(dashboardService.updateDashboard(d.getName(),d)).thenReturn(d);
 
         this.mockMvc.perform(post("/dashboards")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -180,7 +180,7 @@ public class DashboardControllerTests {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(dashboardService.updateDashboard(dashboard)).thenReturn(dashboard);
+        when(dashboardService.updateDashboard(dashboard.getName(),dashboard)).thenReturn(dashboard);
 
         this.mockMvc.perform(put("/dashboards/" + dashboard.getName())
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -195,7 +195,7 @@ public class DashboardControllerTests {
         wrongDashboard.setName("Wrong");
 
         doThrow(new DashboardConflictException(""))
-                .when(dashboardService).getDashboard(dashboard.getName());
+                .when(dashboardService).updateDashboard(anyString(), any(Dashboard.class));
 
         this.mockMvc.perform(put("/dashboards/" + dashboard.getName())
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -208,7 +208,7 @@ public class DashboardControllerTests {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new DashboardNotFoundException(""))
-                .when(dashboardService).getDashboard(dashboard.getName());
+                .when(dashboardService).updateDashboard(anyString(), any(Dashboard.class));
 
         this.mockMvc.perform(put("/dashboards/" + dashboard.getName())
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

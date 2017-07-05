@@ -40,6 +40,14 @@ public interface DashboardService {
      */
     List<String> getReposByDashboardName(String name);
 
+     /**
+     * Get the admin users of a specific Dashboard
+     *
+     * @param name Name of the Dashboard
+     * @return List of admin users
+     */
+    List<String> getAdminUsersByDashboardName(String name);
+
     /**
      * Get all names of applications related to a Dashboard.
      *
@@ -75,7 +83,10 @@ public interface DashboardService {
      * Updates a Dashboard
      *
      * @param dashboard
+     * @param name
      * @return Dashboard persisted Dashboard or null if no existent
      */
-    Dashboard updateDashboard(Dashboard dashboard);
+    Dashboard updateDashboard(String name, Dashboard dashboard);
+
+
 }

@@ -22,6 +22,7 @@ export class Dashboard {
   applications: string[] = [];
   codeRepos: string[] = [];
   boards: string[] = [];
+  adminUsers: string[] = [];
   filter: {
     timeSpan: number,
     branch: Map<string,boolean>,
