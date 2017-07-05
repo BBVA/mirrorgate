@@ -47,9 +47,9 @@ public class ReviewRepositoryTest {
     Review review2 = TestObjectFactory.createReview(
             Platform.IOS, "mirrorgate", "123457", "comment 2", 2, 5, 10);
     Review review3 = TestObjectFactory.createReview(
-            Platform.Android, "mirrorgate", "123456", "comment 1", 3, 3.5, 1);
+            Platform.Android, "mirrorgate", "com.mirrorgate", "comment 1", 3, 3.5, 1);
     Review review4 = TestObjectFactory.createReview(
-            Platform.Android, "mirrorgate", "123457", "comment 2", 4, 5, 10);
+            Platform.Android, "mirrorgate", "com.mirrorgate", "comment 2", 4, 5, 10);
 
     @Before
     public void init(){
@@ -86,7 +86,7 @@ public class ReviewRepositoryTest {
         assertEquals("mirrorgate", reviews.get(0).getAppId());
         assertEquals("mirrorgate", reviews.get(0).getAppName());
         assertEquals("123457", reviews.get(0).getCommentId());
-        assertTrue(reviews.get(0).getPlatform().equals(Platform.Android));
+        assertTrue(reviews.get(0).getPlatform().equals(Platform.IOS));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class ReviewRepositoryTest {
         androidReviews.add(review3);
         androidReviews.add(review4);
 
-        assertTrue(applications.get(0).getRate() == calculateAverage(review, review2));
+        assertTrue(applications.get(0).getRate() == calculateAverage(iosReviews));
         assertTrue(applications.get(1).getRate() == calculateAverage(androidReviews));
 
     }
