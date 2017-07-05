@@ -25,7 +25,7 @@ import java.util.List;
  */
 public interface SprintRepository {
 
-    List<Sprint> getSprintSampleForStatus(String[] status);
+    List<Sprint> getSprintSampleForStatus(String[] status, String collectorId);
 
-    Sprint getSprintForId(String id);
+    Sprint getSprintForId(String id, String collectorId);
 }

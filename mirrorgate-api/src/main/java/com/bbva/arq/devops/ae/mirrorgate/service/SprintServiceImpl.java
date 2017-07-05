@@ -38,11 +38,12 @@ public class SprintServiceImpl implements SprintService {
     SprintRepository sprintRepository;
 
     @Override
-    public List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses) {
+    public List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses, String collectorId) {
         return sprintRepository.getSprintSampleForStatus(Arrays.asList(sprintStatuses).stream()
                 .map(Object::toString)
                 .collect(Collectors.toList())
-                .toArray(new String[]{})
+                .toArray(new String[]{}),
+                collectorId
         ).stream()
                 .map(SprintMapper::map)
                 .map((s) -> {
@@ -56,8 +57,8 @@ public class SprintServiceImpl implements SprintService {
     }
 
     @Override
-    public SprintDTO getSprint(Long id) {
-        com.bbva.arq.devops.ae.mirrorgate.model.Sprint sourceSprint = sprintRepository.getSprintForId(id.toString());
+    public SprintDTO getSprint(Long id, String collectorId) {
+        com.bbva.arq.devops.ae.mirrorgate.model.Sprint sourceSprint = sprintRepository.getSprintForId(id.toString(), collectorId);
         SprintDTO sprint = SprintMapper.map(sourceSprint);
 
         //We are already returning the sprint... don't loop
