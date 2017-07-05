@@ -95,7 +95,9 @@
 
     var partition = d3.layout.partition()
         .sort(function (a, b) {
-          return completedRate(a) > completedRate(b) ? -1 : 1;
+          return order[a.status] === order[b.status] ?
+              completedRate(b) - completedRate(a) :
+              order[b.status] - order[a.status];
         })
         .size([3/2 * Math.PI, 1])
         .value(function(d) { return d.size; });
