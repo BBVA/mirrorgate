@@ -17,17 +17,20 @@
 .component {
     background-color: #191919;
     display: flex;
-    flex-grow: 1;
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
+    //display: block;
+
+    max-height: 100%;
 }
 
 .component__content {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: 20px;
+    //padding-bottom: 20px;
+    height: 100%;
 
     //separador
     .section:before{
@@ -59,18 +62,17 @@
 }
 
 .component__header {
-    align-items: center;
     display: flex;
-    flex-grow: 0;
     justify-content: space-between;
-    margin: 20px 0;
+    padding: 5px 10px 10px;
 }
 
 .component__body {
-    flex-grow: 1;
-    height: calc(85% - 100px);
+    height: calc(100% - 100px);
+    max-height: 100%;
+    padding: 0 10px 15px;
     position: relative;
-    text-align: center;
+    flex-basis: 100%;
 }
 
 .title {
@@ -79,7 +81,6 @@
 
 .title-desc {
     color: $dark-grey;
-    font-size: $level-4;
     margin: 0;
 }
 
@@ -100,11 +101,6 @@
 
 //Modules states backgrounds
 $border-width: -5px;
-
-tile-container.module-empty {
-    max-height: 50px;
-    min-height: 50px;
-}
 
 .component {
     &.module-ok {
@@ -160,7 +156,7 @@ tile-container.module-data-error {
     font-size: $level-5;
     justify-content: center;
     margin: 0 auto;
-    padding: 10px;
+    padding: 0 10px 20px 10px; 
 }
 
 .legend__item{
@@ -206,7 +202,7 @@ tile-container.module-data-error {
 }
 
 .legend__build-item--product{
-    border-radius: 15px;
+    border-radius: 5px;
     height: 15px;
     top: 0.06em;
     width: 15px
@@ -254,43 +250,6 @@ tile-container.module-data-error {
     .title-desc {
         font-size: $level-5;
     }
-}
-
-:host(.module-empty) .component__content {
-  padding-bottom: 0;
-}
-
-.module-empty .component__content {
-  padding-bottom: 0;
-}
-
-:host(.tile-s) {
-
-    @include reduce-header();
-
-    .component__header {
-        margin-top: 15px;
-    }
-
-}
-
-:host(.tile-m) {
-    @include reduce-header();
-}
-
-//For firefox... Doesn't support :host
-.tile-s {
-
-    @include reduce-header();
-
-    .component__header {
-        margin-top: 5px;
-    }
-}
-
-.tile-m {
-    @include reduce-header();
-
 }
 
 svg {

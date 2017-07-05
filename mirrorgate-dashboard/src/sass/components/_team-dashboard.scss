@@ -15,7 +15,6 @@
  */
 
 .team{
-    align-items: stretch;
 
     svg text {
       fill: white;
@@ -78,7 +77,48 @@
       cursor: pointer;
     }
 
+    .backlog-progress {
+      width: 100%;
+      height: 20px;
+      background-color: #8a8a8a;
+      border-radius: 10px;
+      overflow: hidden;
+    }
 
+    .backlog-progress-bar {
+      height: 20px;
+    }
+
+    .backlog-progress-bar-success {
+      background-color: #25d268;
+    }
+
+    .velocity-line {
+      height: 33px;
+      position: absolute;
+      width: 1px;
+      background-color: white;
+      top: 12px;
+      left: 70%;
+    }
+
+    .velocity-info {
+      width: 60%;
+      text-align: center;
+      float: right;
+      font-size: 1.5rem;
+      line-height: 20px;
+    }
+
+    .backlog-story-points {
+      text-align: left;
+      width: 100%;
+      display: inline-block;
+    }
+
+    .data-number{
+      font-size: $level-2;
+    }
 }
 
 .velocity-info {

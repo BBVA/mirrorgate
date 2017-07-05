@@ -26,67 +26,20 @@
   <style>
     @import "css/styles.css";
   </style>
-  <style>
-    .backlog-progress {
-      width: 100%;
-      height: 20px;
-      background-color: #8a8a8a;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .backlog-progress-bar {
-      height: 20px;
-    }
-
-    .backlog-progress-bar-success {
-      background-color: #25d268;
-    }
-
-    .velocity-line {
-      height: 33px;
-      position: absolute;
-      width: 1px;
-      background-color: white;
-      top: 12px;
-      left: 70%;
-    }
-
-    .velocity-info {
-      width: 60%;
-      text-align: center;
-      float: right;
-      font-size: 1.5rem;
-      line-height: 20px;
-    }
-
-    .team.component__content h3 {
-      font-size: 3rem;
-      padding-top: 5px;
-      margin: 5px;
-      line-height: 0.7;
-    }
-
-    .backlog-story-points {
-      text-align: left;
-      width: 100%;
-      display: inline-block;
-    }
-  </style>
-
+  
   <div class="team component__content">
     <div class="component__header">
       <h2 class="title">Backlog status</h2>
     </div>
     <div class="component__body">
-      <span class="backlog-story-points">{stats.backlogEstimate} story points</span>
+      <span class="backlog-story-points"><span class="data-number">{stats.backlogEstimate}</span> story points</span>
       <div rv-show="stats.sprintStats">
         <div class="velocity-line"></div>
         <div class="backlog-progress">
           <div class="backlog-progress-bar backlog-progress-bar-success" role="progressbar" rv-width="stats.backlogFillRate"></div>
         </div>
         <div class="velocity-info">
-          <h3>{stats.velocity}</h3>
+          <span class="data-number">{stats.velocity}</span>
           <span>Average velocity</span>
         </div>
       </div>

@@ -45,8 +45,9 @@
   ul {
     list-style: none;
     display: flex;
-    flex-direction: row;
+    justify-content: space-around;
     padding: 0;
+    width: 100%;
 
     li {
       display: block;
@@ -54,7 +55,8 @@
       clear: none;
       width: 100%;
       font-size:  $level-3;
-      line-height:  $level-3;
+      line-height:  $level-3 + 1;
+      text-align: center;
 
       .bug-number {
         font-size:  $level-2;
