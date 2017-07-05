@@ -17,7 +17,7 @@
 import { Injectable } from '@angular/core';
 
 import { Dashboard } from '../model/dashboard';
-import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -32,7 +32,7 @@ export class SlackService {
 
   signSlack(team:string, clientId:string, clientSecret:string): Promise<string> {
     var dummy: HTMLAnchorElement = document.createElement('a');
-    dummy.href = 'utils/slack-code-capturer';
+    dummy.href = 'utils/slack/code-capturer';
 
     var redirectUrl = encodeURIComponent(dummy.href);
     return new Promise((resolve, reject) =>  {
@@ -56,15 +56,39 @@ export class SlackService {
     params.set('clientId', clientId);
     params.set('clientSecret', clientSecret);
 
-    return this.http.get('utils/slack-token-generator', {
+    return this.http.get('utils/slack/token-generator', {
       search: params
     }).toPromise().then((r) => {
       return r.text();
     });
   }
 
+  getChannels(dashboard:Dashboard): Promise<Map<string,string>> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('dashboard', dashboard.name);
+    params.set('token', dashboard.slackToken);
+
+    return this.http.get(`utils/slack/channels`,{
+      search: params
+    }).toPromise().then((r) => {
+      if(r.status == 200) {
+        return r.json();
+      } else {
+        return null;
+      }
+    }).catch(() => null);
+  }
+
   private handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
+
+    let errMsg: string;
+    if (error instanceof Response) {
+      errMsg = `${error.status} - ${error.text() }`;
+    } else {
+      errMsg = error.message ? error.message : error;
+    }
+
+    return Promise.reject(errMsg);
   }
 
 }

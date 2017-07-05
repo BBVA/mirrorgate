@@ -43,12 +43,14 @@ public class Dashboard extends BaseModel {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackToken;
     private String slackTeam;
+    private String slackChannel;
     private DashboardStatus status;
     private String lastUserEdit;
     @Indexed
     private long lastModification;
     private String programIncrement;
     private String urlAlerts;
+    private String author;
 
     public String getName() {
         return name;
@@ -164,4 +166,19 @@ public class Dashboard extends BaseModel {
         this.urlAlerts = urlAlerts;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getSlackChannel() {
+        return slackChannel;
+    }
+
+    public void setSlackChannel(String slackChannel) {
+        this.slackChannel = slackChannel;
+    }
 }

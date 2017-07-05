@@ -77,6 +77,7 @@ var Tile = (function() {
     if (this._controller) {
       this._controller.dispose();
     }
+    this.onDispose();
   };
 
   TilePrototype.getModel = function() { return this.model; };
@@ -103,6 +104,7 @@ var Tile = (function() {
       }.bind(this));
       this._controller.init(config);
     }
+    this.onInit();
   };
 
   TilePrototype._processEnabled = function() {
@@ -142,6 +144,9 @@ var Tile = (function() {
   TilePrototype.getControllerClass = function() {
     throw 'getControllerClass not implemented';
   };
+
+  TilePrototype.onInit = function () {};
+  TilePrototype.onDispose = function () {};
 
   return TilePrototype;
 

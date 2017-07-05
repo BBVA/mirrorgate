@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *

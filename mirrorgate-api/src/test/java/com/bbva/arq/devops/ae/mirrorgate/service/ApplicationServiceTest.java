@@ -25,7 +25,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,11 +49,11 @@ public class ApplicationServiceTest {
 
     @Test
     public void testApplicationService(){
-        DashboardDTO dashboard1 = TestObjectBuilder.createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
-        DashboardDTO dashboard2 = TestObjectBuilder.createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
+        DashboardDTO dashboard1 = TestObjectFactory.createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
+        DashboardDTO dashboard2 = TestObjectFactory.createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
         List<DashboardDTO> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
 
-        ApplicationReviewsDTO applicationReviewsDTO1 = TestObjectBuilder.createApplicationDTO("mirrorgate", Platform.IOS);
+        ApplicationReviewsDTO applicationReviewsDTO1 = TestObjectFactory.createApplicationDTO("mirrorgate", Platform.IOS);
         List<ApplicationReviewsDTO> applicationReviewsDTOList = Arrays.asList(applicationReviewsDTO1);
 
         when(dashboardRepository.getActiveDashboards()).thenReturn(listOfDashboards);
@@ -66,8 +66,8 @@ public class ApplicationServiceTest {
 
     @Test
     public void testNoReviewsForAnyApp(){
-        DashboardDTO dashboard1 = TestObjectBuilder.createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
-        DashboardDTO dashboard2 = TestObjectBuilder.createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
+        DashboardDTO dashboard1 = TestObjectFactory.createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
+        DashboardDTO dashboard2 = TestObjectFactory.createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
         List<DashboardDTO> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
 
         List<ApplicationReviewsDTO> applicationReviewsDTOList = new ArrayList<>();

@@ -24,25 +24,27 @@ var MarketsController = (function(dashboardId) {
   var service = Service.get(Service.types.apps, dashboardId);
 
   function getRates(response) {
-    var apps;
+    var data = {};
 
     if(response) {
-      apps = [];
+      data.apps = [];
+      var reviews = [];
       response = JSON.parse(response);
       for(var index in response) {
           var app = new Market(
             response[index].appname,
             response[index].rate,
             response[index].platform,
-            response[index].last_review_author,
-            response[index].last_review_rate,
-            response[index].last_review_timestamp,
-            response[index].last_review_comment);
-          apps.push(app);
+            response[index].reviews);
+          reviews = reviews.concat(response[index].reviews);
+          data.apps.push(app);
       }
+      data.reviews = reviews.sort((r1, r2) => {
+        return r1.timestamp < r2.timestamp ? 1 : -1;
+      }).slice(0,3);
     }
 
-    observable.notify(apps);
+    observable.notify(data);
   }
 
   this.observable = observable;

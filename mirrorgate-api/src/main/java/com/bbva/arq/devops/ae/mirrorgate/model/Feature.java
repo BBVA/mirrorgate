@@ -53,8 +53,13 @@ public class Feature extends BaseModel{
 
     /* Associated PI properties */
     private List<String> sPiNames;
+
+    @Indexed
     private String sParentKey;
     private Long lParentId;
+
+    /* Associated collector ID */
+    private String collectorId;
 
     @Indexed
     private String sProjectName;
@@ -182,4 +187,13 @@ public class Feature extends BaseModel{
     public void setsPiNames(List<String> sPiNames) {
         this.sPiNames = sPiNames;
     }
+
+    public String getCollectorId() {
+        return collectorId;
+    }
+
+    public void setCollectorId(String collectorId) {
+        this.collectorId = collectorId;
+    }
+
 }

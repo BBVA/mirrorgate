@@ -15,6 +15,9 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import allbegray.slack.SlackClientFactory;
+import allbegray.slack.type.Channel;
+import allbegray.slack.webapi.SlackWebApiClient;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +28,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -70,6 +77,13 @@ public class SlackServiceImpl implements SlackService {
                 .encode();
 
         return restTemplate.getForObject(uri.toUriString(), SlackDTO.class);
+    }
+
+    @Override
+    public Map<String, String> getChannelList(String slackToken) {
+        SlackWebApiClient webApiClient = SlackClientFactory.createWebApiClient(slackToken);
+        List<Channel> channelList = webApiClient.getChannelList();
+        return channelList.stream().collect(Collectors.toMap(c -> c.getId(), c -> c.getName()));
     }
 
 }

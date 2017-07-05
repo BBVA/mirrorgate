@@ -47,7 +47,7 @@ $level-5: 1.4rem;
 $level-6: 1.2rem;
 $header-height: 60px;
 $footer-height: 80px;
-$header-footer-height: $header-height;// + $footer-height;
+$header-footer-height: $header-height + $footer-height;
 
 //COLORS
 $header-bg: #fff;

@@ -80,6 +80,10 @@ To execute MirrorGate locally:
 4. You should be able to navigate through the mock dashboards.
 5. Attempt to run some of the collectors (i.e. Jira) to be able to populate some information inside the database.
 
+# Supported browsers
+
+In mirrorgate we are using some edge HTML and CSS features so only latest chrome and firefox versions is supported for the moment. This means that IE and Safari are not current supported.
+
 # Contributing
 
 Please read the [contributing guide](./CONTRIBUTING.md)

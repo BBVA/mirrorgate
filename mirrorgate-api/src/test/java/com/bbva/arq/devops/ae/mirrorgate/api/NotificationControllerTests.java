@@ -26,9 +26,8 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.SlackService;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,58 +61,15 @@ public class NotificationControllerTests {
     @MockBean
     private DashboardService dashboardService;
 
-    private static final String SLACK_CODE = "SLACK_CODE";
-    private static final String SLACK_DUMMY = "SLACK_DUMMY";
-
     @Before
     public void before() {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
-    public void setSlackTokenTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-        SlackDTO notification = TestObjectBuilder.createSlackDTO();
-
-        when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(slackService.getToken(
-                dashboard.getSlackTeam(),
-                SLACK_DUMMY,
-                SLACK_DUMMY,
-                SLACK_CODE)).thenReturn(notification);
-
-        this.mockMvc.perform(get("/backoffice/utils/slack-token-generator")
-                .param("code", SLACK_CODE)
-                .param("clientId", SLACK_DUMMY)
-                .param("clientSecret", SLACK_DUMMY)
-                .param("team", dashboard.getSlackTeam()))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void setSlackTokenSlackErrorTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-        SlackDTO error_notification = TestObjectBuilder.createSlackErrorDTO();
-
-        when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(slackService.getToken(
-                dashboard.getSlackTeam(),
-                SLACK_DUMMY,
-                SLACK_DUMMY,
-                SLACK_CODE)).thenReturn(error_notification);
-
-        this.mockMvc.perform(get("/backoffice/utils/slack-token-generator")
-                .param("code", SLACK_CODE)
-                .param("clientId", SLACK_DUMMY)
-                .param("clientSecret", SLACK_DUMMY)
-                .param("team", dashboard.getSlackTeam()))
-                .andExpect(status().is(HttpStatus.CONFLICT.value()));
-    }
-
-    @Test
     public void getWebSocketTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-        SlackDTO notification = TestObjectBuilder.createSlackDTO();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
+        SlackDTO notification = TestObjectFactory.createSlackDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getWebSocket(
@@ -140,8 +96,8 @@ public class NotificationControllerTests {
 
     @Test
     public void getWebSocketSlackErrorTest() throws Exception {
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
-        SlackDTO error_notification = TestObjectBuilder.createSlackErrorDTO();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
+        SlackDTO error_notification = TestObjectFactory.createSlackErrorDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getWebSocket(

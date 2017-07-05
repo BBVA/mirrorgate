@@ -20,6 +20,7 @@
  */
 var NotificationsController = (function(dashboardId) {
 
+  var config;
   var observable = new Event('NotificationsController');
   var service = Service.get(Service.types.notifications, dashboardId);
 
@@ -28,6 +29,9 @@ var NotificationsController = (function(dashboardId) {
     function loadNotification(notification) {
 
       if('message' === notification.type) {
+        if(config.slackChannel && config.slackChannel != notification.channel) {
+          return;
+        }
         var attachment = (notification.attachments &&
             notification.attachments[0]);
 
@@ -62,7 +66,8 @@ var NotificationsController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getWebSocketURL);
   };
-  this.init = function() {
+  this.init = function(_config) {
+    config = _config;
     service.addListener(getWebSocketURL);
   };
 

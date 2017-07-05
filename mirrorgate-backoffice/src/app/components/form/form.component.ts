@@ -30,6 +30,10 @@ import {SlackService} from '../../services/slack.service';
 export class FormComponent {
 
   dashboard: Dashboard;
+  slackChannels: {
+    keys?: string[],
+    values?: Map<string,string>
+  } = {};
   slack: {
     clientId?: string,
     clientSecret?: string
@@ -41,6 +45,7 @@ export class FormComponent {
     codeRepos?: string,
     programIncrement?: string
   } = {};
+  errorMessage: string;
 
   constructor(private dashboardsService: DashboardsService,
               private slackService: SlackService,
@@ -62,33 +67,48 @@ export class FormComponent {
     this.temp.boards = this.dashboard.boards ? this.dashboard.boards.join(',') : '';
     this.temp.applications = this.dashboard.applications ? this.dashboard.applications.join(',') : '';
     this.temp.codeRepos = this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
-    this.temp.programIncrement = this.dashboard.programIncrement;
+    this.updateSlackChannels();
   }
 
   mirrorTempValues() {
     this.dashboard.boards = this.temp.boards.length ? this.temp.boards.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',').map((e) => e.trim()) : undefined;
-    this.dashboard.programIncrement = this.temp.programIncrement.length ? this.temp.programIncrement.trim() : undefined;
   }
 
   back(): void {
     this.router.navigate(['/list']);
   }
 
-  onSave(dashboard: Dashboard): void {
-    this.dashboardsService.saveDashboard(dashboard, this.edit).then(dashboard => {
-      if(dashboard) {
-        this.dashboard = dashboard;
-        this.back();
-      }
+  private updateSlackChannels(): void {
+    this.slackService.getChannels(this.dashboard).then((channels) => {
+      this.slackChannels.values = channels;
+      this.slackChannels.keys = channels && Object.keys(channels);
     });
   }
 
+  private setSlackToken(token:string): void {
+    this.dashboard.slackToken = token;
+    this.updateSlackChannels();
+  }
+
+  onSave(dashboard: Dashboard): void {
+    this.dashboardsService.saveDashboard(dashboard, this.edit)
+      .then(dashboard => {
+        if(dashboard) {
+          this.dashboard = dashboard;
+          this.back();
+        }
+      })
+      .catch((error: any) => {
+        this.errorMessage = <any>error;
+      });  }
+
   signSlack(dashboard: Dashboard): void {
     this.slackService.signSlack(this.dashboard.slackTeam, this.slack.clientId, this.slack.clientSecret)
-      .then((code: string) => {
-        this.dashboard.slackToken = code;
+      .then((token) => this.setSlackToken(token))
+      .catch((error: any) => {
+        this.errorMessage = <any>error;
       });
   }
 

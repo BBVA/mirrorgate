@@ -23,7 +23,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,10 +65,10 @@ public class BugControllerTests {
     @Test
     public void getBugsTest() throws Exception {
 
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
-        BugDTO bug1 = TestObjectBuilder.createBugDTO();
-        BugDTO bug2 = TestObjectBuilder.createBugDTO();
+        BugDTO bug1 = TestObjectFactory.createBugDTO();
+        BugDTO bug2 = TestObjectFactory.createBugDTO();
 
         List<BugDTO> bugs = new ArrayList<>();
         bugs.add(bug1);
