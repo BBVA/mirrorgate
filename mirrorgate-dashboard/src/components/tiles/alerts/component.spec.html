@@ -1,0 +1,110 @@
+<!doctype html>
+
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html>
+
+<head>
+  <title>alerts-tile web component testing page</title>
+
+  <script src="/node_modules/karma-read-json/karma-read-json.js"></script>
+  <script src="/test/bootstrap.js"></script>
+
+</head>
+
+<body>
+
+  <script>
+    describe('<alerts-tile>', () => {
+
+      let component;
+
+      var server;
+
+      function appendComponent() {
+        component = document.createElement('alerts-tile');
+        document.body.appendChild(component);
+        component.setAttribute('enabled', 'true');
+        component.setAttribute('pconfig', JSON.stringify(detailsForTesting));
+        component.setAttribute('pid', dashboardForTesting);
+      }
+
+      beforeEach(() => {
+        server = buildFakeServer();
+        server.autoRespond = true;
+      });
+
+      it('should show alerts', () => {
+        appendComponent();
+        let div = component.querySelector('* /deep/ .alerts');
+        server.respond();
+        expect(div.getElementsByClassName('alert').length).not.toBe(0);
+      });
+
+      describe('events', () => {
+
+        var testHandler;
+        var handler = function (e) {
+          if (testHandler) {
+            testHandler(e);
+          }
+        };
+
+        beforeEach(() => {
+          document.addEventListener('dashboard-updated', handler);
+        });
+
+        afterEach(() => {
+          document.removeEventListener('dashboard-updated', handler);
+          testHandler = undefined;
+        });
+
+        it('should raise an event when it succeds', (done) => {
+          appendComponent();
+
+          testHandler = function (e) {
+            expect(e.detail.status).toBe('ok');
+            done();
+          }
+          server.respond();
+        });
+
+        it('should raise an event when servers fail', (done) => {
+          server.restore();
+          server = sinon.fakeServer.create();
+
+          appendComponent();
+
+          testHandler = function (e) {
+            expect(e.detail.status).toBe('server-error');
+            done();
+          };
+
+          server.lastRequest.respond(404, {});
+        });
+
+      });
+
+      afterEach(() => {
+        server.restore();
+      });
+
+    });
+  </script>
+</body>
+
+</html>

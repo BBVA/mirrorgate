@@ -81,6 +81,20 @@ board-column {
     flex-grow: 1;
 }
 
+board-row {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+    position: relative;
+    height: 100%;
+    flex-grow: 1;
+}
+
+board-row.board--secondary {
+    //Ugly hack!! :-(... Please fix me.... eventually
+    flex-shrink: 3.5!important;
+}
+
 //TILES
 
 tile-container{
@@ -174,6 +188,11 @@ tile-container{
     html{
         font-size: $default-size - 0.2;
     }
+
+
+    board-column.alerts-column {
+      max-width: 300px;
+    }
 }
 
 @media all and (min-width: $xxl){
@@ -189,4 +208,13 @@ tile-container{
 /* Bootstrap overwrites */
 .dropdown-menu>li>a{
     font-weight: $font-weight-medium;
+}
+
+tile-container.alerts {
+  background: #F0F0F0;
+  border-radius: 8px;
+
+  &.module-data-error:before{
+    color: #444;
+  }
 }

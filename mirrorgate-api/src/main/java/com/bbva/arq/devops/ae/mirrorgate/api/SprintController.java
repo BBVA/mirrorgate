@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -45,16 +46,16 @@ public class SprintController {
     }
 
     @RequestMapping(value = "/api/sprints/changing-sample", method = GET, produces = APPLICATION_JSON_VALUE)
-    public List<SprintDTO> getChangingSprintsSample() {
+    public List<SprintDTO> getChangingSprintsSample(@RequestParam("collectorId") String collectorId) {
 
-         return sprintService.getSampleForStatus(new SprintStatus[]{SprintStatus.ACTIVE, SprintStatus.FUTURE});
+         return sprintService.getSampleForStatus(new SprintStatus[]{SprintStatus.ACTIVE, SprintStatus.FUTURE}, collectorId);
 
     }
 
     @RequestMapping(value = "/api/sprints/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<SprintDTO> getChangingSprint(@PathVariable("id") Long id) {
+    public ResponseEntity<SprintDTO> getChangingSprint(@PathVariable("id") Long id, @RequestParam("collectorId") String collectorId) {
 
-        SprintDTO sprint = sprintService.getSprint(id);
+        SprintDTO sprint = sprintService.getSprint(id, collectorId);
 
         if(sprint == null) {
             return ResponseEntity.notFound().build();

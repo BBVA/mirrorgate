@@ -53,6 +53,8 @@ public class Feature extends BaseModel{
 
     /* Associated PI properties */
     private List<String> sPiNames;
+
+    @Indexed
     private String sParentKey;
     private Long lParentId;
 

@@ -74,6 +74,10 @@ gulp.task('build:watch', ['build'], () => {
   gulp.watch(['src/**/*'], [':build', ':build:sass']);
 });
 
+gulp.task('build:watch:noclean', [], () => {
+  gulp.watch(['src/**/*'], ['lint', ':build', ':build:sass']);
+});
+
 gulp.task(
     ':serve:watch', [':build', ':build:sass'], () => browserSync.reload());
 

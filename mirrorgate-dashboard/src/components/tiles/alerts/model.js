@@ -14,18 +14,27 @@
  * limitations under the License.
  */
 
-package com.bbva.arq.devops.ae.mirrorgate.service;
-
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
-
-import java.util.List;
-
 /**
- * Created by alfonso on 28/05/17.
+ * Alerts model. This may be both an Alert or a group of Alerts.
+ * 
+ * @param {String} title  Title's Alert.
+ * @param {Object} state  State's Alert.
+ * @param {Object} image  Image's Alert.
  */
-public interface SprintService {
-    List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses, String collectorId);
-
-    SprintDTO getSprint(Long id, String collectorId);
+function Alerts(title, state, image) {
+  this.title = title;
+  this.state = state;
+  this.image = image;
+  this.children = [];
 }
+
+
+Alerts.prototype = {
+
+  /**
+   * Add a child alerts to current group
+   * @param {Alerts} alerts
+   */
+  addChild: function(alerts) { this.children.push(alerts); }
+
+};

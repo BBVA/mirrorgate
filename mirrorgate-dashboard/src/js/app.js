@@ -28,7 +28,8 @@ function MainController() {
       incidences: 'boards',
       'program-increment':'programIncrement',
       bugs: 'boards',
-      notifications: 'slackTeam'
+      notifications: 'slackTeam',
+      alerts: 'urlAlerts'
     };
 
     // Display tiles only when details are avail

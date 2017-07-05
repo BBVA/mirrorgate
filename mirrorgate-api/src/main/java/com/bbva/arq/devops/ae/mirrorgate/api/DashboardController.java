@@ -88,6 +88,7 @@ public class DashboardController {
         Dashboard updatedDashboard = dashboardService.updateDashboard(name, request);
 
         return ResponseEntity.ok(updatedDashboard);
+
     }
 
 }

@@ -25,12 +25,42 @@
     @import "css/styles.css";
   </style>
 
-  <div class="component__content">
+  <div class="pi component__content">
     <div class="component__header">
       <h2 class="title">Program Increment</h2>
-      <h3 class="title-desc" rv-show="programIncrement.featuresNumber">{programIncrement.featuresNumber} features</h3>
+      <h3 class="title-desc" rv-hide="programIncrement.features">No data for PI</h3>
     </div>
     <div class="component__body">
+      <svg>
+        <g class="main">
+          <g class="slices"></g>
+          <g class="data">
+            <g rv-show="selected">
+              <switch>
+                <foreignObject x="-250" y="-250" width="500" height="500">
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                    <p>
+                      <span class="feature-name">{selected.name}</span>
+                      <span class="feature-status" rv-pclass-status="selected.status">Status: {selected.status}</span>
+                    </p>
+                  </div>
+                </foreignObject>
+                <text x="20" y="20"></text>
+              </switch>
+            </g>
+            <g rv-hide="selected">
+              <g rv-show="programIncrement.features">
+                <text class="rate-completed" y="0">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</text>
+                <text class="text-completed" y="100">features completed</text>
+                <!--<text class="days-left" y="300">
+                  {pi.daysLeft} days left
+                </text>-->
+              </g>
+            </g>
+          </g>
+          <g class="time"></g>
+        </g>
+      </svg>
     </div>
   </div>
 </template>
@@ -42,12 +72,62 @@
     var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
     var tmpl = thisDoc.querySelector('template');
 
+    var order = {
+      'DONE': 3,
+      'IN_PROGRESS': 2,
+      'IMPEDED': 1,
+      'WAITING': 0,
+      'BACKLOG': 0
+    };
+
+    //D3JS initializations
+    function completedRate(item) {
+      var children = item.children;
+      if(!children || !children.length) {
+        return order[item.status];
+      }
+      var count = 0;
+      children.forEach(function(element) {
+        count+= completedRate(element);
+      });
+      return count / children.length;
+    }
+
+    var partition = d3.layout.partition()
+        .sort(function (a, b) {
+          return order[a.status] === order[b.status] ?
+              completedRate(b) - completedRate(a) :
+              order[b.status] - order[a.status];
+        })
+        .size([3/2 * Math.PI, 1])
+        .value(function(d) { return d.size; });
+
+    var y = d3.scale.pow().exponent(0.5).range([400, 530]);
+
+    var arc = d3.svg.arc()
+        .startAngle(function(d) { return d.x - 3 * Math.PI/4; })
+        .endAngle(function(d) { return d.x + d.dx  - 3 * Math.PI/4; })
+        .padAngle(Math.PI/180)
+        .cornerRadius(20)
+        .innerRadius(function (d) { return d.y === 0 ? 0 : Math.max(0, y(d.y-0.25)) + ((d.y-0.25) && (5)); })
+        .outerRadius(function (d) { return d.y === 0 ? 0 : Math.max(0, y((d.y-0.25) + d.dy)) - 5; });
+
     // Creates an object based in the HTML Element prototype
     var MyElementProto = Object.create(Tile);
 
+    function storyClassBuilder(prefix) {
+      return function (d) {
+        if(d.status) {
+          return prefix + Utils.toClassName(d.status);
+        } else {
+          return prefix + 'hidden';
+        }
+      }
+    }
+
     MyElementProto.processAlerts = function (data) {
       Utils.raiseEvent(this, {
-        status: data ? 'empty' : 'server-error'
+        status: data ? 'unknown' : 'server-error'
       });
     }
 
@@ -61,13 +141,67 @@
 
     // Fires when an instance of the element is created
     MyElementProto.render = function (data) {
+      var model = this.getModel();
+
+      function mouseEnterHandler (d) {
+        model.selected = d;
+        svg.classed('dimmed', true);
+      }
 
       this.processAlerts(data);
 
-      var model = this.getModel();
-
       if (data) {
         model.programIncrement = data;
+
+        //Distribute size so that all features take the same width
+        model.programIncrement.features.forEach(function(feature) {
+          feature.size = 1;
+          if(feature.children.length) {
+            var size = 1/feature.children.length;
+            feature.children.forEach(function(story) {
+              story.size = size;
+            });
+          }
+        });
+
+        var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
+
+        var marginTop = 0;
+
+        var width = parseFloat(style.width.substring(0, style.width.length - 2)),
+          height = parseFloat(style.height.substring(0, style.height.length - 2)),
+          radius = Math.min(width, height) / 2;
+
+        width = 2 * radius;
+
+        var container = d3.select(this.shadowRoot).select("svg")
+          .attr('preserveAspectRatio', 'xMidYMid meet')
+          .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
+
+        var svg = container
+          .select("g.main").attr("transform",
+          "translate(" + radius + "," + (radius + marginTop) + ") " +
+          "scale(" + (radius / 530) + ")"
+          ).on('mouseout', function (d) {
+            svg.classed('dimmed', false);
+            model.selected = undefined;
+          });
+
+        var featureData = svg.select('.slices').selectAll('path')
+          .data(partition.nodes({
+            children: model.programIncrement.features
+          }));
+
+        featureData
+          .attr('d', arc)
+          .attr('class', storyClassBuilder('status-'));
+
+        featureData.enter()
+          .append('path')
+          .on('mouseenter', mouseEnterHandler)
+          .attr('d', arc)
+          .attr('class', storyClassBuilder('status-'));
+
       }
     };
 

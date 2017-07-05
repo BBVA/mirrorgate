@@ -33,6 +33,8 @@ var bugsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '
 
 var lastNotification = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/notifications');
 
+var alertsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/alerts');
+
 function buildFakeServer() {
 
   var server = sinon.fakeServer.create();
@@ -95,6 +97,16 @@ function buildFakeServer() {
       200,
       { "Content-Type": "application/json" },
       JSON.stringify(lastNotification)
+    ]
+  );
+  
+  server.respondWith(
+    'GET',
+    'dashboards/' + dashboardForTesting + '/alerts',
+    [
+      200,
+      { "Content-Type": "application/json" },
+      JSON.stringify(alertsForTesting)
     ]
   );
 
