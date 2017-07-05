@@ -21,9 +21,8 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
-import java.util.List;
-
 import com.mongodb.BasicDBObject;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -44,15 +43,21 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
         Aggregation aggregation = newAggregation(
             match(Criteria.where("appname").in(names)),
-            sort(new Sort(DESC,"timestamp")),
+            sort(new Sort(DESC, "timestamp")),
+            project("appname", "platform", "starrating",
+                   "accumulate", "timestamp", "comment", "authorName")
+                .and("starrating").multiply("accumulate").as("starrating_accumulated"),
             group("appname", "platform")
-                .avg("starrating").as("rate")
-                .push(new BasicDBObject( "author", "$authorName" )
-                        .append("rate", "$starrating" )
-                        .append("timestamp", "$timestamp")
-                        .append("comment", "$comment")
+                .sum("accumulate").as("total_accumulate")
+                .sum("starrating_accumulated").as("total_starrating")
+                .push(new BasicDBObject("author", "$authorName")
+                    .append("rate", "$starrating" )
+                    .append("timestamp", "$timestamp")
+                    .append("comment", "$comment")
                 ).as("reviews"),
-            project("appname", "platform", "rate").and("reviews").slice(3,0)
+            project("appname", "platform")
+                .and("total_starrating").divide("total_accumulate").as("rate")
+                .and("reviews").slice(3, 0)
         );
 
         //Convert the aggregation result into a List

@@ -26,6 +26,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +41,7 @@ public class TestObjectFactory {
     private static final String DASHBOARD_NAME = "mirrorgate";
     private static final String PROJECT_NAME = "mirrorgate";
     private static final String FEATURE_NAME = "feature";
+    private static final String APP_NAME = "mirrorgate";
     public static final String AUTH_NAME = "ATREYU";
 
 
@@ -138,4 +140,20 @@ public class TestObjectFactory {
 
         return applicationReviewsDTO;
     }
+
+    public static Review createReview(Platform platform, String appName, String commentId, String comment, int timestamp, double rate, int accumulate) {
+
+        Review review = new Review();
+
+        review.setTimestamp(timestamp);
+        review.setAppname(appName);
+        review.setComment(comment);
+        review.setPlatform(platform);
+        review.setCommentId(commentId);
+        review.setStarrating(rate);
+        review.setAccumulate(accumulate);
+
+        return review;
+    }
+
 }

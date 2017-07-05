@@ -5,7 +5,8 @@ db.getCollection('reviews').insertMany([
     "authorName" : "Alfonso",
     "starrating" : 5.0,
     "comment" : "Es una aplicación estupenda!",
-    "platform" : "Android"
+    "platform" : "Android",
+    "accumulate": 10
   },
   {
     "timestamp" : NumberLong(1487861673755),
@@ -13,7 +14,8 @@ db.getCollection('reviews').insertMany([
     "authorName" : "Kike",
     "starrating" : 3.0,
     "comment" : "Pufff!",
-    "platform" : "Android"
+    "platform" : "Android",
+    "accumulate": 1
   },
   {
     "timestamp" : NumberLong(1488861673755),
@@ -21,7 +23,8 @@ db.getCollection('reviews').insertMany([
     "authorName" : "Carlos",
     "starrating" : 1.0,
     "comment" : "Pufff!",
-    "platform" : "IOS"
+    "platform" : "IOS",
+    "accumulate": 10
   },
   {
     "timestamp" : NumberLong(1488871673755),
@@ -29,7 +32,8 @@ db.getCollection('reviews').insertMany([
     "authorName" : "Ana",
     "starrating" : 4.0,
     "comment" : "Buen diseño",
-    "platform" : "Android"
+    "platform" : "Android",
+    "accumulate": 1
   },
   {
     "timestamp" : NumberLong(1688871673755),
@@ -37,7 +41,8 @@ db.getCollection('reviews').insertMany([
     "authorName" : "Ana",
     "starrating" : 4.0,
     "comment" : "Buen diseño",
-    "platform" : "Android"
+    "platform" : "Android",
+    "accumulate": 1
   },
   {
     "timestamp" : NumberLong(1688871673756),
@@ -45,6 +50,7 @@ db.getCollection('reviews').insertMany([
     "authorName" : "kike",
     "starrating" : 4.0,
     "comment" : "Consume mucho",
-    "platform" : "Android"
+    "platform" : "Android",
+    "accumulate": 1
   }
 ]);

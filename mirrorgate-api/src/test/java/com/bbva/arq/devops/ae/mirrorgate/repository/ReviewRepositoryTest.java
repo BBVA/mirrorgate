@@ -20,9 +20,11 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,14 +42,21 @@ public class ReviewRepositoryTest {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    Review review = TestObjectFactory.createReview(
+            Platform.IOS, "mirrorgate", "123456", "comment 1", 1, 3.5, 1);
+    Review review2 = TestObjectFactory.createReview(
+            Platform.IOS, "mirrorgate", "123457", "comment 2", 2, 5, 10);
+    Review review3 = TestObjectFactory.createReview(
+            Platform.Android, "mirrorgate", "123456", "comment 1", 3, 3.5, 1);
+    Review review4 = TestObjectFactory.createReview(
+            Platform.Android, "mirrorgate", "123457", "comment 2", 4, 5, 10);
+
     @Before
     public void init(){
-
-        Review review = createReview(Platform.IOS, "mirrorgate", "123456", "comment 1",1);
-        Review review2 = createReview(Platform.IOS, "mirrorgate", "123457", "comment 2",2);
-
         reviewRepository.save(review);
         reviewRepository.save(review2);
+        reviewRepository.save(review3);
+        reviewRepository.save(review4);
     }
 
     @Test
@@ -56,7 +65,7 @@ public class ReviewRepositoryTest {
         List<String> appNamesList = Arrays.asList("mood");
         List<ApplicationReviewsDTO> reviews = reviewRepository.getLastReviewPerApplication(appNamesList);
 
-        assertTrue(reviews.size() == 0);
+        assertTrue(reviews.isEmpty());
     }
 
     @Test
@@ -65,7 +74,7 @@ public class ReviewRepositoryTest {
         List<String> appNamesList = new ArrayList<>();
         List<ApplicationReviewsDTO> reviews = reviewRepository.getLastReviewPerApplication(appNamesList);
 
-        assertTrue(reviews.size() == 0);
+        assertTrue(reviews.isEmpty());
     }
 
     @Test
@@ -77,24 +86,44 @@ public class ReviewRepositoryTest {
         assertEquals("mirrorgate", reviews.get(0).getAppId());
         assertEquals("mirrorgate", reviews.get(0).getAppName());
         assertEquals("123457", reviews.get(0).getCommentId());
-        assertTrue(reviews.get(0).getPlatform().equals(Platform.IOS));
+        assertTrue(reviews.get(0).getPlatform().equals(Platform.Android));
     }
 
+    @Test
+    public void getAverageRateByAppNames() {
+        List<String> names = Arrays.asList("mirrorgate", "mirrorgato", "mood");
+        List<ApplicationDTO> applications = reviewRepository.getAverageRateByAppNames(names);
 
-    private Review createReview(Platform platform, String appName, String commentId, String comment, int timestamp) {
+        List<Review> iosReviews = new ArrayList<>();
+        iosReviews.add(review);
+        iosReviews.add(review2);
 
-        Review review = new Review();
+        List<Review> androidReviews = new ArrayList<>();
+        androidReviews.add(review3);
+        androidReviews.add(review4);
 
-        review.setTimestamp(timestamp);
-        review.setAppname(appName);
-        review.setComment(comment);
-        review.setPlatform(platform);
-        review.setCommentId(commentId);
+        assertTrue(applications.get(0).getRate() == calculateAverage(review, review2));
+        assertTrue(applications.get(1).getRate() == calculateAverage(androidReviews));
 
-        review.setAuthorName("Author");
-        review.setStarrating(3.2);
-
-        return review;
     }
+
+    private double calculateAverage(Review review, Review review2) {
+        int total_accumulate = review.getAccumulate() + review2.getAccumulate();
+        double total_starrating
+                = review.getStarrating() * review.getAccumulate()
+                + review2.getStarrating() * review2.getAccumulate();
+        return total_starrating / total_accumulate;
+    }
+
+    private double calculateAverage(List<Review> reviews) {
+
+        int total_accumulate = reviews.stream()
+                .mapToInt(review -> review.getAccumulate()).sum();
+        double total_starrating = reviews.stream()
+                .mapToDouble(review -> review.getStarrating() * review.getAccumulate()).sum();
+
+        return total_starrating / total_accumulate;
+    }
+
 
 }
