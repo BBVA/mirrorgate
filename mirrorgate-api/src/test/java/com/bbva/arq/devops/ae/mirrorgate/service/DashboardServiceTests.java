@@ -147,7 +147,7 @@ public class DashboardServiceTests {
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
         when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
 
-        Dashboard dashboard2 = dashboardService.updateDashboard(dashboard);
+        Dashboard dashboard2 = dashboardService.updateDashboard(dashboard.getName(),dashboard);
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save(dashboard);
 
@@ -161,7 +161,7 @@ public class DashboardServiceTests {
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
 
-        dashboardService.updateDashboard(dashboard);
+        dashboardService.updateDashboard(dashboard.getName(),dashboard);
     }
 
     @Test

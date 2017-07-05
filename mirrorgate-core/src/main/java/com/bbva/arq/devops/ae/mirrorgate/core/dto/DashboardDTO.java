@@ -32,6 +32,7 @@ public class DashboardDTO {
     private List<String> codeRepos = new ArrayList<>();
     private String sProductName; //Team product name
     private List<String> applications = new ArrayList<>();
+    private List<String> adminUsers = new ArrayList<>();
     private List<String> boards;
     private Filters filters;
     private DashboardStatus status;
@@ -120,4 +121,11 @@ public class DashboardDTO {
         this.lastModification = lastModification;
     }
 
+    public List<String> getAdminUsers() {
+        return adminUsers;
+    }
+
+    public void setAdminUsers(List<String> adminUsers) {
+        this.adminUsers = adminUsers;
+    }
 }

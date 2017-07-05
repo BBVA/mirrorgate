@@ -61,6 +61,12 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
+    public List<String> getAdminUsersByDashboardName(String name) {
+        Dashboard dashboard = this.getDashboard(name);
+        return dashboard.getAdminUsers();
+    }
+
+    @Override
     public List<String> getApplicationsByDashboardName(String name) {
         Dashboard dashboard = this.getDashboard(name);
         return dashboard.getApplications();
@@ -79,11 +85,11 @@ public class DashboardServiceImpl implements DashboardService {
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth == null || null == auth.getPrincipal()) {
-                throw new DashboardForbiddenException("Not auth found");
+                throw new DashboardForbiddenException("No auth found");
             }
 
-            if (!dashboard.getAuthor().equals(auth.getPrincipal().toString())) {
-                throw new DashboardForbiddenException("Do not allow edition");
+            if (!dashboard.getAuthor().equals(auth.getPrincipal().toString()) && !dashboard.getAdminUsers().contains(auth.getPrincipal().toString())) {
+                throw new DashboardForbiddenException("You do not have permissions to perform this operation edition, please contact the Dashboard administrator.");
             }
 
             dashboard.setLastUserEdit(auth.getPrincipal().toString());
@@ -98,7 +104,7 @@ public class DashboardServiceImpl implements DashboardService {
     public Dashboard newDashboard(Dashboard dashboard) {
         Dashboard oldDashboard = dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         if (oldDashboard != null && oldDashboard.getStatus() != DELETED) {
-            throw new DashboardConflictException("Dashboard with name '" + dashboard.getName() + "' already exists");
+            throw new DashboardConflictException("A Dashboard with name '" + dashboard.getName() + "' already exists");
         }
 
         dashboard.setStatus(ACTIVE);
@@ -115,24 +121,37 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public Dashboard updateDashboard(Dashboard dashboard) {
-        Dashboard toUpdate = this.getDashboard(dashboard.getName());
+    public Dashboard updateDashboard(String name, Dashboard request) {
+        Dashboard toUpdate = this.getDashboard(name);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (null != toUpdate.getAuthor()) {
 
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth == null || null == auth.getPrincipal()) {
-                throw new DashboardForbiddenException("Not auth found");
+                throw new DashboardForbiddenException("No auth found");
             }
 
-            if (!toUpdate.getAuthor().equals(auth.getPrincipal().toString())) {
-                throw new DashboardForbiddenException("Do not allow edition");
+            if (!toUpdate.getAuthor().equals(auth.getPrincipal().toString()) && !toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())) {
+                throw new DashboardForbiddenException("You do not have permissions to perform this operation edition, please contact the Dashboard administrators.");
             }
 
-            dashboard.setLastUserEdit(auth.getPrincipal().toString());
         }
 
-        dashboard.setLastModification(System.currentTimeMillis());
-        return dashboardRepository.save(dashboard);
+        Dashboard toSave = mergeDashboard(toUpdate, request, auth.getPrincipal().toString());
+
+        return dashboardRepository.save(toSave);
+    }
+
+    private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {
+
+        request.setId(dashboard.getId());
+        request.setLastUserEdit(principal);
+        request.setLastModification(System.currentTimeMillis());
+
+        if(request.getSlackToken() == null) {
+            request.setSlackToken(dashboard.getSlackToken());
+        }
+
+        return request;
     }
 }

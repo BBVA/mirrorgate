@@ -35,6 +35,7 @@ public class Dashboard extends BaseModel {
     private String displayName;
     private String logoUrl;
     private List<String> codeRepos = new ArrayList<>();
+    private List<String> adminUsers = new ArrayList<>();
     private String sProductName; //Team product name
     private List<String> applications = new ArrayList<>();
     private List<String> boards;
@@ -171,5 +172,13 @@ public class Dashboard extends BaseModel {
 
     public void setSlackChannel(String slackChannel) {
         this.slackChannel = slackChannel;
+    }
+
+    public List<String> getAdminUsers() {
+        return adminUsers;
+    }
+
+    public void setAdminUsers(List<String> adminUsers) {
+        this.adminUsers = adminUsers;
     }
 }

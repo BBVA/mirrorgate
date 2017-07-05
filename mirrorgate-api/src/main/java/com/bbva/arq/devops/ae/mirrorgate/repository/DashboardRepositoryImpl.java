@@ -43,6 +43,7 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
                 .first("status").as("status")
                 .first("logoUrl").as("logoUrl")
                 .first("applications").as("applications")
+                .first("adminUsers").as("adminUsers")
         );
 
         //Convert the aggregation result into a List
