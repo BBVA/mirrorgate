@@ -39,7 +39,7 @@
         component = document.createElement('alerts-tile');
         document.body.appendChild(component);
         component.setAttribute('enabled', 'true');
-        component.setAttribute('pconfig', '{}');
+        component.setAttribute('pconfig', JSON.stringify(detailsForTesting));
         component.setAttribute('pid', dashboardForTesting);
       }
 
@@ -98,7 +98,7 @@
         });
 
       });
-      
+
       afterEach(() => {
         server.restore();
       });
