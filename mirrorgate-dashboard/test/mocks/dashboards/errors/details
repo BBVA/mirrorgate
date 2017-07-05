@@ -8,5 +8,6 @@
    "error"
   ],
   "applications": ["error"],
-  "slackTeam":"error"
+  "slackTeam":"error",
+  "urlAlerts": "error"
 }

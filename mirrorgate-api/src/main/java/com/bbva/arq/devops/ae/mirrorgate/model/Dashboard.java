@@ -49,6 +49,7 @@ public class Dashboard extends BaseModel {
     @Indexed
     private long lastModification;
     private String programIncrement;
+    private String urlAlerts;
     private String author;
 
     public String getName() {
@@ -155,6 +156,14 @@ public class Dashboard extends BaseModel {
 
     public void setProgramIncrement(String programIncrement) {
         this.programIncrement = programIncrement;
+    }
+
+    public String getUrlAlerts() {
+        return urlAlerts;
+    }
+
+    public void setUrlAlerts(String urlAlerts) {
+        this.urlAlerts = urlAlerts;
     }
 
     public String getAuthor() {

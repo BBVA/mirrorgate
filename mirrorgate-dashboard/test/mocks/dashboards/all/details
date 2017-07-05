@@ -9,5 +9,6 @@
   ],
   "applications": ["all"],
   "slackTeam": "All",
-  "programIncrement": "blah"
+  "programIncrement": "blah",
+  "urlAlerts": "dashboards/all/alerts"
 }
