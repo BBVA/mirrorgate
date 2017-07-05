@@ -63,7 +63,7 @@ public class DashboardController {
     )
     public ResponseEntity<?> deleteDashboard(@PathVariable("name") String name) {
         dashboardService.deleteDashboard(name);
-        return ResponseEntity.status(HttpStatus.OK).body("Dashboard was delted successfully");
+        return ResponseEntity.status(HttpStatus.OK).body("Dashboard was deleted successfully");
     }
 
     @RequestMapping(value = "/dashboards", method = GET, produces = APPLICATION_JSON_VALUE)

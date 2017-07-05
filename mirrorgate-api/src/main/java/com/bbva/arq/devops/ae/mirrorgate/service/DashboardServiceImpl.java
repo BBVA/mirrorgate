@@ -89,7 +89,7 @@ public class DashboardServiceImpl implements DashboardService {
             }
 
             if (!dashboard.getAuthor().equals(auth.getPrincipal().toString()) && !dashboard.getAdminUsers().contains(auth.getPrincipal().toString())) {
-                throw new DashboardForbiddenException("You do not have permissions to perform this operation edition, please contact the Dashboard administrator.");
+                throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator.");
             }
 
             dashboard.setLastUserEdit(auth.getPrincipal().toString());
@@ -132,7 +132,7 @@ public class DashboardServiceImpl implements DashboardService {
             }
 
             if (!toUpdate.getAuthor().equals(auth.getPrincipal().toString()) && !toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())) {
-                throw new DashboardForbiddenException("You do not have permissions to perform this operation edition, please contact the Dashboard administrators.");
+                throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrators.");
             }
 
         }
