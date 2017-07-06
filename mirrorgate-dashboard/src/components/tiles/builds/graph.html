@@ -55,6 +55,17 @@
         </g>
       </svg>
     </div>
+    <div class="legend">
+      <div class="legend__item">
+        <span class="legend__build-item legend__build-item--product"></span>Master
+      </div>
+      <div class="legend__item">
+        <span class="legend__build-item legend__build-item--repos"></span>Develop
+      </div>
+      <div class="legend__item">
+        <span class="legend__build-item  legend__build-item--branches"></span>Branches
+      </div>
+    </div>
   </div>
 </template>
 
@@ -129,7 +140,7 @@
       var width = parseFloat(style.width.substring(0, style.width.length - 2)),
         height = parseFloat(style.height.substring(0, style.height.length - 2)),
         radius = Math.min(width, height) / 2;
-      width = 2 * radius;
+        width = 2 * radius;
 
       var formatNumber = d3.format(',d');
 

@@ -50,7 +50,7 @@
 
       it('should show alerts', () => {
         appendComponent();
-        let div = component.querySelector('* /deep/ .alerts');
+        let div = component.querySelector('* /deep/ .alerts__content');
         server.respond();
         expect(div.getElementsByClassName('alert').length).not.toBe(0);
       });

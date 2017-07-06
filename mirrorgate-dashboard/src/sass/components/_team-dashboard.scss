@@ -15,7 +15,6 @@
  */
 
 .team{
-    align-items: stretch;
 
     svg text {
       fill: white;
@@ -73,15 +72,62 @@
     }
 
     .dimmed path:hover {
+      cursor: pointer;
       fill-opacity: 1;
       stroke-opacity: 1;
-      cursor: pointer;
     }
 
+    .backlog-status {
+      position: relative;
+    }
 
+    .backlog-progress {
+      background-color: #8a8a8a;
+      border-radius: 10px;
+      height: 10px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .backlog-progress__bar {
+      height: 10px;
+    }
+
+    .backlog-progress__bar-success {
+      background-color: #25d268;
+    }
+
+    .velocity-line {
+      background-color: white;
+      height: 33px;
+      left: 70%;
+      position: absolute;
+      top: -10px;
+      width: 1px;
+    }
+
+    .velocity-info {
+      color: $dark-grey;
+      text-align: right;
+    }
+
+    .data-number{
+      font-size: $level-2;
+    }
 }
 
-.velocity-info {
-    color: $dark-grey;
-}
+@media all and (min-width: $xxl) {
+  .team {
+    .backlog-progress {
+      height: 20px;
+    }
 
+    .backlog-progress__bar {
+      height: 20px;
+    }
+
+    .velocity-line {
+      height: 40px;
+    }
+  }
+}

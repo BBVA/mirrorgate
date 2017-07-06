@@ -28,8 +28,15 @@
       <div class="notification__icon" rv-color="notification.color">
         <i class="fa fa-slack" aria-hidden="true"></i>
       </div>
-      <div class="notifications-content">
-        <div class="notification-type"><span class="notification-title">Slack message<span rv-show="notification.user"> from {notification.user}</span></span> <span class="date title-desc">{ notification.date | date updatedDate}</span></div>
+
+      <div class="notifications__content">
+        <div class="notification__type">
+          <span class="notification__title">Slack message
+            <span rv-show="notification.user"> from {notification.user}</span>
+          </span>
+          
+          <span class="date title-desc">{ notification.date | date updatedDate}</span></div>
+
         <div>{ notification.description }</div>
       </div>
   </div>

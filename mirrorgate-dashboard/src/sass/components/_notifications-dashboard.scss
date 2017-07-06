@@ -14,49 +14,28 @@
  * limitations under the License.
  */
 
-.component--footer{
-    width: 100%;
-}
-
-.notification {
-    align-items: center;
-    display: flex;
-    flex-wrap: nowrap;
-    line-height: 1em;
-    padding: 10px 15px;
-    position: relative;
-
-    .small{
-        font-size: $level-4;
-    }
-}
-
-.notification__icon{
-    font-size: $level-2;
-    padding-right: 20px;
-}
-
 .notifications {
-  padding-top: 5px;
 
-  .notifications-content {
-    width: 100%;
-
-    .notification-title {
-      text-transform: uppercase;
-      font-weight: 300;
+    .notifications__content {
+        width: 100%;
     }
 
-    .notifications-type {
+    .notification__title {
+        text-transform: uppercase;
+        font-weight: 300;
+        padding-right: 10px;
     }
-  }
 
+    .notification__icon{
+        font-size: $level-2 + 1;
+        padding: 5px 10px 5px 20px;
+    }
 }
 
 //RESPONSIVE
 @media all and (min-width: $l){
-    .notification {
-        min-height: $footer-height;
+    notifications-tile {
+        height: $footer-height;
 
         //separador vertical
         &:after{
@@ -75,4 +54,23 @@
         }
     }
 
+    .notifications{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        
+        .notifications__column{
+            align-items: center;
+            display: flex;
+            width: 100%;
+        }
+    }
+}
+
+@media all and (min-width: $xxl) {
+    notifications-tile {
+        height: $footer-height + 40;
+    }
 }

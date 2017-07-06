@@ -65,6 +65,27 @@
         </g>
       </svg>
     </div>
+
+    <div class="legend">
+      <div class="legend__item">
+        <span class="legend__color legend__color--green"></span>Done
+      </div>
+      <div class="legend__item">
+        <span class="legend__color legend__color--blue"></span>In progress
+      </div>
+      <div class="legend__item">
+        <span class="legend__color legend__color--red"></span>Blocked
+      </div>
+
+      <!--<div class="legend__item">
+              <span class="legend__color legend__color--yellow"></span>Unplanned
+          </div>-->
+
+      <div class="legend__item">
+        <span class="legend__color"></span>To Do
+      </div>
+    </div>
+    
   </div>
 </template>
 
@@ -142,7 +163,7 @@
       }
 
       var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
-
+      
       var marginTop = 0;
 
       var width = parseFloat(style.width.substring(0, style.width.length - 2)),
@@ -155,7 +176,7 @@
 
       container
         .attr('preserveAspectRatio', 'xMidYMid meet')
-        .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
+        .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 1.75))
       var svg = container
         .select("g.main").attr("transform",
         "translate(" + radius + "," + (radius + marginTop) + ") " +

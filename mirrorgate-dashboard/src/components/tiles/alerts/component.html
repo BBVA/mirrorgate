@@ -25,32 +25,34 @@
     @import "css/styles.css";
   </style>
 
-  <div class="component__content alerts">
+  <div class="component__content alerts__content">
     <div class="component__header">
       <h2 class="title">Alerts</h2>
-      <span rv-hide="count">No alerts found</span>
+      <h3 class="title-desc" rv-hide="count"><span>No alerts found</span></h3>
     </div>
-    <ul>
-    <li class="group" rv-each-alerts="alerts">
-      <span class="alerts_header">
-        <h3>{ alerts.title }</h3>
-      </span>
-      <ul>
-      <li class="alert" rv-each-alert="alerts.children">
-        <span class="alert-state" rv-if="alert.state" rv-pclass-alert-state="alert.state"></span>
-        <div rv-if="alert.image" class="image">
-          <img rv-if="alert.image.url" rv-src="alert.image.url"></img>
-          <span rv-if="alert.image.glyphName" rv-class="alert.image.glyphName"></span>
-          <svg rv-if="alert.image.commands" rv-html="alert.image.commands"></svg>
-          <span rv-if="alert.image.encoded" rv-html="alert.image.encoded"></span>
+
+    <div class="component__body">
+      <div class="alerts-list">
+        <div class="alerts-list__group" rv-each-alerts="alerts">
+          <span class="group__header">
+            <h3>{ alerts.title }</h3>
+          </span>
+
+          <div class="alert" rv-each-alert="alerts.children">
+            <div rv-if="alert.image" class="image">
+              <span class="alert__state" rv-if="alert.state" rv-pclass-alert-state="alert.state"></span>
+              <img rv-if="alert.image.url" rv-src="alert.image.url"></img>
+              <span rv-if="alert.image.glyphName" rv-class="alert.image.glyphName"></span>
+              <svg rv-if="alert.image.commands" rv-html="alert.image.commands"></svg>
+              <span rv-if="alert.image.encoded" rv-html="alert.image.encoded"></span>
+            </div>
+
+            <div class="alert__title">{ alert.title }</div>
+          </div>
+
         </div>
-        <div class="alert-title">
-          <p>{ alert.title }</p>
-        </div>
-      </li>
-      </ul>
-    </li>
-    </ul>
+      </div>
+    </div>
   </div>
 
 </template>
