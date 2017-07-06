@@ -113,10 +113,10 @@ a{
         width: 100%;
         display: flex;
         flex-direction: column;
-    }
 
-    board-column[data-count-x="2"]{
-        width: 200%;
+        &[data-count-x="2"]{
+            width: 200%;
+        }
     }
 
     board-row {
@@ -125,10 +125,10 @@ a{
         flex-grow: 1;
         flex-shrink: 1;
         width: 100%;
-    }
 
-    board-row.row--primary {
-        flex-basis: 100%;
+        &.row--primary {
+            flex-basis: 100%;
+        }
     }
 
     //TILES
@@ -147,9 +147,27 @@ a{
         flex-basis: 100%;
     }
 
+
+    tile-container.alerts {
+        background: #F0F0F0;
+
+        &.module-data-error:before{
+            color: #444;
+        }
+    }
+
     .bottom{
         flex: 0 0 auto;
         width: 100%;
+    }
+}
+
+@media all and (min-width: $l) {
+    board-column.alerts-column {
+      max-width: 300px;
+      margin: -5px 0;
+      position: relative;
+      right: -5px;
     }
 }
 
@@ -157,29 +175,28 @@ a{
     html{
         font-size: $default-size - 0.2;
     }
-
-
-    board-column.alerts-column {
-      max-width: 300px;
-    }
 }
 
 @media all and (min-width: $xxl){
     html{
         font-size: $default-size;
     }
+
+    .dashboard {
+        padding: 10px;
+    }
+
+    tile-container {
+        padding: 10px;
+    }
+
+    board-column.alerts-column {
+      margin: -10px 0;
+      right: -10px;
+    }
 }
 
 /* Bootstrap overwrites */
 .dropdown-menu>li>a{
     font-weight: $font-weight-medium;
-}
-
-tile-container.alerts {
-  background: #F0F0F0;
-  border-radius: 8px;
-
-  &.module-data-error:before{
-    color: #444;
-  }
 }

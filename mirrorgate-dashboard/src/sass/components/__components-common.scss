@@ -63,25 +63,28 @@
 
 .component__header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 5px 10px 10px;
+    padding: 10px;
 }
 
 .component__body {
     height: calc(100% - 100px);
     max-height: 100%;
-    padding: 0 10px 15px;
+    padding: 15px 15px 20px;
     position: relative;
     flex-basis: 100%;
 }
 
 .title {
     margin-bottom: 0;
+    text-align: left;
 }
 
 .title-desc {
     color: $dark-grey;
     margin: 0;
+    text-align: right;
 }
 
 .indicator {
@@ -235,6 +238,10 @@ tile-container.module-data-error {
 @media all and (min-width: $xxl) {
     .component{
         margin: 0 auto;
+    }
+
+    .component__header {
+        padding: 20px;
     }
 
     .subtitle {
