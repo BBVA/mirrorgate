@@ -107,14 +107,6 @@ public class ReviewRepositoryTest {
 
     }
 
-    private double calculateAverage(Review review, Review review2) {
-        int total_accumulate = review.getAccumulate() + review2.getAccumulate();
-        double total_starrating
-                = review.getStarrating() * review.getAccumulate()
-                + review2.getStarrating() * review2.getAccumulate();
-        return total_starrating / total_accumulate;
-    }
-
     private double calculateAverage(List<Review> reviews) {
 
         int total_accumulate = reviews.stream()
@@ -124,6 +116,5 @@ public class ReviewRepositoryTest {
 
         return total_starrating / total_accumulate;
     }
-
 
 }
