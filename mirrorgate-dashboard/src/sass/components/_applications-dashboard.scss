@@ -20,18 +20,18 @@
     .component__body {
         max-width: 600px;
         margin: 0 auto;
-        width: 100%;
+        font-size: $level-2 + 1;
     }
 
     .rate {
         i{
-            font-size: $level-2 + 1;
             padding: 0 4px;
         }
     }
 
     .platform-rate{
-        margin-bottom: 1em
+        margin-bottom: 1em;
+        text-align: center;
     }
 }
 
