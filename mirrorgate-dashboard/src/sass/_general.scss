@@ -192,8 +192,9 @@ a{
     }
 
     board-column.alerts-column {
-      margin: -10px 0;
-      right: -10px;
+        margin: -10px 0;
+        right: -10px;
+        max-width: 300px;
     }
 }
 
