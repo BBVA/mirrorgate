@@ -46,10 +46,13 @@ function MainController() {
         }
       }
 
-      if(dashboardDetails.slackTeam) {
-        document.querySelector('.dashboard.adaptable').classList.add('with-footer');
-      } else {
-        document.querySelector('.dashboard.adaptable').classList.remove('with-footer');
+      var adaptableBody = document.querySelector('.dashboard.adaptable');
+      if(adaptableBody) {
+        if(dashboardDetails.slackTeam) {
+          adaptableBody.classList.add('with-footer');
+        } else {
+          adaptableBody.classList.remove('with-footer');
+        }
       }
     }
   }
@@ -86,8 +89,10 @@ function MainController() {
       }
       for (i of recent) {
         dashboard = dashboardMap[i];
-        html += '<li><a href="?board=' + encodeURIComponent(dashboard.name) +
-            '">' + (dashboard.displayName || dashboard.name) + '</a></li>';
+        if(dashboard) {
+          html += '<li><a href="?board=' + encodeURIComponent(dashboard.name) +
+              '">' + (dashboard.displayName || dashboard.name) + '</a></li>';
+        }
       }
       menu.innerHTML += html;
     }
