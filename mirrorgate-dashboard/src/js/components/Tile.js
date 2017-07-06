@@ -50,7 +50,6 @@ var Tile = (function() {
     }.bind(this));
 
     this._processEnabled();
-    this._processPid();
     this._computeSize.bind(this);
   };
 
