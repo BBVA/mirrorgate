@@ -43,6 +43,7 @@ export class FormComponent {
     applications?: string,
     boards?: string,
     codeRepos?: string,
+    adminUsers?: string,
     programIncrement?: string
   } = {};
   errorMessage: string;
@@ -67,6 +68,7 @@ export class FormComponent {
     this.temp.boards = this.dashboard.boards ? this.dashboard.boards.join(',') : '';
     this.temp.applications = this.dashboard.applications ? this.dashboard.applications.join(',') : '';
     this.temp.codeRepos = this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
+    this.temp.adminUsers = this.dashboard.adminUsers ? this.dashboard.adminUsers.join(',') : '';
     this.updateSlackChannels();
   }
 
@@ -74,6 +76,7 @@ export class FormComponent {
     this.dashboard.boards = this.temp.boards.length ? this.temp.boards.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',').map((e) => e.trim()) : undefined;
+    this.dashboard.adminUsers = this.temp.adminUsers.length ? this.temp.adminUsers.split(',').map((e) => e.trim()) : undefined;
   }
 
   back(): void {
