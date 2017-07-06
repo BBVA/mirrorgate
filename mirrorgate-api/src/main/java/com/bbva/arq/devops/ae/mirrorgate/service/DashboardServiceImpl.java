@@ -85,17 +85,13 @@ public class DashboardServiceImpl implements DashboardService {
         if (auth == null || null == auth.getPrincipal()) {
            throw new DashboardForbiddenException("No auth found");
         }
-        if (null == toDelete.getAuthor()){
-            if (!toDelete.getAdminUsers().isEmpty() && !toDelete.getAdminUsers().contains(auth.getPrincipal().toString())){
-                throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
-            }
+        
+        if (null == toDelete.getAuthor() && !toDelete.getAdminUsers().isEmpty() && !toDelete.getAdminUsers().contains(auth.getPrincipal().toString())){
+            throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
         }
-        else{
-            if(!toDelete.getAuthor().equals(auth.getPrincipal().toString())) {
-                if (toDelete.getAdminUsers().isEmpty() || !toDelete.getAdminUsers().contains(auth.getPrincipal().toString())){
-                    throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
-                }
-            }
+
+        if(null != toDelete.getAuthor() && !toDelete.getAuthor().equals(auth.getPrincipal().toString()) && !toDelete.getAdminUsers().contains(auth.getPrincipal().toString())){
+            throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
         }
 
         toDelete.setStatus(DELETED);
