@@ -120,26 +120,62 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardRepository.save(dashboard);
     }
 
+
     @Override
     public Dashboard updateDashboard(String name, Dashboard request) {
         Dashboard toUpdate = this.getDashboard(name);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (null != toUpdate.getAuthor()) {
-
-            if (auth == null || null == auth.getPrincipal()) {
-                throw new DashboardForbiddenException("No auth found");
-            }
-
-            if (!toUpdate.getAuthor().equals(auth.getPrincipal().toString()) && !toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())) {
-                throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrators.");
-            }
-
+        if (auth == null || null == auth.getPrincipal()) {
+           throw new DashboardForbiddenException("No auth found");
         }
 
-        Dashboard toSave = mergeDashboard(toUpdate, request, auth.getPrincipal().toString());
+        if (null == toUpdate.getAuthor()){
 
-        return dashboardRepository.save(toSave);
+            if (toUpdate.getAdminUsers().isEmpty()){
+
+                Dashboard toSave = mergeDashboard(toUpdate, request, auth.getPrincipal().toString());
+                return dashboardRepository.save(toSave);
+            }
+            else {
+                if (toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())){
+
+                    Dashboard toSave = mergeDashboard(toUpdate, request, auth.getPrincipal().toString());
+                    return dashboardRepository.save(toSave);
+                }
+                else{
+                    throw new DashboardForbiddenException("Not allowed");
+                }
+            }
+        }
+        else{
+
+            if (toUpdate.getAuthor().equals(auth.getPrincipal().toString())){
+
+                    Dashboard toSave = mergeDashboard(toUpdate, request, auth.getPrincipal().toString());
+                    return dashboardRepository.save(toSave);
+                }
+            else{
+
+                if (toUpdate.getAdminUsers().isEmpty()){
+                    throw new DashboardForbiddenException("Not allowed");
+                }
+
+                else {
+
+                    if (toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())){
+                        Dashboard toSave = mergeDashboard(toUpdate, request, auth.getPrincipal().toString());
+                        return dashboardRepository.save(toSave);
+                    }
+
+                    else{
+                        throw new DashboardForbiddenException("Not allowed");
+                    }
+                }
+            }
+        }
+
+
     }
 
     private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {
