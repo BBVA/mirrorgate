@@ -123,7 +123,7 @@
           return d.size;
         });
 
-    var y = d3.scale.pow().exponent(0.5).range([400, 530]);
+    var y = d3.scale.pow().exponent(0.6).range([400, 530]);
 
     var arc = d3.svg.arc()
         .startAngle(function(d) { return d.x - 3 * Math.PI/4; })

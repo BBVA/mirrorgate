@@ -71,8 +71,6 @@ a{
 
 .bottom{
     flex: 0 0 auto;
-    min-height: $footer-height;
-    max-height: $footer-height;
     width: 100%;
 
     .component, .notification {
@@ -119,6 +117,14 @@ a{
         }
     }
 
+    board-column.alerts-column {
+        max-width: $alerts-column-width;
+        margin: -5px 0;
+        position: relative;
+        right: -5px;
+        overflow: hidden;
+    }
+
     board-row {
         display: flex;
         flex-basis: auto;
@@ -162,15 +168,6 @@ a{
     }
 }
 
-@media all and (min-width: $l) {
-    board-column.alerts-column {
-      max-width: 300px;
-      margin: -5px 0;
-      position: relative;
-      right: -5px;
-    }
-}
-
 @media all and (min-width: $xl){
     html{
         font-size: $default-size - 0.2;
@@ -184,6 +181,10 @@ a{
 
     .dashboard {
         padding: 10px;
+
+        &.with-footer {
+          height: calc(100vh - #{$header-footer-height-xxl});
+        }
     }
 
     tile-container {
