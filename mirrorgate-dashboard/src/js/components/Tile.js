@@ -74,6 +74,11 @@ var Tile = (function() {
   };
 
   TilePrototype._dispose = function() {
+    if(!this._inited) {
+      return;
+    }
+    this._inited = false;
+
     if (this._controller) {
       this._controller.dispose();
     }
@@ -93,6 +98,10 @@ var Tile = (function() {
 
   // Fires when an instance of the element is created
   TilePrototype._init = function() {
+    if(this._inited) {
+      return;
+    }
+    this._inited = true;
     var config = this.getConfig();
     if (typeof(this.getDashboardId()) === 'string' && config) {
       this._controller = new (this.getControllerClass())(this.getDashboardId());
