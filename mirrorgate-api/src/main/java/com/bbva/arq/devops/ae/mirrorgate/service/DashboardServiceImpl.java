@@ -99,6 +99,7 @@ public class DashboardServiceImpl implements DashboardService {
         }
 
         toDelete.setStatus(DELETED);
+        toDelete.setLastUserEdit(auth.getPrincipal().toString());
         toDelete.setLastModification(System.currentTimeMillis());
         dashboardRepository.save(toDelete);
     }
@@ -132,17 +133,13 @@ public class DashboardServiceImpl implements DashboardService {
         if (auth == null || null == auth.getPrincipal()) {
            throw new DashboardForbiddenException("No auth found");
         }
-        if (null == toUpdate.getAuthor()){
-            if (!toUpdate.getAdminUsers().isEmpty() && !toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())){
-                throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
-            }
+
+        if (null == toUpdate.getAuthor() && !toUpdate.getAdminUsers().isEmpty() && !toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())){
+            throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
         }
-        else{
-            if(!toUpdate.getAuthor().equals(auth.getPrincipal().toString())) {
-                if (toUpdate.getAdminUsers().isEmpty() || !toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())){
-                    throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
-                }
-            }
+
+        if(null != toUpdate.getAuthor() && !toUpdate.getAuthor().equals(auth.getPrincipal().toString()) && !toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())){
+            throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
         }
 
         Dashboard toSave = mergeDashboard(toUpdate, request, auth.getPrincipal().toString());
