@@ -28,6 +28,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.ConditionalOperators.IfNull;
 import org.springframework.data.mongodb.core.query.Criteria;
 
 /**
@@ -45,8 +46,9 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
             match(Criteria.where("appname").in(names)),
             sort(new Sort(DESC, "timestamp")),
             project("appname", "platform", "starrating",
-                        "amount", "timestamp", "comment", "authorName")
-                .and("starrating").multiply("amount").as("starrating_accumulated"),
+                        "timestamp", "comment", "authorName")
+                .and("amount").applyCondition(IfNull.ifNull("amount").then(1))
+                .and("starrating").multiply(IfNull.ifNull("amount").then(1)).as("starrating_accumulated"),
             group("appname", "platform")
                 .sum("amount").as("total_amount")
                 .sum("starrating_accumulated").as("total_starrating")
