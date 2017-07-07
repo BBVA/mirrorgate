@@ -47,18 +47,32 @@
 
     li {
       display: block;
-      font-size : $level-3;
       line-height: 1.3em;
+      font-size: 1.3em;
       text-align: center;
       width: 100%;
 
       .bug-number {
         display: block;
-        font-size:  $level-2;
+        font-size: 1.5em;
       }
     }
   }
 
+}
+
+@media all and (min-width: $l) {
+  .bugs{
+    .bug-number {
+        font-size:  $level-2;
+      }
+    
+    ul {
+      li {
+        font-size : $level-3;
+      }
+    }
+  }
 }
 
 @media all and (min-width: $xxl) {

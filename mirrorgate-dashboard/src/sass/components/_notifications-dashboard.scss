@@ -13,10 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+notifications-tile{
+    display: block;
+}
 
 .notifications {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: start;
+    height: 100%;
 
     .notifications__content {
+        padding: 5px;
         width: 100%;
     }
 
@@ -27,8 +36,8 @@
     }
 
     .notification__icon{
-        font-size: $level-2 + 1;
-        padding: 5px 10px 5px 20px;
+        padding: 0px 10px 5px 20px;
+        font-size: 1.3em;
     }
 }
 
@@ -55,16 +64,16 @@
     }
 
     .notifications{
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-        height: 100%;
         
         .notifications__column{
             align-items: center;
             display: flex;
             width: 100%;
+        }
+
+        .notification__icon{
+            font-size: $level-2 + 1;
+            padding: 5px 10px 5px 20px;
         }
     }
 }

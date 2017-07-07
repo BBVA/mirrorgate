@@ -96,7 +96,6 @@ alerts-tile {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      font-size: $level-3;
       padding: 0 5px;
   }
 
@@ -130,6 +129,10 @@ alerts-tile {
   }
 }
 
-@media all and (min-width: $xxl) {
-
+@media all and (min-width: $l) {
+  .alerts__content{
+    .alert__title {
+        font-size: $level-3;
+    }
+  }
 }
