@@ -16,6 +16,8 @@
 
 .applications{
 
+    font-size: 3rem;
+
     .component__body {
         max-width: 600px;
         margin: 0 auto;
@@ -35,6 +37,8 @@
 
 
 .reviews {
+
+    font-size: 2rem;
 
     .component__body {
         text-align: left;
@@ -80,7 +84,7 @@
         .review__header{
             font-size: $level-4 - 0.2;
         }
-        
+
         .review__rate {
             font-size: $level-2 + 0.2;
         }
