@@ -26,12 +26,9 @@
  * @param {Number} last_review_timestamp Last review rate of the app
  * @param {String} last_review_comment Last review comment of the app
  */
-function Market(name, rate, platform, last_review_author, last_review_rate, last_review_timestamp, last_review_comment) {
+function Market(name, rate, platform, reviews) {
   this.name = name;
   this.rate = rate;
   this.platform = platform;
-  this.last_review_author = last_review_author;
-  this.last_review_rate = last_review_rate;
-  this.last_review_timestamp = last_review_timestamp;
-  this.last_review_comment = last_review_comment;
+  this.reviews = reviews;
 }

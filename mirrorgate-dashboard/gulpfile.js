@@ -49,9 +49,7 @@ const paths = {
     'bower_components*/roboto-fontface/css/roboto/roboto-fontface.css',
     'bower_components*/roboto-fontface/fonts/**/*',
     'bower_components*/font-awesome/css/font-awesome.css',
-    'bower_components*/font-awesome/fonts/**/*',
-    'bower_components*/simple-line-icons/css/simple-line-icons.css',
-    'bower_components*/simple-line-icons/fonts/**/*'
+    'bower_components*/font-awesome/fonts/**/*'
   ]
 };
 
@@ -72,6 +70,10 @@ gulp.task(
 gulp.task('build', gulpSequence('clean', 'lint', ':build', ':build:sass'));
 gulp.task('build:watch', ['build'], () => {
   gulp.watch(['src/**/*'], [':build', ':build:sass']);
+});
+
+gulp.task('build:watch:noclean', [], () => {
+  gulp.watch(['src/**/*'], ['lint', ':build', ':build:sass']);
 });
 
 gulp.task(

@@ -17,27 +17,8 @@
 .bottom{
     background-color: darken($background-color, 20);
     border-top: 1px solid #2F2E2E;
-    font-size: $level-3;
-
-    .component--footer{
-        max-width: 100%;
-    }
-
 }
 
-
-//RESPONSIVE
-@media all and (min-width: $l){
-
-    .notifications{
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-    }
-
-    .notifications__column{
-        align-items: center;
-        display: flex;
-        width: 100%;
-    }
+@media all and (min-width : $l) {
+    font-size: $level-3;
 }

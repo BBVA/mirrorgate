@@ -21,7 +21,7 @@
 }
 
 html{
-    font-size: $default-size - 0.2;
+    font-size: $default-size;
 }
 
 body {
@@ -42,13 +42,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h2 {
-    font-size: $level-2;
+    font-size: 2.5rem;
+    line-height: 1em;
     margin-top: 0;
 }
 
 h3 {
-    font-size: $level-3;
-    margin-top: 25px;
+    font-size: 1.5rem;
 }
 
 a{
@@ -69,42 +69,8 @@ a{
     height: $header-height;
 }
 
-.dashboard {
-    background-color: $background-color;
-}
-
-board-column {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 100%;
-    flex-grow: 1;
-}
-
-//TILES
-
-tile-container{
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    overflow: hidden;
-    height: 100%;
-    padding: 10px;
-}
-
-.tile{
-    min-width: 0;
-    position: relative;
-}
-
-.tile-s{
-    padding: 0 20px;
-}
-
 .bottom{
     flex: 0 0 auto;
-    min-height: $footer-height;
-    max-height: $footer-height;
     width: 100%;
 
     .component, .notification {
@@ -114,50 +80,104 @@ tile-container{
 
 }
 
-@media all and (min-width: $s){
-
+tile-container{
+    display: block;
+    margin: 5px 10px;
+    padding: 5px 10px;
 }
 
 @media all and (min-width: $l){
+    html{
+        font-size: $default-size - 0.2;
+    }
     body{
         overflow: hidden;
         height: 100%;
+    }
+
+    h2 {
+        font-size: $level-2;
+    }
+    h3 {
+        font-size: $level-3;
+        margin-top: 25px;
     }
 
     //LAYOUT
     .main-content {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         height: 100vh;
     }
 
-    .header {
-        display: flex;
-        flex: 0 0 auto;
-        height: $header-height;
-    }
-
     .dashboard {
+        flex-grow: 2;
         display: flex;
+
         //need to interpolate the $header-footer-height in order to have it print out the px there
-        height: calc(100vh - #{$header-footer-height});
-        padding: 10px;
+        height: calc(100vh - #{$header-height});
+        padding: 5px;
+
+        &.with-footer {
+          height: calc(100vh - #{$header-footer-height});
+        }
     }
 
-    .tile-m,
-    .tile-l{
+    board-column {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        &[data-count-x="2"][data-count="4"]{
+            width: 200%;
+        }
+    }
+
+    board-column.alerts-column {
+        max-width: $alerts-column-width;
+        margin: -5px 0;
         position: relative;
-        padding: 0 35px;
+        right: -5px;
+        overflow: hidden;
     }
 
+    board-row {
+        display: flex;
+        flex-basis: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+        width: 100%;
+
+        &.row--primary {
+            flex-basis: 100%;
+        }
+    }
+
+    //TILES
+
+    tile-container{
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex: 1;
+        flex-basis: auto;
+        display: flex;
+        margin: 0;
+        padding: 5px;
+        width: 100%;
+    }
 
     .tile--primary{
-        flex: 1 2 100%;
+        flex-basis: 100%;
     }
 
-    .tile--secondary{
-        flex-shrink: 3;
-        max-height: 190px;
+
+    tile-container.alerts {
+        background: #F0F0F0;
+
+        &.module-data-error:before{
+            color: #444;
+        }
     }
 
     .bottom{
@@ -177,8 +197,22 @@ tile-container{
         font-size: $default-size;
     }
 
-    .tile--secondary{
-        max-height: 210px;
+    .dashboard {
+        padding: 10px;
+
+        &.with-footer {
+          height: calc(100vh - #{$header-footer-height-xxl});
+        }
+    }
+
+    tile-container {
+        padding: 10px;
+    }
+
+    board-column.alerts-column {
+        margin: -10px 0;
+        right: -10px;
+        max-width: 300px;
     }
 }
 

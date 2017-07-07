@@ -185,10 +185,51 @@
           </div>
           <div class="input-group">
             <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </a>
             <input type="text" class="form-control" id="programIncrement" [(ngModel)]="dashboard.programIncrement" name="programIncrement">
           </div>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="urlAlerts">URL Alerts</label>
+          <div class="collapse" id="urlAlerts-help">
+            <div class="well">
+              MirrorGate will ask to this URL to get Alerts.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#urlAlerts-help" aria-expanded="false" aria-controls="urlAlerts-help">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </a>
+            <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="dashboard.urlAlerts" name="urlAlerts">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="adminUsers">Admin users</label>
+          <div class="collapse" id="admin-users-help">
+            <div class="well">
+              Add the users that will have permission to modify the dashboard. Names must be that which precede the users' e-mail address domain names (i.e. user@bbva.com) and must be separated by commas.
+            </div>
+          </div>
+          <div class="input-group">
+            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#admin-users-help" aria-expanded="false" aria-controls="admin-users-help">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+            <input type="text" class="form-control" id="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()"
+              name="adminUsers">
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="errorMessage">
+        <div class="col-sm-12">
+          <p class="error">{{errorMessage}}</p>
         </div>
       </div>
 

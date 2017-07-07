@@ -18,80 +18,52 @@ package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 
+import java.util.List;
+
 public class ApplicationDTO {
 
     private String appname;
     private double rate;
     private Platform platform;
-    private String last_review_author;
-    private double last_review_rate;
-    private long last_review_timestamp;
-    private String last_review_comment;
+    private List<ReviewDTO> reviews;
 
-    public ApplicationDTO(String appname, double rate, Platform platform, String last_review_author, double last_review_rate, long last_review_timestamp, String last_review_comment) {
-        this.appname = appname;
-        this.rate = rate;
-        this.platform = platform;
-        this.last_review_author = last_review_author;
-        this.last_review_rate = last_review_rate;
-        this.last_review_timestamp = last_review_timestamp;
-        this.last_review_comment = last_review_comment;
+    public ApplicationDTO() {
+
     }
 
     public String getAppname() {
         return appname;
     }
 
-    public void setAppname(String appname) {
+    public ApplicationDTO setAppname(String appname) {
         this.appname = appname;
+        return this;
     }
 
     public double getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
+    public ApplicationDTO setRate(double rate) {
         this.rate = rate;
+        return this;
     }
 
     public Platform getPlatform() {
         return platform;
     }
 
-    public void setPlatform(Platform platform) {
+    public ApplicationDTO setPlatform(Platform platform) {
         this.platform = platform;
+        return this;
     }
 
-    public String getLast_review_author() {
-        return last_review_author;
+    public List<ReviewDTO> getReviews() {
+        return reviews;
     }
 
-    public void setLast_review_author(String last_review_author) {
-        this.last_review_author = last_review_author;
+    public ApplicationDTO setReviews(List<ReviewDTO> reviews) {
+        this.reviews = reviews;
+        return this;
     }
-
-    public double getLast_review_rate() {
-        return last_review_rate;
-    }
-
-    public void setLast_review_rate(double last_review_rate) {
-        this.last_review_rate = last_review_rate;
-    }
-
-    public long getLast_review_timestamp() {
-        return last_review_timestamp;
-    }
-
-    public void setLast_review_timestamp(long last_review_timestamp) {
-        this.last_review_timestamp = last_review_timestamp;
-    }
-
-    public String getLast_review_comment() {
-        return last_review_comment;
-    }
-
-    public void setLast_review_comment(String last_review_comment) {
-        this.last_review_comment = last_review_comment;
-    }
-
 }

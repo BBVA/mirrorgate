@@ -17,8 +17,8 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
+import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import java.util.List;
@@ -38,10 +38,10 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public String createOrUpdate(BuildDTO request) throws MirrorGateException {
+    public String createOrUpdate(BuildDTO request) {
         Build build = buildRepository.save(getBuildToSave(request));
         if (build == null) {
-            throw new MirrorGateException("Failed inserting/updating build information.");
+            throw new BuildConflictException("Failed inserting/updating build information.");
         }
 
         return build.getId().toString();

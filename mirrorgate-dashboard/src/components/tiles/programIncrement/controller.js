@@ -27,7 +27,44 @@ var ProgramIncrementController = (
       var programIncrement;
 
       if(response) {
-        programIncrement = new ProgramIncrement(JSON.parse(response));
+        var arg = JSON.parse(response);
+        //See: mirrorgate-api/src/main/java/com/bbva/arq/devops/ae/mirrorgate/dto/ProgramIncrementDTO.java
+        if(arg.programIncrementStories) {
+          var completed = arg.programIncrementFeatures.filter(function(element) {
+            return element.status === 'DONE';
+          }, this);
+          var featMap = {};
+          var productSet = {};
+          arg.programIncrementFeatures.forEach(function(feat) {
+            featMap[feat.jiraKey] = feat;
+            feat.children = [];
+            if(!productSet[feat.project.name]){
+              productSet[feat.project.name] = {
+                name: feat.project.name,
+                children: [],
+                completed: 0,
+                count: 0
+              };
+            }
+            productSet[feat.project.name].children.push(feat);
+            productSet[feat.project.name].completed += feat.status === 'DONE' ? 1 : 0;
+            productSet[feat.project.name].count++;
+          }, this);
+          var productArray = [];
+          for (var i in productSet){
+             productArray.push(productSet[i]);
+          }
+
+          if(arg.programIncrementStories) {
+            arg.programIncrementStories.forEach(function(story) {
+              feat = featMap[story.parentKey];
+              if (feat) { feat.children.push(story); }
+            }, this);
+          }
+          programIncrement = new ProgramIncrement(completed, arg.programIncrementFeatures, arg.programIncrementStories, productArray);
+        } else {
+          programIncrement = {};
+        }
       }
 
       observable.notify(programIncrement);

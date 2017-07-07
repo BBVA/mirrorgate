@@ -1,0 +1,62 @@
+{
+  "alerts": [
+    {
+      "type":"alert",
+      "image":{
+        "type":"svg",
+        "commands":"<circle cx=15 cy=15 r=15 fill=blue  />"
+      },
+      "title":"alert1",
+      "info":{
+        "type":"history",
+        "data":[
+          {
+            "state":"YELLOW",
+            "when":"2017-06-30T13:03:26.209+0000"
+          },
+          {
+            "state":"RED",
+            "when":"2017-06-30T13:03:26.209+0000"
+          },
+          {
+            "state":"GREEN",
+            "when":"2017-06-30T13:03:26.209+0000"
+          }
+        ]
+      },
+      "url":"http://fake.com/fake",
+      "state":{
+        "type":"base",
+        "currentState":"YELLOW"
+      }
+    },
+    {
+      "type":"alert",
+      "image":{
+        "type":"embedded",
+        "encoded":"<img rv-src='alerts.image.url' src='img/logo.png'>"
+      },
+      "title":"alert2",
+      "info":{
+        "type":"compound",
+        "items":[
+          {
+            "type":"svg",
+            "svg":"--- svg-data ---"
+          },
+          {
+            "type":"text",
+            "text":"when the dashboard does not allow svg"
+          }
+        ]
+      },
+      "url":"http://fake.com/fake",
+      "state":{
+        "type":"since",
+        "currentState":"RED",
+        "previousState":"GREEN",
+        "since":"2017-06-30T13:03:26.209+0000"
+      }
+    }
+  ]
+}

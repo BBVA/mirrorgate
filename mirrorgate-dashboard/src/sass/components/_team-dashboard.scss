@@ -15,9 +15,128 @@
  */
 
 .team{
-    align-items: stretch;
+
+    svg text {
+      fill: white;
+      text-anchor: middle;
+      font-size: 71px;
+    }
+
+    svg text.days-left {
+      fill: #eeeeee;
+    }
+
+    text.rate-completed {
+      font-size: 277px;
+    }
+
+    text.text-completed {
+      font-size: 83px;
+    }
+
+    svg span {
+      font-size: 40px;
+    }
+
+    svg p>span {
+      text-align: center;
+      display: block;
+    }
+
+    .story-name {
+      font-size: 40px;
+      line-height: 55px;
+      max-height: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+    }
+
+    .story-estimate {
+      padding-top: 20px;
+      font-size: 30px;
+    }
+
+    .story-points {
+      margin: 0px;
+      padding: 0px;
+      font-size: 200px;
+      line-height: 180px;
+    }
+
+    .dimmed .outher path {
+      fill-opacity: 0.3;
+      stroke-opacity: 0.3;
+    }
+
+    .dimmed path:hover {
+      cursor: pointer;
+      fill-opacity: 1;
+      stroke-opacity: 1;
+    }
 }
 
-.velocity-info {
+@media all and (min-width: $l) {
+    .data-number{
+      font-size: $level-2;
+    }
+}
+
+@media all and (min-width: $xxl) {
+  .next-sprint {
+    .backlog-progress {
+      height: 20px;
+    }
+
+    .backlog-progress__bar {
+      height: 20px;
+    }
+
+    .velocity-line {
+      height: 40px;
+    }
+  }
+}
+
+.next-sprint {
+
+  font-size: 1.5rem;
+
+  .backlog-status {
+    position: relative;
+  }
+
+  .backlog-progress {
+    background-color: #8a8a8a;
+    border-radius: 10px;
+    height: 10px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .backlog-progress__bar {
+    height: 10px;
+  }
+
+  .backlog-progress__bar-success {
+    background-color: #25d268;
+  }
+
+  .velocity-line {
+    background-color: white;
+    height: 33px;
+    left: 70%;
+    position: absolute;
+    top: -10px;
+    width: 1px;
+  }
+
+  .velocity-info {
     color: $dark-grey;
+    margin: 15px;
+    text-align: right;
+  }
+
 }

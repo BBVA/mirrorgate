@@ -16,7 +16,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import java.util.List;
 
@@ -41,6 +40,14 @@ public interface DashboardService {
      */
     List<String> getReposByDashboardName(String name);
 
+     /**
+     * Get the admin users of a specific Dashboard
+     *
+     * @param name Name of the Dashboard
+     * @return List of admin users
+     */
+    List<String> getAdminUsersByDashboardName(String name);
+
     /**
      * Get all names of applications related to a Dashboard.
      *
@@ -60,25 +67,26 @@ public interface DashboardService {
      * Mark a Dashboard as a Delete
      *
      * @param name
-     * @return Boolean indicating if deletion was successful
      */
-    Boolean deleteDashboard(String name);
+    void deleteDashboard(String name);
 
     /**
      * Create a new Dashboard
      *
      * @param dashboard
      * @return Dashboard new persisted Dashboard
-     * @throws com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException
      */
-    Dashboard newDashboard(Dashboard dashboard) throws MirrorGateException;
+    Dashboard newDashboard(Dashboard dashboard);
 
 
     /**
      * Updates a Dashboard
      *
      * @param dashboard
+     * @param name
      * @return Dashboard persisted Dashboard or null if no existent
      */
-    Dashboard updateDashboard(Dashboard dashboard);
+    Dashboard updateDashboard(String name, Dashboard dashboard);
+
+
 }

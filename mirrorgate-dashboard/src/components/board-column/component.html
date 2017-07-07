@@ -41,25 +41,49 @@
     };
 
     MyElementProto.updateVisibility = function () {
-      var disabled = true;
+      var count = 0, countX = 0, countY = 0;
+      var x, y;
       for (var i in this.children) {
         var child = this.children[i];
         if (child.getAttribute) {
-          disabled = disabled && child.getAttribute('enabled') !== 'true';
+          if(child.getAttribute('enabled') === 'true') {
+            x = 1; y = 1;
+            if(child.getAttribute('data-count-x')) {
+              x = parseInt(child.getAttribute('data-count-x'));
+            }
+            if(child.getAttribute('data-count-y')) {
+              y = parseInt(child.getAttribute('data-count-y'));
+            }
+            count += x * y;
+
+            if(this.tagName === 'BOARD-COLUMN') {
+              countX = Math.max(x, countX);
+              countY += y;
+            } else {
+              countX += x;
+              countY = Math.max(y, countY);
+            }
+          }
         }
       }
 
-      this.setAttribute('enabled', !disabled);
+      this.setAttribute('enabled', !!count);
+      this.setAttribute('data-count-x', countX);
+      this.setAttribute('data-count-y', countY);
+      this.setAttribute('data-count', count);
 
-      if (disabled) {
-        this.style.display = 'none';
-      } else {
+      if (count) {
         this.style.display = null;
+      } else {
+        this.style.display = 'none';
       }
     };
 
     window.MyElement = document.registerElement('board-column', {
-      prototype: MyElementProto
+      prototype: Object.create(MyElementProto)
+    });
+    window.MyElement = document.registerElement('board-row', {
+      prototype: Object.create(MyElementProto)
     });
   })(window, document);
 

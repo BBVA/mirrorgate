@@ -35,11 +35,12 @@ import org.bson.types.ObjectId;
  *
  * @author enrique
  */
-public class TestObjectBuilder {
+public class TestObjectFactory {
 
     private static final String DASHBOARD_NAME = "mirrorgate";
     private static final String PROJECT_NAME = "mirrorgate";
     private static final String FEATURE_NAME = "feature";
+    public static final String AUTH_NAME = "ATREYU";
 
 
     private static final String SLACK_TEAM = "SLACK_TEAM";
@@ -51,6 +52,7 @@ public class TestObjectBuilder {
         Dashboard dashboard = new Dashboard();
         dashboard.setId(ObjectId.get());
         dashboard.setName(DASHBOARD_NAME);
+        dashboard.setAuthor(AUTH_NAME);
         String urlRepo1 = "http.//repo1.git";
         String urlRepo2 = "http.//repo2.git";
         List<String> codeRepos = new ArrayList<>();

@@ -25,12 +25,11 @@
         flex: 0 1 55px;
     }
 
-    .logo--ae{
+    .logo--mg{
         position: absolute;
-        clip: rect(0, 35px, 35px, 0px);
-        top: 14px;
+        clip: rect(0, 30px, 30px, 0px);
+        top: 8px;
         left: 10px;
-        width: 180px;
     }
 
     .menu{
@@ -43,7 +42,6 @@
             .dropdown__button{
                 background: none;
                 border: none;
-                font-size: $level-3;
 
                 &[aria-expanded="true"]{
                     background-color: darken($header-bg, 10);
@@ -67,7 +65,7 @@
         }
     }
     img{
-        max-height: $header-height - 25;
+        max-height: $header-height - 15;
         max-width: 100%;
     }
 }
@@ -83,15 +81,30 @@ details-dashboard{
             flex: 0 1 30%;
         }
 
-        .logo--ae{
+        .logo--mg{
             position: static;
-            width: 200px;
         }
 
         .menu{
             color: $dark-grey;
             flex: 0 1 30%;
             text-align: right;
+        }
+    }
+}
+
+@media all and (min-width: $l) {
+    .header{
+   
+        .menu{
+
+            .dropdown{
+
+                .dropdown__button{
+                
+                    font-size: $level-3;
+                }
+            }
         }
     }
 }

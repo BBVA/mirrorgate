@@ -22,6 +22,7 @@ export class Dashboard {
   applications: string[] = [];
   codeRepos: string[] = [];
   boards: string[] = [];
+  adminUsers: string[] = [];
   filter: {
     timeSpan: number,
     branch: Map<string,boolean>,
@@ -29,6 +30,7 @@ export class Dashboard {
   }
   slackTeam: string;
   slackToken: string;
+  urlAlerts: string;
   slackChannel: string;
   lastUserEdit: string;
   lastModification: number;

@@ -23,7 +23,6 @@
   <!-- build:css css/vendor.min.css -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="bower_components/roboto-fontface/css/roboto/roboto-fontface.css" />
-  <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css" />
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
   <!-- endbuild -->
 
@@ -66,7 +65,7 @@
   <div class="main-content">
     <div class="header">
       <div class="logos">
-        <img class="logo--ae" src="img/logo-ae.png"/>
+        <img class="logo--mg" src="img/logo-ae.png"/>
       </div>
       <details-dashboard></details-dashboard>
       <div class="menu">
@@ -76,8 +75,11 @@
           </button>
 
           <ul class="dropdown-menu" aria-labelledby="menuBtn">
-            <li><a href="canary.html" onclick="document.location.href = 'canary.html?board=' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-flask" aria-hidden="true"></i> Beta view</a></li>
-            <li class="dropdown-header">Dashboards</li>
+            <li><a href="canary.html" onclick="document.location.href = 'canary.html?board=' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a></li>
+            <li class="dropdown-header">Manage</li>
+            <li><a href="backoffice/index.html"><i class="fa fa-cogs" aria-hidden="true"></i> Admin panel </a></li>
+            <li><a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/edit/' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit panel</a></li>
+            <li class="dropdown-header">Recent dashboards</li>
           </ul>
         </div>
       </div>
@@ -87,41 +89,11 @@
       <board-column>
         <tile-container>
             <current-sprint-tile class="tile component tile--primary"></current-sprint-tile>
-
-            <div class="legend">
-                <div class="legend__item">
-                    <span class="legend__color legend__color--green"></span>Done
-                </div>
-                <div class="legend__item">
-                    <span class="legend__color legend__color--blue"></span>In progress
-                </div>
-                <div class="legend__item">
-                    <span class="legend__color legend__color--red"></span>Blocked
-                </div>
-                <!--<div class="legend__item">
-                    <span class="legend__color legend__color--yellow"></span>Unplanned
-                </div>-->
-
-                <div class="legend__item">
-                    <span class="legend__color"></span>To Do
-                </div>
-            </div>
         </tile-container>
       </board-column>
       <board-column>
         <tile-container>
             <builds-tile class="tile component tile--primary"></builds-tile>
-            <div class="legend">
-                <div class="legend__item">
-                    <span class="legend__build-item legend__build-item--product"></span>Master
-                </div>
-                <div class="legend__item">
-                    <span class="legend__build-item legend__build-item--repos"></span>Develop
-                </div>
-                <div class="legend__item">
-                    <span class="legend__build-item  legend__build-item--branches"></span>Branches
-                </div>
-            </div>
         </tile-container>
       </board-column>
 

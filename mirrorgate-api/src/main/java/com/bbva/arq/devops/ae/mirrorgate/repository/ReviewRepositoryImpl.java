@@ -22,6 +22,8 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import java.util.List;
+
+import com.mongodb.BasicDBObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -42,13 +44,15 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
         Aggregation aggregation = newAggregation(
             match(Criteria.where("appname").in(names)),
-            sort(new Sort("timestamp")),
+            sort(new Sort(DESC,"timestamp")),
             group("appname", "platform")
                 .avg("starrating").as("rate")
-                .last("authorName").as("last_review_author")
-                .last("starrating").as("last_review_rate")
-                .last("timestamp").as("last_review_timestamp")
-                .last("comment").as("last_review_comment")
+                .push(new BasicDBObject( "author", "$authorName" )
+                        .append("rate", "$starrating" )
+                        .append("timestamp", "$timestamp")
+                        .append("comment", "$comment")
+                ).as("reviews"),
+            project("appname", "platform", "rate").and("reviews").slice(3,0)
         );
 
         //Convert the aggregation result into a List

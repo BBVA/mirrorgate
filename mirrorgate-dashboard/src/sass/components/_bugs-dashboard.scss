@@ -17,16 +17,12 @@
 .bugs {
 
   .progress {
-    width: 100%;
-    height: 20px;
     background-color: #8a8a8a;
     border-radius: 10px;
+    display: flex;
+    height: 10px;
     overflow: hidden;
-  }
-
-  .progress-bar {
-    height: 20px;
-    float: left;
+    width: 100%;
   }
 
   .progress-bar-minor {
@@ -43,24 +39,46 @@
   }
 
   ul {
-    list-style: none;
     display: flex;
-    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
     padding: 0;
+    width: 100%;
 
     li {
       display: block;
-      float: left;
-      clear: none;
+      line-height: 1.3em;
+      font-size: 1.3em;
+      text-align: center;
       width: 100%;
-      font-size:  $level-3;
-      line-height:  $level-3;
 
       .bug-number {
-        font-size:  $level-2;
         display: block;
+        font-size: 1.5em;
       }
     }
   }
 
+}
+
+@media all and (min-width: $l) {
+  .bugs{
+    .bug-number {
+        font-size:  $level-2;
+      }
+    
+    ul {
+      li {
+        font-size : $level-3;
+      }
+    }
+  }
+}
+
+@media all and (min-width: $xxl) {
+  .bugs{
+    .progress {
+      height: 20px;
+    }
+  }
 }

@@ -43,8 +43,10 @@ export class FormComponent {
     applications?: string,
     boards?: string,
     codeRepos?: string,
+    adminUsers?: string,
     programIncrement?: string
   } = {};
+  errorMessage: string;
 
   constructor(private dashboardsService: DashboardsService,
               private slackService: SlackService,
@@ -66,6 +68,7 @@ export class FormComponent {
     this.temp.boards = this.dashboard.boards ? this.dashboard.boards.join(',') : '';
     this.temp.applications = this.dashboard.applications ? this.dashboard.applications.join(',') : '';
     this.temp.codeRepos = this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
+    this.temp.adminUsers = this.dashboard.adminUsers ? this.dashboard.adminUsers.join(',') : '';
     this.updateSlackChannels();
   }
 
@@ -73,6 +76,7 @@ export class FormComponent {
     this.dashboard.boards = this.temp.boards.length ? this.temp.boards.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',').map((e) => e.trim()) : undefined;
+    this.dashboard.adminUsers = this.temp.adminUsers.length ? this.temp.adminUsers.split(',').map((e) => e.trim()) : undefined;
   }
 
   back(): void {
@@ -92,17 +96,23 @@ export class FormComponent {
   }
 
   onSave(dashboard: Dashboard): void {
-    this.dashboardsService.saveDashboard(dashboard, this.edit).then(dashboard => {
-      if(dashboard) {
-        this.dashboard = dashboard;
-        this.back();
-      }
-    });
-  }
+    this.dashboardsService.saveDashboard(dashboard, this.edit)
+      .then(dashboard => {
+        if(dashboard) {
+          this.dashboard = dashboard;
+          this.back();
+        }
+      })
+      .catch((error: any) => {
+        this.errorMessage = <any>error;
+      });  }
 
   signSlack(dashboard: Dashboard): void {
     this.slackService.signSlack(this.dashboard.slackTeam, this.slack.clientId, this.slack.clientSecret)
-      .then((token) => this.setSlackToken(token));
+      .then((token) => this.setSlackToken(token))
+      .catch((error: any) => {
+        this.errorMessage = <any>error;
+      });
   }
 
 }

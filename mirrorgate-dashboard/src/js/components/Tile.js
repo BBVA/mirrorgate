@@ -50,7 +50,6 @@ var Tile = (function() {
     }.bind(this));
 
     this._processEnabled();
-    this._processPid();
     this._computeSize.bind(this);
   };
 
@@ -74,9 +73,15 @@ var Tile = (function() {
   };
 
   TilePrototype._dispose = function() {
+    if(!this._inited) {
+      return;
+    }
+    this._inited = false;
+
     if (this._controller) {
       this._controller.dispose();
     }
+    this.onDispose();
   };
 
   TilePrototype.getModel = function() { return this.model; };
@@ -92,6 +97,10 @@ var Tile = (function() {
 
   // Fires when an instance of the element is created
   TilePrototype._init = function() {
+    if(this._inited) {
+      return;
+    }
+    this._inited = true;
     var config = this.getConfig();
     if (typeof(this.getDashboardId()) === 'string' && config) {
       this._controller = new (this.getControllerClass())(this.getDashboardId());
@@ -103,6 +112,7 @@ var Tile = (function() {
       }.bind(this));
       this._controller.init(config);
     }
+    this.onInit();
   };
 
   TilePrototype._processEnabled = function() {
@@ -142,6 +152,9 @@ var Tile = (function() {
   TilePrototype.getControllerClass = function() {
     throw 'getControllerClass not implemented';
   };
+
+  TilePrototype.onInit = function () {};
+  TilePrototype.onDispose = function () {};
 
   return TilePrototype;
 

@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectBuilder;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,10 +42,10 @@ public class FeatureServiceTests {
     @Test
     public void getActiveUserStoriesByProjectNameTest() {
 
-        Dashboard dashboard = TestObjectBuilder.createDashboard();
+        Dashboard dashboard = TestObjectFactory.createDashboard();
 
-        Feature story1 = TestObjectBuilder.createActiveStory();
-        Feature story2 = TestObjectBuilder.createActiveStory();
+        Feature story1 = TestObjectFactory.createActiveStory();
+        Feature story2 = TestObjectFactory.createActiveStory();
 
         List<Feature> stories = new ArrayList<>();
         stories.add(story1);

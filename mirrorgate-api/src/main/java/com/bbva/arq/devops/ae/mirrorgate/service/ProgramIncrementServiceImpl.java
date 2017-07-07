@@ -1,9 +1,11 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,52 +26,52 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProgramIncrementServiceImpl.class);
     private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
 
-    private FeatureRepository featureRepository;
-    private DashboardRepository dashboardRepository;
+    private FeatureService featureService;
+    private DashboardService dashboardService;
 
     @Autowired
-    public ProgramIncrementServiceImpl(FeatureRepository featureRepository,
-                                   DashboardRepository dashboardRepository){
+    public ProgramIncrementServiceImpl(FeatureService featureService,
+                                   DashboardService dashboardService){
 
-        this.dashboardRepository = dashboardRepository;
-        this.featureRepository = featureRepository;
+        this.dashboardService = dashboardService;
+        this.featureService = featureService;
     }
 
-    public List<String> getProgramIncrementFeatures(String dashboardName){
-
-        List<Feature> piFeatures;
-        List<String> boardPIFeatures = null;
-
+    @Override
+    public ProgramIncrementDTO getProgramIncrementFeatures(String dashboardName){
         LOGGER.debug("Getting product increment information for dashboard : {}", dashboardName);
 
-        Dashboard dashboard = dashboardRepository.findOneByName(dashboardName, SORT_BY_LAST_MODIFICATION);
+        Dashboard dashboard = dashboardService.getDashboard(dashboardName);
 
-        if(dashboard != null) {
-            List<String> boards = dashboard.getBoards();
-            Optional<String> productIncrementExpression = Optional
-                .ofNullable(dashboard.getProgramIncrement());
+        String currentPIName = getCurrentProgramIncrementName(dashboard);
 
-            String currentPIName = getProductIncrementNameForBoard(boards,
-                productIncrementExpression);
-
-            LOGGER.debug("Dashboard current product increment : {}", currentPIName);
-
-            piFeatures = featureRepository.findAllBysPiNamesIn(currentPIName);
-
-            List<String> piFeaturesKeys = piFeatures
-                                            .stream()
-                                            .map(Feature::getsNumber)
-                                            .collect(Collectors.toList());
-
-            boardPIFeatures = featureRepository.programIncrementBoardFeatures(boards, piFeaturesKeys);
+        if(currentPIName == null) {
+            return new ProgramIncrementDTO(null, null);
         }
 
-        return boardPIFeatures;
+        List<Feature> piFeatures = featureService.getProductIncrementFeatures(currentPIName);
+
+        List<String> piFeaturesKeys = piFeatures
+                                        .stream()
+                                        .map(Feature::getsNumber)
+                                        .collect(Collectors.toList());
+
+        List<String> boardPIFeaturesKeys = featureService.getProgramIncrementFeaturesByBoard(dashboard.getBoards(), piFeaturesKeys);
+
+        return createResponse(dashboard, piFeatures, boardPIFeaturesKeys);
+
+    }
+
+    private String getCurrentProgramIncrementName(Dashboard dashboard){
+        List<String> boards = dashboard.getBoards();
+        Optional<String> productIncrementExpression = Optional.ofNullable(dashboard.getProgramIncrement());
+
+        return getProductIncrementNameForBoard(boards, productIncrementExpression);
     }
 
     String getProductIncrementNameForBoard(List<String> boards, Optional<String> productIncrementExpression){
 
-        ProgramIncrementNamesAggregationResult result = featureRepository.getProductIncrementFromFeatures(boards);
+        ProgramIncrementNamesAggregationResult result = featureService.getProductIncrementFromFeatures(boards);
 
         List<String> piNames = null;
         if (result != null) {
@@ -101,6 +103,34 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
             }
         }
         return null;
+    }
+
+    private ProgramIncrementDTO createResponse(Dashboard dashboard, List<Feature> piFeatures, List<String> boardPIFeaturesKeys){
+
+        //Get features belonging to this board
+        List<IssueDTO> boardPIFeatures = piFeatures.stream()
+            .filter(f -> boardPIFeaturesKeys.contains(f.getsNumber()) || containsDashboardKeyword(dashboard, f))
+            .map(IssueMapper::map)
+            .collect(Collectors.toList());
+
+        List<String> keys = boardPIFeatures.stream()
+                .map(IssueDTO::getJiraKey)
+                .collect(Collectors.toList());
+
+        List<Feature> piIssues = featureService.getFeatureRelatedIssues(keys);
+
+        List<IssueDTO> boardPIIssues = piIssues.stream()
+                .filter((f) -> containsDashboardKeyword(dashboard, f))
+                .map(IssueMapper::map)
+                .collect(Collectors.toList());
+
+        return new ProgramIncrementDTO(boardPIFeatures, boardPIIssues);
+    }
+
+    private boolean containsDashboardKeyword(Dashboard dashboard, Feature f) {
+        return f.getKeywords() != null && f.getKeywords().stream()
+                .filter((k) -> dashboard.getBoards().contains(k))
+                .count() > 0;
     }
 
     private boolean findIfLocalDateIsInRange(String date1, String date2){

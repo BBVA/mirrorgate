@@ -27,9 +27,3 @@ Folder `src/sass`
 * `_variables`: sass variables for type, colors, sizes, themes...
 * `components`: styles for elements like charts, buttons, forms...
 * `partials`: styles for the page main structure like header, menu, footer...
-
-### Icons
-
-Icon sets:
-
-* [Simple Line Icons](http://simplelineicons.com/), [Git](https://github.com/thesabbir/simple-line-icons/)

@@ -25,7 +25,7 @@ import java.util.List;
  * Created by alfonso on 28/05/17.
  */
 public interface SprintService {
-    List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses);
+    List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses, String collectorId);
 
-    SprintDTO getSprint(Long id);
+    SprintDTO getSprint(Long id, String collectorId);
 }

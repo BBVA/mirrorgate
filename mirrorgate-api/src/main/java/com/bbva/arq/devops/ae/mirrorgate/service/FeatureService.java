@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.List;
 
 /**
@@ -35,8 +36,16 @@ public interface FeatureService {
 
     FeatureStats getFeatureStatsByKeywords(List<String> boards);
 
-    Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues);
+    Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues, String collectorId);
 
-    void deleteStory(Long id);
+    void deleteStory(Long id, String collectorId);
+
+    List<Feature> getFeatureRelatedIssues(List<String> featuresKeys);
+
+    List<Feature> getProductIncrementFeatures(String name);
+
+    ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards);
+
+    List<String> getProgramIncrementFeaturesByBoard(List<String> boards, List<String> programIncrementFeatures);
 
 }

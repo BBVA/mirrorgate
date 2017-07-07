@@ -38,15 +38,12 @@ describe('MarketsController', () => {
         appsForTesting[index].appname,
         appsForTesting[index].rate,
         appsForTesting[index].platform,
-        appsForTesting[index].last_review_author,
-        appsForTesting[index].last_review_rate,
-        appsForTesting[index].last_review_timestamp,
-        appsForTesting[index].last_review_comment);
+        appsForTesting[index].reviews);
       apps.push(app);
     }
 
     controller.observable.attach((response) => {
-      expect(_.isEqual(response, apps)).toBe(true);
+      expect(_.isEqual(response.apps, apps)).toBe(true);
       done();
     });
   });

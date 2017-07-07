@@ -71,9 +71,9 @@ public class SprintRepositoryImpl implements SprintRepository {
     }
 
     @Override
-    public List<Sprint> getSprintSampleForStatus(String[] status) {
+    public List<Sprint> getSprintSampleForStatus(String[] status, String collectorId) {
         Aggregation agg = newAggregation(
-                match(where("sSprintAssetState").in((Object[]) status)),
+                match(where("sSprintAssetState").in((Object[]) status).and("collectorId").is(collectorId)),
                 firstFeatureFields(group("sSprintID","sSprintAssetState")),
                 firstSprintFields(group("sSprintID","sSprintAssetState"))
                         .push(new BasicDBObject(FEATURE_FIELDS)).as("features")
@@ -85,12 +85,13 @@ public class SprintRepositoryImpl implements SprintRepository {
     }
 
     @Override
-    public Sprint getSprintForId(String id) {
+    public Sprint getSprintForId(String id, String collectorId) {
         Aggregation agg = newAggregation(
-                match(where("sSprintID").is(id)),
+                match(where("sSprintID").is(id).and("collectorId").is(collectorId)),
                 firstSprintFields(group("sSprintID"))
                         .push(new BasicDBObject(FEATURE_FIELDS)).as("features")
         );
+
         AggregationResults<Sprint> aggregate =
                 mongoTemplate.aggregate(agg, "feature", Sprint.class);
 

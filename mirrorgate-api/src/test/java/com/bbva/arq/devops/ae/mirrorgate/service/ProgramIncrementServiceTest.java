@@ -2,7 +2,6 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anyString;
@@ -10,10 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,33 +28,23 @@ import org.springframework.data.domain.Sort;
 public class ProgramIncrementServiceTest {
 
     @Mock
-    private FeatureRepository featureRepository;
+    private FeatureService featureService;
     @Mock
-    private DashboardRepository dashboardRepository;
+    private DashboardService dashboardService;
 
     @InjectMocks
     private ProgramIncrementServiceImpl piService;
 
-    @Test
-    public void testNoDashboardFound(){
-
-        List<String> featuresList = piService.getProgramIncrementFeatures("MirrorGate");
-
-        assertNull(featuresList);
-        verify(dashboardRepository, times(1)).findOneByName(anyString(), any(Sort.class));
-        verify(featureRepository, times(0)).getProductIncrementFromFeatures(anyListOf(String.class));
-    }
 
     @Test
     public void testNoCurrentPIName(){
 
-        when(dashboardRepository.findOneByName(anyString(), any(Sort.class))).thenReturn(new Dashboard());
+        when(dashboardService.getDashboard(anyString())).thenReturn(new Dashboard());
 
-        List<String> featuresList = piService.getProgramIncrementFeatures("MirrorGate");
+        ProgramIncrementDTO programIncrementDTO = piService.getProgramIncrementFeatures("MirrorGate");
 
-        assertTrue(featuresList.isEmpty());
-        verify(dashboardRepository, times(1)).findOneByName(anyString(), any(Sort.class));
-        verify(featureRepository, times(1)).getProductIncrementFromFeatures(anyListOf(String.class));
+        assertNull(programIncrementDTO.getProgramIncrementFeatures());
+        verify(dashboardService, times(1)).getDashboard(anyString());
     }
 
 
@@ -67,7 +54,7 @@ public class ProgramIncrementServiceTest {
         List<String> piNamesList = Arrays.asList("AE_2017_PI03_(2016/12/04-2017/01/28)", "AE_2016_PI02_(2016/11/04-2016/12/03)");
         ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureRepository.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
+        when(featureService.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
         String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"), Optional.ofNullable(null));
 
         assertNull(activePIName);
@@ -79,7 +66,7 @@ public class ProgramIncrementServiceTest {
         List<String> piNamesList = Arrays.asList("AE_2017_PI03_(2016/12/04-2017/01/28)", "AE_2016_PI02_(2016/11/04-2016/12/03)");
         ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureRepository.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
+        when(featureService.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
         String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"),
             Optional.of("AE_2017_PI03_.*"));
 
@@ -94,7 +81,7 @@ public class ProgramIncrementServiceTest {
         List<String> piNamesList = Arrays.asList(expectedProductIncrement, "2016/11/04-2016/12/03");
         ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureRepository.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
+        when(featureService.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
         String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"),
             Optional.of("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})"));
 
@@ -109,7 +96,7 @@ public class ProgramIncrementServiceTest {
         List<String> piNamesList = Arrays.asList(expectedProductIncrement, "2016/11/04-2016/12/03");
         ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureRepository.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
+        when(featureService.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
         String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"),
             Optional.of("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})"));
 

@@ -13,50 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-.component--footer{
-    width: 100%;
-}
-
-.notification {
-    align-items: center;
-    display: flex;
-    flex-wrap: nowrap;
-    line-height: 1em;
-    padding: 10px 15px;
-    position: relative;
-
-    .small{
-        font-size: $level-4;
-    }
-}
-
-.notification__icon{
-    font-size: $level-2;
-    padding-right: 20px;
+notifications-tile{
+    display: block;
+    font-size: 1.5em;
 }
 
 .notifications {
-  padding-top: 5px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: start;
+    height: 100%;
 
-  .notifications-content {
-    width: 100%;
-
-    .notification-title {
-      text-transform: uppercase;
-      font-weight: 300;
+    .notifications__content {
+        padding: 5px;
+        width: 100%;
     }
 
-    .notifications-type {
+    .notification__title {
+        text-transform: uppercase;
+        font-weight: 300;
+        padding-right: 10px;
     }
-  }
 
+    .notification__icon{
+        padding: 0px 10px 5px 20px;
+        font-size: 1.3em;
+    }
 }
 
 //RESPONSIVE
 @media all and (min-width: $l){
-    .notification {
-        min-height: $footer-height;
+    notifications-tile {
+        height: $footer-height;
 
         //separador vertical
         &:after{
@@ -75,4 +64,23 @@
         }
     }
 
+    .notifications{
+
+        .notifications__column{
+            align-items: center;
+            display: flex;
+            width: 100%;
+        }
+
+        .notification__icon{
+            font-size: $level-2 + 1;
+            padding: 5px 10px 5px 20px;
+        }
+    }
+}
+
+@media all and (min-width: $xxl) {
+    notifications-tile {
+        height: $footer-height + 40;
+    }
 }

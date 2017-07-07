@@ -18,10 +18,9 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -36,6 +35,7 @@ public class Dashboard extends BaseModel {
     private String displayName;
     private String logoUrl;
     private List<String> codeRepos = new ArrayList<>();
+    private List<String> adminUsers = new ArrayList<>();
     private String sProductName; //Team product name
     private List<String> applications = new ArrayList<>();
     private List<String> boards;
@@ -50,6 +50,8 @@ public class Dashboard extends BaseModel {
     @Indexed
     private long lastModification;
     private String programIncrement;
+    private String urlAlerts;
+    private String author;
 
     public String getName() {
         return name;
@@ -157,11 +159,35 @@ public class Dashboard extends BaseModel {
         this.programIncrement = programIncrement;
     }
 
+    public String getUrlAlerts() {
+        return urlAlerts;
+    }
+
+    public void setUrlAlerts(String urlAlerts) {
+        this.urlAlerts = urlAlerts;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getSlackChannel() {
         return slackChannel;
     }
 
     public void setSlackChannel(String slackChannel) {
         this.slackChannel = slackChannel;
+    }
+
+    public List<String> getAdminUsers() {
+        return adminUsers;
+    }
+
+    public void setAdminUsers(List<String> adminUsers) {
+        this.adminUsers = adminUsers;
     }
 }

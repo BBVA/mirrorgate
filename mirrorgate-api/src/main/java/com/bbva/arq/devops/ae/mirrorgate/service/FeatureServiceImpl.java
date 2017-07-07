@@ -20,6 +20,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
+import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,6 +42,26 @@ public class FeatureServiceImpl implements FeatureService{
     }
 
     @Override
+    public List<Feature> getFeatureRelatedIssues(List<String> featuresKeys){
+        return repository.findAllBysParentKeyIn(featuresKeys);
+    }
+
+    @Override
+    public List<Feature> getProductIncrementFeatures(String name){
+        return repository.findAllBysPiNamesIn(name);
+    }
+
+    @Override
+    public ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards){
+        return repository.getProductIncrementFromFeatures(boards);
+    }
+
+    @Override
+    public List<String> getProgramIncrementFeaturesByBoard(List<String> boards, List<String> programIncrementFeatures){
+        return repository.programIncrementBoardFeatures(boards, programIncrementFeatures);
+    }
+
+    @Override
     public FeatureStats getFeatureStatsByKeywords(List<String> boards) {
         FeatureStats result = new FeatureStats();
 
@@ -50,13 +71,13 @@ public class FeatureServiceImpl implements FeatureService{
     }
 
     @Override
-    public Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues) {
+    public Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues, String collectorId) {
 
         List<String> ids = issues.stream()
                 .map((issue) -> issue.getId().toString())
                 .collect(Collectors.toList());
 
-        List<Feature> features = repository.findAllBysIdIn(ids);
+        List<Feature> features = repository.findAllBysIdInAndCollectorId(ids, collectorId);
 
         Map<String, Feature> entryMap = features.stream()
                 .collect(Collectors.toMap(Feature::getsId, (p) -> p));
@@ -71,6 +92,10 @@ public class FeatureServiceImpl implements FeatureService{
                 })
                 .collect(Collectors.toList());
 
+        for (Feature feat : features){
+            feat.setCollectorId(collectorId);
+        }
+
         return StreamSupport.stream(repository.save(features).spliterator(), false)
                 .map((feat) -> new IssueDTO()
                         .setId(Long.parseLong(feat.getsId()))
@@ -81,8 +106,8 @@ public class FeatureServiceImpl implements FeatureService{
     }
 
     @Override
-    public void deleteStory(Long id) {
-        repository.deleteBysId(id.toString());
+    public void deleteStory(Long id, String collectorId) {
+        repository.deleteBysIdAndCollectorId(id.toString(), collectorId);
     }
 
 }

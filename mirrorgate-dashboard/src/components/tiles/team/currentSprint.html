@@ -25,129 +25,6 @@
   <style>
     @import "css/styles.css";
   </style>
-  <style>
-    svg text {
-      fill: white;
-      text-anchor: middle;
-      font-size: 71px;
-    }
-
-    svg text.days-left {
-      fill: #eeeeee;
-    }
-
-    text.rate-completed {
-      font-size: 277px;
-    }
-
-    text.text-completed {
-      font-size: 83px;
-    }
-
-    svg span {
-      font-size: 40px;
-    }
-
-    svg p>span {
-      text-align: center;
-      display: block;
-    }
-
-    .story-name {
-      font-size: 40px;
-      line-height: 55px;
-      max-height: 160px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      display: -webkit-box;
-    }
-
-    .story-estimate {
-      padding-top: 20px;
-      font-size: 30px;
-    }
-
-    .story-points {
-      margin: 0px;
-      padding: 0px;
-      font-size: 200px;
-      line-height: 180px;
-    }
-
-    .dimmed .outher path {
-      fill-opacity: 0.3;
-      stroke-opacity: 0.3;
-    }
-
-    .dimmed path:hover {
-      fill-opacity: 1;
-      stroke-opacity: 1;
-      cursor: pointer;
-    }
-
-    svg path {
-      fill: #7e7e7e;
-    }
-
-    .status-in-progress {
-      color: #2CE6FB;
-    }
-
-    .status-done {
-      color: #24D268;
-    }
-
-    .status-to-rework {
-      color: #FF2B2B;
-    }
-
-    .status-impeded {
-      color: #FF2B2B;
-    }
-
-    .status-bad {
-      color: #FF2B2B;
-    }
-
-    .status-good {
-      color: #FDD80D;
-    }
-
-    .status-excellent {
-      color: #24D268;
-    }
-
-    svg path.status-in-progress {
-      fill: #2CE6FB;
-    }
-
-    svg path.status-done {
-      fill: #24D268;
-    }
-
-    svg path.status-to-rework {
-      fill: #FF2B2B;
-    }
-
-    svg path.status-impeded {
-      fill: #FF2B2B;
-    }
-
-    svg path.status-bad {
-      fill: #FF2B2B;
-    }
-
-    svg path.status-good {
-      fill: #FDD80D;
-    }
-
-    svg path.status-excellent {
-      fill: #24D268;
-    }
-  </style>
-
   <div class="team component__content">
     <div class="component__header">
       <h2 class="title">Current Sprint</h2>
@@ -188,6 +65,27 @@
         </g>
       </svg>
     </div>
+
+    <div class="legend">
+      <div class="legend__item">
+        <span class="legend__color legend__color--green"></span>Done
+      </div>
+      <div class="legend__item">
+        <span class="legend__color legend__color--blue"></span>In progress
+      </div>
+      <div class="legend__item">
+        <span class="legend__color legend__color--red"></span>Blocked
+      </div>
+
+      <!--<div class="legend__item">
+              <span class="legend__color legend__color--yellow"></span>Unplanned
+          </div>-->
+
+      <div class="legend__item">
+        <span class="legend__color"></span>To Do
+      </div>
+    </div>
+    
   </div>
 </template>
 
@@ -265,7 +163,7 @@
       }
 
       var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
-
+      
       var marginTop = 0;
 
       var width = parseFloat(style.width.substring(0, style.width.length - 2)),
@@ -278,7 +176,7 @@
 
       container
         .attr('preserveAspectRatio', 'xMidYMid meet')
-        .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
+        .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 1.75))
       var svg = container
         .select("g.main").attr("transform",
         "translate(" + radius + "," + (radius + marginTop) + ") " +
