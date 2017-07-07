@@ -63,7 +63,7 @@
         <span class="legend__build-item legend__build-item--repos"></span>Develop
       </div>
       <div class="legend__item">
-        <span class="legend__build-item  legend__build-item--branches"></span>Branches
+        <span class="legend__build-item  legend__build-item--branches"></span>Branch
       </div>
     </div>
   </div>
@@ -145,20 +145,32 @@
       var formatNumber = d3.format(',d');
 
       var x = d3.scale.linear().range([0, 2 * Math.PI]);
-      var y = d3.scale.pow().exponent(0.5).range([240, 350]);
 
-      var partition = d3.layout.partition().value(function (d) {
-        return d.size;
-      }).sort(function (d) {
-        return d.name;
-      });
+      var ySizeMap = {
+        '0': 0.65,
+        '0.25': 0.82,
+        '0.5': 0.93,
+        '0.75': 1
+      };
+      var y = function (x) {
+        return ySizeMap['' + x] * 350;
+      };
+
+      var partition = d3.layout.partition()
+        .value(function (d) {
+          return d.size;
+        })
+        .sort(function (d1, d2) {
+          return d1.name && d1.name.localeCompare(d2.name);
+        })
+        .size([1, 1]);
 
       var arc = d3.svg.arc()
         .startAngle(function (d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
         .endAngle(function (d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))) - (d.y && 0.04); })
         .cornerRadius(function (d) {return 10 })
         .innerRadius(function (d) { return d.y === 0 ? 0 : Math.max(0, y(d.y-0.25)) + ((d.y-0.25) && (5)); })
-        .outerRadius(function (d) { return d.y === 0 ? 0 : Math.max(0, y((d.y-0.25) + d.dy)) - 5; });
+        .outerRadius(function (d) { return d.y === 0 ? 0 : Math.max(0, y((d.y-0.25) + d.dy)) - 11; });
 
       var container = d3.select(this.shadowRoot).select("svg");
 
