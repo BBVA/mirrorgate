@@ -127,7 +127,7 @@ board-row, board-column, tile-container {
         display: flex;
         flex-direction: column;
 
-        &[data-count-x="2"]{
+        &[data-count-x="2"][data-count="4"]{
             width: 200%;
         }
     }

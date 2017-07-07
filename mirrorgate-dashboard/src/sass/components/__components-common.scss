@@ -79,6 +79,7 @@
 .title {
     margin-bottom: 0;
     text-align: left;
+    white-space: nowrap;
 }
 
 .title-desc {
@@ -93,7 +94,7 @@
     text-align: center;
 
     .stats{
-        font-size: $level-1;
+        font-size: $level-1/2;
         line-height: 0.9em;
     }
 
