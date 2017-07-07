@@ -88,12 +88,11 @@
 }
 
 .indicator {
-    font-size: $level-3;
     line-height: 1em;
     text-align: center;
 
     .stats{
-        font-size: $level-1;
+        font-size: 2em;
         line-height: 0.9em;
     }
 
@@ -130,6 +129,8 @@ $border-width: -5px;
 }
 
 tile-container.module-data-error {
+    position: relative;
+
     > * {
         -webkit-filter: blur(5px); /* Safari */
         filter: blur(5px);
@@ -140,8 +141,7 @@ tile-container.module-data-error {
     &:before{
         content: "Server error";
         color: #fff;
-        font-size: $level-2;
-        position: relative;
+        position: absolute;
         width: 100%;
         text-align: center;
         top: 49%;
@@ -228,6 +228,19 @@ tile-container.module-data-error {
     }
     .subtitle {
         margin: 0 0 0 0;
+    }
+    tile-container.module-data-error {
+        &:before{
+            content: "Server error";
+            font-size: $level-2;
+        }
+    }
+    .indicator {
+        font-size: $level-3;
+
+        .stats{
+            font-size: $level-1;
+        }
     }
 }
 

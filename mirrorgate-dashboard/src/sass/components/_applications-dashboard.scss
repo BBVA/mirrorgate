@@ -15,12 +15,10 @@
  */
 
 .applications{
-    font-size: $level-3;
 
     .component__body {
         max-width: 600px;
         margin: 0 auto;
-        font-size: $level-2 + 1;
     }
 
     .rate {
@@ -37,7 +35,6 @@
 
 
 .reviews {
-    font-size: $level-4;
 
     .component__body {
         text-align: left;
@@ -48,12 +45,10 @@
 
     .review__header{
         color: $dark-grey;
-        font-size: $level-4 - 0.2;
     }
 
     .review__rate {
         color: $text-color-secondary;
-        font-size: $level-2 + 0.2;
         margin: 0 0 10px 0;
 
         .rate {
@@ -67,10 +62,34 @@
 
     .review__comment {
         color: $text-color-secondary;
-        font-size: $level-4;
     }
 }
 
+@media all and (min-width: $l){
+    .applications{
+        font-size: $level-3;
+
+        .component__body {
+            font-size: $level-2 + 1;
+        }
+    }
+
+    .reviews {
+        font-size: $level-4;
+
+        .review__header{
+            font-size: $level-4 - 0.2;
+        }
+        
+        .review__rate {
+            font-size: $level-2 + 0.2;
+        }
+
+        .review__comment {
+            font-size: $level-4;
+        }
+    }
+}
 
 @media all and (min-width: $xl){
     .reviews {

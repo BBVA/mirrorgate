@@ -42,7 +42,6 @@
             .dropdown__button{
                 background: none;
                 border: none;
-                font-size: $level-3;
 
                 &[aria-expanded="true"]{
                     background-color: darken($header-bg, 10);
@@ -90,6 +89,22 @@ details-dashboard{
             color: $dark-grey;
             flex: 0 1 30%;
             text-align: right;
+        }
+    }
+}
+
+@media all and (min-width: $l) {
+    .header{
+   
+        .menu{
+
+            .dropdown{
+
+                .dropdown__button{
+                
+                    font-size: $level-3;
+                }
+            }
         }
     }
 }

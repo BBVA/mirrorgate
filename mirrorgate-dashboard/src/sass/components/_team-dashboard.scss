@@ -108,9 +108,13 @@
 
     .velocity-info {
       color: $dark-grey;
+      margin: 15px;
       text-align: right;
     }
 
+}
+
+@media all and (min-width: $l) {
     .data-number{
       font-size: $level-2;
     }
