@@ -21,7 +21,7 @@
 }
 
 html{
-    font-size: $default-mobile-size - 0.2;
+    font-size: $default-size - 0.2;
 }
 
 body {
@@ -85,6 +85,11 @@ board-row, board-column, tile-container {
 }
 
 @media all and (max-width: $l){
+
+  html {
+    font-size: $default-mobile-size - 0.2;
+  }
+
   tile-container {
     margin-bottom: 10px;
   }
