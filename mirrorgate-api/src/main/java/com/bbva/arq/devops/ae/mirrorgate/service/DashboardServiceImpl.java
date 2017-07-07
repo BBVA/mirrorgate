@@ -79,25 +79,16 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public void deleteDashboard(String name) {
-        Dashboard dashboard = this.getDashboard(name);
+        Dashboard toDelete = this.getDashboard(name);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String authUser = (String)auth.getPrincipal();
 
-        if (null != dashboard.getAuthor()) {
+        canEdit(authUser, toDelete);
 
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth == null || null == auth.getPrincipal()) {
-                throw new DashboardForbiddenException("No auth found");
-            }
-
-            if (!dashboard.getAuthor().equals(auth.getPrincipal().toString()) && !dashboard.getAdminUsers().contains(auth.getPrincipal().toString())) {
-                throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator.");
-            }
-
-            dashboard.setLastUserEdit(auth.getPrincipal().toString());
-        }
-
-        dashboard.setStatus(DELETED);
-        dashboard.setLastModification(System.currentTimeMillis());
-        dashboardRepository.save(dashboard);
+        toDelete.setStatus(DELETED);
+        toDelete.setLastUserEdit(auth.getPrincipal().toString());
+        toDelete.setLastModification(System.currentTimeMillis());
+        dashboardRepository.save(toDelete);
     }
 
     @Override
@@ -120,24 +111,16 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardRepository.save(dashboard);
     }
 
+
     @Override
     public Dashboard updateDashboard(String name, Dashboard request) {
         Dashboard toUpdate = this.getDashboard(name);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String authUser = (String)auth.getPrincipal();
 
-        if (null != toUpdate.getAuthor()) {
+        canEdit(authUser, toUpdate);
 
-            if (auth == null || null == auth.getPrincipal()) {
-                throw new DashboardForbiddenException("No auth found");
-            }
-
-            if (!toUpdate.getAuthor().equals(auth.getPrincipal().toString()) && !toUpdate.getAdminUsers().contains(auth.getPrincipal().toString())) {
-                throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrators.");
-            }
-
-        }
-
-        Dashboard toSave = mergeDashboard(toUpdate, request, auth.getPrincipal().toString());
+        Dashboard toSave = mergeDashboard(toUpdate, request, authUser);
 
         return dashboardRepository.save(toSave);
     }
@@ -153,5 +136,26 @@ public class DashboardServiceImpl implements DashboardService {
         }
 
         return request;
+    }
+
+    private void canEdit(String authUser, Dashboard toEdit) {
+
+        if (authUser == null) {
+            throw new DashboardForbiddenException("Authenticated user not found");
+        }
+
+        if (toEdit.getAdminUsers().contains(authUser)) {
+            return;
+        }
+
+        if (authUser.equals(toEdit.getAuthor())) {
+            return;
+        }
+
+        if (toEdit.getAuthor() == null && toEdit.getAdminUsers().isEmpty()) {
+            return;
+        }
+
+        throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
     }
 }
