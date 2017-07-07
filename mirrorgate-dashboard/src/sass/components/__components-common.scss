@@ -66,6 +66,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    flex-wrap: wrap;
 }
 
 .component__body {
@@ -79,7 +80,6 @@
 .title {
     margin-bottom: 0;
     text-align: left;
-    white-space: nowrap;
 }
 
 .title-desc {
@@ -89,12 +89,11 @@
 }
 
 .indicator {
-    font-size: $level-3;
     line-height: 1em;
     text-align: center;
 
     .stats{
-        font-size: $level-1/2;
+        font-size: 2em;
         line-height: 0.9em;
     }
 
@@ -131,29 +130,23 @@ $border-width: -5px;
 }
 
 tile-container.module-data-error {
+    position: relative;
+
     > * {
         -webkit-filter: blur(5px); /* Safari */
         filter: blur(5px);
+        position: relative;
         opacity: 0.5;
-        min-width: 100%;
     }
 
-    &:after{
+    &:before{
         content: "Server error";
         color: #fff;
-        font-size: $level-2;
-        min-width: 100%;
+        position: absolute;
+        width: 100%;
         text-align: center;
-        position: relative;
         top: 49%;
-        height: 50px;
-        margin-top: -50px;
-        @media all and (min-width: $l){
-          height: 0;
-          margin-top: 0;
-          left: -100%;
-        }
-        display: block;
+        left: 0;
     }
 }
 
@@ -236,6 +229,19 @@ tile-container.module-data-error {
     }
     .subtitle {
         margin: 0 0 0 0;
+    }
+    tile-container.module-data-error {
+        &:before{
+            content: "Server error";
+            font-size: $level-2;
+        }
+    }
+    .indicator {
+        font-size: $level-3;
+
+        .stats{
+            font-size: $level-1 - 1.6;
+        }
     }
 }
 

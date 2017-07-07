@@ -76,48 +76,16 @@
       fill-opacity: 1;
       stroke-opacity: 1;
     }
+}
 
-    .backlog-status {
-      position: relative;
-    }
-
-    .backlog-progress {
-      background-color: #8a8a8a;
-      border-radius: 10px;
-      height: 10px;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    .backlog-progress__bar {
-      height: 10px;
-    }
-
-    .backlog-progress__bar-success {
-      background-color: #25d268;
-    }
-
-    .velocity-line {
-      background-color: white;
-      height: 33px;
-      left: 70%;
-      position: absolute;
-      top: -10px;
-      width: 1px;
-    }
-
-    .velocity-info {
-      color: $dark-grey;
-      text-align: right;
-    }
-
+@media all and (min-width: $l) {
     .data-number{
       font-size: $level-2;
     }
 }
 
 @media all and (min-width: $xxl) {
-  .team {
+  .next-sprint {
     .backlog-progress {
       height: 20px;
     }
@@ -130,4 +98,45 @@
       height: 40px;
     }
   }
+}
+
+.next-sprint {
+
+  font-size: 1.5rem;
+
+  .backlog-status {
+    position: relative;
+  }
+
+  .backlog-progress {
+    background-color: #8a8a8a;
+    border-radius: 10px;
+    height: 10px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .backlog-progress__bar {
+    height: 10px;
+  }
+
+  .backlog-progress__bar-success {
+    background-color: #25d268;
+  }
+
+  .velocity-line {
+    background-color: white;
+    height: 33px;
+    left: 70%;
+    position: absolute;
+    top: -10px;
+    width: 1px;
+  }
+
+  .velocity-info {
+    color: $dark-grey;
+    margin: 15px;
+    text-align: right;
+  }
+
 }

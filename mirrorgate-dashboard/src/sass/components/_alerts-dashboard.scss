@@ -63,15 +63,11 @@ alerts-tile {
       margin-top: 0;
     }
 
-    .group__header {
-      width: 100%;
-
-      h3 {
-        color:#444;
-        font-weight: 300;
-        margin: 0;
-        text-align: left;
-      }
+    .group__header h3 {
+      color:#444;
+      font-weight: 300;
+      margin: 0;
+      text-align: left;
     }
 
 
@@ -98,6 +94,7 @@ alerts-tile {
 
   .alert__title {
       overflow: hidden;
+      white-space: nowrap;
       font-size: $level-6;
       padding: 0 5px;
       line-height: $level-6 + 0.2;
@@ -135,5 +132,13 @@ alerts-tile {
   .alert-state-red {
     background-color: $red;
     border-color: darken($red, 30);
+  }
+}
+
+@media all and (min-width: $l) {
+  .alerts__content{
+    .alert__title {
+        font-size: $level-3;
+    }
   }
 }
