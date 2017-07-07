@@ -36,13 +36,14 @@ $headers-color: #eee;
 $headers-weight: 200;
 
 //SIZES
-$default-size: 0.8rem;
+$default-size: 1.2vw;
+$default-mobile-size: 4vw;
 $level-1: 4.5rem;
-$level-2: 1.5vw;
-$level-3: 1.1vw;
-$level-4: 1.8rem;
-$level-5: 1.4rem;
-$level-6: 1.2rem;
+$level-2: 1.5rem;
+$level-3: 1.3rem;
+$level-4: 1.3rem;
+$level-5: 0.7rem;
+$level-6: 1rem;
 $header-height: 40px;
 $footer-height: 50px;
 $header-footer-height: $header-height + $footer-height;
@@ -62,7 +63,7 @@ $text-color-secondary: darken( $text-color, 20% );
 $green: #24D268;
 $blue: #2CE6FB;
 $yellow: #FDD80D;
-$dark-yellow: #FEB10F; 
+$dark-yellow: #FEB10F;
 $red: #FF2B2B;
 
 $dark-grey: #888;

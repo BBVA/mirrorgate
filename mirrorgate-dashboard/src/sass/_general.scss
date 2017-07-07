@@ -21,7 +21,7 @@
 }
 
 html{
-    font-size: $default-size - 0.2;
+    font-size: $default-mobile-size - 0.2;
 }
 
 body {
@@ -78,6 +78,16 @@ a{
         overflow: visible;
     }
 
+}
+
+board-row, board-column, tile-container {
+  display:block;
+}
+
+@media all and (max-width: $l){
+  tile-container {
+    margin-bottom: 10px;
+  }
 }
 
 @media all and (min-width: $l){
