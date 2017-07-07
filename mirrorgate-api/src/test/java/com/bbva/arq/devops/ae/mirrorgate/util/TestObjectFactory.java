@@ -141,7 +141,7 @@ public class TestObjectFactory {
         return applicationReviewsDTO;
     }
 
-    public static Review createReview(Platform platform, String appName, String commentId, String comment, int timestamp, double rate, int accumulate) {
+    public static Review createReview(Platform platform, String appName, String commentId, String comment, int timestamp, double rate, int amount) {
 
         Review review = new Review();
 
@@ -151,7 +151,7 @@ public class TestObjectFactory {
         review.setPlatform(platform);
         review.setCommentId(commentId);
         review.setStarrating(rate);
-        review.setAccumulate(accumulate);
+        review.setAmount(amount);
 
         return review;
     }

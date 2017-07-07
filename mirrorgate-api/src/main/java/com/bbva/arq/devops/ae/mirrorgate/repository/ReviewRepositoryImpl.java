@@ -45,10 +45,10 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
             match(Criteria.where("appname").in(names)),
             sort(new Sort(DESC, "timestamp")),
             project("appname", "platform", "starrating",
-                   "accumulate", "timestamp", "comment", "authorName")
-                .and("starrating").multiply("accumulate").as("starrating_accumulated"),
+                        "amount", "timestamp", "comment", "authorName")
+                .and("starrating").multiply("amount").as("starrating_accumulated"),
             group("appname", "platform")
-                .sum("accumulate").as("total_accumulate")
+                .sum("amount").as("total_amount")
                 .sum("starrating_accumulated").as("total_starrating")
                 .push(new BasicDBObject("author", "$authorName")
                     .append("rate", "$starrating" )
@@ -56,7 +56,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                     .append("comment", "$comment")
                 ).as("reviews"),
             project("appname", "platform")
-                .and("total_starrating").divide("total_accumulate").as("rate")
+                .and("total_starrating").divide("total_amount").as("rate")
                 .and("reviews").slice(3, 0)
         );
 

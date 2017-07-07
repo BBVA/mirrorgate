@@ -35,7 +35,7 @@ public class Review extends BaseModel {
     private String comment;
     private Platform platform;
     private String commentTitle;
-    private int accumulate = 1;
+    private int amount = 1;
 
     public String getCommentTitle() {
         return commentTitle;
@@ -101,12 +101,12 @@ public class Review extends BaseModel {
         this.platform = platform;
     }
 
-    public int getAccumulate() {
-        return accumulate;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setAccumulate(int accumulate) {
-        this.accumulate = accumulate;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
 }

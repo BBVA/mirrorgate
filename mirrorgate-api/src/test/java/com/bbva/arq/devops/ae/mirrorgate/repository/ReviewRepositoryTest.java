@@ -42,7 +42,7 @@ public class ReviewRepositoryTest {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    Review review = TestObjectFactory.createReview(
+    Review review1 = TestObjectFactory.createReview(
             Platform.IOS, "mirrorgate", "123456", "comment 1", 1, 3.5, 1);
     Review review2 = TestObjectFactory.createReview(
             Platform.IOS, "mirrorgate", "123457", "comment 2", 2, 5, 10);
@@ -53,7 +53,7 @@ public class ReviewRepositoryTest {
 
     @Before
     public void init(){
-        reviewRepository.save(review);
+        reviewRepository.save(review1);
         reviewRepository.save(review2);
         reviewRepository.save(review3);
         reviewRepository.save(review4);
@@ -95,7 +95,7 @@ public class ReviewRepositoryTest {
         List<ApplicationDTO> applications = reviewRepository.getAverageRateByAppNames(names);
 
         List<Review> iosReviews = new ArrayList<>();
-        iosReviews.add(review);
+        iosReviews.add(review1);
         iosReviews.add(review2);
 
         List<Review> androidReviews = new ArrayList<>();
@@ -104,15 +104,13 @@ public class ReviewRepositoryTest {
 
         assertTrue(applications.get(0).getRate() == calculateAverage(iosReviews));
         assertTrue(applications.get(1).getRate() == calculateAverage(androidReviews));
-
     }
 
     private double calculateAverage(List<Review> reviews) {
-
         int total_accumulate = reviews.stream()
-                .mapToInt(review -> review.getAccumulate()).sum();
+                .mapToInt(review -> review.getAmount()).sum();
         double total_starrating = reviews.stream()
-                .mapToDouble(review -> review.getStarrating() * review.getAccumulate()).sum();
+                .mapToDouble(review -> review.getStarrating() * review.getAmount()).sum();
 
         return total_starrating / total_accumulate;
     }
