@@ -1,7 +1,6 @@
 {
-  "stats": {
-    "failureRate": 15
-  },
+
+  "stats":{"duration":251261.80597014926,"count":268,"failureRate":9},
   "lastBuilds": [
     {
       "timestamp": 1491346611790,

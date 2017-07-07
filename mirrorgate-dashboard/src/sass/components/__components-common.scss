@@ -79,6 +79,7 @@
 .title {
     margin-bottom: 0;
     text-align: left;
+    white-space: nowrap;
 }
 
 .title-desc {
@@ -134,18 +135,18 @@ tile-container.module-data-error {
     > * {
         -webkit-filter: blur(5px); /* Safari */
         filter: blur(5px);
-        position: relative;
         opacity: 0.5;
+        min-width: 100%;
     }
 
-    &:before{
+    &:after{
         content: "Server error";
         color: #fff;
         position: absolute;
         width: 100%;
         text-align: center;
+        position: relative;
         top: 49%;
-        left: 0;
     }
 }
 
@@ -159,7 +160,7 @@ tile-container.module-data-error {
     font-size: $level-5;
     justify-content: center;
     margin: 0 auto;
-    padding: 0 10px 20px 10px; 
+    padding: 0 10px 20px 10px;
 }
 
 .legend__item{

@@ -35,7 +35,7 @@
       <div class="alerts-list">
         <div class="alerts-list__group" rv-each-alerts="alerts">
           <span class="group__header">
-            <h3>{ alerts.title }</h3>
+            <h3 rv-title="alerts.title">{ alerts.title }</h3>
           </span>
 
           <div class="alert" rv-each-alert="alerts.children">
@@ -47,7 +47,7 @@
               <span rv-if="alert.image.encoded" rv-html="alert.image.encoded"></span>
             </div>
 
-            <div class="alert__title">{ alert.title }</div>
+            <div class="alert__title" rv-title="alert.title">{ alert.title }</div>
           </div>
 
         </div>

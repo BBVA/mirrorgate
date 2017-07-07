@@ -36,7 +36,8 @@ $headers-color: #eee;
 $headers-weight: 200;
 
 //SIZES
-$default-size: 0.8rem;
+$default-size: 1.2vw;
+$default-mobile-size: 4vw;
 $level-1: 4.5rem;
 $level-2: 1.3vw;
 $level-3: 0.95vw;
@@ -62,7 +63,7 @@ $text-color-secondary: darken( $text-color, 20% );
 $green: #24D268;
 $blue: #2CE6FB;
 $yellow: #FDD80D;
-$dark-yellow: #FEB10F; 
+$dark-yellow: #FEB10F;
 $red: #FF2B2B;
 
 $dark-grey: #888;
