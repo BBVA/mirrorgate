@@ -71,7 +71,7 @@
         it('should raise an event when it succeds', (done) => {
           appendComponent();
           testHandler = function (e) {
-            expect(e.detail.status).toBe('empty');
+            expect(e.detail.status).toBe('unknown');
             done();
           }
           server.respond();
