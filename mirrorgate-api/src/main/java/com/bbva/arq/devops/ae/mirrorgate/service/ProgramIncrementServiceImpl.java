@@ -1,7 +1,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
@@ -63,24 +62,22 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
     }
 
     private String getCurrentProgramIncrementName(Dashboard dashboard){
-        List<String> boards = dashboard.getBoards();
-        Optional<String> productIncrementExpression = Optional.ofNullable(dashboard.getProgramIncrement());
-
-        return getProductIncrementNameForBoard(boards, productIncrementExpression);
+        return getProductIncrementNameForExpression(dashboard.getProgramIncrement());
     }
 
-    String getProductIncrementNameForBoard(List<String> boards, Optional<String> productIncrementExpression){
+    String getProductIncrementNameForExpression(String productIncrementExpression){
 
-        ProgramIncrementNamesAggregationResult result = featureService.getProductIncrementFromFeatures(boards);
+        Pattern piRegex = Pattern.compile("^" + productIncrementExpression + "$");
+
+        ProgramIncrementNamesAggregationResult result = featureService.getProductIncrementFromPiPattern(piRegex);
 
         List<String> piNames = null;
         if (result != null) {
             piNames = result.getPiNames();
         }
 
-        if(productIncrementExpression.isPresent() && piNames != null) {
+        if(piNames != null) {
 
-            Pattern piRegex = Pattern.compile("^" + productIncrementExpression.get() + "$");
 
             for (int i = 0; i < piNames.size(); i++) {
 

@@ -20,6 +20,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Service for Feature model
@@ -44,7 +45,7 @@ public interface FeatureService {
 
     List<Feature> getProductIncrementFeatures(String name);
 
-    ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards);
+    ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(Pattern pi);
 
     List<String> getProgramIncrementFeaturesByBoard(List<String> boards, List<String> programIncrementFeatures);
 

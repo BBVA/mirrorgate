@@ -3,7 +3,6 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,12 +16,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.data.domain.Sort;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProgramIncrementServiceTest {
@@ -49,26 +49,13 @@ public class ProgramIncrementServiceTest {
 
 
     @Test
-    public void testProductIncrementNotFound(){
-
-        List<String> piNamesList = Arrays.asList("AE_2017_PI03_(2016/12/04-2017/01/28)", "AE_2016_PI02_(2016/11/04-2016/12/03)");
-        ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
-
-        when(featureService.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
-        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"), Optional.ofNullable(null));
-
-        assertNull(activePIName);
-    }
-
-    @Test
     public void testProductIncrementWithUserDefinedRegex(){
 
         List<String> piNamesList = Arrays.asList("AE_2017_PI03_(2016/12/04-2017/01/28)", "AE_2016_PI02_(2016/11/04-2016/12/03)");
         ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureService.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
-        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"),
-            Optional.of("AE_2017_PI03_.*"));
+        when(featureService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
+        String activePIName = piService.getProductIncrementNameForExpression("AE_2017_PI03_.*");
 
         assertEquals(activePIName, "AE_2017_PI03_(2016/12/04-2017/01/28)");
     }
@@ -81,9 +68,8 @@ public class ProgramIncrementServiceTest {
         List<String> piNamesList = Arrays.asList(expectedProductIncrement, "2016/11/04-2016/12/03");
         ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureService.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
-        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"),
-            Optional.of("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})"));
+        when(featureService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
+        String activePIName = piService.getProductIncrementNameForExpression("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})");
 
         assertEquals(activePIName, expectedProductIncrement);
     }
@@ -96,9 +82,8 @@ public class ProgramIncrementServiceTest {
         List<String> piNamesList = Arrays.asList(expectedProductIncrement, "2016/11/04-2016/12/03");
         ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureService.getProductIncrementFromFeatures(any(List.class))).thenReturn(piNames);
-        String activePIName = piService.getProductIncrementNameForBoard(Arrays.asList("mirrorgate"),
-            Optional.of("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})"));
+        when(featureService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
+        String activePIName = piService.getProductIncrementNameForExpression("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})");
 
         assertEquals(activePIName, expectedProductIncrement);
     }

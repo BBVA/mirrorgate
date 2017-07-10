@@ -8,6 +8,8 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
+
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
@@ -49,7 +51,7 @@ public class FeatureRepositoryImplTest {
 
     @Test
     public void testAggregationWithResults(){
-        ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromFeatures(Arrays.asList("mirrorgate"));
+        ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromPiPattern(Pattern.compile("^PI.*$"));
 
         assertEquals(piNames.getPiNames().size(), 5);
         assertTrue(piNames.getPiNames().contains("PI1"));
@@ -61,7 +63,7 @@ public class FeatureRepositoryImplTest {
 
     @Test
     public void testAggregationWithoutResults(){
-        ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromFeatures(Arrays.asList("mirrorgate2"));
+        ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromPiPattern(Pattern.compile("aaa"));
         assertEquals(piNames, null);
     }
 
