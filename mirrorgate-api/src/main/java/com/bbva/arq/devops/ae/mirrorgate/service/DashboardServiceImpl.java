@@ -81,12 +81,16 @@ public class DashboardServiceImpl implements DashboardService {
     public void deleteDashboard(String name) {
         Dashboard toDelete = this.getDashboard(name);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String authUser = (String)auth.getPrincipal();
 
-        canEdit(authUser, toDelete);
+        String authUser = "anonymous";
+
+        if(auth != null) {
+            authUser = (String) auth.getPrincipal();
+            canEdit(authUser, toDelete);
+        }
 
         toDelete.setStatus(DELETED);
-        toDelete.setLastUserEdit(auth.getPrincipal().toString());
+        toDelete.setLastUserEdit(authUser);
         toDelete.setLastModification(System.currentTimeMillis());
         dashboardRepository.save(toDelete);
     }
@@ -116,9 +120,13 @@ public class DashboardServiceImpl implements DashboardService {
     public Dashboard updateDashboard(String name, Dashboard request) {
         Dashboard toUpdate = this.getDashboard(name);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String authUser = (String)auth.getPrincipal();
 
-        canEdit(authUser, toUpdate);
+        String authUser = "anonymous";
+
+        if(auth != null) {
+            authUser = (String) auth.getPrincipal();
+            canEdit(authUser, toUpdate);
+        }
 
         Dashboard toSave = mergeDashboard(toUpdate, request, authUser);
 
