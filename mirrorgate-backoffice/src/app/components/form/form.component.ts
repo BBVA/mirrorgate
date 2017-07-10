@@ -20,6 +20,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {DashboardsService} from '../../services/dashboards.service';
 import {Dashboard} from '../../model/dashboard';
 import {SlackService} from '../../services/slack.service';
+import {kebabCase} from 'lodash';
 
 @Component({
   selector: 'new-and-edit-form',
@@ -43,8 +44,7 @@ export class FormComponent {
     applications?: string,
     boards?: string,
     codeRepos?: string,
-    adminUsers?: string,
-    programIncrement?: string
+    adminUsers?: string
   } = {};
   errorMessage: string;
 
@@ -64,6 +64,10 @@ export class FormComponent {
   }
 
   setDashboard(dashboard: Dashboard) {
+    if(!dashboard.displayName) {
+      dashboard.displayName = dashboard.name;
+    }
+
     this.dashboard = dashboard;
     this.temp.boards = this.dashboard.boards ? this.dashboard.boards.join(',') : '';
     this.temp.applications = this.dashboard.applications ? this.dashboard.applications.join(',') : '';
@@ -77,6 +81,9 @@ export class FormComponent {
     this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.adminUsers = this.temp.adminUsers.length ? this.temp.adminUsers.split(',').map((e) => e.trim()) : undefined;
+    if(!this.edit) {
+      this.dashboard.name = kebabCase(this.dashboard.displayName);
+    }
   }
 
   back(): void {

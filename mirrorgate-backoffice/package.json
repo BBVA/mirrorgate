@@ -7,7 +7,7 @@
     "watch": "npm run build -- --watch",
     "server": "webpack-dev-server --inline --progress --port 3000 --content-base src",
     "start": "npm run server",
-    "test":"echo ToDo"
+    "test": "echo ToDo"
   },
   "contributors": [
     "Rob Wormald <robwormald@gmail.com>",
@@ -34,6 +34,7 @@
     "zone.js": "~0.6.26"
   },
   "devDependencies": {
+    "@types/lodash": "ts2.0",
     "@types/node": "^6.0.48",
     "angular2-router-loader": "^0.3.4",
     "angular2-template-loader": "^0.6.0",

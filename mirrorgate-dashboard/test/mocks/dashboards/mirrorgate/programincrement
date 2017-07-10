@@ -1,21 +1,6 @@
 {
   "programIncrementFeatures": [
-    {
-      "id": 40166,
-      "name": "Dummy name DOST05-1",
-      "type": "Feature",
-      "status": "BACKLOG",
-      "jiraKey": "DOST05-1",
-      "parentKey": "DOT-1",
-      "sprint": {},
-      "project": {
-        "id": 12508,
-        "name": "MirrorGate"
-      },
-      "keywords": [
-        "MirrorGate"
-      ]
-    },
+
     {
       "id": 54886,
       "name": "Dummy name DOST05-115",
