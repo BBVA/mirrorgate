@@ -16,220 +16,258 @@
 
 <div class="form">
   <h2 *ngIf="!edit">New dashboard</h2>
-  <h2 *ngIf="dashboard && edit">Edit: {{dashboard.name}}</h2>
+  <h2 *ngIf="dashboard && edit">Edit:
+    <span *ngIf="dashboard.displayName">{{dashboard.displayName}}</span>
+    <span *ngIf="!dashboard.displayName">{{dashboard.name}}</span>
+  </h2>
 
   <div class="white-bg">
+
     <form (ngSubmit)="onSave(dashboard)" #dashboardForm="ngForm" *ngIf="dashboard">
-      <div class="form-group row">
-        <div class="col-sm-6">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" required [(ngModel)]="dashboard.name" name="name" [readonly]="edit" #name="ngModel">
-          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-            Name is required
-          </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">General data</h3>
         </div>
-        <div class="col-sm-6">
-          <label for="applications">Applications</label>
-          <div class="collapse" id="applications-help">
-            <div class="well">
-              Add a comma separated list with your market applications
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" required [(ngModel)]="dashboard.name" name="name"
+            readonly="true" #name="ngModel">
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+              Name is required
             </div>
           </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#applications-help" aria-expanded="false"
-              aria-controls="applications-help">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
-            <input type="text" class="form-control" id="applications" [(ngModel)]="temp.applications" (ngModelChange)="mirrorTempValues()"
-              name="applications">
-          </div>
-        </div>
-
-      </div>
-
-
-      <div class="form-group row">
-        <div class="col-sm-6">
-          <label for="displayName">Display Name</label>
-          <input type="text" class="form-control" id="displayName" [(ngModel)]="dashboard.displayName" name="displayName" #name="ngModel">
-        </div>
-        <div class="col-sm-6">
-          <label for="logoURL">URL Logo</label>
-          <div class="collapse" id="icon-url-help">
-            <div class="well">
-              Please specify a public absolute URL pointing to your logo file.
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <label for="displayName">Display Name</label>
+              <input type="text" class="form-control" id="displayName" [(ngModel)]="dashboard.displayName" (ngModelChange)="mirrorTempValues()" name="displayName" #name="ngModel">
+            </div>
+            <div class="col-sm-6">
+              <label for="logoURL">URL Logo</label>
+              <div class="collapse" id="icon-url-help">
+                <div class="well">
+                  Please specify a public absolute URL pointing to your logo file.
+                </div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#icon-url-help" aria-expanded="false" aria-controls="icon-url-help">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            </a>
+                <input type="text" class="form-control" id="logoURL" [(ngModel)]="dashboard.logoUrl" name="logoURL">
+              </div>
             </div>
           </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#icon-url-help" aria-expanded="false" aria-controls="icon-url-help">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
-            <input type="text" class="form-control" id="logoURL" [(ngModel)]="dashboard.logoUrl" name="logoURL">
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="col-sm-6">
-          <label for="codeRepos">Repositories</label>
-          <div class="collapse" id="code-repos-help">
-            <div class="well">
-              Add a comma separated list with your repositories. You can use regular expressions to match both, the repo name, or the project
-              name. Note that several items will represent an 'Or' match and not an 'And'.
+          <div class="form-group">
+            <label for="adminUsers">Administrator users</label>
+            <div class="collapse" id="admin-users-help">
+              <div class="well">
+                Add the users that will have permission to modify the dashboard. Names must be that which precede the users' e-mail address domain names (i.e. user@bbva.com) and must be separated by commas.
+              </div>
             </div>
-          </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#code-repos-help" aria-expanded="false" aria-controls="code-repos-help">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
-            <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" (ngModelChange)="mirrorTempValues()"
-              name="codeRepos">
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <label for="boards">Story keywords</label>
-          <div class="collapse" id="boards-help">
-            <div class="well">
-              Add a comma separated list with your jira keywords. You can use the team names, project names or project codes as keywords
-              to match jira issues.
+            <div class="input-group">
+              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#admin-users-help" aria-expanded="false" aria-controls="admin-users-help">
+                              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                          </a>
+              <input type="text" class="form-control" id="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()"
+                name="adminUsers">
             </div>
-          </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#boards-help" aria-expanded="false" aria-controls="boards-help">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
-            <input type="text" class="form-control" id="boards" [(ngModel)]="temp.boards" (ngModelChange)="mirrorTempValues()" name="boards">
           </div>
         </div>
       </div>
 
-      <div class="form-group row">
-        <div class="col-sm-6">
-          <label for="slack">Slack</label>
-          <div class="collapse" id="slack_team-help">
-            <div class="well">
-              Please specify a Slack Team to show notifications and click the config button to obtain a token.
-              You'll need to <a href="https://api.slack.com/apps" target="_blank">register your app</a> before getting tokens.
-              A registered app is assigned a unique Client ID and Client Secret which will be used in the OAuth flow.
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Planning data</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <label for="boards">Story keywords</label>
+              <div class="collapse" id="boards-help">
+                <div class="well">
+                  Add a comma separated list with your jira keywords. You can use the team names, project names or project codes as keywords
+                  to match jira issues.
+                </div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#boards-help" aria-expanded="false" aria-controls="boards-help">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            </a>
+                <input type="text" class="form-control" id="boards" [(ngModel)]="temp.boards" (ngModelChange)="mirrorTempValues()" name="boards">
+              </div>
             </div>
-          </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_team-help" aria-expanded="false" aria-controls="slack_team-help">
-              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-            </a>
-            <input type="text" class="form-control" id="slack_team" [(ngModel)]="dashboard.slackTeam" name="slack_team" #name="ngModel" placeholder="Your slack Team name">
-            <select *ngIf="slackChannels.keys" class="form-control" [(ngModel)]="dashboard.slackChannel" name="slack_channel">
-              <option></option>
-              <option *ngFor="let id of slackChannels.keys" [value]="id">{{slackChannels.values[id]}}</option>
-            </select>
-
-            <a *ngIf="dashboard.slackTeam" type="button" class="input-group-addon" data-toggle="modal" data-target="#myModal">
-              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            </a>
-          </div>
-          <!-- Button trigger modal -->
-
-
-          <!-- Modal -->
-          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">Slack app details</h4>
+            <div class="col-sm-6">
+              <label for="programIncrement">Product Increment</label>
+              <div class="collapse" id="product-increment-help">
+                <div class="well">
+                  Add a regular expression matching your Program Increment name if you want it's data to be displayed on your dashboard.
                 </div>
-                <div class="modal-body">
-                  <label for="slack">Client Id</label>
-                  <div class="collapse" id="slack_client_id-help">
-                    <div class="well">
-                      Add an application to your Slack Team and put here Client Id's Application to show notifications.
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
-                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                    </a>
-                    <input type="text" class="form-control" id="slack_client_id" [(ngModel)]="slack.clientId" name="slack_client_id" #name="ngModel">
-
-                  </div>
-                  <br />
-                  <label for="slack">Client Secret</label>
-                  <div class="collapse" id="slack_client_secret-help">
-                    <div class="well">
-                      Add an application to your Slack Team and put here Client Secret's Application to show notifications.
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_secret-help" aria-expanded="false" aria-controls="slack_client_secret-help">
-                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                    </a>
-                    <input type="password" class="form-control" id="slack_client_secret" [(ngModel)]="slack.clientSecret" name="slack_client_secret" #name="ngModel">
-                  </div>
-                  <br/>
-                  <button type="button" class="btn btn-primary" (click)="signSlack(dashboard)">Get token</button>
-                  <div *ngIf="dashboard.slackToken" class="alert alert-success" role="alert">Code generated: {{dashboard.slackToken}}</div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <input type="text" class="form-control" id="programIncrement" [(ngModel)]="dashboard.programIncrement" name="programIncrement">
               </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
-          <label for="programIncrement">Product Increment</label>
-          <div class="collapse" id="product-increment-help">
-            <div class="well">
-              Add a regular expression matching your Program Increment name if you want it's data to be displayed on your dashboard.
-            </div>
-          </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
-              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-            </a>
-            <input type="text" class="form-control" id="programIncrement" [(ngModel)]="dashboard.programIncrement" name="programIncrement">
-          </div>
-        </div>
       </div>
-      
-      <div class="form-group row">
-        <div class="col-sm-6">
-          <label for="urlAlerts">URL Alerts</label>
-          <div class="collapse" id="urlAlerts-help">
-            <div class="well">
-              MirrorGate will ask to this URL to get Alerts.
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Build information</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="codeRepos">Build jobs</label>
+            <div class="collapse" id="code-repos-help">
+              <div class="well">
+                Add a comma separated list with your builds. You can use regular expressions to match both, the build name, or the project
+                name. Note that several items will represent an 'Or' match and not an 'And'.
+              </div>
             </div>
-          </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#urlAlerts-help" aria-expanded="false" aria-controls="urlAlerts-help">
-              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-            </a>
-            <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="dashboard.urlAlerts" name="urlAlerts">
+            <div class="input-group">
+              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#code-repos-help" aria-expanded="false" aria-controls="code-repos-help">
+                              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                          </a>
+              <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" (ngModelChange)="mirrorTempValues()"
+                name="codeRepos">
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="form-group row">
-        <div class="col-sm-6">
-          <label for="adminUsers">Admin users</label>
-          <div class="collapse" id="admin-users-help">
-            <div class="well">
-              Add the users that will have permission to modify the dashboard. Names must be that which precede the users' e-mail address domain names (i.e. user@bbva.com) and must be separated by commas.
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Mobile application markets</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="applications">Applications</label>
+            <div class="collapse" id="applications-help">
+              <div class="well">
+                Add a comma separated list with your market applications
+              </div>
+            </div>
+            <div class="input-group">
+              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#applications-help" aria-expanded="false"
+                aria-controls="applications-help">
+                              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                          </a>
+              <input type="text" class="form-control" id="applications" [(ngModel)]="temp.applications" (ngModelChange)="mirrorTempValues()"
+                name="applications">
             </div>
           </div>
-          <div class="input-group">
-            <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#admin-users-help" aria-expanded="false" aria-controls="admin-users-help">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Notification and alerts</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group row">
+
+
+            <div class="col-sm-6">
+              <label for="slack">Slack</label>
+              <div class="collapse" id="slack_team-help">
+                <div class="well">
+                  Please specify a Slack Team to show notifications and click the config button to obtain a token.
+                  You'll need to <a href="https://api.slack.com/apps" target="_blank">register your app</a> before getting tokens.
+                  A registered app is assigned a unique Client ID and Client Secret which will be used in the OAuth flow.
+                </div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_team-help" aria-expanded="false" aria-controls="slack_team-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <input type="text" class="form-control" id="slack_team" [(ngModel)]="dashboard.slackTeam" name="slack_team" #name="ngModel" placeholder="Your slack Team name">
+                <select *ngIf="slackChannels.keys" class="form-control" [(ngModel)]="dashboard.slackChannel" name="slack_channel">
+                  <option></option>
+                  <option *ngFor="let id of slackChannels.keys" [value]="id">{{slackChannels.values[id]}}</option>
+                </select>
+
+                <a *ngIf="dashboard.slackTeam" type="button" class="input-group-addon" data-toggle="modal" data-target="#myModal">
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                </a>
+              </div>
+              <!-- Button trigger modal -->
+
+
+              <!-- Modal -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Slack app details</h4>
+                    </div>
+                    <div class="modal-body">
+                      <label for="slack">Client Id</label>
+                      <div class="collapse" id="slack_client_id-help">
+                        <div class="well">
+                          Add an application to your Slack Team and put here Client Id's Application to show notifications.
+                        </div>
+                      </div>
+                      <div class="input-group">
+                        <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
+                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </a>
-            <input type="text" class="form-control" id="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()"
-              name="adminUsers">
+                        <input type="text" class="form-control" id="slack_client_id" [(ngModel)]="slack.clientId" name="slack_client_id" #name="ngModel">
+
+                      </div>
+                      <br />
+                      <label for="slack">Client Secret</label>
+                      <div class="collapse" id="slack_client_secret-help">
+                        <div class="well">
+                          Add an application to your Slack Team and put here Client Secret's Application to show notifications.
+                        </div>
+                      </div>
+                      <div class="input-group">
+                        <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_secret-help" aria-expanded="false" aria-controls="slack_client_secret-help">
+                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                        <input type="password" class="form-control" id="slack_client_secret" [(ngModel)]="slack.clientSecret" name="slack_client_secret" #name="ngModel">
+                      </div>
+                      <br/>
+                      <button type="button" class="btn btn-primary" (click)="signSlack(dashboard)">Get token</button>
+                      <div *ngIf="dashboard.slackToken" class="alert alert-success" role="alert">Code generated: {{dashboard.slackToken}}</div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="urlAlerts">URL Alerts</label>
+              <div class="collapse" id="urlAlerts-help">
+                <div class="well">
+                  URL to gather Alerts from.
+                </div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#urlAlerts-help" aria-expanded="false" aria-controls="urlAlerts-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="dashboard.urlAlerts" name="urlAlerts">
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="row" *ngIf="errorMessage">
         <div class="col-sm-12">
-          <p class="error">{{errorMessage}}</p>
+          <div class="alert alert-danger" role="alert">
+            <p class="error">{{errorMessage}}</p>
+          </div>
         </div>
       </div>
 
@@ -244,8 +282,10 @@
       </div>
 
       <div class="row" *ngIf="dashboard.lastModification">
-          <div class="col-sm-12">
-          <span> Last modification {{ dashboard.lastModification | date:'medium' }} </span> <span *ngIf="dashboard.lastUserEdit"> by {{ dashboard.lastUserEdit }} </span>
+        <div class="col-sm-12">
+          <div class="alert alert-info" role="alert" *ngIf="dashboard.lastModification">
+            <span> Last modification {{ dashboard.lastModification | date:'medium' }} </span> <span *ngIf="dashboard.lastUserEdit"> by {{ dashboard.lastUserEdit }} </span>
+          </div>
         </div>
       </div>
 
