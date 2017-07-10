@@ -39,11 +39,11 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         Aggregation aggregation = newAggregation(
                 sort(new Sort(Sort.Direction.DESC, "lastModification")),
                 group("name")
-                .first("name").as("name")
-                .first("status").as("status")
-                .first("logoUrl").as("logoUrl")
-                .first("applications").as("applications")
-                .first("adminUsers").as("adminUsers")
+                        .first("name").as("name")
+                        .first("displayName").as("displayName")
+                        .first("status").as("status")
+                        .first("logoUrl").as("logoUrl")
+                        .first("adminUsers").as("adminUsers")
         );
 
         //Convert the aggregation result into a List
