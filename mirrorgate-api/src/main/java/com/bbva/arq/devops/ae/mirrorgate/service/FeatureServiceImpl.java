@@ -23,6 +23,7 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,8 @@ public class FeatureServiceImpl implements FeatureService{
     }
 
     @Override
-    public ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards){
-        return repository.getProductIncrementFromFeatures(boards);
+    public ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(Pattern pi){
+        return repository.getProductIncrementFromPiPattern(pi);
     }
 
     @Override

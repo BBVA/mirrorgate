@@ -2217,7 +2217,8 @@ db.getCollection('feature').insertMany([
     "lParentId" : NumberLong(40166),
     "sProjectName" : "MirrorGate",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate",
+        "UX"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }

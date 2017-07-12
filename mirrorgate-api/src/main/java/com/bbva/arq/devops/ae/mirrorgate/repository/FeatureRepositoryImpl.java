@@ -24,6 +24,8 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwi
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,11 +130,12 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
     }
 
     @Override
-    public ProgramIncrementNamesAggregationResult getProductIncrementFromFeatures(List<String> boards) {
+    public ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(Pattern pi) {
 
         Aggregation agg = newAggregation(
             match(Criteria
-                .where("keywords").in(boards)
+                //.where("keywords").in(boards)
+                .where("sPiNames").is(pi)
                 .and("sTypeName").is("Feature")
             ),
             project("sPiNames")

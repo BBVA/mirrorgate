@@ -129,10 +129,17 @@
       }
 
       var buildRoot = data && {children: data.buildRoot};
+      var depth = 1;
 
       //Chage sizes so that all the repos take the same size
       buildRoot && buildRoot.children.forEach(function (repoBuild) {
         repoBuild.size = 100;
+        repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
+          depth = Math.max(depth, 2);
+          repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
+            depth = Math.max(depth, 3);
+          });
+        });
       });
 
       buildRoot = buildRoot || [];
@@ -163,7 +170,7 @@
         .sort(function (d1, d2) {
           return d1.name && d1.name.localeCompare(d2.name);
         })
-        .size([1, 1]);
+        .size([1, 1 - (0.25 * (3-depth))]);
 
       var arc = d3.svg.arc()
         .startAngle(function (d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
