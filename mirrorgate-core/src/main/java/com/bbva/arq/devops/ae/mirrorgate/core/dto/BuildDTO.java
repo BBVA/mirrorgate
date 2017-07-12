@@ -16,6 +16,8 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 public class BuildDTO {
@@ -29,9 +31,10 @@ public class BuildDTO {
     @NotNull
     private long startTime;
 
+    private List<String> culprits = new ArrayList<>();
     private long endTime;
     private long duration;
-    private String startedBy;
+
     private String projectName;
     private String repoName;
     private String branch;
@@ -84,12 +87,12 @@ public class BuildDTO {
         this.buildStatus = buildStatus;
     }
 
-    public String getStartedBy() {
-        return startedBy;
+    public List<String> getCulprits() {
+        return culprits;
     }
 
-    public void setStartedBy(String startedBy) {
-        this.startedBy = startedBy;
+    public void setCulprits(List<String> culprits) {
+        this.culprits = culprits;
     }
 
     public String getProjectName() {

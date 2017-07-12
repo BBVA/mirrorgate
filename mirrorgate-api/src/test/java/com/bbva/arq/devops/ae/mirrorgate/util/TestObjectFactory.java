@@ -17,10 +17,7 @@ package com.bbva.arq.devops.ae.mirrorgate.util;
 
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType.BUG;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.*;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
@@ -154,6 +151,21 @@ public class TestObjectFactory {
         review.setAmount(amount);
 
         return review;
+    }
+
+    public static BuildDTO createBuildDTO() {
+        BuildDTO build = new BuildDTO();
+        build.setNumber("1");
+        build.setBuildUrl("buildUrl");
+        build.setStartTime(3);
+        build.setEndTime(8);
+        build.setDuration(5);
+        build.setBuildStatus("Success");
+        build.getCulprits().add("foo");
+        build.setProjectName("mirrorgate");
+        build.setRepoName("api");
+        build.setBranch("test");
+        return build;
     }
 
 }

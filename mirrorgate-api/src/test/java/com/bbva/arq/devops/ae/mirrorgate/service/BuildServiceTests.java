@@ -23,6 +23,7 @@ import static org.mockito.Mockito.*;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
+import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
@@ -63,7 +64,7 @@ public class BuildServiceTests {
     @Test
     public void createBuildTest() {
         Build build = makeBuild();
-        BuildDTO request = makeBuildRequest();
+        BuildDTO request = TestObjectFactory.createBuildDTO();
 
         when(buildRepository.save((Build)any())).thenReturn(build);
 
@@ -71,21 +72,6 @@ public class BuildServiceTests {
 
         verify(buildRepository, times(1)).save((Build)any());
         assertThat(id).isEqualTo(build.getId().toString());
-    }
-
-    private BuildDTO makeBuildRequest() {
-        BuildDTO build = new BuildDTO();
-        build.setNumber("1");
-        build.setBuildUrl("buildUrl");
-        build.setStartTime(3);
-        build.setEndTime(8);
-        build.setDuration(5);
-        build.setBuildStatus("Success");
-        build.setStartedBy("foo");
-        build.setProjectName("mirrorgate");
-        build.setRepoName("api");
-        build.setBranch("test");
-        return build;
     }
 
 }

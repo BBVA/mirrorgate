@@ -46,7 +46,7 @@ public class BuildBuilder {
         build.setEndTime(8);
         build.setDuration(5);
         build.setBuildStatus(buildStatus);
-        build.setStartedBy("foo");
+        build.getCulprits().add("foo");
         build.setProjectName("mirrorgate");
         build.setRepoName(repoName);
         build.setBranch("test");
