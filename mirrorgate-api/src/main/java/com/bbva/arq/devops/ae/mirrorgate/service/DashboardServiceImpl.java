@@ -22,9 +22,12 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -74,7 +77,7 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public List<DashboardDTO> getActiveDashboards() {
-        return dashboardRepository.getActiveDashboards();
+        return dashboardRepository.getActiveDashboards().stream().map(DashboardMapper::map).collect(Collectors.toList());
     }
 
     @Override

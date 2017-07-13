@@ -18,41 +18,56 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
 
 public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    private static final Map<String,String> DASHBOARD_FIELDS = new HashMap<String, String>() {{
+        for(Field f : Dashboard.class.getDeclaredFields()) {
+            put(f.getName(), "$" + f.getName());
+        }
+        remove("id");
+    }};
+
+    private static GroupOperation firstDashboardFields(GroupOperation operation) {
+
+        return StreamSupport.stream(DASHBOARD_FIELDS.keySet().spliterator(),false)
+                .reduce(operation, (o,s) -> o.first(s).as(s), (old,o) -> o);
+
+    }
+
     @Override
-    public List<DashboardDTO> getActiveDashboards() {
+    public List<Dashboard> getActiveDashboards() {
 
         Aggregation aggregation = newAggregation(
                 sort(new Sort(Sort.Direction.DESC, "lastModification")),
-                group("name")
-                        .first("name").as("name")
-                        .first("displayName").as("displayName")
-                        .first("status").as("status")
-                        .first("logoUrl").as("logoUrl")
-                        .first("adminUsers").as("adminUsers")
+                firstDashboardFields(group("name")),
+                match(Criteria.where("status").ne(DELETED)),
+                project(DASHBOARD_FIELDS.keySet().toArray(new String[]{})).andExclude("_id")
         );
 
         //Convert the aggregation result into a List
-        AggregationResults<DashboardDTO> groupResults
-                = mongoTemplate.aggregate(aggregation, Dashboard.class, DashboardDTO.class);
-
-        return groupResults.getMappedResults().stream()
-                .filter(dashboard -> dashboard.getStatus() != DELETED)
-                .collect(Collectors.toList());
+        AggregationResults<Dashboard> groupResults
+                = mongoTemplate.aggregate(aggregation, Dashboard.class, Dashboard.class);
+        return groupResults.getMappedResults();
     }
 
 }

@@ -19,7 +19,6 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,18 +29,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
-    private DashboardRepository dashboardRepository;
+    private DashboardService dashboardRepository;
     private ReviewRepository reviewRepository;
 
     @Autowired
-    public ApplicationServiceImpl(DashboardRepository dashboardRepository, ReviewRepository reviewRepository){
+    public ApplicationServiceImpl(DashboardService dashboardRepository, ReviewRepository reviewRepository){
         this.dashboardRepository = dashboardRepository;
         this.reviewRepository = reviewRepository;
     }
 
     public List<ApplicationReviewsDTO> getApplicationsAndReviews(){
 
-        List<String> activeApplicationNames = getApplicationNames(getActiveApplications());
+        List<String> activeApplicationNames = getApplicationNames(dashboardRepository.getActiveDashboards());
 
         List<ApplicationReviewsDTO> appsWithReview = reviewRepository.getLastReviewPerApplication(activeApplicationNames);
         List<String> appsWithoutReview = getApplicationsWithoutReviews(activeApplicationNames, appsWithReview);
@@ -88,10 +87,6 @@ public class ApplicationServiceImpl implements ApplicationService {
         );
 
         return applicationsWithoutReviews;
-    }
-
-    private List<DashboardDTO> getActiveApplications() {
-        return dashboardRepository.getActiveDashboards();
     }
 
     private List<String> getApplicationNames(Iterable<DashboardDTO> activeDashboards) {

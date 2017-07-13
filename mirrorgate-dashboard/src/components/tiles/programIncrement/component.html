@@ -111,7 +111,6 @@
               completedRate(b) - completedRate(a) :
               order[b.status] - order[a.status];
         })
-        .size([3/2 * Math.PI, 1])
         .value(function(d) {
           return d.size;
         });
@@ -131,8 +130,8 @@
         .endAngle(function(d) { return d.x + d.dx  - 3 * Math.PI/4; })
         .padAngle(Math.PI/180)
         .cornerRadius(20)
-        .innerRadius(function (d) { return d.y === 0 ? 0 : Math.max(0, y(d.y-0.25)) + ((d.y-0.25) && (5)); })
-        .outerRadius(function (d) { return d.y === 0 ? 0 : Math.max(0, y((d.y-0.25) + d.dy)) - 20; });
+        .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) + 20; })
+        .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -1; });
 
     // Creates an object based in the HTML Element prototype
     var MyElementProto = Object.create(Tile);
@@ -175,11 +174,16 @@
       if (data) {
         model.programIncrement = data;
 
+        var depth = 1;
+
         //Distribute size so that all features take the same width
         model.programIncrement.products.forEach(function(product) {
           product.children.forEach(function(feature) {
             feature.size = 1;
+            depth = Math.max(depth, 2);
+
             if(feature.children.length) {
+              depth = Math.max(depth, 3);
               var size = 1/feature.children.length;
               feature.children.forEach(function(story) {
                 story.size = size;
@@ -197,8 +201,9 @@
         var width = parseFloat(style.width.substring(0, style.width.length - 2)),
           height = parseFloat(style.height.substring(0, style.height.length - 2)),
           radius = Math.min(width, height) / 2;
-
         width = 2 * radius;
+
+        partition = partition.size([3/2 * Math.PI, 1 - (0.25 * (3-depth))]);
 
         var container = d3.select(this.shadowRoot).select("svg")
           .attr('preserveAspectRatio', 'xMidYMid meet')
