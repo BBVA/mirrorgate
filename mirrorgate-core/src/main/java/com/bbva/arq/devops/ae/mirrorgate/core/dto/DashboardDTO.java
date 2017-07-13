@@ -37,7 +37,7 @@ public class DashboardDTO {
     private Filters filters;
     private DashboardStatus status;
     private String lastUserEdit;
-    private long lastModification;
+    private Long lastModification;
 
     public String getName() {
         return name;
@@ -113,11 +113,11 @@ public class DashboardDTO {
         this.lastUserEdit = lastUserEdit;
     }
 
-    public long getLastModification() {
+    public Long getLastModification() {
         return lastModification;
     }
 
-    public void setLastModification(long lastModification) {
+    public void setLastModification(Long lastModification) {
         this.lastModification = lastModification;
     }
 

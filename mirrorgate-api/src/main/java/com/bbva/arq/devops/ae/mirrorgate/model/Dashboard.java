@@ -48,7 +48,7 @@ public class Dashboard extends BaseModel {
     private DashboardStatus status;
     private String lastUserEdit;
     @Indexed
-    private long lastModification;
+    private Long lastModification;
     private String programIncrement;
     private String urlAlerts;
     private String author;
@@ -127,7 +127,7 @@ public class Dashboard extends BaseModel {
         this.lastUserEdit = lastUserEdit;
     }
 
-    public long getLastModification() {
+    public Long getLastModification() {
         return lastModification;
     }
 

@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
-import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
+import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class ApplicationServiceTest {
 
     //TODO improve tests
     @Mock
-    private DashboardRepository dashboardRepository;
+    private DashboardService dashboardService;
     @Mock
     private ReviewRepository reviewRepository;
 
@@ -56,7 +56,7 @@ public class ApplicationServiceTest {
         ApplicationReviewsDTO applicationReviewsDTO1 = TestObjectFactory.createApplicationDTO("mirrorgate", Platform.IOS);
         List<ApplicationReviewsDTO> applicationReviewsDTOList = Arrays.asList(applicationReviewsDTO1);
 
-        when(dashboardRepository.getActiveDashboards()).thenReturn(listOfDashboards);
+        when(dashboardService.getActiveDashboards()).thenReturn(listOfDashboards);
         when(reviewRepository.getLastReviewPerApplication(anyList())).thenReturn(applicationReviewsDTOList);
 
         List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
@@ -72,7 +72,7 @@ public class ApplicationServiceTest {
 
         List<ApplicationReviewsDTO> applicationReviewsDTOList = new ArrayList<>();
 
-        when(dashboardRepository.getActiveDashboards()).thenReturn(listOfDashboards);
+        when(dashboardService.getActiveDashboards()).thenReturn(listOfDashboards);
         when(reviewRepository.getLastReviewPerApplication(anyList())).thenReturn(applicationReviewsDTOList);
 
         List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
