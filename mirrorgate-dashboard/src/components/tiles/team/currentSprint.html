@@ -85,7 +85,7 @@
         <span class="legend__color"></span>To Do
       </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -163,7 +163,7 @@
       }
 
       var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
-      
+
       var marginTop = 0;
 
       var width = parseFloat(style.width.substring(0, style.width.length - 2)),
@@ -180,7 +180,7 @@
       var svg = container
         .select("g.main").attr("transform",
         "translate(" + radius + "," + (radius + marginTop) + ") " +
-        "scale(" + (radius / 530) + ")"
+        "scale(" + (radius / 500) + ")"
         );
 
 
