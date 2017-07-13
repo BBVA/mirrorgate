@@ -220,3 +220,13 @@ tile-container{
 .dropdown-menu>li>a{
     font-weight: $font-weight-medium;
 }
+
+.easter-egg {
+   position:absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index: 10000;
+   pointer-events: none;
+   display: none;
+}
