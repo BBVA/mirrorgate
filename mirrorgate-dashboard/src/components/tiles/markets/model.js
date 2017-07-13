@@ -31,4 +31,10 @@ function Market(name, rate, platform, reviews) {
   this.rate = rate;
   this.platform = platform;
   this.reviews = reviews;
+  reviews.forEach(function(review) {
+    review.icon = {
+      android: 'android',
+      ios: 'apple'
+    }[platform.toLowerCase()];
+  });
 }
