@@ -21,18 +21,81 @@
     .component__body {
         max-width: 600px;
         margin: 0 auto;
-    }
-
-    .rate {
-        i{
-            padding: 0 4px;
-        }
+        display: inline-block;
     }
 
     .platform-rate{
         margin-bottom: 1em;
         text-align: center;
     }
+
+    .rate {
+        position: relative;
+        box-sizing: content-box;
+
+        i{
+            padding: 0 4px;
+        }
+    }
+
+    .fa {
+        position:relative;
+        z-index: 1;
+    }
+
+    .rate-total {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        display: inline-block;
+        top: -4px;
+        overflow: hidden;
+        color: #0c0c0c; /*$background-color*/
+        white-space: nowrap;
+        border-right: 2px solid #666;
+        -webkit-text-stroke: 6px #666;
+        z-index: 0;
+    }
+
+    .rate-total-data {
+        color: #666;
+        position:absolute;
+        top: 100%;
+        border-left: 2px solid #666;
+        width: 0;
+
+        .rate-legend {
+            direction: rtl;
+            position:absolute;
+            right: 8px;
+            top: 4px;
+            text-align: right;
+            white-space: nowrap;
+            color: #666;
+        }
+
+        .rate-value {
+            padding-left: 4px;
+            float:left;
+            font-size: 0.6em;
+        }
+
+    }
+
+    .rate-value {
+        font-size: 0.8em;
+
+        span {
+            padding-left: 4px;
+            font-size: 0.5em;
+        }
+
+    }
+
+    .rate-legend {
+        font-size: 0.35em;
+    }
+
 }
 
 

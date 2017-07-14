@@ -31,14 +31,13 @@ var MarketsController = (function(dashboardId) {
       var reviews = [];
       response = JSON.parse(response);
       for(var index in response) {
-          var app = new Market(
-            response[index].appname,
-            response[index].rate,
-            response[index].platform,
-            response[index].reviews);
+          var app = new Market(response[index]);
           reviews = reviews.concat(response[index].reviews);
           data.apps.push(app);
       }
+      data.reviews = reviews.filter((review) =>  {
+        return review.timestamp > 0;
+      });
       data.reviews = reviews.sort((r1, r2) => {
         return r1.timestamp < r2.timestamp ? 1 : -1;
       }).slice(0,3);
@@ -53,5 +52,19 @@ var MarketsController = (function(dashboardId) {
     service.removeListener(getRates);
   };
   this.init = function() { service.addListener(getRates); };
+
+  this.calculateStars = function (rate) {
+    var stars = [];
+    for(i = 0; i < 5; i++ ) {
+      if(rate - i >= 1 ) {
+        stars.push('star');
+      } else if (rate - i > 0 ){
+        stars.push('star-half-o');
+      } else {
+        stars.push('star-o');
+      }
+    }
+    return stars;
+  };
 
 });

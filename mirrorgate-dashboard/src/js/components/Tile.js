@@ -78,8 +78,8 @@ var Tile = (function() {
     }
     this._inited = false;
 
-    if (this._controller) {
-      this._controller.dispose();
+    if (this.controller) {
+      this.controller.dispose();
     }
     this.onDispose();
   };
@@ -103,14 +103,14 @@ var Tile = (function() {
     this._inited = true;
     var config = this.getConfig();
     if (typeof(this.getDashboardId()) === 'string' && config) {
-      this._controller = new (this.getControllerClass())(this.getDashboardId());
-      this._controller.observable.attach(function (data) {
+      this.controller = new (this.getControllerClass())(this.getDashboardId());
+      this.controller.observable.attach(function (data) {
         if(data) {
           this.getModel().updatedDate = Date.now();
         }
         this.render(data);
       }.bind(this));
-      this._controller.init(config);
+      this.controller.init(config);
     }
     this.onInit();
   };

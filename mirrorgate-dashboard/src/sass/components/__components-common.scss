@@ -338,3 +338,23 @@ svg {
 .status-excellent {
   color: #24D268;
 }
+
+.tendency {
+
+  &::before {
+    font-size: 1.5em;
+    padding-right: 4px;
+    content: '~';
+  }
+
+  &.tendency-up::before {
+    content: '\25B2';
+    color: green;
+  }
+
+  &.tendency-down::before {
+    content: '\25BC';
+    color: red;
+  }
+
+}
