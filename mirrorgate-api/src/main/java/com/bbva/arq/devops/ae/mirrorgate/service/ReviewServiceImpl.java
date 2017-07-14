@@ -40,17 +40,29 @@ public class ReviewServiceImpl implements ReviewService {
         List<ApplicationDTO> result = repository.getAverageRateByAppNames(names);
 
         Date sevenDaysBefore = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
+        Date monthBefore = new Date(System.currentTimeMillis() - (30 * DAY_IN_MS));
 
-        List<ApplicationDTO> stats = repository.getAverageRateByAppNamesAfterTimestamp(names, sevenDaysBefore.getTime());
+        List<ApplicationDTO> stats7Days = repository.getAverageRateByAppNamesAfterTimestamp(names, sevenDaysBefore.getTime());
+        List<ApplicationDTO> statsMonth = repository.getAverageRateByAppNamesAfterTimestamp(names, monthBefore.getTime());
 
         result.forEach((app) -> {
-            Optional<ApplicationDTO> appStats = stats.stream()
+            Optional<ApplicationDTO> appStats7Days = stats7Days.stream()
                     .filter((stat) -> stat.getAppname().equals(app.getAppname()) && stat.getPlatform().equals(app.getPlatform()))
                     .findFirst();
-            if(appStats.isPresent()) {
-                app.setRating7Days(appStats.get().getRating7Days());
-                app.setVotes7Days(appStats.get().getVotes7Days());
+            Optional<ApplicationDTO> appStatsMonth = statsMonth.stream()
+                    .filter((stat) -> stat.getAppname().equals(app.getAppname()) && stat.getPlatform().equals(app.getPlatform()))
+                    .findFirst();
+
+            if(appStats7Days.isPresent()) {
+                app.setRating7Days(appStats7Days.get().getRating7Days());
+                app.setVotes7Days(appStats7Days.get().getVotes7Days());
             }
+            if(appStatsMonth.isPresent()) {
+                //Ugly hack... we use the 7days to return the data even if it's for month :-(
+                app.setRatingMonth(appStatsMonth.get().getRating7Days());
+                app.setVotesMonth(appStatsMonth.get().getVotes7Days());
+            }
+
         });
 
         return result;

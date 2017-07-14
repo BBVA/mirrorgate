@@ -33,7 +33,7 @@
         <div rv-each-app="apps" class="platform-rate">
           <span class=".rate-7days-data" rv-show="app.rate7Days">
             <i aria-hidden="true" rv-pclass-fa="app.icon" class="fa"></i>
-            <span class="rate-value">{app.rate7Days}<span>stars</span></span>
+            <span class="rate-value">{app.rate7Days}<span class="rate-value-tag tendency" rv-pclass-tendency="app.tendency">stars</span></span>
             <span class="rate-legend">(7 days average)</span>
           </span>
           <span class=".rate-7days-data" rv-hide="app.rate7Days">
@@ -90,12 +90,15 @@
         status: apps ? 'unknown' : 'server-error'
       });
 
-      this.model.apps = data.apps;
-      this.model.apps.forEach(function(app) {
-        app.starsTotal = this.controller.calculateStars(app.rateTotal);
-        app.percentTotal = app.rateTotal * 20;
-        app.stars7Days = this.controller.calculateStars(app.rate7Days);
-      }, this);
+      if(apps) {
+        this.model.apps = apps;
+        this.model.apps.forEach(function(app) {
+          app.starsTotal = this.controller.calculateStars(app.rateTotal);
+          app.percentTotal = app.rateTotal * 20;
+          app.stars7Days = this.controller.calculateStars(app.rate7Days);
+        }, this);
+      }
+
     }
 
     // Registers <team-dashboard> in the main document

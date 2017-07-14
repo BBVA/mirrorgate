@@ -27,6 +27,9 @@ public class ApplicationDTO {
     private long ratingTotal;
     private long votes7Days;
     private long rating7Days;
+    private long votesMonth;
+    private long ratingMonth;
+
 
     private Platform platform;
     private List<ReviewDTO> reviews;
@@ -96,5 +99,21 @@ public class ApplicationDTO {
     public ApplicationDTO setRating7Days(long rating7Days) {
         this.rating7Days = rating7Days;
         return this;
+    }
+
+    public long getRatingMonth() {
+        return ratingMonth;
+    }
+
+    public void setRatingMonth(long ratingMonth) {
+        this.ratingMonth = ratingMonth;
+    }
+
+    public long getVotesMonth() {
+        return votesMonth;
+    }
+
+    public void setVotesMonth(long votesMonth) {
+        this.votesMonth = votesMonth;
     }
 }

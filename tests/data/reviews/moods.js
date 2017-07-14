@@ -27,6 +27,23 @@ db.getCollection('reviews').insertMany([
     "platform" : "IOS"
   },
   {
+    "timestamp" : now -5 * day,
+    "appname" : "moods",
+    "authorName" : "Kike",
+    "starrating" : 4.0,
+    "comment" : "It's now beter!",
+    "platform" : "IOS"
+  },  
+  {
+    "timestamp" : now -10 * day,
+    "appname" : "moods",
+    "authorName" : "Kike",
+    "starrating" : 5.0,
+    "comment" : "Awesome!",
+    "platform" : "Android"
+  },  
+  
+  {
     "timestamp" : now - 20 * day,
     "appname" : "moods",
     "authorName" : "Ana",

@@ -1,39 +1,49 @@
 [
   {
     "appname": "moods",
-    "rate": 3.0,
+    "votesTotal": 24,
+    "ratingTotal": 100,
+    "votes7Days": 3,
+    "rating7Days": 8,
+    "votesMonth": 12,
+    "ratingMonth": 40,
     "platform": "IOS",
     "reviews": [
       {
         "author": "Carlos",
         "rate": 1.0,
-        "timestamp": 1488861673755,
+        "timestamp": 1498814350000,
         "comment": "Pufff!"
       }
     ]
   },
   {
     "appname": "moods",
-    "rate": 2.5,
+    "votesTotal": 24,
+    "ratingTotal": 80,
+    "votes7Days": 3,
+    "rating7Days": 14,
+    "votesMonth": 12,
+    "ratingMonth": 25,
     "platform": "Android",
     "reviews": [
       {
         "author": "kike",
         "rate": 4.0,
-        "timestamp": 1688871673756,
+        "timestamp": 1498804350000,
         "comment": "Consume mucho"
       },
       {
         "author": "Ana",
-        "rate": 4.0,
-        "timestamp": 1688871673755,
+        "rate": 3.5,
+        "timestamp": 1488961673755,
         "comment": "Buen diseño"
       },
       {
-        "author": "Ana",
-        "rate": 4.0,
-        "timestamp": 1488871673755,
-        "comment": "Buen diseño"
+        "author": "Alfonso",
+        "rate": 5,
+        "timestamp": 1498814350000,
+        "comment": "Me gusta"
       }
     ]
   }
