@@ -24,18 +24,21 @@
         display: inline-block;
     }
 
-    .platform-rate{
-        margin-bottom: 1em;
+    .platform-rate {
         text-align: center;
     }
 
     .rate {
         position: relative;
-        box-sizing: content-box;
+
 
         i{
             padding: 0 4px;
         }
+    }
+
+    .rate-stars {
+      min-height: 2em;
     }
 
     .fa {
@@ -48,20 +51,40 @@
         left: 0;
         width: 100%;
         display: inline-block;
-        top: -4px;
+        top: -0.12em;
         overflow: hidden;
-        color: #0c0c0c; /*$background-color*/
+        color: $background-color;
         white-space: nowrap;
-        border-right: 2px solid #666;
         -webkit-text-stroke: 6px #666;
         z-index: 0;
+    }
+
+    .rate-total::before {
+        content: "";
+        width: 2px;
+        display: block;
+        background: #666;
+        position: absolute;
+        right: 0;
+        height:70%;
+        top: 30%;
+    }
+
+
+    .rate-total-data::before {
+      content: "";
+      left: -2px;
+      position: absolute;
+      width: 2px;
+      top: 0;
+      height: 80%;
+      background: #666;
     }
 
     .rate-total-data {
         color: #666;
         position:absolute;
         top: 100%;
-        border-left: 2px solid #666;
         width: 0;
 
         .rate-legend {
