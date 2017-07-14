@@ -44,7 +44,10 @@ function Market(data) {
       ios: 'apple'
   }[this.platform.toLowerCase()];
 
-  this.reviews && this.reviews.forEach(function(review) {
-    review.icon = this.icon;
-  }.bind(this));
+  if(this.reviews) {
+    this.reviews.forEach(function(review) {
+      review.icon = this.icon;
+    }.bind(this));
+  }
+
 }
