@@ -1,32 +1,33 @@
+var now = (new Date()).getTime();
+var hour = 60 * 60 * 1000;
+var day = 24 * hour;
+var week = 7 * day;
+
 db.getCollection('reviews').insertMany([
   {
-    "timestamp" : NumberLong(1487861653759),
+    "timestamp" : 0,
     "appname" : "moods",
-    "authorName" : "Alfonso",
-    "starrating" : 5.0,
-    "comment" : "Es una aplicación estupenda!",
+    "starrating" : 3.5,
     "platform" : "Android",
-    "amount": 10
+    "amount": 20
   },
   {
-    "timestamp" : NumberLong(1487861673755),
+    "timestamp" : 0,
+    "appname" : "moods",
+    "starrating" : 4.3,
+    "platform" : "IOS",
+    "amount": 10
+  },  
+  {
+    "timestamp" : now - 10 * day,
     "appname" : "moods",
     "authorName" : "Kike",
     "starrating" : 3.0,
     "comment" : "Pufff!",
-    "platform" : "Android"
+    "platform" : "IOS"
   },
   {
-    "timestamp" : NumberLong(1488861673755),
-    "appname" : "moods",
-    "authorName" : "Carlos",
-    "starrating" : 1.0,
-    "comment" : "Pufff!",
-    "platform" : "IOS",
-    "amount": 10
-  },
-  {
-    "timestamp" : NumberLong(1488871673755),
+    "timestamp" : now - 20 * day,
     "appname" : "moods",
     "authorName" : "Ana",
     "starrating" : 4.0,
@@ -35,7 +36,7 @@ db.getCollection('reviews').insertMany([
     "amount": 1
   },
   {
-    "timestamp" : NumberLong(1688871673755),
+    "timestamp" : now - 3 * day,
     "appname" : "moods",
     "authorName" : "Ana",
     "starrating" : 4.0,
@@ -43,7 +44,7 @@ db.getCollection('reviews').insertMany([
     "platform" : "Android"
   },
   {
-    "timestamp" : NumberLong(1688871673756),
+    "timestamp" : now - 40 * day,
     "appname" : "moods",
     "authorName" : "kike",
     "starrating" : 4.0,

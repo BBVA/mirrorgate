@@ -20,19 +20,40 @@ import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
+    private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
+
     @Autowired
     private ReviewRepository repository;
 
     @Override
     public List<ApplicationDTO> getAverageRateByAppNames(List<String> names) {
-        return repository.getAverageRateByAppNames(names);
+        List<ApplicationDTO> result = repository.getAverageRateByAppNames(names);
+
+        Date sevenDaysBefore = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
+
+        List<ApplicationDTO> stats = repository.getAverageRateByAppNamesAfterTimestamp(names, sevenDaysBefore.getTime());
+
+        result.forEach((app) -> {
+            Optional<ApplicationDTO> appStats = stats.stream()
+                    .filter((stat) -> stat.getAppname().equals(app.getAppname()) && stat.getPlatform().equals(app.getPlatform()))
+                    .findFirst();
+            if(appStats.isPresent()) {
+                app.setRating7Days(appStats.get().getRating7Days());
+                app.setVotes7Days(appStats.get().getVotes7Days());
+            }
+        });
+
+        return result;
     }
 
     private List<String> getReviewIds(Iterable<Review> reviews) {

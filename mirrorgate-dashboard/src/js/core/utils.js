@@ -95,9 +95,17 @@ rivets.binders['pclass-*'] = function(el, value) {
   }
 };
 
-rivets.binders.width = function(el, value) {
-  $(el).css('width', '' + value + '%');
-};
+function styleBuilder(style, suffix) {
+  suffix = suffix || '';
+
+  return function(el, value) {
+    $(el).css(style, '' + value + suffix);
+  };
+}
+
+rivets.binders.width = styleBuilder('width','%');
+rivets.binders.left = styleBuilder('left','%');
+rivets.binders.right = styleBuilder('right','%');
 
 rivets.binders.color = function(el, value) {
   $(el).css('color', '#' + value);

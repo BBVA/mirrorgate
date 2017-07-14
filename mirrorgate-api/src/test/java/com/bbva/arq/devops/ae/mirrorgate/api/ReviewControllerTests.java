@@ -80,7 +80,7 @@ public class ReviewControllerTests {
 
         ApplicationDTO app1 = new ApplicationDTO()
                 .setAppname(appName1)
-                .setRate(3)
+                .setRatingTotal(1003)
                 .setPlatform(Platform.Android)
                 .setReviews(Arrays.asList(
                         new ReviewDTO()
@@ -96,7 +96,7 @@ public class ReviewControllerTests {
                 ));
         ApplicationDTO app2 = new ApplicationDTO()
                 .setAppname(appName2)
-                .setRate(4.5)
+                .setRatingTotal(1203)
                 .setPlatform(Platform.IOS)
                 .setReviews(Arrays.asList(
                         new ReviewDTO()
@@ -115,7 +115,7 @@ public class ReviewControllerTests {
         this.mockMvc.perform(get("/dashboards/" + dashboardName + "/applications"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].appname", equalTo(app1.getAppname())))
-                .andExpect(jsonPath("$[0].rate", equalTo((double) app1.getRate())))
+                .andExpect(jsonPath("$[0].ratingTotal", equalTo((int) app1.getRatingTotal())))
                 .andExpect(jsonPath("$[0].platform", equalTo(app1.getPlatform().toString())))
                 .andExpect(jsonPath("$[0].reviews[0].author", equalTo(app1.getReviews().get(0).getAuthor())))
                 .andExpect(jsonPath("$[0].reviews[0].rate", equalTo(app1.getReviews().get(0).getRate())))
@@ -125,7 +125,7 @@ public class ReviewControllerTests {
                 .andExpect(jsonPath("$[0].reviews[1].rate", equalTo(app1.getReviews().get(1).getRate())))
                 .andExpect(jsonPath("$[0].reviews[1].timestamp", equalTo((int) app1.getReviews().get(1).getTimestamp())))
                 .andExpect(jsonPath("$[0].reviews[1].comment", equalTo(app1.getReviews().get(1).getComment())))
-                .andExpect(jsonPath("$[1].rate", equalTo((double) app2.getRate())))
+                .andExpect(jsonPath("$[1].ratingTotal", equalTo((int) app2.getRatingTotal())))
                 .andExpect(jsonPath("$[1].platform", equalTo(app2.getPlatform().toString())))
                 .andExpect(jsonPath("$[1].reviews[0].author", equalTo(app2.getReviews().get(0).getAuthor())))
                 .andExpect(jsonPath("$[1].reviews[0].rate", equalTo(app2.getReviews().get(0).getRate())))
