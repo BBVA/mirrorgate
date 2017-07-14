@@ -23,7 +23,14 @@ import java.util.List;
 public class ApplicationDTO {
 
     private String appname;
-    private double rate;
+    private long votesTotal;
+    private long ratingTotal;
+    private long votes7Days;
+    private long rating7Days;
+    private long votesMonth;
+    private long ratingMonth;
+
+
     private Platform platform;
     private List<ReviewDTO> reviews;
 
@@ -37,15 +44,6 @@ public class ApplicationDTO {
 
     public ApplicationDTO setAppname(String appname) {
         this.appname = appname;
-        return this;
-    }
-
-    public double getRate() {
-        return rate;
-    }
-
-    public ApplicationDTO setRate(double rate) {
-        this.rate = rate;
         return this;
     }
 
@@ -65,5 +63,57 @@ public class ApplicationDTO {
     public ApplicationDTO setReviews(List<ReviewDTO> reviews) {
         this.reviews = reviews;
         return this;
+    }
+
+    public long getVotesTotal() {
+        return votesTotal;
+    }
+
+    public ApplicationDTO setVotesTotal(long votesTotal) {
+        this.votesTotal = votesTotal;
+        return this;
+    }
+
+    public long getRatingTotal() {
+        return ratingTotal;
+    }
+
+    public ApplicationDTO setRatingTotal(long ratingTotal) {
+        this.ratingTotal = ratingTotal;
+        return this;
+    }
+
+    public long getVotes7Days() {
+        return votes7Days;
+    }
+
+    public ApplicationDTO setVotes7Days(long votes7Days) {
+        this.votes7Days = votes7Days;
+        return this;
+    }
+
+    public long getRating7Days() {
+        return rating7Days;
+    }
+
+    public ApplicationDTO setRating7Days(long rating7Days) {
+        this.rating7Days = rating7Days;
+        return this;
+    }
+
+    public long getRatingMonth() {
+        return ratingMonth;
+    }
+
+    public void setRatingMonth(long ratingMonth) {
+        this.ratingMonth = ratingMonth;
+    }
+
+    public long getVotesMonth() {
+        return votesMonth;
+    }
+
+    public void setVotesMonth(long votesMonth) {
+        this.votesMonth = votesMonth;
     }
 }

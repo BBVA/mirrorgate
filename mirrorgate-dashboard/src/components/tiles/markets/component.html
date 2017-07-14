@@ -22,10 +22,6 @@
 <template>
   <style>
     @import "css/styles.css";
-
-    .applications .component__body {
-      display: inline-block;
-    }
   </style>
 
   <div class="applications component__content">
@@ -33,7 +29,38 @@
       <h2 class="title">Markets</h2>
     </div>
     <div class="component__body">
-      <div id="container"></div>
+      <div id="container">
+        <div rv-each-app="apps" class="platform-rate">
+          <span class=".rate-7days-data" rv-show="app.rate7Days">
+            <i aria-hidden="true" rv-pclass-fa="app.icon" class="fa"></i>
+            <span class="rate-value">{app.rate7Days}<span class="rate-value-tag tendency" rv-pclass-tendency="app.tendency">stars</span></span>
+            <span class="rate-legend">(7 days average)</span>
+          </span>
+          <span class=".rate-7days-data" rv-hide="app.rate7Days">
+            <i aria-hidden="true" rv-pclass-fa="app.icon" class="fa"></i>
+            <span class="rate-legend">No ratings in 7 days</span>
+          </span>
+          <br/>
+          <div class="rate-stars">
+            <span class="rate">
+              <span class="rate rate-total" rv-width="app.percentTotal">
+                <span>
+                <i aria-hidden="true" class="fa fa-star"></i
+                ><i aria-hidden="true" class="fa fa-star"></i
+                ><i aria-hidden="true" class="fa fa-star"></i
+                ><i aria-hidden="true" class="fa fa-star"></i
+                ><i aria-hidden="true" class="fa fa-star"></i>
+                </span>
+              </span>
+              <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
+              <span class="rate-total-data" rv-left="app.percentTotal">
+                <span class="rate-value">{app.rateTotal}</span>
+                <span class="rate-legend">History average</span>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -63,65 +90,15 @@
         status: apps ? 'unknown' : 'server-error'
       });
 
-      var marginTop = 10;
-
-      var container = this.shadowRoot.querySelector('#container');
-      container.innerHTML = '';
-
-      for (var index in apps) {
-        var appDiv = createAppElement(apps[index])
-        container.appendChild(appDiv);
-      }
-    }
-
-    function createAppElement(app) {
-      var div = thisDoc.createElement('div');
-      div.setAttribute('class', 'platform-rate');
-      var appPlatformTextNode = thisDoc.createTextNode(app.platform);
-      var appNameTextNode = thisDoc.createTextNode(" " + app.name);
-
-      var platformIcon = thisDoc.createElement('i');
-      platformIcon.setAttribute('aria-hidden', true);
-
-      if (app.platform == "IOS") {
-        platformIcon.setAttribute('class', 'fa fa-apple');
-        var appPlatformTextNode = platformIcon;
-      }
-      else if (app.platform == "Android") {
-        platformIcon.setAttribute('class', 'fa fa-android');
-        var appPlatformTextNode = platformIcon;
+      if(apps) {
+        this.model.apps = apps;
+        this.model.apps.forEach(function(app) {
+          app.starsTotal = this.controller.calculateStars(app.rateTotal);
+          app.percentTotal = app.rateTotal * 20;
+          app.stars7Days = this.controller.calculateStars(app.rate7Days);
+        }, this);
       }
 
-      div.appendChild(appPlatformTextNode);
-      // TODO: div.appendChild(appNameTextNode);
-      var br = thisDoc.createElement('br');
-      div.appendChild(br);
-
-      var rate = createStarRatingElement(app.rate);
-      rate.setAttribute('class', 'rate');
-
-      div.appendChild(rate);
-
-      return div;
-    }
-
-    function createStarRatingElement(rate) {
-      var stars = thisDoc.createElement('span');
-
-      for(i = 0; i < 5; i++ ) {
-        var star = thisDoc.createElement('i');
-        star.setAttribute('aria-hidden', true);
-        if(rate - i >= 1 ) {
-          star.setAttribute('class', 'fa fa-star');
-        } else if (rate - i > 0 ){
-          star.setAttribute('class', 'fa fa-star-half-o')
-        } else {
-          star.setAttribute('class', 'fa fa-star-o')
-        }
-        stars.appendChild(star);
-      }
-
-      return stars;
     }
 
     // Registers <team-dashboard> in the main document

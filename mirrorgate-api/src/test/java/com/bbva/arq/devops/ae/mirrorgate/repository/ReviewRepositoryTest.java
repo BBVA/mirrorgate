@@ -89,30 +89,4 @@ public class ReviewRepositoryTest {
         assertTrue(reviews.get(0).getPlatform().equals(Platform.IOS));
     }
 
-    @Test
-    public void getAverageRateByAppNames() {
-        List<String> names = Arrays.asList("mirrorgate", "mirrorgato", "mood");
-        List<ApplicationDTO> applications = reviewRepository.getAverageRateByAppNames(names);
-
-        List<Review> iosReviews = new ArrayList<>();
-        iosReviews.add(review1);
-        iosReviews.add(review2);
-
-        List<Review> androidReviews = new ArrayList<>();
-        androidReviews.add(review3);
-        androidReviews.add(review4);
-
-        assertTrue(applications.get(0).getRate() == calculateAverage(iosReviews));
-        assertTrue(applications.get(1).getRate() == calculateAverage(androidReviews));
-    }
-
-    private double calculateAverage(List<Review> reviews) {
-        int total_accumulate = reviews.stream()
-                .mapToInt(review -> review.getAmount()).sum();
-        double total_starrating = reviews.stream()
-                .mapToDouble(review -> review.getStarrating() * review.getAmount()).sum();
-
-        return total_starrating / total_accumulate;
-    }
-
 }

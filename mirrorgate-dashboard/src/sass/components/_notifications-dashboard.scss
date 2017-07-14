@@ -15,7 +15,7 @@
  */
 notifications-tile{
     display: block;
-    font-size: 1.5em;
+    font-size: 13px;
 }
 
 .notifications {
@@ -82,5 +82,6 @@ notifications-tile{
 @media all and (min-width: $xxl) {
     notifications-tile {
         height: $footer-height + 40;
+        font-size: 26px;
     }
 }

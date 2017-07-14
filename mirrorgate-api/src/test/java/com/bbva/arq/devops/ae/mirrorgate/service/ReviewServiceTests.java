@@ -52,7 +52,7 @@ public class ReviewServiceTests {
 
         ApplicationDTO app1 = new ApplicationDTO()
                 .setAppname(appName1)
-                .setRate(3)
+                .setRatingTotal(1003)
                 .setPlatform(Platform.Android)
                 .setReviews(Arrays.asList(
                         new ReviewDTO()
@@ -68,7 +68,7 @@ public class ReviewServiceTests {
                 ));
         ApplicationDTO app2 = new ApplicationDTO()
                 .setAppname(appName2)
-                .setRate(4.5)
+                .setRatingTotal(1203)
                 .setPlatform(Platform.IOS)
                 .setReviews(Arrays.asList(
                         new ReviewDTO()
