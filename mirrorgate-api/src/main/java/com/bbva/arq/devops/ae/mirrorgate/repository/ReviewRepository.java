@@ -34,4 +34,6 @@ public interface ReviewRepository extends CrudRepository<Review, ObjectId>, Revi
     @Query(value = "{appname: {$in: ?0}, timestamp: null}")
     List<Review> findHistoricalForApps(List<String> appname);
 
+    List<Review> findAllByCommentIdIn(List<String> commentIds);
+
 }

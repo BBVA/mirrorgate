@@ -19,10 +19,8 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -87,7 +85,7 @@ public class ReviewServiceImpl implements ReviewService {
     private List<String> getReviewIds(Iterable<Review> reviews) {
         List<String> savedIDs = new ArrayList<>();
 
-        reviews.forEach(request -> savedIDs.add(request.getId().toString()));
+        reviews.forEach(request -> savedIDs.add(request.getCommentId()));
 
         return savedIDs;
     }
@@ -97,6 +95,15 @@ public class ReviewServiceImpl implements ReviewService {
 
         List<Review> singleReviews = StreamSupport.stream(reviews.spliterator(), false)
                 .filter((r) -> r.getTimestamp() != null).collect(Collectors.toList());
+
+
+        Set<String> existingReviews = repository
+                .findAllByCommentIdIn(singleReviews.stream().map(Review::getCommentId).collect(Collectors.toList()))
+                .stream().map(Review::getCommentId).collect(Collectors.toSet());
+
+        singleReviews = singleReviews.stream()
+                .filter((r) -> !existingReviews.contains(r.getCommentId()))
+                .collect(Collectors.toList());
 
         Iterable<Review> newReviews = repository.save(singleReviews);
 
@@ -109,21 +116,23 @@ public class ReviewServiceImpl implements ReviewService {
 
         if(historyData.size() > 0) {
             List<Review> dbHistoricalReviews = repository.findAllHistorical(historyData.get(0).getPlatform());
-            dbHistoricalReviews = dbHistoricalReviews.stream().filter((review) -> {
-                Optional<Review> newDataOpt = historyData.stream()
-                        .filter((h) -> review.getAppname().equals(h.getAppname()))
-                        .findFirst();
-                if(newDataOpt.isPresent()) {
-                    Review newData = newDataOpt.get();
-                    review.setAmount(newData.getAmount());
-                    review.setStarrating(newData.getStarrating());
-                    historyData.remove(newData);
-                    return true;
-                }
-                return false;
-            }).collect(Collectors.toList());
 
-            repository.save(dbHistoricalReviews);
+            if(dbHistoricalReviews.size() > 0) {
+                dbHistoricalReviews = dbHistoricalReviews.stream().filter((review) -> {
+                    Optional<Review> newDataOpt = historyData.stream()
+                            .filter((h) -> review.getAppname().equals(h.getAppname()))
+                            .findFirst();
+                    if(newDataOpt.isPresent()) {
+                        Review newData = newDataOpt.get();
+                        review.setAmount(newData.getAmount());
+                        review.setStarrating(newData.getStarrating());
+                        historyData.remove(newData);
+                        return true;
+                    }
+                    return false;
+                }).collect(Collectors.toList());
+                repository.save(dbHistoricalReviews);
+            }
 
             if(historyData.size() > 0) {
                 repository.save(historyData);
