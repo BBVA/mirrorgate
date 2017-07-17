@@ -148,7 +148,7 @@ public class ReviewControllerTests {
         ids.add(review1.getId().toString());
         ids.add(review2.getId().toString());
 
-        when(reviewService.create(reviews)).thenReturn(ids);
+        when(reviewService.save(reviews)).thenReturn(ids);
 
         this.mockMvc.perform(post("/api/reviews")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -168,7 +168,7 @@ public class ReviewControllerTests {
 
         Iterable<Review> reviews = list;
 
-        when(reviewService.create(any())).thenThrow(MirrorGateException.class);
+        when(reviewService.save(any())).thenThrow(MirrorGateException.class);
 
         this.mockMvc.perform(post("/api/reviews")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

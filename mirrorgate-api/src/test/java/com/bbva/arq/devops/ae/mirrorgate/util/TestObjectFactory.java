@@ -141,7 +141,7 @@ public class TestObjectFactory {
         return applicationReviewsDTO;
     }
 
-    public static Review createReview(Platform platform, String appName, String commentId, String comment, int timestamp, double rate, int amount) {
+    public static Review createReview(Platform platform, String appName, String commentId, String comment, long timestamp, double rate, int amount) {
 
         Review review = new Review();
 
