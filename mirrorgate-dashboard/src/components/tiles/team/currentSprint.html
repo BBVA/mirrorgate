@@ -53,8 +53,10 @@
             </g>
             <g rv-hide="selected">
               <g rv-show="sprint">
-                <text class="rate-completed" y="0">{sprint.doneRatio}%</text>
-                <text class="text-completed" y="100">completed</text>
+                <text class="rate-completed" y="0" rv-show="sprint.doneRatio">{sprint.doneRatio}%</text>
+                <text class="text-completed" y="100" rv-show="sprint.doneRatio">points completed</text>
+                <text class="stories-completed" y="0" rv-hide="sprint.doneRatio">{sprint.doneStories} of {sprint.totalStories}</text>
+                <text class="text-completed" y="100" rv-hide="sprint.doneRatio">stories completed</text>
                 <text class="days-left" y="300">
                   {sprint.daysLeft} days left
                 </text>
@@ -156,6 +158,8 @@
       if (sprint && sprint.startDate) {
         model.sprint = {
           doneRatio: sprint.getDoneRatio(),
+          doneStories: sprint.doneStories,
+          totalStories: sprint.totalStories,
           daysLeft: sprint.getDaysLeft()
         };
       } else {
