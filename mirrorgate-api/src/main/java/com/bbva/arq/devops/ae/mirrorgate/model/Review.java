@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -27,13 +28,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="reviews")
 public class Review extends BaseModel {
 
-    private long timestamp;
+    @Indexed
+    private Long timestamp;
+
+    @Indexed
+    private Platform platform;
+
+    @Indexed
     private String commentId;
+
+    @Indexed
     private String appname;
+
     private String authorName;
     private double starrating;
     private String comment;
-    private Platform platform;
+
+
     private String commentTitle;
     private int amount = 1;
 
@@ -61,11 +72,11 @@ public class Review extends BaseModel {
         this.appname = appname;
     }
 
-    public long getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 

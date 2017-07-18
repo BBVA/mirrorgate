@@ -34,10 +34,10 @@ public interface ReviewService {
     List<ApplicationDTO> getAverageRateByAppNames(List<String> names);
 
     /**
-     * Create reviews
+     * Save reviews
      *
-     * @param reviews List of reviews to create
+     * @param reviews List of reviews to save
      * @return List of Id of new Reviews
      */
-    List<String> create(Iterable<Review> reviews);
+    List<String> save(Iterable<Review> reviews);
 }

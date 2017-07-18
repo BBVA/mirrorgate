@@ -33,7 +33,10 @@
         <div rv-each-app="apps" class="platform-rate">
           <span class=".rate-7days-data" rv-show="app.rate7Days">
             <i aria-hidden="true" rv-pclass-fa="app.icon" class="fa"></i>
-            <span class="rate-value">{app.rate7Days}<span class="rate-value-tag tendency" rv-pclass-tendency="app.tendency">stars</span></span>
+            <span class="rate-value">{app.rate7Days}<span class="tendency" rv-pclass-tendency="app.tendency">
+              </span><span class="rate-value-tag">({app.votes7Days}<span class="tendency" rv-pclass-tendency="app.voteTendency">
+              </span> votes)</span>
+            </span>
             <span class="rate-legend">(7 days average)</span>
           </span>
           <span class=".rate-7days-data" rv-hide="app.rate7Days">
@@ -56,6 +59,7 @@
               <span class="rate-total-data" rv-left="app.percentTotal">
                 <span class="rate-value">{app.rateTotal}</span>
                 <span class="rate-legend">History average</span>
+                <span class="rate-legend rate-legend-votes">(votes {app.votesTotal})</span>
               </span>
             </span>
           </div>
