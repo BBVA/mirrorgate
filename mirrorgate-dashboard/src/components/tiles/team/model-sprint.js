@@ -35,6 +35,8 @@ var Sprint = (function() {
     this.totalStoryPoints = 0;
     this.doneStoryPoints = 0;
     this.countedStoryPoints = 0;
+    this.doneStories = 0;
+    this.totalStories = 0;
   }
 
   Sprint.prototype = {
@@ -45,9 +47,11 @@ var Sprint = (function() {
      */
     addStory: function(story) {
       this.totalStoryPoints += story.points;
+      this.totalStories ++;
       if (story.status === 'Done') {
         this.doneStoryPoints += story.points;
         this.countedStoryPoints += story.points;
+        this.doneStories ++;
       } else if (story.status === 'In Progress') {
         this.countedStoryPoints += story.points / 2;
       }
