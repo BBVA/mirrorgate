@@ -36,7 +36,9 @@ function Market(data) {
   this.votesMonth = data.votesMonth;
 
   this.tendencyChange = (this.rate7Days - this.rateMonth) / this.rateMonth * 100;
+  this.voteTendencyChange = (this.votes7Days * 30 / 7 - this.votesMonth) / this.votesMonth * 100;
   this.tendency = this.tendencyChange < -5 ? 'down' : this.tendencyChange > 5 ? 'up' : 'eq';
+  this.voteTendency = this.voteTendencyChange < -5 ? 'down' : this.voteTendencyChange > 5 ? 'up' : 'eq';
   this.platform = data.platform;
   this.reviews = data.reviews;
   this.icon = this.platform && {
