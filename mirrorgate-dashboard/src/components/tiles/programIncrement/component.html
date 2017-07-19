@@ -185,19 +185,35 @@
         }
 
         var depth = 1;
+        var totalStories = 0;
+        var totalPoints = 0;
 
-        //Distribute size so that all features take the same width
         model.programIncrement.products.forEach(function(product) {
           product.children.forEach(function(feature) {
-            feature.size = 1;
             depth = Math.max(depth, 2);
 
             if(feature.children.length) {
               depth = Math.max(depth, 3);
-              var size = 1/feature.children.length;
               feature.children.forEach(function(story) {
-                story.size = size;
+                totalStories++;
+                totalPoints += story.estimate;
               });
+            } else {
+              //Reserve the place holder
+              totalStories++;
+            }
+          });
+        });
+
+        //Distribute size so that all features take the same width
+        model.programIncrement.products.forEach(function(product) {
+          product.children.forEach(function(feature) {
+            if(feature.children.length) {
+              feature.children.forEach(function(story) {
+                story.size = 2 + story.estimate;
+              });
+            } else {
+              feature.size = 2;
             }
           });
 
