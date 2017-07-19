@@ -32,3 +32,18 @@ function ProgramIncrement(completedFeatures, features, stories, products, startD
     completedFeatureCount: completedFeatures ? completedFeatures.length : 0
   };
 }
+
+ProgramIncrement.prototype = {
+
+  getDaysLeft: function() {
+        var today = moment(new Date());
+
+        if (today.get('hours') > 12) {
+          today.add(1, 'days');
+        }
+        today.set('hours', 0);
+
+        return Utils.getWorkingDays(today, this.endDate);
+  }
+
+};

@@ -56,9 +56,9 @@
               <g rv-show="programIncrement.features">
                 <text class="rate-completed" y="0">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</text>
                 <text class="text-completed" y="100">features completed</text>
-                <!--<text class="days-left" y="300">
-                  {pi.daysLeft} days left
-                </text>-->
+                <text class="days-left" rv-show="dateRange" y="300">
+                  {daysLeft} days left
+                </text>
               </g>
             </g>
           </g>
@@ -181,6 +181,7 @@
 
         if (data.startDate){
           model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
+          model.daysLeft = model.programIncrement.getDaysLeft()
         }
 
         var depth = 1;
