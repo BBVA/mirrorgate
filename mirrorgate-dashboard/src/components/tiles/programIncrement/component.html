@@ -28,7 +28,9 @@
   <div class="pi component__content">
     <div class="component__header">
       <h2 class="title">Program Increment</h2>
-      <h3 class="title-desc" rv-show="dateRange">{dateRange}</h3>
+      <h3 class="title-desc" rv-show="programIncrement.features">
+        <span class="title-desc" rv-show="dateRange">{dateRange}</span>
+      </h3>
       <h3 class="title-desc" rv-hide="programIncrement.features">No data for PI</h3>
     </div>
     <div class="component__body">
@@ -177,10 +179,9 @@
 
         var format = "MMMM Do";
 
-        var range = data && data.startDate ? moment(data.startDate).format(format) + ' - ' +
-          moment(data.endDate).format(format) :
-          'No active PIs found';
-          model.dateRange = range;
+        if (data.startDate){
+          model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
+        }
 
         var depth = 1;
 

@@ -27,6 +27,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProgramIncrementServiceTest {
@@ -38,6 +40,8 @@ public class ProgramIncrementServiceTest {
 
     @InjectMocks
     private ProgramIncrementServiceImpl piService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProgramIncrementServiceTest.class);
 
 
     @Test
@@ -83,7 +87,7 @@ public class ProgramIncrementServiceTest {
             expectedStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(expectedDates[0]);
             expectedEndDate = new SimpleDateFormat("yyyy/MM/dd").parse(expectedDates[1]);
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOGGER.error("Parse exception", e);
         }
 
         assertEquals(activePI.getProgramIncrementStartDate(), expectedStartDate);

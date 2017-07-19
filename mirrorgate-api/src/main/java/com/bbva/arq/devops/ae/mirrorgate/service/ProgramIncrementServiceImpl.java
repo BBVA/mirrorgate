@@ -98,15 +98,15 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
                         if (findIfLocalDateIsInRange(startDate, endDate)) {
                             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
-                            Date programIncrementStartDate = new Date();
-                            Date programIncrementEndDate = new Date();
+                            Date programIncrementStartDate = null;
+                            Date programIncrementEndDate = null;
 
                             try {
                                 programIncrementStartDate = formatter.parse(startDate);
                                 programIncrementEndDate = formatter.parse(endDate);
 
                             } catch (ParseException e) {
-                                e.printStackTrace();
+                                LOGGER.error("Parse exception", e);
                             }
 
                             return new ProgramIncrementDTO()
