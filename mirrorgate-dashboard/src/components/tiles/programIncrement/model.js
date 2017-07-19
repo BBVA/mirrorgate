@@ -20,13 +20,30 @@
  * @param {Number} featuresNumber     Number of features in the PI
 
  */
-function ProgramIncrement(completedFeatures, features, stories, products){
+function ProgramIncrement(completedFeatures, features, stories, products, startDate, endDate){
   this.completedFeatures = completedFeatures;
   this.features = features;
   this.stories = stories;
   this.products = products;
+  this.startDate = startDate;
+  this.endDate = endDate;
   this.stats = {
     featureCount: features ? features.length : 0,
     completedFeatureCount: completedFeatures ? completedFeatures.length : 0
   };
 }
+
+ProgramIncrement.prototype = {
+
+  getDaysLeft: function() {
+        var today = moment(new Date());
+
+        if (today.get('hours') > 12) {
+          today.add(1, 'days');
+        }
+        today.set('hours', 0);
+
+        return Utils.getWorkingDays(today, this.endDate);
+  }
+
+};

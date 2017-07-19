@@ -28,6 +28,9 @@
   <div class="pi component__content">
     <div class="component__header">
       <h2 class="title">Program Increment</h2>
+      <h3 class="title-desc" rv-show="programIncrement.features">
+        <span class="title-desc" rv-show="dateRange">{dateRange}</span>
+      </h3>
       <h3 class="title-desc" rv-hide="programIncrement.features">No data for PI</h3>
     </div>
     <div class="component__body">
@@ -53,9 +56,9 @@
               <g rv-show="programIncrement.features">
                 <text class="rate-completed" y="0">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</text>
                 <text class="text-completed" y="100">features completed</text>
-                <!--<text class="days-left" y="300">
-                  {pi.daysLeft} days left
-                </text>-->
+                <text class="days-left" rv-show="dateRange" y="300">
+                  {daysLeft} days left
+                </text>
               </g>
             </g>
           </g>
@@ -173,6 +176,13 @@
 
       if (data) {
         model.programIncrement = data;
+
+        var format = "MMMM Do";
+
+        if (data.startDate){
+          model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
+          model.daysLeft = model.programIncrement.getDaysLeft()
+        }
 
         var depth = 1;
 
