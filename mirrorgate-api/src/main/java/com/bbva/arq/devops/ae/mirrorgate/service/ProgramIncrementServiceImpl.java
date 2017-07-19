@@ -6,10 +6,13 @@ import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -42,13 +45,13 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
         Dashboard dashboard = dashboardService.getDashboard(dashboardName);
 
-        String currentPIName = getCurrentProgramIncrementName(dashboard);
+        ProgramIncrementDTO piDTO = getCurrentProgramIncrementNameAndDates(dashboard);
 
-        if(currentPIName == null) {
-            return new ProgramIncrementDTO(null, null);
+        if(piDTO == null){
+            return new ProgramIncrementDTO();
         }
 
-        List<Feature> piFeatures = featureService.getProductIncrementFeatures(currentPIName);
+        List<Feature> piFeatures = featureService.getProductIncrementFeatures(piDTO.getProgramIncrementName());
 
         List<String> piFeaturesKeys = piFeatures
                                         .stream()
@@ -57,15 +60,18 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
         List<String> boardPIFeaturesKeys = featureService.getProgramIncrementFeaturesByBoard(dashboard.getBoards(), piFeaturesKeys);
 
-        return createResponse(dashboard, piFeatures, boardPIFeaturesKeys);
+        return createResponse(dashboard, piFeatures, boardPIFeaturesKeys)
+            .setProgramIncrementName(piDTO.getProgramIncrementName())
+            .setProgramIncrementStartDate(piDTO.getProgramIncrementStartDate())
+            .setProgramIncrementEndDate(piDTO.getProgramIncrementEndDate());
 
     }
 
-    private String getCurrentProgramIncrementName(Dashboard dashboard){
-        return getProductIncrementNameForExpression(dashboard.getProgramIncrement());
+    private ProgramIncrementDTO getCurrentProgramIncrementNameAndDates(Dashboard dashboard){
+        return getProductIncrementNameAndDatesForExpression(dashboard.getProgramIncrement());
     }
 
-    String getProductIncrementNameForExpression(String productIncrementExpression){
+    ProgramIncrementDTO getProductIncrementNameAndDatesForExpression(String productIncrementExpression){
 
         Pattern piRegex = Pattern.compile("^" + productIncrementExpression + "$");
 
@@ -77,7 +83,6 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
         }
 
         if(piNames != null) {
-
 
             for (int i = 0; i < piNames.size(); i++) {
 
@@ -91,10 +96,27 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
                         String endDate = matcher.group("endDate");
 
                         if (findIfLocalDateIsInRange(startDate, endDate)) {
-                            return piName;
+                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+                            Date programIncrementStartDate = null;
+                            Date programIncrementEndDate = null;
+
+                            try {
+                                programIncrementStartDate = formatter.parse(startDate);
+                                programIncrementEndDate = formatter.parse(endDate);
+
+                            } catch (ParseException e) {
+                                LOGGER.error("Parse exception", e);
+                            }
+
+                            return new ProgramIncrementDTO()
+                                .setProgramIncrementName(piName)
+                                .setProgramIncrementStartDate(programIncrementStartDate)
+                                .setProgramIncrementEndDate(programIncrementEndDate);
+
                         }
                     } else {
-                        return matcher.group();
+                        return new ProgramIncrementDTO().setProgramIncrementName(matcher.group());
                     }
                 }
             }
@@ -121,7 +143,9 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
                 .map(IssueMapper::map)
                 .collect(Collectors.toList());
 
-        return new ProgramIncrementDTO(boardPIFeatures, boardPIIssues);
+        return new ProgramIncrementDTO()
+            .setProgramIncrementFeatures(boardPIFeatures)
+            .setProgramIncrementStories(boardPIIssues);
     }
 
     private boolean containsDashboardKeyword(Dashboard dashboard, Feature f) {
