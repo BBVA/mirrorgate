@@ -21,6 +21,7 @@ public class BuildStats {
     private double duration;
     private long count;
     private long failureRate;
+    private String failureTendency;
 
     public double getDuration() {
         return duration;
@@ -47,5 +48,13 @@ public class BuildStats {
     public BuildStats setFailureRate(long failureRate) {
         this.failureRate = failureRate;
         return this;
+    }
+
+    public String getFailureTendency() {
+        return failureTendency;
+    }
+
+    public void setFailureTendency(String failureTendency) {
+        this.failureTendency = failureTendency;
     }
 }

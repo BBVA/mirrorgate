@@ -39,6 +39,10 @@ public class BuildStatsUtils {
         }
 
         return result;
+    }
 
+    public static String failureTendency(long failureRateSevenDaysBefore, long failureRateFifteenDaysBefore){
+        long failureTendencyPercentage = failureRateSevenDaysBefore - failureRateFifteenDaysBefore;
+        return Math.abs(failureTendencyPercentage) < 5 ? "equal" : failureTendencyPercentage <= 0 ? "tendency-up" : "tendency-down";
     }
 }
