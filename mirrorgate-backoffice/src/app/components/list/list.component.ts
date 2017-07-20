@@ -44,6 +44,6 @@ export class ListComponent {
   }
 
   getDashboardUrl(dashboard: Dashboard) {
-    return '../dashboard.html?board=' + encodeURIComponent(dashboard.name);
+    return '../canary.html?board=' + encodeURIComponent(dashboard.name);
   }
 }
