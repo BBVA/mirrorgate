@@ -47,6 +47,7 @@ export class FormComponent {
     adminUsers?: string
   } = {};
   errorMessage: string;
+  url: string;
 
   constructor(private dashboardsService: DashboardsService,
               private slackService: SlackService,
@@ -55,6 +56,16 @@ export class FormComponent {
 
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
+    let url = document.location.href;
+    let pos = url.lastIndexOf('/backoffice/');
+
+    if(pos > 0) {
+      url = url.substring(0, pos);
+    } else {
+      url = '';
+    }
+    this.url = url;
+
     if(id) {
       this.edit = true;
       this.dashboardsService.getDashboard(id).then(dashboard => this.setDashboard(dashboard));
