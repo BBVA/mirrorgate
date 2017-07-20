@@ -21,6 +21,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatsUtils;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
@@ -76,7 +77,7 @@ public class BuildController {
         return response;
     }
 
-    public BuildStats getStatsWithoutFailureTendency(@PathVariable("name") String name, int daysBefore) {
+    private BuildStats getStatsWithoutFailureTendency(@PathVariable("name") String name, int daysBefore) {
 
         List<String> repos = dashboardService.getReposByDashboardName(name);
 
@@ -92,12 +93,12 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
         produces = APPLICATION_JSON_VALUE)
-    public BuildStats getStats(@PathVariable("name") String name) {
+    private BuildStats getStats(@PathVariable("name") String name) {
 
         BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(name, 7);
         BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(name, 15);
 
-        String failureTendency = BuildStatsUtils.failureTendency(statsSevenDaysBefore.getFailureRate(), statsFifteenDaysBefore.getFailureRate());
+        FailureTendency failureTendency = BuildStatsUtils.failureTendency(statsSevenDaysBefore.getFailureRate(), statsFifteenDaysBefore.getFailureRate());
 
         statsSevenDaysBefore.setFailureTendency(failureTendency);
 

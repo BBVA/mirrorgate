@@ -35,7 +35,7 @@
     </div>
     <div class="component__body" rv-show="stats.count">
       <div class="indicator indicator--builds-failed">
-        <div class="stats">{stats.failureRate}%<span rv-class="stats.failureTendency"></span></div>
+        <div class="stats">{stats.failureRate}%<span class="builds-tendency" rv-pclass-tendency="stats.failureTendency"></span></div>
         <div class="stat-desc">failed</div>
       </div>
       <div class="indicator indicator--build-time">
