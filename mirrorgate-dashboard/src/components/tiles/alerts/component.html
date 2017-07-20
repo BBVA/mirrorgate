@@ -34,20 +34,21 @@
     <div class="component__body">
       <div class="alerts-list">
         <div class="alerts-list__group" rv-each-alerts="alerts">
-          <span class="group__header">
+          <div class="group__header">
             <h3 rv-title="alerts.title">{ alerts.title }</h3>
-          </span>
+          </div>
 
-          <div class="alert" rv-each-alert="alerts.children">
-            <div rv-if="alert.image" class="image">
-              <span class="alert__state" rv-if="alert.state" rv-pclass-alert-state="alert.state"></span>
+          <div class="alert alert__state" rv-pclass-alert-state="alert.state" rv-each-alert="alerts.children">
+            <div class="image" rv-if="alert.image">
               <img rv-if="alert.image.url" rv-src="alert.image.url"></img>
               <span rv-if="alert.image.glyphName" rv-class="alert.image.glyphName"></span>
               <svg rv-if="alert.image.commands" rv-html="alert.image.commands"></svg>
               <span rv-if="alert.image.encoded" rv-html="alert.image.encoded"></span>
             </div>
 
-            <div class="alert__title" rv-title="alert.title">{ alert.title }</div>
+            <div class="alert__title" rv-title="alert.title">
+              <span>{ alert.title }</span>
+            </div>
           </div>
 
         </div>
