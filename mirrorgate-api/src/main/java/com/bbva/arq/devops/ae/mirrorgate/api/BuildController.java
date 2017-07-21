@@ -93,7 +93,7 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
         produces = APPLICATION_JSON_VALUE)
-    private BuildStats getStats(@PathVariable("name") String name) {
+    public BuildStats getStats(@PathVariable("name") String name) {
 
         BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(name, 7);
         BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(name, 15);
