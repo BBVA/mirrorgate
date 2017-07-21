@@ -203,6 +203,10 @@
         });
       }
 
+      if (items.length > 20) {
+        outherArc.padAngle(Math.PI / 720).cornerRadius(5);
+      }
+
       var joinedItemsMap = items.reduce(function (acc, item) {
         var pos = order[item.status];
         acc[pos] = acc[pos] || new Story('', 0, item.status);
