@@ -197,7 +197,8 @@
                   <p>To configure slack please follow this steps:</p>
                   <ol>
                     <li>Specify the slack team name</li>
-                    <li>Register an <a href="https://api.slack.com/apps" target="_blank">slack app</a> with access to your team</li>
+                    <li>Register an <a href="https://api.slack.com/apps" target="_blank">slack app</a> with access to your team. Enable the "Permissions" feature for it.</li>
+                    <li>Set the app redirect url to <kbd>{{url}}/backoffice/utils/slack/code-capturer</kbd></li>
                     <li>Click the configure icon that will appear</li>
                     <li>Fill in the authorization data for the application. That data will not be stored in the DB.</li>
                     <li>Authorize mirrorgate to access the application</li>

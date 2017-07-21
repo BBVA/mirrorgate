@@ -219,6 +219,10 @@
 
         });
 
+        if(totalStories > 50) {
+          arc.padAngle(Math.PI/720).cornerRadius(5)
+        }
+
 
         var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
 
