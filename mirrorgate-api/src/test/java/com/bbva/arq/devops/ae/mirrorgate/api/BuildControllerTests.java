@@ -104,7 +104,7 @@ public class BuildControllerTests {
 
         this.mockMvc.perform(get("/dashboards/" + DASHBOARD_NAME + "/builds/rate"))
                 .andExpect(status().isOk())
-            .andExpect(content().string("{\"duration\":0.0,\"count\":3,\"failureRate\":33}"));
+            .andExpect(content().string("{\"duration\":0.0,\"count\":3,\"failureRate\":33,\"failureTendency\":\"equal\"}"));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class BuildControllerTests {
 
         this.mockMvc.perform(get("/dashboards/" + DASHBOARD_NAME + "/builds/rate"))
                 .andExpect(status().isOk())
-            .andExpect(content().string("{\"duration\":0.0,\"count\":0,\"failureRate\":0}"));
+            .andExpect(content().string("{\"duration\":0.0,\"count\":0,\"failureRate\":0,\"failureTendency\":\"equal\"}"));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class BuildControllerTests {
 
         this.mockMvc.perform(get("/dashboards/" + DASHBOARD_NAME + "/builds/rate"))
                 .andExpect(status().isOk())
-            .andExpect(content().string("{\"duration\":0.0,\"count\":3,\"failureRate\":0}"));
+            .andExpect(content().string("{\"duration\":0.0,\"count\":3,\"failureRate\":0,\"failureTendency\":\"equal\"}"));
     }
 
     @Test
