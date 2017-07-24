@@ -22,7 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatsUtils;
+import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;

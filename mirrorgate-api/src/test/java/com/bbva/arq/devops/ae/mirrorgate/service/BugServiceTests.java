@@ -26,7 +26,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

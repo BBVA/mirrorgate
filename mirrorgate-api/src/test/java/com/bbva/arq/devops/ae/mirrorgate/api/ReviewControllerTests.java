@@ -30,7 +30,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestUtil;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

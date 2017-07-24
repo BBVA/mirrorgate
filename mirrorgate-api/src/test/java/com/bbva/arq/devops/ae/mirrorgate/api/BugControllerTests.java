@@ -23,7 +23,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

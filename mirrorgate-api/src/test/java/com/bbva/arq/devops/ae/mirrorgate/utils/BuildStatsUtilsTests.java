@@ -1,11 +1,11 @@
 /*
- * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A..
+ * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bbva.arq.devops.ae.mirrorgate.util;
+package com.bbva.arq.devops.ae.mirrorgate.utils;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.down;
-import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.equal;
-import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.up;
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatsUtils.failureTendency;
+import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.*;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils.failureTendency;
 import static org.junit.Assert.assertEquals;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatsUtils;
+import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -90,11 +87,9 @@ public class BuildStatsUtilsTests {
 
     @Test
     public void itShouldReturnTheCorrectFailureTendency() {
-        BuildStats statsSevenDaysBefore = new BuildStats().setFailureRate(100);
-        BuildStats statsFifteenDaysBefore = new BuildStats().setFailureRate(300);
-
-        assertEquals(failureTendency(statsSevenDaysBefore.getFailureRate(),statsFifteenDaysBefore.getFailureRate()), up);
-        assertEquals(failureTendency(statsFifteenDaysBefore.getFailureRate(),statsSevenDaysBefore.getFailureRate()), down);
-        assertEquals(failureTendency(statsSevenDaysBefore.getFailureRate(),statsSevenDaysBefore.getFailureRate()), equal);
+        assertEquals(failureTendency(100,300), up);
+        assertEquals(failureTendency(300,100), down);
+        assertEquals(failureTendency(10,10), equal);
+        assertEquals(failureTendency(0,10), down);
     }
 }
