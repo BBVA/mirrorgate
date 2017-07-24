@@ -15,6 +15,8 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.util;
 
+import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.down;
+import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.equal;
 import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.up;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatsUtils.failureTendency;
 import static org.junit.Assert.assertEquals;
@@ -87,11 +89,12 @@ public class BuildStatsUtilsTests {
     }
 
     @Test
-    public void failureTendencyIsUp() {
+    public void itShouldReturnTheCorrectFailureTendency() {
         BuildStats statsSevenDaysBefore = new BuildStats().setFailureRate(100);
         BuildStats statsFifteenDaysBefore = new BuildStats().setFailureRate(300);
 
-        FailureTendency failureTendencyTest = failureTendency(statsSevenDaysBefore.getFailureRate(),statsFifteenDaysBefore.getFailureRate());
-        assertEquals(failureTendencyTest, up);
+        assertEquals(failureTendency(statsSevenDaysBefore.getFailureRate(),statsFifteenDaysBefore.getFailureRate()), up);
+        assertEquals(failureTendency(statsFifteenDaysBefore.getFailureRate(),statsSevenDaysBefore.getFailureRate()), down);
+        assertEquals(failureTendency(statsSevenDaysBefore.getFailureRate(),statsSevenDaysBefore.getFailureRate()), equal);
     }
 }
