@@ -87,8 +87,8 @@ public class BuildStatsUtilsTests {
 
     @Test
     public void itShouldReturnTheCorrectFailureTendency() {
-        assertEquals(failureTendency(100,300), up);
-        assertEquals(failureTendency(300,100), down);
+        assertEquals(failureTendency(100,300), down);
+        assertEquals(failureTendency(300,100), up);
         assertEquals(failureTendency(10,10), equal);
         assertEquals(failureTendency(0,10), down);
     }

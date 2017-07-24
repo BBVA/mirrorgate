@@ -50,7 +50,7 @@ public class BuildStatsUtils {
         }
 
         long failureTendencyPercentage =
-                (100 * (failureRateSevenDaysBefore - failureRateFifteenDaysBefore))
+                (100 * (failureRateFifteenDaysBefore - failureRateSevenDaysBefore))
                 / failureRateSevenDaysBefore;
         return Math.abs(failureTendencyPercentage) < 5 ? equal : failureTendencyPercentage <= 0 ? up : down;
     }

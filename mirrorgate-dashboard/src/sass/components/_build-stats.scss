@@ -27,24 +27,24 @@
         padding-top: 5px;
     }
 
-.builds-tendency{
+    .builds-tendency{
 
-    &.tendency-equal::before {
-        font-size: 0.75em;
-        padding-right: 4px;
-        content: '~';
-    }
+        &.tendency-equal::before {
+            font-size: 0.75em;
+            padding-right: 4px;
+            content: '~';
+        }
 
-    &.tendency-up::before {
-        font-size: 0.75em;
-        content: '\25B2';
-        color: green;
-    }
+        &.tendency-up::before {
+            font-size: 0.75em;
+            content: '\25B2';
+            color: red;
+        }
 
-    &.tendency-down::before {
-        font-size: 0.75em;
-        content: '\25BC';
-        color: red;
-    }
+        &.tendency-down::before {
+            font-size: 0.75em;
+            content: '\25BC';
+            color: green;
+        }
     }
 }
