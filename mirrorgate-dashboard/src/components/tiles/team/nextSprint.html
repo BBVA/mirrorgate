@@ -108,7 +108,8 @@
         model.stats = sprintData.stats || {};
 
         if (model.stats.sprintStats) {
-          model.stats.velocity = Math.floor(sprintData.currentSprint.getTotalDays() *
+          var sprintDays = (sprintData.currentSprint && sprintData.currentSprint.getTotalDays()) || model.stats.sprintStats.daysDurationAvg;
+          model.stats.velocity = Math.floor(sprintDays *
             model.stats.sprintStats.estimateAvg / model.stats.sprintStats.daysDurationAvg);
 
           model.stats.backlogFillRate = 70 * model.stats.backlogEstimate / model.stats.velocity;
