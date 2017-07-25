@@ -30,7 +30,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestUtil;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -104,7 +104,7 @@ public class BuildControllerTests {
 
         this.mockMvc.perform(get("/dashboards/" + DASHBOARD_NAME + "/builds/rate"))
                 .andExpect(status().isOk())
-            .andExpect(content().string("{\"duration\":0.0,\"count\":3,\"failureRate\":33}"));
+            .andExpect(content().string("{\"duration\":0.0,\"count\":3,\"failureRate\":33,\"failureTendency\":\"equal\"}"));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class BuildControllerTests {
 
         this.mockMvc.perform(get("/dashboards/" + DASHBOARD_NAME + "/builds/rate"))
                 .andExpect(status().isOk())
-            .andExpect(content().string("{\"duration\":0.0,\"count\":0,\"failureRate\":0}"));
+            .andExpect(content().string("{\"duration\":0.0,\"count\":0,\"failureRate\":0,\"failureTendency\":\"equal\"}"));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class BuildControllerTests {
 
         this.mockMvc.perform(get("/dashboards/" + DASHBOARD_NAME + "/builds/rate"))
                 .andExpect(status().isOk())
-            .andExpect(content().string("{\"duration\":0.0,\"count\":3,\"failureRate\":0}"));
+            .andExpect(content().string("{\"duration\":0.0,\"count\":3,\"failureRate\":0,\"failureTendency\":\"equal\"}"));
     }
 
     @Test

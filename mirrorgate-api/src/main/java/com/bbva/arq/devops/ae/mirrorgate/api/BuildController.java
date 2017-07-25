@@ -21,7 +21,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatsUtils;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
+import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
@@ -76,9 +77,7 @@ public class BuildController {
         return response;
     }
 
-    @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
-            produces = APPLICATION_JSON_VALUE)
-    public BuildStats getStats(@PathVariable("name") String name) {
+    private BuildStats getStatsWithoutFailureTendency(@PathVariable("name") String name, int daysBefore) {
 
         List<String> repos = dashboardService.getReposByDashboardName(name);
 
@@ -86,10 +85,24 @@ public class BuildController {
             return null;
         }
 
-        Date sevenDaysBefore = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
-        Map<BuildStatus, BuildStats> info = buildService.getBuildStatusStatsAfterTimestamp(repos, sevenDaysBefore.getTime());
+        Date numberOfDaysBefore = new Date(System.currentTimeMillis() - (daysBefore * DAY_IN_MS));
+        Map<BuildStatus, BuildStats> info = buildService.getBuildStatusStatsAfterTimestamp(repos, numberOfDaysBefore.getTime());
 
         return BuildStatsUtils.combineBuildStats(info.values().toArray(new BuildStats[]{}));
+      }
+
+    @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
+        produces = APPLICATION_JSON_VALUE)
+    public BuildStats getStats(@PathVariable("name") String name) {
+
+        BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(name, 7);
+        BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(name, 15);
+
+        FailureTendency failureTendency = BuildStatsUtils.failureTendency(statsSevenDaysBefore.getFailureRate(), statsFifteenDaysBefore.getFailureRate());
+
+        statsSevenDaysBefore.setFailureTendency(failureTendency);
+
+        return statsSevenDaysBefore;
     }
 
     @RequestMapping(value = "/api/builds", method = POST,

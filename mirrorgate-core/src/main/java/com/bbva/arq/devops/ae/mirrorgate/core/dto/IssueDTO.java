@@ -18,6 +18,8 @@ package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -27,10 +29,18 @@ import java.util.List;
  */
 public class IssueDTO implements Serializable {
 
+    @NotNull
     private Long id;
+
+    @NotNull
     private String name;
+
+    @NotNull
     private String type;
+
+    @NotNull
     private IssueStatus status;
+
     private IssuePriority priority;
     private Double estimate = 0.0;
     private String jiraKey;
@@ -40,6 +50,8 @@ public class IssueDTO implements Serializable {
 
     private SprintDTO sprint;
     private ProjectDTO project;
+
+    @NotNull
     private Date updatedDate;
 
     private List<String> keywords = null;
