@@ -18,7 +18,7 @@
 <html>
 
 <head>
-  <title>team-tile web component testing page</title>
+  <title>program-increment-tile web component testing page</title>
 
   <script src="/node_modules/karma-read-json/karma-read-json.js"></script>
   <script src="/test/bootstrap.js"></script>
@@ -103,6 +103,19 @@
             done();
           }
           server.respond();
+        });
+
+        it('should raise an event when servers fail', (done) => {
+          server.restore();
+          server = sinon.fakeServer.create();
+
+          appendComponent();
+
+          testHandler = function (e) {
+            expect(e.detail.status).toBe('server-error');
+            done();
+          };
+          server.lastRequest.respond(404, {});
         });
 
       });
