@@ -112,7 +112,7 @@
 
     var outherArc = d3.svg.arc()
       .innerRadius(483)
-      .padAngle(Math.PI / 90)
+      .padAngle(Math.PI / 150)
       .outerRadius(500)
       .cornerRadius(17);
 
@@ -203,8 +203,8 @@
         });
       }
 
-      if (items.length > 20) {
-        outherArc.padAngle(Math.PI / 720).cornerRadius(5);
+      if (items.length > 40) {
+        outherArc.padAngle(Math.PI / 360).cornerRadius(5);
       }
 
       var joinedItemsMap = items.reduce(function (acc, item) {
