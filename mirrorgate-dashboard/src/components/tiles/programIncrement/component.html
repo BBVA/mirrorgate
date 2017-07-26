@@ -175,20 +175,61 @@
       this.processAlerts(data);
 
       if (data) {
-        model.programIncrement = data;
+        let format = "MMMM Do";
+        let depth = 1;
+        let totalStories = 0;
 
-        var format = "MMMM Do";
+        model.programIncrement = data;
 
         if (data.startDate){
           model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
           model.daysLeft = model.programIncrement.getDaysLeft()
         }
 
-        var depth = 1;
-        var totalStories = 0;
-        var totalPoints = 0;
 
         model.programIncrement.products.forEach(function(product) {
+          //All product should take the same space, so we take a count of
+          //per product totals to use them as factor
+          let productStories = 0;
+          let productPoints = 0;
+          let storyFactor = 0;
+
+          product.children.forEach(function(feature) {
+            depth = Math.max(depth, 2);
+
+            if(feature.children.length) {
+              depth = Math.max(depth, 3);
+              feature.children.forEach(function(story) {
+                productStories++;
+                productPoints += story.estimate;
+              });
+            } else {
+              //Reserve the place holder for the feature as it had one story
+              productStories++;
+            }
+          });
+
+          //25% of the space is given to story points when estimates are given
+          storyFactor = productPoints ? 0.25 : 0;
+
+          product.children.forEach(function(feature) {
+            //This is ignored if feature contains 1 or more stories
+            //It's equivalent to asuming it only has one 0 points story
+            feature.size = (1 - storyFactor) / productStories;
+
+            if(feature.children.length) {
+              feature.children.forEach(function(story) {
+                story.size = (1 - storyFactor) / productStories
+                    + (productPoints ? storyFactor * story.estimate / productPoints : 0);
+              });
+            }
+          });
+
+          totalStories += productStories;
+        });
+
+
+        /*model.programIncrement.products.forEach(function(product) {
           product.children.forEach(function(feature) {
             depth = Math.max(depth, 2);
 
@@ -217,10 +258,10 @@
             }
           });
 
-        });
+        });*/
 
         if(totalStories > 50) {
-          arc.padAngle(Math.PI/720).cornerRadius(5)
+          arc.padAngle(Math.PI/360).cornerRadius(5)
         }
 
 
