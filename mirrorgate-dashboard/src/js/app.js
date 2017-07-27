@@ -29,7 +29,8 @@ function MainController() {
       'program-increment':'programIncrement',
       bugs: 'boards',
       notifications: 'slackTeam',
-      alerts: 'urlAlerts'
+      alerts: 'urlAlerts',
+      'user-metrics': 'analyticViews',
     };
 
     // Display tiles only when details are avail

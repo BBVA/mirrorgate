@@ -184,6 +184,30 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
+          <h3 class="panel-title">Analytics</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="viewIds">Google Analytics View Ids</label>
+            <div class="collapse" id="view-ids-help">
+              <div class="well">
+                <p>Add a comma separated list with your google analytics view ids. For example <kbd>ga:123456789,ga:987654321</kbd></p>
+              </div>
+            </div>
+            <div class="input-group">
+              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#view-ids-help" aria-expanded="false"
+                aria-controls="view-ids-help">
+                              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                          </a>
+              <input type="text" class="form-control" id="viewIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()"
+                name="viewIds">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
           <h3 class="panel-title">Notification and alerts</h3>
         </div>
         <div class="panel-body">

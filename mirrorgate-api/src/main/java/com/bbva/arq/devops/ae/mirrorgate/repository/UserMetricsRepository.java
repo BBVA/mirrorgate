@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-export class Dashboard {
-  name: string;
-  displayName: string;
-  logoUrl: string;
-  programIncrement: string;
-  applications: string[] = [];
-  codeRepos: string[] = [];
-  boards: string[] = [];
-  adminUsers: string[] = [];
-  analyticViews: string[] = [];
-  filter: {
-    timeSpan: number,
-    branch: Map<string,boolean>,
-    status: Map<string,boolean>
-  }
-  slackTeam: string;
-  slackToken: string;
-  urlAlerts: string;
-  slackChannel: string;
-  lastUserEdit: string;
-  lastModification: number;
+package com.bbva.arq.devops.ae.mirrorgate.repository;
+
+import com.bbva.arq.devops.ae.mirrorgate.model.UserMetrics;
+import org.bson.types.ObjectId;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+/**
+ * Created by alfonso on 27/07/17.
+ */
+public interface UserMetricsRepository extends CrudRepository<UserMetrics, ObjectId> {
+
+    List<UserMetrics> findAllByViewIdIn(List<String> ids);
+
 }

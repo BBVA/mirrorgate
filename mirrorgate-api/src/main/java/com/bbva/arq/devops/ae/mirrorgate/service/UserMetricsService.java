@@ -14,25 +14,21 @@
  * limitations under the License.
  */
 
-export class Dashboard {
-  name: string;
-  displayName: string;
-  logoUrl: string;
-  programIncrement: string;
-  applications: string[] = [];
-  codeRepos: string[] = [];
-  boards: string[] = [];
-  adminUsers: string[] = [];
-  analyticViews: string[] = [];
-  filter: {
-    timeSpan: number,
-    branch: Map<string,boolean>,
-    status: Map<string,boolean>
-  }
-  slackTeam: string;
-  slackToken: string;
-  urlAlerts: string;
-  slackChannel: string;
-  lastUserEdit: string;
-  lastModification: number;
+package com.bbva.arq.devops.ae.mirrorgate.service;
+
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricsDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+
+import java.util.List;
+
+/**
+ * Created by alfonso on 27/07/17.
+ */
+public interface UserMetricsService {
+
+    List<String> getAnalyticViewIds();
+
+    List<UserMetricsDTO> saveMetrics(Iterable<UserMetricsDTO> metrics);
+
+    List<UserMetricsDTO> getMetricsFroDashboard(Dashboard dashboard);
 }
