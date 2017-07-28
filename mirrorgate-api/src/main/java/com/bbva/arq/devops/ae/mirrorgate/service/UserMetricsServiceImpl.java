@@ -84,7 +84,7 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     }
 
     @Override
-    public List<UserMetricsDTO> getMetricsFroDashboard(Dashboard dashboard) {
+    public List<UserMetricsDTO> getMetricsForDashboard(Dashboard dashboard) {
         List<String> views = dashboard.getAnalyticViews();
         if(views == null || views.size() == 0) {
             return new ArrayList<>();

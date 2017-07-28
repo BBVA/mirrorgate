@@ -30,5 +30,5 @@ public interface UserMetricsService {
 
     List<UserMetricsDTO> saveMetrics(Iterable<UserMetricsDTO> metrics);
 
-    List<UserMetricsDTO> getMetricsFroDashboard(Dashboard dashboard);
+    List<UserMetricsDTO> getMetricsForDashboard(Dashboard dashboard);
 }

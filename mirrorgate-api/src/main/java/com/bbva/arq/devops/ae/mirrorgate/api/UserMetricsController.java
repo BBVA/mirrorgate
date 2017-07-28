@@ -62,7 +62,7 @@ public class UserMetricsController {
     @RequestMapping(method = GET, value ="/dashboards/{name}/user-metrics", produces = APPLICATION_JSON_VALUE)
     public List<UserMetricsDTO> getMetricsForBoard(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
-        return userMetricsService.getMetricsFroDashboard(dashboard);
+        return userMetricsService.getMetricsForDashboard(dashboard);
     }
 
 }
