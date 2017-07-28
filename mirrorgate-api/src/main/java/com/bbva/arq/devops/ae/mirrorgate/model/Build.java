@@ -36,6 +36,7 @@ public class Build extends BaseModel {
     private long startTime;
     private long endTime;
     private long duration;
+    @Indexed
     private BuildStatus buildStatus;
     private String startedBy;
     @Indexed
