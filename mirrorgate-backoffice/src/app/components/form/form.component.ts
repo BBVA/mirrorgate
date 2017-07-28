@@ -15,12 +15,13 @@
  */
 
 import {Component} from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import {DashboardsService} from '../../services/dashboards.service';
-import {Dashboard} from '../../model/dashboard';
-import {SlackService} from '../../services/slack.service';
+import {OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {kebabCase} from 'lodash';
+
+import {Dashboard} from '../../model/dashboard';
+import {DashboardsService} from '../../services/dashboards.service';
+import {SlackService} from '../../services/slack.service';
 
 @Component({
   selector: 'new-and-edit-form',
@@ -29,77 +30,89 @@ import {kebabCase} from 'lodash';
   providers: [DashboardsService, SlackService]
 })
 export class FormComponent {
-
   dashboard: Dashboard;
-  slackChannels: {
-    keys?: string[],
-    values?: Map<string,string>
-  } = {};
-  slack: {
-    clientId?: string,
-    clientSecret?: string
-  } = {};
+  slackChannels: {keys?: string[], values?: Map<string, string>} = {};
+  slack: {clientId?: string, clientSecret?: string} = {};
   edit: boolean = false;
   temp: {
     applications?: string,
     boards?: string,
     codeRepos?: string,
-    adminUsers?: string
+    adminUsers?: string,
+    analyticViews?: string
   } = {};
   errorMessage: string;
   url: string;
 
-  constructor(private dashboardsService: DashboardsService,
-              private slackService: SlackService,
-              private router: Router,
-              private route: ActivatedRoute) {}
+  constructor(
+      private dashboardsService: DashboardsService,
+      private slackService: SlackService, private router: Router,
+      private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
     let url = document.location.href;
     let pos = url.lastIndexOf('/backoffice/');
 
-    if(pos > 0) {
+    if (pos > 0) {
       url = url.substring(0, pos);
     } else {
       url = '';
     }
     this.url = url;
 
-    if(id) {
+    if (id) {
       this.edit = true;
-      this.dashboardsService.getDashboard(id).then(dashboard => this.setDashboard(dashboard));
+      this.dashboardsService.getDashboard(id).then(
+          dashboard => this.setDashboard(dashboard));
     } else {
       this.setDashboard(new Dashboard());
     }
   }
 
   setDashboard(dashboard: Dashboard) {
-    if(!dashboard.displayName) {
+    if (!dashboard.displayName) {
       dashboard.displayName = dashboard.name;
     }
 
     this.dashboard = dashboard;
-    this.temp.boards = this.dashboard.boards ? this.dashboard.boards.join(',') : '';
-    this.temp.applications = this.dashboard.applications ? this.dashboard.applications.join(',') : '';
-    this.temp.codeRepos = this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
-    this.temp.adminUsers = this.dashboard.adminUsers ? this.dashboard.adminUsers.join(',') : '';
+    this.temp.boards =
+        this.dashboard.boards ? this.dashboard.boards.join(',') : '';
+    this.temp.applications = this.dashboard.applications ?
+        this.dashboard.applications.join(',') :
+        '';
+    this.temp.codeRepos =
+        this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
+    this.temp.adminUsers =
+        this.dashboard.adminUsers ? this.dashboard.adminUsers.join(',') : '';
+    this.temp.analyticViews = this.dashboard.analyticViews ?
+        this.dashboard.analyticViews.join(',') :
+        '';
     this.updateSlackChannels();
   }
 
   mirrorTempValues() {
-    this.dashboard.boards = this.temp.boards.length ? this.temp.boards.split(',').map((e) => e.trim()) : undefined;
-    this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',').map((e) => e.trim()) : undefined;
-    this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',').map((e) => e.trim()) : undefined;
-    this.dashboard.adminUsers = this.temp.adminUsers.length ? this.temp.adminUsers.split(',').map((e) => e.trim()) : undefined;
-    if(!this.edit) {
+    this.dashboard.boards = this.temp.boards.length ?
+        this.temp.boards.split(',').map((e) => e.trim()) :
+        undefined;
+    this.dashboard.applications = this.temp.applications.length ?
+        this.temp.applications.split(',').map((e) => e.trim()) :
+        undefined;
+    this.dashboard.codeRepos = this.temp.codeRepos.length ?
+        this.temp.codeRepos.split(',').map((e) => e.trim()) :
+        undefined;
+    this.dashboard.adminUsers = this.temp.adminUsers.length ?
+        this.temp.adminUsers.split(',').map((e) => e.split('@')[0].trim()) :
+        undefined;
+    this.dashboard.analyticViews = this.temp.analyticViews.length ?
+        this.temp.analyticViews.split(',').map((e) => e.trim()) :
+        undefined;
+    if (!this.edit) {
       this.dashboard.name = kebabCase(this.dashboard.displayName);
     }
   }
 
-  back(): void {
-    this.router.navigate(['/list']);
-  }
+  back(): void { this.router.navigate(['/list']); }
 
   private updateSlackChannels(): void {
     this.slackService.getChannels(this.dashboard).then((channels) => {
@@ -108,29 +121,28 @@ export class FormComponent {
     });
   }
 
-  private setSlackToken(token:string): void {
+  private setSlackToken(token: string): void {
     this.dashboard.slackToken = token;
     this.updateSlackChannels();
   }
 
   onSave(dashboard: Dashboard): void {
     this.dashboardsService.saveDashboard(dashboard, this.edit)
-      .then(dashboard => {
-        if(dashboard) {
-          this.dashboard = dashboard;
-          this.back();
-        }
-      })
-      .catch((error: any) => {
-        this.errorMessage = <any>error;
-      });  }
-
-  signSlack(dashboard: Dashboard): void {
-    this.slackService.signSlack(this.dashboard.slackTeam, this.slack.clientId, this.slack.clientSecret)
-      .then((token) => this.setSlackToken(token))
-      .catch((error: any) => {
-        this.errorMessage = <any>error;
-      });
+        .then(dashboard => {
+          if (dashboard) {
+            this.dashboard = dashboard;
+            this.back();
+          }
+        })
+        .catch((error: any) => { this.errorMessage = <any>error; });
   }
 
+  signSlack(dashboard: Dashboard): void {
+    this.slackService
+        .signSlack(
+            this.dashboard.slackTeam, this.slack.clientId,
+            this.slack.clientSecret)
+        .then((token) => this.setSlackToken(token))
+        .catch((error: any) => { this.errorMessage = <any>error; });
+  }
 }
