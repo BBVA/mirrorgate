@@ -44,6 +44,9 @@ public class Build extends BaseModel {
     private String repoName;
     private String branch;
 
+    @Indexed
+    private Boolean latest;
+
     public long getTimestamp() {
         return timestamp;
     }
@@ -132,4 +135,12 @@ public class Build extends BaseModel {
         this.branch = branch;
     }
 
+    public Boolean getLatest() {
+        return latest;
+    }
+
+    public Build setLatest(Boolean latest) {
+        this.latest = latest;
+        return this;
+    }
 }

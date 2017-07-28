@@ -53,7 +53,12 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                                 BuildStatus.NotBuilt.toString(),
                                 BuildStatus.Unknown.toString()
                         )
-                        .orOperator(getCriteriaExpressionsForRepos(repos))),
+                        .orOperator(
+                                Criteria.where("timestamp").gt(System.currentTimeMillis() - 24* 3600 * 1000),
+                                Criteria.where("latest").is(true)
+                                        .and("buildStatus").ne(BuildStatus.Deleted)
+                        )),
+                match(new Criteria().orOperator(getCriteriaExpressionsForRepos(repos))),
                 //Avoid Mongo to "optimize" the sort operation.... Why Mongo, oh why?!
                 project("buildStatus","branch","projectName","repoName","timestamp","buildUrl","duration","startTime","endTime")
                         .andExclude("_id"),
@@ -78,6 +83,8 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                 = mongoTemplate.aggregate(agg, Build.class);
 
         return groupResults.getMappedResults();
+
+
     }
 
     @Override
