@@ -102,7 +102,7 @@ export class FormComponent {
         this.temp.codeRepos.split(',').map((e) => e.trim()) :
         undefined;
     this.dashboard.adminUsers = this.temp.adminUsers.length ?
-        this.temp.adminUsers.split(',').map((e) => e.trim()) :
+        this.temp.adminUsers.split(',').map((e) => e.split('@')[0].trim()) :
         undefined;
     this.dashboard.analyticViews = this.temp.analyticViews.length ?
         this.temp.analyticViews.split(',').map((e) => e.trim()) :
