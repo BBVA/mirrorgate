@@ -91,7 +91,7 @@ export class FormComponent {
     this.dashboard.boards = this.temp.boards.length ? this.temp.boards.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.applications = this.temp.applications.length ? this.temp.applications.split(',').map((e) => e.trim()) : undefined;
     this.dashboard.codeRepos = this.temp.codeRepos.length ? this.temp.codeRepos.split(',').map((e) => e.trim()) : undefined;
-    this.dashboard.adminUsers = this.temp.adminUsers.length ? this.temp.adminUsers.split(',').map((e) => e.slice(0, e.indexOf("@")).trim()) : undefined;
+    this.dashboard.adminUsers = this.temp.adminUsers.length ? this.temp.adminUsers.split(',').map((e) => e.split('@')[0].trim()) : undefined;
     if(!this.edit) {
       this.dashboard.name = kebabCase(this.dashboard.displayName);
     }
