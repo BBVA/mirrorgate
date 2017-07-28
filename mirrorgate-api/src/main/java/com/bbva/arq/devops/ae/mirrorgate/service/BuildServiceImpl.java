@@ -23,14 +23,20 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BuildServiceImpl implements BuildService {
 
-    @Autowired
     private BuildRepository buildRepository;
+
+    @Autowired
+    public BuildServiceImpl(BuildRepository buildRepository) {
+        this.buildRepository = buildRepository;
+    }
 
     @Override
     public List<Build> getAllBranchesLastByReposName(List<String> repos) {
@@ -39,9 +45,35 @@ public class BuildServiceImpl implements BuildService {
 
     @Override
     public String createOrUpdate(BuildDTO request) {
-        Build build = buildRepository.save(getBuildToSave(request));
+        Build toSave = getBuildToSave(request);
+
+        boolean shouldUpdateLatest = toSave.getBuildStatus() != BuildStatus.Aborted &&
+                toSave.getBuildStatus() != BuildStatus.Unknown &&
+                toSave.getBuildStatus() != BuildStatus.InProgress &&
+                toSave.getBuildStatus() != BuildStatus.NotBuilt;
+
+        if(shouldUpdateLatest) {
+            toSave.setLatest(true);
+        }
+
+        Build build = buildRepository.save(toSave);
+
         if (build == null) {
             throw new BuildConflictException("Failed inserting/updating build information.");
+        }
+
+        if(shouldUpdateLatest) {
+            List<Build> toUpdate = buildRepository.findAllByRepoNameAndProjectNameAndBranchAndLatestIsTrue();
+
+            if(toUpdate != null){
+                buildRepository.save(
+                        toUpdate.stream()
+                        .map((b) -> b.setLatest(false))
+                        .filter((b) -> !b.getId().equals(toSave.getId()))
+                        .collect(Collectors.toList())
+                );
+            }
+
         }
 
         return build.getId().toString();

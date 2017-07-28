@@ -20,10 +20,14 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * Builds repository.
  */
 public interface BuildRepository extends CrudRepository<Build, ObjectId>, BuildRepositoryCustom {
 
     Build findByBuildUrl(String buildUrl);
+
+    List<Build> findAllByRepoNameAndProjectNameAndBranchAndLatestIsTrue();
 }
