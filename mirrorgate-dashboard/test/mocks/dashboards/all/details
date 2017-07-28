@@ -10,5 +10,6 @@
   "applications": ["all"],
   "slackTeam": "All",
   "programIncrement": "blah",
-  "urlAlerts": "dashboards/all/alerts"
+  "urlAlerts": "dashboards/all/alerts",
+  "analyticViews": ["123412"]
 }

@@ -17,13 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ProjectDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 
 /**
  * Created by alfonso on 28/05/17.
@@ -49,6 +43,7 @@ public class DashboardMapper {
         target.setName(source.getName());
         target.setsProductName(source.getsProductName());
         target.setStatus(source.getStatus());
+        target.setAnalyticViews(source.getAnalyticViews());
         return target;
     }
 

@@ -38,6 +38,7 @@ public class DashboardDTO {
     private DashboardStatus status;
     private String lastUserEdit;
     private Long lastModification;
+    private List<String> analyticViews = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -127,5 +128,13 @@ public class DashboardDTO {
 
     public void setAdminUsers(List<String> adminUsers) {
         this.adminUsers = adminUsers;
+    }
+
+    public List<String> getAnalyticViews() {
+        return analyticViews;
+    }
+
+    public void setAnalyticViews(List<String> analyticViews) {
+        this.analyticViews = analyticViews;
     }
 }
