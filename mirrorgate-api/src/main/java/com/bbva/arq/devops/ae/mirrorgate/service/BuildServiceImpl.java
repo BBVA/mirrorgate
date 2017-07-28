@@ -63,7 +63,12 @@ public class BuildServiceImpl implements BuildService {
         }
 
         if(shouldUpdateLatest) {
-            List<Build> toUpdate = buildRepository.findAllByRepoNameAndProjectNameAndBranchAndLatestIsTrue();
+            List<Build> toUpdate =
+                    buildRepository.findAllByRepoNameAndProjectNameAndBranchAndLatestIsTrue(
+                            toSave.getRepoName(),
+                            toSave.getProjectName(),
+                            toSave.getBranch()
+                    );
 
             if(toUpdate != null){
                 buildRepository.save(
