@@ -34,8 +34,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public class BuildServiceTests {
 
-    @Mock private BuildRepository buildRepository;
-    @InjectMocks private BuildServiceImpl buildService;
+    @Mock
+    private BuildRepository buildRepository;
+
+    @Mock
+    private EventService eventService;
+
+    @InjectMocks
+    private BuildServiceImpl buildService;
 
 
     @Test

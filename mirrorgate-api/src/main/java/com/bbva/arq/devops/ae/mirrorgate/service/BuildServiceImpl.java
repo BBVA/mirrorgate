@@ -20,6 +20,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +33,13 @@ import org.springframework.stereotype.Service;
 public class BuildServiceImpl implements BuildService {
 
     private BuildRepository buildRepository;
+    private EventService eventService;
 
     @Autowired
-    public BuildServiceImpl(BuildRepository buildRepository) {
+    public BuildServiceImpl(BuildRepository buildRepository, EventService eventService) {
+
         this.buildRepository = buildRepository;
+        this.eventService = eventService;
     }
 
     @Override
@@ -61,6 +65,8 @@ public class BuildServiceImpl implements BuildService {
         if (build == null) {
             throw new BuildConflictException("Failed inserting/updating build information.");
         }
+
+        eventService.saveBuildEvent(build);
 
         if(shouldUpdateLatest) {
             List<Build> toUpdate =
