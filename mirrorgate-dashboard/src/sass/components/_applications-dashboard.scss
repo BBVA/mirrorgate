@@ -16,113 +16,28 @@
 
 .applications{
 
-    font-size: 3rem;
+    font-size: 2rem;
 
-    .component__body {
-        max-width: 600px;
-        margin: 0 auto;
-        display: inline-block;
-    }
+    .platform-rate{
+        margin-bottom: 20px;
 
-    .platform-rate {
-        text-align: center;
-    }
-
-    .rate {
-        position: relative;
-
-
-        i{
-            padding: 0 4px;
+        .rate__os {
+            font-size: 1.2em;
         }
-    }
 
-    .rate-stars {
-      min-height: 2em;
-    }
+        .tendency:before {
+            position: relative;
+            top: -0.1em;
+        }
 
-    .fa {
-        position:relative;
-        z-index: 1;
-    }
+        .rate__total-data {
+            color: $dark-grey;
+            font-size: 1.5rem;
 
-    .rate-total {
-        position: absolute;
-        left: 0;
-        width: 100%;
-        display: inline-block;
-        top: -0.12em;
-        overflow: hidden;
-        color: $background-color;
-        white-space: nowrap;
-        -webkit-text-stroke: 6px #666;
-        z-index: 0;
-    }
-
-    .rate-total::before {
-        content: "";
-        width: 2px;
-        display: block;
-        background: #666;
-        position: absolute;
-        right: 0;
-        height:70%;
-        top: 30%;
-    }
-
-
-    .rate-total-data::before {
-      content: "";
-      left: -2px;
-      position: absolute;
-      width: 2px;
-      top: 0;
-      height: 80%;
-      background: #666;
-    }
-
-    .rate-total-data {
-        color: #666;
-        position:absolute;
-        top: 100%;
-        width: 0;
-
-        .rate-legend {
-            direction: rtl;
-            position:absolute;
-            right: 8px;
-            top: 0;
-            text-align: right;
-            white-space: nowrap;
-            color: #666;
-
-
-            &.rate-legend-votes {
-              top: 14px;
+            .fa {
+                padding-right: 4px;
             }
         }
-
-        .rate-value {
-            padding-left: 4px;
-            float:left;
-            font-size: 0.6em;
-        }
-
-    }
-
-    .rate-value {
-        font-size: 0.8em;
-
-        span {
-            padding-left: 4px;
-            font-size: 0.5em;
-        }
-
-    }
-
-    .rate-legend {
-        font-size: 0.35em;
-
     }
 
 }
@@ -163,13 +78,43 @@
 }
 
 @media all and (min-width: $l){
+   
     .applications{
-        font-size: $level-3;
-
+        
         .component__body {
-            font-size: $level-2 + 1;
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+        .platform-rate{
+            font-size: $level-2;
+
+            .rate__total {
+                .fa {
+                    font-size: $level-2 + 0.3;
+                }
+
+            }
+
+            .rate__tag {
+                font-size: $level-2 - 0.2;
+                
+            }
+
+            .tendency:before {
+                font-size: $level-2 - 0.3;
+            }
+
+            .rate__total-data {
+                font-size: $level-2 - 0.3;
+
+                .fa {
+                    padding-right: 2px;
+                }
+            }
         }
     }
+    
 
     .reviews {
         font-size: $level-4;
