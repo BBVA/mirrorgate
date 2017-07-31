@@ -9,5 +9,5 @@ public interface EventRepository extends CrudRepository<Event, ObjectId>{
 
     Event findFirstByOrderByTimestampDesc();
 
-    List<Event> findByTimestampGreaterThan(Long timestamp);
+    List<Event> findByTimestampGreaterThanOrderByTimestampAsc(Long timestamp);
 }

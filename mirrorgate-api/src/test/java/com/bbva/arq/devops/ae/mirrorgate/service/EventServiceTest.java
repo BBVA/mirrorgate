@@ -9,11 +9,11 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.EventRepository;
 import org.bson.types.ObjectId;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -24,8 +24,14 @@ public class EventServiceTest {
     @Mock
     private EventRepository eventRepository;
 
-    @InjectMocks
     private EventServiceImpl eventService;
+
+    @Before
+    public void init(){
+
+        eventService = new EventServiceImpl(eventRepository);
+    }
+
 
     @Captor ArgumentCaptor<Event> captor;
     @Test
@@ -41,6 +47,12 @@ public class EventServiceTest {
         assertEquals(build.getId(), captor.getValue().getEventTypeCollectionId());
         assertNotNull(captor.getValue().getTimestamp());
     }
+
+//    @Test
+//    public void testScheduler(){
+//
+//        eventService.checkEventUpdates();
+//    }
 
     private Build createBuild(){
 
