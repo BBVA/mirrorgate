@@ -48,12 +48,6 @@ public class EventServiceTest {
         assertNotNull(captor.getValue().getTimestamp());
     }
 
-//    @Test
-//    public void testScheduler(){
-//
-//        eventService.checkEventUpdates();
-//    }
-
     private Build createBuild(){
 
         Build build = new Build();

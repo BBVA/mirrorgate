@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -117,6 +118,10 @@ public class BuildServiceImpl implements BuildService {
     @Override
     public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repoName, long timestamp) {
         return buildRepository.getBuildStatusStatsAfterTimestamp(repoName, timestamp);
+    }
+
+    public List<Build> getAllBuildsFromId(List<ObjectId> buildIds){
+        return buildRepository.findByIdIn(buildIds);
     }
 
 }
