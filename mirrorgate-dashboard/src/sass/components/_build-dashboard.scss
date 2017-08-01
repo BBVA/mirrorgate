@@ -80,6 +80,17 @@
         line-height: 50px;
         text-align: center;
     }
+    
+    .culprits {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        word-break: break-all;
+        font-size: 25px;
+        line-height: 40px;
+    }
 
 }
 

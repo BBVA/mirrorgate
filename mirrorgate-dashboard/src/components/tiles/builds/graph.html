@@ -46,9 +46,10 @@
                 </span>
               </div>
             </foreignObject>
-            <foreignObject x="-200" y="120" width="400" height="40">
+            <foreignObject x="-200" y="90" width="400" height="40">
               <div xmlns="http://www.w3.org/1999/xhtml" class="build-info">
-                <div class="duration" rv-show="selectedBuild.duration"><span>Took { selectedBuild.duration | duration }</span></div>
+                <span class="duration" rv-show="selectedBuild.duration">Took { selectedBuild.duration | duration }</span>
+                <span class="culprits" rv-show="selectedBuild.culprits">By { selectedBuild.culprits}</span>
               </div>
             </foreignObject>
           </g>

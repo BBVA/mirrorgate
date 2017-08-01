@@ -55,7 +55,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                         )
                         .orOperator(getCriteriaExpressionsForRepos(repos))),
                 //Avoid Mongo to "optimize" the sort operation.... Why Mongo, oh why?!
-                project("buildStatus","branch","projectName","repoName","timestamp","buildUrl","duration","startTime","endTime")
+                project("buildStatus", "branch", "projectName", "repoName", "timestamp", "buildUrl", "duration", "startTime", "endTime", "culprits")
                         .andExclude("_id"),
                 sort(Sort.Direction.ASC, "timestamp"),
                 group("branch","repoName","projectName")
@@ -67,9 +67,10 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                         .last("startTime").as("startTime")
                         .last("endTime").as("endTime")
                         .last("duration").as("duration")
-                        .last("projectName").as("projectName"),
+                        .last("projectName").as("projectName")
+                        .last("culprits").as("culprits"),
                 match(Criteria.where("buildStatus").ne(BuildStatus.Deleted)),
-                project("buildStatus","branch","projectName","repoName","timestamp","buildUrl","duration","startTime","endTime")
+                project("buildStatus", "branch", "projectName", "repoName", "timestamp", "buildUrl", "duration", "startTime", "endTime", "culprits")
                         .andExclude("_id")
         );
 
