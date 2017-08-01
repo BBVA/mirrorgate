@@ -30,6 +30,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -134,27 +135,12 @@ public class BuildControllerTests {
 
     @Test
     public void createBuildTest() throws Exception {
-        BuildDTO request = makeBuildRequest();
+        BuildDTO request = TestObjectFactory.createBuildDTO();
         when(buildService.createOrUpdate(Matchers.any(BuildDTO.class))).thenReturn("123456");
         this.mockMvc.perform(post("/api/builds")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(request)))
                 .andExpect(status().isCreated());
-    }
-
-    private BuildDTO makeBuildRequest() {
-        BuildDTO build = new BuildDTO();
-        build.setNumber("1");
-        build.setBuildUrl("buildUrl");
-        build.setStartTime(3);
-        build.setEndTime(8);
-        build.setDuration(5);
-        build.setBuildStatus("Success");
-        build.setStartedBy("foo");
-        build.setProjectName("mirrorgate");
-        build.setRepoName("api");
-        build.setBranch("test");
-        return build;
     }
 
 }

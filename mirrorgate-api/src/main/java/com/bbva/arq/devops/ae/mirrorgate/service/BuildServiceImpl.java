@@ -98,7 +98,7 @@ public class BuildServiceImpl implements BuildService {
         build.setStartTime(request.getStartTime());
         build.setEndTime(request.getEndTime());
         build.setDuration(request.getDuration());
-        build.setStartedBy(request.getStartedBy());
+        build.setCulprits(request.getCulprits());
         build.setBuildStatus(BuildStatus.fromString(request.getBuildStatus()));
         build.setTimestamp(System.currentTimeMillis());
         build.setProjectName(request.getProjectName());
