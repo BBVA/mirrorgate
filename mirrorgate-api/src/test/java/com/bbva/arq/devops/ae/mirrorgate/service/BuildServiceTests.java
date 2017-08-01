@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
