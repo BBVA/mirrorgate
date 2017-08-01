@@ -65,6 +65,7 @@
   <link rel="import" href="components/tiles/bugs/component.html" >
   <link rel="import" href="components/tiles/notifications/component.html" >
   <link rel="import" href="components/tiles/alerts/component.html" >
+  <link rel="import" href="components/tiles/user-metrics/component.html" >
 
 </head>
 
@@ -103,7 +104,7 @@
           <tile-container class="tile--primary">
             <program-increment-tile class="tile component"></program-increment-tile>
           </tile-container>
-          
+
         </board-row>
 
         <board-row>
@@ -134,6 +135,9 @@
         <tile-container class="tile reviews tile--primary">
           <reviews-tile class="component"></reviews-tile>
         </tile-container>
+        <tile-container class="tile user-metrics tile--secondary">
+          <user-metrics-tile class="component"></user-metrics-tile>
+        </tile-container>
       </board-column>
 
       <board-column class="alerts-column">
@@ -152,6 +156,7 @@
     <!-- / .bottom -->
 
   </div>
+  <img src="img/broken-glass.png" class="easter-egg"/>
 </body>
 
 </html>

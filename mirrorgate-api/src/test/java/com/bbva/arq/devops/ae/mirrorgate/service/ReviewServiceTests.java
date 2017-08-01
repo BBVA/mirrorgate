@@ -52,7 +52,7 @@ public class ReviewServiceTests {
 
         ApplicationDTO app1 = new ApplicationDTO()
                 .setAppname(appName1)
-                .setRate(3)
+                .setRatingTotal(1003)
                 .setPlatform(Platform.Android)
                 .setReviews(Arrays.asList(
                         new ReviewDTO()
@@ -68,7 +68,7 @@ public class ReviewServiceTests {
                 ));
         ApplicationDTO app2 = new ApplicationDTO()
                 .setAppname(appName2)
-                .setRate(4.5)
+                .setRatingTotal(1203)
                 .setPlatform(Platform.IOS)
                 .setReviews(Arrays.asList(
                         new ReviewDTO()
@@ -94,28 +94,6 @@ public class ReviewServiceTests {
     }
 
 
-    @Test
-    public void createReviewTest() {
-        Review review1 = createReview();
-        Review review2 = createReview();
-
-        List<Review> list = new ArrayList<>();
-        list.add(review1);
-        list.add(review2);
-
-        Iterable<Review> reviews = list;
-
-        when(reviewRepository.save(reviews))
-                .thenReturn(reviews);
-
-        List<String> reviewId = reviewService.create(reviews);
-        verify(reviewRepository, times(1)).save(reviews);
-
-        assertThat(reviewId.get(0)).isEqualTo(review1.getId().toString());
-        assertThat(reviewId.get(1)).isEqualTo(review2.getId().toString());
-
-    }
-
     @Test(expected = ReviewsConflictException.class)
     public void createReviewThrowErrorTest() {
         Review review1 = createReview();
@@ -129,7 +107,7 @@ public class ReviewServiceTests {
 
         when(reviewRepository.save(reviews)).thenReturn(null);
 
-        reviewService.create(reviews);
+        reviewService.save(reviews);
     }
 
     private Review createReview() {

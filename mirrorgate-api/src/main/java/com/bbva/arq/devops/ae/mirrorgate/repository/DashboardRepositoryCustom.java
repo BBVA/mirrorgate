@@ -15,11 +15,12 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+
 import java.util.List;
 
 public interface DashboardRepositoryCustom {
 
-    List<DashboardDTO> getActiveDashboards();
+    List<Dashboard> getActiveDashboards();
 
 }

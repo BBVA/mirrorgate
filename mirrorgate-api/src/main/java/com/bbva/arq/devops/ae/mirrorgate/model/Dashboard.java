@@ -19,10 +19,11 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Dashboard info model
@@ -38,6 +39,7 @@ public class Dashboard extends BaseModel {
     private List<String> adminUsers = new ArrayList<>();
     private String sProductName; //Team product name
     private List<String> applications = new ArrayList<>();
+    private List<String> analyticViews;
     private List<String> boards;
     private Filters filters;
 
@@ -48,10 +50,11 @@ public class Dashboard extends BaseModel {
     private DashboardStatus status;
     private String lastUserEdit;
     @Indexed
-    private long lastModification;
+    private Long lastModification;
     private String programIncrement;
     private String urlAlerts;
     private String author;
+
 
     public String getName() {
         return name;
@@ -127,7 +130,7 @@ public class Dashboard extends BaseModel {
         this.lastUserEdit = lastUserEdit;
     }
 
-    public long getLastModification() {
+    public Long getLastModification() {
         return lastModification;
     }
 
@@ -189,5 +192,13 @@ public class Dashboard extends BaseModel {
 
     public void setAdminUsers(List<String> adminUsers) {
         this.adminUsers = adminUsers;
+    }
+
+    public List<String> getAnalyticViews() {
+        return analyticViews;
+    }
+
+    public void setAnalyticViews(List<String> analyticViews) {
+        this.analyticViews = analyticViews;
     }
 }

@@ -94,6 +94,11 @@ gulp.task('serve', ['build'], () => {
   gulp.watch(['src/**/*'], [':serve:watch']);
 });
 
+gulp.task('serve:noclean', [':serve:watch'], () => {
+  browserSync.init({port: 8080, server: {baseDir: ['dist', 'test/mocks']}});
+  gulp.watch(['src/**/*'], [':serve:watch']);
+});
+
 /* To be runned against a local api server */
 gulp.task('serve:local', ['build'], () => {
   browserSync.init({port: 3000, server: {baseDir: 'dist'}});

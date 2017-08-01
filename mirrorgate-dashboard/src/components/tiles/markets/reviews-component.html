@@ -36,7 +36,7 @@
               {review.author}
             </div>
             <div class="review__rate">
-              <i aria-hidden="true" class="fa fa-apple"></i>
+              <i aria-hidden="true" rv-pclass-fa="review.icon" class="fa"></i>
               <span class="rate">
                 <i rv-each-star="stars" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
               </span>
@@ -89,20 +89,7 @@
         model.index = 1;
       }
       model.review = model.reviews && model.reviews[model.index - 1];
-
-      model.stars = [];
-      if(model.review) {
-        var rate = model.review.rate;
-        for(i = 0; i < 5; i++ ) {
-          if(rate - i >= 1 ) {
-            model.stars.push('star');
-          } else if (rate - i > 0 ){
-            model.stars.push('star-half-o');
-          } else {
-            model.stars.push('star-o');
-          }
-        }
-      }
+      model.stars = model.review && this.controller.calculateStars(model.review.rate);
 
     }
 

@@ -58,7 +58,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                     .append("comment", "$comment")
                 ).as("reviews"),
             project("appname", "platform")
-                .and("total_starrating").divide("total_amount").as("rate")
+                .and("total_starrating").as("ratingTotal")
+                .and("total_amount").as("votesTotal")
                 .and("reviews").slice(3, 0)
         );
 
@@ -85,6 +86,24 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         //Convert the aggregation result into a List
         AggregationResults<ApplicationReviewsDTO> groupResults
             = mongoTemplate.aggregate(aggregation, Review.class, ApplicationReviewsDTO.class);
+
+        return groupResults.getMappedResults();
+
+    }
+
+    @Override
+    public List<ApplicationDTO> getAverageRateByAppNamesAfterTimestamp(List<String> names, Long timestamp) {
+
+        Aggregation aggregation = newAggregation(
+                match(Criteria.where("appname").in(names).and("timestamp").gte(timestamp)),
+                group("appname", "platform")
+                        .count().as("votes7Days")
+                        .sum("starrating").as("rating7Days")
+        );
+
+        //Convert the aggregation result into a List
+        AggregationResults<ApplicationDTO> groupResults
+                = mongoTemplate.aggregate(aggregation, Review.class, ApplicationDTO.class);
 
         return groupResults.getMappedResults();
 

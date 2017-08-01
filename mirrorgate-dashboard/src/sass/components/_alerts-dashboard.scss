@@ -52,8 +52,10 @@ alerts-tile {
     border-bottom-style: solid;
     padding-bottom: 10px;
     margin-top: 20px;
-    display: flex;
+    display: table;
+    border-collapse: collapse;
     flex-wrap: wrap;
+    width: 100%;
 
     &:last-child {
       border-bottom-style: none;
@@ -63,24 +65,35 @@ alerts-tile {
       margin-top: 0;
     }
 
-    .group__header h3 {
-      color:#444;
-      font-weight: 300;
-      margin: 0;
-      text-align: left;
+    .group__header {
+      h3 {
+        color:#444;
+        font-weight: 300;
+        margin: 0;
+        text-align: left;
+      }
+      display: table-caption;
     }
 
 
     .alert {
       margin: 0;
       padding: 10px 0;
-      position: relative;
-      width: 50%;
+      width: 100%;
+      display: table-row;
+      height: 2.5em;
+      margin-bottom: 20px;
 
       .image {
-        display: inline-block;
-        position: relative;
-        width: 50px;
+        display: table-cell;
+        vertical-align: middle;
+        padding-left: 10px;
+
+        span {
+          overflow: hidden;
+          display: block;
+          line-height: 0;
+        }
 
         svg, img {
           filter: #{"grayscale()"} opacity(70%);
@@ -93,44 +106,46 @@ alerts-tile {
   }
 
   .alert__title {
-      overflow: hidden;
-      font-size: $level-6;
-      padding: 0 5px;
-      line-height: $level-6 + 0.3;
-      max-height: 120px;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      display: -webkit-box;
+      display: table-cell;
+      vertical-align: middle;
+      padding-left: 10px;
+
+      span {
+        text-align: left;
+        overflow: hidden;
+        font-size: $level-6;
+        line-height: $level-6 + 0.3;
+        max-height: 120px;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+      }
   }
 
   .alert__state  {
-    background-color: $dark-grey;
-    border-color: darken($dark-grey, 20);
-    border-radius: 10px;
     border-style: solid;
-    border-width: 1px;
-    display: block;
-    height: 10px;
-    position: absolute;
-    top: 9px;
-    left: -6px;
-    width: 10px;
-
-  }
-  .alert-state-green {
-    background-color: $green;
-    border-color: darken($green, 20);
+    border-top-width: 10px;
+    border-color: transparent;
   }
 
-  .alert-state-yellow {
-    background-color: $dark-yellow;
-    border-color: darken($dark-yellow, 20);
+  .alert__state::before {
+    display: table-cell;
+    width: 5px;
+    position: relative;
+    content: "";
   }
 
-  .alert-state-red {
-    background-color: $red;
-    border-color: darken($red, 30);
+  .alert-state-green::before {
+    background-color: darken($green, 10);
+  }
+
+  .alert-state-yellow::before {
+    background-color: darken($dark-yellow, 10);
+  }
+
+  .alert-state-red::before {
+    background-color: darken($red, 10);
   }
 }
 

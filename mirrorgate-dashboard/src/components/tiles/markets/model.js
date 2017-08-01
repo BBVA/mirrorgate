@@ -26,9 +26,30 @@
  * @param {Number} last_review_timestamp Last review rate of the app
  * @param {String} last_review_comment Last review comment of the app
  */
-function Market(name, rate, platform, reviews) {
-  this.name = name;
-  this.rate = rate;
-  this.platform = platform;
-  this.reviews = reviews;
+function Market(data) {
+  this.name = data.appname;
+  this.rateTotal = Math.round(data.ratingTotal/data.votesTotal * 10) / 10;
+  this.votesTotal = data.votesTotal;
+  this.rate7Days = Math.round(data.rating7Days/data.votes7Days * 10) / 10;
+  this.votes7Days = data.votes7Days;
+  this.rateMonth = Math.round(data.ratingMonth/data.votesMonth * 10) / 10;
+  this.votesMonth = data.votesMonth;
+
+  this.tendencyChange = (this.rate7Days - this.rateMonth) / this.rateMonth * 100;
+  this.voteTendencyChange = (this.votes7Days * 30 / 7 - this.votesMonth) / this.votesMonth * 100;
+  this.tendency = this.tendencyChange < -5 ? 'down' : this.tendencyChange > 5 ? 'up' : 'eq';
+  this.voteTendency = this.voteTendencyChange < -5 ? 'down' : this.voteTendencyChange > 5 ? 'up' : 'eq';
+  this.platform = data.platform;
+  this.reviews = data.reviews;
+  this.icon = this.platform && {
+      android: 'android',
+      ios: 'apple'
+  }[this.platform.toLowerCase()];
+
+  if(this.reviews) {
+    this.reviews.forEach(function(review) {
+      review.icon = this.icon;
+    }.bind(this));
+  }
+
 }

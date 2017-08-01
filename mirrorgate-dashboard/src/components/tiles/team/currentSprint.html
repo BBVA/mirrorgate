@@ -53,8 +53,10 @@
             </g>
             <g rv-hide="selected">
               <g rv-show="sprint">
-                <text class="rate-completed" y="0">{sprint.doneRatio}%</text>
-                <text class="text-completed" y="100">completed</text>
+                <text class="rate-completed" y="0" rv-show="sprint.doneRatio">{sprint.doneRatio}%</text>
+                <text class="text-completed" y="100" rv-show="sprint.doneRatio">points completed</text>
+                <text class="stories-completed" y="0" rv-hide="sprint.doneRatio">{sprint.doneStories} of {sprint.totalStories}</text>
+                <text class="text-completed" y="100" rv-hide="sprint.doneRatio">stories completed</text>
                 <text class="days-left" y="300">
                   {sprint.daysLeft} days left
                 </text>
@@ -85,7 +87,7 @@
         <span class="legend__color"></span>To Do
       </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -110,7 +112,7 @@
 
     var outherArc = d3.svg.arc()
       .innerRadius(483)
-      .padAngle(Math.PI / 90)
+      .padAngle(Math.PI / 150)
       .outerRadius(500)
       .cornerRadius(17);
 
@@ -156,6 +158,8 @@
       if (sprint && sprint.startDate) {
         model.sprint = {
           doneRatio: sprint.getDoneRatio(),
+          doneStories: sprint.doneStories,
+          totalStories: sprint.totalStories,
           daysLeft: sprint.getDaysLeft()
         };
       } else {
@@ -163,7 +167,7 @@
       }
 
       var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
-      
+
       var marginTop = 0;
 
       var width = parseFloat(style.width.substring(0, style.width.length - 2)),
@@ -180,7 +184,7 @@
       var svg = container
         .select("g.main").attr("transform",
         "translate(" + radius + "," + (radius + marginTop) + ") " +
-        "scale(" + (radius / 530) + ")"
+        "scale(" + (radius / 500) + ")"
         );
 
 
@@ -197,6 +201,10 @@
           points: 0,
           hide: true
         });
+      }
+
+      if (items.length > 40) {
+        outherArc.padAngle(Math.PI / 360).cornerRadius(5);
       }
 
       var joinedItemsMap = items.reduce(function (acc, item) {

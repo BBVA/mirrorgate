@@ -61,7 +61,8 @@ var ProgramIncrementController = (
               if (feat) { feat.children.push(story); }
             }, this);
           }
-          programIncrement = new ProgramIncrement(completed, arg.programIncrementFeatures, arg.programIncrementStories, productArray);
+
+          programIncrement = new ProgramIncrement(completed, arg.programIncrementFeatures, arg.programIncrementStories, productArray, arg.programIncrementStartDate, arg.programIncrementEndDate);
         } else {
           programIncrement = {};
         }

@@ -28,6 +28,9 @@
   <div class="pi component__content">
     <div class="component__header">
       <h2 class="title">Program Increment</h2>
+      <h3 class="title-desc" rv-show="programIncrement.features">
+        <span class="title-desc" rv-show="dateRange">{dateRange}</span>
+      </h3>
       <h3 class="title-desc" rv-hide="programIncrement.features">No data for PI</h3>
     </div>
     <div class="component__body">
@@ -53,9 +56,9 @@
               <g rv-show="programIncrement.features">
                 <text class="rate-completed" y="0">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</text>
                 <text class="text-completed" y="100">features completed</text>
-                <!--<text class="days-left" y="300">
-                  {pi.daysLeft} days left
-                </text>-->
+                <text class="days-left" rv-show="dateRange" y="300">
+                  {daysLeft} days left
+                </text>
               </g>
             </g>
           </g>
@@ -111,7 +114,6 @@
               completedRate(b) - completedRate(a) :
               order[b.status] - order[a.status];
         })
-        .size([3/2 * Math.PI, 1])
         .value(function(d) {
           return d.size;
         });
@@ -131,8 +133,8 @@
         .endAngle(function(d) { return d.x + d.dx  - 3 * Math.PI/4; })
         .padAngle(Math.PI/180)
         .cornerRadius(20)
-        .innerRadius(function (d) { return d.y === 0 ? 0 : Math.max(0, y(d.y-0.25)) + ((d.y-0.25) && (5)); })
-        .outerRadius(function (d) { return d.y === 0 ? 0 : Math.max(0, y((d.y-0.25) + d.dy)) - 20; });
+        .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) + 20; })
+        .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -1; });
 
     // Creates an object based in the HTML Element prototype
     var MyElementProto = Object.create(Tile);
@@ -173,21 +175,62 @@
       this.processAlerts(data);
 
       if (data) {
+        let format = "MMMM Do";
+        let depth = 1;
+        let totalStories = 0;
+
         model.programIncrement = data;
 
-        //Distribute size so that all features take the same width
+        if (data.startDate){
+          model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
+          model.daysLeft = model.programIncrement.getDaysLeft()
+        }
+
+
         model.programIncrement.products.forEach(function(product) {
+          //All product should take the same space, so we take a count of
+          //per product totals to use them as factor
+          let productStories = 0;
+          let productPoints = 0;
+          let storyFactor = 0;
+
           product.children.forEach(function(feature) {
-            feature.size = 1;
+            depth = Math.max(depth, 2);
+
             if(feature.children.length) {
-              var size = 1/feature.children.length;
+              depth = Math.max(depth, 3);
               feature.children.forEach(function(story) {
-                story.size = size;
+                productStories++;
+                productPoints += story.estimate;
+              });
+            } else {
+              //Reserve the place holder for the feature as it had one story
+              productStories++;
+            }
+          });
+
+          //25% of the space is given to story points when estimates are given
+          storyFactor = productPoints ? 0.25 : 0;
+
+          product.children.forEach(function(feature) {
+            //This is ignored if feature contains 1 or more stories
+            //It's equivalent to asuming it only has one 0 points story
+            feature.size = (1 - storyFactor) / productStories;
+
+            if(feature.children.length) {
+              feature.children.forEach(function(story) {
+                story.size = (1 - storyFactor) / productStories
+                    + (productPoints ? storyFactor * story.estimate / productPoints : 0);
               });
             }
           });
 
+          totalStories += productStories;
         });
+
+        if(totalStories > 50) {
+          arc.padAngle(Math.PI/360).cornerRadius(5)
+        }
 
 
         var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
@@ -197,8 +240,9 @@
         var width = parseFloat(style.width.substring(0, style.width.length - 2)),
           height = parseFloat(style.height.substring(0, style.height.length - 2)),
           radius = Math.min(width, height) / 2;
-
         width = 2 * radius;
+
+        partition = partition.size([3/2 * Math.PI, 1 - (0.25 * (3-depth))]);
 
         var container = d3.select(this.shadowRoot).select("svg")
           .attr('preserveAspectRatio', 'xMidYMid meet')

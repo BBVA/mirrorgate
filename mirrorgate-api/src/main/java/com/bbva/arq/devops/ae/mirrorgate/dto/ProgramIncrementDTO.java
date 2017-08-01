@@ -1,35 +1,57 @@
 package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
+
+import java.util.Date;
 import java.util.List;
 
 public class ProgramIncrementDTO {
 
+    private String programIncrementName;
     private List<IssueDTO> programIncrementFeatures;
     private List<IssueDTO> programIncrementStories;
+    private Date startDate;
+    private Date endDate;
 
-    public ProgramIncrementDTO(List<IssueDTO> programIncrementFeatures,
-                               List<IssueDTO> programIncrementStories) {
+    public String getProgramIncrementName() {
+        return programIncrementName;
+    }
 
-        this.programIncrementFeatures = programIncrementFeatures;
-        this.programIncrementStories = programIncrementStories;
+    public ProgramIncrementDTO setProgramIncrementName(String programIncrementName) {
+        this.programIncrementName = programIncrementName;
+        return this;
     }
 
     public List<IssueDTO> getProgramIncrementFeatures() {
         return programIncrementFeatures;
     }
 
-    public void setProgramIncrementFeatures(
-        List<IssueDTO> programIncrementFeatures) {
+    public ProgramIncrementDTO setProgramIncrementFeatures(List<IssueDTO> programIncrementFeatures) {
         this.programIncrementFeatures = programIncrementFeatures;
+        return this;
     }
 
     public List<IssueDTO> getProgramIncrementStories() {
         return programIncrementStories;
     }
 
-    public void setProgramIncrementStories(
-        List<IssueDTO> programIncrementStories) {
+    public ProgramIncrementDTO setProgramIncrementStories(List<IssueDTO> programIncrementStories) {
         this.programIncrementStories = programIncrementStories;
+        return this;
     }
+
+    public Date getProgramIncrementStartDate() { return startDate; }
+
+    public ProgramIncrementDTO setProgramIncrementStartDate(Date startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public Date getProgramIncrementEndDate() { return endDate; }
+
+    public ProgramIncrementDTO setProgramIncrementEndDate(Date endDate) {
+        this.endDate = endDate;
+        return this;
+    }
+
 }

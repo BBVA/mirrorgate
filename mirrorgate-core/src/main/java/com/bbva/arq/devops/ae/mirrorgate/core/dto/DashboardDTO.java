@@ -37,7 +37,8 @@ public class DashboardDTO {
     private Filters filters;
     private DashboardStatus status;
     private String lastUserEdit;
-    private long lastModification;
+    private Long lastModification;
+    private List<String> analyticViews = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -113,11 +114,11 @@ public class DashboardDTO {
         this.lastUserEdit = lastUserEdit;
     }
 
-    public long getLastModification() {
+    public Long getLastModification() {
         return lastModification;
     }
 
-    public void setLastModification(long lastModification) {
+    public void setLastModification(Long lastModification) {
         this.lastModification = lastModification;
     }
 
@@ -127,5 +128,13 @@ public class DashboardDTO {
 
     public void setAdminUsers(List<String> adminUsers) {
         this.adminUsers = adminUsers;
+    }
+
+    public List<String> getAnalyticViews() {
+        return analyticViews;
+    }
+
+    public void setAnalyticViews(List<String> analyticViews) {
+        this.analyticViews = analyticViews;
     }
 }

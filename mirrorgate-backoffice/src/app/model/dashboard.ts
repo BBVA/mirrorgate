@@ -23,6 +23,7 @@ export class Dashboard {
   codeRepos: string[] = [];
   boards: string[] = [];
   adminUsers: string[] = [];
+  analyticViews: string[] = [];
   filter: {
     timeSpan: number,
     branch: Map<string,boolean>,

@@ -21,14 +21,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
-import java.util.ArrayList;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
+
 import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -90,22 +90,6 @@ public class DashboardServiceTests {
 
         assertThat(codeReposByDashboardName.get(0)).isEqualTo(dashboard.getCodeRepos().get(0));
         assertThat(codeReposByDashboardName.get(1)).isEqualTo(dashboard.getCodeRepos().get(1));
-    }
-
-    @Test
-    public void getActiveDashboardsTest() {
-        DashboardDTO dashboard1 = TestObjectFactory.createDashboardDTO();
-        DashboardDTO dashboard2 = TestObjectFactory.createDashboardDTO();
-        List<DashboardDTO> dashboards = new ArrayList<>();
-        dashboards.add(dashboard1);
-        dashboards.add(dashboard2);
-
-        when(dashboardRepository.getActiveDashboards()).thenReturn(dashboards);
-
-        List<DashboardDTO> dashboardsList = dashboardService.getActiveDashboards();
-        verify(dashboardRepository, times(1)).getActiveDashboards();
-
-        assertThat(dashboardsList).isEqualTo(dashboards);
     }
 
     @Test

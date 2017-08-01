@@ -37,6 +37,7 @@ public class Build extends BaseModel {
     private long startTime;
     private long endTime;
     private long duration;
+    @Indexed
     private BuildStatus buildStatus;
     private List<String> culprits;
     @Indexed
@@ -44,6 +45,9 @@ public class Build extends BaseModel {
     @Indexed
     private String repoName;
     private String branch;
+
+    @Indexed
+    private Boolean latest;
 
     public long getTimestamp() {
         return timestamp;
@@ -133,4 +137,12 @@ public class Build extends BaseModel {
         this.branch = branch;
     }
 
+    public Boolean getLatest() {
+        return latest;
+    }
+
+    public Build setLatest(Boolean latest) {
+        this.latest = latest;
+        return this;
+    }
 }

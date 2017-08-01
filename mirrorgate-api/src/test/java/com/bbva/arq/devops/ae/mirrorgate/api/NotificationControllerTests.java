@@ -26,7 +26,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.SlackService;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

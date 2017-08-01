@@ -20,11 +20,10 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
-import com.bbva.arq.devops.ae.mirrorgate.util.TestObjectFactory;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -87,32 +86,6 @@ public class ReviewRepositoryTest {
         assertEquals("mirrorgate", reviews.get(0).getAppName());
         assertEquals("123457", reviews.get(0).getCommentId());
         assertTrue(reviews.get(0).getPlatform().equals(Platform.IOS));
-    }
-
-    @Test
-    public void getAverageRateByAppNames() {
-        List<String> names = Arrays.asList("mirrorgate", "mirrorgato", "mood");
-        List<ApplicationDTO> applications = reviewRepository.getAverageRateByAppNames(names);
-
-        List<Review> iosReviews = new ArrayList<>();
-        iosReviews.add(review1);
-        iosReviews.add(review2);
-
-        List<Review> androidReviews = new ArrayList<>();
-        androidReviews.add(review3);
-        androidReviews.add(review4);
-
-        assertTrue(applications.get(0).getRate() == calculateAverage(iosReviews));
-        assertTrue(applications.get(1).getRate() == calculateAverage(androidReviews));
-    }
-
-    private double calculateAverage(List<Review> reviews) {
-        int total_accumulate = reviews.stream()
-                .mapToInt(review -> review.getAmount()).sum();
-        double total_starrating = reviews.stream()
-                .mapToDouble(review -> review.getStarrating() * review.getAmount()).sum();
-
-        return total_starrating / total_accumulate;
     }
 
 }
