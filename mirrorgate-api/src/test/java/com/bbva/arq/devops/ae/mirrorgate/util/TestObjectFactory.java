@@ -161,7 +161,7 @@ public class TestObjectFactory {
         build.setEndTime(8);
         build.setDuration(5);
         build.setBuildStatus("Success");
-        build.getCulprits().add("foo");
+        build.setCulprits(Arrays.asList("foo"));
         build.setProjectName("mirrorgate");
         build.setRepoName("api");
         build.setBranch("test");

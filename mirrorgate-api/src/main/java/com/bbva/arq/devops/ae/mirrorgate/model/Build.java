@@ -17,7 +17,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -39,7 +38,7 @@ public class Build extends BaseModel {
     private long endTime;
     private long duration;
     private BuildStatus buildStatus;
-    private List<String> culprits = new ArrayList<>();
+    private List<String> culprits;
     @Indexed
     private String projectName;
     @Indexed

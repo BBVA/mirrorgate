@@ -16,7 +16,6 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 
@@ -31,7 +30,7 @@ public class BuildDTO {
     @NotNull
     private long startTime;
 
-    private List<String> culprits = new ArrayList<>();
+    private List<String> culprits;
     private long endTime;
     private long duration;
 
