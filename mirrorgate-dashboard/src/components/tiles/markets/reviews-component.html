@@ -32,8 +32,8 @@
         <div id="container" rv-show="review">
           <div class="review">
             <div class="review__header">
+              <div class="review__name">{review.author}</div>
               <div class="review__date">{review.timestamp | dateFrom updatedDate}</div>
-              {review.author}
             </div>
             <div class="review__rate">
               <i aria-hidden="true" rv-pclass-fa="review.icon" class="fa"></i>
