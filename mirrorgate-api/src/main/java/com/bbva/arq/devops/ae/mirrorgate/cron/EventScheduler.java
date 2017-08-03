@@ -4,6 +4,8 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
+import com.bbva.arq.devops.ae.mirrorgate.websocket.SocketHandler;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -25,19 +27,22 @@ public class EventScheduler {
 
     private Long schedulerTimestamp = 0L;
 
+    private SocketHandler socketHandler;
+
 
     @Autowired
-    public EventScheduler(EventService eventService, BuildService buildService){
+    public EventScheduler(EventService eventService, BuildService buildService, SocketHandler socketHandler){
 
         this.eventService = eventService;
         this.buildService = buildService;
+        this.socketHandler = socketHandler;
     }
 
 
     @Scheduled(fixedDelayString = "${events.scheduler.delay.millis}")
-    public void checkEventUpdates(){
+    public void checkEventUpdates() throws IOException {
 
-        LOGGER.info("Processing events for timestamp {}", schedulerTimestamp);
+        LOGGER.debug("Processing events for timestamp {}", schedulerTimestamp);
 
         //query DB for last events
         List<Event> unprocessedEvents = eventService.getEventsSinceTimestamp(schedulerTimestamp);
@@ -55,6 +60,9 @@ public class EventScheduler {
             builds.forEach(
                 b -> LOGGER.debug("Processing build {} ", b.getBuildUrl()));
 
+            //Handle exceptions. When processing events, scheduler time should be set to the last event sent without errors
+            socketHandler.broadcastMessage("message from the cron scheduler");
+
             //save last event timestamp to local variable
             schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size()-1).getTimestamp();
         }
@@ -71,7 +79,7 @@ public class EventScheduler {
             schedulerTimestamp = lastEvent.getTimestamp();
         }
 
-        LOGGER.info("Scheduler timestamp set to {}", schedulerTimestamp);
+        LOGGER.info("Scheduler initial timestamp set to {}", schedulerTimestamp);
     }
 
 }

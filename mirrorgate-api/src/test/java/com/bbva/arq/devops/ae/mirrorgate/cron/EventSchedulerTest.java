@@ -11,6 +11,8 @@ import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
+import com.bbva.arq.devops.ae.mirrorgate.websocket.SocketHandler;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import org.junit.Before;
@@ -33,6 +35,9 @@ public class EventSchedulerTest {
     @Mock
     private BuildService buildService;
 
+    @Mock
+    private SocketHandler socketHandler;
+
     private EventScheduler eventScheduler;
 
 
@@ -40,19 +45,17 @@ public class EventSchedulerTest {
     public void init(){
 
         TestUtil.setLoggingLevel(Level.DEBUG);
-        eventScheduler = new EventScheduler(eventService, buildService);
+        eventScheduler = new EventScheduler(eventService, buildService, socketHandler);
     }
 
     @Test
-    public void testSchedulerTimestampIsModified(){
+    public void testSchedulerTimestampIsModified() throws IOException {
 
         when(eventService.getEventsSinceTimestamp(anyLong())).thenReturn(Arrays.asList(createBuildEvent()));
         when(eventService.getLastEvent()).thenReturn(null);
         when(buildService.getAllBuildsFromId(anyList())).thenReturn(Collections.emptyList());
 
         eventScheduler.checkEventUpdates();
-
-        System.out.println(outputCapture.toString());
 
         assertTrue(outputCapture.toString().contains("1234567"));
 
