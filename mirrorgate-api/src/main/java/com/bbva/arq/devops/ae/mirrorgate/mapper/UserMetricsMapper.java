@@ -31,7 +31,8 @@ public class UserMetricsMapper {
     public static UserMetricsDTO map(UserMetrics source, UserMetricsDTO target) {
         return target
                 .setRtActiveUsers(source.getRtActiveUsers())
-                .setViewId(source.getViewId());
+                .setViewId(source.getViewId())
+                .setWeekAvgActiveUsers(source.getWeekAvgActiveUsers());
     }
 
     public static UserMetrics map(UserMetricsDTO source) {
@@ -41,7 +42,8 @@ public class UserMetricsMapper {
     public static UserMetrics map(UserMetricsDTO source, UserMetrics target) {
         return target
                 .setRtActiveUsers(source.getRtActiveUsers())
-                .setViewId(source.getViewId());
+                .setViewId(source.getViewId())
+                .setWeekAvgActiveUsers(source.getWeekAvgActiveUsers());
     }
 
 }
