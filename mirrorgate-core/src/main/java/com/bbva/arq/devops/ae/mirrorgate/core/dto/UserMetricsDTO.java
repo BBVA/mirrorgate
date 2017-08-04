@@ -28,7 +28,7 @@ public class UserMetricsDTO {
 
     private Long rtActiveUsers;
 
-    private Long weekAvgActiveUsers;
+    private Long weekUsersCount;
 
     public String getViewId() {
         return viewId;
@@ -48,12 +48,12 @@ public class UserMetricsDTO {
         return this;
     }
 
-    public Long getWeekAvgActiveUsers() {
-        return weekAvgActiveUsers;
+    public Long getWeekUsersCount() {
+        return weekUsersCount;
     }
 
-    public UserMetricsDTO setWeekAvgActiveUsers(Long weekAvgActiveUsers) {
-        this.weekAvgActiveUsers = weekAvgActiveUsers;
+    public UserMetricsDTO setWeekUsersCount(Long weekUsersCount) {
+        this.weekUsersCount = weekUsersCount;
         return this;
     }
 }
