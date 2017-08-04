@@ -131,7 +131,7 @@ public class DashboardServiceImpl implements DashboardService {
             canEdit(authUser, toUpdate);
         }
 
-        if(!dashboard.getAdminUsers().contains(authUser))
+        if(null != dashboard.getAdminUsers() && !dashboard.getAdminUsers().contains(authUser))
             dashboard.getAdminUsers().add(authUser);
 
         Dashboard toSave = mergeDashboard(toUpdate, dashboard, authUser);
