@@ -21,6 +21,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import java.util.List;
 import java.util.Map;
+import org.bson.types.ObjectId;
 
 /**
  * Continuous Integration build service.
@@ -51,5 +52,7 @@ public interface BuildService {
      * @return
      */
     Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repoName, long timestamp);
+
+    List<Build> getAllBuildsFromId(List<ObjectId> buildIds);
 
 }
