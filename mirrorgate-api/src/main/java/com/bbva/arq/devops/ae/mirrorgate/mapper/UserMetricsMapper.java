@@ -32,7 +32,7 @@ public class UserMetricsMapper {
         return target
                 .setRtActiveUsers(source.getRtActiveUsers())
                 .setViewId(source.getViewId())
-                .setWeekUsersCount(source.getWeekUsersCount());
+                .setGa7dayUsers(source.getGa7dayUsers());
     }
 
     public static UserMetrics map(UserMetricsDTO source) {
@@ -43,7 +43,7 @@ public class UserMetricsMapper {
         return target
                 .setRtActiveUsers(source.getRtActiveUsers())
                 .setViewId(source.getViewId())
-                .setWeekUsersCount(source.getWeekUsersCount());
+                .setGa7dayUsers(source.getGa7dayUsers());
     }
 
 }
