@@ -30,12 +30,12 @@ var UserMetricsController = (function(dashboardId) {
       response = JSON.parse(response);
       model = {
         rtActiveUsers: 0,
-        weekUsersCount: 0
+        ga7dayUsers: 0
       };
 
       response.forEach(function(metric) {
         model.rtActiveUsers += metric.rtActiveUsers;
-        model.weekUsersCount += metric.weekUsersCount;
+        model.ga7dayUsers += metric.ga7dayUsers;
       }, this);
     }
 
