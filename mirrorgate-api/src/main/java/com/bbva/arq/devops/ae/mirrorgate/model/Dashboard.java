@@ -35,6 +35,7 @@ public class Dashboard extends BaseModel {
     private String name;
     private String displayName;
     private String logoUrl;
+    @Indexed
     private List<String> codeRepos = new ArrayList<>();
     private List<String> adminUsers = new ArrayList<>();
     private String sProductName; //Team product name

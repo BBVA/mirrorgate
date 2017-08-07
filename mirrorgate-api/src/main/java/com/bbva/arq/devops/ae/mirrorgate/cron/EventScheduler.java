@@ -1,11 +1,14 @@
 package com.bbva.arq.devops.ae.mirrorgate.cron;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
+import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import com.bbva.arq.devops.ae.mirrorgate.websocket.SocketHandler;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -29,13 +32,16 @@ public class EventScheduler {
 
     private SocketHandler socketHandler;
 
+    private DashboardService dashboardService;
+
 
     @Autowired
-    public EventScheduler(EventService eventService, BuildService buildService, SocketHandler socketHandler){
+    public EventScheduler(EventService eventService, BuildService buildService, SocketHandler socketHandler, DashboardService dashboardService){
 
         this.eventService = eventService;
         this.buildService = buildService;
         this.socketHandler = socketHandler;
+        this.dashboardService = dashboardService;
     }
 
 
@@ -57,11 +63,19 @@ public class EventScheduler {
 
             List<Build> builds = buildService.getAllBuildsFromId(unprocessedBuildsId);
 
-            builds.forEach(
-                b -> LOGGER.debug("Processing build {} ", b.getBuildUrl()));
+            List<String> buildNames = new ArrayList<>();
+
+            builds.forEach(build ->
+            {
+                buildNames.add(build.getProjectName());
+                buildNames.add(build.getRepoName());
+            });
+
+            //Get dashboards that follow that repo
+            List<String> dashboardNames = dashboardService.getDashboardNamesFromCodeRepos(buildNames);
 
             //Handle exceptions. When processing events, scheduler time should be set to the last event sent without errors
-            socketHandler.broadcastMessage("message from the cron scheduler");
+            socketHandler.broadcastMessage("message from the cron scheduler", dashboardNames);
 
             //save last event timestamp to local variable
             schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size()-1).getTimestamp();

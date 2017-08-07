@@ -9,6 +9,7 @@ import ch.qos.logback.classic.Level;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
+import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
 import com.bbva.arq.devops.ae.mirrorgate.websocket.SocketHandler;
@@ -38,6 +39,10 @@ public class EventSchedulerTest {
     @Mock
     private SocketHandler socketHandler;
 
+    @Mock
+    private DashboardService dashboardService;
+
+
     private EventScheduler eventScheduler;
 
 
@@ -45,7 +50,7 @@ public class EventSchedulerTest {
     public void init(){
 
         TestUtil.setLoggingLevel(Level.DEBUG);
-        eventScheduler = new EventScheduler(eventService, buildService, socketHandler);
+        eventScheduler = new EventScheduler(eventService, buildService, socketHandler, dashboardService);
     }
 
     @Test

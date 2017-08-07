@@ -37,10 +37,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
-    @Autowired
     private DashboardRepository dashboardRepository;
 
     private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
+
+
+    @Autowired
+    public DashboardServiceImpl(DashboardRepository dashboardRepository){
+
+        this.dashboardRepository = dashboardRepository;
+    }
 
     @Override
     public Dashboard getDashboard(String name) {
@@ -138,6 +144,18 @@ public class DashboardServiceImpl implements DashboardService {
 
         return dashboardRepository.save(toSave);
     }
+
+    @Override
+    public List<String> getDashboardNamesFromCodeRepos(List<String> buildNames) {
+
+        List<Dashboard> codeReposFromDashboards = dashboardRepository.findCodeRepos();
+
+        return codeReposFromDashboards.stream()
+            .map(Dashboard::getCodeRepos)
+            .flatMap(List::stream)
+            .collect(Collectors.toList());
+    }
+
 
     private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {
 
