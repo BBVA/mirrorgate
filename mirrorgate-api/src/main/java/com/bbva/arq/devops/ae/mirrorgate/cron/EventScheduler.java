@@ -1,18 +1,17 @@
 package com.bbva.arq.devops.ae.mirrorgate.cron;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import com.bbva.arq.devops.ae.mirrorgate.websocket.SocketHandler;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Set;
 import javax.annotation.PostConstruct;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,26 +55,21 @@ public class EventScheduler {
         //process events
         if(!unprocessedEvents.isEmpty()){
 
-            List<ObjectId> unprocessedBuildsId =
-                unprocessedEvents.stream()
-                    .map(Event::getEventTypeCollectionId)
-                    .collect(Collectors.toList());
+            Set<String> dashboardIds = socketHandler.getDashboardsWithSession();
 
-            List<Build> builds = buildService.getAllBuildsFromId(unprocessedBuildsId);
+            dashboardIds.forEach(dashboardId -> {
+                Map<String, Object> response = new HashMap<>();
 
-            List<String> buildNames = new ArrayList<>();
+                //Handle unchecked exception
+                List<String> repos = dashboardService.getReposByDashboardName(dashboardId);
+                List<Build> builds = buildService.getAllBranchesLastByReposName(repos);
 
-            builds.forEach(build ->
-            {
-                buildNames.add(build.getProjectName());
-                buildNames.add(build.getRepoName());
+                response.put("lastBuilds", builds);
+                response.put("stats", buildService.getStatsFromRepos(repos));
+
+                //Handle exceptions. When processing events, scheduler time should be set to the last event sent without errors
+                socketHandler.sendMessageToDashboardSessions(response, dashboardId);
             });
-
-            //Get dashboards that follow that repo
-            List<String> dashboardNames = dashboardService.getDashboardNamesFromCodeRepos(buildNames);
-
-            //Handle exceptions. When processing events, scheduler time should be set to the last event sent without errors
-            socketHandler.broadcastMessage("message from the cron scheduler", dashboardNames);
 
             //save last event timestamp to local variable
             schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size()-1).getTimestamp();

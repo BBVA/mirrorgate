@@ -1,5 +1,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.websocket;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.socket.CloseStatus;
@@ -23,6 +25,9 @@ public class SocketHandler extends TextWebSocketHandler {
 
     private Map<String, List<WebSocketSession>> sessionsPerDashboard = new HashMap<>(1000);
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message)
@@ -32,10 +37,15 @@ public class SocketHandler extends TextWebSocketHandler {
     }
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) {
+    public void afterConnectionEstablished(WebSocketSession session) throws IOException {
 
         String dashboardId = session.getUri().getQuery();
-        addToSessionsMap(session, dashboardId);
+
+        if(!StringUtils.isEmpty(dashboardId)) {
+            addToSessionsMap(session, dashboardId);
+        } else {
+            session.close(new CloseStatus(1003, "No dashboardId provided"));
+        }
 
         LOGGER.info("Websocket session added!");
     }
@@ -49,48 +59,40 @@ public class SocketHandler extends TextWebSocketHandler {
         LOGGER.info("Websocket session removed!");
     }
 
-    public void broadcastMessage(String stringMessage, List<String> dashboardId) throws IOException {
-
-        dashboardId.forEach(d -> sendMessageToDashboardSessions(stringMessage, d));
-    }
-
-    public Set getDashboardsWithSession(){
+    public Set<String> getDashboardsWithSession(){
 
         return Collections.unmodifiableSet(sessionsPerDashboard.keySet());
     }
 
-    private void sendMessageToDashboardSessions(String stringMessage, String dashboardId) {
+    public void sendMessageToDashboardSessions(Map<String, Object> stringMessage, String dashboardId) {
 
         List<WebSocketSession> sessions = sessionsPerDashboard.get(dashboardId);
 
         if(sessions != null){
 
             for(WebSocketSession webSocketSession : sessions) {
+
                 try {
-                    webSocketSession.sendMessage(new TextMessage(stringMessage));
+                    String jsonMessage = objectMapper.writeValueAsString(stringMessage);
+                    webSocketSession.sendMessage(new TextMessage(jsonMessage));
                 } catch (IOException e) {
                     LOGGER.error("Exception while sending message to session {}", webSocketSession.getId());
                 }
+
             }
-
         }
-
     }
 
-    private synchronized void addToSessionsMap(WebSocketSession session, String dashboardId){
+    private synchronized void addToSessionsMap(WebSocketSession session, String dashboardId) {
 
-        if(!StringUtils.isEmpty(dashboardId)){
-            List<WebSocketSession> dashboardSessions = sessionsPerDashboard.get(dashboardId);
+        List<WebSocketSession> dashboardSessions = sessionsPerDashboard.get(dashboardId);
 
-            if(dashboardSessions == null){
-                dashboardSessions = new ArrayList<>();
-            }
-
-            dashboardSessions.add(session);
-
-            sessionsPerDashboard.put(dashboardId, dashboardSessions);
+        if(dashboardSessions == null){
+            dashboardSessions = new ArrayList<>();
         }
 
+        dashboardSessions.add(session);
+        sessionsPerDashboard.put(dashboardId, dashboardSessions);
     }
 
     private synchronized void removeFromSessionsMap(WebSocketSession session, String dashboardId){

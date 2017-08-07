@@ -58,7 +58,6 @@ public class EventSchedulerTest {
 
         when(eventService.getEventsSinceTimestamp(anyLong())).thenReturn(Arrays.asList(createBuildEvent()));
         when(eventService.getLastEvent()).thenReturn(null);
-        when(buildService.getAllBuildsFromId(anyList())).thenReturn(Collections.emptyList());
 
         eventScheduler.checkEventUpdates();
 
