@@ -28,6 +28,8 @@ public class UserMetricsDTO {
 
     private Long rtActiveUsers;
 
+    private Long weekUsersCount;
+
     public String getViewId() {
         return viewId;
     }
@@ -43,6 +45,15 @@ public class UserMetricsDTO {
 
     public UserMetricsDTO setRtActiveUsers(Long rtActiveUsers) {
         this.rtActiveUsers = rtActiveUsers;
+        return this;
+    }
+
+    public Long getWeekUsersCount() {
+        return weekUsersCount;
+    }
+
+    public UserMetricsDTO setWeekUsersCount(Long weekUsersCount) {
+        this.weekUsersCount = weekUsersCount;
         return this;
     }
 }

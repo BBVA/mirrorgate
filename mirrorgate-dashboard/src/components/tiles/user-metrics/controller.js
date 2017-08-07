@@ -29,11 +29,13 @@ var UserMetricsController = (function(dashboardId) {
     if(response) {
       response = JSON.parse(response);
       model = {
-        rtActiveUsers: 0
+        rtActiveUsers: 0,
+        weekUsersCount: 0
       };
 
       response.forEach(function(metric) {
         model.rtActiveUsers += metric.rtActiveUsers;
+        model.weekUsersCount += metric.weekUsersCount;
       }, this);
     }
 
