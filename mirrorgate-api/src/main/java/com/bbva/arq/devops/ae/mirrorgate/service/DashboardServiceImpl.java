@@ -120,7 +120,7 @@ public class DashboardServiceImpl implements DashboardService {
 
 
     @Override
-    public Dashboard updateDashboard(String name, Dashboard request) {
+    public Dashboard updateDashboard(String name, Dashboard dashboard) {
         Dashboard toUpdate = this.getDashboard(name);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -131,7 +131,10 @@ public class DashboardServiceImpl implements DashboardService {
             canEdit(authUser, toUpdate);
         }
 
-        Dashboard toSave = mergeDashboard(toUpdate, request, authUser);
+        if(null != dashboard.getAdminUsers() && !dashboard.getAdminUsers().contains(authUser))
+            dashboard.getAdminUsers().add(authUser);
+
+        Dashboard toSave = mergeDashboard(toUpdate, dashboard, authUser);
 
         return dashboardRepository.save(toSave);
     }

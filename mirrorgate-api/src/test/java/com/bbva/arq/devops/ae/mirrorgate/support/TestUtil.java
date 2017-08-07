@@ -18,10 +18,13 @@ package com.bbva.arq.devops.ae.mirrorgate.support;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 
 public class TestUtil {
@@ -32,5 +35,10 @@ public class TestUtil {
         ObjectMapper mapper = new CustomObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return mapper.writeValueAsBytes(object);
+    }
+
+    public static void setLoggingLevel(Level level) {
+        Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        root.setLevel(level);
     }
 }

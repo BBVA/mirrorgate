@@ -20,11 +20,13 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +34,13 @@ import org.springframework.stereotype.Service;
 public class BuildServiceImpl implements BuildService {
 
     private BuildRepository buildRepository;
+    private EventService eventService;
 
     @Autowired
-    public BuildServiceImpl(BuildRepository buildRepository) {
+    public BuildServiceImpl(BuildRepository buildRepository, EventService eventService) {
+
         this.buildRepository = buildRepository;
+        this.eventService = eventService;
     }
 
     @Override
@@ -61,6 +66,8 @@ public class BuildServiceImpl implements BuildService {
         if (build == null) {
             throw new BuildConflictException("Failed inserting/updating build information.");
         }
+
+        eventService.saveBuildEvent(build);
 
         if(shouldUpdateLatest) {
             List<Build> toUpdate =
@@ -111,6 +118,10 @@ public class BuildServiceImpl implements BuildService {
     @Override
     public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repoName, long timestamp) {
         return buildRepository.getBuildStatusStatsAfterTimestamp(repoName, timestamp);
+    }
+
+    public List<Build> getAllBuildsFromId(List<ObjectId> buildIds){
+        return buildRepository.findByIdIn(buildIds);
     }
 
 }

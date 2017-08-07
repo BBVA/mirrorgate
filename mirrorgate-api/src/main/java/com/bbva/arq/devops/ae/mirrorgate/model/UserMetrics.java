@@ -30,6 +30,8 @@ public class UserMetrics extends BaseModel {
 
     private Long rtActiveUsers;
 
+    private Long weekUsersCount;
+
     public String getViewId() {
         return viewId;
     }
@@ -45,6 +47,15 @@ public class UserMetrics extends BaseModel {
 
     public UserMetrics setRtActiveUsers(Long rtActiveUsers) {
         this.rtActiveUsers = rtActiveUsers;
+        return this;
+    }
+
+    public Long getWeekUsersCount() {
+        return weekUsersCount;
+    }
+
+    public UserMetrics setWeekUsersCount(Long weekUsersCount) {
+        this.weekUsersCount = weekUsersCount;
         return this;
     }
 }

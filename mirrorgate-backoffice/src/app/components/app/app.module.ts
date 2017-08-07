@@ -21,6 +21,8 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { TagInputModule } from 'ng2-tag-input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AboutComponent } from '../about/about.component';
 import { ListComponent } from '../list/list.component';
@@ -42,7 +44,9 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(rootRouterConfig, { useHash: true })
+    RouterModule.forRoot(rootRouterConfig, { useHash: true }),
+    TagInputModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [ AppComponent ]
 })
