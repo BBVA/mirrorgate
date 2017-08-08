@@ -1,3 +1,5 @@
+[![GitHub issues](https://img.shields.io/github/issues/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/issues) [![GitHub stars](https://img.shields.io/github/stars/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/stargazers) [![GitHub forks](https://img.shields.io/github/forks/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/network) [![Docker Stars](https://img.shields.io/docker/stars/bbvaae/mirrorgate.svg)](https://hub.docker.com/r/bbvaae/mirrorgate/) [![Docker Pulls](https://img.shields.io/docker/pulls/bbvaae/mirrorgate.svg)](https://hub.docker.com/r/bbvaae/mirrorgate/)
+
 ![MirrorGate](./docs/assets/logo.png)
 
 MirrorGate is a WallBoard application meant to give teams fast feedback in all the different areas related to software development.
@@ -16,8 +18,11 @@ That said, to be honest, it all comes from this dialog from `The Never Ending St
 
 Right now MirrorGate offers information about:
 - Sprint advance status and backlog refinement.
-- Build status per repository
-- Marketplace feedback for mobile applications both in itunes and PlayStore
+- Program increment (PI) advance status.
+- Incidences visualization by criticality.
+- Build status per repository.
+- Marketplace feedback for mobile applications both in iTunes and PlayStore.
+- Slack notifications.
 
 ![ScreenCatpure](./docs/assets/screencapture.png)
 
@@ -35,7 +40,7 @@ To execute a simple local environment with Jira and Jenkins capabilities, please
 In order to operate, the MirrorGate requires several components:
 
 - Main MirrorGate aplication: tipically executed by using the `bbva-ae/mirrorgate` docker container.
-- MongoDB database. Should be binded to the aplication by using the `SPRING_DATA_MONGODB_URI` env variable (for example: `SPRING_DATA_MONGODB_URI=mongodb://localhost:27017/dashboarddb`)
+- MongoDB database. Should be binded to the aplication by using the `SPRING_DATA_MONGODB_URI` env variable (for example: `SPRING_DATA_MONGODB_URI=mongodb://localhost:27017/dashboarddb`).
 - [Collectors](https://github.com/BBVA?utf8=%E2%9C%93&q=mirrorgate%20collector&type=&language=): collectors are components encharged of pushing information to the application. Currently there are the following collectors:
     - Jenkins plugin: is a plugin for jenkins CI server that pushes builds information.
     - Jira collector: is an standlone aplication that polls Jira server for changes every configurable ammount of time.
@@ -62,8 +67,8 @@ Contains folders for each of the modules:
 - [mirrorgate-dashboard](./mirrorgate-dashboard/readme.md): contains the front-end sources.
 - [mirrorgate-backoffice](./mirrorgate-backoffice/README.md): contains danshboards administration application.
 - [mirrorgate-api](./mirrorgate-api/Readme.md): contains de api (backend) sources.
-- [mirrorgate-core](./mirrorgate-core/Readme.md): contains the core library used by the api and the collectors
-- [docker](./docker/README.md): contains utilities to build a MirrorGate docker image
+- [mirrorgate-core](./mirrorgate-core/Readme.md): contains the core library used by the api and the collectors.
+- [docker](./docker/README.md): contains utilities to build a MirrorGate docker image.
 - [tests](./tests/README.md): contains utilities to put all the pieces together and execute them as a whole while developing.
 
 Check each of this folders for instructions on how to build, deploy and run each module.
@@ -72,9 +77,9 @@ Check each of this folders for instructions on how to build, deploy and run each
 
 To execute MirrorGate locally:
 
-0. Ensure you have all the build dependencies installed
-1. Clone this repo
-2. Execute `scripts/buildAndRun.sh`
+0. Ensure you have all the build dependencies installed.
+1. Clone this repo.
+2. Execute `scripts/buildAndRun.sh`.
 3. Wait some time until the message **Tomcat started on port(s): 8080** appears.
 3. Open [http://localhost:8080/mirrorgate/backoffice/index.html](http://localhost:8080/mirrorgate/backoffice/index.html) to access the wallboards backoffice.
 4. You should be able to navigate through the mock dashboards.
@@ -82,11 +87,11 @@ To execute MirrorGate locally:
 
 # Supported browsers
 
-In mirrorgate we are using some edge HTML and CSS features so only latest chrome and firefox versions is supported for the moment. This means that IE and Safari are not current supported.
+In mirrorgate we are using some edge HTML and CSS features so only latest Chrome and Firefox versions is supported for the moment. This means that IE and Safari are not current supported.
 
 # Contributing
 
-Please read the [contributing guide](./CONTRIBUTING.md)
+Please read the [contributing guide](./CONTRIBUTING.md).
 
 # Credit
 
