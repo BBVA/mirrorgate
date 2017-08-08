@@ -8,9 +8,9 @@ services:
   mongo-populate:
     image: "mongo"
     volumes:
-      - .:/temp
+      - "{{ volume }}"
     working_dir: "/temp"
-    entrypoint: "/usr/bin/env bash -c 'until mongo dashboarddb --host mongo < data/main.js; do >&2 echo Mongo is unavailable - sleeping & sleep 1; done'"
+    entrypoint: "{{ entrypoint }}"
     links:
       - mongo
   app:
