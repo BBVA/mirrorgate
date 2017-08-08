@@ -1,8 +1,8 @@
-[![GitHub issues](https://img.shields.io/github/issues/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/issues) [![GitHub stars](https://img.shields.io/github/stars/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/stargazers) [![GitHub forks](https://img.shields.io/github/forks/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/network) [![Docker Stars](https://img.shields.io/docker/stars/bbvaae/mirrorgate.svg)](https://hub.docker.com/r/bbvaae/mirrorgate/) [![Docker Pulls](https://img.shields.io/docker/pulls/bbvaae/mirrorgate.svg)](https://hub.docker.com/r/bbvaae/mirrorgate/)
-
 ![MirrorGate](./docs/assets/logo.png)
 
 MirrorGate is a WallBoard application meant to give teams fast feedback in all the different areas related to software development.
+
+[![license](https://img.shields.io/github/license/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/blob/master/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/issues) [![GitHub stars](https://img.shields.io/github/stars/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/stargazers) [![GitHub forks](https://img.shields.io/github/forks/BBVA/mirrorgate.svg)](https://github.com/BBVA/mirrorgate/network) [![Docker Stars](https://img.shields.io/docker/stars/bbvaae/mirrorgate.svg)](https://hub.docker.com/r/bbvaae/mirrorgate/) [![Docker Pulls](https://img.shields.io/docker/pulls/bbvaae/mirrorgate.svg)](https://hub.docker.com/r/bbvaae/mirrorgate/)
 
 ## ¿Why that name?
 
