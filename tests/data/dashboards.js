@@ -11,7 +11,8 @@ db.getCollection('dashboards').insertMany([
         "applications":[],
         "boards":[
             "MirrorGate"
-        ]
+        ],
+        "analyticViews": ["1234123"]
     },
     {
         "name":"all-the-stuff",
@@ -27,7 +28,10 @@ db.getCollection('dashboards').insertMany([
         "boards":[
             "MirrorGate"
         ],
-        'programIncrement': 'MG02'
+        'programIncrement': 'MG02',
+        "slackTeam": "All",
+        "urlAlerts": "alerts",
+        "analyticViews": ["1234123"]
     },
     {
         "name":"program-increment",
