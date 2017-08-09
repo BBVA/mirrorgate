@@ -87,7 +87,7 @@ To execute MirrorGate locally:
 
 # Supported browsers
 
-In mirrorgate we are using some edge HTML and CSS features so only latest Chrome and Firefox versions is supported for the moment. This means that IE and Safari are not current supported.
+In mirrorgate we are using some edge HTML and CSS features so only latest Chrome and Firefox versions is supported for the moment. This means that IE and Safari are not currently supported.
 
 # Contributing
 
