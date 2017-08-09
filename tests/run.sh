@@ -21,9 +21,6 @@ then
 
     entrypoint="/usr/bin/env bash -c 'until mongorestore --host mongo --db dashboarddb --drop /temp/dashboarddb; do >&2 echo Mongo is unavailable - sleeping & sleep 1; done'"
     volume="/tmp/${last_dump%%.*}:/temp"
-
-    awk -v old="${volume_token}" -v new="${volume}" 's=index($0,old){$0=substr($0,1,s-1) new substr($0,s+length(old))} 1' < docker-compose-template.yml > docker-compose-template.tmp
-    awk -v old="${entrypoint_token}" -v new="${entrypoint}" 's=index($0,old){$0=substr($0,1,s-1) new substr($0,s+length(old))} 1' < docker-compose-template.tmp > docker-compose.yml && rm docker-compose-template.tmp
 fi
 
 awk -v old="${volume_token}" -v new="${volume}" 's=index($0,old){$0=substr($0,1,s-1) new substr($0,s+length(old))} 1' < docker-compose-template.yml > docker-compose-template.tmp
