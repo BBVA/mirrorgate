@@ -28,15 +28,19 @@ var UserMetricsController = (function(dashboardId) {
 
     if(response) {
       response = JSON.parse(response);
-      model = {
-        rtActiveUsers: 0,
-        ga7dayUsers: 0
-      };
+      model = {};
+      if(response.length && response.length > 0) {
+        model.metrics = {
+          rtActiveUsers: 0,
+          ga7dayUsers: 0
+        };
 
-      response.forEach(function(metric) {
-        model.rtActiveUsers += metric.rtActiveUsers;
-        model.ga7dayUsers += metric.ga7dayUsers;
-      }, this);
+        response.forEach(function(metric) {
+          model.metrics.rtActiveUsers += metric.rtActiveUsers;
+          model.metrics.ga7dayUsers += metric.ga7dayUsers;
+        }, this);
+      
+      }
     }
 
     observable.notify(model);
