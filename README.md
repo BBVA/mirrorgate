@@ -21,7 +21,10 @@ Right now MirrorGate offers information about:
 - Program increment (PI) advance status.
 - Incidences visualization by criticality.
 - Build status per repository.
+- Build statistics and failure tendency.
 - Marketplace feedback for mobile applications both in iTunes and PlayStore.
+- Active users from Google Analytics.
+- Alerts.
 - Slack notifications.
 
 ![ScreenCatpure](./docs/assets/screencapture.png)
