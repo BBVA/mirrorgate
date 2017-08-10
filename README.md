@@ -40,18 +40,18 @@ To execute a simple local environment with Jira and Jenkins capabilities, please
 
 # Architecture
 
-In order to operate, the MirrorGate requires several components:
+In order to operate, MirrorGate requires several components:
 
 - Main MirrorGate application: typically executed by using the `bbva-ae/mirrorgate` docker container.
 - MongoDB database. Should be bound to the application by using the `SPRING_DATA_MONGODB_URI` environment variable (for example `SPRING_DATA_MONGODB_URI=mongodb://localhost:27017/dashboarddb`).
 - [Collectors](https://github.com/BBVA?utf8=%E2%9C%93&q=mirrorgate%20collector&type=&language=): collectors are components in charge of seeking and pushing information to the application. Currently, the following collectors exist:
-    - Jenkins plugin: is a plugin that pushes information from Jenkins CI server.
+    - Jenkins plugin: is a plugin that pushes information from a Jenkins CI server.
     - Jira collector: is an standalone application that polls Jira servers for changes every configurable amount of time.
     - Market collectors: are standalone processes that poll smartphone applications marketplaces for user reviews.
 
 ## Security
 
-MirrorGate currently doesn't have a security layer built in. If you want to secure it, you will have to put it behind a reverse proxy such as NginX and rely on perimeter security. Ensure to propagate the authenticated user name by using the X-Forwarded-User header so that the user that makes changes in a dashboards' configuration through the backoffice is saved.
+MirrorGate currently doesn't have a security layer built in. If you want to secure it, you will have to put it behind a reverse proxy such as NginX and rely on perimeter security. Ensure to propagate the authenticated user name by using the X-Forwarded-User header so that the user that makes changes in a dashboards' configuration through the backoffice can be retrieved.
 
 # Building and executing locally
 
@@ -69,7 +69,7 @@ You need the following dependencies installed in order to build the project:
 Contains folders for each of the modules:
 - [mirrorgate-dashboard](./mirrorgate-dashboard/readme.md): contains the front-end sources.
 - [mirrorgate-backoffice](./mirrorgate-backoffice/README.md): contains the dashboard administration application.
-- [mirrorgate-api](./mirrorgate-api/Readme.md): contains the API (backend) sources.
+- [mirrorgate-api](./mirrorgate-api/Readme.md): contains the API (back-end) sources.
 - [mirrorgate-core](./mirrorgate-core/Readme.md): contains the core library used by the API and the collectors.
 - [docker](./docker/README.md): contains utilities to build a MirrorGate docker image.
 - [tests](./tests/README.md): contains utilities to put all the pieces together and execute them as a whole while developing.
@@ -84,13 +84,13 @@ To execute MirrorGate locally:
 1. Clone this repository.
 2. Execute `scripts/buildAndRun.sh`.
 3. Wait some time until the message **Tomcat started on port(s): 8080** appears.
-3. Open [http://localhost:8080/mirrorgate/backoffice/index.html](http://localhost:8080/mirrorgate/backoffice/index.html) to access the wallboards' backoffice.
+3. Open [http://localhost:8080/mirrorgate/backoffice/index.html](http://localhost:8080/mirrorgate/backoffice/index.html) to access the WallBoards' backoffice.
 4. You should be able to navigate through the mock dashboards.
 5. Attempt to run some of the collectors (e.g. Jira) to be able to populate some information inside the database.
 
 # Supported browsers
 
-In MirrorGate we use some edge HTML and CSS features, thus only latest Chrome and Firefox versions are supported for the moment (i.e. IE and Safari are not currently supported).
+In MirrorGate we use some edge HTML and CSS features, thus only latest Chrome and Firefox versions are supported at the moment (i.e. IE and Safari are not currently supported).
 
 # Contributing
 
