@@ -46,12 +46,12 @@ In order to operate, MirrorGate requires several components:
 - MongoDB database. Should be bound to the application by using the `SPRING_DATA_MONGODB_URI` environment variable (for example `SPRING_DATA_MONGODB_URI=mongodb://localhost:27017/dashboarddb`).
 - [Collectors](https://github.com/BBVA?utf8=%E2%9C%93&q=mirrorgate%20collector&type=&language=): collectors are components in charge of seeking and pushing information to the application. Currently, the following collectors exist:
     - Jenkins plugin: is a plugin that pushes information from a Jenkins CI server.
-    - Jira collector: is an standalone application that polls Jira servers for changes every configurable amount of time.
-    - Market collectors: are standalone processes that poll smartphone applications marketplaces for user reviews.
+    - Jira collector: is a standalone application that polls Jira servers for changes every configurable amount of time.
+    - Market collector: is a standalone process that polls smartphone applications marketplaces for user reviews.
 
 ## Security
 
-MirrorGate currently doesn't have a security layer built in. If you want to secure it, you will have to put it behind a reverse proxy such as NginX and rely on perimeter security. Ensure to propagate the authenticated user name by using the X-Forwarded-User header so that the user that makes changes in a dashboards' configuration through the backoffice can be retrieved.
+MirrorGate currently doesn't have a security layer built in. If you want to secure it, you will have to put it behind a reverse proxy such as NginX and rely on perimeter security. Ensure to propagate the authenticated user name by using the X-Forwarded-User header so that the user that makes changes in a dashboard's configuration through the backoffice can be retrieved.
 
 # Building and executing locally
 
