@@ -43,6 +43,7 @@ module.exports = function(config) {
       'src/js/core/Timer.js',
       'src/js/core/Service.js',
       'src/js/core/request.js',
+      'src/js/core/websocket.js',
       'src/components/**/*.*',
       // Test resources
       'node_modules/lodash/lodash.min.js',
