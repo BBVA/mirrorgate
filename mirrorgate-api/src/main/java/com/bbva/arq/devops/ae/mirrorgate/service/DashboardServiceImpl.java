@@ -145,18 +145,6 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardRepository.save(toSave);
     }
 
-    @Override
-    public List<String> getDashboardNamesFromCodeRepos(List<String> buildNames) {
-
-        List<Dashboard> codeReposFromDashboards = dashboardRepository.findCodeRepos();
-
-        return codeReposFromDashboards.stream()
-            .map(Dashboard::getCodeRepos)
-            .flatMap(List::stream)
-            .collect(Collectors.toList());
-    }
-
-
     private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {
 
         request.setId(dashboard.getId());

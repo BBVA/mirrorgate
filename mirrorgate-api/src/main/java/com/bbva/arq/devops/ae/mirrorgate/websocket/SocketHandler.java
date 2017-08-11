@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +23,16 @@ public class SocketHandler extends TextWebSocketHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SocketHandler.class);
 
-    private Map<String, List<WebSocketSession>> sessionsPerDashboard = new HashMap<>(1000);
+    private Map<String, List<WebSocketSession>> sessionsPerDashboard = new ConcurrentHashMap<>(1000);
 
-    @Autowired
     private ObjectMapper objectMapper;
 
+
+    @Autowired
+    public SocketHandler(ObjectMapper objectMapper){
+
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message)
@@ -43,11 +48,11 @@ public class SocketHandler extends TextWebSocketHandler {
 
         if(!StringUtils.isEmpty(dashboardId)) {
             addToSessionsMap(session, dashboardId);
+            LOGGER.info("Websocket session for {} added!", dashboardId);
         } else {
             session.close(new CloseStatus(1003, "No dashboardId provided"));
         }
 
-        LOGGER.info("Websocket session added!");
     }
 
     @Override
@@ -56,7 +61,7 @@ public class SocketHandler extends TextWebSocketHandler {
         String dashboardId = session.getUri().getQuery();
         removeFromSessionsMap(session, dashboardId);
 
-        LOGGER.info("Websocket session removed!");
+        LOGGER.info("Websocket session for {} removed!", dashboardId);
     }
 
     public Set<String> getDashboardsWithSession(){

@@ -88,6 +88,4 @@ public interface DashboardService {
      */
     Dashboard updateDashboard(String name, Dashboard dashboard);
 
-
-    List<String> getDashboardNamesFromCodeRepos(List<String> codeRepos);
 }
