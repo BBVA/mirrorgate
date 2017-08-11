@@ -17,11 +17,14 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
+import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,9 +32,12 @@ import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class BuildServiceImpl implements BuildService {
+
+    private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
 
     private BuildRepository buildRepository;
     private EventService eventService;
@@ -91,6 +97,37 @@ public class BuildServiceImpl implements BuildService {
         return build.getId().toString();
     }
 
+    @Override
+    public BuildStats getStatsFromRepos(List<String> repoNames) {
+
+        BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(repoNames, 7);
+        BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(repoNames, 15);
+
+        FailureTendency failureTendency = BuildStatsUtils.failureTendency(statsSevenDaysBefore.getFailureRate(), statsFifteenDaysBefore.getFailureRate());
+
+        statsSevenDaysBefore.setFailureTendency(failureTendency);
+
+        return statsSevenDaysBefore;
+    }
+
+    @Override
+    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repoName, long timestamp) {
+        return buildRepository.getBuildStatusStatsAfterTimestamp(repoName, timestamp);
+    }
+
+    private BuildStats getStatsWithoutFailureTendency(List<String> repoName, int daysBefore) {
+
+        if (repoName == null) {
+            return null;
+        }
+
+        Date numberOfDaysBefore = new Date(System.currentTimeMillis() - (daysBefore * DAY_IN_MS));
+        Map<BuildStatus, BuildStats> info = getBuildStatusStatsAfterTimestamp(repoName, numberOfDaysBefore.getTime());
+
+        return BuildStatsUtils.combineBuildStats(info.values().toArray(new BuildStats[]{}));
+    }
+
+
     private Build getBuildToSave(BuildDTO request) {
         Build build = null;
         if(BuildStatus.fromString(request.getBuildStatus()) != BuildStatus.Deleted && request.getBuildUrl() != null) {
@@ -113,15 +150,6 @@ public class BuildServiceImpl implements BuildService {
         build.setBranch(request.getBranch());
 
         return build;
-    }
-
-    @Override
-    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repoName, long timestamp) {
-        return buildRepository.getBuildStatusStatsAfterTimestamp(repoName, timestamp);
-    }
-
-    public List<Build> getAllBuildsFromId(List<ObjectId> buildIds){
-        return buildRepository.findByIdIn(buildIds);
     }
 
 }

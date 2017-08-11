@@ -37,10 +37,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
-    @Autowired
     private DashboardRepository dashboardRepository;
 
     private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
+
+
+    @Autowired
+    public DashboardServiceImpl(DashboardRepository dashboardRepository){
+
+        this.dashboardRepository = dashboardRepository;
+    }
 
     @Override
     public Dashboard getDashboard(String name) {

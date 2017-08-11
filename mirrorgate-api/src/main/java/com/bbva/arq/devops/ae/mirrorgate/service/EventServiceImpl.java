@@ -17,15 +17,12 @@ public class EventServiceImpl implements EventService{
 
     private EventRepository eventRepository;
 
-    private Long schedulerTimestamp = 0L;
-
 
     @Autowired
     public EventServiceImpl(EventRepository eventRepository){
 
         this.eventRepository = eventRepository;
     }
-
 
     @Override
     public void saveBuildEvent(Build build) {
@@ -49,5 +46,4 @@ public class EventServiceImpl implements EventService{
     public List<Event> getEventsSinceTimestamp(Long timestamp){
         return eventRepository.findByTimestampGreaterThanOrderByTimestampAsc(timestamp);
     }
-
 }

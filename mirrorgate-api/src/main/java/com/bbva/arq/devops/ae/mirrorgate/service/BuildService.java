@@ -22,6 +22,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import java.util.List;
 import java.util.Map;
 import org.bson.types.ObjectId;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Continuous Integration build service.
@@ -53,6 +54,6 @@ public interface BuildService {
      */
     Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repoName, long timestamp);
 
-    List<Build> getAllBuildsFromId(List<ObjectId> buildIds);
+    BuildStats getStatsFromRepos(List<String> repoName);
 
 }

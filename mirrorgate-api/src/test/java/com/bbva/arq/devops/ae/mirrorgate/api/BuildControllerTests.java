@@ -26,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
@@ -95,13 +96,16 @@ public class BuildControllerTests {
 
     @Test
     public void getFailureRateTest() throws Exception {
-        Map<BuildStatus, BuildStats> stats = new HashMap<>();
-        stats.put(BuildStatus.Success, new BuildStats().setCount(2));
-        stats.put(BuildStatus.Failure, new BuildStats().setCount(1).setFailureRate(100));
+
+        BuildStats buildStats = new BuildStats()
+                                        .setDuration(0)
+                                        .setCount(3)
+                                        .setFailureRate(33)
+                                        .setFailureTendency(FailureTendency.equal);
 
         when(dashboardService.getReposByDashboardName(DASHBOARD_NAME)).thenReturn(REPO_NAMES_LIST);
-        when(buildService.getBuildStatusStatsAfterTimestamp(eq(REPO_NAMES_LIST), anyLong()))
-                .thenReturn(stats);
+        when(buildService.getStatsFromRepos(eq(REPO_NAMES_LIST)))
+                .thenReturn(buildStats);
 
         this.mockMvc.perform(get("/dashboards/" + DASHBOARD_NAME + "/builds/rate"))
                 .andExpect(status().isOk())
@@ -110,9 +114,16 @@ public class BuildControllerTests {
 
     @Test
     public void getFailureRateWithoutBuildsTest() throws Exception {
+
+        BuildStats buildStats = new BuildStats()
+                                        .setDuration(0)
+                                        .setCount(0)
+                                        .setFailureRate(0)
+                                        .setFailureTendency(FailureTendency.equal);
+
         when(dashboardService.getReposByDashboardName(DASHBOARD_NAME)).thenReturn(REPO_NAMES_LIST);
-        when(buildService.getBuildStatusStatsAfterTimestamp(eq(REPO_NAMES_LIST), anyLong()))
-                .thenReturn(new HashMap<>());
+        when(buildService.getStatsFromRepos(eq(REPO_NAMES_LIST)))
+            .thenReturn(buildStats);
 
         this.mockMvc.perform(get("/dashboards/" + DASHBOARD_NAME + "/builds/rate"))
                 .andExpect(status().isOk())
@@ -121,12 +132,15 @@ public class BuildControllerTests {
 
     @Test
     public void getFailureRateWithoutFailureBuildsTest() throws Exception {
-        Map<BuildStatus, BuildStats> stats = new HashMap<>();
-        stats.put(BuildStatus.Success, new BuildStats().setCount(3));
+        BuildStats buildStats = new BuildStats()
+                                        .setCount(3)
+                                        .setDuration(0)
+                                        .setFailureRate(0)
+                                        .setFailureTendency(FailureTendency.equal);
 
         when(dashboardService.getReposByDashboardName(DASHBOARD_NAME)).thenReturn(REPO_NAMES_LIST);
-        when(buildService.getBuildStatusStatsAfterTimestamp(eq(REPO_NAMES_LIST), anyLong()))
-                .thenReturn(stats);
+        when(buildService.getStatsFromRepos(eq(REPO_NAMES_LIST)))
+            .thenReturn(buildStats);
 
         this.mockMvc.perform(get("/dashboards/" + DASHBOARD_NAME + "/builds/rate"))
                 .andExpect(status().isOk())
