@@ -59,7 +59,8 @@ public class RestConfig {
                         .antMatchers(HttpMethod.GET, "/dashboards/**").hasAnyAuthority(SecurityAuthoritiesEnum.REGULAR.toString(), SecurityAuthoritiesEnum.SCREEN.toString())
                         .antMatchers(HttpMethod.POST, "/dashboards/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
                         .antMatchers(HttpMethod.DELETE, "/dashboards/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
-                        .antMatchers(HttpMethod.PUT, "/dashboards/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString());
+                        .antMatchers(HttpMethod.PUT, "/dashboards/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
+                        .antMatchers(HttpMethod.GET, "/websocket").hasAnyAuthority(SecurityAuthoritiesEnum.REGULAR.toString(), SecurityAuthoritiesEnum.SCREEN.toString());
         }
 
         @Override
