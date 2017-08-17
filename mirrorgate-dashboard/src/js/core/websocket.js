@@ -21,7 +21,7 @@ var MirrorGateWebSocket = function(callback){
   function init(){
     if(!mirrorGateWebSocket || mirrorGateWebSocket.readyState == mirrorGateWebSocket.CLOSED){
 
-      mirrorGateWebSocket = new WebSocket(((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + "/mirrorgate/websocket?" + Utils.getDashboardId());
+      mirrorGateWebSocket = new SockJS(window.location.protocol+ "//" + window.location.host + "/mirrorgate/websocket?" + Utils.getDashboardId());
 
       mirrorGateWebSocket.onmessage = function(data){
         callback(data.data);
