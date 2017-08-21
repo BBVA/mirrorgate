@@ -1,11 +1,12 @@
 package com.bbva.arq.devops.ae.mirrorgate.cron;
 
+import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ServerSideEventsHandler;
+import com.bbva.arq.devops.ae.mirrorgate.connection.handler.SocketHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
-import com.bbva.arq.devops.ae.mirrorgate.websocket.SocketHandler;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -29,17 +30,17 @@ public class EventScheduler {
 
     private Long schedulerTimestamp = 0L;
 
-    private SocketHandler socketHandler;
+    private ServerSideEventsHandler handler;
 
     private DashboardService dashboardService;
 
 
     @Autowired
-    public EventScheduler(EventService eventService, BuildService buildService, SocketHandler socketHandler, DashboardService dashboardService){
+    public EventScheduler(EventService eventService, BuildService buildService, ServerSideEventsHandler handler, DashboardService dashboardService){
 
         this.eventService = eventService;
         this.buildService = buildService;
-        this.socketHandler = socketHandler;
+        this.handler = handler;
         this.dashboardService = dashboardService;
     }
 
@@ -55,7 +56,7 @@ public class EventScheduler {
         //process events
         if(!unprocessedEvents.isEmpty()){
 
-            Set<String> dashboardIds = socketHandler.getDashboardsWithSession();
+            Set<String> dashboardIds = handler.getDashboardsWithSession();
 
             dashboardIds.forEach(dashboardId -> {
                 Map<String, Object> response = new HashMap<>();
@@ -68,7 +69,7 @@ public class EventScheduler {
                 response.put("stats", buildService.getStatsFromRepos(repos));
 
                 //Handle exceptions. When processing events, scheduler time should be set to the last event sent without errors
-                socketHandler.sendMessageToDashboardSessions(response, dashboardId);
+                handler.sendMessageToDashboardSessions(response, dashboardId);
             });
 
             //save last event timestamp to local variable

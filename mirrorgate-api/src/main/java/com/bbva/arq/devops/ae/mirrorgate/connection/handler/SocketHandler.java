@@ -1,4 +1,4 @@
-package com.bbva.arq.devops.ae.mirrorgate.websocket;
+package com.bbva.arq.devops.ae.mirrorgate.connection.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
