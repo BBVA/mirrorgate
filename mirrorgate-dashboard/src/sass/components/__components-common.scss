@@ -349,14 +349,40 @@ svg {
     content: '~';
   }
 
-  &.tendency-up::before {
-    content: '\25B2';
-    color: green;
+  &.tendency-oneup::before {
+    content: url(../img/top_arrow.svg);
+    width: 16px;
+    display: inline-block;
   }
 
-  &.tendency-down::before {
-    content: '\25BC';
-    color: red;
+  &.tendency-twoup::before {
+    content: url(../img/top_arrow_double.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
+  &.tendency-threeup::before {
+    content: url(../img/top_arrow_triple.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
+  &.tendency-onedown::before {
+    content: url(../img/down_arrow.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
+  &.tendency-twodown::before {
+    content: url(../img/down_arrow_double.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
+  &.tendency-threedown::before {
+    content: url(../img/down_arrow_triple.svg);
+    width: 16px;
+    display: inline-block;
   }
 
 }
