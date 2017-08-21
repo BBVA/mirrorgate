@@ -45,6 +45,7 @@ module.exports = function(config) {
       'src/js/core/Service.js',
       'src/js/core/request.js',
       'src/js/core/websocket.js',
+      'src/js/core/serversideevent.js',
       'src/components/**/*.*',
       // Test resources
       'node_modules/lodash/lodash.min.js',

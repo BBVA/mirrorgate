@@ -18,7 +18,6 @@
  * BuildsController - Controller to handle builds
  *
  */
-var buildsWebSocket;
 
 var BuildsController = (function(dashboardId) {
 
@@ -136,9 +135,6 @@ var BuildsController = (function(dashboardId) {
   };
   this.init = function(_config) {
     config = _config;
-    if(!buildsWebSocket){
-      buildsWebSocket = new MirrorGateWebSocket(getLastBuilds);
-    }
     service.addListener(getLastBuilds);
   };
 

@@ -1,21 +1,19 @@
 package com.bbva.arq.devops.ae.mirrorgate.cron;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import ch.qos.logback.classic.Level;
+import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ServerSideEventsHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
-import com.bbva.arq.devops.ae.mirrorgate.websocket.SocketHandler;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,7 +35,7 @@ public class EventSchedulerTest {
     private BuildService buildService;
 
     @Mock
-    private SocketHandler socketHandler;
+    private ServerSideEventsHandler eventsHandler;
 
     @Mock
     private DashboardService dashboardService;
@@ -50,7 +48,7 @@ public class EventSchedulerTest {
     public void init(){
 
         TestUtil.setLoggingLevel(Level.DEBUG);
-        eventScheduler = new EventScheduler(eventService, buildService, socketHandler, dashboardService);
+        eventScheduler = new EventScheduler(eventService, buildService, eventsHandler, dashboardService);
     }
 
     @Test
