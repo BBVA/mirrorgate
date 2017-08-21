@@ -72,8 +72,8 @@
 
 .component__body {
     height: calc(100% - 100px);
-    min-height: 250px;
-    min-width: 250px;
+    min-height: 0px;
+    min-width: 0px;
     padding: 15px;
     position: relative;
     flex-basis: 100%;
