@@ -24,7 +24,7 @@
   <style>
     @import "css/styles.css";
   </style>
-  <div class="notifications" rv-show="notification.description">
+  <div class="notifications">
       <div class="notification__icon" rv-color="notification.color">
         <i class="fa fa-slack" aria-hidden="true"></i>
       </div>
@@ -35,9 +35,10 @@
             <span rv-show="notification.user"> from {notification.user}</span>
           </span>
 
-          <span class="date title-desc">{ notification.date | date updatedDate}</span></div>
+          <span class="date title-desc" rv-show="notification.date">{ notification.date | date updatedDate}</span></div>
 
-        <div>{ notification.description }</div>
+        <div rv-show="notification.description">{ notification.description }</div>
+        <div rv-hidden="notification.description">No notifications</div>
       </div>
   </div>
 </template>

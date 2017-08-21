@@ -8,5 +8,6 @@
   ],
   "applications": ["empty"],
   "slackTeam": "empty",
-  "urlAlerts": "dashboards/empty/alerts"
+  "urlAlerts": "dashboards/empty/alerts",
+  "analyticViews": ["123412"]
 }

@@ -48,6 +48,8 @@
   <script src="js/core/Timer.js"></script>
   <script src="js/core/Service.js"></script>
   <script src="js/core/request.js"></script>
+  <script src="js/core/websocket.js"></script>
+  <script src="js/core/serversideevent.js"></script>
   <script src="js/app.js"></script>
   <!-- endbuild -->
 
@@ -77,8 +79,8 @@
           <ul class="dropdown-menu" aria-labelledby="menuBtn">
             <li><a href="canary.html" onclick="document.location.href = 'canary.html?board=' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a></li>
             <li class="dropdown-header">Manage</li>
-            <li><a href="backoffice/index.html"><i class="fa fa-cogs" aria-hidden="true"></i> Admin panel </a></li>
-            <li><a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/edit/' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit panel</a></li>
+            <li><a href="backoffice/index.html"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
+            <li><a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/edit/' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
             <li class="dropdown-header">Recent dashboards</li>
           </ul>
         </div>

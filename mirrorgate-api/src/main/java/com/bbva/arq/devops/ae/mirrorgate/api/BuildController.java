@@ -21,13 +21,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
-import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +42,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class BuildController {
-
-    private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
 
     private final BuildService buildService;
     private final DashboardService dashboardService;
@@ -72,37 +66,18 @@ public class BuildController {
         List<Build> builds = buildService.getAllBranchesLastByReposName(repos);
 
         response.put("lastBuilds", builds);
-        response.put("stats", getStats(name));
+        response.put("stats", buildService.getStatsFromRepos(repos));
 
         return response;
     }
-
-    private BuildStats getStatsWithoutFailureTendency(@PathVariable("name") String name, int daysBefore) {
-
-        List<String> repos = dashboardService.getReposByDashboardName(name);
-
-        if (repos == null) {
-            return null;
-        }
-
-        Date numberOfDaysBefore = new Date(System.currentTimeMillis() - (daysBefore * DAY_IN_MS));
-        Map<BuildStatus, BuildStats> info = buildService.getBuildStatusStatsAfterTimestamp(repos, numberOfDaysBefore.getTime());
-
-        return BuildStatsUtils.combineBuildStats(info.values().toArray(new BuildStats[]{}));
-      }
 
     @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
         produces = APPLICATION_JSON_VALUE)
     public BuildStats getStats(@PathVariable("name") String name) {
 
-        BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(name, 7);
-        BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(name, 15);
+        List<String> repos = dashboardService.getReposByDashboardName(name);
 
-        FailureTendency failureTendency = BuildStatsUtils.failureTendency(statsSevenDaysBefore.getFailureRate(), statsFifteenDaysBefore.getFailureRate());
-
-        statsSevenDaysBefore.setFailureTendency(failureTendency);
-
-        return statsSevenDaysBefore;
+        return buildService.getStatsFromRepos(repos);
     }
 
     @RequestMapping(value = "/api/builds", method = POST,

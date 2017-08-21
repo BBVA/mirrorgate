@@ -88,5 +88,4 @@ public interface DashboardService {
      */
     Dashboard updateDashboard(String name, Dashboard dashboard);
 
-
 }

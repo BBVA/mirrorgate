@@ -36,6 +36,7 @@ module.exports = function(config) {
       'bower_components/rivets/dist/rivets.bundled.min.js',
       'bower_components/moment/min/moment.min.js',
       'bower_components/moment-weekday-calc/build/moment-weekday-calc.min.js',
+      'bower_components/sockjs-client/dist/sockjs.min.js',
       'src/js/core/utils.js',
       'src/js/components/Tile.js',
       'src/js/core/Event.js',
@@ -43,6 +44,8 @@ module.exports = function(config) {
       'src/js/core/Timer.js',
       'src/js/core/Service.js',
       'src/js/core/request.js',
+      'src/js/core/websocket.js',
+      'src/js/core/serversideevent.js',
       'src/components/**/*.*',
       // Test resources
       'node_modules/lodash/lodash.min.js',

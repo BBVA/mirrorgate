@@ -30,6 +30,8 @@ public class UserMetrics extends BaseModel {
 
     private Long rtActiveUsers;
 
+    private Long ga7dayUsers;
+
     public String getViewId() {
         return viewId;
     }
@@ -45,6 +47,15 @@ public class UserMetrics extends BaseModel {
 
     public UserMetrics setRtActiveUsers(Long rtActiveUsers) {
         this.rtActiveUsers = rtActiveUsers;
+        return this;
+    }
+
+    public Long getGa7dayUsers() {
+        return ga7dayUsers;
+    }
+
+    public UserMetrics setGa7dayUsers(Long ga7dayUsers) {
+        this.ga7dayUsers = ga7dayUsers;
         return this;
     }
 }

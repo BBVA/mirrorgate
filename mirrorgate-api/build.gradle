@@ -68,6 +68,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-websocket")
     compile("com.github.allbegray:slack-api:v1.4.0.RELEASE")
 
     testCompile('io.springfox:springfox-staticdocs:2.6.1')

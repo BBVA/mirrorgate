@@ -9,5 +9,6 @@
   ],
   "applications": ["error"],
   "slackTeam":"error",
-  "urlAlerts": "error"
+  "urlAlerts": "error",
+  "analyticViews": ["error"]
 }

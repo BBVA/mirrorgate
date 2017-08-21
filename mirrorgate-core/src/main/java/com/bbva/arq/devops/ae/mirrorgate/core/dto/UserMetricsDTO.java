@@ -28,6 +28,8 @@ public class UserMetricsDTO {
 
     private Long rtActiveUsers;
 
+    private Long ga7dayUsers;
+
     public String getViewId() {
         return viewId;
     }
@@ -43,6 +45,15 @@ public class UserMetricsDTO {
 
     public UserMetricsDTO setRtActiveUsers(Long rtActiveUsers) {
         this.rtActiveUsers = rtActiveUsers;
+        return this;
+    }
+
+    public Long getGa7dayUsers() {
+        return ga7dayUsers;
+    }
+
+    public UserMetricsDTO setGa7dayUsers(Long ga7dayUsers) {
+        this.ga7dayUsers = ga7dayUsers;
         return this;
     }
 }

@@ -17,6 +17,7 @@ package com.bbva.arq.devops.ae.mirrorgate.builders;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import java.util.Arrays;
 import org.bson.types.ObjectId;
 
 public class BuildBuilder {
@@ -46,7 +47,7 @@ public class BuildBuilder {
         build.setEndTime(8);
         build.setDuration(5);
         build.setBuildStatus(buildStatus);
-        build.setStartedBy("foo");
+        build.setCulprits(Arrays.asList("foo"));
         build.setProjectName("mirrorgate");
         build.setRepoName(repoName);
         build.setBranch("test");

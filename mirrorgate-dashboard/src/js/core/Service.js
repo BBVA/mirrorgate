@@ -90,7 +90,7 @@ var Service = (function() {
       dashboards: new ServiceType(Timer.never),
       programincrement: new ServiceType(Timer.eventually, 'programincrement'),
       notifications: new ServiceType(Timer.never, 'notifications'),
-      userMetrics: new ServiceType(Timer.never, 'user-metrics'),
+      userMetrics: new ServiceType(Timer.eventually, 'user-metrics'),
     },
     get: function(type, dashboardId) {
       return (

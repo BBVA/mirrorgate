@@ -54,7 +54,8 @@ public class BuildStats {
         return failureTendency;
     }
 
-    public void setFailureTendency(FailureTendency failureTendency) {
+    public BuildStats setFailureTendency(FailureTendency failureTendency) {
         this.failureTendency = failureTendency;
+        return this;
     }
 }

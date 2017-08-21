@@ -24,15 +24,22 @@
     @import "css/styles.css";
   </style>
 
-  <div class="bugs component__content">
+  <div class="users component__content">
     <div class="component__header">
-      <h2 class="title">Analytics</h2>
+      <h2 class="title">Users</h2>
       <h3 class="title-desc">
         <span rv-hide="metrics">No metrics collected</span>
-        <span rv-show="metrics">{metrics.rtActiveUsers} active users</span>
       </h3>
     </div>
     <div class="component__body">
+      <div class="indicator" rv-show="metrics.rtActiveUsers">
+        <div class="stats stats-metrics">{metrics.rtActiveUsers}</div>
+        <div class="stats-desc">active users</div>
+      </div>
+      <div class="indicator" rv-show="metrics.ga7dayUsers">
+        <div class="stats">{metrics.ga7dayUsers}</div>
+        <div class="stats-desc">weekly users</div>
+      </div>
     </div>
   </div>
 </template>
@@ -67,9 +74,9 @@
       this.processAlerts(data);
 
       var model = this.getModel();
-
+            
       if (data) {
-        model.metrics = data;
+        model.metrics = data.metrics;
       }
     };
 

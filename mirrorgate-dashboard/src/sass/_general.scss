@@ -165,6 +165,8 @@ tile-container{
         margin: 0;
         padding: 5px;
         width: 100%;
+        min-height: 0;
+        min-width: 0;
     }
 
     .tile--primary{

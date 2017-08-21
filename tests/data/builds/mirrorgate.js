@@ -25,7 +25,8 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-jenkins-plugin",
-    "branch": "PR-7"
+    "branch": "PR-7",
+    "culprits": ["Gmork"]
   },
   {
     "timestamp": now,
@@ -64,7 +65,8 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
-    "branch": "refactor/APINaming"
+    "branch": "refactor/APINaming",
+    "culprits": ["gmork"]
   },
   {
     "timestamp": now,
@@ -103,7 +105,8 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
-    "branch": "feature/DOST05-128-docs-add-tool-documentation"
+    "branch": "feature/DOST05-128-docs-add-tool-documentation",
+    "culprits": ["Gmork", "Xayide"]
   },
   {
     "timestamp": now,

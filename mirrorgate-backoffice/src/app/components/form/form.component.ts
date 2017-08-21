@@ -38,7 +38,10 @@ export class FormComponent {
     applications?: string,
     boards?: string,
     codeRepos?: string,
-    adminUsers?: string,
+    adminUsers?: {
+      display?: string,
+      value?: string
+    }[],
     analyticViews?: string
   } = {};
   errorMessage: string;
@@ -83,8 +86,10 @@ export class FormComponent {
         '';
     this.temp.codeRepos =
         this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
-    this.temp.adminUsers =
-        this.dashboard.adminUsers ? this.dashboard.adminUsers.join(',') : '';
+    this.temp.adminUsers = this.dashboard.adminUsers.length ?
+        this.dashboard.adminUsers.map((e) => {
+          return { display: e, value: e }
+        }) : [];
     this.temp.analyticViews = this.dashboard.analyticViews ?
         this.dashboard.analyticViews.join(',') :
         '';
@@ -102,7 +107,7 @@ export class FormComponent {
         this.temp.codeRepos.split(',').map((e) => e.trim()) :
         undefined;
     this.dashboard.adminUsers = this.temp.adminUsers.length ?
-        this.temp.adminUsers.split(',').map((e) => e.split('@')[0].trim()) :
+        this.temp.adminUsers.map((e) => e.value.split('@')[0].trim()) :
         undefined;
     this.dashboard.analyticViews = this.temp.analyticViews.length ?
         this.temp.analyticViews.split(',').map((e) => e.trim()) :

@@ -30,39 +30,55 @@
     </div>
     <div class="component__body">
       <div id="container">
+
+        <!-- TO-DO 
+            - Cambiar últimos 7 días por Última versión -->
+
         <div rv-each-app="apps" class="platform-rate">
-          <span class=".rate-7days-data" rv-show="app.rate7Days">
-            <i aria-hidden="true" rv-pclass-fa="app.icon" class="fa"></i>
-            <span class="rate-value">{app.rate7Days}<span class="tendency" rv-pclass-tendency="app.tendency">
-              </span><span class="rate-value-tag">({app.votes7Days}<span class="tendency" rv-pclass-tendency="app.voteTendency">
-              </span> votes)</span>
-            </span>
-            <span class="rate-legend">(7 days average)</span>
-          </span>
-          <span class=".rate-7days-data" rv-hide="app.rate7Days">
-            <i aria-hidden="true" rv-pclass-fa="app.icon" class="fa"></i>
-            <span class="rate-legend">No ratings in 7 days</span>
-          </span>
-          <br/>
-          <div class="rate-stars">
-            <span class="rate">
-              <span class="rate rate-total" rv-width="app.percentTotal">
+          <div class="rate-7days-data" rv-show="app.rate7Days">
+
+            <div class="rate__value">
+              <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
+
+              <span class="rate__legend">Last 7 days average</span>
+
+            </div>
+
+            <div class="rate-stars">
+              
+              <span class="rate__total" rv-width="app.percentTotal">
                 <span>
-                <i aria-hidden="true" class="fa fa-star"></i
-                ><i aria-hidden="true" class="fa fa-star"></i
-                ><i aria-hidden="true" class="fa fa-star"></i
-                ><i aria-hidden="true" class="fa fa-star"></i
-                ><i aria-hidden="true" class="fa fa-star"></i>
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  <i aria-hidden="true" class="fa fa-star"></i>
+                  <i aria-hidden="true" class="fa fa-star"></i>
                 </span>
               </span>
-              <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
-              <span class="rate-total-data" rv-left="app.percentTotal">
-                <span class="rate-value">{app.rateTotal}</span>
-                <span class="rate-legend">History average</span>
-                <span class="rate-legend rate-legend-votes">(votes {app.votesTotal})</span>
+              <span class="sr-only">{app.rate7Days}</span>
+
+              <span class="tendency" rv-pclass-tendency="app.tendency"></span>
+
+              <span class="rate__tag">
+                ({app.votes7Days} votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
               </span>
-            </span>
+
+              <div class="rate__total-data" rv-left="app.percentTotal">
+                <span>All versions: <span class="rate-value sr-only">{app.rateTotal}</span> </span>
+
+                <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
+
+                <span class="rate-legend-votes">({app.votesTotal} votes)</span>
+              </div>
+              
+            </div>
           </div>
+
+          <div class="rate-7days-data " rv-hide="app.rate7Days">
+            <i aria-hidden="true" rv-pclass-fa="app.icon" class="fa"></i>
+            <span class="rate__legend">No ratings in 7 days</span>
+          </div>
+
         </div>
       </div>
     </div>

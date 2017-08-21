@@ -141,6 +141,20 @@ public class DashboardServiceTests {
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
     }
 
+    @Test
+    public void updateDashboardAdminUserTest() {
+        Dashboard dashboard = TestObjectFactory.createDashboard();
+
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
+        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
+
+        Dashboard dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
+        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).save(dashboard);
+
+        assertThat(dashboard2.getAdminUsers()).contains(TestObjectFactory.AUTH_NAME);
+    }
+
     @Test(expected = DashboardNotFoundException.class)
     public void updateWrongDashboardTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();

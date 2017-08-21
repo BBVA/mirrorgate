@@ -1,9 +1,9 @@
 
-var builds = listFiles('data/stories');
+var stories = listFiles('data/stories');
 
-for(var i in builds) {
-    load(builds[i].name);
-    var name = builds[i].baseName;
+for(var i in stories) {
+    load(stories[i].name);
+    var name = stories[i].baseName;
     name = name.substring(0, name.length -3);
     db.getCollection('dashboards').insertOne({
         "name":name,
@@ -11,4 +11,4 @@ for(var i in builds) {
             name
         ]
     });
-};
+}

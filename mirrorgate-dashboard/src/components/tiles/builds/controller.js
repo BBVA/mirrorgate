@@ -18,6 +18,7 @@
  * BuildsController - Controller to handle builds
  *
  */
+
 var BuildsController = (function(dashboardId) {
 
   var observable = new Event('BuildsController');

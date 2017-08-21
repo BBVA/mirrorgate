@@ -8,9 +8,9 @@ services:
   mongo-populate:
     image: "mongo"
     volumes:
-      - .:/temp
+      - "{{ volume }}"
     working_dir: "/temp"
-    entrypoint: "/usr/bin/env bash -c 'until mongo dashboarddb --host mongo < data/main.js; do >&2 echo Mongo is unavailable - sleeping & sleep 1; done'"
+    entrypoint: "{{ entrypoint }}"
     links:
       - mongo
   app:
@@ -28,6 +28,7 @@ services:
       - SERVER_CONTEXT_PATH=/mirrorgate
       - SPRING_RESOURCE_CACHE_PERIOD=0
       - SPRING_RESOURCE_STATIC_LOCATIONS=classpath:/public/
-    entrypoint: "sh -c 'java -jar $$(ls *.jar)'"
+    entrypoint: "sh -c 'java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n -jar $$(ls *.jar)'"
     ports:
       - "8080:8080"
+      - "5005:5005"

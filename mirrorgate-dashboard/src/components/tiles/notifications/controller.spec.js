@@ -33,7 +33,7 @@ describe('NotificationsController', () => {
       lastNotification.text,
       new Date(parseFloat(lastNotification.ts) * 1000) ,
       lastNotification.username,
-      'fff'
+      lastNotification.attachments[0].color
     );
 
     controller.observable.attach((response) => {
