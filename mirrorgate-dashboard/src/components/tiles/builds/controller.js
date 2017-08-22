@@ -19,6 +19,8 @@
  *
  */
 
+var buildsServerSideEvent;
+
 var BuildsController = (function(dashboardId) {
 
   var observable = new Event('BuildsController');
@@ -135,6 +137,9 @@ var BuildsController = (function(dashboardId) {
   };
   this.init = function(_config) {
     config = _config;
+    if(!buildsServerSideEvent){
+      buildsServerSideEvent = new ServerSideEvent(getLastBuilds);
+    }
     service.addListener(getLastBuilds);
   };
 
