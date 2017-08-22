@@ -48,11 +48,7 @@
               
               <span class="rate__total" rv-width="app.percentTotal">
                 <span>
-                  <i aria-hidden="true" class="fa fa-star"></i>
-                  <i aria-hidden="true" class="fa fa-star"></i>
-                  <i aria-hidden="true" class="fa fa-star"></i>
-                  <i aria-hidden="true" class="fa fa-star"></i>
-                  <i aria-hidden="true" class="fa fa-star"></i>
+                  <i rv-each-star="app.starsTotal" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
                 </span>
               </span>
               <span class="sr-only">{app.rate7Days}</span>
