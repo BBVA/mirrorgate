@@ -17,9 +17,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Component
-public class ServerSideEventsHandler {
+public class ServerSideEventsHandler implements ConnectionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SocketHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerSideEventsHandler.class);
 
     private Map<String, List<SseEmitter>> emittersPerDashboard = new ConcurrentHashMap<>(1000);
 
@@ -59,6 +59,8 @@ public class ServerSideEventsHandler {
 
     public synchronized void addToSessionsMap(SseEmitter session, String dashboardId) {
 
+        LOGGER.debug("Add SseEmitter {} to sessions map", dashboardId);
+
         List<SseEmitter> dashboardEmitters = emittersPerDashboard.get(dashboardId);
 
         if(dashboardEmitters == null){
@@ -70,6 +72,8 @@ public class ServerSideEventsHandler {
     }
 
     public synchronized void removeFromSessionsMap(SseEmitter session, String dashboardId){
+
+        LOGGER.debug("Remove SseEmitter {} to sessions map", dashboardId);
 
         if(!StringUtils.isEmpty(dashboardId)){
             List<SseEmitter> dashboardEmitters = emittersPerDashboard.get(dashboardId);
