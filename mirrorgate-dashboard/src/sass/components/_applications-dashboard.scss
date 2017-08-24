@@ -75,6 +75,8 @@
 
     .review__comment {
         color: $text-color-secondary;
+        position: absolute;
+        width: 90%;
     }
 }
 
