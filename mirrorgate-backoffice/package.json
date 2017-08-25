@@ -6,7 +6,7 @@
     "build": "webpack",
     "build-aot": "npm run ngc && webpack --config webpack.aot.config.js && npm run cleanup",
     "cleanup": "./node_modules/.bin/rimraf src/app/**/*.ngfactory.ts src/app/**/*.ngstyle.ts src/**/*.ngsummary.json",
-    "ngc": "node_modules/.bin/ngc -p tsconfig.aot.json",
+    "ngc": "./node_modules/.bin/ngc -p tsconfig.aot.json",
     "watch": "npm run build -- --watch",
     "server": "webpack-dev-server --inline --progress --port 3000 --content-base src",
     "server-aot": "webpack-dev-server --inline --progress --port 3000 --content-base src --config webpack.aot.config.js",
