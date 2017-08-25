@@ -42,7 +42,7 @@ describe('MarketsController', () => {
 
     it('calculates rates tendencies correctly', () => {
       let market = new Market(Object.assign({}, baseMarketData));
-      expect(market.tendency).toEqual('down');
+      expect(market.tendency).toEqual('threedown');
       expect(Math.round(market.tendencyChange)).toEqual(-24);
 
       market = new Market(Object.assign({},baseMarketData, {votesMonth: 9}));
