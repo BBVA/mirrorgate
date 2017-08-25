@@ -79,9 +79,9 @@
 }
 
 @media all and (min-width: $l){
-   
+
     .applications{
-        
+
         .component__body {
             display: inline-block;
             margin: 0 auto;
@@ -99,7 +99,7 @@
 
             .rate__tag {
                 font-size: $level-2 - 0.2;
-                
+
             }
 
             .tendency:before {
@@ -130,6 +130,11 @@
 
         .review__comment {
             font-size: $level-4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: absolute;
+            width: 90%;
         }
     }
 }
