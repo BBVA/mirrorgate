@@ -13,3 +13,9 @@ services:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
     command: "npm run build"
+  build-aot:
+    image: "node:6"
+    volumes:
+      - .:/tmp/repo
+    working_dir: "/tmp/repo"
+    command: "npm run build-aot"
