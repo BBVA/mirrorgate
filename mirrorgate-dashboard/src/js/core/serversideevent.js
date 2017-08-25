@@ -19,9 +19,9 @@ var ServerSideEvent = function(callback){
     var serverSideEvent;
 
     function init(){
-      if(!serverSideEvent || serverSideEvent.readyState == serverSideEvent.CLOSED){
+      if(!serverSideEvent || serverSideEvent.readyState == EventSource.CLOSED){
 
-        serverSideEvent = new EventSource(window.location.protocol +"//"+ window.location.host + "/mirrorgate//emitter/" + Utils.getDashboardId());
+        serverSideEvent = new EventSource(window.location.protocol +"//"+ window.location.host + "/mirrorgate/emitter/" + Utils.getDashboardId());
 
         serverSideEvent.onmessage = function(data){
           var response = data.data;
@@ -32,15 +32,13 @@ var ServerSideEvent = function(callback){
           console.log("closing connection");
         };
 
-        serverSideEvent.onerror = function(err) {
-          console.error('EventSource encountered error: ', err.message, 'Closing EventSource');
-          //serverSideEvent.close();
-        };
+        serverSideEvent.addEventListener('error', function(e) {
+          if (e.currentTarget.readyState != EventSource.CONNECTING) {
+            console.error("EventSource error", e.error);
+          }
+        });
       }
     }
 
     init();
-
-    Timer.eventually.attach(init);
-
   };
