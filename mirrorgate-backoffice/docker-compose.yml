@@ -2,19 +2,19 @@ version: '2'
 
 services:
   install:
-    image: "node:7"
+    image: "node:6"
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
     command: bash -c "npm install"
   build:
-    image: "node:7"
+    image: "node:6"
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
     command: "npm run build"
   build-aot:
-    image: "node:7"
+    image: "node:6"
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
