@@ -115,7 +115,7 @@
             }
         }
     }
-    
+
 
     .reviews {
         font-size: $level-4;
@@ -129,12 +129,11 @@
         }
 
         .review__comment {
-            font-size: $level-4;
-            white-space: nowrap;
+            font-size: 1.1rem;
             overflow: hidden;
-            text-overflow: ellipsis;
-            position: absolute;
-            width: 90%;
+            height: 3.6vw;
+            word-break: break-all;
+            line-height: 1.4rem;
         }
     }
 }
