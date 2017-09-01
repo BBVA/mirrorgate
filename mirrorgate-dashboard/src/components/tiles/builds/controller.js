@@ -114,10 +114,6 @@ var BuildsController = (function(dashboardId) {
               build.data = item;
           }
 
-          if(item.timestamp > data.stats.lastBuildTimestamp) {
-            data.stats.lastBuildTimestamp = item.timestamp;
-          }
-
           if((build.status === 'Failure' || build.status === 'Unstable') &&
                 (!data.lastRelevantBuild || data.lastRelevantBuild.data.timestamp < item.timestamp)) {
             data.lastRelevantBuild = build;

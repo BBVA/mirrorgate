@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-describe('BuildsController', () => {
+describe('BuildsStatsController', () => {
 
   var server;
   var controller;
   beforeEach(() => {
     server = buildFakeServer();
     server.autoRespond = true;
-    controller = new BuildsController(dashboardForTesting);
+    controller = new BuildsStatsController(dashboardForTesting);
     controller.init({});
   });
 
@@ -30,20 +30,11 @@ describe('BuildsController', () => {
     controller.dispose();
   });
 
-  it('should get last builds properly', (done) => {
+  it('should provide the last build timestamp', (done) => {
     controller.observable.attach((response) => {
-      expect(response.buildRoot[0].children[0].children.length).toBe(3);
+      expect(response.stats.lastBuildTimestamp).toBe(1491584773370);
       done();
     });
-  });
-
-  it('should get builds hierarchically structured by branches', (done) => {
-    controller.observable.attach((response) => {
-      expect(response.buildRoot).not.toBeNull();
-      expect(response.buildRoot[1].children[0].children[0].status).toBe('Success');
-      done();
-    });
-
   });
 
 });

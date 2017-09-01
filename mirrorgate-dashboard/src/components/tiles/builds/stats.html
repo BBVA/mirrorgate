@@ -17,7 +17,7 @@
 
 <!-- build:js component.min.js -->
 <script src="model.js"></script>
-<script src="controller.js"></script>
+<script src="stats-controller.js"></script>
 <!-- endbuild -->
 
 <template>
@@ -63,7 +63,7 @@
     }
 
     MyElementProto.getControllerClass = function () {
-      return BuildsController;
+      return BuildsStatsController;
     };
 
     MyElementProto.getTemplate = function () {
