@@ -19,11 +19,11 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Dashboard info model
@@ -32,6 +32,7 @@ import java.util.List;
 public class Dashboard extends BaseModel {
 
     @Indexed
+    @NotNull(message = "Dashboard name must not be null")
     private String name;
     private String displayName;
     private String logoUrl;
