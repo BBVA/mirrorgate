@@ -52,9 +52,11 @@ var BuildsStatsController = (function(dashboardId) {
   this.dispose = function() {
     this.observable.reset();
     service.removeListener(getBuildsStats);
+    ServerSideEvent.removeListener(getBuildsStats);
   };
   this.init = function() {
     service.addListener(getBuildsStats);
+    ServerSideEvent.addListener(getBuildsStats);
   };
 
 });

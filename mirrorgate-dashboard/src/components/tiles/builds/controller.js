@@ -19,8 +19,6 @@
  *
  */
 
-var buildsServerSideEvent;
-
 var BuildsController = (function(dashboardId) {
 
   var observable = new Event('BuildsController');
@@ -130,13 +128,12 @@ var BuildsController = (function(dashboardId) {
   this.dispose = function() {
     this.observable.reset();
     service.removeListener(getLastBuilds);
+    ServerSideEvent.removeListener(getLastBuilds);
   };
   this.init = function(_config) {
     config = _config;
-    if(!buildsServerSideEvent){
-      buildsServerSideEvent = new ServerSideEvent(getLastBuilds);
-    }
     service.addListener(getLastBuilds);
+    ServerSideEvent.addListener(getLastBuilds);
   };
 
 });
