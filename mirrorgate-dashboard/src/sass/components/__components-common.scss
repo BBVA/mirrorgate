@@ -129,6 +129,11 @@ $border-width: -5px;
         @extend .module-error;
         background: linear-gradient(180deg, #191919 0%, #61020e 100%) !important;
     }
+
+    &.module-good--level-2, &.module-good.tile--primary{
+        @extend .module-good;
+        background: linear-gradient(180deg, #191919 0%, #228B22 100%) !important;
+    }
 }
 
 tile-container.module-data-error {
