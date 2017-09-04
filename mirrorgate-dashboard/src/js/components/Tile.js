@@ -39,6 +39,7 @@ var Tile = (function() {
         'module-error': e.detail.status === 'error',
         'module-warning': e.detail.status === 'warn',
         'module-ok': e.detail.status === 'ok',
+        'module-good': e.detail.status === 'good',
         'module-empty': e.detail.status === 'empty',
         'module-data-error': e.detail.status === 'server-error'
       });

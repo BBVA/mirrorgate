@@ -103,10 +103,7 @@
       var apps = data && data.apps;
 
       Utils.raiseEvent(this, {
-        status: apps ? {
-          'Bad': 'error',
-          'Good': 'warn'
-        }[Market.commentColor] || 'unknown' : 'server-error'
+        status: apps ? 'unknown' : 'server-error'
       });
 
       if(apps) {
