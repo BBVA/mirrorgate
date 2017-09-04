@@ -41,6 +41,12 @@ function Market(data) {
   this.voteTendency = this.voteTendencyChange < -5 ? 'down' : this.voteTendencyChange > 5 ? 'up' : 'eq';
   this.platform = data.platform;
   this.reviews = data.reviews;
+  if(this.reviews) {
+    this.reviews.forEach((review) => {
+      review.commentMood = review.rate <= 1 ? 'sad' : review.rate >= 4 ? 'happy' : 'normal';
+    });
+  }
+
   this.icon = this.platform && {
       android: 'android',
       ios: 'apple'
