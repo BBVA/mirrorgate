@@ -51,7 +51,8 @@
       "startedBy": null,
       "projectName": "MirrorGate",
       "repoName": "design",
-      "branch": "test"
+      "branch": "test",
+      "culprits": []
     },
     {
       "timestamp": 1490955139,
@@ -64,7 +65,8 @@
       "startedBy": null,
       "projectName": "MirrorGate",
       "repoName": "mirrorgate-app",
-      "branch": "br"
+      "branch": "br",
+      "culprits": ["Xayide", "Gmork"]
     },
     {
       "timestamp": 1491291464,
