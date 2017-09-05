@@ -58,17 +58,18 @@ public class EventScheduler {
             Set<String> dashboardIds = handler.getDashboardsWithSession();
 
             dashboardIds.forEach(dashboardId -> {
-                Map<String, Object> response = new HashMap<>();
 
-                //Handle unchecked exception
-                List<String> repos = dashboardService.getReposByDashboardName(dashboardId);
-                List<Build> builds = buildService.getAllBranchesLastByReposName(repos);
+                try {
+                    //Right now only build events are handled through emitter
+                    Map<String, Object> response = getBuildsForDashboard(dashboardId);
 
-                response.put("lastBuilds", builds);
-                response.put("stats", buildService.getStatsFromRepos(repos));
+                    if (response != null && !response.isEmpty()) {
+                        handler.sendMessageToDashboardSessions(response, dashboardId);
+                    }
 
-                //Handle exceptions. When processing events, scheduler time should be set to the last event sent without errors
-                handler.sendMessageToDashboardSessions(response, dashboardId);
+                } catch(Exception unhandledException) {
+                    LOGGER.error("Unhandled exception calculating response of event", unhandledException);
+                }
             });
 
             //save last event timestamp to local variable
@@ -76,6 +77,22 @@ public class EventScheduler {
         }
 
         LOGGER.debug("Modified timestamp: {}", schedulerTimestamp);
+    }
+
+    private Map<String, Object> getBuildsForDashboard(String dashboardId) {
+        Map<String, Object> response = new HashMap<>();
+
+        //Handle unchecked exception
+        List<String> repos = dashboardService.getReposByDashboardName(dashboardId);
+
+        if(repos != null && !repos.isEmpty()) {
+            List<Build> builds = buildService.getAllBranchesLastByReposName(repos);
+
+            response.put("lastBuilds", builds);
+            response.put("stats", buildService.getStatsFromRepos(repos));
+
+        }
+        return response;
     }
 
     @PostConstruct
