@@ -75,7 +75,7 @@ public class DashboardController {
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> newDashboard(@Valid @RequestBody Dashboard request) {
-        return ResponseEntity.ok(dashboardService.newDashboard(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newDashboard(request));
     }
 
     @RequestMapping(value = "/dashboards/{name}", method = PUT,

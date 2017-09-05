@@ -80,7 +80,8 @@
 
             testHandler = function (e) {
                 expect(e.detail.status).toBe('unknown');
-                done();
+                testHandler = undefined;
+                setTimeout(done);
             }
             server.respond();
         });

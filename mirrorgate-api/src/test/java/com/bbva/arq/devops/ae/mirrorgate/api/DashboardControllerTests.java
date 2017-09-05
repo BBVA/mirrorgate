@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -123,7 +124,7 @@ public class DashboardControllerTests {
         this.mockMvc.perform(post("/dashboards")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(dashboard)))
-                .andExpect(status().is(HttpStatus.OK.value()));
+                .andExpect(status().is(HttpStatus.CREATED.value()));
     }
 
     @Test
@@ -137,7 +138,7 @@ public class DashboardControllerTests {
         this.mockMvc.perform(post("/dashboards")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(d)))
-                .andExpect(status().is(HttpStatus.OK.value()));
+                .andExpect(status().is(HttpStatus.CREATED.value()));
     }
 
     @Test

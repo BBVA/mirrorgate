@@ -14,33 +14,53 @@
  * limitations under the License.
  */
 
-var ServerSideEvent = function(callback){
+var ServerSideEvent = (function(){
 
-    var serverSideEvent;
+  var event = new Event(this);
+  var serverSideEvent;
 
-    function init(){
-      if(!serverSideEvent || serverSideEvent.readyState == serverSideEvent.CLOSED){
+  function init(){
+    if(!serverSideEvent || serverSideEvent.readyState == EventSource.CLOSED){
 
-        serverSideEvent = new EventSource(window.location.protocol +"//"+ window.location.host + "/mirrorgate//emitter/" + Utils.getDashboardId());
+      serverSideEvent = new EventSource(window.location.protocol +"//"+ window.location.host + "/mirrorgate/emitter/" + Utils.getDashboardId());
 
-        serverSideEvent.onmessage = function(data){
-          var response = data.data;
-          callback(response);
-        };
+      serverSideEvent.onmessage = function(data){
+        var response = data.data;
+        event.notify(response);
+      };
 
-        serverSideEvent.onclose = function(data){
-          console.log("closing connection");
-        };
+      serverSideEvent.onclose = function(data){
+        console.log("closing connection");
+      };
 
-        serverSideEvent.onerror = function(err) {
-          console.error('EventSource encountered error: ', err.message, 'Closing EventSource');
-          //serverSideEvent.close();
-        };
-      }
+      serverSideEvent.addEventListener('error', function(e) {
+        if (e.currentTarget.readyState != EventSource.CONNECTING) {
+          console.error("EventSource error", e.error);
+        }
+      });
     }
+  }
+  
+  function _checkEventRegistration() {
+    if (event.getListeners().length && !this._attached) {
+      this._attached = true;
+    } else if (!event.getListeners().length && this._attached) {
+      this._attached = false;
+    }
+  }
 
-    init();
+  init();
+  
+  return {
+    addListener: function(callback) {
+      event.attach(callback);
+      _checkEventRegistration();
+    },
 
-    Timer.eventually.attach(init);
-
+    removeListener: function(callback) {
+      event.detach(callback);
+      _checkEventRegistration();
+    }
   };
+  
+  })();

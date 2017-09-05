@@ -44,7 +44,6 @@ module.exports = function(config) {
       'src/js/core/Timer.js',
       'src/js/core/Service.js',
       'src/js/core/request.js',
-      'src/js/core/websocket.js',
       'src/js/core/serversideevent.js',
       'src/components/**/*.*',
       // Test resources

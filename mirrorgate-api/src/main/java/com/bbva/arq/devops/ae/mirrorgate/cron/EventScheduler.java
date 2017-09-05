@@ -1,7 +1,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.cron;
 
-import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ServerSideEventsHandler;
-import com.bbva.arq.devops.ae.mirrorgate.connection.handler.SocketHandler;
+import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
@@ -30,13 +29,13 @@ public class EventScheduler {
 
     private Long schedulerTimestamp = 0L;
 
-    private ServerSideEventsHandler handler;
+    private ConnectionHandler handler;
 
     private DashboardService dashboardService;
 
 
     @Autowired
-    public EventScheduler(EventService eventService, BuildService buildService, ServerSideEventsHandler handler, DashboardService dashboardService){
+    public EventScheduler(EventService eventService, BuildService buildService, ConnectionHandler handler, DashboardService dashboardService){
 
         this.eventService = eventService;
         this.buildService = buildService;

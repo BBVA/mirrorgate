@@ -112,10 +112,6 @@ var BuildsController = (function(dashboardId) {
               build.data = item;
           }
 
-          if(item.timestamp > data.stats.lastBuildTimestamp) {
-            data.stats.lastBuildTimestamp = item.timestamp;
-          }
-
           if((build.status === 'Failure' || build.status === 'Unstable') &&
                 (!data.lastRelevantBuild || data.lastRelevantBuild.data.timestamp < item.timestamp)) {
             data.lastRelevantBuild = build;
@@ -132,10 +128,12 @@ var BuildsController = (function(dashboardId) {
   this.dispose = function() {
     this.observable.reset();
     service.removeListener(getLastBuilds);
+    ServerSideEvent.removeListener(getLastBuilds);
   };
   this.init = function(_config) {
     config = _config;
     service.addListener(getLastBuilds);
+    ServerSideEvent.addListener(getLastBuilds);
   };
 
 });

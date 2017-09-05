@@ -13,7 +13,7 @@
         "author": "Carlos",
         "rate": 1.0,
         "timestamp": 1498814350000,
-        "comment": "Pufff!"
+        "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       }
     ]
   },
@@ -29,21 +29,21 @@
     "reviews": [
       {
         "author": "kike",
-        "rate": 4.0,
+        "rate": 3.0,
         "timestamp": 1498804350000,
-        "comment": "Consume mucho"
+        "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       },
       {
         "author": "Ana",
         "rate": 3.5,
         "timestamp": 1488961673755,
-        "comment": "Buen diseño"
+        "comment": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
       },
       {
         "author": "Alfonso",
         "rate": 5,
         "timestamp": 1498814350000,
-        "comment": "Me gusta"
+        "comment": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
       }
     ]
   }

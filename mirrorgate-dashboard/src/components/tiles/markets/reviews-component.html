@@ -88,7 +88,17 @@
       if(!model.reviews || model.reviews.length < model.index) {
         model.index = 1;
       }
+
       model.review = model.reviews && model.reviews[model.index - 1];
+      if(model.review) {
+        Utils.raiseEvent(this,{
+            status: {
+              sad: 'error',
+              happy: 'good'
+            }[model.review.commentMood] || 'unknown'
+        });
+      }
+
       model.stars = model.review && this.controller.calculateStars(model.review.rate);
 
     }

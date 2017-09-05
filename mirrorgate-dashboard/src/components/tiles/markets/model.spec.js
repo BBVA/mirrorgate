@@ -23,7 +23,37 @@ describe('MarketsController', () => {
     rating7Days: 5,
     votesMonth: 3,
     ratingMonth: 10,
+    reviews: [
+      {
+        author: 'kike',
+        rate: 1.0,
+        timestamp: 1498804350000,
+        comment: 'Consume mucho'
+      },
+      {
+        author: 'Ana',
+        rate: 3.5,
+        timestamp: 1488961673755,
+        comment: 'Buen diseño'
+      },
+      {
+        author: 'Alfonso',
+        rate: 5,
+        timestamp: 1498814350000,
+        comment: 'Me gusta'
+      }
+    ]
   };
+
+  describe('comment mood calculation', () => {
+    it('should set the rate type according to rating', () => {
+      let market = new Market(Object.assign({}, baseMarketData));
+
+      expect(market.reviews[0].commentMood).toEqual('sad');
+      expect(market.reviews[1].commentMood).toEqual('normal');
+      expect(market.reviews[2].commentMood).toEqual('happy');
+    });
+  });
 
   describe('rate calculation', () => {
     it('calculates rates correctly when empty data', () => {
@@ -42,7 +72,7 @@ describe('MarketsController', () => {
 
     it('calculates rates tendencies correctly', () => {
       let market = new Market(Object.assign({}, baseMarketData));
-      expect(market.tendency).toEqual('down');
+      expect(market.tendency).toEqual('threedown');
       expect(Math.round(market.tendencyChange)).toEqual(-24);
 
       market = new Market(Object.assign({},baseMarketData, {votesMonth: 9}));

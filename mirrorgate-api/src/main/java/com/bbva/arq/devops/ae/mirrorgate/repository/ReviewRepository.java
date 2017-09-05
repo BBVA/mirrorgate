@@ -28,8 +28,8 @@ import java.util.List;
  */
 public interface ReviewRepository extends CrudRepository<Review, ObjectId>, ReviewRepositoryCustom {
 
-    @Query(value = "{platform: ?0, timestamp: null}")
-    List<Review> findAllHistorical(Platform platform);
+    @Query(value = "{timestamp: null}")
+    List<Review> findAllHistorical();
 
     @Query(value = "{appname: {$in: ?0}, timestamp: null}")
     List<Review> findHistoricalForApps(List<String> appname);
