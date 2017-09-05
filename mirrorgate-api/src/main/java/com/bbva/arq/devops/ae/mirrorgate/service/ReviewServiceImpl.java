@@ -115,7 +115,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .filter((r) -> r.getTimestamp() == null).collect(Collectors.toList());
 
         if(historyData.size() > 0) {
-            List<Review> dbHistoricalReviews = repository.findAllHistorical(historyData.get(0).getPlatform());
+            List<Review> dbHistoricalReviews = repository.findAllHistorical();
 
             if(dbHistoricalReviews.size() > 0) {
                 dbHistoricalReviews = dbHistoricalReviews.stream().filter((review) -> {
