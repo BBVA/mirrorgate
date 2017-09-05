@@ -81,6 +81,10 @@ rivets.formatters.duration = function(value) {
   return rt;
 };
 
+rivets.formatters.length = function(value) {
+  return value ? (value.length || 0) : 0;
+};
+
 rivets.binders['pclass-*'] = function(el, value) {
   var prefix = this.args[0] + '-';
   var $el = $(el);
