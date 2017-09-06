@@ -17,6 +17,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
@@ -37,9 +38,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
-    private DashboardRepository dashboardRepository;
-
     private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
+
+    private DashboardRepository dashboardRepository;
 
 
     @Autowired
@@ -126,21 +127,21 @@ public class DashboardServiceImpl implements DashboardService {
 
 
     @Override
-    public Dashboard updateDashboard(String name, Dashboard dashboard) {
-        Dashboard toUpdate = this.getDashboard(name);
+    public Dashboard updateDashboard(String dashboardName, Dashboard updatedDashboard) {
+        Dashboard currentDashboard = this.getDashboard(dashboardName);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         String authUser = "anonymous";
 
         if(auth != null) {
             authUser = (String) auth.getPrincipal();
-            canEdit(authUser, toUpdate);
+            canEdit(authUser, currentDashboard);
         }
 
-        if(null != dashboard.getAdminUsers() && !dashboard.getAdminUsers().contains(authUser))
-            dashboard.getAdminUsers().add(authUser);
+        if(null != updatedDashboard.getAdminUsers() && !updatedDashboard.getAdminUsers().contains(authUser))
+            updatedDashboard.getAdminUsers().add(authUser);
 
-        Dashboard toSave = mergeDashboard(toUpdate, dashboard, authUser);
+        Dashboard toSave = mergeDashboard(currentDashboard, updatedDashboard, authUser);
 
         return dashboardRepository.save(toSave);
     }
@@ -153,6 +154,10 @@ public class DashboardServiceImpl implements DashboardService {
 
         if(request.getSlackToken() == null) {
             request.setSlackToken(dashboard.getSlackToken());
+        }
+
+        if(dashboard.getStatus() !=null && dashboard.getStatus().equals(TRANSIENT)){
+            dashboard.setStatus(ACTIVE);
         }
 
         return request;
