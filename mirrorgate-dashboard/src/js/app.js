@@ -33,33 +33,65 @@ function MainController() {
       'user-metrics': 'analyticViews',
     };
 
-    // Display tiles only when details are avail
-    if (dashboardDetails) {
-      for (var tileClass in tileConditions) {
-        var tile = document.querySelector(tileClass + '-tile');
-        var detailProperty = dashboardDetails[tileConditions[tileClass]];
-        if (tile) {
-          tile.setAttribute(
-              'enabled',
-              (tile && detailProperty && detailProperty.length > 0) === true);
-          tile.setAttribute('pid', Utils.getDashboardId());
-          tile.setAttribute('pconfig', JSON.stringify(dashboardDetails));
-          var background = document.querySelector('.background');
-          if((tile && detailProperty && background && detailProperty.length > 0) === true) {
-            background.remove();
-          }
-        }
-      }
+    var background_edit_div = document.querySelector('#background_edit');
+    var background_new_div = document.querySelector('#background_new');
+    var background_error_div = document.querySelector('#background_error');
 
-      var adaptableBody = document.querySelector('.dashboard.adaptable');
-      if(adaptableBody) {
-        if(dashboardDetails.slackTeam) {
-          adaptableBody.classList.add('with-footer');
-        } else {
-          adaptableBody.classList.remove('with-footer');
+    // Display background_error_div if dashboard does not exists
+    if(!dashboardDetails) {
+      if(background_edit_div) {
+        background_edit_div.remove();
+      }
+      if(background_new_div) {
+        background_new_div.remove();
+      }
+      return;
+    }
+
+    // Display background_error_div when there is not dashboard
+    if(!dashboardDetails.name) {
+      if(background_edit_div) {
+        background_edit_div.remove();
+      }
+      if(background_error_div) {
+        background_error_div.remove();
+      }
+      return;
+    }
+
+    // Display tiles only when details are avail
+    if(background_new_div) {
+      background_new_div.remove();
+    }
+    if(background_error_div) {
+      background_error_div.remove();
+    }
+
+    for (var tileClass in tileConditions) {
+      var tile = document.querySelector(tileClass + '-tile');
+      var detailProperty = dashboardDetails[tileConditions[tileClass]];
+      if (tile) {
+        tile.setAttribute(
+            'enabled',
+            (tile && detailProperty && detailProperty.length > 0) === true);
+        tile.setAttribute('pid', Utils.getDashboardId());
+        tile.setAttribute('pconfig', JSON.stringify(dashboardDetails));
+        var background_div = document.querySelector('#background');
+        if((tile && detailProperty && background_div && detailProperty.length > 0) === true) {
+          background_div.remove();
         }
       }
     }
+
+    var adaptableBody = document.querySelector('.dashboard.adaptable');
+    if(adaptableBody) {
+      if(dashboardDetails.slackTeam) {
+        adaptableBody.classList.add('with-footer');
+      } else {
+        adaptableBody.classList.remove('with-footer');
+      }
+    }
+
   }
 
   function getRecent() {

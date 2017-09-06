@@ -111,7 +111,6 @@
 
       if(apps) {
         this.model.apps = apps;
-        console.log(apps);
         this.model.apps.forEach(function(app) {
           app.starsTotal = this.controller.calculateStars(app.rateTotal);
           app.percentTotal = app.rateTotal * 20;

@@ -147,10 +147,20 @@
         </tile-container>
       </board-column>
 
-      <div class="background">
-        <div class="background-img" ></div>
-        <p> Start using MirrorGate by editing this dashboard </p>
-        <a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/edit/' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a>
+      <div id="background" class="background">
+        <div class="background-img"></div>
+        <div id="background_error">
+          <p> Dashboard requested does not exist, start using MirrorGate by creating a new dashboard</p>
+          <a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/new'; return false;"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Create a new dashboard</a>
+        </div>
+        <div id="background_new">
+          <p> Start using MirrorGate by creating a new dashboard</p>
+          <a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/new'; return false;"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Create a new dashboard</a>
+        </div>
+        <div id="background_edit">
+          <p> Start using MirrorGate by editing this dashboard </p>
+          <a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/edit/' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a>
+        </div>
       </div>
 
     </div>
