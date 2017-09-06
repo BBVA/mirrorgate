@@ -69,6 +69,21 @@ a{
     height: $header-height;
 }
 
+.dashboard {
+  .background {
+    width: 100%;
+    text-align: center;
+  }
+
+  .background-img {
+    background: no-repeat center url("../img/logo.png");
+    background-size: 50px;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    height: 100px;
+  }
+}
+
 .bottom{
     flex: 0 0 auto;
     width: 100%;

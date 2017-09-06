@@ -44,6 +44,10 @@ function MainController() {
               (tile && detailProperty && detailProperty.length > 0) === true);
           tile.setAttribute('pid', Utils.getDashboardId());
           tile.setAttribute('pconfig', JSON.stringify(dashboardDetails));
+          var background = document.querySelector('.background');
+          if((tile && detailProperty && background && detailProperty.length > 0) === true) {
+            background.remove();
+          }
         }
       }
 
