@@ -33,65 +33,34 @@ function MainController() {
       'user-metrics': 'analyticViews',
     };
 
-    var background_edit_div = document.querySelector('#background_edit');
-    var background_new_div = document.querySelector('#background_new');
-    var background_error_div = document.querySelector('#background_error');
-
-    // Display background_error_div if dashboard does not exists
-    if(!dashboardDetails) {
-      if(background_edit_div) {
-        background_edit_div.remove();
-      }
-      if(background_new_div) {
-        background_new_div.remove();
-      }
-      return;
-    }
-
-    // Display background_error_div when there is not dashboard
-    if(!dashboardDetails.name) {
-      if(background_edit_div) {
-        background_edit_div.remove();
-      }
-      if(background_error_div) {
-        background_error_div.remove();
-      }
-      return;
-    }
-
     // Display tiles only when details are avail
-    if(background_new_div) {
-      background_new_div.remove();
-    }
-    if(background_error_div) {
-      background_error_div.remove();
-    }
+    if(dashboardDetails && dashboardDetails.name) {
 
-    for (var tileClass in tileConditions) {
-      var tile = document.querySelector(tileClass + '-tile');
-      var detailProperty = dashboardDetails[tileConditions[tileClass]];
-      if (tile) {
-        tile.setAttribute(
-            'enabled',
-            (tile && detailProperty && detailProperty.length > 0) === true);
-        tile.setAttribute('pid', Utils.getDashboardId());
-        tile.setAttribute('pconfig', JSON.stringify(dashboardDetails));
-        var background_div = document.querySelector('#background');
-        if((tile && detailProperty && background_div && detailProperty.length > 0) === true) {
-          background_div.remove();
+      for (var tileClass in tileConditions) {
+        var tile = document.querySelector(tileClass + '-tile');
+        var detailProperty = dashboardDetails[tileConditions[tileClass]];
+        if (tile) {
+          tile.setAttribute(
+              'enabled',
+              (tile && detailProperty && detailProperty.length > 0) === true);
+          tile.setAttribute('pid', Utils.getDashboardId());
+          tile.setAttribute('pconfig', JSON.stringify(dashboardDetails));
+          var background_dashboard = document.querySelector('background-dashboard');
+          if((tile && detailProperty && background_dashboard && detailProperty.length > 0) === true) {
+            background_dashboard.remove();
+          }
+        }
+      }
+
+      var adaptableBody = document.querySelector('.dashboard.adaptable');
+      if(adaptableBody) {
+        if(dashboardDetails.slackTeam) {
+          adaptableBody.classList.add('with-footer');
+        } else {
+          adaptableBody.classList.remove('with-footer');
         }
       }
     }
-
-    var adaptableBody = document.querySelector('.dashboard.adaptable');
-    if(adaptableBody) {
-      if(dashboardDetails.slackTeam) {
-        adaptableBody.classList.add('with-footer');
-      } else {
-        adaptableBody.classList.remove('with-footer');
-      }
-    }
-
   }
 
   function getRecent() {
