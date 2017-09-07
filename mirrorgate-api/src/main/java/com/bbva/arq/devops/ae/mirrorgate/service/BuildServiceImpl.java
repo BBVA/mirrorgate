@@ -21,9 +21,9 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import java.util.Arrays;
@@ -31,15 +31,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class BuildServiceImpl implements BuildService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BuildServiceImpl.class);
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
 
     private BuildRepository buildRepository;
@@ -94,8 +94,8 @@ public class BuildServiceImpl implements BuildService {
             if(toUpdate != null){
                 buildRepository.save(
                         toUpdate.stream()
-                        .map((b) -> b.setLatest(false))
-                        .filter((b) -> !b.getId().equals(toSave.getId()))
+                        .map( b -> b.setLatest(false))
+                        .filter( b -> !b.getId().equals(toSave.getId()))
                         .collect(Collectors.toList())
                 );
             }
@@ -125,9 +125,7 @@ public class BuildServiceImpl implements BuildService {
 
     private void createDashboardForBuildProject(Build build){
 
-        Dashboard dashboard = dashboardService.getDashboard(build.getProjectName());
-
-        if(dashboard == null){
+        try {
             Dashboard newDashboard = new Dashboard();
 
             newDashboard.setName(build.getProjectName());
@@ -136,6 +134,8 @@ public class BuildServiceImpl implements BuildService {
             newDashboard.setStatus(DashboardStatus.TRANSIENT);
 
             dashboardService.newDashboard(newDashboard);
+        } catch(DashboardConflictException e) {
+            LOGGER.warn("Error while creating build based dashboard {}. Dashboard already exists", build.getProjectName());
         }
     }
 

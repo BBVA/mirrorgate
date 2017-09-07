@@ -112,7 +112,10 @@ public class DashboardServiceImpl implements DashboardService {
             throw new DashboardConflictException("A Dashboard with name '" + dashboard.getName() + "' already exists");
         }
 
-        dashboard.setStatus(ACTIVE);
+        if(dashboard.getStatus() != TRANSIENT) {
+            dashboard.setStatus(ACTIVE);
+        }
+
         dashboard.setLastModification(System.currentTimeMillis());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
