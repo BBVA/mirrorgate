@@ -40,7 +40,7 @@ var MarketsController = (function(dashboardId) {
       });
       data.reviews = reviews.sort((r1, r2) => {
         return r1.timestamp < r2.timestamp ? 1 : -1;
-      }).slice(0,3);
+      }).slice(0,8);
     }
 
     observable.notify(data);

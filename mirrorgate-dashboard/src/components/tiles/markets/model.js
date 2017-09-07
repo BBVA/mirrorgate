@@ -43,7 +43,10 @@ function Market(data) {
   this.reviews = data.reviews;
   if(this.reviews) {
     this.reviews.forEach((review) => {
-      review.commentMood = review.rate <= 1 ? 'sad' : review.rate >= 4 ? 'happy' : 'normal';
+      review.commentMood = review.rate <= 1 ? 'very-sad' :
+                           review.rate <= 2 ? 'sad' :
+                           review.rate >= 4 ? 'happy' :
+                           'normal';
     });
   }
 

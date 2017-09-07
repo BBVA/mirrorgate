@@ -44,7 +44,10 @@ const paths = {
   src: ['src/**/*', '!src/**/*.spec.*', '!src/sass/**/*'],
   dist: 'dist/',
   target: 'target/',
-  bower: 'bower_components*/**/*.min.*',
+  bower: [
+    'bower_components*/**/*.min.*',
+    'bower_components*/**/dist/**/*.js'
+  ],
   fonts: [
     'bower_components*/roboto-fontface/css/roboto/roboto-fontface.css',
     'bower_components*/roboto-fontface/fonts/**/*',
@@ -64,7 +67,7 @@ gulp.task('lint', function() {
 
 gulp.task(
     ':build',
-    () => gulp.src(paths.src.concat([paths.bower]).concat(paths.fonts))
+    () => gulp.src(paths.src.concat(paths.bower).concat(paths.fonts))
               .pipe(gulp.dest(paths.dist)));
 
 gulp.task('build', gulpSequence('clean', 'lint', ':build', ':build:sass'));
