@@ -22,6 +22,7 @@ import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.Arrays;
@@ -30,6 +31,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.internal.matchers.Any;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -40,6 +42,9 @@ public class BuildServiceTests {
 
     @Mock
     private EventService eventService;
+
+    @Mock
+    private DashboardService dashboardService;
 
     @InjectMocks
     private BuildServiceImpl buildService;
@@ -68,15 +73,36 @@ public class BuildServiceTests {
     }
 
     @Test
-    public void createBuildTest() {
+    public void createBuildForExistingDashboardTest() {
         Build build = makeBuild();
         BuildDTO request = TestObjectFactory.createBuildDTO();
 
+        when(dashboardService.getDashboard(anyString())).thenReturn(new Dashboard());
         when(buildRepository.save((Build)any())).thenReturn(build);
 
         String id = buildService.createOrUpdate(request);
 
         verify(buildRepository, times(1)).save((Build)any());
+        verify(dashboardService, times(1)).getDashboard(anyString());
+        verify(dashboardService, times(0)).newDashboard((Dashboard) any());
+
+        assertThat(id).isEqualTo(build.getId().toString());
+    }
+
+    @Test
+    public void createBuildForNonExistingDashboardTest() {
+        Build build = makeBuild();
+        BuildDTO request = TestObjectFactory.createBuildDTO();
+
+        when(dashboardService.getDashboard(anyString())).thenReturn(null);
+        when(buildRepository.save((Build)any())).thenReturn(build);
+
+        String id = buildService.createOrUpdate(request);
+
+        verify(buildRepository, times(1)).save((Build)any());
+        verify(dashboardService, times(1)).getDashboard(anyString());
+        verify(dashboardService, times(1)).newDashboard((Dashboard) any());
+
         assertThat(id).isEqualTo(build.getId().toString());
     }
 

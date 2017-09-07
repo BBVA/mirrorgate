@@ -19,11 +19,14 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -41,12 +44,15 @@ public class BuildServiceImpl implements BuildService {
 
     private BuildRepository buildRepository;
     private EventService eventService;
+    private DashboardService dashboardService;
+
 
     @Autowired
-    public BuildServiceImpl(BuildRepository buildRepository, EventService eventService) {
+    public BuildServiceImpl(BuildRepository buildRepository, EventService eventService, DashboardService dashboardService) {
 
         this.buildRepository = buildRepository;
         this.eventService = eventService;
+        this.dashboardService = dashboardService;
     }
 
     @Override
@@ -74,6 +80,8 @@ public class BuildServiceImpl implements BuildService {
         }
 
         eventService.saveBuildEvent(build);
+
+        createDashboardForBuildProject(build);
 
         if(shouldUpdateLatest) {
             List<Build> toUpdate =
@@ -113,6 +121,22 @@ public class BuildServiceImpl implements BuildService {
     @Override
     public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repoName, long timestamp) {
         return buildRepository.getBuildStatusStatsAfterTimestamp(repoName, timestamp);
+    }
+
+    private void createDashboardForBuildProject(Build build){
+
+        Dashboard dashboard = dashboardService.getDashboard(build.getProjectName());
+
+        if(dashboard == null){
+            Dashboard newDashboard = new Dashboard();
+
+            newDashboard.setName(build.getProjectName());
+            newDashboard.setDisplayName(build.getProjectName());
+            newDashboard.setCodeRepos(Arrays.asList(build.getProjectName()));
+            newDashboard.setStatus(DashboardStatus.TRANSIENT);
+
+            dashboardService.newDashboard(newDashboard);
+        }
     }
 
     private BuildStats getStatsWithoutFailureTendency(List<String> repoName, int daysBefore) {

@@ -17,5 +17,5 @@
 package com.bbva.arq.devops.ae.mirrorgate.core.utils;
 
 public enum DashboardStatus {
-    DELETED, ACTIVE
+    DELETED, ACTIVE, TRANSIENT
 }
