@@ -161,7 +161,7 @@ public class DashboardServiceImpl implements DashboardService {
         }
 
         if(dashboard.getStatus() !=null && dashboard.getStatus().equals(TRANSIENT)){
-            dashboard.setStatus(ACTIVE);
+            request.setStatus(ACTIVE);
         }
 
         return request;
