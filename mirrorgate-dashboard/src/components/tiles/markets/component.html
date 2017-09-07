@@ -29,7 +29,7 @@
       <h2 class="title">Markets</h2>
     </div>
     <div class="component__body">
-      <div id="container">
+      <div class="platform-rates">
 
         <!-- TO-DO
             - Cambiar últimos 7 días por Última versión -->
@@ -100,6 +100,20 @@
     };
 
     MyElementProto.render = function (data) {
+
+      //Hack to make the height stick to the contents
+      setTimeout(function () {
+
+        var contents = this.shadowRoot.querySelector('.component__body');
+
+        var height = contents.offsetHeight + contents.offsetTop - contents.parentElement.offsetTop;
+
+        this.shadowRoot.host.parentElement.style["min-height"]=height + 'px';
+        this.shadowRoot.host.parentElement.style["flex-basis"]='unset';
+
+      }.bind(this));
+
+
       var apps = data && data.apps;
 
       Utils.raiseEvent(this, {

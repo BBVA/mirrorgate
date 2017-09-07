@@ -25,24 +25,26 @@
     <div class="reviews component__content">
       <div class="component__header">
         <h2 class="title">Latest Comments</h2>
-        <h3 rv-show="count" class="title-desc">{index} of {count}</h3>
+        <h3 rv-show="count" class="title-desc">page {index} of {count}</h3>
         <h3 rv-hide="count" class="title-desc">No comments</h3>
       </div>
       <div class="component__body">
-        <div id="container" rv-show="review">
-          <div class="review">
-            <div class="review__header">
-              <div class="review__name">{review.author}</div>
-              <div class="review__date">{review.timestamp | dateFrom updatedDate}</div>
-            </div>
-            <div class="review__rate">
-              <i aria-hidden="true" rv-pclass-fa="review.icon" class="fa"></i>
-              <span class="rate">
-                <i rv-each-star="stars" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
-              </span>
-            </div>
-            <div class="review__comment">
-              {review.comment}
+        <div class="reviews-list">
+          <div class="review" rv-each-review="page">
+            <div class="review-contents" rv-show="review" rv-pclass-mood="review.commentMood">
+              <div class="review__header">
+                <div class="review__name">{review.author}</div>
+                <div class="review__date">{review.timestamp | dateFrom updatedDate}</div>
+              </div>
+              <div class="review__rate">
+                <i aria-hidden="true" rv-pclass-fa="review.icon" class="fa"></i>
+                <span class="rate">
+                  <i rv-each-star="review.stars" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
+                </span>
+              </div>
+              <div class="review__comment">
+                <p>{review.comment}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -71,46 +73,110 @@
 
     MyElementProto.render = function (data) {
 
+      var sheet = thisDoc.createElement('style')
+      var contents = this.shadowRoot.querySelector('.reviews-list');
+      contents.appendChild(sheet);
+
       Utils.raiseEvent(this,{
           status: data && data.reviews ? (data.reviews.length > 0 ? 'unknown' : 'empty') :'server-error'
       });
 
-      var model = this.getModel();
-      model.reviews = data && data.reviews;
-      model.count = data && data.reviews && data.reviews.length;
-      model.index = model.index ? model.index -1 : 0;
-      this._nextReview();
+      setTimeout(function () {
+
+        var height = contents.offsetHeight;
+        var width = contents.offsetWidth;
+
+        var xSize = Math.max(1,Math.min(Math.floor(width / 320),4));
+        var ySize = Math.max(1,Math.min(Math.floor(height / 150),2));
+        if(ySize < 2) {
+          //We don't want to render 4 comments in a single row
+          xSize = Math.min(xSize, 3);
+        }
+
+        if(window.innerWidth < 992) {
+          xSize = 1;
+          ySize = 1;
+          sheet.innerText = "";
+        } else {
+          sheet.innerText =
+            ".review {height: " + Math.floor((height  - 15 * (ySize-1)) / ySize) +"px ;}"
+            ;
+        }
+
+        var num = xSize * ySize;
+
+
+
+        var model = this.getModel();
+        model.reviews = data && data.reviews && data.reviews.slice(0,3*num);
+        if(model.reviews) {
+          model.count = Math.ceil(model.reviews.length / num);
+          model.pages = [];
+          for(var i = 0; i < model.count; i++) {
+            model.pages[i] = []
+            for(var j = 0; j < num; j++) {
+              model.pages[i][j] = null;
+            }
+          }
+
+          model.reviews.forEach(function(review, i) {
+            review.stars = review && this.controller.calculateStars(review.rate);
+            model.pages[Math.floor(i/num)][i%num] = review;
+          }, this);
+        }
+        model.index = model.index ? model.index -1 : 0;
+        this._nextPage();
+      }.bind(this));
+
     }
 
-    MyElementProto._nextReview = function () {
+    MyElementProto._nextPage = function () {
       var model = this.getModel();
       model.index = model.index + 1;
-      if(!model.reviews || model.reviews.length < model.index) {
+      if(!model.pages || model.pages.length < model.index) {
         model.index = 1;
       }
+      model.page = model.pages && model.pages[model.index - 1];
+      this._addEllipsis();
+    };
 
-      model.review = model.reviews && model.reviews[model.index - 1];
-      if(model.review) {
-        Utils.raiseEvent(this,{
-            status: {
-              sad: 'error',
-              happy: 'good'
-            }[model.review.commentMood] || 'unknown'
+    MyElementProto._addEllipsis = function () {
+      $(this.shadowRoot).find('.review__comment')
+        .dotdotdot({
+          ellipsis: '...',
+          height: function () {
+            return (this.parentElement.offsetHeight + this.parentElement.offsetTop - this.offsetTop - 15);
+          }
         });
-      }
+    };
 
-      model.stars = model.review && this.controller.calculateStars(model.review.rate);
+    MyElementProto._initPageCycle = function () {
+      this.nextReviewHandle = setInterval(function () {
+        if(this.pauseCount) {
+          this.pauseCount--;
+        } else {
+          this._nextPage();
+        }
+      }.bind(this), 6000);
+    };
 
-    }
+    MyElementProto._stopPageCycle = function () {
+      this.nextReviewHandle && clearInterval(this.nextReviewHandle);
+    };
+
+    MyElementProto._pausePageCycle = function () {
+      this.pauseCount = 10; //Pause for 1 minute
+    };
 
     MyElementProto.onInit = function () {
-      this.nextReviewHandle = setInterval(function () {
-        this._nextReview();
-      }.bind(this), 5000);
+      this.addEventListener('mouseover', function () {
+        this._pausePageCycle();
+      });
+      this._initPageCycle();
     }
 
     MyElementProto.onDispose = function () {
-      this.nextReviewHandle && clearInterval(this.nextReviewHandle);
+      this._stopPageCycle();
     }
 
     // Registers <team-dashboard> in the main document

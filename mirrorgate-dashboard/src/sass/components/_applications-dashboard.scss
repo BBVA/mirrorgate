@@ -18,8 +18,25 @@
 
     font-size: 2rem;
 
-    .platform-rate{
-        margin-bottom: 20px;
+
+    .component__body {
+      height: auto;
+      min-height: auto;
+      flex-basis: unset;
+    }
+
+    .platform-rates {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .platform-rate {
+        flex: 1 1 20%;
+        margin: 0 auto 20px auto;
+        min-width: 30vh;
+        max-width: 350px;
 
         .rate__os {
             font-size: 1.2em;
@@ -50,7 +67,6 @@
 
     .component__body {
         text-align: left;
-        max-width: 600px;
         margin: 0 auto;
         width: 100%;
         box-sizing: border-box;
@@ -76,6 +92,31 @@
     .review__comment {
         color: $text-color-secondary;
     }
+
+    .review-contents {
+
+      margin: 0 7.5px;
+      padding: 15px;
+      background-color: #222;
+      height: 100%;
+      box-sizing: border-box;
+
+      &.mood-happy {
+          box-shadow: inset 0 $border-width 0 $green;
+      }
+
+      &.mood-normal {
+          box-shadow: inset 0 $border-width 0 $darker-grey;
+      }
+
+      &.mood-sad {
+          box-shadow: inset 0 $border-width 0 $yellow;
+      }
+
+      &.mood-very-sad{
+          box-shadow: inset 0 $border-width 0 $red;
+      }
+    }
 }
 
 @media all and (min-width: $l){
@@ -84,8 +125,6 @@
 
         .component__body {
             display: inline-block;
-            margin: 0 auto;
-            max-width: 600px;
         }
         .platform-rate{
             font-size: $level-2;
@@ -117,8 +156,17 @@
     }
 
 
-    .reviews {
-        font-size: $level-4;
+    .reviews-list {
+        font-size: $level-4 - 0.1;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: stretch;
+        height: 100%;
+
+        .review-contents {
+            overflow: hidden;
+        }
 
         .review__header{
             font-size: $level-4 - 0.2;
@@ -130,8 +178,37 @@
 
         .review__comment {
             overflow: hidden;
-            word-break: break-all;
+            word-break: break-word;
+            text-align: justify;
         }
+
+        .review {
+          flex: 1 1 50%;
+          overflow: hidden;
+          margin-bottom: 15px;
+          min-width: 320px;
+        }
+
+        .review:nth-last-child(n+3),
+        .review:nth-last-child(n+3) ~ .review {
+          flex-basis: 33.33%;
+        }
+
+        .review:nth-last-child(n+4),
+        .review:nth-last-child(n+4) ~ .review {
+          flex-basis: 50%;
+        }
+
+        .review:nth-last-child(n+6),
+        .review:nth-last-child(n+6) ~ .review {
+          flex-basis: 33.33%;
+        }
+
+        .review:nth-last-child(n+8),
+        .review:nth-last-child(n+8) ~ .review {
+          flex-basis: 25%;
+        }
+
     }
 }
 

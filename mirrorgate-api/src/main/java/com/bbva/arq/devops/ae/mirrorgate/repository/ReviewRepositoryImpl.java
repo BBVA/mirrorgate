@@ -60,7 +60,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
             project("appname", "platform")
                 .and("total_starrating").as("ratingTotal")
                 .and("total_amount").as("votesTotal")
-                .and("reviews").slice(3, 0)
+                .and("reviews").slice(8, 0)
         );
 
         //Convert the aggregation result into a List

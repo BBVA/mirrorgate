@@ -53,7 +53,7 @@
 
       it('should show applications rates', () => {
         appendComponent();
-        let svg = component.querySelector('* /deep/ #container');
+        let svg = component.querySelector('* /deep/ .platform-rate');
         server.respond();
         expect(svg.children.length).not.toBe(0);
       });
