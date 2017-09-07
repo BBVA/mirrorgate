@@ -73,7 +73,7 @@ public class BuildServiceTests {
     }
 
     @Test
-    public void createBuildForExistingDashboardTest() {
+    public void createBuildTest() {
         Build build = makeBuild();
         BuildDTO request = TestObjectFactory.createBuildDTO();
 
@@ -83,27 +83,8 @@ public class BuildServiceTests {
         String id = buildService.createOrUpdate(request);
 
         verify(buildRepository, times(1)).save((Build)any());
-        verify(dashboardService, times(1)).getDashboard(anyString());
-        verify(dashboardService, times(0)).newDashboard((Dashboard) any());
-
-        assertThat(id).isEqualTo(build.getId().toString());
-    }
-
-    @Test
-    public void createBuildForNonExistingDashboardTest() {
-        Build build = makeBuild();
-        BuildDTO request = TestObjectFactory.createBuildDTO();
-
-        when(dashboardService.getDashboard(anyString())).thenReturn(null);
-        when(buildRepository.save((Build)any())).thenReturn(build);
-
-        String id = buildService.createOrUpdate(request);
-
-        verify(buildRepository, times(1)).save((Build)any());
-        verify(dashboardService, times(1)).getDashboard(anyString());
         verify(dashboardService, times(1)).newDashboard((Dashboard) any());
 
         assertThat(id).isEqualTo(build.getId().toString());
     }
-
 }
