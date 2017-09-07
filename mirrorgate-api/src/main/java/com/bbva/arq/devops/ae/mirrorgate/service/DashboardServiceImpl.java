@@ -108,21 +108,22 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public Dashboard newDashboard(Dashboard dashboard) {
         Dashboard oldDashboard = dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+
         if (oldDashboard != null && oldDashboard.getStatus() != DELETED) {
             throw new DashboardConflictException("A Dashboard with name '" + dashboard.getName() + "' already exists");
         }
 
         if(dashboard.getStatus() != TRANSIENT) {
             dashboard.setStatus(ACTIVE);
+
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+            if (auth != null && null != auth.getPrincipal()) {
+                dashboard.setAuthor(auth.getPrincipal().toString());
+                dashboard.setLastUserEdit(auth.getPrincipal().toString());
+            }
         }
 
-        dashboard.setLastModification(System.currentTimeMillis());
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (auth != null && null != auth.getPrincipal()) {
-            dashboard.setAuthor(auth.getPrincipal().toString());
-            dashboard.setLastUserEdit(auth.getPrincipal().toString());
-        }
         dashboard.setLastModification(System.currentTimeMillis());
 
         return dashboardRepository.save(dashboard);
