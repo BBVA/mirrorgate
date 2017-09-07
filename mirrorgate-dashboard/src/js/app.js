@@ -34,7 +34,8 @@ function MainController() {
     };
 
     // Display tiles only when details are avail
-    if (dashboardDetails) {
+    if(dashboardDetails && dashboardDetails.name) {
+
       for (var tileClass in tileConditions) {
         var tile = document.querySelector(tileClass + '-tile');
         var detailProperty = dashboardDetails[tileConditions[tileClass]];
@@ -44,6 +45,10 @@ function MainController() {
               (tile && detailProperty && detailProperty.length > 0) === true);
           tile.setAttribute('pid', Utils.getDashboardId());
           tile.setAttribute('pconfig', JSON.stringify(dashboardDetails));
+          var background_dashboard = document.querySelector('background-dashboard');
+          if((tile && detailProperty && background_dashboard && detailProperty.length > 0) === true) {
+            background_dashboard.remove();
+          }
         }
       }
 
