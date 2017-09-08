@@ -16,9 +16,39 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.core.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Enumeration of applications platforms.
  */
 public enum Platform {
-    Android, IOS,
+    Android("Android"),
+    IOS("IOS"),
+    Windows("Windows"),
+    WindowsPhone("Windows Phone"),
+    Unknown("Unkown");
+
+    private final String name;
+
+    Platform(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    private static final Map<String, Platform> MAPPING = new HashMap<>();
+
+    static {
+        for (Platform platform : values()) {
+            MAPPING.put(platform.getName().toLowerCase(), platform);
+        }
+    }
+
+    public static Platform fromString(String value) {
+        String key = value.toLowerCase();
+        return MAPPING.containsKey(key) ? MAPPING.get(key) : Unknown;
+    }
 }
