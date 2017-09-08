@@ -31,6 +31,7 @@ const useref = require('gulp-useref'), gulpif = require('gulp-if'),
 
       minifyCss = require('gulp-clean-css'), glob = require('glob');
 const path = require('path');
+const fs = require('fs');
 
 var uglifyjs = require('uglify-js-harmony');
 var minifier = require('gulp-uglify/minifier');
@@ -67,8 +68,14 @@ gulp.task('lint', function() {
 
 gulp.task(
     ':build',
-    () => gulp.src(paths.src.concat(paths.bower).concat(paths.fonts))
-              .pipe(gulp.dest(paths.dist)));
+    (cb) => {
+      gulp.src(paths.src.concat(paths.bower).concat(paths.fonts))
+              .pipe(gulp.dest(paths.dist))
+              .on('end', () =>
+                  fs.writeFile(paths.dist + 'versionTag', getVersionId(), cb)
+              );
+    }
+);
 
 gulp.task('build', gulpSequence('clean', 'lint', ':build', ':build:sass'));
 gulp.task('build:watch', ['build'], () => {
@@ -174,3 +181,11 @@ gulp.task('html', function() {
 
 gulp.task('default', gulpSequence('build', 'test:local'));
 gulp.task('dist', gulpSequence('build', 'html'));
+
+function getVersionId() {
+  let version = new Date().toISOString();
+  if(process.env.BUILD_NUMBER) {
+    version += ' - ' + process.env.BUILD_NUMBER + ' - ' + process.env.GIT_BRANCH;
+  }
+  return version;
+}
