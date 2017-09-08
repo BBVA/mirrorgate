@@ -78,6 +78,8 @@ var AlertsController = (function(dashboardId) {
       }
 
       observable.notify(alert_groups);
+    },{
+      authorization: config.urlAlertsAuthorization
     });
   }
 

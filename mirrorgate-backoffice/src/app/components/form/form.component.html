@@ -297,14 +297,16 @@
               <label for="urlAlerts">URL Alerts</label>
               <div class="collapse" id="urlAlerts-help">
                 <div class="well">
-                  URL to gather Alerts from. See <a href="https://github.com/BBVA/mirrorgate/blob/master/mirrorgate-dashboard/test/mocks/dashboards/mirrorgate/alerts">here</a> an example of the response format.
+                  <p>URL to gather Alerts from. See <a href="https://github.com/BBVA/mirrorgate/blob/master/mirrorgate-dashboard/test/mocks/dashboards/mirrorgate/alerts">here</a> an example of the response format.</p>
+                  <p>You can also specify an Authorization header to be sent in case the endpoint is authenticated.</p>
                 </div>
               </div>
               <div class="input-group">
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#urlAlerts-help" aria-expanded="false" aria-controls="urlAlerts-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="dashboard.urlAlerts" name="urlAlerts">
+                <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="dashboard.urlAlerts" name="urlAlerts" placeholder="Alerts url">
+                <input type="text" class="form-control" id="urlAlertsAuthorization" [(ngModel)]="dashboard.urlAlertsAuthorization" name="urlAlertsAuthorization" placeholder="Authorization header">
               </div>
             </div>
           </div>

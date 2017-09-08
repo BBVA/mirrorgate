@@ -55,6 +55,7 @@ public class Dashboard extends BaseModel {
     private Long lastModification;
     private String programIncrement;
     private String urlAlerts;
+    private String urlAlertsAuthorization;
     private String author;
 
 
@@ -202,5 +203,13 @@ public class Dashboard extends BaseModel {
 
     public void setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+    }
+
+    public String getUrlAlertsAuthorization() {
+        return urlAlertsAuthorization;
+    }
+
+    public void setUrlAlertsAuthorization(String urlAlertsAuthorization) {
+        this.urlAlertsAuthorization = urlAlertsAuthorization;
     }
 }
