@@ -120,4 +120,20 @@ public class Review extends BaseModel {
         this.amount = amount;
     }
 
+    public boolean equals(Review review) {
+
+        return this.getPlatform() == review.getPlatform() &&
+                this.getStarrating() == review.getStarrating() &&
+                stringEquals(this.getCommentId(), review.getCommentId()) &&
+                stringEquals(this.getAppname(), review.getAppname()) &&
+                stringEquals(this.getAuthorName(), review.getAuthorName()) &&
+                stringEquals(this.getCommentTitle(), review.getCommentTitle()) &&
+                stringEquals(this.getComment(), review.getComment());
+
+    }
+
+    private static final boolean stringEquals(String s1, String s2) {
+        return (s1 == null && s2 == null) || (s1 != null && s1.equals(s2));
+    }
+
 }
