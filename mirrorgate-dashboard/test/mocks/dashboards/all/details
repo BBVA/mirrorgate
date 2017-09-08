@@ -11,5 +11,6 @@
   "slackTeam": "All",
   "programIncrement": "blah",
   "urlAlerts": "dashboards/all/alerts",
+  "urlAlertsAuthorization": "a=b&c=d&e=f",
   "analyticViews": ["123412"]
 }

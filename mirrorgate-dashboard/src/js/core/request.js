@@ -29,8 +29,10 @@ function httpGetAsync(url, callback, options) {
 
   xmlHttp.open('GET', url, true);  // true for asynchronous
 
-  if(options && options.authorization) {
-    xmlHttp.setRequestHeader('Authorization',options.authorization);
+  if(options && options.headers) {
+    for(var header of options.headers) {
+      xmlHttp.setRequestHeader(header.name,header.value);
+    }
   }
 
   xmlHttp.send(null);

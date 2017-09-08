@@ -26,6 +26,17 @@ var AlertsController = (function(dashboardId) {
 
   function getAlerts() {
 
+    var headers = config.urlAlertsAuthorization && config.urlAlertsAuthorization.split('&').map(function (item) {
+      var pos = item.indexOf('=');
+      return pos > 0 ? {
+        name: item.substring(0, pos),
+        value: item.substring(pos+1, item.length)
+      } : {
+        name: 'Authorization',
+        value: item
+      };
+    });
+
     httpGetAsync(config.urlAlerts, function(data) {
 
       function buildAlerts(data, limit) {
@@ -79,7 +90,7 @@ var AlertsController = (function(dashboardId) {
 
       observable.notify(alert_groups);
     },{
-      authorization: config.urlAlertsAuthorization
+      headers: headers
     });
   }
 
