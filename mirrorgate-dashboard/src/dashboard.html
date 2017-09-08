@@ -36,6 +36,7 @@
   <script src="bower_components/moment-weekday-calc/build/moment-weekday-calc.min.js"></script>
   <script src="bower_components/d3/d3.min.js"></script>
   <script src="bower_components/rivets/dist/rivets.bundled.min.js"></script>
+  <script src="bower_components/jQuery.dotdotdot/dist/jquery.dotdotdot.js"></script>
   <!-- endbuild -->
 
   <!-- build:js js/combined.min.js -->
@@ -53,6 +54,7 @@
   <link rel="import" href="components/board-column/component.html" >
   <link rel="import" href="components/tile-container/component.html" >
   <link rel="import" href="components/details/component.html" >
+  <link rel="import" href="components/details/background.html" >
   <link rel="import" href="components/tiles/builds/graph.html" >
   <link rel="import" href="components/tiles/builds/stats.html" >
   <link rel="import" href="components/tiles/team/currentSprint.html" >
@@ -101,6 +103,8 @@
             <markets-tile class="tile component tile--primary"></markets-tile>
         </tile-container>
       </board-column>
+
+      <background-dashboard></background-dashboard>
 
     </div>
   </div>

@@ -27,6 +27,7 @@ import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,6 +57,11 @@ public class ReviewRepositoryTest {
         reviewRepository.save(review2);
         reviewRepository.save(review3);
         reviewRepository.save(review4);
+    }
+
+    @After
+    public void clean(){
+        reviewRepository.deleteAll();
     }
 
     @Test

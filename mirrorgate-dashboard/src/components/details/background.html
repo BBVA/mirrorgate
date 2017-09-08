@@ -1,0 +1,119 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- build:js background.min.js -->
+<script src="controller.js"></script>
+<script src="model.js"></script>
+<!-- endbuild -->
+<template>
+  <style>
+    @import "css/styles.css";
+  </style>
+
+  <div id="background" class="background component__content">
+    <div class="background-img"></div>
+    <div id="background_error">
+      <p> Requested dashboard does not exist, start using MirrorGate by creating a new dashboard</p>
+      <a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/new'; return false;"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Create a new dashboard</a>
+    </div>
+    <div id="background_new">
+      <p> Start using MirrorGate by creating a new dashboard</p>
+      <a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/new'; return false;"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Create a new dashboard</a>
+    </div>
+    <div id="background_edit">
+      <p> Start using MirrorGate by editing this dashboard </p>
+      <a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/edit/' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a>
+    </div>
+  </div>
+</template>
+
+<script>
+  (function (window, document, undefined) {
+
+    // Refers to the "importee", which is components/background-dashboard.html
+    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
+    var tmpl = thisDoc.querySelector('template');
+
+    // Creates an object based in the HTML Element prototype
+    var MyElementProto = Object.create(HTMLElement.prototype);
+
+    MyElementProto.createdCallback = function () {
+      // Creates the shadow root
+      this.shadowRoot = this.createShadowRoot();
+
+      // Add the image to the Shadow Root.
+      this.shadowRoot.appendChild(document.importNode(tmpl.content, true));
+    }
+
+    MyElementProto.detachedCallback = function () {
+      this.controller.dispose();
+    }
+
+    // Fires when an instance of the element is created
+    MyElementProto.attachedCallback = function () {
+      var element = this;
+
+      // Create an img element and set it's attributes.
+      var img = element.shadowRoot.querySelector('img');
+
+      this.controller = new DetailsController(Utils.getDashboardId());
+      this.controller.observable.attach(render);
+      this.controller.init();
+
+      function render(details) {
+        var background_edit_div = element.shadowRoot.querySelector('#background_edit');
+        var background_new_div = element.shadowRoot.querySelector('#background_new');
+        var background_error_div = element.shadowRoot.querySelector('#background_error');
+
+        // Display background_error_div if dashboard does not exists
+        if(!details) {
+          if(background_edit_div) {
+            background_edit_div.remove();
+          }
+          if(background_new_div) {
+            background_new_div.remove();
+          }
+          return;
+        }
+
+        // Display background_error_div when there is not dashboard
+        if(!details.name) {
+          if(background_edit_div) {
+            background_edit_div.remove();
+          }
+          if(background_error_div) {
+            background_error_div.remove();
+          }
+          return;
+        }
+
+        if(background_new_div) {
+          background_new_div.remove();
+        }
+        if(background_error_div) {
+          background_error_div.remove();
+        }
+      };
+    };
+
+    // Registers <background-dashboard> in the main document
+    window.MyElement = document.registerElement('background-dashboard', {
+      prototype: MyElementProto
+    });
+  })(window, document);
+
+</script>

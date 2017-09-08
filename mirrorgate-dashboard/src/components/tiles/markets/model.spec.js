@@ -31,6 +31,12 @@ describe('MarketsController', () => {
         comment: 'Consume mucho'
       },
       {
+        author: 'kike',
+        rate: 2.0,
+        timestamp: 1498804350000,
+        comment: 'Consume mucho'
+      },
+      {
         author: 'Ana',
         rate: 3.5,
         timestamp: 1488961673755,
@@ -49,9 +55,10 @@ describe('MarketsController', () => {
     it('should set the rate type according to rating', () => {
       let market = new Market(Object.assign({}, baseMarketData));
 
-      expect(market.reviews[0].commentMood).toEqual('sad');
-      expect(market.reviews[1].commentMood).toEqual('normal');
-      expect(market.reviews[2].commentMood).toEqual('happy');
+      expect(market.reviews[0].commentMood).toEqual('very-sad');
+      expect(market.reviews[1].commentMood).toEqual('sad');
+      expect(market.reviews[2].commentMood).toEqual('normal');
+      expect(market.reviews[3].commentMood).toEqual('happy');
     });
   });
 

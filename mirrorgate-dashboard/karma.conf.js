@@ -37,6 +37,7 @@ module.exports = function(config) {
       'bower_components/moment/min/moment.min.js',
       'bower_components/moment-weekday-calc/build/moment-weekday-calc.min.js',
       'bower_components/sockjs-client/dist/sockjs.min.js',
+      'bower_components/jQuery.dotdotdot/dist/jquery.dotdotdot.js',
       'src/js/core/utils.js',
       'src/js/components/Tile.js',
       'src/js/core/Event.js',

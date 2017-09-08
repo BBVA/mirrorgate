@@ -15,7 +15,9 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -26,13 +28,12 @@ import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.domain.Sort;
@@ -152,6 +153,26 @@ public class DashboardServiceTests {
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save(dashboard);
 
+        assertThat(dashboard2.getAdminUsers()).contains(TestObjectFactory.AUTH_NAME);
+    }
+
+    @Test
+    public void updateTransientDashboard() {
+
+        ArgumentCaptor<Dashboard> argument = ArgumentCaptor.forClass(Dashboard.class);
+
+        Dashboard dashboard = TestObjectFactory.createDashboard();
+        dashboard.setStatus(TRANSIENT);
+
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
+        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
+
+        Dashboard dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
+        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).save(dashboard);
+        verify(dashboardRepository).save(argument.capture());
+
+        assertThat(argument.getValue().getStatus()).isEqualTo(ACTIVE);
         assertThat(dashboard2.getAdminUsers()).contains(TestObjectFactory.AUTH_NAME);
     }
 

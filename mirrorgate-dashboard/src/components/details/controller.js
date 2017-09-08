@@ -20,7 +20,7 @@
  */
 var DetailsController = (function(dashboardId) {
 
-  var observable = new Event('TeamController');
+  var observable = new Event('DetailsController');
   var service = Service.get(Service.types.dashboard, dashboardId);
 
   function getDetails(response) {
