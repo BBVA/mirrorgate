@@ -21,7 +21,9 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +45,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         List<String> activeApplicationNames = getApplicationNames(dashboardRepository.getActiveDashboards());
 
         List<ApplicationReviewsDTO> appsWithReview = reviewRepository.getLastReviewPerApplication(activeApplicationNames);
-        List<String> appsWithoutReview = getApplicationsWithoutReviews(activeApplicationNames, appsWithReview);
+        Set<String> appsWithoutReview = getApplicationsWithoutReviews(activeApplicationNames, appsWithReview);
 
         List<ApplicationReviewsDTO> appsReviews = new ArrayList<>();
 
@@ -53,10 +55,10 @@ public class ApplicationServiceImpl implements ApplicationService {
         return appsReviews;
     }
 
-    private List<String> getApplicationsWithoutReviews(List<String> activeApplicationNames,
+    private Set<String> getApplicationsWithoutReviews(List<String> activeApplicationNames,
         List<ApplicationReviewsDTO> appsWithReview){
 
-        List<String> applicationWithoutReviewNames = new ArrayList<>();
+        Set<String> applicationWithoutReviewNames = new HashSet<>();
         applicationWithoutReviewNames.addAll(activeApplicationNames);
 
         List<String> applicationsWithReviewNames =
@@ -70,7 +72,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationWithoutReviewNames;
     }
 
-    private List<ApplicationReviewsDTO> buildApplicationsWithoutReviews(List<String> activeApplicationNames){
+    private List<ApplicationReviewsDTO> buildApplicationsWithoutReviews(Set<String> activeApplicationNames){
 
         List<ApplicationReviewsDTO> applicationsWithoutReviews = new ArrayList<>();
 
