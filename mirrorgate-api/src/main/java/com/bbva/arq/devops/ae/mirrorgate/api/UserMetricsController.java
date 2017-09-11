@@ -16,32 +16,27 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricsDTO;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.UserMetricsService;
+import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
-/**
- * Created by alfonso on 27/07/17.
- */
-
 @RestController
 public class UserMetricsController {
 
-    private UserMetricsService userMetricsService;
-    private DashboardService dashboardService;
+    private final UserMetricsService userMetricsService;
+    private final DashboardService dashboardService;
 
     @Autowired
     public UserMetricsController(UserMetricsService userMetricsService, DashboardService dashboardService) {
@@ -55,12 +50,12 @@ public class UserMetricsController {
     }
 
     @RequestMapping(method = POST, value ="/api/user-metrics", produces = APPLICATION_JSON_VALUE)
-    public List<UserMetricsDTO> saveMetrics(@Valid @RequestBody Iterable<UserMetricsDTO> metrics) {
+    public List<UserMetricDTO> saveMetrics(@Valid @RequestBody Iterable<UserMetricDTO> metrics) {
         return userMetricsService.saveMetrics(metrics);
     }
 
     @RequestMapping(method = GET, value ="/dashboards/{name}/user-metrics", produces = APPLICATION_JSON_VALUE)
-    public List<UserMetricsDTO> getMetricsForBoard(@PathVariable("name") String name) {
+    public List<UserMetricDTO> getMetricsForBoard(@PathVariable("name") String name) {
         Dashboard dashboard = dashboardService.getDashboard(name);
         return userMetricsService.getMetricsForDashboard(dashboard);
     }

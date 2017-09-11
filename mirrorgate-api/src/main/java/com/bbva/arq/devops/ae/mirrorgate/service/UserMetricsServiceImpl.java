@@ -16,30 +16,25 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricsDTO;
-import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricsMapper;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import com.bbva.arq.devops.ae.mirrorgate.model.UserMetrics;
+import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-
-/**
- * Created by alfonso on 27/07/17.
- */
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class UserMetricsServiceImpl implements UserMetricsService {
 
-    private DashboardService dashboardService;
-    private UserMetricsRepository userMetricsRepository;
+    private final DashboardService dashboardService;
+    private final UserMetricsRepository userMetricsRepository;
 
     @Autowired
     public UserMetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository){
@@ -59,39 +54,39 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     }
 
     @Override
-    public List<UserMetricsDTO> saveMetrics(Iterable<UserMetricsDTO> metrics) {
-        List<UserMetrics> targets = userMetricsRepository.findAllByViewIdIn(
+    public List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics) {
+        List<UserMetric> targets = userMetricsRepository.findAllByViewIdIn(
                 StreamSupport.stream(metrics.spliterator(), false)
-                        .map(UserMetricsDTO::getViewId)
-                        .collect(Collectors.toList())
+                .map(UserMetricDTO::getViewId)
+                .collect(Collectors.toList())
         );
-        List<UserMetrics> toSave = StreamSupport.stream(metrics.spliterator(), false)
+        List<UserMetric> toSave = StreamSupport.stream(metrics.spliterator(), false)
                 .map((metric) -> {
 
-            Optional<UserMetrics> optTarget = targets.stream()
+            Optional<UserMetric> optTarget = targets.stream()
                     .filter((t) -> metric.getViewId().equals(t.getViewId()))
                     .findAny();
 
-            return UserMetricsMapper.map(
+            return UserMetricMapper.map(
                     metric,
-                    optTarget.isPresent() ? optTarget.get() : new UserMetrics()
-                    );
+                    optTarget.isPresent() ? optTarget.get() : new UserMetric()                    );
         }).collect(Collectors.toList());
 
         userMetricsRepository.save(toSave);
 
-        return toSave.stream().map(UserMetricsMapper::map).collect(Collectors.toList());
+        return toSave.stream().map(UserMetricMapper::map).collect(Collectors.toList());
+
     }
 
     @Override
-    public List<UserMetricsDTO> getMetricsForDashboard(Dashboard dashboard) {
+    public List<UserMetricDTO> getMetricsForDashboard(Dashboard dashboard) {
         List<String> views = dashboard.getAnalyticViews();
-        if(views == null || views.size() == 0) {
+        if (views == null || views.isEmpty()) {
             return new ArrayList<>();
         }
 
         return userMetricsRepository.findAllByViewIdIn(views)
-                .stream().map(UserMetricsMapper::map)
+                .stream().map(UserMetricMapper::map)
                 .collect(Collectors.toList());
     }
 

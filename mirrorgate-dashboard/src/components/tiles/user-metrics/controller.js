@@ -36,10 +36,14 @@ var UserMetricsController = (function(dashboardId) {
         };
 
         response.forEach(function(metric) {
-          model.metrics.rtActiveUsers += metric.rtActiveUsers;
-          model.metrics.ga7dayUsers += metric.ga7dayUsers;
+          // TODO: refactor when metrics are fixed
+          model.metrics.rtActiveUsers += metric.rtActiveUsers || 0;
+          model.metrics.ga7dayUsers += metric.ga7dayUsers || 0;
+          if(metric.name === 'activeUsers') {
+            model.metrics.rtActiveUsers += parseInt(metric.value);
+          }
         }, this);
-      
+
       }
     }
 
