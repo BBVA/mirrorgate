@@ -18,23 +18,30 @@ package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by alfonso on 27/07/17.
- */
-public class UserMetricsDTO {
+public class UserMetricDTO {
 
     @NotNull
     private String viewId;
 
+    private String appVersion;
+
+    private String platform;
+
+    @Deprecated
     private Long rtActiveUsers;
 
+    @Deprecated
     private Long ga7dayUsers;
+
+    private String name;
+
+    private String value;
 
     public String getViewId() {
         return viewId;
     }
 
-    public UserMetricsDTO setViewId(String viewId) {
+    public UserMetricDTO setViewId(String viewId) {
         this.viewId = viewId;
         return this;
     }
@@ -43,7 +50,7 @@ public class UserMetricsDTO {
         return rtActiveUsers;
     }
 
-    public UserMetricsDTO setRtActiveUsers(Long rtActiveUsers) {
+    public UserMetricDTO setRtActiveUsers(Long rtActiveUsers) {
         this.rtActiveUsers = rtActiveUsers;
         return this;
     }
@@ -52,8 +59,45 @@ public class UserMetricsDTO {
         return ga7dayUsers;
     }
 
-    public UserMetricsDTO setGa7dayUsers(Long ga7dayUsers) {
+    public UserMetricDTO setGa7dayUsers(Long ga7dayUsers) {
         this.ga7dayUsers = ga7dayUsers;
         return this;
     }
+
+    public String getAppVersion() {
+        return appVersion;
+    }
+
+    public UserMetricDTO setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
+        return this;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public UserMetricDTO setPlatform(String platform) {
+        this.platform = platform;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public UserMetricDTO setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public UserMetricDTO setValue(String value) {
+        this.value = value;
+        return this;
+    }
+
 }

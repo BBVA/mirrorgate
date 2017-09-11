@@ -16,17 +16,13 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.UserMetrics;
+import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+public interface UserMetricsRepository extends CrudRepository<UserMetric, ObjectId> {
 
-/**
- * Created by alfonso on 27/07/17.
- */
-public interface UserMetricsRepository extends CrudRepository<UserMetrics, ObjectId> {
-
-    List<UserMetrics> findAllByViewIdIn(List<String> ids);
+    List<UserMetric> findAllByViewIdIn(List<String> ids);
 
 }

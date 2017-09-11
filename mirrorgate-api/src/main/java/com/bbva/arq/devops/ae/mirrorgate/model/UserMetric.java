@@ -16,27 +16,35 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-/**
- * Created by alfonso on 27/07/17.
- */
 @Document(collection = "user-metrics")
-public class UserMetrics extends BaseModel {
+public class UserMetric extends BaseModel {
 
     @Indexed
     private String viewId;
 
+    private String appVersion;
+
+    private Platform platform;
+
+    @Deprecated
     private Long rtActiveUsers;
 
+    @Deprecated
     private Long ga7dayUsers;
+
+    private String name;
+
+    private String value;
 
     public String getViewId() {
         return viewId;
     }
 
-    public UserMetrics setViewId(String viewId) {
+    public UserMetric setViewId(String viewId) {
         this.viewId = viewId;
         return this;
     }
@@ -45,7 +53,7 @@ public class UserMetrics extends BaseModel {
         return rtActiveUsers;
     }
 
-    public UserMetrics setRtActiveUsers(Long rtActiveUsers) {
+    public UserMetric setRtActiveUsers(Long rtActiveUsers) {
         this.rtActiveUsers = rtActiveUsers;
         return this;
     }
@@ -54,8 +62,45 @@ public class UserMetrics extends BaseModel {
         return ga7dayUsers;
     }
 
-    public UserMetrics setGa7dayUsers(Long ga7dayUsers) {
+    public UserMetric setGa7dayUsers(Long ga7dayUsers) {
         this.ga7dayUsers = ga7dayUsers;
         return this;
     }
+
+    public String getAppVersion() {
+        return appVersion;
+    }
+
+    public UserMetric setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
+        return this;
+    }
+
+    public Platform getPlatform() {
+        return platform;
+    }
+
+    public UserMetric setPlatform(Platform platform) {
+        this.platform = platform;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public UserMetric setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public UserMetric setValue(String value) {
+        this.value = value;
+        return this;
+    }
+
 }

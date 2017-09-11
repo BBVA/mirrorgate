@@ -16,19 +16,15 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricsDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-
 import java.util.List;
 
-/**
- * Created by alfonso on 27/07/17.
- */
 public interface UserMetricsService {
 
     List<String> getAnalyticViewIds();
 
-    List<UserMetricsDTO> saveMetrics(Iterable<UserMetricsDTO> metrics);
+    List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics);
 
-    List<UserMetricsDTO> getMetricsForDashboard(Dashboard dashboard);
+    List<UserMetricDTO> getMetricsForDashboard(Dashboard dashboard);
 }
