@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-function httpGetAsync(url, callback) {
+function httpGetAsync(url, callback, options) {
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function() {
     if (xmlHttp.readyState === 4) {
@@ -28,6 +28,12 @@ function httpGetAsync(url, callback) {
   xmlHttp.onerror = function() { callback(); };
 
   xmlHttp.open('GET', url, true);  // true for asynchronous
+
+  if(options && options.headers) {
+    for(var header of options.headers) {
+      xmlHttp.setRequestHeader(header.name,header.value);
+    }
+  }
 
   xmlHttp.send(null);
 }

@@ -96,13 +96,24 @@ public class ReviewServiceImpl implements ReviewService {
         List<Review> singleReviews = StreamSupport.stream(reviews.spliterator(), false)
                 .filter((r) -> r.getTimestamp() != null).collect(Collectors.toList());
 
-
-        Set<String> existingReviews = repository
-                .findAllByCommentIdIn(singleReviews.stream().map(Review::getCommentId).collect(Collectors.toList()))
-                .stream().map(Review::getCommentId).collect(Collectors.toSet());
+        List<Review> existingReviews = repository
+                .findAllByCommentIdIn(singleReviews.stream().map(Review::getCommentId).collect(Collectors.toList()));
 
         singleReviews = singleReviews.stream()
-                .filter((r) -> !existingReviews.contains(r.getCommentId()))
+                .filter((r) -> {
+                    //We exclude reviews that equal existing one and update the objectId for those
+                    // different and already in the DB while keeping the new ones
+                    for (Review existingReview : existingReviews) {
+                        if(existingReview.getCommentId().equals(r.getCommentId())) {
+                            if(existingReview.equals(r)) {
+                                return false;
+                            }
+                            r.setId(existingReview.getId());
+                            return true;
+                        }
+                    }
+                    return true;
+                })
                 .collect(Collectors.toList());
 
         Iterable<Review> newReviews = repository.save(singleReviews);
