@@ -27,7 +27,8 @@ public enum Platform {
     IOS("IOS"),
     Windows("Windows"),
     WindowsPhone("Windows Phone"),
-    Unknown("Unkown");
+    Unknown("Unkown"),
+    All("All");
 
     private final String name;
 
@@ -48,7 +49,7 @@ public enum Platform {
     }
 
     public static Platform fromString(String value) {
-        String key = value.toLowerCase();
+        String key = (value != null) ? value.toLowerCase() : "All";
         return MAPPING.containsKey(key) ? MAPPING.get(key) : Unknown;
     }
 }
