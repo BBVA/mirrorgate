@@ -40,6 +40,11 @@ public class UserMetric extends BaseModel {
 
     private String value;
 
+    private Long timestamp;
+
+    /* Associated collector ID */
+    private String collectorId;
+
     public String getViewId() {
         return viewId;
     }
@@ -100,6 +105,24 @@ public class UserMetric extends BaseModel {
 
     public UserMetric setValue(String value) {
         this.value = value;
+        return this;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public UserMetric setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+
+    public String getCollectorId() {
+        return collectorId;
+    }
+
+    public UserMetric setCollectorId(String collectorId) {
+        this.collectorId = collectorId;
         return this;
     }
 

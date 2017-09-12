@@ -31,10 +31,12 @@ public class UserMetricMapper {
                 .setRtActiveUsers(source.getRtActiveUsers())
                 .setViewId(source.getViewId())
                 .setAppVersion(source.getAppVersion())
-                .setPlatform(source.getPlatform() == null ? null : source.getPlatform().getName())
+                .setPlatform(source.getPlatform().getName())
                 .setGa7dayUsers(source.getGa7dayUsers())
                 .setName(source.getName())
-                .setValue(source.getValue());
+                .setValue(source.getValue())
+                .setTimestamp(source.getTimestamp())
+                .setCollectorId(source.getCollectorId());
     }
 
     public static UserMetric map(UserMetricDTO source) {
@@ -49,7 +51,9 @@ public class UserMetricMapper {
                 .setPlatform(Platform.fromString(source.getPlatform()))
                 .setGa7dayUsers(source.getGa7dayUsers())
                 .setName(source.getName())
-                .setValue(source.getValue());
+                .setValue(source.getValue())
+                .setTimestamp(source.getTimestamp())
+                .setCollectorId(source.getCollectorId());
     }
 
 }

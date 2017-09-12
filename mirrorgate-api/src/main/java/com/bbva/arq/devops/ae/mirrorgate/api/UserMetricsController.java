@@ -27,10 +27,7 @@ import com.bbva.arq.devops.ae.mirrorgate.service.UserMetricsService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserMetricsController {
@@ -44,9 +41,19 @@ public class UserMetricsController {
         this.dashboardService = dashboardService;
     }
 
+    @Deprecated
     @RequestMapping(method = GET, value = "/api/user-metrics/analytic-views", produces = APPLICATION_JSON_VALUE)
     public List<String> getAnalyticViewIds() {
         return userMetricsService.getAnalyticViewIds();
+    }
+
+    @RequestMapping(
+            method = GET,
+            value = "/api/user-metrics",
+            produces = APPLICATION_JSON_VALUE)
+    public List<UserMetricDTO> getAnalyticViewIdsByCollectorId(
+            @RequestParam("collectorId") String collectorId) {
+        return userMetricsService.getMetricsByCollectorId(collectorId);
     }
 
     @RequestMapping(method = POST, value ="/api/user-metrics", produces = APPLICATION_JSON_VALUE)

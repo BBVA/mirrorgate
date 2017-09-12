@@ -17,6 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
@@ -43,6 +44,7 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     }
 
     @Override
+    @Deprecated
     public List<String> getAnalyticViewIds() {
         return dashboardService.getActiveDashboards().stream()
                 .flatMap((d) -> d.getAnalyticViews() == null ?
@@ -51,6 +53,12 @@ public class UserMetricsServiceImpl implements UserMetricsService {
                 )
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserMetricDTO> getMetricsByCollectorId(String collectorId) {
+        return userMetricsRepository.findAllByCollectorId(collectorId).stream()
+                .map(UserMetricMapper::map).collect(Collectors.toList());
     }
 
     @Override
@@ -64,7 +72,12 @@ public class UserMetricsServiceImpl implements UserMetricsService {
                 .map((metric) -> {
 
             Optional<UserMetric> optTarget = targets.stream()
-                    .filter((t) -> metric.getViewId().equals(t.getViewId()))
+                    .filter((t) -> metric.getViewId().equals(t.getViewId())
+                            && metric.getCollectorId().equals(t.getCollectorId())
+                            && metric.getAppVersion().equals(t.getAppVersion())
+                            && Platform.fromString(metric.getPlatform()).equals(t.getPlatform())
+                            && metric.getName().equals(t.getName())
+                    )
                     .findAny();
 
             return UserMetricMapper.map(
@@ -89,6 +102,5 @@ public class UserMetricsServiceImpl implements UserMetricsService {
                 .stream().map(UserMetricMapper::map)
                 .collect(Collectors.toList());
     }
-
 
 }

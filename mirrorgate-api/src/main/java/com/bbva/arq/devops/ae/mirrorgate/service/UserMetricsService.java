@@ -22,9 +22,13 @@ import java.util.List;
 
 public interface UserMetricsService {
 
+    @Deprecated
     List<String> getAnalyticViewIds();
+
+    List<UserMetricDTO> getMetricsByCollectorId(String collectorId);
 
     List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics);
 
     List<UserMetricDTO> getMetricsForDashboard(Dashboard dashboard);
+
 }
