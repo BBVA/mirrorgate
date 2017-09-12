@@ -44,4 +44,13 @@ describe('MarketsController', () => {
     });
   });
 
+  it('calculates stars correctly', () => {
+    expect(controller.calculateStars(3)).toEqual(['star','star','star','star-o','star-o']);
+    expect(controller.calculateStars(4.1)).toEqual(['star','star','star','star','star-o']);
+    expect(controller.calculateStars(4.6)).toEqual(['star','star','star','star','star-half-o']);
+    expect(controller.calculateStars(4.9)).toEqual(['star','star','star','star','star']);
+    expect(controller.calculateStars(0)).toEqual(['star-o','star-o','star-o','star-o','star-o']);
+    expect(controller.calculateStars(5)).toEqual(['star','star','star','star','star']);
+  });
+
 });

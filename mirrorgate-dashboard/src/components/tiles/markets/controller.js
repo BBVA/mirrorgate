@@ -53,8 +53,9 @@ var MarketsController = (function(dashboardId) {
   };
   this.init = function() { service.addListener(getRates); };
 
-  this.calculateStars = function (rate) {
+  this.calculateStars = function (total_rate) {
     var stars = [];
+    var rate = Math.round(total_rate * 2) / 2;
     for(i = 0; i < 5; i++ ) {
       if(rate - i >= 1 ) {
         stars.push('star');
