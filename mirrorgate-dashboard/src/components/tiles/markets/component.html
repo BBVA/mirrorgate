@@ -49,9 +49,9 @@
 
             <div class="rate-stars">
 
-              <span class="rate__total" rv-width="app.percentTotal">
+              <span class="rate__total">
                 <span>
-                  <i rv-each-star="app.starsTotal" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
+                  <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
                 </span>
               </span>
               <span class="sr-only">{app.rate7Days}</span>
@@ -62,10 +62,10 @@
                 ({app.votes7Days} votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
               </span>
 
-              <div class="rate__total-data" rv-left="app.percentTotal">
+              <div class="rate__total-data">
                 <span>All versions: <span class="rate-value sr-only">{app.rateTotal}</span> </span>
 
-                <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
+                <i rv-each-star="app.starsTotal" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
 
                 <span class="rate-legend-votes">({app.votesTotal} votes)</span>
               </div>
@@ -127,7 +127,6 @@
         this.model.apps = apps;
         this.model.apps.forEach(function(app) {
           app.starsTotal = this.controller.calculateStars(app.rateTotal);
-          app.percentTotal = app.rateTotal * 20;
           app.stars7Days = this.controller.calculateStars(app.rate7Days);
         }, this);
       }
