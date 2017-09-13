@@ -127,7 +127,7 @@ public class UserMetric extends BaseModel {
         return this;
     }
 
-    public boolean isTheSameMetric(UserMetricDTO metric) {
+    public boolean isTheSame(UserMetricDTO metric) {
         return viewId.equals(metric.getViewId())
                 && equalsWithNulls(collectorId, metric.getCollectorId())
                 && equalsWithNulls(appVersion, metric.getAppVersion())
@@ -135,7 +135,7 @@ public class UserMetric extends BaseModel {
                 && equalsWithNulls(name, metric.getName());
     }
 
-    private boolean equalsWithNulls(Object a, Object b) {
+    private static boolean equalsWithNulls(Object a, Object b) {
         if (a == b) {
             return true;
         }

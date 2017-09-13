@@ -70,7 +70,7 @@ public class UserMetricsServiceImpl implements UserMetricsService {
                 .map((metric) -> {
 
             Optional<UserMetric> optTarget = targets.stream()
-                    .filter((t) -> t.isTheSameMetric(metric))
+                    .filter((t) -> t.isTheSame(metric))
                     .findAny();
 
             return UserMetricMapper.map(
