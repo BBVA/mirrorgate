@@ -6,19 +6,19 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   install:
-      image: "node:alpine"
+      image: "node:7"
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
       command: bash -c "npm install && ./node_modules/.bin/bower install --allow-root"
   build:
-      image: "node:alpine"
+      image: "node:7"
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
       command: "./node_modules/.bin/gulp dist"
   test:
-    image: "node:alpine"
+    image: "node:7"
     links:
       - selenium
     environment:
