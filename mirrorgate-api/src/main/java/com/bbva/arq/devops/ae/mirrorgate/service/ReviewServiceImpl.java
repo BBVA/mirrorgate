@@ -196,7 +196,6 @@ public class ReviewServiceImpl implements ReviewService {
             history.setPlatform(Platform.Unknown);
             history.setAppname(MIRRORGATE);
             history.setCommentId(MIRRORGATE_COMMENT_ID);
-            history.setTimestamp(0L);
             history.setAmount(0);
         }
 
