@@ -14,20 +14,7 @@
  * limitations under the License.
  */
 
-package com.bbva.arq.devops.ae.mirrorgate.service;
-
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import java.util.List;
-
-public interface UserMetricsService {
-
-    List<String> getAnalyticViewIds();
-
-    List<UserMetricDTO> getMetricsByCollectorId(String collectorId);
-
-    List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics);
-
-    List<UserMetricDTO> getMetricsForDashboard(Dashboard dashboard);
-
+export class Review {
+  comment: string;
+  rate: number = 3;
 }

@@ -37,16 +37,17 @@
         flex: 0 1 55px;
         text-align: right;
 
+        button{
+            background: none;
+            border: none;
+
+            &[aria-expanded="true"]{
+                background-color: darken($header-bg, 10);
+            }
+        }
+
         .dropdown{
 
-            .dropdown__button{
-                background: none;
-                border: none;
-
-                &[aria-expanded="true"]{
-                    background-color: darken($header-bg, 10);
-                }
-            }
             .dropdown-menu {
                 font-size: $level-4;
                 left: auto;
@@ -95,16 +96,11 @@ details-dashboard{
 
 @media all and (min-width: $l) {
     .header{
-   
+
         .menu{
-
-            .dropdown{
-
-                .dropdown__button{
-                
-                    font-size: $level-3;
-                }
-            }
+          button{
+            font-size: $level-3;
+          }
         }
     }
 }

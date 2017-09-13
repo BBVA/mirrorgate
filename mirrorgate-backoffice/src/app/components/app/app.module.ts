@@ -28,6 +28,7 @@ import { AboutComponent } from '../about/about.component';
 import { ListComponent } from '../list/list.component';
 import { FormComponent } from '../form/form.component';
 import { DeleteComponent } from '../delete/delete.component';
+import { FeedbackComponent } from '../feedback/feedback.component';
 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
@@ -37,6 +38,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     AboutComponent,
     ListComponent,
     FormComponent,
+    FeedbackComponent,
     DeleteComponent
   ],
   imports: [

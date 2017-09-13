@@ -1,4 +1,4 @@
-/*
+/*!
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,20 +14,30 @@
  * limitations under the License.
  */
 
-package com.bbva.arq.devops.ae.mirrorgate.service;
+.white-bg{
+  background-color: #fff;
+  padding: 20px;
+}
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import java.util.List;
+.error {
+  font-size: 18px;
+  color: #8B0000;
+}
 
-public interface UserMetricsService {
+h2,
+label {
+  font-weight: 300;
+}
 
-    List<String> getAnalyticViewIds();
+.alert {
+  margin-top: 20px;
+}
 
-    List<UserMetricDTO> getMetricsByCollectorId(String collectorId);
+tag-input {
+  padding: 0;
+  height: 100%;
+}
 
-    List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics);
-
-    List<UserMetricDTO> getMetricsForDashboard(Dashboard dashboard);
-
+.stars {
+  font-size: 2em;
 }

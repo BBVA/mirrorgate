@@ -16,6 +16,8 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
@@ -25,12 +27,16 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
+    private static final String MIRRORGATE = "$mirrorgate";
+    private static final String MIRRORGATE_COMMENT_ID = MIRRORGATE + "_history";
 
     @Autowired
     private ReviewRepository repository;
@@ -151,5 +157,52 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         return getReviewIds(reviews);
+    }
+
+    @Override
+    public ReviewDTO saveMirrorGateReview(ReviewDTO review) {
+        Review toSave = new Review();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Long id = System.currentTimeMillis();
+
+        if(auth != null) {
+            review.setAuthor((String) auth.getPrincipal());
+            toSave.setAuthorName((String) auth.getPrincipal());
+        }
+
+        toSave.setAppname(MIRRORGATE);
+        toSave.setStarrating(review.getRate());
+        toSave.setComment(review.getComment());
+        toSave.setTimestamp(id);
+        toSave.setCommentId(Long.toString(id));
+        toSave.setPlatform(Platform.Unknown);
+
+        repository.save(toSave);
+
+        updateHistoryForMirrorGateReview(toSave);
+
+        return review;
+    }
+
+    private synchronized void updateHistoryForMirrorGateReview(Review toSave) {
+        List<Review> historyList = repository.findAllByCommentIdIn(Arrays.asList(MIRRORGATE_COMMENT_ID));
+
+        Review history;
+
+        if(historyList.size() > 0) {
+            history = historyList.get(0);
+        } else {
+            history = new Review();
+            history.setPlatform(Platform.Unknown);
+            history.setAppname(MIRRORGATE);
+            history.setCommentId(MIRRORGATE_COMMENT_ID);
+            history.setAmount(0);
+        }
+
+        double rating = history.getStarrating() *  history.getAmount();
+        history.setAmount(history.getAmount() + 1);
+        history.setStarrating((toSave.getStarrating() + rating)/history.getAmount());
+
+        repository.save(history);
     }
 }

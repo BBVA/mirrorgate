@@ -31,7 +31,7 @@
       <div class="component__body">
         <div class="reviews-list">
           <div class="review" rv-each-review="page">
-            <div class="review-contents" rv-show="review" rv-pclass-mood="review.commentMood">
+            <div class="review-contents" rv-if="review" rv-pclass-mood="review.commentMood">
               <div class="review__header">
                 <div class="review__name">{review.author}</div>
                 <div class="review__date">{review.timestamp | dateFrom updatedDate}</div>

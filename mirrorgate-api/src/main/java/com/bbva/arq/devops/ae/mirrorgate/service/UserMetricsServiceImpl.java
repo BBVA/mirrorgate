@@ -54,6 +54,12 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     }
 
     @Override
+    public List<UserMetricDTO> getMetricsByCollectorId(String collectorId) {
+        return userMetricsRepository.findAllByCollectorId(collectorId).stream()
+                .map(UserMetricMapper::map).collect(Collectors.toList());
+    }
+
+    @Override
     public List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics) {
         List<UserMetric> targets = userMetricsRepository.findAllByViewIdIn(
                 StreamSupport.stream(metrics.spliterator(), false)
@@ -64,7 +70,7 @@ public class UserMetricsServiceImpl implements UserMetricsService {
                 .map((metric) -> {
 
             Optional<UserMetric> optTarget = targets.stream()
-                    .filter((t) -> metric.getViewId().equals(t.getViewId()))
+                    .filter((t) -> t.isTheSame(metric))
                     .findAny();
 
             return UserMetricMapper.map(
@@ -89,6 +95,5 @@ public class UserMetricsServiceImpl implements UserMetricsService {
                 .stream().map(UserMetricMapper::map)
                 .collect(Collectors.toList());
     }
-
 
 }

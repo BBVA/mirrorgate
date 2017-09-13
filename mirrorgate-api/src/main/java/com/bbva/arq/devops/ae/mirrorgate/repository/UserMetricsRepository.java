@@ -25,4 +25,6 @@ public interface UserMetricsRepository extends CrudRepository<UserMetric, Object
 
     List<UserMetric> findAllByViewIdIn(List<String> ids);
 
+    List<UserMetric> findAllByCollectorId(String collectorId);
+
 }
