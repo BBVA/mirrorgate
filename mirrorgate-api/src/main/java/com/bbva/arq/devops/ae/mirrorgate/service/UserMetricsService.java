@@ -24,7 +24,10 @@ public interface UserMetricsService {
 
     List<String> getAnalyticViewIds();
 
+    List<UserMetricDTO> getMetricsByCollectorId(String collectorId);
+
     List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics);
 
     List<UserMetricDTO> getMetricsForDashboard(Dashboard dashboard);
+
 }

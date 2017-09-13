@@ -37,6 +37,11 @@ public class UserMetricDTO {
 
     private String value;
 
+    private Long timestamp;
+
+    /* Associated collector ID */
+    private String collectorId;
+
     public String getViewId() {
         return viewId;
     }
@@ -97,6 +102,24 @@ public class UserMetricDTO {
 
     public UserMetricDTO setValue(String value) {
         this.value = value;
+        return this;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public UserMetricDTO setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+
+    public String getCollectorId() {
+        return collectorId;
+    }
+
+    public UserMetricDTO setCollectorId(String collectorId) {
+        this.collectorId = collectorId;
         return this;
     }
 
