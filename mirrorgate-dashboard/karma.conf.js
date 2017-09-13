@@ -52,6 +52,7 @@ module.exports = function(config) {
       'node_modules/karma-read-json/karma-read-json.js',
       'test/bootstrap.js',
       'src/**/*.spec.*',
+      'dist/css/*.css',
       {pattern: 'test/**/*', included: false}
     ],
 
