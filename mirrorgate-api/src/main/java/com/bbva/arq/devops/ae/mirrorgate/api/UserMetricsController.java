@@ -41,7 +41,6 @@ public class UserMetricsController {
         this.dashboardService = dashboardService;
     }
 
-    @Deprecated
     @RequestMapping(method = GET, value = "/api/user-metrics/analytic-views", produces = APPLICATION_JSON_VALUE)
     public List<String> getAnalyticViewIds() {
         return userMetricsService.getAnalyticViewIds();

@@ -16,6 +16,7 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -124,6 +125,24 @@ public class UserMetric extends BaseModel {
     public UserMetric setCollectorId(String collectorId) {
         this.collectorId = collectorId;
         return this;
+    }
+
+    public boolean isTheSameMetric(UserMetricDTO metric) {
+        return viewId.equals(metric.getViewId())
+                && equalsWithNulls(collectorId, metric.getCollectorId())
+                && equalsWithNulls(appVersion, metric.getAppVersion())
+                && equalsWithNulls(platform, Platform.fromString(metric.getPlatform()))
+                && equalsWithNulls(name, metric.getName());
+    }
+
+    private boolean equalsWithNulls(Object a, Object b) {
+        if (a == b) {
+            return true;
+        }
+        if ((a == null) || (b == null)) {
+            return false;
+        }
+        return a.equals(b);
     }
 
 }

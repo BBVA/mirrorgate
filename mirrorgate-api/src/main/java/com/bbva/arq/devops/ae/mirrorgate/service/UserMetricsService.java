@@ -22,7 +22,6 @@ import java.util.List;
 
 public interface UserMetricsService {
 
-    @Deprecated
     List<String> getAnalyticViewIds();
 
     List<UserMetricDTO> getMetricsByCollectorId(String collectorId);
