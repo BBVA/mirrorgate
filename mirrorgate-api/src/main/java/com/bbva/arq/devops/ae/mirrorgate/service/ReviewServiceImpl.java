@@ -160,7 +160,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public synchronized ReviewDTO saveMirrorGateReview(ReviewDTO review) {
+    public ReviewDTO saveMirrorGateReview(ReviewDTO review) {
         Review toSave = new Review();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Long id = System.currentTimeMillis();
@@ -179,6 +179,12 @@ public class ReviewServiceImpl implements ReviewService {
 
         repository.save(toSave);
 
+        updateHistoryForMirrorGateReview(toSave);
+
+        return review;
+    }
+
+    private synchronized void updateHistoryForMirrorGateReview(Review toSave) {
         List<Review> historyList = repository.findAllByCommentIdIn(Arrays.asList(MIRRORGATE_COMMENT_ID));
 
         Review history;
@@ -199,7 +205,5 @@ public class ReviewServiceImpl implements ReviewService {
         history.setStarrating((toSave.getStarrating() + rating)/history.getAmount());
 
         repository.save(history);
-
-        return review;
     }
 }
