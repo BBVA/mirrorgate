@@ -52,4 +52,8 @@ public enum Platform {
         String key = (value != null) ? value.toLowerCase() : "All";
         return MAPPING.containsKey(key) ? MAPPING.get(key) : Unknown;
     }
+
+    public static String toString(Platform platform) {
+        return platform == null ? null : platform.getName();
+    }
 }

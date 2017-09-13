@@ -16,6 +16,7 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -39,6 +40,11 @@ public class UserMetric extends BaseModel {
     private String name;
 
     private String value;
+
+    private Long timestamp;
+
+    /* Associated collector ID */
+    private String collectorId;
 
     public String getViewId() {
         return viewId;
@@ -101,6 +107,42 @@ public class UserMetric extends BaseModel {
     public UserMetric setValue(String value) {
         this.value = value;
         return this;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public UserMetric setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+
+    public String getCollectorId() {
+        return collectorId;
+    }
+
+    public UserMetric setCollectorId(String collectorId) {
+        this.collectorId = collectorId;
+        return this;
+    }
+
+    public boolean isTheSame(UserMetricDTO metric) {
+        return viewId.equals(metric.getViewId())
+                && equalsWithNulls(collectorId, metric.getCollectorId())
+                && equalsWithNulls(appVersion, metric.getAppVersion())
+                && equalsWithNulls(platform, Platform.fromString(metric.getPlatform()))
+                && equalsWithNulls(name, metric.getName());
+    }
+
+    private static boolean equalsWithNulls(Object a, Object b) {
+        if (a == b) {
+            return true;
+        }
+        if ((a == null) || (b == null)) {
+            return false;
+        }
+        return a.equals(b);
     }
 
 }

@@ -6,19 +6,19 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   install:
-      image: "monostream/nodejs-gulp-bower"
+      image: "node:7"
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
-      command: bash -c "npm install && bower install --allow-root"
+      command: bash -c "npm install && ./node_modules/.bin/bower install --allow-root"
   build:
-      image: "monostream/nodejs-gulp-bower"
+      image: "node:7"
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
-      command: "./node_modules/gulp/bin/gulp.js dist"
+      command: "./node_modules/.bin/gulp dist"
   test:
-    image: "monostream/nodejs-gulp-bower"
+    image: "node:7"
     links:
       - selenium
     environment:
