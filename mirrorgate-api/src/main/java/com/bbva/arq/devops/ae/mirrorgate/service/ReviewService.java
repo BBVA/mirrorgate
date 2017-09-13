@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import java.util.List;
 
@@ -40,4 +41,6 @@ public interface ReviewService {
      * @return List of Id of new Reviews
      */
     List<String> save(Iterable<Review> reviews);
+
+    ReviewDTO saveMirrorGateReview(ReviewDTO review);
 }

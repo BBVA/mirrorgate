@@ -19,6 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -63,6 +64,15 @@ public class ReviewController {
             produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createReviews(@Valid @RequestBody Iterable<Review> reviews) throws MirrorGateException {
         return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.save(reviews));
+    }
+
+    //This endpoint accepts reviews about the MirrorGate tool
+    @RequestMapping(value = "/reviews",
+            method = POST,
+            consumes = APPLICATION_JSON_VALUE,
+            produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createMirrorGateReview(@Valid @RequestBody ReviewDTO review) throws MirrorGateException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.saveMirrorGateReview(review));
     }
 
 }
