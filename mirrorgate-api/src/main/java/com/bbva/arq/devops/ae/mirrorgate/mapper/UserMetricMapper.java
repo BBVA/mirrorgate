@@ -31,7 +31,7 @@ public class UserMetricMapper {
                 .setRtActiveUsers(source.getRtActiveUsers())
                 .setViewId(source.getViewId())
                 .setAppVersion(source.getAppVersion())
-                .setPlatform(source.getPlatform().getName())
+                .setPlatform(Platform.toString(source.getPlatform()))
                 .setGa7dayUsers(source.getGa7dayUsers())
                 .setName(source.getName())
                 .setValue(source.getValue())
