@@ -42,6 +42,9 @@ var UserMetricsController = (function(dashboardId) {
           if(metric.name === 'activeUsers') {
             model.metrics.rtActiveUsers += parseInt(metric.value);
           }
+          if(metric.name === '7dayUsers') {
+            model.metrics.ga7dayUsers += parseInt(metric.value);
+          }
         }, this);
 
       }
