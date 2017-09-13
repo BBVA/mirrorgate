@@ -34,7 +34,7 @@
 
     .menu{
         color: $dark-grey;
-        flex: 0 1 55px;
+        flex: 0 1 90px;
         text-align: right;
 
         button{
@@ -99,7 +99,7 @@ details-dashboard{
 
         .menu{
           button{
-            font-size: $level-3;
+            font-size: $level-3 * 1.25;
           }
         }
     }

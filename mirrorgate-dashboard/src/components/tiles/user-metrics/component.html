@@ -36,8 +36,8 @@
         <div class="stats stats-metrics">{metrics.rtActiveUsers}</div>
         <div class="stats-desc">active users</div>
       </div>
-      <div class="indicator" rv-show="metrics.ga7dayUsers">
-        <div class="stats">{metrics.ga7dayUsers}</div>
+      <div class="indicator" rv-show="metrics.sevenDayUsers">
+        <div class="stats">{metrics.sevenDayUsers}</div>
         <div class="stats-desc">weekly users</div>
       </div>
     </div>
@@ -74,7 +74,7 @@
       this.processAlerts(data);
 
       var model = this.getModel();
-            
+
       if (data) {
         model.metrics = data.metrics;
       }

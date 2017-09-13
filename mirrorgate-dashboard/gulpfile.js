@@ -116,7 +116,7 @@ gulp.task('serve:local', ['build'], () => {
 });
 
 gulp.task(
-    'test', (done) => new Server(
+    'test', [':build:sass'], (done) => new Server(
                           {
                             configFile: __dirname + '/karma.conf.js',
                             reporters: ['progress', 'coverage'],
@@ -130,7 +130,7 @@ gulp.task(
                           .start());
 
 gulp.task(
-    ':test:watch', (done) => new Server(
+    ':test:watch', [':build:sass'], (done) => new Server(
                                  {
                                    singleRun: false,
                                    autoWatch: true,

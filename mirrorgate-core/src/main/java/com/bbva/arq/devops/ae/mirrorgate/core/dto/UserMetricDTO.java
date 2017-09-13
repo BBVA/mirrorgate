@@ -27,12 +27,6 @@ public class UserMetricDTO {
 
     private String platform;
 
-    @Deprecated
-    private Long rtActiveUsers;
-
-    @Deprecated
-    private Long ga7dayUsers;
-
     private String name;
 
     private String value;
@@ -48,24 +42,6 @@ public class UserMetricDTO {
 
     public UserMetricDTO setViewId(String viewId) {
         this.viewId = viewId;
-        return this;
-    }
-
-    public Long getRtActiveUsers() {
-        return rtActiveUsers;
-    }
-
-    public UserMetricDTO setRtActiveUsers(Long rtActiveUsers) {
-        this.rtActiveUsers = rtActiveUsers;
-        return this;
-    }
-
-    public Long getGa7dayUsers() {
-        return ga7dayUsers;
-    }
-
-    public UserMetricDTO setGa7dayUsers(Long ga7dayUsers) {
-        this.ga7dayUsers = ga7dayUsers;
         return this;
     }
 
