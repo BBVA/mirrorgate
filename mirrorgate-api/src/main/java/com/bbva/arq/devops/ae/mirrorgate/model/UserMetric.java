@@ -31,12 +31,6 @@ public class UserMetric extends BaseModel {
 
     private Platform platform;
 
-    @Deprecated
-    private Long rtActiveUsers;
-
-    @Deprecated
-    private Long ga7dayUsers;
-
     private String name;
 
     private String value;
@@ -52,24 +46,6 @@ public class UserMetric extends BaseModel {
 
     public UserMetric setViewId(String viewId) {
         this.viewId = viewId;
-        return this;
-    }
-
-    public Long getRtActiveUsers() {
-        return rtActiveUsers;
-    }
-
-    public UserMetric setRtActiveUsers(Long rtActiveUsers) {
-        this.rtActiveUsers = rtActiveUsers;
-        return this;
-    }
-
-    public Long getGa7dayUsers() {
-        return ga7dayUsers;
-    }
-
-    public UserMetric setGa7dayUsers(Long ga7dayUsers) {
-        this.ga7dayUsers = ga7dayUsers;
         return this;
     }
 

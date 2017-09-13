@@ -32,18 +32,15 @@ var UserMetricsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         model.metrics = {
           rtActiveUsers: 0,
-          ga7dayUsers: 0
+          sevenDayUsers: 0
         };
 
         response.forEach(function(metric) {
-          // TODO: refactor when metrics are fixed
-          model.metrics.rtActiveUsers += metric.rtActiveUsers || 0;
-          model.metrics.ga7dayUsers += metric.ga7dayUsers || 0;
           if(metric.name === 'activeUsers') {
             model.metrics.rtActiveUsers += parseInt(metric.value);
           }
           if(metric.name === '7dayUsers') {
-            model.metrics.ga7dayUsers += parseInt(metric.value);
+            model.metrics.sevenDayUsers += parseInt(metric.value);
           }
         }, this);
 

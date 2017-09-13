@@ -28,11 +28,9 @@ public class UserMetricMapper {
 
     public static UserMetricDTO map(UserMetric source, UserMetricDTO target) {
         return target
-                .setRtActiveUsers(source.getRtActiveUsers())
                 .setViewId(source.getViewId())
                 .setAppVersion(source.getAppVersion())
                 .setPlatform(Platform.toString(source.getPlatform()))
-                .setGa7dayUsers(source.getGa7dayUsers())
                 .setName(source.getName())
                 .setValue(source.getValue())
                 .setTimestamp(source.getTimestamp())
@@ -45,11 +43,9 @@ public class UserMetricMapper {
 
     public static UserMetric map(UserMetricDTO source, UserMetric target) {
         return target
-                .setRtActiveUsers(source.getRtActiveUsers())
                 .setViewId(source.getViewId())
                 .setAppVersion(source.getAppVersion())
                 .setPlatform(Platform.fromString(source.getPlatform()))
-                .setGa7dayUsers(source.getGa7dayUsers())
                 .setName(source.getName())
                 .setValue(source.getValue())
                 .setTimestamp(source.getTimestamp())
