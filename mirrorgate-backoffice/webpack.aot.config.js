@@ -31,9 +31,9 @@ var webpackConfig = {
   },
 
   plugins: [
-    //new webpack.optimize.UglifyJsPlugin({
-    //  sourceMap: true
-    //}),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true
+    }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)@angular/,
@@ -51,10 +51,7 @@ var webpackConfig = {
         { from: 'src/assets' },
         { from: 'src/index.html' },
         { from: 'src/config.json' },
-    ]),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    })
+    ])
   ],
 
   module: {
