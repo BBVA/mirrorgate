@@ -31,6 +31,7 @@ function MainController() {
       notifications: 'slackTeam',
       alerts: 'urlAlerts',
       'user-metrics': 'analyticViews',
+      'requests-metrics': 'analyticViews'
     };
 
     // Display tiles only when details are avail
