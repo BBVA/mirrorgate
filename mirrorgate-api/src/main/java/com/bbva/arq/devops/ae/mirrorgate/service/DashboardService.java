@@ -17,6 +17,9 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -88,4 +91,18 @@ public interface DashboardService {
      */
     Dashboard updateDashboard(String name, Dashboard dashboard);
 
+    /**
+     * Saves an image related to the dashboard with the corresponding name
+     *
+     * @param name
+     * @param uploadFile
+     */
+    void saveDashboardImage(String name, MultipartFile uploadfile);
+
+    /**
+     * Gets the image associated with a dashboard
+     *
+     * @param name
+     */
+    InputStream getDashboardImage(String name);
 }

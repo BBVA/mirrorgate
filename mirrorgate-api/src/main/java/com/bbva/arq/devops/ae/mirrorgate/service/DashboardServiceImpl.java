@@ -26,17 +26,25 @@ import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DashboardServiceImpl.class);
 
     private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
 
@@ -148,6 +156,39 @@ public class DashboardServiceImpl implements DashboardService {
         Dashboard toSave = mergeDashboard(currentDashboard, updatedDashboard, authUser);
 
         return dashboardRepository.save(toSave);
+    }
+
+    @Override
+    public void saveDashboardImage(String dashboardName, MultipartFile uploadfile) {
+        Dashboard currentDashboard = this.getDashboard(dashboardName);
+
+        if(currentDashboard != null) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+            if (auth != null) {
+                String authUser = (String) auth.getPrincipal();
+                canEdit(authUser, currentDashboard);
+            }
+        }
+
+        try {
+            dashboardRepository.saveFile(uploadfile.getInputStream(), dashboardName);
+        } catch (IOException e) {
+            LOGGER.error("Error uploading file to " + dashboardName,e);
+            //Force 500
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public InputStream getDashboardImage(String dashboardName) {
+        Dashboard currentDashboard = this.getDashboard(dashboardName);
+
+        if(currentDashboard == null) {
+            return null;
+        }
+
+        return dashboardRepository.readFile(dashboardName);
     }
 
     private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {
