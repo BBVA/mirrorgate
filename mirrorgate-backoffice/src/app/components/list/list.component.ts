@@ -18,18 +18,21 @@ import {Component} from '@angular/core';
 import {DashboardsService} from '../../services/dashboards.service';
 import {Dashboard} from '../../model/dashboard';
 import { OnInit } from '@angular/core';
+import {ConfigService} from '../../services/config.service';
 
 @Component({
   selector: 'list',
   styleUrls: ['./list.component.scss'],
   templateUrl: './list.component.html',
-  providers: [DashboardsService]
+  providers: [DashboardsService, ConfigService]
 })
 export class ListComponent {
-
   boards: Dashboard[];
 
-  constructor(private dashboardsService: DashboardsService) {}
+  constructor(
+    private dashboardsService: DashboardsService,
+    private configService: ConfigService
+  ) {}
 
   ngOnInit(): void {
     this.getDashboards();
@@ -43,7 +46,9 @@ export class ListComponent {
     }));
   }
 
-  getDashboardUrl(dashboard: Dashboard) {
-    return '../canary.html?board=' + encodeURIComponent(dashboard.name);
+  openDashboard(dashboard: Dashboard) {
+    this.configService.getConfig().then((config) => {
+      document.location.href = config.dashboardUrl + '?board=' + encodeURIComponent(dashboard.name);
+    });
   }
 }

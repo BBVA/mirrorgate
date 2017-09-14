@@ -49,7 +49,28 @@ var Utils = {
         new CustomEvent('dashboard-updated', {bubbles: true, detail: detail}));
   },
 
-  toClassName: function(s) { return s && s.toLowerCase().replace(' ', '-').replace('_','-'); }
+  toClassName: function(s) { return s && s.toLowerCase().replace(' ', '-').replace('_','-'); },
+
+  openDashboard : function(type, boardId) {
+    document.location.href = type + '.html?board=' + encodeURIComponent( boardId || Utils.getDashboardId());
+    return false;
+  },
+
+  openFeedbackForm: function () {
+    window.mirrorGateConfig().then(function (config) {
+      document.location.href = config.backOfficeUrl + 'index.html#/feedback';
+    });
+    return false;
+  },
+
+  openBackOffice: function (boardId) {
+    window.mirrorGateConfig().then(function (config) {
+      document.location.href = config.backOfficeUrl + (boardId ?
+        'index.html#/edit/' + encodeURIComponent(boardId) :
+        'index.html#/list');
+    });
+    return false;
+  },
 };
 
 rivets.formatters.dateFrom = function(value, now) {
