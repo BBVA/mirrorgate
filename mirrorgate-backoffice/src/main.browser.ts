@@ -19,12 +19,17 @@ import 'jquery';
 import 'bootstrap-loader';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { enableProdMode } from '@angular/core';
 import { AppModule } from './app/components/app/app.module';
 
-
 export const platformRef = platformBrowserDynamic();
+const ENV = process.env.ENV || 'development';
 
 export function main() {
+  if(ENV === 'production') {
+    enableProdMode();
+  }
+
   return platformRef.bootstrapModule(AppModule)
     .catch(err => console.error(err));
 }

@@ -19,6 +19,7 @@ import 'jquery';
 import 'bootstrap-loader';
 
 import { platformBrowser } from '@angular/platform-browser';
+import { enableProdMode } from '@angular/core';
 import { AppModuleNgFactory } from './app/components/app/app.module.ngfactory';
 
 export const platformRef = platformBrowser();
@@ -26,6 +27,7 @@ export const platformRef = platformBrowser();
 platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
 
 export function main() {
+  enableProdMode();
   return platformRef.bootstrapModuleFactory(AppModuleNgFactory)
     .catch(err => console.error(err));
 }
