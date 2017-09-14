@@ -32,7 +32,7 @@ var webpackConfig = {
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.PRODUCTION': JSON.stringify(process.env.PRODUCTION || false)
+      'process.env.PRODUCTION': process.env.PRODUCTION || false
     }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
@@ -124,11 +124,11 @@ var defaultConfig = {
 };
 
 if(process.env.PRODUCTION) {
-  webpackConfig.plugins.push([
+  webpackConfig.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true
     })
-  ]);
+  );
 }
 
 module.exports = webpackMerge(defaultConfig, webpackConfig);
