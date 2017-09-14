@@ -23,10 +23,10 @@ import { enableProdMode } from '@angular/core';
 import { AppModule } from './app/components/app/app.module';
 
 export const platformRef = platformBrowserDynamic();
-const ENV = process.env.ENV || 'development';
+const PRODUCTION = process.env.PRODUCTION || false;
 
 export function main() {
-  if(ENV === 'production') {
+  if(PRODUCTION) {
     enableProdMode();
   }
 

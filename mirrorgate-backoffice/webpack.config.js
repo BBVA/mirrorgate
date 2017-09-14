@@ -32,7 +32,7 @@ var webpackConfig = {
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.ENV': JSON.stringify(process.env.ENV || 'development')
+      'process.env.PRODUCTION': JSON.stringify(process.env.PRODUCTION || false)
     }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
@@ -123,7 +123,7 @@ var defaultConfig = {
   }
 };
 
-if(process.env.ENV === 'production') {
+if(process.env.PRODUCTION) {
   webpackConfig.plugins.push([
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true
