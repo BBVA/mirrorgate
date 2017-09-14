@@ -24,11 +24,15 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.proj
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.StreamSupport;
+
+import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -36,11 +40,16 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
 public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private GridFsTemplate gridFsTemplate;
 
     private static final Map<String,String> DASHBOARD_FIELDS = new HashMap<String, String>() {{
         for(Field f : Dashboard.class.getDeclaredFields()) {
@@ -70,6 +79,25 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         AggregationResults<Dashboard> groupResults
                 = mongoTemplate.aggregate(aggregation, Dashboard.class, Dashboard.class);
         return groupResults.getMappedResults();
+    }
+
+    @Override
+    public void saveFile(InputStream image, String name) {
+        gridFsTemplate.store(image, name);
+    }
+
+    @Override
+    public InputStream readFile(String name) {
+        List<GridFSDBFile> files = gridFsTemplate.find(
+                new Query().addCriteria(Criteria.where("filename").is(name))
+        );
+
+        if(files.size() > 0) {
+            GridFSDBFile file = files.get(files.size() - 1);
+            return file.getInputStream();
+        } else {
+            return null;
+        }
     }
 
 }

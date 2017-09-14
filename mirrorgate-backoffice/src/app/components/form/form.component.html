@@ -48,16 +48,63 @@
               <div class="collapse" id="icon-url-help">
                 <div class="well">
                   Please specify a public absolute URL pointing to your logo image file.
+
+                  Note that once the dashboard is already saved for the first time, you can also upload an image by clicking the configuration button.
                 </div>
               </div>
               <div class="input-group">
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#icon-url-help" aria-expanded="false" aria-controls="icon-url-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <input type="text" class="form-control" id="logoURL" [(ngModel)]="dashboard.logoUrl" name="logoURL">
+                <input *ngIf="dashboard.logoUrl != '#UPLOADED#'" type="text" class="form-control" id="logoURL" [(ngModel)]="dashboard.logoUrl" name="logoURL">
+                <input *ngIf="dashboard.logoUrl == '#UPLOADED#'" type="text" readonly="true" class="form-control" value="Uploaded picture">
+                <a *ngIf="edit && dashboard.logoUrl == '#UPLOADED#'" type="button" (click)="dashboard.logoUrl = undefined" class="input-group-addon">
+                  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </a>
+                <a *ngIf="edit" type="button" (click)="icon = {}" class="input-group-addon" data-toggle="modal" data-target="#iconModal">
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                </a>
               </div>
             </div>
           </div>
+
+
+          <!-- Icon upload Modal -->
+              <div class="modal fade" id="iconModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Icon upload</h4>
+                    </div>
+                    <div class="modal-body">
+                      <label for="slack">Icon</label>
+                      <div class="collapse" id="slack_client_id-help">
+                        <div class="well">
+                          Select a PNG file from your file system.
+                        </div>
+                      </div>
+                      <div class="input-group">
+                        <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
+                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                        <input type="file" class="form-control" (change)="uploadImage($event)" placeholder="Upload png file" accept=".png">
+                      </div>
+                      <div *ngIf="icon.error" class="alert alert-error" role="alert">Error: {{error}}</div>
+                      <div *ngIf="icon.success" class="alert alert-success" role="alert">Successfully saved:
+                        <img class="dashboard-icon" [src]="'../dashboards/' + dashboard.name + '/image'"/>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          <!-- /Modal -->
+
+
+
           <div class="form-group">
             <label for="adminUsers">Administrator users</label>
             <div class="collapse" id="admin-users-help">
