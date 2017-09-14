@@ -50,6 +50,7 @@ var webpackConfig = {
     new CopyWebpackPlugin([
         { from: 'src/assets' },
         { from: 'src/index.html' },
+        { from: 'src/config.json' },
     ]),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
