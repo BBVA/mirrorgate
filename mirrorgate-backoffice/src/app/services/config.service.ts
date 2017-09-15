@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-def build() {
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { Headers, RequestOptions, Response } from '@angular/http';
 
-      stage('Backoffice - Install dependencies') {
-          sh """
-              docker-compose -p \${BUILD_TAG} run install
-          """
-      }
+import 'rxjs/add/operator/toPromise';
 
-      stage('Backoffice - Build app') {
-          sh """
-            docker-compose -p \${BUILD_TAG} run -e PRODUCTION=true build
-          """
-      }
+@Injectable()
+export class ConfigService {
+
+
+  constructor(private http: Http) { }
+
+  getConfig(): Promise<any> {
+
+    return this.http.get('config.json')
+              .toPromise()
+              .then(response => response.json());
+  }
 
 }
-
-return this

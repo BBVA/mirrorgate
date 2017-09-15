@@ -40,13 +40,14 @@
   <!-- endbuild -->
 
   <!-- build:js js/combined.min.js -->
+  <script src="js/core/request.js"></script>
   <script src="js/core/utils.js"></script>
+  <script src="js/core/Config.js"></script>
   <script src="js/components/Tile.js"></script>
   <script src="js/core/Event.js"></script>
   <script src="js/core/Clock.js"></script>
   <script src="js/core/Timer.js"></script>
   <script src="js/core/Service.js"></script>
-  <script src="js/core/request.js"></script>
   <script src="js/core/serversideevent.js"></script>
   <script src="js/app.js"></script>
   <script src="js/core/updateVersion.js"></script>
@@ -72,16 +73,16 @@
       <details-dashboard></details-dashboard>
       <div class="menu">
         <div class="btn-group" role="group">
-          <button type="button" onclick="document.location.href = 'backoffice/index.html#/feedback'; return false;" class="dropdown__button btn"><i class="fa fa-commenting-o" aria-hidden="true"></i></button>
+          <button type="button" onclick="return Utils.openFeedbackForm()" class="dropdown__button btn"><i class="fa fa-commenting-o" aria-hidden="true"></i></button>
           <div class="dropdown btn-group">
             <button id="menuBtn" class="dropdown__button btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-bars" aria-hidden="true"></i>
             </button>
             <ul class="dropdown-menu" aria-labelledby="menuBtn">
-              <li><a href="canary.html" onclick="document.location.href = 'canary.html?board=' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a></li>
+              <li><a href="canary.html" onclick="return Utils.openDashboard('canary');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a></li>
               <li class="dropdown-header">Manage</li>
-              <li><a href="backoffice/index.html"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
-              <li><a href="backoffice/index.html" onclick="document.location.href = 'backoffice/index.html#/edit/' + encodeURIComponent(Utils.getDashboardId()); return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
+              <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice()"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
+              <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice(Utils.getDashboardId());"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
               <li class="dropdown-header">Recent dashboards</li>
             </ul>
           </div>

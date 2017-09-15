@@ -21,16 +21,22 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-import java.util.logging.Logger;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
+import com.bbva.arq.devops.ae.mirrorgate.service.DashboardServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Dashboards controller.
@@ -38,7 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DashboardController {
 
-    private static final Logger LOG = Logger.getLogger(DashboardController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(DashboardServiceImpl.class);
 
     private final DashboardService dashboardService;
 
@@ -91,4 +97,34 @@ public class DashboardController {
 
     }
 
+    @RequestMapping(value = "/dashboards/{name}/image", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> uploadFile(
+            @PathVariable("name") String name,
+            @RequestParam("uploadfile") MultipartFile uploadfile) {
+
+        dashboardService.saveDashboardImage(name, uploadfile);
+
+        return ResponseEntity.ok("Saved successfully");
+    }
+
+    @RequestMapping(value = "/dashboards/{name}/image", method = RequestMethod.GET)
+    public void getFile(
+            HttpServletResponse response,
+            @PathVariable("name") String name) {
+
+        InputStream image = dashboardService.getDashboardImage(name);
+
+        if(image != null) {
+            try {
+                StreamUtils.copy(image, response.getOutputStream());
+            } catch (IOException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                LOGGER.error("Error serving image for boar " + name, e);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
+    }
 }

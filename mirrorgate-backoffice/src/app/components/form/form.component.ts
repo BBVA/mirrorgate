@@ -22,6 +22,7 @@ import {kebabCase} from 'lodash';
 import {Dashboard} from '../../model/dashboard';
 import {DashboardsService} from '../../services/dashboards.service';
 import {SlackService} from '../../services/slack.service';
+import {RequestOptions} from '@angular/http/http';
 
 @Component({
   selector: 'new-and-edit-form',
@@ -46,6 +47,7 @@ export class FormComponent {
   } = {};
   errorMessage: string;
   url: string;
+  icon: {error?: string, success?: boolean} = {};
 
   constructor(
       private dashboardsService: DashboardsService,
@@ -150,4 +152,24 @@ export class FormComponent {
         .then((token) => this.setSlackToken(token))
         .catch((error: any) => { this.errorMessage = <any>error; });
   }
+
+  uploadImage(event) {
+    this.icon = {};
+
+    let fileList: FileList = event.target.files;
+
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        this.dashboardsService.uploadImage(this.dashboard, file)
+          .then(() => {
+            this.icon.success = true;
+            this.icon.error = undefined;
+            this.dashboard.logoUrl = '#UPLOADED#';
+          })
+          .catch((err) => {
+            this.icon.success = false;
+            this.icon.error = err;
+          });
+    }
+}
 }

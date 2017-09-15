@@ -17,10 +17,14 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 
+import java.io.InputStream;
 import java.util.List;
 
 public interface DashboardRepositoryCustom {
 
     List<Dashboard> getActiveDashboards();
 
+    void saveFile(InputStream image, String name);
+
+    InputStream readFile(String name);
 }

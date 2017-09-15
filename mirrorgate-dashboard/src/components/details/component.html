@@ -70,7 +70,9 @@
         if (details) {
           if (details.logoUrl) {
             img.style.display = 'initial';
-            img.src = details.logoUrl;
+            img.src = details.logoUrl == '#UPLOADED#' ?
+              'dashboards/' + Utils.getDashboardId() + '/image' :
+              details.logoUrl;
           } else {
             img.style.display = 'none';
           }

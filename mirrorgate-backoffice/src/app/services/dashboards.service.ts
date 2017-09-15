@@ -68,6 +68,18 @@ export class DashboardsService {
     }
   }
 
+  uploadImage(dashboard: Dashboard, file: File): Promise<any>{
+    let formData:FormData = new FormData();
+    formData.append('uploadfile', file, file.name);
+    let headers = new Headers();
+    //headers.append('Content-Type', null);
+
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.dashboardsUrl}/${dashboard.name}/image`, formData, options)
+        .toPromise()
+        .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
 
     let errMsg: string;
