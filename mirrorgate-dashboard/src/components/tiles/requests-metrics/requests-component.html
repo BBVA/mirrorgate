@@ -24,7 +24,7 @@
     @import "css/styles.css";
   </style>
 
-  <div class="users component__content">
+  <div class="component__content">
     <div class="component__header">
       <h2 class="title">Requests</h2>
       <h3 class="title-desc">
@@ -32,7 +32,7 @@
       </h3>
     </div>
     <div class="component__body">
-      <div class="indicator" rv-show="metrics.requestsNumber">
+      <div class="indicator" rv-show="metrics">
         <div class="stats">{metrics.errorsNumber}/{metrics.requestsNumber}</div>
         <div class="stats-desc">Errors per requests</div>
       </div>
@@ -51,6 +51,9 @@
     var MyElementProto = Object.create(Tile);
 
     MyElementProto.processAlerts = function (data) {
+      if(data) {
+        this.setAttribute('enabled', data.metrics !== undefined);
+      }
       Utils.raiseEvent(this, {
         status: data ? 'empty' : 'server-error'
       });
@@ -69,9 +72,8 @@
 
       this.processAlerts(data);
 
-      var model = this.getModel();
-
       if (data) {
+        var model = this.getModel();
         model.metrics = data.metrics;
       }
     };
