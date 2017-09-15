@@ -28,11 +28,11 @@
     <div class="component__header">
       <h2 class="title">Requests</h2>
       <h3 class="title-desc">
-        <span rv-hide="metrics">No metrics collected</span>
+        <span rv-hide="metrics.requestsNumber">No metrics collected</span>
       </h3>
     </div>
     <div class="component__body">
-      <div class="indicator" rv-show="metrics">
+      <div class="indicator" rv-show="metrics.requestsNumber">
         <div class="stats">{metrics.errorsNumber}/{metrics.requestsNumber}</div>
         <div class="stats-desc">Errors per requests</div>
       </div>
@@ -51,9 +51,6 @@
     var MyElementProto = Object.create(Tile);
 
     MyElementProto.processAlerts = function (data) {
-      if(data) {
-        this.setAttribute('enabled', data.metrics !== undefined);
-      }
       Utils.raiseEvent(this, {
         status: data ? 'empty' : 'server-error'
       });
@@ -70,12 +67,13 @@
     // Fires when an instance of the element is created
     MyElementProto.render = function (data) {
 
-      this.processAlerts(data);
-
       if (data) {
         var model = this.getModel();
         model.metrics = data.metrics;
+        this.setAttribute('enabled', (model.metrics !== undefined || !model.metrics.requestsNumber));
       }
+
+      this.processAlerts(data);
     };
 
     window.MyElement = document.registerElement('requests-metrics-tile', {
