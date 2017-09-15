@@ -70,7 +70,11 @@
       if (data) {
         var model = this.getModel();
         model.metrics = data.metrics;
-        this.setAttribute('enabled', (model.metrics !== undefined || !model.metrics.requestsNumber));
+        this.setAttribute('enabled', model.metrics !== undefined);
+
+        if(model.metrics) {
+          this.setAttribute('enabled', !!model.metrics.requestsNumber);
+        }
       }
 
       this.processAlerts(data);
