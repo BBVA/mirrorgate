@@ -14,24 +14,34 @@
  * limitations under the License.
  */
 
-package com.bbva.arq.devops.ae.mirrorgate.config;
+package com.bbva.arq.devops.ae.mirrorgate.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import java.io.InputStream;
 
 /**
- * Created by alfonso on 28/05/17.
+ * Created by alfonso on 18/09/17.
  */
+public class ImageStreamDTO {
 
-@Configuration
-public class SerializationConfig {
+    private InputStream imageStream;
 
-    @Bean
-    public Jackson2ObjectMapperBuilder objectMapperBuilder() {
-        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-        builder.serializationInclusion(JsonInclude.Include.NON_NULL);
-        return builder;
+    private String etag;
+
+    public InputStream getImageStream() {
+        return imageStream;
+    }
+
+    public ImageStreamDTO setImageStream(InputStream imageStream) {
+        this.imageStream = imageStream;
+        return this;
+    }
+
+    public String getEtag() {
+        return etag;
+    }
+
+    public ImageStreamDTO setEtag(String etag) {
+        this.etag = etag;
+        return this;
     }
 }

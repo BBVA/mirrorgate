@@ -16,9 +16,11 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ImageStreamDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -97,12 +99,12 @@ public interface DashboardService {
      * @param name
      * @param uploadFile
      */
-    void saveDashboardImage(String name, MultipartFile uploadfile);
+    void saveDashboardImage(String name, InputStream uploadfile);
 
     /**
      * Gets the image associated with a dashboard
      *
      * @param name
      */
-    InputStream getDashboardImage(String name);
+    ImageStreamDTO getDashboardImageIfHashChanged(String name, String header);
 }

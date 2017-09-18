@@ -20,6 +20,7 @@ import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELET
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ImageStreamDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
@@ -39,7 +40,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletOutputStream;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -159,7 +163,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public void saveDashboardImage(String dashboardName, MultipartFile uploadfile) {
+    public void saveDashboardImage(String dashboardName, InputStream uploadfile) {
         Dashboard currentDashboard = this.getDashboard(dashboardName);
 
         if(currentDashboard != null) {
@@ -170,25 +174,18 @@ public class DashboardServiceImpl implements DashboardService {
                 canEdit(authUser, currentDashboard);
             }
         }
-
-        try {
-            dashboardRepository.saveFile(uploadfile.getInputStream(), dashboardName);
-        } catch (IOException e) {
-            LOGGER.error("Error uploading file to " + dashboardName,e);
-            //Force 500
-            throw new RuntimeException(e);
-        }
+        dashboardRepository.saveFile(uploadfile, dashboardName);
     }
 
     @Override
-    public InputStream getDashboardImage(String dashboardName) {
+    public ImageStreamDTO getDashboardImageIfHashChanged(String dashboardName, String etag) {
         Dashboard currentDashboard = this.getDashboard(dashboardName);
 
         if(currentDashboard == null) {
-            return null;
+            throw new DashboardNotFoundException(dashboardName + " not found");
         }
 
-        return dashboardRepository.readFile(dashboardName);
+        return dashboardRepository.readFile(dashboardName, etag);
     }
 
     private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {
