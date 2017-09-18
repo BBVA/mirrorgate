@@ -28,13 +28,13 @@
     <div class="component__header">
       <h2 class="title">Requests</h2>
       <h3 class="title-desc">
-        <span rv-hide="metrics.requestsNumber">No metrics collected</span>
+        <span rv-hide="metrics.errorsRate">No metrics collected</span>
       </h3>
     </div>
     <div class="component__body">
-      <div class="indicator" rv-show="metrics.requestsNumber">
-        <div class="stats">{metrics.errorsNumber}/{metrics.requestsNumber}</div>
-        <div class="stats-desc">Errors per requests</div>
+      <div class="indicator" rv-show="metrics.errorsRate">
+        <span class="stats">{metrics.errorsRate}</span>
+        <span class="stats-desc">% of errors</span>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@
         this.setAttribute('enabled', model.metrics !== undefined);
 
         if(model.metrics) {
-          this.setAttribute('enabled', !!model.metrics.requestsNumber);
+          this.setAttribute('enabled', !!model.metrics.errorsRate);
         }
       }
 

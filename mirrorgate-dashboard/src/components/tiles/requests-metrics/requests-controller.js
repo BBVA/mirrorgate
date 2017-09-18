@@ -30,20 +30,22 @@ var RequestsController = (function(dashboardId) {
       response = JSON.parse(response);
       model = {};
       if(response.length && response.length > 0) {
-        model.metrics = {
-          requestsNumber: 0,
-          errorsNumber: 0
-        };
+        let requestsNumber =  0;
+        let errorsNumber = 0;
 
         response.forEach(function(metric) {
           if(metric.name === 'requestsNumber') {
-            model.metrics.requestsNumber += parseInt(metric.value);
+            requestsNumber += parseInt(metric.value);
           }
           if(metric.name === 'errorsNumber') {
-            model.metrics.errorsNumber += parseInt(metric.value);
+            errorsNumber += parseInt(metric.value);
           }
         }, this);
 
+        console.log(requestsNumber);
+        model.metrics = {
+          errorsRate: (1.0 - (errorsNumber / requestsNumber)) * 100.0
+        };
       }
     }
 
