@@ -42,7 +42,6 @@ var RequestsController = (function(dashboardId) {
           }
         }, this);
 
-        console.log(requestsNumber);
         model.metrics = {
           errorsRate: (1.0 - (errorsNumber / requestsNumber)) * 100.0
         };
