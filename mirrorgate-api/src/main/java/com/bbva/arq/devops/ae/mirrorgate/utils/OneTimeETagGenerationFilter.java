@@ -37,15 +37,13 @@ import java.util.Map;
 
 public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
-    private static final Logger LOG = LoggerFactory.getLogger(OneTimeETagGenerationFilter.class);
-
-
     private Filter filter = new ShallowEtagHeaderFilter();
     private Map<String,String> cache = new HashMap();
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain
             chain) throws IOException, ServletException {
+
         if (!(request instanceof HttpServletRequest) || !(response instanceof HttpServletResponse)) {
             throw new ServletException("Just supports HTTP requests");
         }
@@ -53,11 +51,6 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String key = httpRequest.getPathTranslated();
-
-        if(LOG.isDebugEnabled()) {
-            LOG.debug("Fetching etag in cache for path: " + key);
-        }
-
         if(cache.containsKey(key)) {
             String expectedEtag = httpRequest.getHeader(HttpHeaders.IF_NONE_MATCH);
             String currentEtag = cache.get(key);

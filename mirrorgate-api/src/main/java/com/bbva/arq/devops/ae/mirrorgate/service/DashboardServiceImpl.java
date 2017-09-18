@@ -174,12 +174,8 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public ImageStream getDashboardImage(String dashboardName) {
-        Dashboard currentDashboard = this.getDashboard(dashboardName);
-
-        if(currentDashboard == null) {
-            throw new DashboardNotFoundException(dashboardName + " not found");
-        }
-
+        //Used to ensure the dashboard is present and active
+        this.getDashboard(dashboardName);
         return dashboardRepository.readFile(dashboardName);
     }
 
