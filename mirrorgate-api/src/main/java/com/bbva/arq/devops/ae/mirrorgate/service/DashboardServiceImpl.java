@@ -20,6 +20,7 @@ import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELET
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
@@ -27,7 +28,6 @@ import com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +39,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -159,7 +158,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public void saveDashboardImage(String dashboardName, MultipartFile uploadfile) {
+    public void saveDashboardImage(String dashboardName, InputStream uploadfile) {
         Dashboard currentDashboard = this.getDashboard(dashboardName);
 
         if(currentDashboard != null) {
@@ -170,24 +169,13 @@ public class DashboardServiceImpl implements DashboardService {
                 canEdit(authUser, currentDashboard);
             }
         }
-
-        try {
-            dashboardRepository.saveFile(uploadfile.getInputStream(), dashboardName);
-        } catch (IOException e) {
-            LOGGER.error("Error uploading file to " + dashboardName,e);
-            //Force 500
-            throw new RuntimeException(e);
-        }
+        dashboardRepository.saveFile(uploadfile, dashboardName);
     }
 
     @Override
-    public InputStream getDashboardImage(String dashboardName) {
-        Dashboard currentDashboard = this.getDashboard(dashboardName);
-
-        if(currentDashboard == null) {
-            return null;
-        }
-
+    public ImageStream getDashboardImage(String dashboardName) {
+        //Used to ensure the dashboard is present and active
+        this.getDashboard(dashboardName);
         return dashboardRepository.readFile(dashboardName);
     }
 

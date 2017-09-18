@@ -23,6 +23,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.newA
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 
 import java.io.InputStream;
@@ -87,14 +88,16 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
     }
 
     @Override
-    public InputStream readFile(String name) {
+    public ImageStream readFile(String name) {
         List<GridFSDBFile> files = gridFsTemplate.find(
                 new Query().addCriteria(Criteria.where("filename").is(name))
         );
 
         if(files.size() > 0) {
             GridFSDBFile file = files.get(files.size() - 1);
-            return file.getInputStream();
+            return new ImageStream()
+                    .setEtag(file.getMD5())
+                    .setImageStream(file.getInputStream());
         } else {
             return null;
         }
