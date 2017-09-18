@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * Created by alfonso on 18/09/17.
  */
-@Component
+
 public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(OneTimeETagGenerationFilter.class);

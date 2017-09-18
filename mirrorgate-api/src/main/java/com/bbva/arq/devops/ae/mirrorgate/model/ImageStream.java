@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.bbva.arq.devops.ae.mirrorgate.dto;
+package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import java.io.InputStream;
 
 /**
  * Created by alfonso on 18/09/17.
  */
-public class ImageStreamDTO {
+public class ImageStream {
 
     private InputStream imageStream;
 
@@ -31,7 +31,7 @@ public class ImageStreamDTO {
         return imageStream;
     }
 
-    public ImageStreamDTO setImageStream(InputStream imageStream) {
+    public ImageStream setImageStream(InputStream imageStream) {
         this.imageStream = imageStream;
         return this;
     }
@@ -40,7 +40,7 @@ public class ImageStreamDTO {
         return etag;
     }
 
-    public ImageStreamDTO setEtag(String etag) {
+    public ImageStream setEtag(String etag) {
         this.etag = etag;
         return this;
     }

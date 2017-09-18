@@ -16,11 +16,9 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.ImageStreamDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -106,5 +104,5 @@ public interface DashboardService {
      *
      * @param name
      */
-    ImageStreamDTO getDashboardImageIfHashChanged(String name, String header);
+    ImageStream getDashboardImage(String name);
 }

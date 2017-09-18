@@ -20,7 +20,7 @@ import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELET
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.ImageStreamDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
@@ -28,7 +28,6 @@ import com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,10 +39,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StreamUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.ServletOutputStream;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -178,14 +173,14 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public ImageStreamDTO getDashboardImageIfHashChanged(String dashboardName, String etag) {
+    public ImageStream getDashboardImage(String dashboardName) {
         Dashboard currentDashboard = this.getDashboard(dashboardName);
 
         if(currentDashboard == null) {
             throw new DashboardNotFoundException(dashboardName + " not found");
         }
 
-        return dashboardRepository.readFile(dashboardName, etag);
+        return dashboardRepository.readFile(dashboardName);
     }
 
     private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {

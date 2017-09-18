@@ -23,7 +23,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.newA
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 
-import com.bbva.arq.devops.ae.mirrorgate.dto.ImageStreamDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 
 import java.io.InputStream;
@@ -33,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -45,7 +43,6 @@ import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
-import org.springframework.data.mongodb.util.DBObjectUtils;
 
 public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
@@ -91,24 +88,19 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
     }
 
     @Override
-    public ImageStreamDTO readFile(String name, String expectedEtag) {
+    public ImageStream readFile(String name) {
         List<GridFSDBFile> files = gridFsTemplate.find(
                 new Query().addCriteria(Criteria.where("filename").is(name))
         );
 
-        ImageStreamDTO is = null;
-
         if(files.size() > 0) {
-            is = new ImageStreamDTO();
             GridFSDBFile file = files.get(files.size() - 1);
-            String etag = file.getMD5();
-            is.setEtag(etag);
-            if(etag == null || !etag.equals(expectedEtag)) {
-                is.setImageStream(file.getInputStream());
-            }
+            return new ImageStream()
+                    .setEtag(file.getMD5())
+                    .setImageStream(file.getInputStream());
+        } else {
+            return null;
         }
-
-        return is;
     }
 
 }

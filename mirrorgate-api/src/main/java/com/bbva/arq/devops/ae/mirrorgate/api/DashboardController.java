@@ -19,12 +19,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.ImageStreamDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -122,15 +121,13 @@ public class DashboardController {
             HttpServletResponse response,
             @PathVariable("name") String name) {
 
-        ImageStreamDTO is = dashboardService.getDashboardImageIfHashChanged(
-                name,
-                request.getHeader(HttpHeaders.IF_NONE_MATCH)
-        );
+        ImageStream is = dashboardService.getDashboardImage(name);
 
         if(is == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } else {
-            if(is.getImageStream() == null) {
+            String expectedEtag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
+            if(is.getEtag() != null && is.getEtag().equals(expectedEtag)) {
                 response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
             } else {
                 try {
