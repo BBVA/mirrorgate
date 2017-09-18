@@ -14,6 +14,8 @@ import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -56,6 +58,7 @@ public class EventSchedulerTest {
 
         when(eventService.getEventsSinceTimestamp(anyLong())).thenReturn(Arrays.asList(createBuildEvent()));
         when(eventService.getLastEvent()).thenReturn(null);
+        when(eventsHandler.getDashboardsWithSession()).thenReturn(new HashSet<>(Arrays.asList("123")));
 
         eventScheduler.checkEventUpdates();
 
