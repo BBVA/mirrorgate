@@ -49,31 +49,35 @@ public class EventScheduler {
 
         LOGGER.debug("Processing events for timestamp {}", schedulerTimestamp);
 
-        //query DB for last events
-        List<Event> unprocessedEvents = eventService.getEventsSinceTimestamp(schedulerTimestamp);
+        Set<String> dashboardIds = handler.getDashboardsWithSession();
 
-        //process events
-        if(!unprocessedEvents.isEmpty()){
+        if(!dashboardIds.isEmpty()) {
 
-            Set<String> dashboardIds = handler.getDashboardsWithSession();
+            //query DB for last events
+            List<Event> unprocessedEvents = eventService.getEventsSinceTimestamp(schedulerTimestamp);
 
-            dashboardIds.forEach(dashboardId -> {
+            //process events
+            if (!unprocessedEvents.isEmpty()) {
 
-                try {
-                    //Right now only build events are handled through emitter
-                    Map<String, Object> response = getBuildsForDashboard(dashboardId);
+                dashboardIds.forEach(dashboardId -> {
 
-                    if (response != null && !response.isEmpty()) {
-                        handler.sendMessageToDashboardSessions(response, dashboardId);
+                    try {
+                        //Right now only build events are handled through emitter
+                        Map<String, Object> response = getBuildsForDashboard(dashboardId);
+
+                        if (response != null && !response.isEmpty()) {
+                            handler.sendMessageToDashboardSessions(response, dashboardId);
+                        }
+
+                    } catch (Exception unhandledException) {
+                        LOGGER.error("Unhandled exception calculating response of event", unhandledException);
                     }
+                });
 
-                } catch(Exception unhandledException) {
-                    LOGGER.error("Unhandled exception calculating response of event", unhandledException);
-                }
-            });
+                //save last event timestamp to local variable
+                schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size() - 1).getTimestamp();
+            }
 
-            //save last event timestamp to local variable
-            schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size()-1).getTimestamp();
         }
 
         LOGGER.debug("Modified timestamp: {}", schedulerTimestamp);
