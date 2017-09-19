@@ -42,8 +42,13 @@ var RequestsController = (function(dashboardId) {
           }
         }, this);
 
+        console.log(errorsNumber);
+        console.log(requestsNumber);
+
         model.metrics = {
-          errorsRate: (1.0 - (errorsNumber / requestsNumber)) * 100.0
+          requestsNumber: requestsNumber,
+          errorsNumber: errorsNumber,
+          errorsRate: Math.round(100 * errorsNumber / requestsNumber)
         };
       }
     }
