@@ -42,9 +42,6 @@ var RequestsController = (function(dashboardId) {
           }
         }, this);
 
-        console.log(errorsNumber);
-        console.log(requestsNumber);
-
         model.metrics = {
           requestsNumber: requestsNumber,
           errorsNumber: errorsNumber,
