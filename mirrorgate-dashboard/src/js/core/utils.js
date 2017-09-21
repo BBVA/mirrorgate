@@ -31,8 +31,8 @@ var Utils = {
       Service
         .get(Service.types.dashboard, Utils.getDashboardId())
         .addListener(function(details) {
-          details = JSON.parse(details);
-          resolve(details.skin);
+          details = details && JSON.parse(details);
+          resolve((details && details.skin) || 'classic');
         });
     });
   },
