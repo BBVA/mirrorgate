@@ -26,13 +26,7 @@
 //TYPE
 $font-header: "Advanced Engineering";
 $font-body: "Roboto", Tahoma, sans-serif;
-$font-weight: 200;
-$font-weight-medium: 300; //small texts
-$font-weight-bold: 500;
 
-//HEADERS
-$headers-color: #eee;
-$headers-weight: 200;
 
 //SIZES
 $default-size: 0.8rem;
@@ -51,21 +45,6 @@ $footer-height-xxl: 70px;
 $header-footer-height-xxl: $header-height + $footer-height-xxl;
 
 $alerts-column-width: 220px;
-
-//COLORS
-$header-bg: #fff;
-$background-color: #0c0c0c;
-$text-color: #eee;
-$text-color-secondary: darken( $text-color, 20% );
-
-$green: #24D268;
-$blue: #2CE6FB;
-$yellow: #FDD80D;
-$dark-yellow: #FEB10F;
-$red: #FF2B2B;
-
-$dark-grey: #888;
-$darker-grey: #474747;
 
 //BREAKPOINTS
 $xs: 320px;

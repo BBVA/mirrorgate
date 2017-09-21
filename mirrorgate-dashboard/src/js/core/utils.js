@@ -26,6 +26,17 @@ var Utils = {
     return dashboard || '';
   },
 
+  getSkin: function () {
+    return new Promise(function (resolve) {
+      Service
+        .get(Service.types.dashboard, Utils.getDashboardId())
+        .addListener(function(details) {
+          details = details && JSON.parse(details);
+          resolve((details && details.skin) || 'classic');
+        });
+    });
+  },
+
   getWorkingDays: function(start, end) {
     var diff = 0;
     start = moment(start);

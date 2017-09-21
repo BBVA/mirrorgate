@@ -44,6 +44,7 @@ public class DashboardMapper {
         target.setsProductName(source.getsProductName());
         target.setStatus(source.getStatus());
         target.setAnalyticViews(source.getAnalyticViews());
+        target.setSkin(source.getSkin());
         return target;
     }
 

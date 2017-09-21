@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-.bottom{
-    background-color: $bottom-background-color;
+.host.module-error.tile--primary{
+
+  h1, h2, h3, h4, h5, h6, .team svg text, .legend, foreignObject {
+    color: white;
+    fill: white;
+  }
+
 }
 
-@media all and (min-width : $l) {
-    font-size: $level-3;
+.alerts {
+  border-left: 2px solid #dbdbdb;
 }
