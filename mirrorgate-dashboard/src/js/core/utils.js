@@ -27,7 +27,14 @@ var Utils = {
   },
 
   getSkin: function () {
-    return Promise.resolve('classic');
+    return new Promise(function (resolve) {
+      Service
+        .get(Service.types.dashboard, Utils.getDashboardId())
+        .addListener(function(details) {
+          details = JSON.parse(details);
+          resolve(details.skin);
+        });
+    });
   },
 
   getWorkingDays: function(start, end) {
