@@ -75,7 +75,7 @@ var Tile = (function() {
       .classed('component', false)
       .classed('tile', false)
       .classed('host', true);
-  }
+  };
 
   TilePrototype._computeSize = function() {
     var style = window.getComputedStyle(this);
