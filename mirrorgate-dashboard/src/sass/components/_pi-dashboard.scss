@@ -18,13 +18,13 @@
     align-items: stretch;
 
     svg text {
-      fill: white;
+      fill: $headers-color;
       text-anchor: middle;
       font-size: 60px;
     }
 
     svg text.days-left {
-      fill: #eeeeee;
+      fill: $text-color;
     }
 
     text.rate-completed {
@@ -67,7 +67,7 @@
     }
 
     .status-product {
-      fill: rgba(100,100,100,0.3);
+      fill: $neutral;
     }
 
 

@@ -26,6 +26,10 @@ var Utils = {
     return dashboard || '';
   },
 
+  getSkin: function () {
+    return Promise.resolve('classic');
+  },
+
   getWorkingDays: function(start, end) {
     var diff = 0;
     start = moment(start);

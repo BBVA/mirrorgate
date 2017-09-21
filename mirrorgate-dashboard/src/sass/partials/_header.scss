@@ -42,7 +42,7 @@
             border: none;
 
             &[aria-expanded="true"]{
-                background-color: darken($header-bg, 10);
+                background-color: darken(white, 10);
             }
         }
 
@@ -60,7 +60,7 @@
 
                 a:hover,
                 a:focus{
-                    background-color: darken($header-bg, 10);
+                    background-color: darken(white, 10);
                 }
             }
         }

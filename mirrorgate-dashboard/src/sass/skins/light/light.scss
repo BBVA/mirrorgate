@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-.bottom{
-    background-color: $bottom-background-color;
-}
-
-@media all and (min-width : $l) {
-    font-size: $level-3;
-}
+//GENERAL (order of this @imports matter!)
+@import "variables";
+@import "../../common";
+@import "custom";

@@ -175,7 +175,7 @@ tile-container{
 
 
     tile-container.alerts {
-        background: #F0F0F0;
+        background: $alerts-background;
 
         &.module-data-error:before{
             color: #444;

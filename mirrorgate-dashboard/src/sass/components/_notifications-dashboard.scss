@@ -51,10 +51,10 @@ notifications-tile{
         &:after{
             background: linear-gradient(
                 to bottom,
-                rgba(110,110,110,0) 5%,
-                rgba(50,50,50,1) 30%,
-                rgba(50,50,50,1) 70%,
-                rgba(110,110,110,0) 95%);
+                invert(rgba(110,110,110,0)) 5%,
+                invert(rgba(50,50,50,1)) 30%,
+                invert(rgba(50,50,50,1)) 70%,
+                invert(rgba(110,110,110,0)) 95%);
             content: " ";
             height: 100%;
             position: absolute;

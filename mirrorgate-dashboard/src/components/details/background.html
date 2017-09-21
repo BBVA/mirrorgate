@@ -20,10 +20,7 @@
 <script src="model.js"></script>
 <!-- endbuild -->
 <template>
-  <style>
-    @import "css/styles.css";
-  </style>
-
+  <style></style>
   <div id="background" class="background component__content">
     <div class="background-img"></div>
     <div id="background_error">
@@ -47,6 +44,9 @@
     // Refers to the "importee", which is components/background-dashboard.html
     var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
     var tmpl = thisDoc.querySelector('template');
+    Utils.getSkin().then(function (skin) {
+      tmpl.content.querySelector('style').innerText = '@import "css/'+skin+'.css";' + tmpl.content.querySelector('style').innerText;
+    });
 
     // Creates an object based in the HTML Element prototype
     var MyElementProto = Object.create(HTMLElement.prototype);
