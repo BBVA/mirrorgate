@@ -17,7 +17,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -29,11 +28,11 @@ public class UserMetric extends BaseModel {
 
     private String appVersion;
 
-    private Platform platform;
+    private String platform;
 
     private String name;
 
-    private String value;
+    private Long value;
 
     private Long timestamp;
 
@@ -58,11 +57,11 @@ public class UserMetric extends BaseModel {
         return this;
     }
 
-    public Platform getPlatform() {
+    public String getPlatform() {
         return platform;
     }
 
-    public UserMetric setPlatform(Platform platform) {
+    public UserMetric setPlatform(String platform) {
         this.platform = platform;
         return this;
     }
@@ -76,11 +75,11 @@ public class UserMetric extends BaseModel {
         return this;
     }
 
-    public String getValue() {
+    public Long getValue() {
         return value;
     }
 
-    public UserMetric setValue(String value) {
+    public UserMetric setValue(Long value) {
         this.value = value;
         return this;
     }
@@ -107,7 +106,7 @@ public class UserMetric extends BaseModel {
         return viewId.equals(metric.getViewId())
                 && equalsWithNulls(collectorId, metric.getCollectorId())
                 && equalsWithNulls(appVersion, metric.getAppVersion())
-                && equalsWithNulls(platform, Platform.fromString(metric.getPlatform()))
+                && equalsWithNulls(platform, metric.getPlatform())
                 && equalsWithNulls(name, metric.getName());
     }
 

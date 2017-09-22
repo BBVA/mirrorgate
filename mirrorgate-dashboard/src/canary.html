@@ -25,8 +25,6 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
   <!-- endbuild -->
 
-  <link rel="stylesheet" href="css/styles.css" />
-
   <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
 
   <!-- build:js js/vendor.min.js -->
@@ -69,6 +67,7 @@
   <link rel="import" href="components/tiles/notifications/component.html" >
   <link rel="import" href="components/tiles/alerts/component.html" >
   <link rel="import" href="components/tiles/user-metrics/component.html" >
+  <link rel="import" href="components/tiles/requests-metrics/requests-component.html" >
 
 </head>
 
@@ -142,9 +141,16 @@
             <reviews-tile class="markets component"></reviews-tile>
           </tile-container>
         </board-column>
-        <tile-container class="tile user-metrics tile--secondary">
-          <user-metrics-tile class="component"></user-metrics-tile>
-        </tile-container>
+        <board-row>
+          <tile-container class="tile user-metrics tile--secondary">
+            <user-metrics-tile class="component"></user-metrics-tile>
+          </tile-container>
+        </board-row>
+        <board-row>
+          <tile-container class="tile tile--secondary">
+            <requests-metrics-tile class="component"></requests-metrics-tile>
+          </tile-container>
+        </board-row>
       </board-column>
 
       <board-column class="alerts-column">

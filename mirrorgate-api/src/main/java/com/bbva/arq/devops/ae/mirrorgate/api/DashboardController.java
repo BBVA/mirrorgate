@@ -19,12 +19,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -32,6 +33,7 @@ import com.bbva.arq.devops.ae.mirrorgate.service.DashboardServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
@@ -103,28 +105,40 @@ public class DashboardController {
             @PathVariable("name") String name,
             @RequestParam("uploadfile") MultipartFile uploadfile) {
 
-        dashboardService.saveDashboardImage(name, uploadfile);
+        try {
+            dashboardService.saveDashboardImage(name, uploadfile.getInputStream());
+            return ResponseEntity.ok("Saved successfully");
+        } catch (IOException e) {
+            LOGGER.error("Error getting input stream", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
 
-        return ResponseEntity.ok("Saved successfully");
     }
 
     @RequestMapping(value = "/dashboards/{name}/image", method = RequestMethod.GET)
     public void getFile(
+            HttpServletRequest request,
             HttpServletResponse response,
             @PathVariable("name") String name) {
 
-        InputStream image = dashboardService.getDashboardImage(name);
+        ImageStream is = dashboardService.getDashboardImage(name);
 
-        if(image != null) {
-            try {
-                StreamUtils.copy(image, response.getOutputStream());
-            } catch (IOException e) {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                LOGGER.error("Error serving image for boar " + name, e);
-            }
-        } else {
+        if(is == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        } else {
+            String expectedEtag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
+            if(is.getEtag() != null && is.getEtag().equals(expectedEtag)) {
+                response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+            } else {
+                try {
+                    response.setHeader(HttpHeaders.ETAG, is.getEtag());
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    StreamUtils.copy(is.getImageStream(), response.getOutputStream());
+                } catch (IOException e) {
+                    LOGGER.error("Error copying streams for dashboard " + name, e);
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+            }
         }
-
     }
 }

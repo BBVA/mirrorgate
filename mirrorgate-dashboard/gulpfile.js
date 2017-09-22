@@ -91,9 +91,10 @@ gulp.task(
 
 /* Sass */
 gulp.task(':build:sass', function() {
-  return gulp.src('src/sass/*')
+  return gulp.src('src/sass/**/*')
       .pipe(sourcemaps.init())
       .pipe(sass(sassOptions).on('error', sass.logError))
+      .pipe(rename({dirname: ''}))
       .pipe(sourcemaps.write('/'))
       .pipe(gulp.dest('dist/css'));
 });

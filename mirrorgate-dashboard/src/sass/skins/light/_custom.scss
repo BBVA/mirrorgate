@@ -14,10 +14,24 @@
  * limitations under the License.
  */
 
-.bottom{
-    background-color: $bottom-background-color;
+.host.module-error.tile--primary{
+
+  h1, h2, h3, h4, h5, h6, .team svg text, .legend, foreignObject {
+    color: white;
+    fill: white;
+  }
+
 }
 
-@media all and (min-width : $l) {
-    font-size: $level-3;
+.component {
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.review .review-contents{
+  border: 1px solid #eaeaea;
+}
+
+.alerts {
+  border-left: 2px solid #dbdbdb;
 }

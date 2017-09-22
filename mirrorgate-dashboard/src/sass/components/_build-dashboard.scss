@@ -80,7 +80,7 @@
         line-height: 50px;
         text-align: center;
     }
-    
+
     .culprits {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -95,7 +95,7 @@
 }
 
 .build-result {
-    fill: rgba(100,100,100,0.3);
+    fill: $svg-path-fill;
 }
 
 .build-result.clickable {
@@ -123,7 +123,7 @@ svg .status-success {
 }
 
 svg .status-aborted {
-    fill: #7e7e7e;
+    fill: $dark-grey;
 }
 
 svg .status-failure {

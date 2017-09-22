@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 
 import java.io.InputStream;
@@ -26,5 +27,5 @@ public interface DashboardRepositoryCustom {
 
     void saveFile(InputStream image, String name);
 
-    InputStream readFile(String name);
+    ImageStream readFile(String name);
 }

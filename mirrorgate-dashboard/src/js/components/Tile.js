@@ -26,13 +26,28 @@ var Tile = (function() {
 
     // Add the image to the Shadow Root.
     this._rootElement = document.importNode(this.getTemplate().content, true);
-    shadowRoot.appendChild(this._rootElement);
+
+    this.model = {};
+    this._container = document.createElement('div');
+    this._container.appendChild(this._rootElement);
+    this._copyClass();
+
+    //Replace skin placeholder as rivets ignore style tags :-(
+    this._container.querySelectorAll('style')
+      .forEach((tag) => {
+        tag.innerText = tag.innerText.replace(/{skin}/, Utils.getSkin());
+      });
+    shadowRoot.appendChild(this._container);
+
 
     // Rivets templating capabilities initialization
-    this.model = {};
     setTimeout(function() {
       rivets.bind($(shadowRoot), this.model);
     }.bind(this));
+
+    this._processEnabled();
+    this._computeSize.bind(this);
+
 
     this.addEventListener('dashboard-updated', function(e) {
       d3.select(this).classed({
@@ -43,14 +58,21 @@ var Tile = (function() {
         'module-data-error': e.detail.status === 'server-error'
       });
       this._computeSize();
+      this._copyClass();
     });
 
     window.addEventListener('resize', function() {
       setTimeout(this._computeSize.bind(this));
     }.bind(this));
 
-    this._processEnabled();
-    this._computeSize.bind(this);
+  };
+
+  TilePrototype._copyClass = function () {
+    this._container.className = this.className;
+    d3.select(this._container)
+      .classed('component', false)
+      .classed('tile', false)
+      .classed('host', true);
   };
 
   TilePrototype._computeSize = function() {
@@ -69,7 +91,7 @@ var Tile = (function() {
       };
       d3.select(this).classed(classes);
     }
-
+    this._copyClass();
   };
 
   TilePrototype._dispose = function() {

@@ -17,7 +17,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 
 public class UserMetricMapper {
@@ -30,7 +29,7 @@ public class UserMetricMapper {
         return target
                 .setViewId(source.getViewId())
                 .setAppVersion(source.getAppVersion())
-                .setPlatform(Platform.toString(source.getPlatform()))
+                .setPlatform(source.getPlatform())
                 .setName(source.getName())
                 .setValue(source.getValue())
                 .setTimestamp(source.getTimestamp())
@@ -45,7 +44,7 @@ public class UserMetricMapper {
         return target
                 .setViewId(source.getViewId())
                 .setAppVersion(source.getAppVersion())
-                .setPlatform(Platform.fromString(source.getPlatform()))
+                .setPlatform(source.getPlatform())
                 .setName(source.getName())
                 .setValue(source.getValue())
                 .setTimestamp(source.getTimestamp())

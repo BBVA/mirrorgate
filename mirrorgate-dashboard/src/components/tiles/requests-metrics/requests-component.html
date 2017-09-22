@@ -15,31 +15,28 @@
   ~ limitations under the License.
   -->
 
-<!-- build:js component.min.js -->
-<script src="model.js"></script>
-<script src="controller.js"></script>
+<!-- build:js request-component.min.js -->
+<script src="requests-controller.js"></script>
 <!-- endbuild -->
 
 <template>
   <style>
     @import "css/{skin}.css";
   </style>
-  <div class="notifications">
-      <div class="notification__icon" rv-color="notification.color">
-        <i class="fa fa-slack" aria-hidden="true"></i>
+
+  <div class="component__content">
+    <div class="component__header">
+      <h2 class="title">Requests</h2>
+      <h3 class="title-desc">
+        <span rv-hide="metrics.requestsNumber">No metrics collected</span>
+      </h3>
+    </div>
+    <div class="component__body">
+      <div class="indicator" rv-show="metrics.requestsNumber">
+        <span class="stats">{metrics.errorsRate}</span>
+        <span class="stats-desc">% of errors</span>
       </div>
-
-      <div class="notifications__content">
-        <div class="notification__type">
-          <span class="notification__title">Slack message
-            <span rv-show="notification.user"> from {notification.user}</span>
-          </span>
-
-          <span class="date title-desc" rv-show="notification.date">{ notification.date | date updatedDate}</span></div>
-
-        <div rv-show="notification.description">{ notification.description }</div>
-        <div rv-hidden="notification.description">No notifications</div>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -49,19 +46,18 @@
     // Refers to the "importee", which is components/builds-dashboard.html
     var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
     var tmpl = thisDoc.querySelector('template');
-    var breakTimeout;
 
     // Creates an object based in the HTML Element prototype
     var MyElementProto = Object.create(Tile);
 
     MyElementProto.processAlerts = function (data) {
       Utils.raiseEvent(this, {
-        status: data ? 'unknown' : 'server-error'
+        status: data ? 'empty' : 'server-error'
       });
     }
 
     MyElementProto.getControllerClass = function () {
-      return NotificationsController;
+      return RequestsController;
     };
 
     MyElementProto.getTemplate = function () {
@@ -71,26 +67,20 @@
     // Fires when an instance of the element is created
     MyElementProto.render = function (data) {
 
-      this.processAlerts(data);
-
-      var model = this.getModel();
-
       if (data) {
-        model.notification = data;
-        if(data.description.indexOf('MIRRORBREAK!') >= 0) {
-          $('.easter-egg').css('display','block');
-          if(breakTimeout) {
-            clearTimeout(breakTimeout);
-          }
-          breakTimeout = setTimeout(function () {
-            $('.easter-egg').css('display', 'none');
-            breakTimeout = undefined;
-          }, 60000);
+        var model = this.getModel();
+        model.metrics = data.metrics;
+        this.setAttribute('enabled', model.metrics !== undefined);
+
+        if(model.metrics) {
+          this.setAttribute('enabled', !!model.metrics.requestsNumber);
         }
       }
+
+      this.processAlerts(data);
     };
 
-    window.MyElement = document.registerElement('notifications-tile', {
+    window.MyElement = document.registerElement('requests-metrics-tile', {
       prototype: MyElementProto
     });
 

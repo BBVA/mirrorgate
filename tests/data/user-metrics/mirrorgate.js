@@ -11,7 +11,7 @@ db.getCollection('user-metrics').insertMany([
   {
     "viewId" : "1234123",
     "appVersion" : "1.0.1",
-    "platform" : "Android",
+    "platform" : "IOS",
     "name" : "7dayUsers",
     "value" : 55,
     "timestamp" : 1505301880665,
@@ -37,9 +37,36 @@ db.getCollection('user-metrics').insertMany([
   },
   {
     "viewId" : "1234123",
-    "appVersion" : "1",
+    "appVersion" : "2",
     "platform" : "Android",
     "name" : "activeUsers",
+    "value" : 12,
+    "timestamp" : 1505301880665,
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1",
+    "platform" : "Android",
+    "name" : "requestsNumber",
+    "value" : 12,
+    "timestamp" : 1505301880665,
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1",
+    "platform" : "Android",
+    "name" : "errorsNumber",
+    "value" : 12,
+    "timestamp" : 1505301880665,
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "2",
+    "platform" : "Android",
+    "name" : "requestsNumber",
     "value" : 12,
     "timestamp" : 1505301880665,
     "collectorId" : "collector1"

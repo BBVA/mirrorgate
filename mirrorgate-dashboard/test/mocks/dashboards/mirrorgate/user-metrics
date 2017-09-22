@@ -37,9 +37,36 @@
   },
   {
     "viewId" : "1234123",
-    "appVersion" : "1",
+    "appVersion" : "2",
     "platform" : "Android",
     "name" : "activeUsers",
+    "value" : "12",
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1",
+    "platform" : "Android",
+    "name" : "requestsNumber",
+    "value" : "12",
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1",
+    "platform" : "Android",
+    "name" : "errorsNumber",
+    "value" : "12",
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "2",
+    "platform" : "Android",
+    "name" : "requestsNumber",
     "value" : "12",
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"

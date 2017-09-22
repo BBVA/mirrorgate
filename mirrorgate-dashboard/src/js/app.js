@@ -31,6 +31,7 @@ function MainController() {
       notifications: 'slackTeam',
       alerts: 'urlAlerts',
       'user-metrics': 'analyticViews',
+      'requests-metrics': 'analyticViews'
     };
 
     // Display tiles only when details are avail
@@ -120,7 +121,18 @@ function MainController() {
 }
 
 
-document.addEventListener('DOMContentLoaded', MainController);
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelector('body').style.display = 'none';
+  Utils.initSkin().then(function (skin) {
+    var link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('type', 'text/css');
+    link.setAttribute('href', 'css/'+skin+'.css');
+    document.getElementsByTagName('head')[0].appendChild(link);
+    document.querySelector('body').style.display = 'block';
+    MainController();
+  });
+});
 window.addEventListener('hashchange', function() {
   TileVisibilityHandler();
   Timer.trigger();

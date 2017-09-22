@@ -19,12 +19,14 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import java.util.List;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserMetricsRepository extends CrudRepository<UserMetric, ObjectId> {
 
     List<UserMetric> findAllByViewIdIn(List<String> ids);
 
+    @Query(value = "{ collectorId:?0, value: { $gt:0}}")
     List<UserMetric> findAllByCollectorId(String collectorId);
 
 }

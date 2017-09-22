@@ -39,13 +39,13 @@
         &.tendency-up::before {
             font-size: 0.75em;
             content: '\25B2';
-            color: red;
+            color:$red;
         }
 
         &.tendency-down::before {
             font-size: 0.75em;
             content: '\25BC';
-            color: green;
+            color:$green;
         }
     }
 }

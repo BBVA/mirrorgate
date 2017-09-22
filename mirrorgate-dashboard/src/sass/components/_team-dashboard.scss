@@ -17,13 +17,13 @@
 .team{
 
     svg text {
-      fill: white;
+      fill: $headers-color;
       text-anchor: middle;
       font-size: 71px;
     }
 
     svg text.days-left {
-      fill: #eeeeee;
+      fill: $text-color;
     }
 
     text.rate-completed {
@@ -113,7 +113,7 @@
   }
 
   .backlog-progress {
-    background-color: #8a8a8a;
+    background-color: $neutral;
     border-radius: 10px;
     height: 10px;
     overflow: hidden;
@@ -125,11 +125,11 @@
   }
 
   .backlog-progress__bar-success {
-    background-color: #25d268;
+    background-color: $green;
   }
 
   .velocity-line {
-    background-color: white;
+    background-color:invert($background-color);
     height: 33px;
     left: 70%;
     position: absolute;
