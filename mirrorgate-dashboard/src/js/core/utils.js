@@ -27,12 +27,18 @@ var Utils = {
   },
 
   getSkin: function () {
+    return this._skin || 'classic';
+  },
+
+  initSkin: function () {
+    var self = this;
     return new Promise(function (resolve) {
       Service
         .get(Service.types.dashboard, Utils.getDashboardId())
         .addListener(function(details) {
           details = details && JSON.parse(details);
-          resolve((details && details.skin) || 'classic');
+          self._skin = (details && details.skin) || 'classic';
+          resolve(self._skin);
         });
     });
   },

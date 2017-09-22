@@ -23,6 +23,15 @@
 
 }
 
+.component {
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.review .review-contents{
+  border: 1px solid #eaeaea;
+}
+
 .alerts {
   border-left: 2px solid #dbdbdb;
 }

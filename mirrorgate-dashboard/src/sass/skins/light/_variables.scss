@@ -14,12 +14,25 @@
  * limitations under the License.
  */
 
-//HEADERS
-$headers-color: invert(#eee);
 
-//COLORS
+// TYPE
+@font-face {
+    font-family: "Advanced Engineering";
+    src: url("../fonts/ADVANCED_ENGINEERING.ttf");
+}
+
+@import url('https://fonts.googleapis.com/css?family=Libre+Franklin:300,400,600');
+@import "../bower_components/font-awesome/css/font-awesome.min.css";
+
+$font-header: "Advanced Engineering";
+$font-body: 'Libre Franklin', Tahoma, sans-serif;
+$font-weight: 300;
+$font-weight-medium: 400; //small texts
+$font-weight-bold: 500;
+
+// COLORS
 $background-color: invert(#191919);
-$text-color: #444;
+$text-color: #666666;
 $text-color-secondary: lighten( $text-color, 20% );
 
 $green: #1fb759;
@@ -29,34 +42,39 @@ $dark-yellow: #FEB10F;
 $red: #FF2B2B;
 $neutral:#aaa;
 
-$svg-path-fill: #cfcfcf;
-
 $light-grey: invert(#333);
 $dark-grey: invert(#888);
 $darker-grey: invert(#474747);
 
-$component-background-color: invert(#0c0c0c);
+
+// HEADER - TOP BAR
+$header-bg: #072146;
+$header-color: #ffffff;
+
+
+// MODULES
+$component-background-color: #fff;
+
+// modules header
+$headers-color: $text-color;
+$headers-weight: 300;
+$title-transform: uppercase;
+$title-size: 0.95vw;
+$title-weight: 600;
+
+
 $alerts-background: $component-background-color;
 
 $module-error-background: linear-gradient(180deg,darken(#d10000, 10) 30%,#d10000 100%);
 $module-warning-background: linear-gradient(180deg, #fea710 30%, #FEB10F 100%) !important;
-
-//$module-warning-background: #ffd14e;
-//$module-error-background: #d10000;
 $module-ok-background: $component-background-color;
+
 
 $alerts-header-color: $text-color;
 $alerts-color: lighten($alerts-header-color, 10);
-$review-background-color: #ededed;
+$review-background-color: #fafafa;
 
 $bottom-background-color: darken($background-color, 20);
-$header-bg: darken($background-color, 20);
-$header-color: black;
 
-//FONTS
-$font-weight: 300;
-$font-weight-medium: 400; //small texts
-$font-weight-bold: 500;
-
-$headers-weight: 300;
+$svg-path-fill: #cfcfcf;
 

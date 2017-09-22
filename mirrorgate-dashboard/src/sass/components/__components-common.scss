@@ -72,8 +72,11 @@
 }
 
 .title {
+    font-size: $title-size;
+    font-weight: $title-weight;
     margin-bottom: 0;
     text-align: left;
+    text-transform: $title-transform;
 }
 
 .title-desc {

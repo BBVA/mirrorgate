@@ -30,28 +30,23 @@ var Tile = (function() {
     this.model = {};
     this._container = document.createElement('div');
     this._container.appendChild(this._rootElement);
-    this._container.style.display = 'none';
     this._copyClass();
-    shadowRoot.appendChild(this._container);
 
     //Replace skin placeholder as rivets ignore style tags :-(
-    Utils.getSkin().then((skin) =>  {
+    this._container.querySelectorAll('style')
+      .forEach((tag) => {
+        tag.innerText = tag.innerText.replace(/{skin}/, Utils.getSkin());
+      });
+    shadowRoot.appendChild(this._container);
 
-      this._container.querySelectorAll('style')
-        .forEach((tag) => {
-          tag.innerText = tag.innerText.replace(/{skin}/, skin);
-        });
 
+    // Rivets templating capabilities initialization
+    setTimeout(function() {
+      rivets.bind($(shadowRoot), this.model);
+    }.bind(this));
 
-      // Rivets templating capabilities initialization
-      setTimeout(function() {
-        rivets.bind($(shadowRoot), this.model);
-      }.bind(this));
-
-      this._processEnabled();
-      this._computeSize.bind(this);
-      this._container.style.display = 'block';
-    });
+    this._processEnabled();
+    this._computeSize.bind(this);
 
 
     this.addEventListener('dashboard-updated', function(e) {

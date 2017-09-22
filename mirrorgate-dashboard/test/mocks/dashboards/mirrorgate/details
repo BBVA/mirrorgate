@@ -11,5 +11,6 @@
   "slackTeam":"mirrorgate",
   "programIncrement": "MG02",
   "urlAlerts": "dashboards/mirrorgate/alerts",
-  "analyticViews": ["123412"]
+  "analyticViews": ["123412"],
+  "skin": "classic"
 }
