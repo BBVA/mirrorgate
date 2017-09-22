@@ -21,13 +21,10 @@ alerts-tile {
 }
 
 .alerts__content {
-  background-color: $alerts-background;
-  color: $alerts-color;
   text-align: center;
 
   .title {
     color: $alerts-header-color;
-    font-weight: 300;
   }
 
   .component__body {

@@ -33,21 +33,21 @@ $neutral: #7e7e7e;
 $light-grey: #333;
 $dark-grey: #888;
 $darker-grey: #474747;
-$alerts-background: #F0F0F0;
 
 $svg-path-fill: rgba(100,100,100,0.3);
 
 $component-background-color: #191919;
+$alerts-background: $component-background-color;
 
 $module-warning-background: linear-gradient(180deg, rgba(253, 216, 13, 0.05) 30%, rgba(253, 216, 13, 0.22) 100%);
 $module-error-background: linear-gradient(180deg, #191919 0%, #61020e 100%);
 $module-ok-background: $component-background-color;
 
-$alerts-header-color: #444;
 $review-background-color: #222;
 
 $header-color: black;
-$alerts-color: darken($alerts-header-color, 10);
+$alerts-header-color: #ffffff;
+$alerts-color: $alerts-header-color;
 
 $bottom-background-color: darken($background-color, 20);
 
