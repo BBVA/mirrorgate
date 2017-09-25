@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
@@ -47,7 +48,7 @@ public class ProgramIncrementServiceTest {
     @Test
     public void testNoCurrentPIName(){
 
-        when(dashboardService.getDashboard(anyString())).thenReturn(new Dashboard());
+        when(dashboardService.getDashboard(anyString())).thenReturn(new DashboardDTO());
 
         ProgramIncrementDTO programIncrementDTO = piService.getProgramIncrementFeatures("MirrorGate");
 

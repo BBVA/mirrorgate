@@ -15,20 +15,12 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +33,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 public class DashboardServiceTests {
@@ -68,23 +69,22 @@ public class DashboardServiceTests {
 
     @Test
     public void getDashboardByNameTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
 
-        Dashboard dashboard2 = dashboardService.getDashboard(dashboard.getName());
+        DashboardDTO dashboard2 = dashboardService.getDashboard(dashboard.getName());
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
 
-        assertThat(dashboard2.getId()).isEqualTo(dashboard.getId());
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
         assertThat(dashboard2.getLogoUrl()).isEqualTo(dashboard.getLogoUrl());
     }
 
     @Test
     public void getReposByDashboardNameTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
 
         List<String> codeReposByDashboardName = dashboardService.getReposByDashboardName(dashboard.getName());
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
@@ -95,63 +95,38 @@ public class DashboardServiceTests {
 
     @Test
     public void newDashboardTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
-        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
+        when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
 
-        Dashboard dashboard2 = dashboardService.newDashboard(dashboard);
+        DashboardDTO dashboard2 = dashboardService.newDashboard(dashboard);
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save(dashboard);
+        verify(dashboardRepository, times(1)).save((Dashboard) any());
 
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
     }
 
     @Test(expected = DashboardConflictException.class)
-    public void newPreviusCreatedDashboardTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+    public void newPreviousCreatedDashboardTest() {
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
-
-        dashboardService.newDashboard(dashboard);
-    }
-
-    @Test
-    public void newPreviusDeletedDashboardTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
-        dashboard.setStatus(DELETED);
-
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
 
         dashboardService.newDashboard(dashboard);
-    }
-
-    @Test
-    public void updateDashboardTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
-
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
-        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
-
-        Dashboard dashboard2 = dashboardService.updateDashboard(dashboard.getName(),dashboard);
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save(dashboard);
-
-        assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
-        assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
     }
 
     @Test
     public void updateDashboardAdminUserTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
-        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
+        when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
 
-        Dashboard dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
+        DashboardDTO dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save(dashboard);
+        verify(dashboardRepository, times(1)).save((Dashboard) any());
 
         assertThat(dashboard2.getAdminUsers()).contains(TestObjectFactory.AUTH_NAME);
     }
@@ -161,15 +136,16 @@ public class DashboardServiceTests {
 
         ArgumentCaptor<Dashboard> argument = ArgumentCaptor.forClass(Dashboard.class);
 
-        Dashboard dashboard = TestObjectFactory.createDashboard();
-        dashboard.setStatus(TRANSIENT);
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        Dashboard rDashboard = map(dashboard);
+        rDashboard.setStatus(TRANSIENT);
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
-        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(rDashboard);
+        when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
 
-        Dashboard dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
+        DashboardDTO dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save(dashboard);
+        verify(dashboardRepository, times(1)).save((Dashboard) any());
         verify(dashboardRepository).save(argument.capture());
 
         assertThat(argument.getValue().getStatus()).isEqualTo(ACTIVE);
@@ -178,7 +154,7 @@ public class DashboardServiceTests {
 
     @Test(expected = DashboardNotFoundException.class)
     public void updateWrongDashboardTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
 
@@ -187,19 +163,19 @@ public class DashboardServiceTests {
 
     @Test
     public void deleteDashboardTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
-        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
+        when(dashboardRepository.save(map(dashboard))).thenReturn(map(dashboard));
 
         dashboardService.deleteDashboard(dashboard.getName());
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save(dashboard);
+        verify(dashboardRepository, times(1)).save((Dashboard) any());
     }
 
     @Test(expected = DashboardNotFoundException.class)
     public void deleteNotFoundDashboardTest() {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
 

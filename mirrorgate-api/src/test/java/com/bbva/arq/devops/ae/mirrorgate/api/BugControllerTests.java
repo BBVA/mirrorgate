@@ -15,11 +15,13 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -65,7 +67,7 @@ public class BugControllerTests {
     @Test
     public void getBugsTest() throws Exception {
 
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         BugDTO bug1 = TestObjectFactory.createBugDTO();
         BugDTO bug2 = TestObjectFactory.createBugDTO();

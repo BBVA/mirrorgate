@@ -1,5 +1,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
@@ -43,7 +44,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
     public ProgramIncrementDTO getProgramIncrementFeatures(String dashboardName){
         LOGGER.debug("Getting product increment information for dashboard : {}", dashboardName);
 
-        Dashboard dashboard = dashboardService.getDashboard(dashboardName);
+        DashboardDTO dashboard = dashboardService.getDashboard(dashboardName);
 
         ProgramIncrementDTO piDTO = getCurrentProgramIncrementNameAndDates(dashboard);
 
@@ -67,7 +68,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
     }
 
-    private ProgramIncrementDTO getCurrentProgramIncrementNameAndDates(Dashboard dashboard){
+    private ProgramIncrementDTO getCurrentProgramIncrementNameAndDates(DashboardDTO dashboard){
         return getProductIncrementNameAndDatesForExpression(dashboard.getProgramIncrement());
     }
 
@@ -124,7 +125,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
         return null;
     }
 
-    private ProgramIncrementDTO createResponse(Dashboard dashboard, List<Feature> piFeatures, List<String> boardPIFeaturesKeys){
+    private ProgramIncrementDTO createResponse(DashboardDTO dashboard, List<Feature> piFeatures, List<String> boardPIFeaturesKeys){
 
         //Get features belonging to this board
         List<IssueDTO> boardPIFeatures = piFeatures.stream()
@@ -148,7 +149,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
             .setProgramIncrementStories(boardPIIssues);
     }
 
-    private boolean containsDashboardKeyword(Dashboard dashboard, Feature f) {
+    private boolean containsDashboardKeyword(DashboardDTO dashboard, Feature f) {
         return f.getKeywords() != null && f.getKeywords().stream()
                 .filter((k) -> dashboard.getBoards().contains(k))
                 .count() > 0;

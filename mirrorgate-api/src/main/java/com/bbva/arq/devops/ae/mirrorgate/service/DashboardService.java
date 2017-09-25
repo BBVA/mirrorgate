@@ -33,7 +33,7 @@ public interface DashboardService {
      * @param name Name of the Dashboard.
      * @return Dashboard
      */
-    Dashboard getDashboard(String name);
+    DashboardDTO getDashboard(String name);
 
     /**
      * Get the repositories of a specific Dashboard
@@ -79,7 +79,7 @@ public interface DashboardService {
      * @param dashboard
      * @return Dashboard new persisted Dashboard
      */
-    Dashboard newDashboard(Dashboard dashboard);
+    DashboardDTO newDashboard(DashboardDTO dashboard);
 
 
     /**
@@ -89,7 +89,7 @@ public interface DashboardService {
      * @param name
      * @return Dashboard persisted Dashboard or null if no existent
      */
-    Dashboard updateDashboard(String name, Dashboard dashboard);
+    DashboardDTO updateDashboard(String name, DashboardDTO dashboard);
 
     /**
      * Saves an image related to the dashboard with the corresponding name

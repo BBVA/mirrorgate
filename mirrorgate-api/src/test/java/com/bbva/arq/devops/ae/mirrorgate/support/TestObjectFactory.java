@@ -47,9 +47,8 @@ public class TestObjectFactory {
     private static final String SLACK_URL = "SLACK_URL";
     private static final String SLACK_ERROR = "SLACK_ERROR";
 
-    public static Dashboard createDashboard() {
-        Dashboard dashboard = new Dashboard();
-        dashboard.setId(ObjectId.get());
+    public static DashboardDTO createDashboard() {
+        DashboardDTO dashboard = new DashboardDTO();
         dashboard.setName(DASHBOARD_NAME);
         dashboard.setAuthor(AUTH_NAME);
         String urlRepo1 = "http.//repo1.git";

@@ -17,6 +17,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
@@ -126,7 +127,7 @@ public class BuildServiceImpl implements BuildService {
     private void createDashboardForBuildProject(Build build){
 
         try {
-            Dashboard newDashboard = new Dashboard();
+            DashboardDTO newDashboard = new DashboardDTO();
 
             newDashboard.setName(build.getProjectName());
             newDashboard.setDisplayName(build.getProjectName());

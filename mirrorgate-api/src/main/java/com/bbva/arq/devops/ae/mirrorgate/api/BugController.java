@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -48,7 +49,7 @@ public class BugController {
     @RequestMapping(value = "/dashboards/{name}/bugs",
             method = GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getBugs(@PathVariable("name") String name) {
-        Dashboard dashboard = dashboardService.getDashboard(name);
+        DashboardDTO dashboard = dashboardService.getDashboard(name);
         List<String> boards = dashboard.getBoards();
         return ResponseEntity.ok(bugService.getActiveBugsByBoards(boards));
     }

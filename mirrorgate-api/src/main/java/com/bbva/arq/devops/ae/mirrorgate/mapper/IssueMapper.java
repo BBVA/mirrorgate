@@ -19,6 +19,7 @@ package com.bbva.arq.devops.ae.mirrorgate.mapper;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ProjectDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
@@ -29,6 +30,10 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 public class IssueMapper {
 
     private IssueMapper(){}
+
+    public static Feature map(IssueDTO source) {
+        return map(source, new Feature());
+    }
 
     public static Feature map(IssueDTO source, Feature target) {
         target.setdEstimate(source.getEstimate());
@@ -47,6 +52,7 @@ public class IssueMapper {
         target.setlParentId(source.getParentId() == null ? null : Long.parseLong(source.getParentId()));
         target.setsParentKey(source.getParentKey());
         target.setsPiNames(source.getPiNames());
+        target.setCollectorId(source.getCollectorId());
         SprintDTO sprint = source.getSprint();
         if(sprint != null) {
             target.setsSprintID(sprint.getId());
@@ -82,6 +88,7 @@ public class IssueMapper {
         target.setId(source.getsId() == null ? null : Long.parseLong(source.getsId()));
         target.setStatus(IssueStatus.fromName(source.getsStatus()));
         target.setType(source.getsTypeName());
+        target.setParentId(source.getlParentId() == null ? null : source.getlParentId().toString());
         target.setSprint(new SprintDTO()
                 .setId(source.getsSprintID())
                 .setName(source.getsSprintName())
@@ -100,6 +107,10 @@ public class IssueMapper {
         target.setParentKey(source.getsParentKey());
         target.setJiraKey(source.getsNumber());
         target.setKeywords(source.getKeywords());
+        target.setPiNames(source.getsPiNames());
+        target.setCollectorId(source.getCollectorId());
+        target.setPriority(source.getPriority() == null ? null : IssuePriority.fromName(source.getPriority()));
+
         return target;
     }
 

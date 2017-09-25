@@ -21,6 +21,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
@@ -77,13 +78,13 @@ public class BuildServiceTests {
         Build build = makeBuild();
         BuildDTO request = TestObjectFactory.createBuildDTO();
 
-        when(dashboardService.getDashboard(anyString())).thenReturn(new Dashboard());
+        when(dashboardService.getDashboard(anyString())).thenReturn(new DashboardDTO());
         when(buildRepository.save((Build)any())).thenReturn(build);
 
         String id = buildService.createOrUpdate(request);
 
         verify(buildRepository, times(1)).save((Build)any());
-        verify(dashboardService, times(1)).newDashboard((Dashboard) any());
+        verify(dashboardService, times(1)).newDashboard((DashboardDTO) any());
 
         assertThat(id).isEqualTo(build.getId().toString());
     }
