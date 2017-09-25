@@ -1,7 +1,9 @@
 package com.bbva.arq.devops.ae.mirrorgate.cron;
 
 import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -23,15 +25,15 @@ public class EventScheduler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventScheduler.class);
 
-    private EventService eventService;
+    private final EventService eventService;
 
-    private BuildService buildService;
+    private final BuildService buildService;
 
     private Long schedulerTimestamp = 0L;
 
-    private ConnectionHandler handler;
+    private final ConnectionHandler handler;
 
-    private DashboardService dashboardService;
+    private final DashboardService dashboardService;
 
 
     @Autowired
@@ -87,15 +89,21 @@ public class EventScheduler {
         Map<String, Object> response = new HashMap<>();
 
         //Handle unchecked exception
-        List<String> repos = dashboardService.getReposByDashboardName(dashboardId);
-
-        if(repos != null && !repos.isEmpty()) {
-            List<Build> builds = buildService.getAllBranchesLastByReposName(repos);
-
-            response.put("lastBuilds", builds);
-            response.put("stats", buildService.getStatsFromRepos(repos));
-
+        Dashboard dashboard = dashboardService.getDashboard(dashboardId);
+        if (dashboard == null || dashboard.getCodeRepos() == null
+                || dashboard.getCodeRepos().isEmpty()) {
+            return null;
         }
+
+        List<Build> builds = buildService
+                .getLastBuildsByReposNameAndByTeamMembers(
+                        dashboard.getCodeRepos(), dashboard.getTeamMembers());
+        BuildStats stats = buildService.getStatsFromReposByTeamMembers(
+                dashboard.getCodeRepos(), dashboard.getTeamMembers());
+
+        response.put("lastBuilds", builds);
+        response.put("stats", stats);
+
         return response;
     }
 

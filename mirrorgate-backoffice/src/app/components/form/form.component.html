@@ -68,7 +68,6 @@
             </div>
           </div>
 
-
           <!-- Icon upload Modal -->
               <div class="modal fade" id="iconModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -103,8 +102,6 @@
               </div>
           <!-- /Modal -->
 
-
-
           <div class="form-group">
             <label for="adminUsers">Administrator users</label>
             <div class="collapse" id="admin-users-help">
@@ -138,8 +135,8 @@
               </div>
               <div class="input-group">
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#boards-help" aria-expanded="false" aria-controls="boards-help">
-                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                            </a>
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
                 <input type="text" class="form-control" id="boards" [(ngModel)]="temp.boards" (ngModelChange)="mirrorTempValues()" name="boards">
               </div>
             </div>
@@ -188,10 +185,24 @@
             </div>
             <div class="input-group">
               <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#code-repos-help" aria-expanded="false" aria-controls="code-repos-help">
-                              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                          </a>
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </a>
               <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" (ngModelChange)="mirrorTempValues()"
                 name="codeRepos">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="teamMembers">Team Members</label>
+            <div class="collapse" id="team-members-help">
+              <div class="well">
+                Builds will be filtered by Team Members if those are included.
+              </div>
+            </div>
+            <div class="input-group">
+              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#team-members-help" aria-expanded="false" aria-controls="team-members-help">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </a>
+              <tag-input class="form-control" id="teamMembers" name="teamMembers" [(ngModel)]="temp.teamMembers" (ngModelChange)="mirrorTempValues()" placeholder="Add a new team member" secondaryPlaceholder="Add Team Members"></tag-input>
             </div>
           </div>
         </div>
@@ -219,8 +230,8 @@
             <div class="input-group">
               <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#applications-help" aria-expanded="false"
                 aria-controls="applications-help">
-                              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                          </a>
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </a>
               <input type="text" class="form-control" id="applications" [(ngModel)]="temp.applications" (ngModelChange)="mirrorTempValues()"
                 name="applications">
             </div>

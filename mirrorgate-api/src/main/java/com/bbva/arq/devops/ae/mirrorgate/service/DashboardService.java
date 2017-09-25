@@ -16,9 +16,8 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -43,7 +42,7 @@ public interface DashboardService {
      */
     List<String> getReposByDashboardName(String name);
 
-     /**
+    /**
      * Get the admin users of a specific Dashboard
      *
      * @param name Name of the Dashboard
@@ -81,7 +80,6 @@ public interface DashboardService {
      */
     Dashboard newDashboard(Dashboard dashboard);
 
-
     /**
      * Updates a Dashboard
      *
@@ -95,7 +93,7 @@ public interface DashboardService {
      * Saves an image related to the dashboard with the corresponding name
      *
      * @param name
-     * @param uploadFile
+     * @param uploadfile
      */
     void saveDashboardImage(String name, InputStream uploadfile);
 
@@ -103,6 +101,7 @@ public interface DashboardService {
      * Gets the image associated with a dashboard
      *
      * @param name
+     * @return
      */
     ImageStream getDashboardImage(String name);
 }

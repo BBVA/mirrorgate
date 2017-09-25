@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
@@ -31,7 +32,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.matchers.Any;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -62,14 +62,59 @@ public class BuildServiceTests {
         build2.setRepoName(repoName);
         build2.setBranch("master");
 
-        when(buildRepository.findAllBranchesLastByReposName(Arrays.asList(repoName))).thenReturn(Arrays.asList(build1, build2));
+        when(buildRepository
+                .findLastBuildsByReposNameAndByTeamMembers(
+                        Arrays.asList(repoName), null))
+                .thenReturn(Arrays.asList(build1, build2));
 
-        List<Build> lastBuilds = buildService.getAllBranchesLastByReposName(Arrays.asList(repoName));
-        verify(buildRepository, times(1)).findAllBranchesLastByReposName(Arrays.asList(repoName));
+        List<Build> lastBuilds = buildService
+                .getLastBuildsByReposNameAndByTeamMembers(
+                        Arrays.asList(repoName), null);
+        verify(buildRepository, times(1))
+                .findLastBuildsByReposNameAndByTeamMembers(
+                        Arrays.asList(repoName), null);
 
         assertThat(lastBuilds.get(1).getId()).isEqualTo(build2.getId());
-        assertThat(lastBuilds.get(1).getTimestamp()).isEqualTo(build2.getTimestamp());
-        assertThat(lastBuilds.get(1).getBuildStatus()).isEqualTo(build2.getBuildStatus());
+        assertThat(lastBuilds.get(1).getTimestamp())
+                .isEqualTo(build2.getTimestamp());
+        assertThat(lastBuilds.get(1).getBuildStatus())
+                .isEqualTo(build2.getBuildStatus());
+    }
+
+    @Test
+    public void getLastByRepoNameAndByTeamMembers() {
+        String repoName = "mirrorgate-app";
+
+        Build build1 = makeBuild();
+        build1.setRepoName(repoName);
+        build1.setBranch("develop");
+        build1.setCulprits(Arrays.asList("Atreyu"));
+
+        Build build2 = makeBuild();
+        build2.setRepoName(repoName);
+        build2.setBranch("master");
+        build1.setCulprits(Arrays.asList("Atreyu"));
+
+        Build build3 = makeBuild();
+        build3.setRepoName(repoName);
+        build3.setBranch("master");
+
+        when(buildRepository.findLastBuildsByReposNameAndByTeamMembers(
+                Arrays.asList(repoName), Arrays.asList("Atreyu")))
+                .thenReturn(Arrays.asList(build2));
+
+        List<Build> lastBuilds = buildService
+                .getLastBuildsByReposNameAndByTeamMembers(
+                        Arrays.asList(repoName), Arrays.asList("Atreyu"));
+        verify(buildRepository, times(1))
+                .findLastBuildsByReposNameAndByTeamMembers(
+                        Arrays.asList(repoName), Arrays.asList("Atreyu"));
+
+        assertThat(lastBuilds.get(0).getId()).isEqualTo(build2.getId());
+        assertThat(lastBuilds.get(0).getTimestamp())
+                .isEqualTo(build2.getTimestamp());
+        assertThat(lastBuilds.get(0).getBuildStatus())
+                .isEqualTo(build2.getBuildStatus());
     }
 
     @Test
@@ -77,7 +122,8 @@ public class BuildServiceTests {
         Build build = makeBuild();
         BuildDTO request = TestObjectFactory.createBuildDTO();
 
-        when(dashboardService.getDashboard(anyString())).thenReturn(new Dashboard());
+        when(dashboardService.getDashboard(anyString()))
+                .thenReturn(new Dashboard());
         when(buildRepository.save((Build)any())).thenReturn(build);
 
         String id = buildService.createOrUpdate(request);

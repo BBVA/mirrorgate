@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -37,10 +35,11 @@ public class Dashboard extends BaseModel {
     private String displayName;
     private String logoUrl;
     @Indexed
-    private List<String> codeRepos = new ArrayList<>();
-    private List<String> adminUsers = new ArrayList<>();
+    private List<String> codeRepos;
+    private List<String> adminUsers;
+    private List<String> teamMembers;
     private String sProductName; //Team product name
-    private List<String> applications = new ArrayList<>();
+    private List<String> applications;
     private List<String> analyticViews;
     private List<String> boards;
     private Filters filters;
@@ -58,10 +57,10 @@ public class Dashboard extends BaseModel {
     private String urlAlertsAuthorization;
     private String author;
 
-
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -69,18 +68,23 @@ public class Dashboard extends BaseModel {
     public String getLogoUrl() {
         return logoUrl;
     }
+
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
+
     public List<String> getCodeRepos() {
         return codeRepos;
     }
+
     public void setCodeRepos(List<String> codeRepos) {
         this.codeRepos = codeRepos;
     }
+
     public String getsProductName() {
         return sProductName;
     }
+
     public void setsProductName(String sProductName) {
         this.sProductName = sProductName;
     }
@@ -195,6 +199,14 @@ public class Dashboard extends BaseModel {
 
     public void setAdminUsers(List<String> adminUsers) {
         this.adminUsers = adminUsers;
+    }
+
+    public List<String> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public void setTeamMembers(List<String> teamMembers) {
+        this.teamMembers = teamMembers;
     }
 
     public List<String> getAnalyticViews() {
