@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-//HEADERS
-$headers-color: #eee;
+// FONT-FACE
+@font-face {
+    font-family: "Advanced Engineering";
+    src: url("../fonts/ADVANCED_ENGINEERING.ttf");
+}
 
-//COLORS
-$header-bg: #fff;
+@import "../bower_components/roboto-fontface/css/roboto/roboto-fontface.css";
+@import "../bower_components/font-awesome/css/font-awesome.min.css";
+
+// TYPE
+$font-header: "Advanced Engineering";
+$font-body: "Roboto", Tahoma, sans-serif;
+$font-weight: 200;
+$font-weight-medium: 300; //small texts
+$font-weight-bold: 500;
+
+// COLORS
 $background-color: #0c0c0c;
-$text-color: #eee;
+$text-color: #eeeeee;
 $text-color-secondary: darken( $text-color, 20% );
 
 $green: #24D268;
@@ -34,10 +46,23 @@ $light-grey: #333;
 $dark-grey: #888;
 $darker-grey: #474747;
 
-$svg-path-fill: rgba(100,100,100,0.3);
 
+// HEADER - TOP BAR
+$header-bg: #fff;
+$header-color: black;
+
+
+// MODULES 
 $component-background-color: #191919;
 $alerts-background: $component-background-color;
+
+// modules header
+$headers-color: #eee;
+$headers-weight: 200;
+$title-transform: none;
+$title-size: inherit;
+$title-weight: inherit;
+
 
 $module-warning-background: linear-gradient(180deg, rgba(253, 216, 13, 0.05) 30%, rgba(253, 216, 13, 0.22) 100%);
 $module-error-background: linear-gradient(180deg, #191919 0%, #61020e 100%);
@@ -45,15 +70,9 @@ $module-ok-background: $component-background-color;
 
 $review-background-color: #222;
 
-$header-color: black;
 $alerts-header-color: #ffffff;
 $alerts-color: $alerts-header-color;
 
 $bottom-background-color: darken($background-color, 20);
 
-//FONTS
-$font-weight: 200;
-$font-weight-medium: 300; //small texts
-$font-weight-bold: 500;
-
-$headers-weight: 200;
+$svg-path-fill: rgba(100,100,100,0.3);

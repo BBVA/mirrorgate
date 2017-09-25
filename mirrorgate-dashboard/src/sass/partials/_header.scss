@@ -33,16 +33,21 @@
     }
 
     .menu{
-        color: $dark-grey;
         flex: 0 1 90px;
         text-align: right;
 
         button{
             background: none;
             border: none;
+            color: $header-color;
 
             &[aria-expanded="true"]{
                 background-color: darken(white, 10);
+            }
+
+            &:hover,
+            &:focus {
+                opacity: 0.7;
             }
         }
 
@@ -87,7 +92,6 @@ details-dashboard{
         }
 
         .menu{
-            color: $dark-grey;
             flex: 0 1 30%;
             text-align: right;
         }

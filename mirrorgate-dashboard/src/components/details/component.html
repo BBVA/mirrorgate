@@ -37,9 +37,8 @@
     // Refers to the "importee", which is components/details-dashboard.html
     var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
     var tmpl = thisDoc.querySelector('template');
-    Utils.getSkin().then(function (skin) {
-      tmpl.content.querySelector('style').innerText = '@import "css/'+skin+'.css";' + tmpl.content.querySelector('style').innerText;
-    });
+    tmpl.content.querySelector('style').innerText = '@import "css/'+Utils.getSkin()+'.css";' + tmpl.content.querySelector('style').innerText;
+
 
     // Creates an object based in the HTML Element prototype
     var MyElementProto = Object.create(HTMLElement.prototype);

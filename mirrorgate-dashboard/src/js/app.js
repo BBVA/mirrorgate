@@ -123,7 +123,7 @@ function MainController() {
 
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('body').style.display = 'none';
-  Utils.getSkin().then(function (skin) {
+  Utils.initSkin().then(function (skin) {
     var link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
