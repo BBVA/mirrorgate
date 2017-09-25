@@ -81,16 +81,13 @@ public class BuildControllerTests {
 
         when(dashboardService.getDashboard(dashboard.getName()))
                 .thenReturn(dashboard);
-        when(buildService.getLastBuildsByReposNameAndByTeamMembers(
-                dashboard.getCodeRepos(), dashboard.getTeamMembers()))
+        when(buildService.getLastBuildsByReposNameAndByTeamMembers(dashboard.getCodeRepos(), dashboard.getTeamMembers()))
                 .thenReturn(Arrays.asList(build1, build2));
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/builds"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.lastBuilds[0].repoName",
-                        equalTo(build1.getRepoName())))
-                .andExpect(jsonPath("$.lastBuilds[1].repoName",
-                        equalTo(build2.getRepoName())));
+                .andExpect(jsonPath("$.lastBuilds[0].repoName", equalTo(build1.getRepoName())))
+                .andExpect(jsonPath("$.lastBuilds[1].repoName", equalTo(build2.getRepoName())));
     }
 
     @Test
@@ -105,8 +102,7 @@ public class BuildControllerTests {
 
         when(dashboardService.getDashboard(dashboard.getName()))
                 .thenReturn(dashboard);
-        when(buildService.getStatsFromReposByTeamMembers(
-                eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
+        when(buildService.getStatsFromReposByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
                 .thenReturn(buildStats);
 
         this.mockMvc.perform(
@@ -121,15 +117,14 @@ public class BuildControllerTests {
         Dashboard dashboard = TestObjectFactory.createDashboard();
         dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
         BuildStats buildStats = new BuildStats()
-                                        .setDuration(0)
-                                        .setCount(0)
-                                        .setFailureRate(0)
-                                        .setFailureTendency(FailureTendency.equal);
+                .setDuration(0)
+                .setCount(0)
+                .setFailureRate(0)
+                .setFailureTendency(FailureTendency.equal);
 
         when(dashboardService.getDashboard(dashboard.getName()))
                 .thenReturn(dashboard);
-        when(buildService.getStatsFromReposByTeamMembers(
-                eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
+        when(buildService.getStatsFromReposByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
                 .thenReturn(buildStats);
 
         this.mockMvc.perform(
@@ -151,8 +146,7 @@ public class BuildControllerTests {
 
         when(dashboardService.getDashboard(dashboard.getName()))
                 .thenReturn(dashboard);
-        when(buildService.getStatsFromReposByTeamMembers(
-                eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
+        when(buildService.getStatsFromReposByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
                 .thenReturn(buildStats);
 
         this.mockMvc.perform(

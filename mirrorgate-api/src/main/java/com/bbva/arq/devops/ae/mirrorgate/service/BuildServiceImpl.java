@@ -47,17 +47,14 @@ public class BuildServiceImpl implements BuildService {
     private final DashboardService dashboardService;
 
     @Autowired
-    public BuildServiceImpl(BuildRepository buildRepository,
-            EventService eventService, DashboardService dashboardService) {
-
+    public BuildServiceImpl(BuildRepository buildRepository, EventService eventService, DashboardService dashboardService) {
         this.buildRepository = buildRepository;
         this.eventService = eventService;
         this.dashboardService = dashboardService;
     }
 
     @Override
-    public List<Build> getLastBuildsByReposNameAndByTeamMembers(
-            List<String> repos, List<String> teamMembers) {
+    public List<Build> getLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers) {
         return buildRepository.findLastBuildsByReposNameAndByTeamMembers(
                 repos, teamMembers);
     }
@@ -109,8 +106,7 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public BuildStats getStatsFromReposByTeamMembers(
-            List<String> repos, List<String> teamMembers) {
+    public BuildStats getStatsFromReposByTeamMembers(List<String> repos, List<String> teamMembers) {
 
         BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(
                 repos, teamMembers, 7);
@@ -127,8 +123,7 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(
-            List<String> repos, List<String> teamMembers, long timestamp) {
+    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, long timestamp) {
         return buildRepository.getBuildStatusStatsAfterTimestamp(
                 repos, teamMembers, timestamp);
     }
@@ -150,8 +145,7 @@ public class BuildServiceImpl implements BuildService {
         }
     }
 
-    private BuildStats getStatsWithoutFailureTendency(
-            List<String> repoName, List<String> teamMembers, int daysBefore) {
+    private BuildStats getStatsWithoutFailureTendency(List<String> repoName, List<String> teamMembers, int daysBefore) {
 
         if (repoName == null) {
             return null;

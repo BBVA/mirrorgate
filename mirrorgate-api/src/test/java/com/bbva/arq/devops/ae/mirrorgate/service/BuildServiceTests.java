@@ -62,19 +62,16 @@ public class BuildServiceTests {
         build2.setRepoName(repoName);
         build2.setBranch("master");
 
-        when(buildRepository
-                .findLastBuildsByReposNameAndByTeamMembers(
-                        Arrays.asList(repoName), null))
+        when(buildRepository.findLastBuildsByReposNameAndByTeamMembers(Arrays.asList(repoName), null))
                 .thenReturn(Arrays.asList(build1, build2));
 
         List<Build> lastBuilds = buildService
-                .getLastBuildsByReposNameAndByTeamMembers(
-                        Arrays.asList(repoName), null);
+                .getLastBuildsByReposNameAndByTeamMembers(Arrays.asList(repoName), null);
         verify(buildRepository, times(1))
-                .findLastBuildsByReposNameAndByTeamMembers(
-                        Arrays.asList(repoName), null);
+                .findLastBuildsByReposNameAndByTeamMembers(Arrays.asList(repoName), null);
 
-        assertThat(lastBuilds.get(1).getId()).isEqualTo(build2.getId());
+        assertThat(lastBuilds.get(1).getId())
+                .isEqualTo(build2.getId());
         assertThat(lastBuilds.get(1).getTimestamp())
                 .isEqualTo(build2.getTimestamp());
         assertThat(lastBuilds.get(1).getBuildStatus())
@@ -99,18 +96,16 @@ public class BuildServiceTests {
         build3.setRepoName(repoName);
         build3.setBranch("master");
 
-        when(buildRepository.findLastBuildsByReposNameAndByTeamMembers(
-                Arrays.asList(repoName), Arrays.asList("Atreyu")))
+        when(buildRepository.findLastBuildsByReposNameAndByTeamMembers(Arrays.asList(repoName), Arrays.asList("Atreyu")))
                 .thenReturn(Arrays.asList(build2));
 
         List<Build> lastBuilds = buildService
-                .getLastBuildsByReposNameAndByTeamMembers(
-                        Arrays.asList(repoName), Arrays.asList("Atreyu"));
+                .getLastBuildsByReposNameAndByTeamMembers(Arrays.asList(repoName), Arrays.asList("Atreyu"));
         verify(buildRepository, times(1))
-                .findLastBuildsByReposNameAndByTeamMembers(
-                        Arrays.asList(repoName), Arrays.asList("Atreyu"));
+                .findLastBuildsByReposNameAndByTeamMembers(Arrays.asList(repoName), Arrays.asList("Atreyu"));
 
-        assertThat(lastBuilds.get(0).getId()).isEqualTo(build2.getId());
+        assertThat(lastBuilds.get(0).getId())
+                .isEqualTo(build2.getId());
         assertThat(lastBuilds.get(0).getTimestamp())
                 .isEqualTo(build2.getTimestamp());
         assertThat(lastBuilds.get(0).getBuildStatus())
@@ -122,8 +117,7 @@ public class BuildServiceTests {
         Build build = makeBuild();
         BuildDTO request = TestObjectFactory.createBuildDTO();
 
-        when(dashboardService.getDashboard(anyString()))
-                .thenReturn(new Dashboard());
+        when(dashboardService.getDashboard(anyString())).thenReturn(new Dashboard());
         when(buildRepository.save((Build)any())).thenReturn(build);
 
         String id = buildService.createOrUpdate(request);

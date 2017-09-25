@@ -35,8 +35,7 @@ public interface BuildService {
      * @param teamMembers
      * @return List of builds
      */
-    List<Build> getLastBuildsByReposNameAndByTeamMembers(
-            List<String> repos, List<String> teamMembers);
+    List<Build> getLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers);
 
     /**
      * Create a build from a request
@@ -55,8 +54,7 @@ public interface BuildService {
      * @param timestamp
      * @return
      */
-    Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(
-            List<String> repos, List<String> teamMembers, long timestamp);
+    Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, long timestamp);
 
     /**
      * Get statistics of builds from a repositories and filtered by team members
@@ -66,7 +64,6 @@ public interface BuildService {
      * @param teamMembers
      * @return
      */
-    BuildStats getStatsFromReposByTeamMembers(
-            List<String> repos, List<String> teamMembers);
+    BuildStats getStatsFromReposByTeamMembers(List<String> repos, List<String> teamMembers);
 
 }

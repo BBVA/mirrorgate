@@ -45,7 +45,6 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Autowired
     public DashboardServiceImpl(DashboardRepository dashboardRepository){
-
         this.dashboardRepository = dashboardRepository;
     }
 
@@ -159,8 +158,7 @@ public class DashboardServiceImpl implements DashboardService {
         Dashboard currentDashboard = this.getDashboard(dashboardName);
 
         if(currentDashboard != null) {
-            Authentication auth
-                    = SecurityContextHolder.getContext().getAuthentication();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
             if (auth != null) {
                 String authUser = (String) auth.getPrincipal();
@@ -177,8 +175,7 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardRepository.readFile(dashboardName);
     }
 
-    private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request,
-            String principal) {
+    private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {
 
         request.setId(dashboard.getId());
         request.setLastUserEdit(principal);

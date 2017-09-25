@@ -142,15 +142,14 @@ public class DashboardServiceTests {
     public void updateDashboardAdminUserTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository
-                .findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION))
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION))
                 .thenReturn(dashboard);
-        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
+        when(dashboardRepository.save(dashboard))
+                .thenReturn(dashboard);
 
         Dashboard dashboard2 = dashboardService
                 .updateDashboard(dashboard.getName(), dashboard);
-        verify(dashboardRepository, times(1))
-                .findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save(dashboard);
 
         assertThat(dashboard2.getAdminUsers()).contains(TestObjectFactory.AUTH_NAME);
@@ -165,15 +164,14 @@ public class DashboardServiceTests {
         Dashboard dashboard = TestObjectFactory.createDashboard();
         dashboard.setStatus(TRANSIENT);
 
-        when(dashboardRepository
-                .findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION))
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION))
                 .thenReturn(dashboard);
         when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
 
         Dashboard dashboard2 = dashboardService
                 .updateDashboard(dashboard.getName(), dashboard);
-        verify(dashboardRepository, times(1))
-                .findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+                
+        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save(dashboard);
         verify(dashboardRepository).save(argument.capture());
 

@@ -46,8 +46,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     MongoTemplate mongoTemplate;
 
     @Override
-    public List<Build> findLastBuildsByReposNameAndByTeamMembers(
-            List<String> repos, List<String> teamMembers) {
+    public List<Build> findLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers) {
         TypedAggregation<Build> agg = newAggregation(Build.class,
                 match(Criteria.where("buildStatus")
                         .nin(
@@ -101,8 +100,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     }
 
     @Override
-    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(
-            List<String> repos, List<String> teamMembers, Long timestamp) {
+    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, Long timestamp) {
         Aggregation agg = newAggregation(
                 match(Criteria
                         .where("timestamp").gt(timestamp)
@@ -158,8 +156,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                 .orOperator(regExs.toArray(new Criteria[regExs.size()]));
     }
 
-    private Criteria getCriteriaExpressionsForTeamMembers(
-            List<String> teamMembers) {
+    private Criteria getCriteriaExpressionsForTeamMembers(List<String> teamMembers) {
         if (teamMembers == null) {
             return new Criteria();
         }

@@ -48,16 +48,14 @@ public class BuildController {
     private final DashboardService dashboardService;
 
     @Autowired
-    public BuildController(BuildService buildService,
-            DashboardService dashboardService) {
+    public BuildController(BuildService buildService, DashboardService dashboardService) {
         this.buildService = buildService;
         this.dashboardService = dashboardService;
     }
 
     @RequestMapping(value = "/dashboards/{name}/builds", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public Map<String, Object> getBuildsByBoardName(
-            @PathVariable("name") String name) {
+    public Map<String, Object> getBuildsByBoardName(@PathVariable("name") String name) {
 
         Dashboard dashboard = dashboardService.getDashboard(name);
         if (dashboard == null || dashboard.getCodeRepos() == null
@@ -95,8 +93,7 @@ public class BuildController {
     @RequestMapping(value = "/api/builds", method = POST,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createBuilds(
-            @Valid @RequestBody BuildDTO request) {
+    public ResponseEntity<String> createBuilds(@Valid @RequestBody BuildDTO request) {
 
         String response = buildService.createOrUpdate(request);
 
