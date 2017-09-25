@@ -108,10 +108,8 @@ public class BuildServiceImpl implements BuildService {
     @Override
     public BuildStats getStatsFromReposByTeamMembers(List<String> repos, List<String> teamMembers) {
 
-        BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(
-                repos, teamMembers, 7);
-        BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(
-                repos, teamMembers, 15);
+        BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(repos, teamMembers, 7);
+        BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(repos, teamMembers, 15);
 
         FailureTendency failureTendency = BuildStatsUtils.failureTendency(
                 statsSevenDaysBefore.getFailureRate(),
@@ -124,8 +122,7 @@ public class BuildServiceImpl implements BuildService {
 
     @Override
     public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, long timestamp) {
-        return buildRepository.getBuildStatusStatsAfterTimestamp(
-                repos, teamMembers, timestamp);
+        return buildRepository.getBuildStatusStatsAfterTimestamp(repos, teamMembers, timestamp);
     }
 
     private void createDashboardForBuildProject(Build build) {
