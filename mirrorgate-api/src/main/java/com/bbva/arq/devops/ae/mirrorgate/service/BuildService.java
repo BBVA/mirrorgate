@@ -21,8 +21,6 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import java.util.List;
 import java.util.Map;
-import org.bson.types.ObjectId;
-import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Continuous Integration build service.
@@ -30,12 +28,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface BuildService {
 
     /**
-     * Get the last build of a repository
+     * Get last builds by repositories and filtered by team members if those
+     * exist.
      *
-     * @param repo Repository URL
-     * @return A Build
+     * @param repos
+     * @param teamMembers
+     * @return List of builds
      */
-    List<Build> getAllBranchesLastByReposName(List<String> repo);
+    List<Build> getLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers);
 
     /**
      * Create a build from a request
@@ -46,14 +46,24 @@ public interface BuildService {
     String createOrUpdate(BuildDTO request);
 
     /**
-     * Get a list of builds by repoName and with timestamp after specified
+     * Get a list of builds by repositories with timestamp after specified and
+     * filtered by team members if those exist.
      *
-     * @param repoName
+     * @param repos
+     * @param teamMembers
      * @param timestamp
      * @return
      */
-    Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repoName, long timestamp);
+    Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, long timestamp);
 
-    BuildStats getStatsFromRepos(List<String> repoName);
+    /**
+     * Get statistics of builds from a repositories and filtered by team members
+     * if those exist.
+     *
+     * @param repos
+     * @param teamMembers
+     * @return
+     */
+    BuildStats getStatsFromReposByTeamMembers(List<String> repos, List<String> teamMembers);
 
 }

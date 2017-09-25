@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.builders;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import java.util.Arrays;
+import java.util.List;
 import org.bson.types.ObjectId;
 
 public class BuildBuilder {
@@ -28,9 +29,14 @@ public class BuildBuilder {
     }
 
     public static Build makeBuild(String repoName, String branchName) {
-        Build build = makeBuild(repoName);
-        build.setBranch(branchName);
-        return build;
+        return makeBuild(repoName)
+                .setBranch(branchName);
+    }
+
+    public static Build makeBuild(String repoName,
+            String branchName, List<String> teamMembers) {
+        return makeBuild(repoName, branchName)
+                .setCulprits(teamMembers);
     }
 
     public static Build makeBuild(String repoName) {
@@ -40,18 +46,19 @@ public class BuildBuilder {
     public static Build makeBuild(String repoName, BuildStatus buildStatus) {
         Build build = new Build();
         build.setId(ObjectId.get());
-        build.setTimestamp(1);
-        build.setNumber("1");
-        build.setBuildUrl("buildUrl");
-        build.setStartTime(3);
-        build.setEndTime(8);
-        build.setDuration(5);
-        build.setBuildStatus(buildStatus);
-        build.setCulprits(Arrays.asList("foo"));
-        build.setProjectName("mirrorgate");
-        build.setRepoName(repoName);
-        build.setBranch("test");
-        return build;
+        return build
+                .setTimestamp(System.currentTimeMillis())
+                .setNumber("1")
+                .setBuildUrl("buildUrl")
+                .setStartTime(3)
+                .setEndTime(8)
+                .setDuration(5)
+                .setBuildStatus(buildStatus)
+                .setCulprits(Arrays.asList("foo"))
+                .setProjectName("mirrorgate")
+                .setRepoName(repoName)
+                .setBranch("test");
     }
+
 
 }

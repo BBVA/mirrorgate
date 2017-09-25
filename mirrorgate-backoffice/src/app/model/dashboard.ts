@@ -21,6 +21,7 @@ export class Dashboard {
   programIncrement: string;
   applications: string[] = [];
   codeRepos: string[] = [];
+  teamMembers: string[] = [];
   boards: string[] = [];
   adminUsers: string[] = [];
   analyticViews: string[] = [];
