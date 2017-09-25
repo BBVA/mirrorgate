@@ -19,7 +19,7 @@
     padding-top: 0;
 
     .team {
-        color: $darker-grey;
+        color: $header-color;
         display: flex;
         font-family: $font-header;
         font-size: $level-5;
@@ -39,6 +39,7 @@
         }
         span{
             align-self: center;
+            color: $header-color;
             overflow: hidden;
             text-overflow: ellipsis;
         }

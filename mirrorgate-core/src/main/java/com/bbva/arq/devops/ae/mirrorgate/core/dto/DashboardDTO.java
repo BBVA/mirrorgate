@@ -40,6 +40,8 @@ public class DashboardDTO {
     private Long lastModification;
     private List<String> analyticViews;
 
+    private String skin = "classic";
+
     public String getName() {
         return name;
     }
@@ -157,6 +159,15 @@ public class DashboardDTO {
 
     public DashboardDTO setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
+    }
+
+    public String getSkin() {
+        return skin;
+    }
+
+    public DashboardDTO setSkin(String skin) {
+        this.skin = skin;
         return this;
     }
 }

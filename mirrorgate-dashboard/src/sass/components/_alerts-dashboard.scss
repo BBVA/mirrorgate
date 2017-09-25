@@ -21,13 +21,10 @@ alerts-tile {
 }
 
 .alerts__content {
-  background-color: #F0F0F0;
-  color: #191919;
   text-align: center;
 
   .title {
-    color: #333;
-    font-weight: 300;
+    color: $alerts-header-color;
   }
 
   .component__body {
@@ -47,7 +44,7 @@ alerts-tile {
   }
 
   .alerts-list__group {
-    border-image: linear-gradient(to right, #f0f0f0 0%,#888 50%,#f0f0f0 100%) 1;
+    border-image: linear-gradient(to right, invert( #f0f0f0) 0%,invert(#888) 50%,invert(#f0f0f0) 100%) 1;
     border-width: 1px;
     border-bottom-style: solid;
     padding-bottom: 10px;
@@ -67,7 +64,7 @@ alerts-tile {
 
     .group__header {
       h3 {
-        color:#444;
+        color:$alerts-header-color;
         font-weight: 300;
         margin: 0;
         text-align: left;

@@ -41,7 +41,8 @@ public class DashboardMapper {
                 .setName(source.getName())
                 .setsProductName(source.getsProductName())
                 .setStatus(source.getStatus())
-                .setAnalyticViews(source.getAnalyticViews());
+                .setAnalyticViews(source.getAnalyticViews())
+                .setSkin(source.getSkin());
     }
 
 }

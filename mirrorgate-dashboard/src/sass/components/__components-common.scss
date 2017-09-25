@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
+
+.host {
+  width: 100%;
+}
+
 .component {
-    background-color: #191919;
+    background-color: $component-background-color;
     display: flex;
     width: 100%;
     margin: 0 auto;
@@ -31,21 +36,6 @@
     flex-direction: column;
     //padding-bottom: 20px;
     height: 100%;
-
-    //separador
-    .section:before{
-        background: linear-gradient(
-            to left,
-            rgba(110,110,110,0) 5%,
-            rgba(96,96,96,1) 30%,
-            rgba(96,96,96,1) 70%,
-            rgba(110,110,110,0) 95%);
-        content: " ";
-        width: 100%;
-        position: absolute;
-        right: 0px;
-        height: 1px;
-    }
 
     svg {
         * {
@@ -82,8 +72,11 @@
 }
 
 .title {
+    font-size: $title-size;
+    font-weight: $title-weight;
     margin-bottom: 0;
     text-align: left;
+    text-transform: $title-transform;
 }
 
 .title-desc {
@@ -124,13 +117,19 @@ $border-width: -5px;
 
     &.module-warning--level-2, &.module-warning.tile--primary {
         @extend .module-warning;
-        background: linear-gradient(180deg, rgba(253, 216, 13, 0.05) 30%, rgba(253, 216, 13, 0.22) 100%) !important;
+        background: $module-warning-background !important;
     }
 
     &.module-error--level-2, &.module-error.tile--primary{
         @extend .module-error;
-        background: linear-gradient(180deg, #191919 0%, #61020e 100%) !important;
+        background: $module-error-background !important;
     }
+
+    &.module-ok--level-2, &.module-ok.tile--primary {
+        @extend .module-ok;
+        background: $module-ok-background !important;
+    }
+
 }
 
 tile-container.module-data-error {
@@ -279,34 +278,38 @@ tile-container.module-data-error {
 
 svg {
   path {
-    fill: #7e7e7e;
+    fill: $svg-path-fill;
 
     &.status-in-progress {
-      fill: #2CE6FB;
+      fill: $blue;
     }
 
     &.status-done {
-      fill: #24D268;
+      fill: $green;
     }
 
     &.status-to-rework {
-      fill: #FF2B2B;
+      fill: $red;
+    }
+
+    &.status-backlog {
+      fill: $neutral;
     }
 
     &.status-impeded {
-      fill: #FF2B2B;
+      fill: $red;
     }
 
     &.status-bad {
-      fill: #FF2B2B;
+      fill: $red;
     }
 
     &.status-good {
-      fill: #FDD80D;
+      fill: $yellow;
     }
 
     &.status-excellent {
-      fill: #24D268;
+      fill: $green;
     }
 
     &.status-hidden {
@@ -316,31 +319,31 @@ svg {
 }
 
 .status-in-progress {
-  color: #2CE6FB;
+  color: $blue;
 }
 
 .status-done {
-  color: #24D268;
+  color: $green;
 }
 
 .status-to-rework {
-  color: #FF2B2B;
+  color: $red;
 }
 
 .status-impeded {
-  color: #FF2B2B;
+  color: $red;
 }
 
 .status-bad {
-  color: #FF2B2B;
+  color: $red;
 }
 
 .status-good {
-  color: #FDD80D;
+  color: $yellow;
 }
 
 .status-excellent {
-  color: #24D268;
+  color: $green;
 }
 
 .tendency {

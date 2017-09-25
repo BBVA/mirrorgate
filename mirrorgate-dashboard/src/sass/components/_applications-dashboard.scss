@@ -30,6 +30,10 @@
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
+
+      .platform-rate:last-child {
+          margin-bottom: 0;
+      }
     }
 
     .platform-rate {
@@ -78,6 +82,10 @@
         justify-content: space-between;
     }
 
+    .reviews-list {
+        margin: 0 -7.5px;
+    }
+
     .review__rate {
 
         .rate {
@@ -97,7 +105,7 @@
 
       margin: 0 7.5px;
       padding: 15px;
-      background-color: #222;
+      background-color: $review-background-color;
       height: 100%;
       box-sizing: border-box;
 
@@ -181,6 +189,10 @@
             overflow: hidden;
             word-break: break-word;
             text-align: justify;
+
+            p {
+                margin: 0;
+            }
         }
 
         .review {

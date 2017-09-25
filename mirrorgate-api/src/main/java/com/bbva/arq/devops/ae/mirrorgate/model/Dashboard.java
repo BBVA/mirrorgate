@@ -56,6 +56,7 @@ public class Dashboard extends BaseModel {
     private String urlAlerts;
     private String urlAlertsAuthorization;
     private String author;
+    private String skin = "classic";
 
     public String getName() {
         return name;
@@ -223,5 +224,13 @@ public class Dashboard extends BaseModel {
 
     public void setUrlAlertsAuthorization(String urlAlertsAuthorization) {
         this.urlAlertsAuthorization = urlAlertsAuthorization;
+    }
+
+    public String getSkin() {
+        return skin;
+    }
+
+    public void setSkin(String skin) {
+        this.skin = skin;
     }
 }
