@@ -37,7 +37,7 @@ public class BuildRepositoryTests {
     private BuildRepository repository;
 
     private static final String REPO_NAME = "mirrorgate";
-    private static final String CULPRIT = "Atreyu";
+    private static final String[] CULPRITS = {"Atreyu", "Gmork", "Xayide"};
 
     @Before
     public void before() {
@@ -46,21 +46,26 @@ public class BuildRepositoryTests {
     @Test
     public void getLastByRepoNameAndByTeamMembers() {
         List<String> repos = Arrays.asList(REPO_NAME);
-        List<String> teamMembers = Arrays.asList(CULPRIT);
+        List<String> teamMembers = Arrays.asList(CULPRITS[1], CULPRITS[2]);
 
-        Build build1 = makeBuild(REPO_NAME, "develop");
-        Build build2 = makeBuild(REPO_NAME, "master", teamMembers);
-        Build build3 = makeBuild(REPO_NAME, "master");
+        Build build1 = makeBuild(REPO_NAME, "develop", Arrays.asList(CULPRITS[0]));
+        Build build2 = makeBuild(REPO_NAME, "develop", Arrays.asList(CULPRITS[2]));
+        Build build3 = makeBuild(REPO_NAME, "master", Arrays.asList(CULPRITS[2]));
+        Build build4 = makeBuild(REPO_NAME, "master", Arrays.asList(CULPRITS[1]));
 
         repository.save(build1);
         repository.save(build2);
         repository.save(build3);
+        repository.save(build4);
 
         List<Build> builds = repository
-                .findLastBuildsByReposNameAndByTeamMembers(repos, teamMembers);
+              .findLastBuildsByReposNameAndByTeamMembers(repos, teamMembers);
 
-        assertThat(builds.get(0).getTimestamp()).isEqualTo(build2.getTimestamp());
-        assertThat(builds.get(0).getBranch()).isEqualTo(build2.getBranch());
+        assertThat(builds.size()).isEqualTo(2);
+        assertThat(builds.get(0).getTimestamp()).isEqualTo(build4.getTimestamp());
+        assertThat(builds.get(0).getBranch()).isEqualTo(build4.getBranch());
+        assertThat(builds.get(1).getTimestamp()).isEqualTo(build2.getTimestamp());
+        assertThat(builds.get(1).getBranch()).isEqualTo(build2.getBranch());
     }
 
     @Test
