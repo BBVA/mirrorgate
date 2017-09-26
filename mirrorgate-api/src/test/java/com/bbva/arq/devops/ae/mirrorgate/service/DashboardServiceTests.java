@@ -15,13 +15,9 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
@@ -146,10 +142,13 @@ public class DashboardServiceTests {
     public void updateDashboardAdminUserTest() {
         Dashboard dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
-        when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION))
+                .thenReturn(dashboard);
+        when(dashboardRepository.save(dashboard))
+                .thenReturn(dashboard);
 
-        Dashboard dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
+        Dashboard dashboard2 = dashboardService
+                .updateDashboard(dashboard.getName(), dashboard);
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save(dashboard);
 
@@ -159,15 +158,19 @@ public class DashboardServiceTests {
     @Test
     public void updateTransientDashboard() {
 
-        ArgumentCaptor<Dashboard> argument = ArgumentCaptor.forClass(Dashboard.class);
+        ArgumentCaptor<Dashboard> argument
+                = ArgumentCaptor.forClass(Dashboard.class);
 
         Dashboard dashboard = TestObjectFactory.createDashboard();
         dashboard.setStatus(TRANSIENT);
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(dashboard);
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION))
+                .thenReturn(dashboard);
         when(dashboardRepository.save(dashboard)).thenReturn(dashboard);
 
-        Dashboard dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
+        Dashboard dashboard2 = dashboardService
+                .updateDashboard(dashboard.getName(), dashboard);
+                
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save(dashboard);
         verify(dashboardRepository).save(argument.capture());

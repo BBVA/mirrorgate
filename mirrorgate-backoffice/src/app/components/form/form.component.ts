@@ -45,7 +45,11 @@ export class FormComponent {
       display?: string,
       value?: string
     }[],
-    analyticViews?: string
+    analyticViews?: string,
+    teamMembers?: {
+      display?: string,
+      value?: string
+    }[],
   } = {};
   errorMessage: string;
   url: string;
@@ -100,13 +104,17 @@ export class FormComponent {
         '';
     this.temp.codeRepos =
         this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
-    this.temp.adminUsers = this.dashboard.adminUsers.length ?
+    this.temp.adminUsers = this.dashboard.adminUsers ?
         this.dashboard.adminUsers.map((e) => {
           return { display: e, value: e }
         }) : [];
     this.temp.analyticViews = this.dashboard.analyticViews ?
         this.dashboard.analyticViews.join(',') :
         '';
+    this.temp.teamMembers = this.dashboard.teamMembers ?
+        this.dashboard.teamMembers.map((e) => {
+          return { display: e, value: e }
+        }) : [];
     this.updateSlackChannels();
   }
 
@@ -125,6 +133,9 @@ export class FormComponent {
         undefined;
     this.dashboard.analyticViews = this.temp.analyticViews.length ?
         this.temp.analyticViews.split(',').map((e) => e.trim()) :
+        undefined;
+    this.dashboard.teamMembers = this.temp.teamMembers.length ?
+        this.temp.teamMembers.map((e) => e.value.split('@')[0].trim()) :
         undefined;
     if (!this.edit) {
       this.dashboard.name = kebabCase(this.dashboard.displayName);

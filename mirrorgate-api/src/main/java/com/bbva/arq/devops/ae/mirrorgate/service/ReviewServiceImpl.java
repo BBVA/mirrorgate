@@ -21,11 +21,9 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,7 +41,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<ApplicationDTO> getAverageRateByAppNames(List<String> names) {
-        List<ApplicationDTO> result = repository.getAverageRateByAppNames(names);
+        List<ApplicationDTO> result = repository.getAppInfoByAppNames(names);
 
         List<Review> history = repository.findHistoricalForApps(names);
 

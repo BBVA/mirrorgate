@@ -22,6 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import java.util.HashMap;
@@ -56,17 +57,21 @@ public class BuildController {
             produces = APPLICATION_JSON_VALUE)
     public Map<String, Object> getBuildsByBoardName(@PathVariable("name") String name) {
 
-        Map<String, Object> response = new HashMap<>();
-        List<String> repos = dashboardService.getReposByDashboardName(name);
-
-        if (repos == null) {
+        Dashboard dashboard = dashboardService.getDashboard(name);
+        if (dashboard == null || dashboard.getCodeRepos() == null
+                || dashboard.getCodeRepos().isEmpty()) {
             return null;
         }
 
-        List<Build> builds = buildService.getAllBranchesLastByReposName(repos);
+        List<Build> builds = buildService
+                .getLastBuildsByReposNameAndByTeamMembers(
+                        dashboard.getCodeRepos(), dashboard.getTeamMembers());
+        BuildStats stats = buildService.getStatsFromReposByTeamMembers(
+                dashboard.getCodeRepos(), dashboard.getTeamMembers());
 
+        Map<String, Object> response = new HashMap<>();
         response.put("lastBuilds", builds);
-        response.put("stats", buildService.getStatsFromRepos(repos));
+        response.put("stats", stats);
 
         return response;
     }
@@ -75,9 +80,14 @@ public class BuildController {
         produces = APPLICATION_JSON_VALUE)
     public BuildStats getStats(@PathVariable("name") String name) {
 
-        List<String> repos = dashboardService.getReposByDashboardName(name);
+        Dashboard dashboard = dashboardService.getDashboard(name);
+        if (dashboard == null
+                || dashboard.getCodeRepos() == null) {
+            return null;
+        }
 
-        return buildService.getStatsFromRepos(repos);
+        return buildService.getStatsFromReposByTeamMembers(
+                dashboard.getCodeRepos(), dashboard.getTeamMembers());
     }
 
     @RequestMapping(value = "/api/builds", method = POST,

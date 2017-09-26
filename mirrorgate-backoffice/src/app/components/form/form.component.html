@@ -73,7 +73,6 @@
             </div>
           </div>
 
-
           <!-- Icon upload Modal -->
               <div class="modal fade" id="iconModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -105,8 +104,6 @@
                 </div>
               </div>
           <!-- /Modal -->
-
-
 
           <div class="form-group">
             <label for="adminUsers">{{texts.form.general_block.admin_list}}</label>
@@ -172,6 +169,18 @@
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
               </a>
               <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" (ngModelChange)="mirrorTempValues()" name="codeRepos">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="teamMembers">{{texts.form.ci_block.team_members_list}}</label>
+            <div class="collapse" id="team-members-help">
+              <div class="well" innerHTML="{{texts.form.ci_block.team_members_list_help}}"></div>
+            </div>
+            <div class="input-group">
+              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#team-members-help" aria-expanded="false" aria-controls="team-members-help">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </a>
+              <tag-input class="form-control" id="teamMembers" name="teamMembers" [(ngModel)]="temp.teamMembers" (ngModelChange)="mirrorTempValues()" placeholder="{{texts.form.ci_block.team_members_list_placeholder}}" secondaryPlaceholder="{{texts.form.ci_block.team_members_list_secondary_placeholder}}"></tag-input>
             </div>
           </div>
         </div>

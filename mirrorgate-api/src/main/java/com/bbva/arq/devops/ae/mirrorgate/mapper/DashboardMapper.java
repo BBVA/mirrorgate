@@ -19,9 +19,6 @@ package com.bbva.arq.devops.ae.mirrorgate.mapper;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 
-/**
- * Created by alfonso on 28/05/17.
- */
 public class DashboardMapper {
 
     private DashboardMapper(){}
@@ -31,21 +28,21 @@ public class DashboardMapper {
     }
 
     public static DashboardDTO map(Dashboard source, DashboardDTO target) {
-        target.setAdminUsers(source.getAdminUsers());
-        target.setApplications(source.getApplications());
-        target.setBoards(source.getBoards());
-        target.setCodeRepos(source.getCodeRepos());
-        target.setDisplayName(source.getDisplayName());
-        target.setFilters(source.getFilters());
-        target.setLastModification(source.getLastModification());
-        target.setLastUserEdit(source.getLastUserEdit());
-        target.setLogoUrl(source.getLogoUrl());
-        target.setName(source.getName());
-        target.setsProductName(source.getsProductName());
-        target.setStatus(source.getStatus());
-        target.setAnalyticViews(source.getAnalyticViews());
-        target.setSkin(source.getSkin());
-        return target;
+        return target.setAdminUsers(source.getAdminUsers())
+                .setApplications(source.getApplications())
+                .setBoards(source.getBoards())
+                .setCodeRepos(source.getCodeRepos())
+                .setTeamMembers(source.getTeamMembers())
+                .setDisplayName(source.getDisplayName())
+                .setFilters(source.getFilters())
+                .setLastModification(source.getLastModification())
+                .setLastUserEdit(source.getLastUserEdit())
+                .setLogoUrl(source.getLogoUrl())
+                .setName(source.getName())
+                .setsProductName(source.getsProductName())
+                .setStatus(source.getStatus())
+                .setAnalyticViews(source.getAnalyticViews())
+                .setSkin(source.getSkin());
     }
 
 }

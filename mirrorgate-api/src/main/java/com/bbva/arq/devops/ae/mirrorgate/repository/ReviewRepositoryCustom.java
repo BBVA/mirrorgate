@@ -22,12 +22,12 @@ import java.util.List;
 public interface ReviewRepositoryCustom {
 
     /**
-     * Get the average of star rating of every application form a list of names.
+     * Get information from the applications with a list of the last reviews.
      *
      * @param names A list with the name of the applications
-     * @return Al List of Application objects with name and rate of every application
+     * @return List<ApplicationDTO>
      */
-    List<ApplicationDTO> getAverageRateByAppNames(List<String> names);
+    List<ApplicationDTO> getAppInfoByAppNames(List<String> names);
 
     /**
      * Get the last review for each application

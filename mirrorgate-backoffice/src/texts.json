@@ -40,7 +40,11 @@
     "ci_block": {
       "title": "Build information",
       "builds_input": "Build jobs",
-      "builds_help": "Add a comma separated list with your builds. You can use regular expressions to match both, the build name, or the project name. Note that several items will represent an 'Or' match and not an 'And'.<div class=\"alert alert-warning\" role=\"alert\">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>"
+      "builds_help": "Add a comma separated list with your builds. You can use regular expressions to match both, the build name, or the project name. Note that several items will represent an 'Or' match and not an 'And'.<div class=\"alert alert-warning\" role=\"alert\">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>",
+      "team_members_list": "Team Members",
+      "team_members_list_help": "Builds will be filtered by Team Members if those are included.",
+      "team_members_list_placeholder": "Add a new team member",
+      "team_members_list_secondary_placeholder": "Add team members"
     },
     "markets_block": {
       "title": "Application Markets",
