@@ -24,11 +24,13 @@ import {DashboardsService} from '../../services/dashboards.service';
 import {SlackService} from '../../services/slack.service';
 import {RequestOptions} from '@angular/http/http';
 
+import {TextsService} from '../../services/texts.service';
+
 @Component({
   selector: 'new-and-edit-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  providers: [DashboardsService, SlackService]
+  providers: [DashboardsService, SlackService, TextsService]
 })
 export class FormComponent {
   dashboard: Dashboard;
@@ -48,10 +50,13 @@ export class FormComponent {
   errorMessage: string;
   url: string;
   icon: {error?: string, success?: boolean} = {};
+  texts : {loaded?: boolean} = {loaded: false};
 
   constructor(
       private dashboardsService: DashboardsService,
-      private slackService: SlackService, private router: Router,
+      private textsService: TextsService,
+      private slackService: SlackService,
+      private router: Router,
       private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -73,6 +78,13 @@ export class FormComponent {
     } else {
       this.setDashboard(new Dashboard());
     }
+
+    this.textsService.getTexts()
+      .then((texts) => {
+        this.texts = texts;
+        this.texts.loaded = true;
+      })
+      .catch((error: any) => { this.errorMessage = <any>error; });
   }
 
   setDashboard(dashboard: Dashboard) {

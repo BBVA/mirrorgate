@@ -51,6 +51,7 @@ var webpackConfig = {
         { from: 'src/assets' },
         { from: 'src/index.html' },
         { from: 'src/config.json' },
+        { from: 'src/texts.json' }
     ])
   ],
 

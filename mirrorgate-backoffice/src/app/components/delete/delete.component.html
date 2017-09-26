@@ -15,9 +15,9 @@
   ~ limitations under the License.
   -->
 
-<div class="jumbotron white-bg" *ngIf="dashboard">
-  <h1>You're about to delete the dashboard: '{{dashboard.name}}'</h1>
-  <p>This action cannot be undone. Are you sure you want to proceed?</p>
+<div class="jumbotron white-bg" *ngIf="dashboard && texts.loaded">
+  <h1>{{texts.delete.header}}'{{dashboard.name}}'</h1>
+  <p>{{texts.delete.message}}</p>
   <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
   <p>
     <a class="btn btn-danger btn-lg" (click)="delete()" role="button">Delete</a>

@@ -20,22 +20,33 @@ import {OnInit} from '@angular/core';
 import {Review} from '../../model/review';
 import {ReviewsService} from '../../services/reviews.service';
 
+import {TextsService} from '../../services/texts.service';
+
+
 @Component({
   selector: 'feedback-form',
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss'],
-  providers: [ReviewsService]
+  providers: [ReviewsService, TextsService]
 })
 export class FeedbackComponent {
   review: Review;
   errorMessage: string;
+  texts : {loaded?: boolean} = {loaded: false};
 
   constructor(
-    private reviewsService: ReviewsService
+    private reviewsService: ReviewsService,
+    private textsService: TextsService
   ) {}
 
   ngOnInit(): void {
     this.review = new Review();
+    this.textsService.getTexts()
+      .then((texts) => {
+        this.texts = texts;
+        this.texts.loaded = true;
+      })
+      .catch((error: any) => { this.errorMessage = <any>error; });
   }
 
   back(): void { window.history.back(); }

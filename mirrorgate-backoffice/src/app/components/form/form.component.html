@@ -14,10 +14,10 @@
   ~ limitations under the License.
   -->
 
-<div class="form">
-  <h2 *ngIf="!edit">New dashboard</h2>
-  <h2 *ngIf="dashboard && edit">Edit:
-    <span *ngIf="dashboard.displayName">{{dashboard.displayName}}</span>
+<div class="form" *ngIf="texts.loaded">
+  <h2 *ngIf="!edit">{{texts.form.new_input}}</h2>
+  <h2 *ngIf="dashboard && edit">{{texts.form.edit_input}}
+    <span *ngIf="dashboard.displayName">{{dashboard.display_name}}</span>
     <span *ngIf="!dashboard.displayName">{{dashboard.name}}</span>
   </h2>
 
@@ -27,20 +27,20 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">General data</h3>
+          <h3 class="panel-title">{{texts.form.general_block.title}}</h3>
         </div>
         <div class="panel-body">
           <div class="form-group row">
             <div class="col-sm-6">
-              <label for="name">Name</label>
+              <label for="name">{{texts.form.general_block.name_input}}</label>
               <input type="text" class="form-control" id="name" required [(ngModel)]="dashboard.name" name="name"
               readonly="true" #name="ngModel">
               <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                Name is required
+                {{texts.form.general_block.name_required_text}}
               </div>
             </div>
             <div class="col-sm-6">
-              <label for="skin">Look & Feel</label>
+              <label for="skin">{{texts.form.general_block.skin_list}}</label>
               <select type="text" class="form-control" id="skin" [(ngModel)]="dashboard.skin" name="skin">
                 <option value="classic">Dark</option>
                 <option value="light">Light</option>
@@ -49,17 +49,13 @@
           </div>
           <div class="form-group row">
             <div class="col-sm-6">
-              <label for="displayName">Display Name</label>
+              <label for="displayName">{{texts.form.general_block.display_name_input}}</label>
               <input type="text" class="form-control" id="displayName" [(ngModel)]="dashboard.displayName" (ngModelChange)="mirrorTempValues()" name="displayName" #name="ngModel">
             </div>
             <div class="col-sm-6">
-              <label for="logoURL">URL Logo</label>
+              <label for="logoURL">{{texts.form.general_block.logo_url_input}}</label>
               <div class="collapse" id="icon-url-help">
-                <div class="well">
-                  Please specify a public absolute URL pointing to your logo image file.
-
-                  Note that once the dashboard is already saved for the first time, you can also upload an image by clicking the configuration button.
-                </div>
+                <div class="well" innerHTML="{{texts.form.general_block.logo_url_help}}"></div>
               </div>
               <div class="input-group">
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#icon-url-help" aria-expanded="false" aria-controls="icon-url-help">
@@ -84,17 +80,15 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Icon upload</h4>
+                      <h4 class="modal-title" id="myModalLabel">{{texts.form.general_block.icon_upload}}</h4>
                     </div>
                     <div class="modal-body">
-                      <label for="slack">Icon</label>
-                      <div class="collapse" id="slack_client_id-help">
-                        <div class="well">
-                          Select a PNG file from your file system.
-                        </div>
+                      <label for="iconModal">{{texts.form.general_block.icon_text}}</label>
+                      <div class="collapse" id="iconModal-help">
+                        <div class="well" innerHTML="{{texts.form.general_block.icon_help}}"></div>
                       </div>
                       <div class="input-group">
-                        <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
+                        <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#iconModal-help" aria-expanded="false" aria-controls="iconModal-help">
                           <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </a>
                         <input type="file" class="form-control" (change)="uploadImage($event)" placeholder="Upload png file" accept=".png">
@@ -115,17 +109,15 @@
 
 
           <div class="form-group">
-            <label for="adminUsers">Administrator users</label>
+            <label for="adminUsers">{{texts.form.general_block.admin_list}}</label>
             <div class="collapse" id="admin-users-help">
-              <div class="well">
-                Add the users that will have permission to modify the dashboard. Names must be that which precede the users' e-mail address domain names (i.e. user@bbva.com) and must be separated by commas.
-              </div>
+              <div class="well" innerHTML="{{texts.form.general_block.admin_list_help}}"></div>
             </div>
             <div class="input-group">
               <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#admin-users-help" aria-expanded="false" aria-controls="admin-users-help">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
               </a>
-              <tag-input class="form-control" id="adminUsers" name="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()" placeholder="Add a new adminstrator" secondaryPlaceholder="Add a new adminstrator"></tag-input>
+              <tag-input class="form-control" id="adminUsers" name="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()" placeholder="{{texts.form.general_block.admin_list_placeholder}}" secondaryPlaceholder="{{texts.form.general_block.admin_list_secondary_placeholder}}"></tag-input>
             </div>
           </div>
         </div>
@@ -133,42 +125,26 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Planning data</h3>
+          <h3 class="panel-title">{{texts.form.planning_block.title}}</h3>
         </div>
         <div class="panel-body">
           <div class="form-group row">
             <div class="col-sm-6">
-              <label for="boards">Story keywords</label>
+              <label for="boards">{{texts.form.planning_block.boards_input}}</label>
               <div class="collapse" id="boards-help">
-                <div class="well">
-                  Add a comma separated list with your jira keywords. You can use the team names, project names or project codes as keywords
-                  to match jira issues.
-                </div>
+                <div class="well" innerHTML="{{texts.form.planning_block.boards_help}}"></div>
               </div>
               <div class="input-group">
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#boards-help" aria-expanded="false" aria-controls="boards-help">
-                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                            </a>
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
                 <input type="text" class="form-control" id="boards" [(ngModel)]="temp.boards" (ngModelChange)="mirrorTempValues()" name="boards">
               </div>
             </div>
             <div class="col-sm-6">
-              <label for="programIncrement">Program Increment</label>
+              <label for="programIncrement">{{texts.form.planning_block.pi_input}}</label>
               <div class="collapse" id="product-increment-help">
-                <div class="well">
-                  <p>
-                    Add a regular expression matching your Program Increment name if you want it's data to be displayed on your dashboard.
-                  </p>
-                  <p>
-                    If start and end dates are included in the name in <code>yyyy/MM/dd</code> format,
-                    you can capture them in the regexp so they are included in the dashboard and the remaining labour days
-                    is displayed.
-                  </p>
-                  <p>An example of this regexp could be:</p>
-                  <p><kbd>MyPI (?&lt;startDate&gt;\d+/\d+/\d+)-(?&lt;endDate&gt;\d+/\d+/\d+)</kbd></p>
-                  <p>This regexp will match for example <code>MyPI 2017/05/10-2017/06/20</code></p>
-                  <div class="alert alert-warning" role="alert">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>
-                </div>
+                <div class="well" innerHTML="{{texts.form.planning_block.pi_help}}"></div>
               </div>
               <div class="input-group">
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
@@ -183,24 +159,19 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Build information</h3>
+          <h3 class="panel-title">{{texts.form.ci_block.title}}</h3>
         </div>
         <div class="panel-body">
           <div class="form-group">
-            <label for="codeRepos">Build jobs</label>
+            <label for="codeRepos">{{texts.form.ci_block.builds_input}}</label>
             <div class="collapse" id="code-repos-help">
-              <div class="well">
-                Add a comma separated list with your builds. You can use regular expressions to match both, the build name, or the project
-                name. Note that several items will represent an 'Or' match and not an 'And'.
-                <div class="alert alert-warning" role="alert">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>
-              </div>
+              <div class="well" innerHTML="{{texts.form.ci_block.builds_help}}"></div>
             </div>
             <div class="input-group">
               <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#code-repos-help" aria-expanded="false" aria-controls="code-repos-help">
-                              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                          </a>
-              <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" (ngModelChange)="mirrorTempValues()"
-                name="codeRepos">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </a>
+              <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" (ngModelChange)="mirrorTempValues()" name="codeRepos">
             </div>
           </div>
         </div>
@@ -209,27 +180,19 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Mobile application markets</h3>
+          <h3 class="panel-title">{{texts.form.markets_block.title}}</h3>
         </div>
         <div class="panel-body">
           <div class="form-group">
-            <label for="applications">Applications</label>
+            <label for="applications">{{texts.form.markets_block.apps_input}}</label>
             <div class="collapse" id="applications-help">
-              <div class="well">
-                <p>Add a comma separated list with your market applications.</p>
-                <p>Please specify them using the following convention</p>
-                <ul>
-                  <li><kbd>Android/[appid]</kbd>: for Android applications</li>
-                  <li><kbd>IOS/[bundleId]/[country]</kbd>: for iOS applications. Use the two letter code for the country
-                    (i.e. <code>ES</code> for Spain, <code>US</code> for United Stated and so on)</li>
-                </ul>
-              </div>
+              <div class="well" innerHTML="{{texts.form.markets_block.apps_help}}"></div>
             </div>
             <div class="input-group">
               <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#applications-help" aria-expanded="false"
                 aria-controls="applications-help">
-                              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                          </a>
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </a>
               <input type="text" class="form-control" id="applications" [(ngModel)]="temp.applications" (ngModelChange)="mirrorTempValues()"
                 name="applications">
             </div>
@@ -239,23 +202,20 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Analytics</h3>
+          <h3 class="panel-title">{{texts.form.analytics_block.title}}</h3>
         </div>
         <div class="panel-body">
           <div class="form-group">
-            <label for="viewIds">Analytics Metrics Sources Ids</label>
+            <label for="viewIds">{{texts.form.analytics_block.analytics_input}}</label>
             <div class="collapse" id="view-ids-help">
-              <div class="well">
-                <p>Add a comma separated list with your analytics metrics sources Ids. For example, in case of using Google Analytics as source of metrics: <kbd>ga:123456789,ga:987654321</kbd></p>
-              </div>
+              <div class="well" innerHTML="{{texts.form.analytics_block.analytics_help}}"></div>
             </div>
             <div class="input-group">
               <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#view-ids-help" aria-expanded="false"
                 aria-controls="view-ids-help">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
               </a>
-              <input type="text" class="form-control" id="viewIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()"
-                name="viewIds">
+              <input type="text" class="form-control" id="viewIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()" name="viewIds">
             </div>
           </div>
         </div>
@@ -263,33 +223,22 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Notification and alerts</h3>
+          <h3 class="panel-title">{{texts.form.alerts_block.title}}</h3>
         </div>
         <div class="panel-body">
           <div class="form-group row">
 
 
             <div class="col-sm-6">
-              <label for="slack">Slack</label>
+              <label for="slack">{{texts.form.alerts_block.slack_input}}</label>
               <div class="collapse" id="slack_team-help">
-                <div class="well">
-                  <p>To configure slack please follow this steps:</p>
-                  <ol>
-                    <li>Specify the slack team name</li>
-                    <li>Register an <a href="https://api.slack.com/apps" target="_blank">slack app</a> with access to your team. Enable the "Permissions" feature for it.</li>
-                    <li>Set the app redirect url to <kbd>{{url}}/backoffice/utils/slack/code-capturer</kbd></li>
-                    <li>Click the configure icon that will appear</li>
-                    <li>Fill in the authorization data for the application. That data will not be stored in the DB.</li>
-                    <li>Authorize mirrorgate to access the application</li>
-                    <li>If you want to select an specific channel, do so</li>
-                  </ol>
-                </div>
+                <div class="well" innerHTML="{{texts.form.alerts_block.slack_help}}"></div>
               </div>
               <div class="input-group">
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_team-help" aria-expanded="false" aria-controls="slack_team-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <input type="text" class="form-control" id="slack_team" [(ngModel)]="dashboard.slackTeam" name="slack_team" #name="ngModel" placeholder="Your slack Team name">
+                <input type="text" class="form-control" id="slack_team" [(ngModel)]="dashboard.slackTeam" name="slack_team" #name="ngModel" placeholder="{{texts.form.alerts_block.slack_placeholder}}">
                 <select *ngIf="slackChannels.keys" class="form-control" [(ngModel)]="dashboard.slackChannel" name="slack_channel">
                   <option></option>
                   <option *ngFor="let id of slackChannels.keys" [value]="id">{{slackChannels.values[id]}}</option>
@@ -308,28 +257,23 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Slack app details</h4>
+                      <h4 class="modal-title" id="myModalLabel">{{texts.form.alerts_block.slack_modal_title}}</h4>
                     </div>
                     <div class="modal-body">
-                      <label for="slack">Client Id</label>
+                      <label for="slack">{{texts.form.alerts_block.slack_client_id_input}}</label>
                       <div class="collapse" id="slack_client_id-help">
-                        <div class="well">
-                          Add an application to your Slack Team and put here Client Id's Application to show notifications.
-                        </div>
+                        <div class="well" innerHTML="{{texts.form.alerts_block.slack_client_id_help}}"></div>
                       </div>
                       <div class="input-group">
                         <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
                           <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </a>
                         <input type="text" class="form-control" id="slack_client_id" [(ngModel)]="slack.clientId" name="slack_client_id" #name="ngModel">
-
                       </div>
                       <br />
-                      <label for="slack">Client Secret</label>
+                      <label for="slack">{{texts.form.alerts_block.slack_client_secret_input}}</label>
                       <div class="collapse" id="slack_client_secret-help">
-                        <div class="well">
-                          Add an application to your Slack Team and put here Client Secret's Application to show notifications.
-                        </div>
+                        <div class="well" innerHTML="{{texts.form.alerts_block.slack_client_secret_help}}"></div>
                       </div>
                       <div class="input-group">
                         <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_secret-help" aria-expanded="false" aria-controls="slack_client_secret-help">
@@ -338,8 +282,8 @@
                         <input type="password" class="form-control" id="slack_client_secret" [(ngModel)]="slack.clientSecret" name="slack_client_secret" #name="ngModel">
                       </div>
                       <br/>
-                      <button type="button" class="btn btn-primary" (click)="signSlack(dashboard)">Get token</button>
-                      <div *ngIf="dashboard.slackToken" class="alert alert-success" role="alert">Code generated: {{dashboard.slackToken}}</div>
+                      <button type="button" class="btn btn-primary" (click)="signSlack(dashboard)">{{texts.form.alerts_block.slack_token_button}}</button>
+                      <div *ngIf="dashboard.slackToken" class="alert alert-success" role="alert">{{texts.form.alerts_block.slack_token_input}} {{dashboard.slackToken}}</div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -350,20 +294,16 @@
             </div>
 
             <div class="col-sm-6">
-              <label for="urlAlerts">URL Alerts</label>
+              <label for="urlAlerts">{{texts.form.alerts_block.alerts_url_input}}</label>
               <div class="collapse" id="urlAlerts-help">
-                <div class="well">
-                  <p>URL to gather Alerts from. See <a href="https://github.com/BBVA/mirrorgate/blob/master/mirrorgate-dashboard/test/mocks/dashboards/mirrorgate/alerts">here</a> an example of the response format.</p>
-                  <p>You can also specify an Authorization header to be sent in case the endpoint is authenticated.</p>
-                  <p>In order to send multiple headers you can specify them in the form of <code>HEADER_NAME1=HEADER_VALUE1&HEADER_NAME2=HEADER_VALUE2&...</code></p>
-                </div>
+                <div class="well" innerHTML="{{texts.form.alerts_block.alerts_url_help}}"></div>
               </div>
               <div class="input-group">
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#urlAlerts-help" aria-expanded="false" aria-controls="urlAlerts-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="dashboard.urlAlerts" name="urlAlerts" placeholder="Alerts url">
-                <input type="text" class="form-control" id="urlAlertsAuthorization" [(ngModel)]="dashboard.urlAlertsAuthorization" name="urlAlertsAuthorization" placeholder="Authorization header">
+                <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="dashboard.urlAlerts" name="urlAlerts" placeholder="{{texts.form.alerts_block.alerts_url_placeholder}}">
+                <input type="text" class="form-control" id="urlAlertsAuthorization" [(ngModel)]="dashboard.urlAlertsAuthorization" name="urlAlertsAuthorization" placeholder="{{texts.form.alerts_block.alerts_auth_header_placeholder}}">
               </div>
             </div>
           </div>

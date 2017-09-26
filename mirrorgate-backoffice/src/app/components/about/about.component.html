@@ -13,8 +13,12 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <h3>About</h3>
-<p>This is the backoffice of MirrorGate.</p>
-<p>Please use it with caution as you will have rights to edit or delete every dashboard in the system.</p>
-<p>If you experience any issues or just want to give us some feedback, please open an issue <a href="https://github.com/BBVA/mirrorgate/issues">here</a></p>
+<div *ngIf="texts.loaded" innerHTML="{{texts.about.text}}"></div>
+<div class="row" *ngIf="errorMessage">
+  <div class="col-sm-12">
+    <div class="alert alert-danger" role="alert">
+      <p class="error">{{errorMessage}}</p>
+    </div>
+  </div>
+</div>
