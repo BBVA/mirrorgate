@@ -51,7 +51,12 @@ var MarketsController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getRates);
   };
-  this.init = function() { service.addListener(getRates); };
+  this.init = function(config) {
+    if(!config.applications || !config.applications.length) {
+      return Promise.reject();
+    }
+    service.addListener(getRates);
+  };
 
   this.calculateStars = function (total_rate) {
     var stars = [];

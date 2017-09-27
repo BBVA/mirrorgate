@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-function Detail(data) {
-  this.name = data.name;
-  this.displayName = data.displayName;
-  this.logoUrl = data.logoUrl;
-  this.applications = data.applications;
-  this.codeRepos = data.codeRepos;
-  this.sProductName = data.sProductName;
+package com.bbva.arq.devops.ae.mirrorgate.core.utils;
+
+/**
+ * Created by alfonso on 25/09/17.
+ */
+public enum DashboardType {
+    Aggregate, Detail
 }

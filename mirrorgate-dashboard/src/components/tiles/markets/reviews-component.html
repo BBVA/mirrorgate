@@ -53,25 +53,11 @@
 </template>
 
 <script>
-
-  (function(window, document, undefined) {
-
-    // Refers to the "importee", which is components/team-dashboard.html
-    var thisDoc =  (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
-
-    MyElementProto.getControllerClass = function () {
-      return MarketsController;
-    };
-
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
-
-    MyElementProto.render = function (data) {
+  MGComponent({
+    name: 'reviews-tile',
+    controllerClass: MarketsController,
+    parent: Tile,
+    render: function (data) {
 
       Utils.raiseEvent(this,{
           status: data && data.reviews ? (data.reviews.length > 0 ? 'unknown' : 'empty') :'server-error'
@@ -124,9 +110,9 @@
         this._nextPage();
       }.bind(this));
 
-    }
+    },
 
-    MyElementProto._nextPage = function () {
+    _nextPage: function () {
       var model = this.getModel();
       model.index = model.index + 1;
       if(!model.pages || model.pages.length < model.index) {
@@ -134,9 +120,9 @@
       }
       model.page = model.pages && model.pages[model.index - 1];
       this._addEllipsis();
-    };
+    },
 
-    MyElementProto._addEllipsis = function () {
+    _addEllipsis: function () {
       $(this.shadowRoot).find('.review__comment')
         .dotdotdot({
           ellipsis: '...',
@@ -144,9 +130,9 @@
             return (this.parentElement.offsetHeight + this.parentElement.offsetTop - this.offsetTop - 20);
           }
         });
-    };
+    },
 
-    MyElementProto._initPageCycle = function () {
+    _initPageCycle: function () {
       this.nextReviewHandle = setInterval(function () {
         if(this.pauseCount) {
           this.pauseCount--;
@@ -154,36 +140,31 @@
           this._nextPage();
         }
       }.bind(this), 6000);
-    };
+    },
 
-    MyElementProto._stopPageCycle = function () {
+    _stopPageCycle: function () {
       this.nextReviewHandle && clearInterval(this.nextReviewHandle);
-    };
+    },
 
-    MyElementProto._pausePageCycle = function () {
+    _pausePageCycle: function () {
       this.pauseCount = 10; //Pause for 1 minute
-    };
+    },
 
-    MyElementProto.onInit = function () {
+    onInit: function () {
       this.addEventListener('mouseover', function () {
         this._pausePageCycle();
       });
       this._initPageCycle();
 
-      this._sheet = thisDoc.createElement('style')
+      this._sheet = document.createElement('style')
       var contents = this.shadowRoot.querySelector('.reviews-list');
       contents.appendChild(this._sheet);
 
-    }
+    },
 
-    MyElementProto.onDispose = function () {
+    onDispose: function () {
       this._stopPageCycle();
-      this._sheet.remove();
+      this._sheet && this._sheet.remove();
     }
-
-    // Registers <team-dashboard> in the main document
-    window.MyElement = document.registerElement('reviews-tile', {
-        prototype: MyElementProto
-    });
-  })(window, document);
+  });
 </script>

@@ -22,69 +22,59 @@
 <script>
   (function (window, document, undefined) {
 
-    // Refers to the "importee", which is components/builds-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(HTMLElement.prototype);
-
-    MyElementProto.createdCallback = function () {
-      // Creates the shadow root
-      this.shadowRoot = this.createShadowRoot();
-      this.shadowRoot.appendChild(document.importNode(tmpl.content, true));
-
-      this.addEventListener('dashboard-updated', function (e) {
+    var common = {
+      onCreated: function () {
+        this.addEventListener('dashboard-updated', function (e) {
+          this.updateVisibility();
+        });
+        this.addEventListener('component-ready', function (e) {
+          this.updateVisibility();
+        });
         this.updateVisibility();
-      });
-      this.updateVisibility();
-    };
+      },
 
-    MyElementProto.updateVisibility = function () {
-      var count = 0, countX = 0, countY = 0;
-      var x, y;
-      for (var i in this.children) {
-        var child = this.children[i];
-        if (child.getAttribute) {
-          if(child.getAttribute('enabled') === 'true') {
-            x = 1; y = 1;
-            if(child.getAttribute('data-count-x')) {
-              x = parseInt(child.getAttribute('data-count-x'));
-            }
-            if(child.getAttribute('data-count-y')) {
-              y = parseInt(child.getAttribute('data-count-y'));
-            }
-            count += x * y;
+      updateVisibility: function () {
+        var count = 0, countX = 0, countY = 0;
+        var x, y;
+        for (var i in this.children) {
+          var child = this.children[i];
+          if (child.getAttribute) {
+            if(child.getAttribute('enabled') === 'true') {
+              x = 1; y = 1;
+              if(child.getAttribute('data-count-x')) {
+                x = parseInt(child.getAttribute('data-count-x'));
+              }
+              if(child.getAttribute('data-count-y')) {
+                y = parseInt(child.getAttribute('data-count-y'));
+              }
+              count += x * y;
 
-            if(this.tagName === 'BOARD-COLUMN') {
-              countX = Math.max(x, countX);
-              countY += y;
-            } else {
-              countX += x;
-              countY = Math.max(y, countY);
+              if(this.tagName === 'BOARD-COLUMN') {
+                countX = Math.max(x, countX);
+                countY += y;
+              } else {
+                countX += x;
+                countY = Math.max(y, countY);
+              }
             }
           }
         }
-      }
 
-      this.setAttribute('enabled', !!count);
-      this.setAttribute('data-count-x', countX);
-      this.setAttribute('data-count-y', countY);
-      this.setAttribute('data-count', count);
+        this.setAttribute('enabled', !!count);
+        this.setAttribute('data-count-x', countX);
+        this.setAttribute('data-count-y', countY);
+        this.setAttribute('data-count', count);
 
-      if (count) {
-        this.style.display = null;
-      } else {
-        this.style.display = 'none';
+        if (count) {
+          this.style.display = null;
+        } else {
+          this.style.display = 'none';
+        }
       }
     };
 
-    window.MyElement = document.registerElement('board-column', {
-      prototype: Object.create(MyElementProto)
-    });
-    window.MyElement = document.registerElement('board-row', {
-      prototype: Object.create(MyElementProto)
-    });
+    MGComponent(Object.assign({name: 'board-column'}, common));
+    MGComponent(Object.assign({name: 'board-row'}, common));
   })(window, document);
 
 </script>

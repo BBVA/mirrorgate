@@ -35,6 +35,8 @@ public class Dashboard extends BaseModel {
     private String name;
     private String displayName;
     private String logoUrl;
+    private String type;
+
     @Indexed
     private List<String> codeRepos = new ArrayList<>();
     private List<String> adminUsers = new ArrayList<>();
@@ -56,6 +58,8 @@ public class Dashboard extends BaseModel {
     private String urlAlertsAuthorization;
     private String author;
     private String skin = "classic";
+
+    private List<String> aggregatedDashboards;
 
 
     public String getName() {
@@ -238,6 +242,24 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setSkin(String skin) {
         this.skin = skin;
+        return this;
+    }
+
+    public List<String> getAggregatedDashboards() {
+        return aggregatedDashboards;
+    }
+
+    public Dashboard setAggregatedDashboards(List<String> aggregatedDashboards) {
+        this.aggregatedDashboards = aggregatedDashboards;
+        return this;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Dashboard setType(String type) {
+        this.type = type;
         return this;
     }
 }

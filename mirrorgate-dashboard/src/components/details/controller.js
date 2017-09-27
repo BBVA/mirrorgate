@@ -21,24 +21,7 @@
 var DetailsController = (function(dashboardId) {
 
   var observable = new Event('DetailsController');
-  var service = Service.get(Service.types.dashboard, dashboardId);
-
-  function getDetails(response) {
-    var details;
-
-    if (response) {
-      response = JSON.parse(response);
-      details = new Detail(response);
-    }
-
-    observable.notify(details);
-  }
-
   this.observable = observable;
-  this.dispose = function() {
-    this.observable.reset();
-    service.removeListener(getDetails);
-  };
-  this.init = function() { service.addListener(getDetails); };
+  this.init = function(config) { this.observable.notify(config); };
 
 });

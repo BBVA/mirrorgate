@@ -17,6 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -44,7 +45,6 @@ public class DashboardDTO {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackToken;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackTeam;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackChannel;
@@ -56,6 +56,9 @@ public class DashboardDTO {
     private String author;
     private String urlAlerts;
     private String urlAlertsAuthorization;
+    private List<String> aggregatedDashboards;
+
+    private DashboardType type = DashboardType.Detail;
 
     public String getName() {
         return name;
@@ -239,5 +242,23 @@ public class DashboardDTO {
 
     public String getUrlAlertsAuthorization() {
         return urlAlertsAuthorization;
+    }
+
+    public DashboardDTO setAggregatedDashboards(List<String> aggregatedDashboards) {
+        this.aggregatedDashboards = aggregatedDashboards;
+        return this;
+    }
+
+    public List<String> getAggregatedDashboards() {
+        return aggregatedDashboards;
+    }
+
+    public DashboardType getType() {
+        return type;
+    }
+
+    public DashboardDTO setType(DashboardType type) {
+        this.type = type;
+        return this;
     }
 }

@@ -23,7 +23,7 @@ describe('BugsController', () => {
     server = buildFakeServer();
     server.autoRespond = true;
     controller = new BugsController(dashboardForTesting);
-    controller.init();
+    return controller.init(detailsForTesting);
   });
 
   it('should get bugs type count', (done) => {

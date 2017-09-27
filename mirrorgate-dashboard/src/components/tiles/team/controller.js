@@ -56,6 +56,11 @@ var TeamController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getActiveUserStories);
   };
-  this.init = function() { service.addListener(getActiveUserStories); };
+  this.init = function(config) {
+    if(!config.boards || !config.boards.length) {
+      return Promise.reject();
+    }
+    service.addListener(getActiveUserStories);
+  };
 
 });

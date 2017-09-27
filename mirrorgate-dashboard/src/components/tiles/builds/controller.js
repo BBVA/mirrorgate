@@ -111,7 +111,7 @@ var BuildsController = (function(dashboardId) {
               getDevelopBranch(item,data).addChild(build);
               build.data = item;
           }
-          
+
           if(item.timestamp > data.stats.lastBuildTimestamp) {
             data.stats.lastBuildTimestamp = item.timestamp;
           }
@@ -136,6 +136,9 @@ var BuildsController = (function(dashboardId) {
   };
   this.init = function(_config) {
     config = _config;
+    if(!config.codeRepos || !config.codeRepos.length) {
+      return Promise.reject();
+    }
     service.addListener(getLastBuilds);
     ServerSideEvent.addListener(getLastBuilds);
   };

@@ -54,7 +54,11 @@ var BuildsStatsController = (function(dashboardId) {
     service.removeListener(getBuildsStats);
     ServerSideEvent.removeListener(getBuildsStats);
   };
-  this.init = function() {
+  this.init = function(config) {
+    if(!config.codeRepos || !config.codeRepos.length) {
+      return Promise.reject();
+    }
+
     service.addListener(getBuildsStats);
     ServerSideEvent.addListener(getBuildsStats);
   };

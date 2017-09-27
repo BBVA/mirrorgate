@@ -17,6 +17,7 @@
 
 beforeEach(() => {
   Events.reset();
+  Service.reset();
 });
 
 var dashboardForTesting = 'all';
@@ -37,10 +38,17 @@ var alertsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting +
 
 var piForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/programincrement');
 
+var userMetricsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/user-metrics');
+
+//Placeholder to avoid Server Sent Events error
+var EventSource = function (){
+  this.addEventListener = function () {};
+};
+
 function buildFakeServer() {
 
   var server = sinon.fakeServer.create();
-  //server.autoRespond = true;
+  server.autoRespond = false;
 
   server.respondWith(
     'GET',
@@ -119,6 +127,16 @@ function buildFakeServer() {
       200,
       { "Content-Type": "application/json" },
       JSON.stringify(piForTesting)
+    ]
+  );
+
+  server.respondWith(
+    'GET',
+    'dashboards/' + dashboardForTesting + '/user-metrics',
+    [
+      200,
+      { "Content-Type": "application/json" },
+      JSON.stringify(userMetricsForTesting)
     ]
   );
 

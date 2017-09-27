@@ -23,7 +23,7 @@ describe('AlertsController', () => {
     server = buildFakeServer();
     server.autoRespond = true;
     controller = new AlertsController(dashboardForTesting);
-    controller.init(detailsForTesting);
+    return controller.init(detailsForTesting);
   });
 
   it('should get alerts', (done) => {

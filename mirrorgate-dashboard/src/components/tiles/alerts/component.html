@@ -59,46 +59,24 @@
 </template>
 
 <script>
-  (function (window, document, undefined) {
+  MGComponent({
+    name: 'alerts-tile',
+    controllerClass: AlertsController,
+    parent: Tile,
 
-    // Refers to the "importee", which is components/builds-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
-
-    MyElementProto.processAlerts = function (data) {
+    processAlerts: function (data) {
       Utils.raiseEvent(this, {
         status: data ? (data.length > 0 ? 'ok': 'empty') : 'server-error'
       });
-    }
+    },
 
-    MyElementProto.getControllerClass = function () {
-      return AlertsController;
-    };
-
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
-
-    // Fires when an instance of the element is created
-    MyElementProto.render = function (data) {
-
+    render: function (data) {
       this.processAlerts(data);
-
       var model = this.getModel();
-
       if (data) {
         model.alerts = data;
         model.count = data.length;
       }
-    };
-
-    window.MyElement = document.registerElement('alerts-tile', {
-      prototype: MyElementProto
-    });
-
-  })(window, document);
-
+    },
+  });
 </script>

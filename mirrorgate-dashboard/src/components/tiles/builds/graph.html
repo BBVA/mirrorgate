@@ -76,13 +76,6 @@
 <script>
   (function (window, document, undefined) {
 
-    // Refers to the "importee", which is components/builds-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
-
     function getState(builds) {
       var levelMapping = {
         InProgress: 0,
@@ -124,119 +117,112 @@
       .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) + 20; })
       .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -1; });
 
-    MyElementProto.processAlerts = function (data) {
-      var levelEvent = ['unknown', 'ok', 'warn', 'error', 'critical', 'server-error'];
-      Utils.raiseEvent(this, {
-        status: data ? levelEvent[getState(data.buildRoot)] : levelEvent[5]
-      });
-    }
+    MGComponent({
+      name: 'builds-tile',
+      controllerClass: BuildsController,
+      parent: Tile,
 
-    MyElementProto.getControllerClass = function () {
-      return BuildsController;
-    };
+      processAlerts: function (data) {
+        var levelEvent = ['unknown', 'ok', 'warn', 'error', 'critical', 'server-error'];
+        Utils.raiseEvent(this, {
+          status: data ? levelEvent[getState(data.buildRoot)] : levelEvent[5]
+        });
+      },
 
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
-
-    // Fires when an instance of the element is created
-    MyElementProto.render = function (data) {
-      function classBuilder(d) {
-        var classes = 'build-result status-' + Utils.toClassName(d.status);
-        var data = (d.data || d.developData);
-        if (data && data.buildUrl) {
-          classes += ' clickable'
+      render: function (data) {
+        function classBuilder(d) {
+          var classes = 'build-result status-' + Utils.toClassName(d.status);
+          var data = (d.data || d.developData);
+          if (data && data.buildUrl) {
+            classes += ' clickable'
+          }
+          return classes;
         }
-        return classes;
-      }
 
-      this.processAlerts(data);
+        this.processAlerts(data);
 
-      var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
+        var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
 
-      var model = this.getModel();
-      model.stats = data ? data.stats : {};
-      if(data && !model.hover) {
-        model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
-      }
+        var model = this.getModel();
+        model.stats = data ? data.stats : {};
+        if(data && !model.hover) {
+          model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
+        }
 
-      var buildRoot = data && {children: data.buildRoot};
-      var depth = 1;
+        var buildRoot = data && {children: data.buildRoot};
+        var depth = 1;
 
-      //Chage sizes so that all the repos take the same size
-      buildRoot && buildRoot.children.forEach(function (repoBuild) {
-        repoBuild.size = 100;
-        repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
-          depth = Math.max(depth, 2);
+        //Chage sizes so that all the repos take the same size
+        buildRoot && buildRoot.children.forEach(function (repoBuild) {
+          repoBuild.size = 100;
           repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
-            depth = Math.max(depth, 3);
+            depth = Math.max(depth, 2);
+            repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
+              depth = Math.max(depth, 3);
+            });
           });
         });
-      });
 
-      partition = partition.size([1, 1 - (0.25 * (3-depth))]);
+        partition = partition.size([1, 1 - (0.25 * (3-depth))]);
 
-      buildRoot = buildRoot || [];
+        buildRoot = buildRoot || [];
 
-      var width = parseFloat(style.width.substring(0, style.width.length - 2)),
-        height = parseFloat(style.height.substring(0, style.height.length - 2)),
-        radius = Math.min(width, height) / 2;
-        width = 2 * radius;
+        var width = parseFloat(style.width.substring(0, style.width.length - 2)),
+          height = parseFloat(style.height.substring(0, style.height.length - 2)),
+          radius = Math.min(width, height) / 2;
+          width = 2 * radius;
 
-      var container = d3.select(this.shadowRoot).select("svg");
+        var container = d3.select(this.shadowRoot).select("svg");
 
-      var svg = container
-        .attr('preserveAspectRatio', 'xMidYMid meet')
-        .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
+        var svg = container
+          .attr('preserveAspectRatio', 'xMidYMid meet')
+          .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
 
-        .select('g.main').attr('transform',
-        'translate(' + radius + ',' + radius + ') ' +
-        'scale(' + (radius / 530) + ')'
-        );
+          .select('g.main').attr('transform',
+          'translate(' + radius + ',' + radius + ') ' +
+          'scale(' + (radius / 530) + ')'
+          );
 
-      var buildsData = svg.select('.slices').selectAll('path')
-        .data(partition.nodes(buildRoot));
+        var buildsData = svg.select('.slices').selectAll('path')
+          .data(partition.nodes(buildRoot));
 
-      buildsData
-        .attr('d', arc)
-        .attr('class', classBuilder);
+        buildsData
+          .attr('d', arc)
+          .attr('class', classBuilder);
 
-      buildsData.enter()
-        .append('path')
-        .on('mouseenter', function (d) {
-          model.hover = true;
-          model.selectedBuild = d.data;
+        buildsData.enter()
+          .append('path')
+          .on('mouseenter', function (d) {
+            model.hover = true;
+            model.selectedBuild = d.data;
 
-          if (model.selectedBuild) {
-            container
-              .select('.slices')
-              .classed('dimmed', true)
-              .select('path:first-child')
-              .style('fill', 'transparent')
-          }
-        })
-        .on('click', function (d) {
-          var data = (d.data || d.developData);
-          data && window.open(data.buildUrl, "JenkinsBuild");
-        })
-        .attr('d', arc)
-        .attr('class', classBuilder);
+            if (model.selectedBuild) {
+              container
+                .select('.slices')
+                .classed('dimmed', true)
+                .select('path:first-child')
+                .style('fill', 'transparent')
+            }
+          })
+          .on('click', function (d) {
+            var data = (d.data || d.developData);
+            data && window.open(data.buildUrl, "JenkinsBuild");
+          })
+          .attr('d', arc)
+          .attr('class', classBuilder);
 
-      buildsData.exit().remove();
+        buildsData.exit().remove();
 
-      svg.select('.slices').on('mouseout', function (d) {
-        container
-          .select('.slices')
-          .classed('dimmed', false)
-          .select('path:first-child')
-          .style('fill', null);
-        model.hover = false;
-        model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
-      });
-    };
-
-    window.MyElement = document.registerElement('builds-tile', {
-      prototype: MyElementProto
+        svg.select('.slices').on('mouseout', function (d) {
+          container
+            .select('.slices')
+            .classed('dimmed', false)
+            .select('path:first-child')
+            .style('fill', null);
+          model.hover = false;
+          model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
+        });
+      }
     });
 
   })(window, document);

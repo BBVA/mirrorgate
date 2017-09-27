@@ -137,6 +137,20 @@ rivets.binders['pclass-*'] = function(el, value) {
   }
 };
 
+rivets.binders['setclass-*'] = function(el, value) {
+  var cls = this.args[0];
+  var $el = $(el);
+  var classList = el.className.split(/\s+/);
+  classList.forEach(function(name) {
+    if (name === cls) {
+      $el.removeClass(name);
+    }
+  });
+  if (value) {
+    $(el).addClass(cls);
+  }
+};
+
 function styleBuilder(style, suffix) {
   suffix = suffix || '';
 

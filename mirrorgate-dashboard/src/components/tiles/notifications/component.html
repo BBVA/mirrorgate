@@ -46,52 +46,39 @@
 <script>
   (function (window, document, undefined) {
 
-    // Refers to the "importee", which is components/builds-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
     var breakTimeout;
 
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
+    MGComponent({
+      name: 'notifications-tile',
+      controllerClass: NotificationsController,
+      parent: Tile,
 
-    MyElementProto.processAlerts = function (data) {
-      Utils.raiseEvent(this, {
-        status: data ? 'unknown' : 'server-error'
-      });
-    }
+      processAlerts: function (data) {
+        Utils.raiseEvent(this, {
+          status: data ? 'unknown' : 'server-error'
+        });
+      },
 
-    MyElementProto.getControllerClass = function () {
-      return NotificationsController;
-    };
+      render: function (data) {
 
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
+        this.processAlerts(data);
 
-    // Fires when an instance of the element is created
-    MyElementProto.render = function (data) {
+        var model = this.getModel();
 
-      this.processAlerts(data);
-
-      var model = this.getModel();
-
-      if (data) {
-        model.notification = data;
-        if(data.description.indexOf('MIRRORBREAK!') >= 0) {
-          $('.easter-egg').css('display','block');
-          if(breakTimeout) {
-            clearTimeout(breakTimeout);
+        if (data) {
+          model.notification = data;
+          if(data.description.indexOf('MIRRORBREAK!') >= 0) {
+            $('.easter-egg').css('display','block');
+            if(breakTimeout) {
+              clearTimeout(breakTimeout);
+            }
+            breakTimeout = setTimeout(function () {
+              $('.easter-egg').css('display', 'none');
+              breakTimeout = undefined;
+            }, 60000);
           }
-          breakTimeout = setTimeout(function () {
-            $('.easter-egg').css('display', 'none');
-            breakTimeout = undefined;
-          }, 60000);
         }
       }
-    };
-
-    window.MyElement = document.registerElement('notifications-tile', {
-      prototype: MyElementProto
     });
 
   })(window, document);

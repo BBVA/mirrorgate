@@ -17,6 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import org.junit.Test;
@@ -41,6 +42,7 @@ public class DashboardMapperTests {
     public void itShouldMapAllFields() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Dashboard dashboard = new Dashboard()
                 .setStatus(DashboardStatus.ACTIVE)
+                .setType(DashboardType.Detail.name())
                 .setFilters(new Filters());
 
         MapperTestingSupport.initializeTypicalSetters(dashboard);

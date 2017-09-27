@@ -22,7 +22,7 @@ describe('TeamController', () => {
     server = buildFakeServer();
     server.autoRespond = true;
     controller = new TeamController(dashboardForTesting);
-    controller.init();
+    return controller.init(detailsForTesting);
   });
 
   afterEach(() => {
