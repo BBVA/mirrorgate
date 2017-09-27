@@ -26,7 +26,8 @@
         <i class="fa fa-bars" aria-hidden="true"></i>
       </button>
       <ul class="dropdown-menu" aria-labelledby="menuBtn">
-        <li><a href="canary.html" onclick="return Utils.openDashboard('canary');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a></li>
+        <li rv-if="simple"><a href="canary.html" onclick="return Utils.openDashboard('canary');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a></li>
+        <li rv-unless="simple"><a href="dashboard.html" onclick="return Utils.openDashboard('dashboard');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Simple view</a></li>
         <li class="dropdown-header">Manage</li>
         <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice()"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
         <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice(Utils.getDashboardId());"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
@@ -43,9 +44,11 @@
   MGComponent({
     name: 'menu-component',
     lightDOM: true,
-    onCreated: function () {
+    parent: Tile,
+    render: function () {
       var model = this.getModel();
       model.dashboards = [];
+      model.simple = this.getConfig().simple;
 
       var dashboardsService = Service.get(Service.types.dashboards);
       dashboardsService.addListener(function (response) {

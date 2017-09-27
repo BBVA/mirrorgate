@@ -17,12 +17,18 @@
 
 <link rel="import" href="./aggregate/component.html" >
 <link rel="import" href="./detail/component.html" >
+<link rel="import" href="./simple/component.html" >
 <template>
   <style>
     @import "css/{skin}.css";
   </style>
   <aggregate-dashboard rv-if="aggregated" rv-config="config" class="page-component"></aggregate-dashboard>
-  <detail-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></detail-dashboard>
+  <div rv-if="simple">
+    <simple-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></simple-dashboard>
+  </div>
+  <div rv-unless="simple">
+    <detail-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></detail-dashboard>
+  </div>
 </template>
 
 <script>
@@ -34,12 +40,14 @@
       var detailsService =
           Service.get(Service.types.dashboard, Utils.getDashboardId());
       var model = this.getModel();
+      model.simple = this.getAttribute('simple') === 'true';
       return new Promise(function (resolve) {
         detailsService.addListener(function(config) {
           model.details = config && JSON.parse(config);
           model.aggregated = model.details.type === "Aggregate";
-          model.config = config;
-          resolve(config);
+          model.details.simple = model.simple || false;
+          model.config = JSON.stringify(model.details);
+          resolve(model.config);
         });
       });
     }
