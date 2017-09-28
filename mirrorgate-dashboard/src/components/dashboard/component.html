@@ -23,40 +23,42 @@
   <style>
     @import "css/{skin}.css";
   </style>
-  <message-dashboard
-      message="This dashboard doesn't have any data configured."
-      rv-link="editLink"
-      link="#"
-      link-text="Edit dashboard"
-      rv-config="config"
-      rv-if="empty"
-  ></message-dashboard>
-  <div rv-if="details" id="dashboard-container">
-    <aggregate-dashboard rv-if="aggregated" rv-config="config" class="page-component"></aggregate-dashboard>
-    <div rv-if="simple">
-      <simple-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></simple-dashboard>
-    </div>
-    <div rv-unless="simple">
-      <detail-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></detail-dashboard>
-    </div>
-  </div>
-  <div rv-unless="details">
+  <div id="main-container" style="display:none">
     <message-dashboard
-        message="Start using MirrorGate by creating a new dashboard"
-        link="backoffice/index.html#/new"
-        link-text="New dashboard"
-        rv-if="noDashboard"
+        message="This dashboard doesn't have any data configured."
+        rv-link="editLink"
+        link="#"
+        link-text="Edit dashboard"
         rv-config="config"
+        rv-if="empty"
     ></message-dashboard>
-    <message-dashboard
-        message="Ops... dashboard not found."
-        link="backoffice/index.html"
-        link-text="See available dashboards"
-        rv-config="config"
-        rv-unless="noDashboard"
-    ></message-dashboard>
+    <div rv-if="details" id="dashboard-container">
+      <aggregate-dashboard rv-if="aggregated" rv-config="config" class="page-component"></aggregate-dashboard>
+      <div rv-if="simple">
+        <simple-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></simple-dashboard>
+      </div>
+      <div rv-unless="simple">
+        <detail-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></detail-dashboard>
+      </div>
+    </div>
+    <div rv-unless="details">
+      <message-dashboard
+          message="Start using MirrorGate by creating a new dashboard"
+          link="backoffice/index.html#/new"
+          link-text="New dashboard"
+          rv-if="noDashboard"
+          rv-config="config"
+      ></message-dashboard>
+      <message-dashboard
+          message="Ops... dashboard not found."
+          link="backoffice/index.html"
+          link-text="See available dashboards"
+          rv-config="config"
+          rv-unless="noDashboard"
+      ></message-dashboard>
+    </div>
+    <img src="img/broken-glass.png" class="easter-egg"/>
   </div>
-  <img src="img/broken-glass.png" class="easter-egg"/>
 </template>
 
 <script>
@@ -65,6 +67,10 @@
     parent: DashboardComponent,
     lightDOM: true,
     onCreated: function () {
+      this.addEventListener('component-ready', function () {
+        this.querySelector('#main-container').style.display='block';
+      }.bind(this));
+
       var dId = Utils.getDashboardId();
       var model = this.getModel();
       if(dId) {
