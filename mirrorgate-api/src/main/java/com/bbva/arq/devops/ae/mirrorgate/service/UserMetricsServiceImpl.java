@@ -65,6 +65,8 @@ public class UserMetricsServiceImpl implements UserMetricsService {
         List<UserMetric> targets = userMetricsRepository.findAllByViewIdIn(
                 StreamSupport.stream(metrics.spliterator(), false)
                 .map(UserMetricDTO::getViewId)
+                .filter((e) -> e != null)
+                .distinct()
                 .collect(Collectors.toList())
         );
         List<UserMetric> toSave = StreamSupport.stream(metrics.spliterator(), false)

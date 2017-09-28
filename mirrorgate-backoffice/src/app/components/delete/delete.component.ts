@@ -19,25 +19,35 @@ import {DashboardsService} from '../../services/dashboards.service';
 import {Dashboard} from '../../model/dashboard';
 import { OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {TextsService} from '../../services/texts.service';
 
 @Component({
   selector: 'delete',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
-  providers: [DashboardsService]
+  providers: [DashboardsService, TextsService]
 })
 export class DeleteComponent {
 
   dashboard: Dashboard;
   errorMessage: string;
+  texts : {loaded?: boolean} = {loaded: false};
 
   constructor(private dashboardsService: DashboardsService,
               private router: Router,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private textsService: TextsService
+  ) {}
 
   ngOnInit(): void {
     let name = this.route.snapshot.params['id'];
     this.dashboardsService.getDashboard(name).then(dashboard => this.dashboard = dashboard);
+    this.textsService.getTexts()
+      .then((texts) => {
+        this.texts = texts;
+        this.texts.loaded = true;
+      })
+      .catch((error: any) => { this.errorMessage = <any>error; });
   }
 
   back(): void {

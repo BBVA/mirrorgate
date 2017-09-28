@@ -20,9 +20,6 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 
-/**
- * Created by alfonso on 28/05/17.
- */
 public class DashboardMapper {
 
     private DashboardMapper(){}
@@ -46,6 +43,7 @@ public class DashboardMapper {
                 .setFilters(source.getFilters())
                 .setLastModification(source.getLastModification())
                 .setLastUserEdit(source.getLastUserEdit())
+                .setTeamMembers(source.getTeamMembers())
                 .setLogoUrl(source.getLogoUrl())
                 .setName(source.getName())
                 .setsProductName(source.getsProductName())
@@ -73,6 +71,7 @@ public class DashboardMapper {
                 .setFilters(source.getFilters())
                 .setLastModification(source.getLastModification())
                 .setLastUserEdit(source.getLastUserEdit())
+                .setTeamMembers(source.getTeamMembers())
                 .setLogoUrl(source.getLogoUrl())
                 .setName(source.getName())
                 .setsProductName(source.getsProductName())

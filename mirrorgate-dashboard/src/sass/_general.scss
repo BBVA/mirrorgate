@@ -176,10 +176,7 @@ tile-container{
 
     tile-container.alerts {
         background: $alerts-background;
-
-        &.module-data-error:before{
-            color: #444;
-        }
+        border-left: 2px solid lighten($alerts-background, 5);
     }
 
     .bottom{

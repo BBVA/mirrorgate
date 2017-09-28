@@ -122,8 +122,8 @@ public class DashboardServiceTests {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
-        when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
-
+        when(dashboardRepository.save((Dashboard) any())).thenAnswer(d -> d.getArguments()[0]);
+        
         DashboardDTO dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save((Dashboard) any());
@@ -134,14 +134,15 @@ public class DashboardServiceTests {
     @Test
     public void updateTransientDashboard() {
 
-        ArgumentCaptor<Dashboard> argument = ArgumentCaptor.forClass(Dashboard.class);
+        ArgumentCaptor<Dashboard> argument
+                = ArgumentCaptor.forClass(Dashboard.class);
 
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
         Dashboard rDashboard = map(dashboard);
         rDashboard.setStatus(TRANSIENT);
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(rDashboard);
-        when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
+        when(dashboardRepository.save((Dashboard) any())).thenAnswer(d -> d.getArguments()[0]);
 
         DashboardDTO dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);

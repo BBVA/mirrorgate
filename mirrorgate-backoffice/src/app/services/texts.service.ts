@@ -14,29 +14,22 @@
  * limitations under the License.
  */
 
-export class Dashboard {
-  name: string;
-  displayName: string;
-  logoUrl: string;
-  programIncrement: string;
-  applications: string[] = [];
-  codeRepos: string[] = [];
-  teamMembers: string[] = [];
-  boards: string[] = [];
-  adminUsers: string[] = [];
-  analyticViews: string[] = [];
-  filter: {
-    timeSpan: number,
-    branch: Map<string,boolean>,
-    status: Map<string,boolean>
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { Headers, RequestOptions, Response } from '@angular/http';
+
+import 'rxjs/add/operator/toPromise';
+
+@Injectable()
+export class TextsService {
+
+  constructor(private http: Http) { }
+
+  getTexts(): Promise<any> {
+
+    return this.http.get('texts.json')
+              .toPromise()
+              .then(response => response.json());
   }
-  slackTeam: string;
-  slackToken: string;
-  urlAlerts: string;
-  urlAlertsAuthorization: string;
-  slackChannel: string;
-  lastUserEdit: string;
-  lastModification: number;
-  type: string = 'Detail';
-  aggregatedDashboards: string[] = [];
+
 }

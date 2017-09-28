@@ -43,22 +43,21 @@ public class BuildServiceImpl implements BuildService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildServiceImpl.class);
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
 
-    private BuildRepository buildRepository;
-    private EventService eventService;
-    private DashboardService dashboardService;
-
+    private final BuildRepository buildRepository;
+    private final EventService eventService;
+    private final DashboardService dashboardService;
 
     @Autowired
     public BuildServiceImpl(BuildRepository buildRepository, EventService eventService, DashboardService dashboardService) {
-
         this.buildRepository = buildRepository;
         this.eventService = eventService;
         this.dashboardService = dashboardService;
     }
 
     @Override
-    public List<Build> getAllBranchesLastByReposName(List<String> repos) {
-        return buildRepository.findAllBranchesLastByReposName(repos);
+    public List<Build> getLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers) {
+        return buildRepository.findLastBuildsByReposNameAndByTeamMembers(
+                repos, teamMembers);
     }
 
     @Override
@@ -77,7 +76,8 @@ public class BuildServiceImpl implements BuildService {
         Build build = buildRepository.save(toSave);
 
         if (build == null) {
-            throw new BuildConflictException("Failed inserting/updating build information.");
+            throw new BuildConflictException("Failed inserting/updating build "
+                    + "information.");
         }
 
         eventService.saveBuildEvent(build);
@@ -107,12 +107,14 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public BuildStats getStatsFromRepos(List<String> repoNames) {
+    public BuildStats getStatsFromReposByTeamMembers(List<String> repos, List<String> teamMembers) {
 
-        BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(repoNames, 7);
-        BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(repoNames, 15);
+        BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(repos, teamMembers, 7);
+        BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(repos, teamMembers, 15);
 
-        FailureTendency failureTendency = BuildStatsUtils.failureTendency(statsSevenDaysBefore.getFailureRate(), statsFifteenDaysBefore.getFailureRate());
+        FailureTendency failureTendency = BuildStatsUtils.failureTendency(
+                statsSevenDaysBefore.getFailureRate(),
+                statsFifteenDaysBefore.getFailureRate());
 
         statsSevenDaysBefore.setFailureTendency(failureTendency);
 
@@ -120,11 +122,11 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repoName, long timestamp) {
-        return buildRepository.getBuildStatusStatsAfterTimestamp(repoName, timestamp);
+    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, long timestamp) {
+        return buildRepository.getBuildStatusStatsAfterTimestamp(repos, teamMembers, timestamp);
     }
 
-    private void createDashboardForBuildProject(Build build){
+    private void createDashboardForBuildProject(Build build) {
 
         try {
             DashboardDTO newDashboard = new DashboardDTO();
@@ -136,20 +138,24 @@ public class BuildServiceImpl implements BuildService {
 
             dashboardService.newDashboard(newDashboard);
         } catch(DashboardConflictException e) {
-            LOGGER.warn("Error while creating build based dashboard {}. Dashboard already exists", build.getProjectName());
+            LOGGER.warn("Error while creating build based dashboard {}. "
+                    + "Dashboard already exists", build.getProjectName());
         }
     }
 
-    private BuildStats getStatsWithoutFailureTendency(List<String> repoName, int daysBefore) {
+    private BuildStats getStatsWithoutFailureTendency(List<String> repoName, List<String> teamMembers, int daysBefore) {
 
         if (repoName == null) {
             return null;
         }
 
-        Date numberOfDaysBefore = new Date(System.currentTimeMillis() - (daysBefore * DAY_IN_MS));
-        Map<BuildStatus, BuildStats> info = getBuildStatusStatsAfterTimestamp(repoName, numberOfDaysBefore.getTime());
+        Date numberOfDaysBefore
+                = new Date(System.currentTimeMillis() - (daysBefore * DAY_IN_MS));
+        Map<BuildStatus, BuildStats> info = getBuildStatusStatsAfterTimestamp(
+                repoName, teamMembers, numberOfDaysBefore.getTime());
 
-        return BuildStatsUtils.combineBuildStats(info.values().toArray(new BuildStats[]{}));
+        return BuildStatsUtils.combineBuildStats(
+                info.values().toArray(new BuildStats[]{}));
     }
 
 

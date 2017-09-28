@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -38,10 +37,11 @@ public class Dashboard extends BaseModel {
     private String type;
 
     @Indexed
-    private List<String> codeRepos = new ArrayList<>();
-    private List<String> adminUsers = new ArrayList<>();
+    private List<String> codeRepos;
+    private List<String> adminUsers;
+    private List<String> teamMembers;
     private String sProductName; //Team product name
-    private List<String> applications = new ArrayList<>();
+    private List<String> applications;
     private List<String> analyticViews;
     private List<String> boards;
     private Filters filters;
@@ -77,6 +77,7 @@ public class Dashboard extends BaseModel {
         this.logoUrl = logoUrl;
         return this;
     }
+
     public List<String> getCodeRepos() {
         return codeRepos;
     }
@@ -84,6 +85,7 @@ public class Dashboard extends BaseModel {
         this.codeRepos = codeRepos;
         return this;
     }
+
     public String getsProductName() {
         return sProductName;
     }
@@ -215,6 +217,15 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setAdminUsers(List<String> adminUsers) {
         this.adminUsers = adminUsers;
+        return this;
+    }
+
+    public List<String> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public Dashboard setTeamMembers(List<String> teamMembers) {
+        this.teamMembers = teamMembers;
         return this;
     }
 

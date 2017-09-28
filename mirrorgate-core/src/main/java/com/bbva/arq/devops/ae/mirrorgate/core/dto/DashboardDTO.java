@@ -21,7 +21,6 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,16 +31,17 @@ public class DashboardDTO {
     private String name;
     private String displayName;
     private String logoUrl;
-    private List<String> codeRepos = new ArrayList<>();
+    private List<String> codeRepos;
     private String sProductName; //Team product name
-    private List<String> applications = new ArrayList<>();
-    private List<String> adminUsers = new ArrayList<>();
+    private List<String> applications;
+    private List<String> adminUsers;
+    private List<String> teamMembers;
     private List<String> boards;
     private Filters filters;
     private DashboardStatus status;
     private String lastUserEdit;
     private Long lastModification;
-    private List<String> analyticViews = new ArrayList<>();
+    private List<String> analyticViews;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackToken;
@@ -159,6 +159,15 @@ public class DashboardDTO {
 
     public DashboardDTO setAdminUsers(List<String> adminUsers) {
         this.adminUsers = adminUsers;
+        return this;
+    }
+
+    public List<String> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public DashboardDTO setTeamMembers(List<String> teamMembers) {
+        this.teamMembers = teamMembers;
         return this;
     }
 
