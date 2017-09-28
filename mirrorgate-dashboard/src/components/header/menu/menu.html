@@ -26,11 +26,13 @@
         <i class="fa fa-bars" aria-hidden="true"></i>
       </button>
       <ul class="dropdown-menu" aria-labelledby="menuBtn">
-        <li rv-if="simple"><a href="canary.html" onclick="return Utils.openDashboard('canary');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a></li>
-        <li rv-unless="simple"><a href="dashboard.html" onclick="return Utils.openDashboard('dashboard');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Simple view</a></li>
+        <li rv-if="config">
+          <a rv-if="simple" href="canary.html" onclick="return Utils.openDashboard('canary');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a>
+          <a rv-unless="simple" href="dashboard.html" onclick="return Utils.openDashboard('dashboard');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Simple view</a>
+        </li>
         <li class="dropdown-header">Manage</li>
         <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice()"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
-        <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice(Utils.getDashboardId());"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
+        <li rv-if="config"><a href="backoffice/index.html" onclick="return Utils.openBackOffice(Utils.getDashboardId());"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
         <li class="dropdown-header">Recent dashboards</li>
         <li rv-each-board="dashboards">
           <a rv-href="board.url">{board.name}</a>
@@ -44,11 +46,11 @@
   MGComponent({
     name: 'menu-component',
     lightDOM: true,
-    parent: Tile,
-    render: function () {
+    parent: BaseComponent,
+    onCreated: function () {
       var model = this.getModel();
       model.dashboards = [];
-      model.simple = this.getConfig().simple;
+      model.simple = this.getConfig() ? this.getConfig().simple : false;
 
       var dashboardsService = Service.get(Service.types.dashboards);
       dashboardsService.addListener(function (response) {

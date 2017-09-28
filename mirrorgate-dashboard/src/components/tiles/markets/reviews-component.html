@@ -127,7 +127,7 @@
         .dotdotdot({
           ellipsis: '...',
           height: function () {
-            return (this.parentElement.offsetHeight + this.parentElement.offsetTop - this.offsetTop - 20);
+            return Math.max(1,(this.parentElement.offsetHeight + this.parentElement.offsetTop - this.offsetTop - 20));
           }
         });
     },

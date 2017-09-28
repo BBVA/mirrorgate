@@ -23,8 +23,13 @@ var BaseComponent = (function() {
   BaseComponentPrototype.createdCallback = function() {
 
     this.model = {
-      true: true
+      true: true,
+      attrs: {}
     };
+    for(var i = 0; i < this.attributes.length; i++) {
+      var attr = this.attributes[i];
+      this.model.attrs[attr.name] = attr.value;
+    }
     var promise = this.onCreated() || Promise.resolve();
     return promise.then(function () {
       this._rootElement = document.importNode(this.getTemplate().content, true);
@@ -69,6 +74,7 @@ var BaseComponent = (function() {
 
   BaseComponentPrototype.attributeChangedCallback = function(
       attributeName, oldValue, newValue, namespace) {
+    this.model.attrs[attributeName] = newValue;
     switch (attributeName) {
       case 'config':
         this.model.config = newValue;

@@ -34,7 +34,7 @@ var Tile = (function() {
     }
     this._inited = false;
 
-    if (this.controller) {
+    if (this.controller && this.controller.dispose) {
       this.controller.dispose();
     }
     this.onDispose();
@@ -69,6 +69,7 @@ var Tile = (function() {
           if(err) {
             console.error(err);
           }
+          Utils.raiseEvent(this,{});
           this.setAttribute('enabled', 'false');
         }.bind(this));
       } else {
