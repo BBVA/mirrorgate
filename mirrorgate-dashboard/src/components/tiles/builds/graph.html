@@ -152,6 +152,10 @@
         var buildRoot = data && {children: data.buildRoot};
         var depth = 1;
 
+        if(buildRoot && !buildRoot.children.length) {
+          buildRoot.children.push({});
+        }
+
         //Chage sizes so that all the repos take the same size
         buildRoot && buildRoot.children.forEach(function (repoBuild) {
           repoBuild.size = 100;
