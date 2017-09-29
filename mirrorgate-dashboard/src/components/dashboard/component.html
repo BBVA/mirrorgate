@@ -65,7 +65,7 @@
     lightDOM: true,
     onCreated: function () {
       this.addEventListener('component-ready', function () {
-        this.querySelector('#main-container').style.display='block';
+        this.getRootElement().querySelector('#main-container').style.display='block';
       }.bind(this));
 
       var dId = Utils.getDashboardId();

@@ -44,24 +44,24 @@ var BaseComponent = (function() {
 
       //Don't create wrapper for container nodes
       if(this.lightDOM && (this.childNodes.length === 0 || !this.innerHTML.trim().length)) {
-          var wrapper = document.createElement('div');
-          wrapper.className = "component-wrapper " + this.className;
-          wrapper.setAttribute("rv-ignore","true");
+        var wrapper = document.createElement('div');
+        wrapper.className = "component-wrapper " + this.className;
+        wrapper.setAttribute("rv-ignore","true");
 
-          var container = document.createElement('div');
-          container.className = "component-host " + this.className;
+        var container = document.createElement('div');
+        container.className = "component-host " + this.className;
 
-          wrapper.appendChild(container);
-          container.appendChild(this._rootElement);
-          this.appendChild(wrapper);
-          this._fakeShadowRoot = container;
+        wrapper.appendChild(container);
+        container.appendChild(this._rootElement);
+        this.appendChild(wrapper);
+        this._fakeShadowRoot = container;
       } else {
         this.createShadowRoot();
         this.shadowRoot.appendChild(this._rootElement);
       }
 
       this.model.config = this.getAttribute('config') ? this.getAttribute('config') : this.model.config;
-      this.__view = rivets.bind($(this.lightDOM ? this._fakeShadowRoot : this.shadowRoot), this.model);
+      this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.model);
       this.isReady = true;
       setTimeout(function () {
         this.dispatchEvent(new CustomEvent('component-ready', {bubbles: false}));
