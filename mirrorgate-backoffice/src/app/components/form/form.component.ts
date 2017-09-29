@@ -112,7 +112,7 @@ export class FormComponent {
         this.dashboard.adminUsers.map((e) => {
           return { display: e, value: e }
         }) : [];
-    this.temp.aggregatedDashboards = this.dashboard.aggregatedDashboards.length ?
+    this.temp.aggregatedDashboards = this.dashboard.aggregatedDashboards ?
         this.dashboard.aggregatedDashboards.map((e) => {
           return { display: e, value: e }
         }) : [];
