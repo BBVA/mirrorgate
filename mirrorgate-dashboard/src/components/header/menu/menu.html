@@ -47,11 +47,20 @@
     name: 'menu-component',
     lightDOM: true,
     parent: BaseComponent,
+    updateModel: function () {
+      this.getModel().simple = this.getConfig() ? this.getConfig().simple : false;
+    },
+    attributeChangedCallback: function(
+      attributeName, oldValue, newValue, namespace) {
+      BaseComponent.attributeChangedCallback.call(this, arguments);
+      if(attributeName === 'config') {
+        this.updateModel();
+      }
+    },
     onCreated: function () {
       var model = this.getModel();
       model.dashboards = [];
-      model.simple = this.getConfig() ? this.getConfig().simple : false;
-
+      this.updateModel();
       var dashboardsService = Service.get(Service.types.dashboards);
       dashboardsService.addListener(function (response) {
         dashboardsService.removeListener(this);
