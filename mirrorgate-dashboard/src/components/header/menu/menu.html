@@ -55,6 +55,7 @@
       var dashboardsService = Service.get(Service.types.dashboards);
       dashboardsService.addListener(function (response) {
         dashboardsService.removeListener(this);
+        model.dashboards = [];
         if (response) {
           var dashboards = JSON.parse(response);
           var recent = getRecent();

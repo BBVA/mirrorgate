@@ -20,9 +20,6 @@
 <link rel="import" href="./simple/component.html" >
 <link rel="import" href="./message/component.html" >
 <template>
-  <style>
-    @import "css/{skin}.css";
-  </style>
   <div id="main-container" style="display:none">
     <message-dashboard
         message="This dashboard doesn't have any data configured."
@@ -86,16 +83,30 @@
               model.aggregated = model.details.type === "Aggregate";
               model.details.simple = model.simple || false;
               model.config = JSON.stringify(model.details);
-              this.addEventListener('dashboard-updated', function () {
-                setTimeout(function () {
-                  var enabledItems = this.querySelectorAll('#dashboard-container tile-container[enabled=true]').length;
-                  model.empty = !enabledItems;
-                }.bind(this));
-              }.bind(this));
             }
             resolve(model.config);
           }.bind(this));
-        }.bind(this));
+        }.bind(this)).then(function (config) {
+          if(config) {
+            this.addEventListener('dashboard-updated', function () {
+              setTimeout(function () {
+                var enabledItems = this.querySelectorAll('#dashboard-container tile-container[enabled=true]').length;
+                model.empty = !enabledItems;
+              }.bind(this));
+            }.bind(this));
+          }
+        }.bind(this)).then(function (config) {
+            //Hack to make the document render fonts
+            return Utils.initSkin().then(function (skin) {
+              var link = document.createElement('link');
+              link.setAttribute('rel', 'stylesheet');
+              link.setAttribute('type', 'text/css');
+              link.setAttribute('href', 'css/'+skin+'.css');
+              document.getElementsByTagName('head')[0].appendChild(link);
+            }).then(function () {
+              return config;
+            })
+        });
       } else {
         model.noDashboard = true;
       }

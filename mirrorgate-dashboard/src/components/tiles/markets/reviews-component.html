@@ -65,7 +65,7 @@
 
       setTimeout(function () {
 
-        var contents = this.shadowRoot.querySelector('.reviews-list');
+        var contents = this.getRootElement().querySelector('.reviews-list');
 
         var height = contents.offsetHeight;
         var width = contents.offsetWidth;
@@ -123,7 +123,7 @@
     },
 
     _addEllipsis: function () {
-      $(this.shadowRoot).find('.review__comment')
+      $(this.getRootElement()).find('.review__comment')
         .dotdotdot({
           ellipsis: '...',
           height: function () {
@@ -157,7 +157,7 @@
       this._initPageCycle();
 
       this._sheet = document.createElement('style')
-      var contents = this.shadowRoot.querySelector('.reviews-list');
+      var contents = this.getRootElement().querySelector('.reviews-list');
       contents.appendChild(this._sheet);
 
     },

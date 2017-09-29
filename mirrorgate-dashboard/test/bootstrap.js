@@ -20,6 +20,8 @@ beforeEach(() => {
   Service.reset();
 });
 
+window.supportsShadowDOM = document.head.createShadowRoot;
+
 var dashboardForTesting = 'all';
 
 var buildsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/builds');

@@ -141,7 +141,7 @@
 
         this.processAlerts(data);
 
-        var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
+        var style = window.getComputedStyle(this.getRootElement().querySelector('.component__body'));
 
         var model = this.getModel();
         model.stats = data ? data.stats : {};
@@ -172,7 +172,7 @@
           radius = Math.min(width, height) / 2;
           width = 2 * radius;
 
-        var container = d3.select(this.shadowRoot).select("svg");
+        var container = d3.select(this.getRootElement()).select("svg");
 
         var svg = container
           .attr('preserveAspectRatio', 'xMidYMid meet')

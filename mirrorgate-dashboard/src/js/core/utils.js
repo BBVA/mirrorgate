@@ -88,6 +88,10 @@ var Utils = {
     });
     return false;
   },
+
+  browserSupportsShadowDOM : function () {
+    return window.supportsShadowDOM;
+  }
 };
 
 rivets.formatters.dateFrom = function(value, now) {
@@ -158,6 +162,11 @@ function styleBuilder(style, suffix) {
     $(el).css(style, '' + value + suffix);
   };
 }
+
+rivets.binders.ignore = {
+    block: true,
+    routine: function () { /* do nothing */ }
+};
 
 rivets.binders.width = styleBuilder('width','%');
 rivets.binders.left = styleBuilder('left','%');

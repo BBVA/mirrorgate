@@ -95,12 +95,12 @@
       //Hack to make the height stick to the contents
       setTimeout(function () {
 
-        var contents = this.shadowRoot.querySelector('.component__body');
+        var contents = this.getRootElement().querySelector('.component__body');
 
         var height = contents.offsetHeight + contents.offsetTop - contents.parentElement.offsetTop;
 
-        this.shadowRoot.host.parentElement.style["min-height"]=height + 'px';
-        this.shadowRoot.host.parentElement.style["flex-basis"]='unset';
+        this.parentElement.style["min-height"]=height + 'px';
+        this.parentElement.style["flex-basis"]='unset';
 
       }.bind(this));
 

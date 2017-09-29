@@ -223,7 +223,7 @@
           }
 
 
-          var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
+          var style = window.getComputedStyle(this.getRootElement().querySelector('.component__body'));
 
           var marginTop = 0;
 
@@ -234,7 +234,7 @@
 
           partition = partition.size([3/2 * Math.PI, 1 - (0.25 * (3-depth))]);
 
-          var container = d3.select(this.shadowRoot).select("svg")
+          var container = d3.select(this.getRootElement()).select("svg")
             .attr('preserveAspectRatio', 'xMidYMid meet')
             .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 1.75))
 

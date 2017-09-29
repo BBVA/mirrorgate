@@ -156,7 +156,7 @@
           model.sprint = undefined;
         }
 
-        var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
+        var style = window.getComputedStyle(this.getRootElement().querySelector('.component__body'));
 
         var marginTop = 0;
 
@@ -166,7 +166,7 @@
 
         width = 2 * radius;
 
-        var container = d3.select(this.shadowRoot).select("svg");
+        var container = d3.select(this.getRootElement()).select("svg");
 
         container
           .attr('preserveAspectRatio', 'xMidYMid meet')
