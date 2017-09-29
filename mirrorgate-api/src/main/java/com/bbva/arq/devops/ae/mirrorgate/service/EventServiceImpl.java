@@ -3,6 +3,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
+import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.EventRepository;
 import java.util.List;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public void saveBuildEvent(Build build) {
-        LOGGER.info("Saving build with Id :{}", build.getId());
+        LOGGER.info("Saving build event with Id :{}", build.getId());
 
         Event buildEvent = new Event();
 
@@ -36,6 +37,40 @@ public class EventServiceImpl implements EventService{
 
         eventRepository.save(buildEvent);
     }
+
+    @Override
+    public void saveFeatureEvent(Feature feature) {
+        LOGGER.info("Saving feature event with Id :{}", feature.getId());
+
+        try{
+            Event buildEvent = new Event();
+
+            buildEvent.setEventType(EventType.FEATURE);
+            buildEvent.setEventTypeCollectionId(feature.getId());
+            buildEvent.setTimestamp(System.currentTimeMillis());
+
+            eventRepository.save(buildEvent);
+        } catch (Exception e){
+            LOGGER.error("Error while saving event", e);
+        }
+    }
+
+//    @Override
+//    public void saveDeletedFeatureEvent(Long id, String collectorId) {
+//        LOGGER.info("Saving feature event with Id :{}", id);
+//
+//        try{
+//            Event buildEvent = new Event();
+//
+//            buildEvent.setEventType(EventType.FEATURE);
+//            buildEvent.setEventTypeCollectionId(feature.getId());
+//            buildEvent.setTimestamp(System.currentTimeMillis());
+//
+//            eventRepository.save(buildEvent);
+//        } catch (Exception e){
+//            LOGGER.error("Error while saving event", e);
+//        }
+//    }
 
     @Override
     public Event getLastEvent(){
