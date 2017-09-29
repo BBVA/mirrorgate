@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -87,7 +88,7 @@ public class FeatureControllerTests {
         stories.add(story1);
         stories.add(story2);
 
-        when(dashboardService.getDashboard(dashboardName)).thenReturn(dashboard);
+        when(dashboardService.getDashboard(dashboardName)).thenReturn(map(dashboard));
         when(featureService.getActiveUserStoriesByBoards(Arrays.asList(dashboardName)))
                 .thenReturn(stories);
 

@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
@@ -42,7 +43,7 @@ public class FeatureServiceTests {
     @Test
     public void getActiveUserStoriesByProjectNameTest() {
 
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         Feature story1 = TestObjectFactory.createActiveStory();
         Feature story2 = TestObjectFactory.createActiveStory();

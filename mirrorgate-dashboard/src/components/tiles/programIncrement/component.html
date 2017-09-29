@@ -83,10 +83,6 @@
 <script>
   (function (window, document, undefined) {
 
-    // Refers to the "importee", which is components/builds-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
     var order = {
       'DONE': 3,
       'IN_PROGRESS': 2,
@@ -136,9 +132,6 @@
         .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) + 20; })
         .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -1; });
 
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
-
     function storyClassBuilder(prefix) {
       return function (d) {
         if(d.status) {
@@ -149,136 +142,130 @@
       }
     }
 
-    MyElementProto.processAlerts = function (data) {
-      Utils.raiseEvent(this, {
-        status: data ? 'unknown' : 'server-error'
-      });
-    }
+    MGComponent({
+      name: 'program-increment-tile',
+      controllerClass: ProgramIncrementController,
+      parent: Tile,
 
-    MyElementProto.getControllerClass = function () {
-      return ProgramIncrementController;
-    };
-
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
-
-    // Fires when an instance of the element is created
-    MyElementProto.render = function (data) {
-      var model = this.getModel();
-
-      function mouseEnterHandler (d) {
-        model.selected = d;
-        svg.classed('dimmed', true);
-      }
-
-      this.processAlerts(data);
-
-      if (data) {
-        let format = "MMMM Do";
-        let depth = 1;
-        let totalStories = 0;
-
-        model.programIncrement = data;
-
-        if (data.startDate){
-          model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
-          model.daysLeft = model.programIncrement.getDaysLeft()
-        }
-
-
-        model.programIncrement.products.forEach(function(product) {
-          //All product should take the same space, so we take a count of
-          //per product totals to use them as factor
-          let productStories = 0;
-          let productPoints = 0;
-          let storyFactor = 0;
-
-          product.children.forEach(function(feature) {
-            depth = Math.max(depth, 2);
-
-            if(feature.children.length) {
-              depth = Math.max(depth, 3);
-              feature.children.forEach(function(story) {
-                productStories++;
-                productPoints += story.estimate;
-              });
-            } else {
-              //Reserve the place holder for the feature as it had one story
-              productStories++;
-            }
-          });
-
-          //25% of the space is given to story points when estimates are given
-          storyFactor = productPoints ? 0.25 : 0;
-
-          product.children.forEach(function(feature) {
-            //This is ignored if feature contains 1 or more stories
-            //It's equivalent to asuming it only has one 0 points story
-            feature.size = (1 - storyFactor) / productStories;
-
-            if(feature.children.length) {
-              feature.children.forEach(function(story) {
-                story.size = (1 - storyFactor) / productStories
-                    + (productPoints ? storyFactor * story.estimate / productPoints : 0);
-              });
-            }
-          });
-
-          totalStories += productStories;
+      processAlerts: function (data) {
+        Utils.raiseEvent(this, {
+          status: data ? 'unknown' : 'server-error'
         });
+      },
 
-        if(totalStories > 50) {
-          arc.padAngle(Math.PI/360).cornerRadius(5)
+      // Fires when an instance of the element is created
+      render: function (data) {
+        var model = this.getModel();
+
+        function mouseEnterHandler (d) {
+          model.selected = d;
+          svg.classed('dimmed', true);
         }
 
+        this.processAlerts(data);
 
-        var style = window.getComputedStyle(this.shadowRoot.querySelector('.component__body'));
+        if (data) {
+          let format = "MMMM Do";
+          let depth = 1;
+          let totalStories = 0;
 
-        var marginTop = 0;
+          model.programIncrement = data;
 
-        var width = parseFloat(style.width.substring(0, style.width.length - 2)),
-          height = parseFloat(style.height.substring(0, style.height.length - 2)),
-          radius = Math.min(width, height) / 2;
-        width = 2 * radius;
+          if (data.startDate){
+            model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
+            model.daysLeft = model.programIncrement.getDaysLeft()
+          }
 
-        partition = partition.size([3/2 * Math.PI, 1 - (0.25 * (3-depth))]);
 
-        var container = d3.select(this.shadowRoot).select("svg")
-          .attr('preserveAspectRatio', 'xMidYMid meet')
-          .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 1.75))
+          model.programIncrement.products.forEach(function(product) {
+            //All product should take the same space, so we take a count of
+            //per product totals to use them as factor
+            let productStories = 0;
+            let productPoints = 0;
+            let storyFactor = 0;
 
-        var svg = container
-          .select("g.main").attr("transform",
-          "translate(" + radius + "," + (radius + marginTop) + ") " +
-          "scale(" + (radius / 530) + ")"
-          ).on('mouseout', function (d) {
-            svg.classed('dimmed', false);
-            model.selected = undefined;
+            product.children.forEach(function(feature) {
+              depth = Math.max(depth, 2);
+
+              if(feature.children.length) {
+                depth = Math.max(depth, 3);
+                feature.children.forEach(function(story) {
+                  productStories++;
+                  productPoints += story.estimate;
+                });
+              } else {
+                //Reserve the place holder for the feature as it had one story
+                productStories++;
+              }
+            });
+
+            //25% of the space is given to story points when estimates are given
+            storyFactor = productPoints ? 0.25 : 0;
+
+            product.children.forEach(function(feature) {
+              //This is ignored if feature contains 1 or more stories
+              //It's equivalent to asuming it only has one 0 points story
+              feature.size = (1 - storyFactor) / productStories;
+
+              if(feature.children.length) {
+                feature.children.forEach(function(story) {
+                  story.size = (1 - storyFactor) / productStories
+                      + (productPoints ? storyFactor * story.estimate / productPoints : 0);
+                });
+              }
+            });
+
+            totalStories += productStories;
           });
 
-        var featureData = svg.select('.slices').selectAll('path')
-          .data(partition.nodes({
-            children: model.programIncrement.products
-          }));
+          if(totalStories > 50) {
+            arc.padAngle(Math.PI/360).cornerRadius(5)
+          }
 
-        featureData
-          .attr('d', arc)
-          .attr('class', storyClassBuilder('status-'));
 
-        featureData.enter()
-          .append('path')
-          .on('mouseenter', mouseEnterHandler)
-          .attr('d', arc)
-          .attr('class', storyClassBuilder('status-'));
+          var style = window.getComputedStyle(this.getRootElement().querySelector('.component__body'));
 
-        featureData.exit().remove();
+          var marginTop = 0;
 
+          var width = parseFloat(style.width.substring(0, style.width.length - 2)),
+            height = parseFloat(style.height.substring(0, style.height.length - 2)),
+            radius = Math.min(width, height) / 2;
+          width = 2 * radius;
+
+          partition = partition.size([3/2 * Math.PI, 1 - (0.25 * (3-depth))]);
+
+          var container = d3.select(this.getRootElement()).select("svg")
+            .attr('preserveAspectRatio', 'xMidYMid meet')
+            .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 1.75))
+
+          var svg = container
+            .select("g.main").attr("transform",
+            "translate(" + radius + "," + (radius + marginTop) + ") " +
+            "scale(" + (radius / 530) + ")"
+            ).on('mouseout', function (d) {
+              svg.classed('dimmed', false);
+              model.selected = undefined;
+            });
+
+          var featureData = svg.select('.slices').selectAll('path')
+            .data(partition.nodes({
+              children: model.programIncrement.products
+            }));
+
+          featureData
+            .attr('d', arc)
+            .attr('class', storyClassBuilder('status-'));
+
+          featureData.enter()
+            .append('path')
+            .on('mouseenter', mouseEnterHandler)
+            .attr('d', arc)
+            .attr('class', storyClassBuilder('status-'));
+
+          featureData.exit().remove();
+
+        }
       }
-    };
-
-    window.MyElement = document.registerElement('program-increment-tile', {
-      prototype: MyElementProto
     });
 
   })(window, document);

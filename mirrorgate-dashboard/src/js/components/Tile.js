@@ -18,80 +18,14 @@ var Tile = (function() {
 'use strict';
 
   // Creates an object based in the HTML Element prototype
-  var TilePrototype = Object.create(HTMLElement.prototype);
+  var TilePrototype = Object.create(DashboardComponent);
 
   TilePrototype.createdCallback = function() {
-    // Creates the shadow root
-    var shadowRoot = this.createShadowRoot();
-
-    // Add the image to the Shadow Root.
-    this._rootElement = document.importNode(this.getTemplate().content, true);
-
-    this.model = {};
-    this._container = document.createElement('div');
-    this._container.appendChild(this._rootElement);
-    this._copyClass();
-
-    //Replace skin placeholder as rivets ignore style tags :-(
-    this._container.querySelectorAll('style')
-      .forEach((tag) => {
-        tag.innerText = tag.innerText.replace(/{skin}/, Utils.getSkin());
-      });
-    shadowRoot.appendChild(this._container);
-
-
-    // Rivets templating capabilities initialization
-    setTimeout(function() {
-      rivets.bind($(shadowRoot), this.model);
+    this.forceEnabled = this.getAttribute('enabled') === 'true';
+    this.addEventListener('component-ready', function () {
+      this._processEnabled();
     }.bind(this));
-
-    this._processEnabled();
-    this._computeSize.bind(this);
-
-
-    this.addEventListener('dashboard-updated', function(e) {
-      d3.select(this).classed({
-        'module-error': e.detail.status === 'error',
-        'module-warning': e.detail.status === 'warn',
-        'module-ok': e.detail.status === 'ok',
-        'module-empty': e.detail.status === 'empty',
-        'module-data-error': e.detail.status === 'server-error'
-      });
-      this._computeSize();
-      this._copyClass();
-    });
-
-    window.addEventListener('resize', function() {
-      setTimeout(this._computeSize.bind(this));
-    }.bind(this));
-
-  };
-
-  TilePrototype._copyClass = function () {
-    this._container.className = this.className;
-    d3.select(this._container)
-      .classed('component', false)
-      .classed('tile', false)
-      .classed('host', true);
-  };
-
-  TilePrototype._computeSize = function() {
-    var style = window.getComputedStyle(this);
-    var width = parseFloat(style.width.substring(0, style.width.length - 2)),
-        height = parseFloat(style.height.substring(0, style.height.length - 2));
-    var min = Math.min(width, height);
-
-    if (isNaN(min)) {
-      setTimeout(this._computeSize.bind(this), 1);
-    } else {
-      var classes = {
-        'tile-s': min < 300,
-        'tile-m': min >= 300 && min <= 600,
-        'tile-l': min > 600
-      };
-      d3.select(this).classed(classes);
-    }
-    this._copyClass();
+    return DashboardComponent.createdCallback.call(this, arguments);
   };
 
   TilePrototype._dispose = function() {
@@ -100,21 +34,10 @@ var Tile = (function() {
     }
     this._inited = false;
 
-    if (this.controller) {
+    if (this.controller && this.controller.dispose) {
       this.controller.dispose();
     }
     this.onDispose();
-  };
-
-  TilePrototype.getModel = function() { return this.model; };
-
-  TilePrototype.getDashboardId = function() {
-    return this.getAttribute('pid');
-  };
-
-  TilePrototype.getConfig = function() {
-    var config = this.getAttribute('pconfig');
-    return config && JSON.parse(config);
   };
 
   // Fires when an instance of the element is created
@@ -122,31 +45,50 @@ var Tile = (function() {
     if(this._inited) {
       return;
     }
-    this._inited = true;
     var config = this.getConfig();
-    if (typeof(this.getDashboardId()) === 'string' && config) {
-      this.controller = new (this.getControllerClass())(this.getDashboardId());
-      this.controller.observable.attach(function (data) {
-        if(data) {
-          this.getModel().updatedDate = Date.now();
+    if (config) {
+      var CtrlClass = this.getControllerClass();
+      if(CtrlClass) {
+        this.controller = new CtrlClass(this.getDashboardId());
+
+        if(this.controller.observable) {
+          this._inited = true;
+          this.controller.observable.attach(function (data) {
+            if(data) {
+              this.getModel().updatedDate = Date.now();
+            }
+            this.render(data);
+          }.bind(this));
         }
-        this.render(data);
-      }.bind(this));
-      this.controller.init(config);
+
+        var promise = this.controller.init(config) || Promise.resolve();
+        promise.then(function () {
+          this.onInit();
+          this.setAttribute('enabled', 'true');
+        }.bind(this)).catch(function (err) {
+          if(err) {
+            console.error(err);
+          }
+          Utils.raiseEvent(this,{});
+          this.setAttribute('enabled', 'false');
+        }.bind(this));
+      } else {
+        this.onInit();
+        this.render(this.getConfig());
+      }
     }
-    this.onInit();
   };
 
   TilePrototype._processEnabled = function() {
-    if (this.getAttribute('enabled') === 'true') {
-      this._init();
-    } else {
+    if (this.getAttribute('enabled') === 'false' && !this.forceEnabled) {
       this._dispose();
+    } else {
+      this._init();
     }
   };
 
-  TilePrototype._processPid = function() {
-    if (this.getAttribute('enabled') === 'true') {
+  TilePrototype._processConfig = function() {
+    if (this.getAttribute('enabled') !== 'false' || this.forceEnabled) {
       this._dispose();
       this._init();
     }
@@ -154,25 +96,26 @@ var Tile = (function() {
 
   TilePrototype.attributeChangedCallback = function(
       attributeName, oldValue, newValue, namespace) {
+    DashboardComponent.attributeChangedCallback.call(this, arguments);
+    if(!this.isReady) {
+      return;
+    }
     switch (attributeName) {
       case 'enabled':
         this._processEnabled();
         break;
-      case 'pid':
-      case 'pconfig':
-        this._processPid();
+      case 'config':
+        this._processConfig();
         break;
     }
   };
 
-  TilePrototype.render = function() { throw 'Render not implemented'; };
-
-  TilePrototype.getTemplate = function() {
-    throw 'getTemplate not implemented';
+  TilePrototype.getControllerClass = function() {
+    return this.controllerClass;
   };
 
-  TilePrototype.getControllerClass = function() {
-    throw 'getControllerClass not implemented';
+  TilePrototype.render = function() {
+    throw 'Render not implemented';
   };
 
   TilePrototype.onInit = function () {};

@@ -52,8 +52,12 @@ var BugsController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getBugs);
   };
-  this.init = function() {
-    service.addListener(getBugs);
+  this.init = function(config) {
+    if(config.boards && config.boards.length) {
+      service.addListener(getBugs);
+    } else {
+      return Promise.reject();
+    }
   };
 
 });

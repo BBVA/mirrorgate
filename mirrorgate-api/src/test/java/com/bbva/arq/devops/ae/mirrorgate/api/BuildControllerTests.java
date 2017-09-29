@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
@@ -74,7 +75,7 @@ public class BuildControllerTests {
 
     @Test
     public void getBuildsByDashboardNameTest() throws Exception {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
         Build build1 = makeBuild(REPO_NAMES[0]);
         Build build2 = makeBuild(REPO_NAMES[1]);
@@ -92,7 +93,7 @@ public class BuildControllerTests {
 
     @Test
     public void getFailureRateTest() throws Exception {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
         BuildStats buildStats = new BuildStats()
                 .setDuration(0)
@@ -114,7 +115,7 @@ public class BuildControllerTests {
 
     @Test
     public void getFailureRateWithoutBuildsTest() throws Exception {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
         BuildStats buildStats = new BuildStats()
                 .setDuration(0)
@@ -136,7 +137,7 @@ public class BuildControllerTests {
 
     @Test
     public void getFailureRateWithoutFailureBuildsTest() throws Exception {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
         BuildStats buildStats = new BuildStats()
                 .setCount(3)

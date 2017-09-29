@@ -46,6 +46,10 @@ export class FormComponent {
       value?: string
     }[],
     analyticViews?: string,
+    aggregatedDashboards?: {
+      display?: string,
+      value?: string
+    }[],
     teamMembers?: {
       display?: string,
       value?: string
@@ -108,6 +112,10 @@ export class FormComponent {
         this.dashboard.adminUsers.map((e) => {
           return { display: e, value: e }
         }) : [];
+    this.temp.aggregatedDashboards = this.dashboard.aggregatedDashboards.length ?
+        this.dashboard.aggregatedDashboards.map((e) => {
+          return { display: e, value: e }
+        }) : [];
     this.temp.analyticViews = this.dashboard.analyticViews ?
         this.dashboard.analyticViews.join(',') :
         '';
@@ -130,6 +138,9 @@ export class FormComponent {
         undefined;
     this.dashboard.adminUsers = this.temp.adminUsers.length ?
         this.temp.adminUsers.map((e) => e.value.split('@')[0].trim()) :
+        undefined;
+    this.dashboard.aggregatedDashboards = this.temp.aggregatedDashboards.length ?
+        this.temp.aggregatedDashboards.map((e) => e.value.trim()) :
         undefined;
     this.dashboard.analyticViews = this.temp.analyticViews.length ?
         this.temp.analyticViews.split(',').map((e) => e.trim()) :

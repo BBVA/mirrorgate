@@ -17,7 +17,10 @@
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /**
@@ -40,7 +43,22 @@ public class DashboardDTO {
     private Long lastModification;
     private List<String> analyticViews;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String slackToken;
+    private String slackTeam;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String slackChannel;
+
+    private String programIncrement;
+
     private String skin = "classic";
+
+    private String author;
+    private String urlAlerts;
+    private String urlAlertsAuthorization;
+    private List<String> aggregatedDashboards;
+
+    private DashboardType type = DashboardType.Detail;
 
     public String getName() {
         return name;
@@ -168,6 +186,88 @@ public class DashboardDTO {
 
     public DashboardDTO setSkin(String skin) {
         this.skin = skin;
+        return this;
+    }
+
+    public String getSlackChannel() {
+        return slackChannel;
+    }
+
+    public DashboardDTO setSlackChannel(String slackChannel) {
+        this.slackChannel = slackChannel;
+        return this;
+    }
+
+    public String getSlackTeam() {
+        return slackTeam;
+    }
+
+    public DashboardDTO setSlackTeam(String slackTeam) {
+        this.slackTeam = slackTeam;
+        return this;
+    }
+
+    public String getSlackToken() {
+        return slackToken;
+    }
+
+    public DashboardDTO setSlackToken(String slackToken) {
+        this.slackToken = slackToken;
+        return this;
+    }
+
+    public String getProgramIncrement() {
+        return programIncrement;
+    }
+
+    public DashboardDTO setProgramIncrement(String programIncrement) {
+        this.programIncrement = programIncrement;
+        return this;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public DashboardDTO setAuthor(String author) {
+        this.author = author;
+        return this;
+    }
+
+
+    public String getUrlAlerts() {
+        return urlAlerts;
+    }
+
+    public DashboardDTO setUrlAlerts(String urlAlerts) {
+        this.urlAlerts = urlAlerts;
+        return this;
+    }
+
+    public DashboardDTO setUrlAlertsAuthorization(String urlAlertsAuthorization) {
+        this.urlAlertsAuthorization = urlAlertsAuthorization;
+        return this;
+    }
+
+    public String getUrlAlertsAuthorization() {
+        return urlAlertsAuthorization;
+    }
+
+    public DashboardDTO setAggregatedDashboards(List<String> aggregatedDashboards) {
+        this.aggregatedDashboards = aggregatedDashboards;
+        return this;
+    }
+
+    public List<String> getAggregatedDashboards() {
+        return aggregatedDashboards;
+    }
+
+    public DashboardType getType() {
+        return type;
+    }
+
+    public DashboardDTO setType(DashboardType type) {
+        this.type = type;
         return this;
     }
 }

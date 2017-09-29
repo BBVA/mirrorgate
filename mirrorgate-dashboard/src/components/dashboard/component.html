@@ -1,0 +1,115 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<link rel="import" href="./aggregate/component.html" >
+<link rel="import" href="./detail/component.html" >
+<link rel="import" href="./simple/component.html" >
+<link rel="import" href="./message/component.html" >
+<template>
+  <div id="main-container" style="display:none">
+    <message-dashboard
+        message="This dashboard doesn't have any data configured."
+        rv-link="editLink"
+        link="#"
+        link-text="Edit dashboard"
+        rv-config="config"
+        rv-if="empty"
+    ></message-dashboard>
+    <div rv-if="details" id="dashboard-container">
+      <aggregate-dashboard rv-if="aggregated" rv-config="config" class="page-component"></aggregate-dashboard>
+      <div rv-if="simple">
+        <simple-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></simple-dashboard>
+      </div>
+      <div rv-unless="simple">
+        <detail-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></detail-dashboard>
+      </div>
+    </div>
+    <div rv-unless="details">
+      <message-dashboard
+          message="Start using MirrorGate by creating a new dashboard"
+          link="backoffice/index.html#/new"
+          link-text="New dashboard"
+          rv-if="noDashboard"
+          rv-config="config"
+      ></message-dashboard>
+      <message-dashboard
+          message="Ops... dashboard not found."
+          link="backoffice/index.html"
+          link-text="See available dashboards"
+          rv-config="config"
+          rv-unless="noDashboard"
+      ></message-dashboard>
+    </div>
+    <img src="img/broken-glass.png" class="easter-egg"/>
+  </div>
+</template>
+
+<script>
+  MGComponent({
+    name: 'dashboard-component',
+    parent: DashboardComponent,
+    lightDOM: true,
+    onCreated: function () {
+      this.addEventListener('component-ready', function () {
+        this.querySelector('#main-container').style.display='block';
+      }.bind(this));
+
+      var dId = Utils.getDashboardId();
+      var model = this.getModel();
+      if(dId) {
+        var detailsService =
+            Service.get(Service.types.dashboard, dId);
+        model.simple = this.getAttribute('simple') === 'true';
+        model.editLink = 'backoffice/index.html#/edit/' + dId;
+        model.empty = false;
+        return new Promise(function (resolve) {
+          detailsService.addListener(function(config) {
+            if(config) {
+              model.details = JSON.parse(config);
+              model.aggregated = model.details.type === "Aggregate";
+              model.details.simple = model.simple || false;
+              model.config = JSON.stringify(model.details);
+            }
+            resolve(model.config);
+          }.bind(this));
+        }.bind(this)).then(function (config) {
+          if(config) {
+            this.addEventListener('dashboard-updated', function () {
+              setTimeout(function () {
+                var enabledItems = this.querySelectorAll('#dashboard-container tile-container[enabled=true]').length;
+                model.empty = !enabledItems;
+              }.bind(this));
+            }.bind(this));
+          }
+        }.bind(this)).then(function (config) {
+            //Hack to make the document render fonts
+            return Utils.initSkin().then(function (skin) {
+              var link = document.createElement('link');
+              link.setAttribute('rel', 'stylesheet');
+              link.setAttribute('type', 'text/css');
+              link.setAttribute('href', 'css/'+skin+'.css');
+              document.getElementsByTagName('head')[0].appendChild(link);
+            }).then(function () {
+              return config;
+            })
+        });
+      } else {
+        model.noDashboard = true;
+      }
+    }
+  });
+</script>

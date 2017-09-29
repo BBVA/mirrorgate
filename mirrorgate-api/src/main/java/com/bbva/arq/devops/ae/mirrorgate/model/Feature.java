@@ -70,130 +70,149 @@ public class Feature extends BaseModel{
     public String getsId() {
         return sId;
     }
-    public void setsId(String sId) {
+    public Feature setsId(String sId) {
         this.sId = sId;
+        return this;
     }
     public String getsNumber() {
         return sNumber;
     }
-    public void setsNumber(String sNumber) {
+    public Feature setsNumber(String sNumber) {
         this.sNumber = sNumber;
+        return this;
     }
     public String getsName() {
         return sName;
     }
-    public void setsName(String sName) {
+    public Feature setsName(String sName) {
         this.sName = sName;
+        return this;
     }
     public String getsTypeName() {
         return sTypeName;
     }
-    public void setsTypeName(String sTypeName) {
+    public Feature setsTypeName(String sTypeName) {
         this.sTypeName = sTypeName;
+        return this;
     }
     public String getsStatus() {
         return sStatus;
     }
-    public void setsStatus(String sStatus) {
+    public Feature setsStatus(String sStatus) {
         this.sStatus = sStatus;
+        return this;
     }
     public String getsSprintID() {
         return sSprintID;
     }
-    public void setsSprintID(String sSprintID) {
+    public Feature setsSprintID(String sSprintID) {
         this.sSprintID = sSprintID;
+        return this;
     }
     public String getsSprintName() {
         return sSprintName;
     }
-    public void setsSprintName(String sSprintName) {
+    public Feature setsSprintName(String sSprintName) {
         this.sSprintName = sSprintName;
+        return this;
     }
     public String getsSprintAssetState() {
         return sSprintAssetState;
     }
-    public void setsSprintAssetState(String sSprintAssetState) {
+    public Feature setsSprintAssetState(String sSprintAssetState) {
         this.sSprintAssetState = sSprintAssetState;
+        return this;
     }
     public Date getSprintBeginDate() {
         return sprintBeginDate;
     }
-    public void setSprintBeginDate(Date sprintBeginDate) {
+    public Feature setSprintBeginDate(Date sprintBeginDate) {
         this.sprintBeginDate = sprintBeginDate;
+        return this;
     }
     public Date getSprintEndDate() {
         return sprintEndDate;
     }
-    public void setSprintEndDate(Date sprintEndDate) {
+    public Feature setSprintEndDate(Date sprintEndDate) {
         this.sprintEndDate = sprintEndDate;
+        return this;
     }
     public String getsProjectId() {
         return sProjectId;
     }
-    public void setsProjectId(String sProjectId) {
+    public Feature setsProjectId(String sProjectId) {
         this.sProjectId = sProjectId;
+        return this;
     }
     public String getsProjectName() {
         return sProjectName;
     }
-    public void setsProjectName(String sProjectName) {
+    public Feature setsProjectName(String sProjectName) {
         this.sProjectName = sProjectName;
+        return this;
     }
 
     public List<String> getKeywords() {
         return keywords;
     }
 
-    public void setKeywords(List<String> keywords) {
+    public Feature setKeywords(List<String> keywords) {
         this.keywords = keywords;
+        return this;
     }
 
     public Double getdEstimate() {
         return dEstimate;
     }
 
-    public void setdEstimate(Double dEstimate) {
+    public Feature setdEstimate(Double dEstimate) {
         this.dEstimate = dEstimate;
+        return this;
     }
 
     public String getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public Feature setPriority(String priority) {
         this.priority = priority;
+        return this;
     }
 
     public String getsParentKey() {
         return sParentKey;
     }
 
-    public void setsParentKey(String sParentKey) {
+    public Feature setsParentKey(String sParentKey) {
         this.sParentKey = sParentKey;
+        return this;
     }
 
     public Long getlParentId() {
         return lParentId;
     }
 
-    public void setlParentId(Long lParentId) {
+    public Feature setlParentId(Long lParentId) {
         this.lParentId = lParentId;
+        return this;
     }
 
     public List<String> getsPiNames() {
         return sPiNames;
     }
 
-    public void setsPiNames(List<String> sPiNames) {
+    public Feature setsPiNames(List<String> sPiNames) {
         this.sPiNames = sPiNames;
+        return this;
     }
 
     public String getCollectorId() {
         return collectorId;
     }
 
-    public void setCollectorId(String collectorId) {
+    public Feature setCollectorId(String collectorId) {
         this.collectorId = collectorId;
+        return this;
     }
 
 }

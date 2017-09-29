@@ -19,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
@@ -51,7 +52,7 @@ public class BugServiceTests {
     @Test
     public void getActiveBugsByBoardsTest() {
 
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         Feature bug1 = TestObjectFactory.createBug();
         Feature bug2 = TestObjectFactory.createBug();

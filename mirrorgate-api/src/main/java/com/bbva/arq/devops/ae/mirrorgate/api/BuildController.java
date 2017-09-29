@@ -21,6 +21,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
@@ -57,7 +58,7 @@ public class BuildController {
             produces = APPLICATION_JSON_VALUE)
     public Map<String, Object> getBuildsByBoardName(@PathVariable("name") String name) {
 
-        Dashboard dashboard = dashboardService.getDashboard(name);
+        DashboardDTO dashboard = dashboardService.getDashboard(name);
         if (dashboard == null || dashboard.getCodeRepos() == null
                 || dashboard.getCodeRepos().isEmpty()) {
             return null;
@@ -80,7 +81,7 @@ public class BuildController {
         produces = APPLICATION_JSON_VALUE)
     public BuildStats getStats(@PathVariable("name") String name) {
 
-        Dashboard dashboard = dashboardService.getDashboard(name);
+        DashboardDTO dashboard = dashboardService.getDashboard(name);
         if (dashboard == null
                 || dashboard.getCodeRepos() == null) {
             return null;

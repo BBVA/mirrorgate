@@ -15,10 +15,12 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -68,7 +70,7 @@ public class BackOfficeSlackUtilsControllerTests {
 
     @Test
     public void setSlackTokenTest() throws Exception {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
         SlackDTO notification = TestObjectFactory.createSlackDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
@@ -88,7 +90,7 @@ public class BackOfficeSlackUtilsControllerTests {
 
     @Test
     public void setSlackTokenSlackErrorTest() throws Exception {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
         SlackDTO error_notification = TestObjectFactory.createSlackErrorDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);

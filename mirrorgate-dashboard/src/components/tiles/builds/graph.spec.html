@@ -19,90 +19,10 @@
 
 <head>
   <title>build-tile web component testing page</title>
-
-  <script src="/node_modules/karma-read-json/karma-read-json.js"></script>
-  <script src="/test/bootstrap.js"></script>
-
 </head>
-
 <body>
-
   <script>
-    describe('<builds-tile>', () => {
-
-      let component;
-
-      var server;
-
-      function appendComponent() {
-        component = document.createElement('builds-tile');
-        document.body.appendChild(component);
-        component.setAttribute('enabled', 'true');
-        component.setAttribute('pconfig', '{}');
-        component.setAttribute('pid', dashboardForTesting);
-      }
-
-      beforeEach(() => {
-        server = buildFakeServer();
-      });
-
-      afterEach(() => {
-        server.restore();
-        component.setAttribute('enabled', 'false');
-      });
-
-      it('should show last builds component', () => {
-        appendComponent();
-        let svg = component.querySelector('* /deep/ svg');
-        server.respond();
-        expect(svg.children.length).not.toBe(0);
-      });
-
-      describe('events', () => {
-
-        var testHandler;
-        var handler = function (e) {
-          if (testHandler) {
-            testHandler(e);
-          }
-        };
-
-        beforeEach(() => {
-          document.addEventListener('dashboard-updated', handler);
-        });
-
-        afterEach(() => {
-          document.removeEventListener('dashboard-updated', handler);
-          testHandler = undefined;
-        });
-
-        it('should raise an event when it succeds', (done) => {
-          appendComponent();
-          testHandler = function (e) {
-            expect(e.detail.status).toBe('ok');
-            setTimeout(done);
-          }
-          server.respond();
-        });
-
-        it('should raise an event when servers fail', (done) => {
-          server.restore();
-          server = sinon.fakeServer.create();
-          appendComponent();
-
-          testHandler = function (e) {
-            expect(e.detail.status).toBe('server-error');
-            setTimeout(done);
-          };
-
-          server.lastRequest.respond(404, {});
-        });
-
-      });
-
-
-    });
+    genericTileComponentTest('builds-tile','svg path');
   </script>
 </body>
-
 </html>

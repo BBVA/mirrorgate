@@ -32,7 +32,7 @@
       </h3>
     </div>
     <div class="component__body">
-      <div class="indicator" rv-show="metrics.requestsNumber">
+      <div class="indicator" rv-if="metrics.requestsNumber">
         <span class="stats">{metrics.errorsRate}</span>
         <span class="stats-desc">% of errors</span>
       </div>
@@ -41,31 +41,19 @@
 </template>
 
 <script>
-  (function (window, document, undefined) {
 
-    // Refers to the "importee", which is components/builds-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
-
-    MyElementProto.processAlerts = function (data) {
+  MGComponent({
+    name: 'requests-metrics-tile',
+    controllerClass: RequestsController,
+    parent: Tile,
+    processAlerts: function (data) {
       Utils.raiseEvent(this, {
-        status: data ? 'empty' : 'server-error'
+        status: data ? (data.metrics ? 'unknown' : 'empty') : 'server-error'
       });
-    }
-
-    MyElementProto.getControllerClass = function () {
-      return RequestsController;
-    };
-
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
+    },
 
     // Fires when an instance of the element is created
-    MyElementProto.render = function (data) {
+    render: function (data) {
 
       if (data) {
         var model = this.getModel();
@@ -78,12 +66,8 @@
       }
 
       this.processAlerts(data);
-    };
+    }
 
-    window.MyElement = document.registerElement('requests-metrics-tile', {
-      prototype: MyElementProto
-    });
-
-  })(window, document);
+  });
 
 </script>

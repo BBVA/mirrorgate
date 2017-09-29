@@ -47,6 +47,39 @@
               </select>
             </div>
           </div>
+
+          <div class="form-group row">
+            <div class="col-sm-6" *ngIf="!edit">
+              <label for="type">{{texts.form.general_block.board_type_text}}</label>
+              <div class="collapse" id="board-type-help">
+                <div class="well" innerHTML="{{texts.form.general_block.board_type_help}}"></div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#board-type-help" aria-expanded="false" aria-controls="icon-url-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <select type="text" class="form-control" id="type" [(ngModel)]="dashboard.type" name="type">
+                  <option value="Detail">Detail</option>
+                  <option value="Aggregate">Aggregate</option>
+                </select>
+              </div>
+            </div>
+            <div *ngIf="dashboard.type=='Aggregate'" class="col-sm-6">
+              <label for="aggregatedDashboards">{{texts.form.general_block.aggregated_dashboards_text}}</label>
+              <div class="collapse" id="dashboard-ids-help">
+                <div class="well" innerHTML="{{texts.form.general_block.aggregated_dashboards_help}}"></div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#dashboard-ids-help" aria-expanded="false" aria-controls="dashboard-ids-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <tag-input class="form-control" id="aggregatedDashboards" name="aggregatedDashboards" [(ngModel)]="temp.aggregatedDashboards" (ngModelChange)="mirrorTempValues()" placeholder="Add a new dashboard" secondaryPlaceholder="Add a new dashboard"></tag-input>
+              </div>
+
+            </div>
+
+          </div>
+
           <div class="form-group row">
             <div class="col-sm-6">
               <label for="displayName">{{texts.form.general_block.display_name_input}}</label>
@@ -120,7 +153,7 @@
         </div>
       </div>
 
-      <div class="panel panel-default">
+      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">{{texts.form.planning_block.title}}</h3>
         </div>
@@ -154,7 +187,7 @@
         </div>
       </div>
 
-      <div class="panel panel-default">
+      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">{{texts.form.ci_block.title}}</h3>
         </div>
@@ -187,7 +220,7 @@
       </div>
 
 
-      <div class="panel panel-default">
+      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">{{texts.form.markets_block.title}}</h3>
         </div>
@@ -209,7 +242,7 @@
         </div>
       </div>
 
-      <div class="panel panel-default">
+      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">{{texts.form.analytics_block.title}}</h3>
         </div>
@@ -230,7 +263,7 @@
         </div>
       </div>
 
-      <div class="panel panel-default">
+      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">{{texts.form.alerts_block.title}}</h3>
         </div>

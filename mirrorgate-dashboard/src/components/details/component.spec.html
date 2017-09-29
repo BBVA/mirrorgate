@@ -18,38 +18,34 @@
 <html>
 
 <head>
-  <title>details-dashboard web component testing page</title>
-
-  <script src="/node_modules/karma-read-json/karma-read-json.js"></script>
-  <script src="/test/bootstrap.js"></script>
-
+  <title>details-tile web component testing page</title>
 </head>
 
 <body>
 
   <script>
-    describe('<details-dashboard>', () => {
-
-      let component;
+    describe('<details-tile>', () => {
 
       var server;
       beforeEach(() => {
         server = buildFakeServer();
-        document.location.hash = dashboardForTesting;
-        component = document.createElement('details-dashboard');
-        document.body.appendChild(component);
       });
 
       afterEach(() => {
         server.restore();
       });
 
-      it('should show dashboard details information', () => {
-        server.respond();
-        let img = component.querySelector('* /deep/ img');
-        let span = component.querySelector('* /deep/ span');
-        expect(img.attributes.src.value).toBe(detailsForTesting.logoUrl);
-        expect(span.textContent).toBe(detailsForTesting.name);
+      it('should show dashboard details information', (done) => {
+        createTestComponent('details-tile').then((component) => {
+          server.respond();
+          setTimeout(function () {
+            let img = component.querySelector('* /deep/ img');
+            let span = component.querySelector('* /deep/ span');
+            expect(img.attributes.src.value).toBe(detailsForTesting.logoUrl);
+            expect(span.textContent).toBe(detailsForTesting.displayName);
+            done();
+          });
+        });
       });
     });
   </script>

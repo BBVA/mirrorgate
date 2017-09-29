@@ -17,76 +17,34 @@
 
 <!-- build:js details.min.js -->
 <script src="controller.js"></script>
-<script src="model.js"></script>
 <!-- endbuild -->
 <template>
   <style>
+    @import "css/{skin}.css";
     .details.component__content {
       padding: 0;
     }
   </style>
 
   <div class="details component__content">
-    <h1 class="team"><img class="team-logo"><span></span></h1>
+    <h1 class="team">
+      <img rv-if="logo" rv-src="logo" class="team-logo">
+      <span>{name}</span>
+    </h1>
   </div>
 </template>
 
 <script>
-  (function (window, document, undefined) {
-
-    // Refers to the "importee", which is components/details-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-    tmpl.content.querySelector('style').innerText = '@import "css/'+Utils.getSkin()+'.css";' + tmpl.content.querySelector('style').innerText;
-
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(HTMLElement.prototype);
-
-    MyElementProto.createdCallback = function () {
-      // Creates the shadow root
-      this.shadowRoot = this.createShadowRoot();
-
-      // Add the image to the Shadow Root.
-      this.shadowRoot.appendChild(document.importNode(tmpl.content, true));
-    }
-
-    MyElementProto.detachedCallback = function () {
-      this.controller.dispose();
-    }
-
-    // Fires when an instance of the element is created
-    MyElementProto.attachedCallback = function () {
-      var element = this;
-
-      // Create an img element and set it's attributes.
-      var img = element.shadowRoot.querySelector('img');
-
-      this.controller = new DetailsController(Utils.getDashboardId());
-      this.controller.observable.attach(render);
-      this.controller.init();
-
-      function render(details) {
-        if (details) {
-          if (details.logoUrl) {
-            img.style.display = 'initial';
-            img.src = details.logoUrl == '#UPLOADED#' ?
-              'dashboards/' + Utils.getDashboardId() + '/image' :
+  MGComponent({
+    name: 'details-tile',
+    controllerClass: DetailsController,
+    parent: Tile,
+    render: function (details) {
+      this.getModel().logo = details.logoUrl == '#UPLOADED#' ?
+              'dashboards/' + this.getDashboardId() + '/image' :
               details.logoUrl;
-          } else {
-            img.style.display = 'none';
-          }
-
-          // Add the name of the dashboard to the Shadow Root
-          element.shadowRoot.querySelector('span').innerText = details.displayName || details.name || '';
-        }
-      };
-    };
-
-    // Registers <details-dashboard> in the main document
-    window.MyElement = document.registerElement('details-dashboard', {
-      prototype: MyElementProto
-    });
-  })(window, document);
-
+      this.getModel().name = details.displayName || details.name || '';
+      Utils.raiseEvent(this, {status: 'ok'});
+    }
+  });
 </script>

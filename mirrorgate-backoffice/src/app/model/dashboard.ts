@@ -37,4 +37,6 @@ export class Dashboard {
   slackChannel: string;
   lastUserEdit: string;
   lastModification: number;
+  type: string = 'Detail';
+  aggregatedDashboards: string[] = [];
 }

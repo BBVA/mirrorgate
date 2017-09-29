@@ -18,58 +18,19 @@
 <template>
   <content/>
 </template>
-
 <script>
-  (function (window, document, undefined) {
-
-    // Refers to the "importee", which is components/builds-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(HTMLElement.prototype);
-
-    MyElementProto.createdCallback = function () {
-      // Creates the shadow root
-      this.shadowRoot = this.createShadowRoot();
-      this.shadowRoot.appendChild(document.importNode(tmpl.content, true));
-
+  MGComponent({
+    name: 'tile-container',
+    parent: DashboardComponent,
+    onCreated: function () {
+      this.forceEnabled = this.getAttribute('enabled') === 'true';
       this.addEventListener('dashboard-updated', function (e) {
-        d3.select(this).classed({
-          'module-error': e.detail.status === 'error',
-          'module-warning': e.detail.status === 'warn',
-          'module-ok': e.detail.status === 'ok',
-          'module-empty': e.detail.status === 'empty',
-          'module-data-error': e.detail.status === 'server-error'
-        });
-
-        this._computeSize();
-
         this.updateVisibility();
       });
-
-      window.addEventListener('resize', function () {
-        setTimeout(this._computeSize.bind(this));
-      }.bind(this));
-
       this.updateVisibility();
-    };
+    },
 
-    MyElementProto._computeSize = function () {
-      var style = window.getComputedStyle(this);
-      var width = parseFloat(style.width.substring(0, style.width.length - 2)),
-        height = parseFloat(style.height.substring(0, style.height.length - 2));
-      var min = Math.min(width, height);
-
-      var classes = {
-        'module-s': min < 300,
-        'module-m': min >= 300 && min <= 600,
-        'module-l': min > 600
-      };
-      d3.select(this).classed(classes);
-    }
-
-    MyElementProto.updateVisibility = function () {
+    updateVisibility: function () {
       var disabled = true;
       for (var i in this.children) {
         var child = this.children[i];
@@ -78,18 +39,13 @@
         }
       }
 
-      this.setAttribute('enabled', !disabled);
+      this.setAttribute('enabled', !disabled || this.forceEnabled);
 
-      if (disabled) {
+      if (disabled && !this.forceEnabled) {
         this.style.display = 'none';
       } else {
         this.style.display = null;
       }
-    };
-
-    window.MyElement = document.registerElement('tile-container', {
-      prototype: MyElementProto
-    });
-  })(window, document);
-
+    }
+  });
 </script>

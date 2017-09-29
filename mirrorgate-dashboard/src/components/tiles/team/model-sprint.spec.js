@@ -19,12 +19,14 @@ describe('Sprint', () => {
 
   var sprint;
   var name = 'sprint1';
-  var doneStory = new Story('doneStory', 5, 'Done');
-  var inProgressStory = new Story('inProgressStory', 3, 'In Progress');
-  var blockedStory = new Story('blockStory', 5, 'Blocked');
   var startDate, endDate;
+  var doneStory,inProgressStory,blockedStory;
 
   beforeEach(() => {
+    doneStory = new Story('doneStory', 5, 'Done');
+    inProgressStory = new Story('inProgressStory', 3, 'In Progress');
+    blockedStory = new Story('blockStory', 5, 'Blocked');
+
     jasmine.clock().install();
     var baseTime = new Date(2017, 2, 22);
     jasmine.clock().mockDate(baseTime);

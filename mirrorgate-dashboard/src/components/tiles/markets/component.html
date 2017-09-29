@@ -85,37 +85,24 @@
 </template>
 
 <script>
-  (function (window, document, undefined) {
 
-    // Refers to the "importee", which is components/team-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
-
-    MyElementProto.getControllerClass = function () {
-      return MarketsController;
-    };
-
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
-
-    MyElementProto.render = function (data) {
+  MGComponent({
+    name: 'markets-tile',
+    controllerClass: MarketsController,
+    parent: Tile,
+    render: function (data) {
 
       //Hack to make the height stick to the contents
       setTimeout(function () {
 
-        var contents = this.shadowRoot.querySelector('.component__body');
+        var contents = this.getRootElement().querySelector('.component__body');
 
         var height = contents.offsetHeight + contents.offsetTop - contents.parentElement.offsetTop;
 
-        this.shadowRoot.host.parentElement.style["min-height"]=height + 'px';
-        this.shadowRoot.host.parentElement.style["flex-basis"]='unset';
+        this.parentElement.style["min-height"]=height + 'px';
+        this.parentElement.style["flex-basis"]='unset';
 
       }.bind(this));
-
 
       var apps = data && data.apps;
 
@@ -132,11 +119,6 @@
       }
 
     }
-
-    // Registers <team-dashboard> in the main document
-    window.MyElement = document.registerElement('markets-tile', {
-      prototype: MyElementProto
-    });
-  })(window, document);
+  });
 
 </script>

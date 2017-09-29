@@ -35,7 +35,7 @@
 
       <div class="backlog-story-points"><span class="data-number">{stats.backlogEstimate}</span> story points</div>
 
-      <div class="backlog-status" rv-show="stats.sprintStats">
+      <div class="backlog-status" rv-if="stats.sprintStats">
         <div class="velocity-line"></div>
 
         <div class="backlog-progress">
@@ -54,13 +54,6 @@
 
 <script>
   (function (window, document, undefined) {
-
-    // Refers to the "importee", which is components/team-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
 
     var order = {
       'Done': 0,
@@ -90,38 +83,32 @@
       }
     }
 
-    MyElementProto.getControllerClass = function () {
-      return TeamController;
-    };
 
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
+    MGComponent({
+      name: 'next-sprint-tile',
+      controllerClass: TeamController,
+      parent: Tile,
+      render: function (sprintData) {
+        Utils.raiseEvent(this, {
+          status: sprintData ? 'unknown' : 'server-error'
+        });
 
-    MyElementProto.render = function (sprintData) {
-      Utils.raiseEvent(this, {
-        status: sprintData ? 'unknown' : 'server-error'
-      });
+        if (sprintData) {
+          var model = this.getModel();
+          model.stats = sprintData.stats || {};
 
-      if (sprintData) {
-        var model = this.getModel();
-        model.stats = sprintData.stats || {};
+          if (model.stats.sprintStats) {
+            var sprintDays = (sprintData.currentSprint && sprintData.currentSprint.getTotalDays()) || model.stats.sprintStats.daysDurationAvg;
+            model.stats.velocity = Math.floor(sprintDays *
+              model.stats.sprintStats.estimateAvg / model.stats.sprintStats.daysDurationAvg);
 
-        if (model.stats.sprintStats) {
-          var sprintDays = (sprintData.currentSprint && sprintData.currentSprint.getTotalDays()) || model.stats.sprintStats.daysDurationAvg;
-          model.stats.velocity = Math.floor(sprintDays *
-            model.stats.sprintStats.estimateAvg / model.stats.sprintStats.daysDurationAvg);
+            model.stats.backlogFillRate = 70 * model.stats.backlogEstimate / model.stats.velocity;
+          }
 
-          model.stats.backlogFillRate = 70 * model.stats.backlogEstimate / model.stats.velocity;
         }
-
       }
-
-    };
-
-    window.MyElement = document.registerElement('next-sprint-tile', {
-      prototype: MyElementProto
     });
+
   })(window, document);
 
 </script>

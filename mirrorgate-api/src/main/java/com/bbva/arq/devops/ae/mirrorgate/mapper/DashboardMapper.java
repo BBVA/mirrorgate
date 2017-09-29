@@ -17,6 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 
 public class DashboardMapper {
@@ -27,21 +28,63 @@ public class DashboardMapper {
         return map(source, new DashboardDTO());
     }
 
+    public static Dashboard map(DashboardDTO source) {
+        return map(source, new Dashboard());
+    }
+
     public static DashboardDTO map(Dashboard source, DashboardDTO target) {
         return target.setAdminUsers(source.getAdminUsers())
                 .setApplications(source.getApplications())
+                .setType(source.getType() == null ? null : DashboardType.valueOf(source.getType()))
+                .setName(source.getName())
                 .setBoards(source.getBoards())
                 .setCodeRepos(source.getCodeRepos())
-                .setTeamMembers(source.getTeamMembers())
                 .setDisplayName(source.getDisplayName())
                 .setFilters(source.getFilters())
                 .setLastModification(source.getLastModification())
                 .setLastUserEdit(source.getLastUserEdit())
+                .setTeamMembers(source.getTeamMembers())
                 .setLogoUrl(source.getLogoUrl())
                 .setName(source.getName())
                 .setsProductName(source.getsProductName())
                 .setStatus(source.getStatus())
                 .setAnalyticViews(source.getAnalyticViews())
+                .setAuthor(source.getAuthor())
+                .setSlackToken(source.getSlackToken())
+                .setSlackTeam(source.getSlackTeam())
+                .setSlackChannel(source.getSlackChannel())
+                .setProgramIncrement(source.getProgramIncrement())
+                .setUrlAlerts(source.getUrlAlerts())
+                .setUrlAlertsAuthorization(source.getUrlAlertsAuthorization())
+                .setAggregatedDashboards(source.getAggregatedDashboards())
+                .setSkin(source.getSkin());
+    }
+
+    public static Dashboard map(DashboardDTO source, Dashboard target) {
+        return target.setAdminUsers(source.getAdminUsers())
+                .setApplications(source.getApplications())
+                .setName(source.getName())
+                .setType(source.getType() == null ? null : source.getType().name())
+                .setBoards(source.getBoards())
+                .setCodeRepos(source.getCodeRepos())
+                .setDisplayName(source.getDisplayName())
+                .setFilters(source.getFilters())
+                .setLastModification(source.getLastModification())
+                .setLastUserEdit(source.getLastUserEdit())
+                .setTeamMembers(source.getTeamMembers())
+                .setLogoUrl(source.getLogoUrl())
+                .setName(source.getName())
+                .setsProductName(source.getsProductName())
+                .setStatus(source.getStatus())
+                .setAnalyticViews(source.getAnalyticViews())
+                .setSlackToken(source.getSlackToken())
+                .setSlackTeam(source.getSlackTeam())
+                .setSlackChannel(source.getSlackChannel())
+                .setProgramIncrement(source.getProgramIncrement())
+                .setAuthor(source.getAuthor())
+                .setUrlAlerts(source.getUrlAlerts())
+                .setUrlAlertsAuthorization(source.getUrlAlertsAuthorization())
+                .setAggregatedDashboards(source.getAggregatedDashboards())
                 .setSkin(source.getSkin());
     }
 

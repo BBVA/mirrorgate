@@ -2,6 +2,7 @@ package com.bbva.arq.devops.ae.mirrorgate.cron;
 
 import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
@@ -89,7 +90,7 @@ public class EventScheduler {
         Map<String, Object> response = new HashMap<>();
 
         //Handle unchecked exception
-        Dashboard dashboard = dashboardService.getDashboard(dashboardId);
+        DashboardDTO dashboard = dashboardService.getDashboard(dashboardId);
         if (dashboard == null || dashboard.getCodeRepos() == null
                 || dashboard.getCodeRepos().isEmpty()) {
             return null;

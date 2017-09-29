@@ -34,6 +34,8 @@ public class Dashboard extends BaseModel {
     private String name;
     private String displayName;
     private String logoUrl;
+    private String type;
+
     @Indexed
     private List<String> codeRepos;
     private List<String> adminUsers;
@@ -44,7 +46,6 @@ public class Dashboard extends BaseModel {
     private List<String> boards;
     private Filters filters;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackToken;
     private String slackTeam;
     private String slackChannel;
@@ -58,179 +59,218 @@ public class Dashboard extends BaseModel {
     private String author;
     private String skin = "classic";
 
+    private List<String> aggregatedDashboards;
+
+
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
+    public Dashboard setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getLogoUrl() {
         return logoUrl;
     }
-
-    public void setLogoUrl(String logoUrl) {
+    public Dashboard setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
+        return this;
     }
 
     public List<String> getCodeRepos() {
         return codeRepos;
     }
-
-    public void setCodeRepos(List<String> codeRepos) {
+    public Dashboard setCodeRepos(List<String> codeRepos) {
         this.codeRepos = codeRepos;
+        return this;
     }
 
     public String getsProductName() {
         return sProductName;
     }
-
-    public void setsProductName(String sProductName) {
+    public Dashboard setsProductName(String sProductName) {
         this.sProductName = sProductName;
+        return this;
     }
 
     public List<String> getApplications() {
         return applications;
     }
 
-    public void setApplications(List<String> applications) {
+    public Dashboard setApplications(List<String> applications) {
         this.applications = applications;
+        return this;
     }
 
     public List<String> getBoards() {
         return boards;
     }
 
-    public void setBoards(List<String> boards) {
+    public Dashboard setBoards(List<String> boards) {
         this.boards = boards;
+        return this;
     }
 
     public Filters getFilters() {
         return filters;
     }
 
-    public void setFilters(Filters filters) {
+    public Dashboard setFilters(Filters filters) {
         this.filters = filters;
+        return this;
     }
 
     public String getDisplayName() {
         return displayName;
     }
 
-    public void setDisplayName(String displayName) {
+    public Dashboard setDisplayName(String displayName) {
         this.displayName = displayName;
+        return this;
     }
 
     public DashboardStatus getStatus() {
         return status;
     }
 
-    public void setStatus(DashboardStatus status) {
+    public Dashboard setStatus(DashboardStatus status) {
         this.status = status;
+        return this;
     }
 
     public String getLastUserEdit() {
         return lastUserEdit;
     }
 
-    public void setLastUserEdit(String lastUserEdit) {
+    public Dashboard setLastUserEdit(String lastUserEdit) {
         this.lastUserEdit = lastUserEdit;
+        return this;
     }
 
     public Long getLastModification() {
         return lastModification;
     }
 
-    public void setLastModification(long lastModification) {
+    public Dashboard setLastModification(Long lastModification) {
         this.lastModification = lastModification;
+        return this;
     }
 
     public String getSlackToken() {
         return slackToken;
     }
 
-    public void setSlackToken(String slackToken) {
+    public Dashboard setSlackToken(String slackToken) {
         this.slackToken = slackToken;
+        return this;
     }
 
     public String getSlackTeam() {
         return slackTeam;
     }
 
-    public void setSlackTeam(String slackTeam) {
+    public Dashboard setSlackTeam(String slackTeam) {
         this.slackTeam = slackTeam;
+        return this;
     }
 
     public String getProgramIncrement() {
         return programIncrement;
     }
 
-    public void setProgramIncrement(String programIncrement) {
+    public Dashboard setProgramIncrement(String programIncrement) {
         this.programIncrement = programIncrement;
+        return this;
     }
 
     public String getUrlAlerts() {
         return urlAlerts;
     }
 
-    public void setUrlAlerts(String urlAlerts) {
+    public Dashboard setUrlAlerts(String urlAlerts) {
         this.urlAlerts = urlAlerts;
+        return this;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public Dashboard setAuthor(String author) {
         this.author = author;
+        return this;
     }
 
     public String getSlackChannel() {
         return slackChannel;
     }
 
-    public void setSlackChannel(String slackChannel) {
+    public Dashboard setSlackChannel(String slackChannel) {
         this.slackChannel = slackChannel;
+        return this;
     }
 
     public List<String> getAdminUsers() {
         return adminUsers;
     }
 
-    public void setAdminUsers(List<String> adminUsers) {
+    public Dashboard setAdminUsers(List<String> adminUsers) {
         this.adminUsers = adminUsers;
+        return this;
     }
 
     public List<String> getTeamMembers() {
         return teamMembers;
     }
 
-    public void setTeamMembers(List<String> teamMembers) {
+    public Dashboard setTeamMembers(List<String> teamMembers) {
         this.teamMembers = teamMembers;
+        return this;
     }
 
     public List<String> getAnalyticViews() {
         return analyticViews;
     }
 
-    public void setAnalyticViews(List<String> analyticViews) {
+    public Dashboard setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
     }
 
     public String getUrlAlertsAuthorization() {
         return urlAlertsAuthorization;
     }
 
-    public void setUrlAlertsAuthorization(String urlAlertsAuthorization) {
+    public Dashboard setUrlAlertsAuthorization(String urlAlertsAuthorization) {
         this.urlAlertsAuthorization = urlAlertsAuthorization;
+        return this;
     }
 
     public String getSkin() {
         return skin;
     }
 
-    public void setSkin(String skin) {
+    public Dashboard setSkin(String skin) {
         this.skin = skin;
+        return this;
+    }
+
+    public List<String> getAggregatedDashboards() {
+        return aggregatedDashboards;
+    }
+
+    public Dashboard setAggregatedDashboards(List<String> aggregatedDashboards) {
+        this.aggregatedDashboards = aggregatedDashboards;
+        return this;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Dashboard setType(String type) {
+        this.type = type;
+        return this;
     }
 }

@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -76,7 +77,7 @@ public class BackOfficeSlackUtilsController {
                 return ResponseEntity.badRequest().build();
             }
 
-            Dashboard dashboard = dashboardService.getDashboard(optionalDashboard.get());
+            DashboardDTO dashboard = dashboardService.getDashboard(optionalDashboard.get());
 
             if (dashboard == null) {
                 return ResponseEntity.badRequest().build();
