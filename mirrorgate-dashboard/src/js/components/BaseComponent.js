@@ -42,19 +42,19 @@ var BaseComponent = (function() {
         tag.innerText = tag.innerText.replace(/{skin}/, Utils.getSkin());
       }
 
-      if(this.lightDOM) {
-        var wrapper = document.createElement('div');
-        wrapper.className = "component-wrapper " + this.className;
-        wrapper.setAttribute("rv-ignore","true");
+      //Don't create wrapper for container nodes
+      if(this.lightDOM && (this.childNodes.length === 0 || !this.innerHTML.trim().length)) {
+          var wrapper = document.createElement('div');
+          wrapper.className = "component-wrapper " + this.className;
+          wrapper.setAttribute("rv-ignore","true");
 
-        var container = document.createElement('div');
-        container.className = "component-host " + this.className;
+          var container = document.createElement('div');
+          container.className = "component-host " + this.className;
 
-        wrapper.appendChild(container);
-        container.appendChild(this._rootElement);
-
-        this.appendChild(wrapper);
-        this._fakeShadowRoot = container;
+          wrapper.appendChild(container);
+          container.appendChild(this._rootElement);
+          this.appendChild(wrapper);
+          this._fakeShadowRoot = container;
       } else {
         this.createShadowRoot();
         this.shadowRoot.appendChild(this._rootElement);
@@ -72,7 +72,7 @@ var BaseComponent = (function() {
   };
 
   BaseComponentPrototype.getRootElement = function () {
-    return this.lightDOM ? this._fakeShadowRoot : this.shadowRoot;
+    return this._fakeShadowRoot || this.shadowRoot;
   };
 
   BaseComponentPrototype.getConfig = function() {
