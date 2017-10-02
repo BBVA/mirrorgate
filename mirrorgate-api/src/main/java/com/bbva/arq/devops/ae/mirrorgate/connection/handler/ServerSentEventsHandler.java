@@ -1,5 +1,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.connection.handler;
 
+import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,12 +34,14 @@ public class ServerSideEventsHandler implements ConnectionHandler {
     }
 
 
+    @Override
     public Set<String> getDashboardsWithSession(){
 
         return Collections.unmodifiableSet(emittersPerDashboard.keySet());
     }
 
-    public void sendMessageToDashboardSessions(Map<String, Object> stringMessage, String dashboardId) {
+    @Override
+    public void sendBuildsMessageToDashboardSessions(Map<String, Object> stringMessage, String dashboardId) {
 
         List<SseEmitter> emitters = emittersPerDashboard.get(dashboardId);
 
@@ -53,6 +56,25 @@ public class ServerSideEventsHandler implements ConnectionHandler {
                     LOGGER.error("Exception while sending message to emitter for dashboard {}", dashboardId);
                 }
 
+            }
+        }
+    }
+
+    @Override
+    public void sendEventUpdateMessage(EventType event, String dashboardId) {
+
+        List<SseEmitter> emitters = emittersPerDashboard.get(dashboardId);
+
+        if(emitters != null){
+
+            for(SseEmitter sseEmitter : emitters) {
+
+                try {
+                    String jsonMessage = objectMapper.writeValueAsString(event.getValue());
+                    sseEmitter.send(jsonMessage, MediaType.APPLICATION_JSON);
+                } catch (IOException e) {
+                    LOGGER.error("Exception while sending message to emitter for dashboard {}", dashboardId);
+                }
             }
         }
     }
