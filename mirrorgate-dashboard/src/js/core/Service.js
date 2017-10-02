@@ -102,7 +102,7 @@ var Service = (function() {
       apps: new ServiceType(Timer.eventually, 'applications'),
       dashboard: new ServiceType(Timer.never, 'details'),
       dashboards: new ServiceType(Timer.never),
-      programincrement: new ServiceType(Timer.eventually, 'programincrement','FeatureType),
+      programincrement: new ServiceType(Timer.eventually, 'programincrement', 'FeatureType'),
       notifications: new ServiceType(Timer.never, 'notifications'),
       userMetrics: new ServiceType(Timer.eventually, 'user-metrics'),
     },
