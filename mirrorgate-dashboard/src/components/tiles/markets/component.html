@@ -28,17 +28,14 @@
     <div class="component__header">
       <h2 class="title">Markets</h2>
       <h3 class="title-desc">
-        <span rv-hide="apps | length">No applications stats collected</span>
+        <span rv-hide="apps | length">No applications reviews found</span>
       </h3>
     </div>
     <div class="component__body">
       <div class="platform-rates">
 
-        <!-- TO-DO
-            - Cambiar últimos 7 días por Última versión -->
-
         <div rv-each-app="apps" class="platform-rate">
-          <div class="rate-7days-data" rv-show="app.rate7Days">
+          <div class="rate-7days-data">
 
             <div class="rate__value">
               <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
@@ -47,23 +44,29 @@
 
             </div>
 
-            <div class="rate-stars">
+            <div class="rate-stars" rv-if="app.starsTotal">
 
               <span class="rate__total">
-                <span>
+                <span rv-show="app.rate7Days">
                   <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
                 </span>
+                <span rv-hide="app.rate7Days" style="filter:opacity(.1)">
+                  <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa fa-star-o"></i>
+                </span>
               </span>
-              <span class="sr-only">{app.rate7Days}</span>
+              <span class="sr-only" rv-show="app.rate7Days">{app.rate7Days}</span>
 
-              <span class="tendency" rv-pclass-tendency="app.tendency"></span>
+              <span class="tendency" rv-show="app.rate7Days" rv-pclass-tendency="app.tendency"></span>
 
-              <span class="rate__tag">
+              <span class="rate__tag" rv-show="app.rate7Days">
                 ({app.votes7Days} votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
+              </span>
+              <span class="rate__tag" rv-hide="app.rate7Days">
+                (No votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
               </span>
 
               <div class="rate__total-data">
-                <span>All versions: <span class="rate-value sr-only">{app.rateTotal}</span> </span>
+                <span>All times: <span class="rate-value sr-only">{app.rateTotal}</span> </span>
 
                 <i rv-each-star="app.starsTotal" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
 
@@ -71,11 +74,6 @@
               </div>
 
             </div>
-          </div>
-
-          <div class="rate-7days-data " rv-hide="app.rate7Days">
-            <i aria-hidden="true" rv-pclass-fa="app.icon" class="fa"></i>
-            <span class="rate__legend">No ratings in 7 days</span>
           </div>
 
         </div>
