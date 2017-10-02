@@ -1,6 +1,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ServerSideEventsHandler;
+import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ServerSentEventsHandler;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +15,11 @@ public class ServerSideEventsController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerSideEventsController.class);
 
-    private ServerSideEventsHandler handler;
+    private ServerSentEventsHandler handler;
 
 
     @Autowired
-    public ServerSideEventsController(ServerSideEventsHandler handler){
+    public ServerSideEventsController(ServerSentEventsHandler handler){
 
         this.handler = handler;
     }

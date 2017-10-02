@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,9 +19,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Component
-public class ServerSideEventsHandler implements ConnectionHandler {
+public class ServerSentEventsHandler implements ConnectionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServerSideEventsHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerSentEventsHandler.class);
 
     private Map<String, List<SseEmitter>> emittersPerDashboard = new ConcurrentHashMap<>(1000);
 
@@ -28,7 +29,7 @@ public class ServerSideEventsHandler implements ConnectionHandler {
 
 
     @Autowired
-    public ServerSideEventsHandler(ObjectMapper objectMapper){
+    public ServerSentEventsHandler(ObjectMapper objectMapper){
 
         this.objectMapper = objectMapper;
     }
@@ -41,26 +42,6 @@ public class ServerSideEventsHandler implements ConnectionHandler {
     }
 
     @Override
-    public void sendBuildsMessageToDashboardSessions(Map<String, Object> stringMessage, String dashboardId) {
-
-        List<SseEmitter> emitters = emittersPerDashboard.get(dashboardId);
-
-        if(emitters != null){
-
-            for(SseEmitter sseEmitter : emitters) {
-
-                try {
-                    String jsonMessage = objectMapper.writeValueAsString(stringMessage);
-                    sseEmitter.send(jsonMessage, MediaType.APPLICATION_JSON);
-                } catch (IOException e) {
-                    LOGGER.error("Exception while sending message to emitter for dashboard {}", dashboardId);
-                }
-
-            }
-        }
-    }
-
-    @Override
     public void sendEventUpdateMessage(EventType event, String dashboardId) {
 
         List<SseEmitter> emitters = emittersPerDashboard.get(dashboardId);
@@ -70,7 +51,9 @@ public class ServerSideEventsHandler implements ConnectionHandler {
             for(SseEmitter sseEmitter : emitters) {
 
                 try {
-                    String jsonMessage = objectMapper.writeValueAsString(event.getValue());
+                    Map<String, String> message = new HashMap<>();
+                    message.put("type", event.getValue());
+                    String jsonMessage = objectMapper.writeValueAsString(message);
                     sseEmitter.send(jsonMessage, MediaType.APPLICATION_JSON);
                 } catch (IOException e) {
                     LOGGER.error("Exception while sending message to emitter for dashboard {}", dashboardId);

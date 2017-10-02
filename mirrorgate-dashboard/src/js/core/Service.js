@@ -36,6 +36,13 @@ var Service = (function() {
       });
     }
 
+    function processServerEvent(serverEventType){
+      var serverSentEventtype=JSON.parse(serverEventType);
+      if(serverSentEventtype.type === serviceType.serverEventType){
+        callHttpService();
+      }
+    }
+
     this.addListener = function(callback) {
       event.attach(callback);
       this._checkEventRegistration();
@@ -52,9 +59,15 @@ var Service = (function() {
     this._checkEventRegistration = function() {
       if (event.getListeners().length && !this._attached) {
         this._attached = true;
+        if(serviceType.serverEventType){
+          ServerSideEvent.addListener(processServerEvent);
+        }
         timer.attach(callHttpService);
       } else if (!event.getListeners().length && this._attached) {
         this._attached = false;
+        if(serviceType.serverEventType){
+          ServerSideEvent.removeListener(processServerEvent);
+        }
         timer.detach(callHttpService);
       }
     };
@@ -65,9 +78,10 @@ var Service = (function() {
     };
   }
 
-  function ServiceType(timer, resource) {
+  function ServiceType(timer, resource, serverEventType) {
     this._instances = {};
     this.timer = timer;
+    this.serverEventType = serverEventType;
     this.getUrl = function(dashboardId) {
       var url = 'dashboards/';
       if (dashboardId) {
@@ -82,13 +96,13 @@ var Service = (function() {
 
   var self = {
     types: {
-      builds: new ServiceType(Timer.eventually, 'builds'),
+      builds: new ServiceType(Timer.eventually, 'builds','BuildType'),
       bugs: new ServiceType(Timer.eventually, 'bugs'),
-      stories: new ServiceType(Timer.eventually, 'stories'),
+      stories: new ServiceType(Timer.eventually, 'stories', 'FeatureType'),
       apps: new ServiceType(Timer.eventually, 'applications'),
       dashboard: new ServiceType(Timer.never, 'details'),
       dashboards: new ServiceType(Timer.never),
-      programincrement: new ServiceType(Timer.eventually, 'programincrement'),
+      programincrement: new ServiceType(Timer.eventually, 'programincrement','FeatureType),
       notifications: new ServiceType(Timer.never, 'notifications'),
       userMetrics: new ServiceType(Timer.eventually, 'user-metrics'),
     },

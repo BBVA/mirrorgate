@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
@@ -120,6 +121,11 @@ public class FeatureServiceImpl implements FeatureService{
     @Override
     public void deleteStory(Long id, String collectorId) {
         repository.deleteBysIdAndCollectorId(id.toString(), collectorId);
+    }
+
+    @Override
+    public Iterable<Feature> getFeaturesByObjectId(List<ObjectId> ids){
+        return repository.findAll(ids);
     }
 
 }

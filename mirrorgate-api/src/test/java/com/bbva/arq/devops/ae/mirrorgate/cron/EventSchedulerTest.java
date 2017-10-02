@@ -5,7 +5,7 @@ import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import ch.qos.logback.classic.Level;
-import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ServerSideEventsHandler;
+import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ServerSentEventsHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
@@ -20,9 +20,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -43,7 +40,7 @@ public class EventSchedulerTest {
     private BuildService buildService;
 
     @MockBean
-    private ServerSideEventsHandler eventsHandler;
+    private ServerSentEventsHandler eventsHandler;
 
     @MockBean
     private DashboardService dashboardService;
