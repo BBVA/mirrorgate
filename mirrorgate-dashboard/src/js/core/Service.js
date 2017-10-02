@@ -60,13 +60,13 @@ var Service = (function() {
       if (event.getListeners().length && !this._attached) {
         this._attached = true;
         if(serviceType.serverEventType){
-          ServerSideEvent.addListener(processServerEvent);
+          ServerSentEvent.addListener(processServerEvent);
         }
         timer.attach(callHttpService);
       } else if (!event.getListeners().length && this._attached) {
         this._attached = false;
         if(serviceType.serverEventType){
-          ServerSideEvent.removeListener(processServerEvent);
+          ServerSentEvent.removeListener(processServerEvent);
         }
         timer.detach(callHttpService);
       }

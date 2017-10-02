@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
-public class ServerSideEventsController {
+public class ServerSentEventsController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServerSideEventsController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerSentEventsController.class);
 
     private ServerSentEventsHandler handler;
 
 
     @Autowired
-    public ServerSideEventsController(ServerSentEventsHandler handler){
+    public ServerSentEventsController(ServerSentEventsHandler handler){
 
         this.handler = handler;
     }
