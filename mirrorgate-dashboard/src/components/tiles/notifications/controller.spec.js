@@ -24,7 +24,7 @@ describe('NotificationsController', () => {
     server.autoRespond = true;
 
     controller = new NotificationsController(dashboardForTesting);
-    controller.init({});
+    return controller.init(detailsForTesting);
   });
 
   it('should get last notification', (done) => {

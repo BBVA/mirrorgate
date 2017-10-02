@@ -15,32 +15,18 @@
   ~ limitations under the License.
   -->
 
-<html>
 
+<html>
 <head>
   <title>program-increment-tile web component testing page</title>
-
-  <script src="/node_modules/karma-read-json/karma-read-json.js"></script>
-  <script src="/test/bootstrap.js"></script>
-
 </head>
-
 <body>
-
   <script>
+    genericTileComponentTest('program-increment-tile','path');
+
     describe('<program-increment-tile>', () => {
 
-      let component;
-
       let server;
-
-      function appendComponent() {
-        component = document.createElement('program-increment-tile');
-        document.body.appendChild(component);
-        component.setAttribute('enabled', 'true');
-        component.setAttribute('pconfig', '{}');
-        component.setAttribute('pid', dashboardForTesting);
-      }
 
       beforeEach(() => {
         server = buildFakeServer();
@@ -50,74 +36,34 @@
         server.restore();
       });
 
-      it('should give each product a 1 total size', () => {
-        appendComponent();
-        server.respond();
-
-        let total = 0;
-        let pi = component.getModel().programIncrement;
-
-        pi.products.forEach(function(product) {
-          let productTotal = 0;
-          product.children.forEach(function(feature) {
-            if(feature.children && feature.children.length) {
-              feature.children.forEach(function(issue) {
-                productTotal += issue.size;
-              });
-            } else {
-              productTotal += feature.size;
-            }
-          });
-          expect(productTotal).toBeCloseTo(1,5);
-          total += productTotal;
-        });
-
-        expect(total).toBeCloseTo(pi.products.length,5);
-
-        debugger;
-      });
-
-      describe('events', () => {
-
-        var testHandler;
-        var handler = function (e) {
-          if (testHandler) {
-            testHandler(e);
-          }
-        };
-
-        beforeEach(() => {
-          document.addEventListener('dashboard-updated', handler);
-        });
-
-        afterEach(() => {
-          document.removeEventListener('dashboard-updated', handler);
-          testHandler = undefined;
-        });
-
-        it('should raise an event when it succeds', (done) => {
-          appendComponent();
-
-          testHandler = function (e) {
-            expect(e.detail.status).toBe('unknown');
-            done();
-          }
+      it('should give each product a 1 total size', (done) => {
+        createTestComponent('program-increment-tile').then(function (component) {
           server.respond();
-        });
 
-        it('should raise an event when servers fail', (done) => {
-          server.restore();
-          server = sinon.fakeServer.create();
+          setTimeout(function () {
+            let total = 0;
+            let pi = component.getModel().programIncrement;
 
-          appendComponent();
+            pi.products.forEach(function(product) {
+              let productTotal = 0;
+              product.children.forEach(function(feature) {
+                if(feature.children && feature.children.length) {
+                  feature.children.forEach(function(issue) {
+                    productTotal += issue.size;
+                  });
+                } else {
+                  productTotal += feature.size;
+                }
+              });
+              expect(productTotal).toBeCloseTo(1,5);
+              total += productTotal;
+            });
 
-          testHandler = function (e) {
-            expect(e.detail.status).toBe('server-error');
+            expect(total).toBeCloseTo(pi.products.length,5);
             done();
-          };
-          server.lastRequest.respond(404, {});
-        });
+          });
 
+        });
       });
     });
   </script>

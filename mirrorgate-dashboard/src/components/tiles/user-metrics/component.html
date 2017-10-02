@@ -32,11 +32,11 @@
       </h3>
     </div>
     <div class="component__body">
-      <div class="indicator" rv-show="metrics.rtActiveUsers">
+      <div class="indicator" rv-if="metrics.rtActiveUsers">
         <div class="stats stats-metrics">{metrics.rtActiveUsers}</div>
         <div class="stats-desc">active users</div>
       </div>
-      <div class="indicator" rv-show="metrics.sevenDayUsers">
+      <div class="indicator" rv-if="metrics.sevenDayUsers">
         <div class="stats">{metrics.sevenDayUsers}</div>
         <div class="stats-desc">weekly users</div>
       </div>
@@ -45,45 +45,21 @@
 </template>
 
 <script>
-  (function (window, document, undefined) {
-
-    // Refers to the "importee", which is components/builds-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
-
-    MyElementProto.processAlerts = function (data) {
+  MGComponent({
+    name: 'user-metrics-tile',
+    controllerClass: UserMetricsController,
+    parent: Tile,
+    processAlerts: function (data) {
       Utils.raiseEvent(this, {
-        status: data ? 'empty' : 'server-error'
+        status: data ? (data.metrics ? 'unknown' : 'empty') : 'server-error'
       });
-    }
+    },
 
-    MyElementProto.getControllerClass = function () {
-      return UserMetricsController;
-    };
-
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
-
-    // Fires when an instance of the element is created
-    MyElementProto.render = function (data) {
-
+    render: function (data) {
       this.processAlerts(data);
-
-      var model = this.getModel();
-
       if (data) {
-        model.metrics = data.metrics;
+        this.getModel().metrics = data.metrics;
       }
-    };
-
-    window.MyElement = document.registerElement('user-metrics-tile', {
-      prototype: MyElementProto
-    });
-
-  })(window, document);
-
+    }
+  });
 </script>

@@ -16,7 +16,6 @@
   -->
 
 <html>
-
 <head>
   <title>MirrorGate dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +24,9 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
   <!-- endbuild -->
 
-  <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+
+  <script>window.supportsShadowDOM = document.head.createShadowRoot;</script>
 
   <!-- build:js js/vendor.min.js -->
   <script src="bower_components/jquery/dist/jquery.slim.min.js"></script>
@@ -42,6 +43,8 @@
   <script src="js/core/request.js"></script>
   <script src="js/core/utils.js"></script>
   <script src="js/core/Config.js"></script>
+  <script src="js/components/BaseComponent.js"></script>
+  <script src="js/components/DashboardComponent.js"></script>
   <script src="js/components/Tile.js"></script>
   <script src="js/core/Event.js"></script>
   <script src="js/core/Clock.js"></script>
@@ -52,126 +55,12 @@
   <script src="js/core/updateVersion.js"></script>
   <!-- endbuild -->
 
-  <link rel="import" href="components/board-column/component.html">
-  <link rel="import" href="components/tile-container/component.html">
-  <link rel="import" href="components/details/component.html">
-  <link rel="import" href="components/details/background.html">
-  <link rel="import" href="components/tiles/builds/graph.html">
-  <link rel="import" href="components/tiles/builds/stats.html">
-  <link rel="import" href="components/tiles/team/currentSprint.html">
-  <link rel="import" href="components/tiles/team/nextSprint.html">
-  <link rel="import" href="components/tiles/markets/component.html">
-  <link rel="import" href="components/tiles/markets/reviews-component.html">
-  <link rel="import" href="components/tiles/programIncrement/component.html">
-  <link rel="import" href="components/tiles/bugs/component.html" >
-  <link rel="import" href="components/tiles/notifications/component.html" >
-  <link rel="import" href="components/tiles/alerts/component.html" >
-  <link rel="import" href="components/tiles/user-metrics/component.html" >
-  <link rel="import" href="components/tiles/requests-metrics/requests-component.html" >
+  <link rel="import" href="components/dashboard/component.html" >
 
 </head>
-
 <body>
-
   <div class="main-content">
-    <div class="header">
-      <div class="logos">
-        <img class="logo--mg" src="img/logo-ae.png" />
-      </div>
-      <details-dashboard></details-dashboard>
-      <div class="menu">
-        <div class="btn-group" role="group">
-          <button type="button" onclick="return Utils.openFeedbackForm()" class="dropdown__button btn"><i class="fa fa-commenting-o" aria-hidden="true"></i></button>
-          <div class="dropdown btn-group">
-            <button id="menuBtn" class="dropdown__button btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-bars" aria-hidden="true"></i>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="menuBtn">
-              <li><a href="dashboard.html" onclick="return Utils.openDashboard('dashboard');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Simple view</a></li>
-              <li class="dropdown-header">Manage</li>
-              <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice()"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
-              <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice(Utils.getDashboardId());"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
-              <li class="dropdown-header">Recent dashboards</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- .dashboard -->
-    <div class="dashboard adaptable">
-      <board-column>
-        <board-row class="row--primary">
-          <tile-container class="tile--primary">
-            <current-sprint-tile class="tile component tile--primary"></current-sprint-tile>
-          </tile-container>
-          <tile-container class="tile--primary">
-            <program-increment-tile class="tile component"></program-increment-tile>
-          </tile-container>
-
-        </board-row>
-
-        <board-row>
-          <tile-container class="tile--secondary">
-            <bugs-tile class="tile component"></bugs-tile>
-          </tile-container>
-          <tile-container class="tile--secondary">
-            <next-sprint-tile class="tile component"></next-sprint-tile>
-          </tile-container>
-        </board-row>
-      </board-column>
-
-      <board-column>
-        <tile-container class="tile--primary">
-          <builds-tile class="tile component tile--primary"></builds-tile>
-        </tile-container>
-
-        <tile-container class="tile--secondary">
-          <buildsstats-tile class="tile component"></buildsstats-tile>
-        </tile-container>
-
-      </board-column>
-
-      <board-column>
-        <board-column class="tile--primary">
-          <tile-container class="tile tile--primary">
-            <markets-tile class="markets component"></markets-tile>
-          </tile-container>
-          <tile-container class="tile tile--primary">
-            <reviews-tile class="markets component"></reviews-tile>
-          </tile-container>
-        </board-column>
-        <board-row>
-          <tile-container class="tile user-metrics tile--secondary">
-            <user-metrics-tile class="component"></user-metrics-tile>
-          </tile-container>
-        </board-row>
-        <board-row>
-          <tile-container class="tile tile--secondary">
-            <requests-metrics-tile class="component"></requests-metrics-tile>
-          </tile-container>
-        </board-row>
-      </board-column>
-
-      <board-column class="alerts-column">
-        <tile-container class="tile alerts tile--primary">
-          <alerts-tile></alerts-tile>
-        </tile-container>
-      </board-column>
-
-      <background-dashboard></background-dashboard>
-
-    </div>
-    <!-- / .dashboard -->
-
-    <!-- .bottom -->
-    <board-column class="bottom">
-      <notifications-tile class="tile"></notifications-tile>
-    </board-column>
-    <!-- / .bottom -->
-
+    <dashboard-component class="page-component"></dashboard-component>
   </div>
-  <img src="img/broken-glass.png" class="easter-egg"/>
 </body>
-
 </html>

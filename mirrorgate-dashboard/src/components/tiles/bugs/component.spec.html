@@ -17,92 +17,12 @@
   -->
 
 <html>
-
 <head>
   <title>bugs-tile web component testing page</title>
-
-  <script src="/node_modules/karma-read-json/karma-read-json.js"></script>
-  <script src="/test/bootstrap.js"></script>
-
 </head>
-
 <body>
-
   <script>
-    describe('<bugs-tile>', () => {
-
-      let component;
-
-      var server;
-
-      function appendComponent() {
-        component = document.createElement('bugs-tile');
-        document.body.appendChild(component);
-        component.setAttribute('enabled', 'true');
-        component.setAttribute('pconfig', '{}');
-        component.setAttribute('pid', dashboardForTesting);
-      }
-
-      beforeEach(() => {
-        server = buildFakeServer();
-      });
-
-      afterEach(() => {
-        server.restore();
-      });
-
-      it('should show active bugs', () => {
-        appendComponent();
-        let div = component.querySelector('* /deep/ ul');
-        server.respond();
-        expect(div.children.length).not.toBe(0);
-      });
-
-      describe('events', () => {
-
-        var testHandler;
-        var handler = function (e) {
-          if (testHandler) {
-            testHandler(e);
-          }
-        };
-
-        beforeEach(() => {
-          document.addEventListener('dashboard-updated', handler);
-        });
-
-        afterEach(() => {
-          document.removeEventListener('dashboard-updated', handler);
-          testHandler = undefined;
-        });
-
-        it('should raise an event when it succeds', (done) => {
-          appendComponent();
-
-          testHandler = function (e) {
-            expect(e.detail.status).toBe('ok');
-            done();
-          }
-          server.respond();
-        });
-
-        it('should raise an event when servers fail', (done) => {
-          server.restore();
-          server = sinon.fakeServer.create();
-
-          appendComponent();
-
-          testHandler = function (e) {
-            expect(e.detail.status).toBe('server-error');
-            done();
-          };
-
-          server.lastRequest.respond(404, {});
-        });
-
-      });
-    });
+    genericTileComponentTest('bugs-tile','ul li');
   </script>
 </body>
-
 </html>

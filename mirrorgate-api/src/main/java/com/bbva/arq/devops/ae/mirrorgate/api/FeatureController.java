@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
@@ -48,7 +49,7 @@ public class FeatureController {
 
     @RequestMapping(value = "/dashboards/{name}/stories", method = GET, produces = APPLICATION_JSON_VALUE)
     public Map<String, Object> getAtiveUserStories(@PathVariable("name") String name) {
-        Dashboard dashboard = dashboardService.getDashboard(name);
+        DashboardDTO dashboard = dashboardService.getDashboard(name);
 
         List<String> boards = dashboard.getBoards();
 
@@ -62,7 +63,7 @@ public class FeatureController {
 
     @RequestMapping(value = "/dashboards/{name}/stories/_stats", method = GET, produces = APPLICATION_JSON_VALUE)
     public FeatureStats getStoriesStats(@PathVariable("name") String name) {
-        Dashboard dashboard = dashboardService.getDashboard(name);
+        DashboardDTO dashboard = dashboardService.getDashboard(name);
 
         List<String> boards = dashboard.getBoards();
         return featureService.getFeatureStatsByKeywords(boards);

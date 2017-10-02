@@ -28,23 +28,26 @@ public class Filters {
         return timeSpan;
     }
 
-    public void setTimeSpan(int timeSpan) {
+    public Filters setTimeSpan(int timeSpan) {
         this.timeSpan = timeSpan;
+        return this;
     }
 
     public Map<String, Boolean> getBranch() {
         return branch;
     }
 
-    public void setBranch(Map<String, Boolean> branch) {
+    public Filters setBranch(Map<String, Boolean> branch) {
         this.branch = branch;
+        return this;
     }
 
     public Map<String, Boolean> getStatus() {
         return status;
     }
 
-    public void setStatus(Map<String, Boolean> status) {
+    public Filters setStatus(Map<String, Boolean> status) {
         this.status = status;
+        return this;
     }
 }

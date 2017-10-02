@@ -53,88 +53,99 @@ public class Build extends BaseModel {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public Build setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 
     public String getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public Build setNumber(String number) {
         this.number = number;
+        return this;
     }
 
     public String getBuildUrl() {
         return buildUrl;
     }
 
-    public void setBuildUrl(String buildUrl) {
+    public Build setBuildUrl(String buildUrl) {
         this.buildUrl = buildUrl;
+        return this;
     }
 
     public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
+    public Build setStartTime(long startTime) {
         this.startTime = startTime;
+        return this;
     }
 
     public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public Build setEndTime(long endTime) {
         this.endTime = endTime;
+        return this;
     }
 
     public long getDuration() {
         return duration;
     }
 
-    public void setDuration(long duration) {
+    public Build setDuration(long duration) {
         this.duration = duration;
+        return this;
     }
 
     public BuildStatus getBuildStatus() {
         return buildStatus;
     }
 
-    public void setBuildStatus(BuildStatus buildStatus) {
+    public Build setBuildStatus(BuildStatus buildStatus) {
         this.buildStatus = buildStatus;
+        return this;
     }
 
     public List<String> getCulprits() {
         return culprits;
     }
 
-    public void setCulprits(List<String> culprits) {
+    public Build setCulprits(List<String> culprits) {
         this.culprits = culprits;
+        return this;
     }
 
     public String getProjectName() {
         return projectName;
     }
 
-    public void setProjectName(String projectName) {
+    public Build setProjectName(String projectName) {
         this.projectName = projectName;
+        return this;
     }
 
     public String getRepoName() {
         return repoName;
     }
 
-    public void setRepoName(String repoName) {
+    public Build setRepoName(String repoName) {
         this.repoName = repoName;
+        return this;
     }
 
     public String getBranch() {
         return branch;
     }
 
-    public void setBranch(String branch) {
+    public Build setBranch(String branch) {
         this.branch = branch;
+        return this;
     }
 
     public Boolean getLatest() {

@@ -55,7 +55,10 @@ var UserMetricsController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getUserMetrics);
   };
-  this.init = function() {
+  this.init = function(config) {
+    if(!config.analyticViews || !config.analyticViews.length) {
+      return Promise.reject();
+    }
     service.addListener(getUserMetrics);
   };
 

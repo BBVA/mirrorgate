@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-background-dashboard {
-  width: 100%;
-  text-align: center;
-}
+.dashboard.background {
+  padding-top: 40px;
+  flex-direction: column;
 
-.background-img {
-  background: no-repeat center url("../img/logo.png");
-  background-size: 50px;
-  -webkit-filter: grayscale(1);
-  filter: grayscale(1);
-  height: 100px;
+  .background-message {
+    width: 100%;
+    text-align: center;
+    height: 200px;
+    font-size: 3em;
+  }
+
+  .background-img {
+    margin: 40px 0;
+    background: no-repeat center url("../img/logo.png");
+    background-size: 200px;
+    height: 200px;
+    width: 100%;
+  }
 }
 

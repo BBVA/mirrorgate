@@ -58,7 +58,10 @@ var RequestsController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getMetrics);
   };
-  this.init = function() {
+  this.init = function(config) {
+    if(!config.analyticViews || !config.analyticViews.length) {
+      return Promise.reject();
+    }
     service.addListener(getMetrics);
   };
 

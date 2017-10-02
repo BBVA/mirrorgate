@@ -17,17 +17,17 @@
 <div class="form">
   <h2>Feedback</h2>
 
-  <div class="white-bg">
+  <div class="white-bg" *ngIf="texts.loaded">
 
     <form (ngSubmit)="onSave(review)" #dashboardForm="ngForm">
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Please, let us know your thoughts about the MirrorGate tool... Thanks!</h3>
+          <h3 class="panel-title">{{texts.feedback.title}}</h3>
         </div>
         <div class="panel-body">
           <div class="form-group">
-            <label for="rate">Rating</label>
+            <label for="rate">{{texts.feedback.rate_label}}</label>
             <div class="stars">
               <span class="glyphicon" (click)="review.rate = 1" [ngClass]="{'glyphicon-star': review.rate > 0, 'glyphicon-star-empty': review.rate <= 0}" aria-hidden="true"></span>
               <span class="glyphicon" (click)="review.rate = 2" [ngClass]="{'glyphicon-star': review.rate > 1, 'glyphicon-star-empty': review.rate <= 1}" aria-hidden="true"></span>
@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="text">Comment</label>
+            <label for="text">{{texts.feedback.comment_label}}</label>
             <textarea class="form-control" rows="10" [(ngModel)]="review.comment" name="text"></textarea>
           </div>
         </div>

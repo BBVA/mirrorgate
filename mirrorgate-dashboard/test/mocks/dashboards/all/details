@@ -1,5 +1,6 @@
 {
-  "name": "All data",
+  "name": "all",
+  "displayName": "All Data",
   "logoUrl": "img/logo.png",
   "codeRepos": [
     "all"

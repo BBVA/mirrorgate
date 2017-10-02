@@ -60,7 +60,7 @@ public class DashboardController {
             method = GET,
             produces = APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> getDashboard(@PathVariable("name") String name) {
+    public ResponseEntity<DashboardDTO> getDashboard(@PathVariable("name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(dashboardService.getDashboard(name));
     }
 
@@ -69,7 +69,7 @@ public class DashboardController {
             method = DELETE,
             produces = APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> deleteDashboard(@PathVariable("name") String name) {
+    public ResponseEntity<String> deleteDashboard(@PathVariable("name") String name) {
         dashboardService.deleteDashboard(name);
         return ResponseEntity.status(HttpStatus.OK).body("Dashboard was deleted successfully");
     }
@@ -82,18 +82,18 @@ public class DashboardController {
     @RequestMapping(value = "/dashboards", method = POST,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> newDashboard(@Valid @RequestBody Dashboard request) {
+    public ResponseEntity<DashboardDTO> newDashboard(@Valid @RequestBody DashboardDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newDashboard(request));
     }
 
     @RequestMapping(value = "/dashboards/{name}", method = PUT,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateDashboard(
+    public ResponseEntity<DashboardDTO> updateDashboard(
             @PathVariable("name") String name,
-            @Valid @RequestBody Dashboard request) {
+            @Valid @RequestBody DashboardDTO request) {
 
-        Dashboard updatedDashboard = dashboardService.updateDashboard(name, request);
+        DashboardDTO updatedDashboard = dashboardService.updateDashboard(name, request);
 
         return ResponseEntity.ok(updatedDashboard);
 

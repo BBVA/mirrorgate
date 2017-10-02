@@ -21,6 +21,7 @@ export class Dashboard {
   programIncrement: string;
   applications: string[] = [];
   codeRepos: string[] = [];
+  teamMembers: string[] = [];
   boards: string[] = [];
   adminUsers: string[] = [];
   analyticViews: string[] = [];
@@ -36,4 +37,6 @@ export class Dashboard {
   slackChannel: string;
   lastUserEdit: string;
   lastModification: number;
+  type: string = 'Detail';
+  aggregatedDashboards: string[] = [];
 }

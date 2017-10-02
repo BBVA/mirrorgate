@@ -77,7 +77,10 @@ var ProgramIncrementController = (
       this.observable.reset();
       service.removeListener(getProgramIncrement);
     };
-    this.init = function() {
+    this.init = function(config) {
+      if(!config.boards || !config.boards.length || !config.programIncrement) {
+        return Promise.reject();
+      }
       service.addListener(getProgramIncrement);
     };
   }

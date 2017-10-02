@@ -38,7 +38,12 @@ module.exports = function(config) {
       'bower_components/moment-weekday-calc/build/moment-weekday-calc.min.js',
       'bower_components/sockjs-client/dist/sockjs.min.js',
       'bower_components/jQuery.dotdotdot/dist/jquery.dotdotdot.js',
+      'node_modules/lodash/lodash.min.js',
+      'node_modules/karma-read-json/karma-read-json.js',
+      'test/*.js',
       'src/js/core/utils.js',
+      'src/js/components/BaseComponent.js',
+      'src/js/components/DashboardComponent.js',
       'src/js/components/Tile.js',
       'src/js/core/Event.js',
       'src/js/core/Clock.js',
@@ -46,14 +51,13 @@ module.exports = function(config) {
       'src/js/core/Service.js',
       'src/js/core/request.js',
       'src/js/core/serversideevent.js',
-      'src/components/**/*.*',
-      // Test resources
-      'node_modules/lodash/lodash.min.js',
-      'node_modules/karma-read-json/karma-read-json.js',
-      'test/bootstrap.js',
       'src/**/*.spec.*',
-      'dist/css/*.css',
-      {pattern: 'test/**/*', included: false}
+      'src/components/**/*.*',
+      {pattern: 'test/**/*', included: false},
+      {pattern: 'dist/img/**/*.*', included: false, served: true},
+      {pattern: 'dist/bower_components/**/*.css', included: false, served: true},
+      {pattern: 'dist/css/*.css', included: false, served: true},
+      {pattern: 'bower_components/*/fonts/**/*.*', included: false, served: true}
     ],
 
 

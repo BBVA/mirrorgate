@@ -46,24 +46,33 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     MongoTemplate mongoTemplate;
 
     @Override
-    public List<Build> findAllBranchesLastByReposName(List<String> repos) {
+    public List<Build> findLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers) {
         TypedAggregation<Build> agg = newAggregation(Build.class,
                 match(Criteria.where("buildStatus")
-                        .nin(BuildStatus.Aborted.toString(),
+                        .nin(
+                                BuildStatus.Aborted.toString(),
                                 BuildStatus.NotBuilt.toString(),
                                 BuildStatus.Unknown.toString()
                         )
                         .orOperator(
-                                Criteria.where("timestamp").gt(System.currentTimeMillis() - 24* 3600 * 1000),
+                                Criteria.where("timestamp")
+                                .gt(System.currentTimeMillis() - 24 * 3600 * 1000),
                                 Criteria.where("latest").is(true)
-                                        .and("buildStatus").ne(BuildStatus.Deleted)
-                        )),
-                match(new Criteria().orOperator(getCriteriaExpressionsForRepos(repos))),
-                //Avoid Mongo to "optimize" the sort operation.... Why Mongo, oh why?!
-                project("buildStatus", "branch", "projectName", "repoName", "timestamp", "buildUrl", "duration", "startTime", "endTime", "culprits")
-                        .andExclude("_id"),
+                                .and("buildStatus").ne(
+                                BuildStatus.Deleted.toString())
+                        )
+                        .andOperator(
+                                getCriteriaExpressionsForRepos(repos),
+                                getCriteriaExpressionsForTeamMembers(teamMembers)
+                        )
+                ),
+                //Avoid Mongo to "optimize" the sort operation... Why Mongo, oh why?!
+                project("buildStatus", "branch", "projectName", "repoName",
+                        "timestamp", "buildUrl", "duration", "startTime",
+                        "endTime", "culprits")
+                .andExclude("_id"),
                 sort(Sort.Direction.ASC, "timestamp"),
-                group("branch","repoName","projectName")
+                group("branch", "repoName", "projectName")
                         .last("buildStatus").as("buildStatus")
                         .last("repoName").as("repoName")
                         .last("timestamp").as("timestamp")
@@ -74,9 +83,12 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                         .last("duration").as("duration")
                         .last("projectName").as("projectName")
                         .last("culprits").as("culprits"),
-                match(Criteria.where("buildStatus").ne(BuildStatus.Deleted)),
-                project("buildStatus", "branch", "projectName", "repoName", "timestamp", "buildUrl", "duration", "startTime", "endTime", "culprits")
-                        .andExclude("_id")
+                match(Criteria.where("buildStatus").ne(
+                        BuildStatus.Deleted.toString())),
+                project("buildStatus", "branch", "projectName", "repoName",
+                        "timestamp", "buildUrl", "duration", "startTime",
+                        "endTime", "culprits")
+                .andExclude("_id")
         );
 
         //Convert the aggregation result into a List
@@ -85,11 +97,10 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
 
         return groupResults.getMappedResults();
 
-
     }
 
     @Override
-    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, Long timestamp) {
+    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, Long timestamp) {
         Aggregation agg = newAggregation(
                 match(Criteria
                         .where("timestamp").gt(timestamp)
@@ -100,7 +111,10 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                                     BuildStatus.Unknown.toString(),
                                     BuildStatus.InProgress.toString()
                             )
-                        .orOperator(getCriteriaExpressionsForRepos(repos))
+                        .andOperator(
+                                getCriteriaExpressionsForRepos(repos),
+                                getCriteriaExpressionsForTeamMembers(teamMembers)
+                        )
                 ),
                 group("buildStatus")
                         .last("buildStatus").as("buildStatus")
@@ -117,24 +131,42 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
 
         Map<BuildStatus, BuildStats> result = new EnumMap<>(BuildStatus.class);
 
-        statEntries.forEach(stat ->
-            result.put(stat.buildStatus,
-                    new BuildStats()
-                            .setCount(stat.count)
-                            .setDuration(stat.duration)
-                            .setFailureRate(stat.buildStatus == BuildStatus.Failure ? 100L: 0)
-            )
+        statEntries.forEach(
+                stat -> result.put(stat.buildStatus,
+                            new BuildStats()
+                                .setCount(stat.count)
+                                .setDuration(stat.duration)
+                                .setFailureRate(stat.buildStatus
+                                    == BuildStatus.Failure ? 100L : 0)
+                )
         );
 
         return result;
     }
 
-    private Criteria[] getCriteriaExpressionsForRepos(List<String> repos) {
+    private Criteria getCriteriaExpressionsForRepos(List<String> repos) {
         List<Criteria> regExs = new ArrayList<>();
         repos.forEach((String repo) -> {
-            regExs.add(Criteria.where("repoName").is(Pattern.compile("^" + repo + "$")));
-            regExs.add(Criteria.where("projectName").is(Pattern.compile("^" + repo + "$")));
+            regExs.add(Criteria.where("repoName")
+                    .is(Pattern.compile("^" + repo + "$")));
+            regExs.add(Criteria.where("projectName")
+                    .is(Pattern.compile("^" + repo + "$")));
         });
-        return regExs.toArray(new Criteria[regExs.size()]);
+        return new Criteria()
+                .orOperator(regExs.toArray(new Criteria[regExs.size()]));
+    }
+
+    private Criteria getCriteriaExpressionsForTeamMembers(List<String> teamMembers) {
+        if (teamMembers == null) {
+            return new Criteria();
+        }
+
+        List<Criteria> regExs = new ArrayList<>();
+        teamMembers.forEach((String member) -> {
+            regExs.add(Criteria.where("culprits")
+                    .is(Pattern.compile("^" + member + "$")));
+        });
+        return new Criteria()
+                .orOperator(regExs.toArray(new Criteria[regExs.size()]));
     }
 }

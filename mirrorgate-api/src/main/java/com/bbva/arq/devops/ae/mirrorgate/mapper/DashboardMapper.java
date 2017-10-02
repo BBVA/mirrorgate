@@ -17,11 +17,9 @@
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 
-/**
- * Created by alfonso on 28/05/17.
- */
 public class DashboardMapper {
 
     private DashboardMapper(){}
@@ -30,22 +28,64 @@ public class DashboardMapper {
         return map(source, new DashboardDTO());
     }
 
+    public static Dashboard map(DashboardDTO source) {
+        return map(source, new Dashboard());
+    }
+
     public static DashboardDTO map(Dashboard source, DashboardDTO target) {
-        target.setAdminUsers(source.getAdminUsers());
-        target.setApplications(source.getApplications());
-        target.setBoards(source.getBoards());
-        target.setCodeRepos(source.getCodeRepos());
-        target.setDisplayName(source.getDisplayName());
-        target.setFilters(source.getFilters());
-        target.setLastModification(source.getLastModification());
-        target.setLastUserEdit(source.getLastUserEdit());
-        target.setLogoUrl(source.getLogoUrl());
-        target.setName(source.getName());
-        target.setsProductName(source.getsProductName());
-        target.setStatus(source.getStatus());
-        target.setAnalyticViews(source.getAnalyticViews());
-        target.setSkin(source.getSkin());
-        return target;
+        return target.setAdminUsers(source.getAdminUsers())
+                .setApplications(source.getApplications())
+                .setType(source.getType() == null ? null : DashboardType.valueOf(source.getType()))
+                .setName(source.getName())
+                .setBoards(source.getBoards())
+                .setCodeRepos(source.getCodeRepos())
+                .setDisplayName(source.getDisplayName())
+                .setFilters(source.getFilters())
+                .setLastModification(source.getLastModification())
+                .setLastUserEdit(source.getLastUserEdit())
+                .setTeamMembers(source.getTeamMembers())
+                .setLogoUrl(source.getLogoUrl())
+                .setName(source.getName())
+                .setsProductName(source.getsProductName())
+                .setStatus(source.getStatus())
+                .setAnalyticViews(source.getAnalyticViews())
+                .setAuthor(source.getAuthor())
+                .setSlackToken(source.getSlackToken())
+                .setSlackTeam(source.getSlackTeam())
+                .setSlackChannel(source.getSlackChannel())
+                .setProgramIncrement(source.getProgramIncrement())
+                .setUrlAlerts(source.getUrlAlerts())
+                .setUrlAlertsAuthorization(source.getUrlAlertsAuthorization())
+                .setAggregatedDashboards(source.getAggregatedDashboards())
+                .setSkin(source.getSkin());
+    }
+
+    public static Dashboard map(DashboardDTO source, Dashboard target) {
+        return target.setAdminUsers(source.getAdminUsers())
+                .setApplications(source.getApplications())
+                .setName(source.getName())
+                .setType(source.getType() == null ? null : source.getType().name())
+                .setBoards(source.getBoards())
+                .setCodeRepos(source.getCodeRepos())
+                .setDisplayName(source.getDisplayName())
+                .setFilters(source.getFilters())
+                .setLastModification(source.getLastModification())
+                .setLastUserEdit(source.getLastUserEdit())
+                .setTeamMembers(source.getTeamMembers())
+                .setLogoUrl(source.getLogoUrl())
+                .setName(source.getName())
+                .setsProductName(source.getsProductName())
+                .setStatus(source.getStatus())
+                .setAnalyticViews(source.getAnalyticViews())
+                .setSlackToken(source.getSlackToken())
+                .setSlackTeam(source.getSlackTeam())
+                .setSlackChannel(source.getSlackChannel())
+                .setProgramIncrement(source.getProgramIncrement())
+                .setAuthor(source.getAuthor())
+                .setUrlAlerts(source.getUrlAlerts())
+                .setUrlAlertsAuthorization(source.getUrlAlertsAuthorization())
+                .setAggregatedDashboards(source.getAggregatedDashboards())
+                .setSkin(source.getSkin());
     }
 
 }

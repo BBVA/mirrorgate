@@ -47,31 +47,17 @@
 </template>
 
 <script>
-  (function (window, document, undefined) {
 
-    // Refers to the "importee", which is components/builds-dashboard.html
-    var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-    var tmpl = thisDoc.querySelector('template');
-
-    // Creates an object based in the HTML Element prototype
-    var MyElementProto = Object.create(Tile);
-
-    MyElementProto.processAlerts = function (data) {
+  MGComponent({
+    name: 'buildsstats-tile',
+    controllerClass: BuildsController,
+    parent: Tile,
+    processAlerts: function (data) {
       Utils.raiseEvent(this, {
         status: data ? (data.stats && data.stats.count) ? 'unknown' : 'empty' : 'server-error'
       });
-    }
-
-    MyElementProto.getControllerClass = function () {
-      return BuildsStatsController;
-    };
-
-    MyElementProto.getTemplate = function () {
-      return tmpl;
-    };
-
-    // Fires when an instance of the element is created
-    MyElementProto.render = function (data) {
+    },
+    render: function (data) {
       this.processAlerts(data);
 
       var model = this.getModel();
@@ -87,11 +73,7 @@
           hours: Math.floor(avgBuildTime.asHours())
         };
       }
-    };
-
-    window.MyElement = document.registerElement('buildsstats-tile', {
-      prototype: MyElementProto
-    });
-  })(window, document);
+    }
+  });
 
 </script>

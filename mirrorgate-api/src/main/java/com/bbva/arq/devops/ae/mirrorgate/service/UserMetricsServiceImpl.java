@@ -16,6 +16,7 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
@@ -64,6 +65,8 @@ public class UserMetricsServiceImpl implements UserMetricsService {
         List<UserMetric> targets = userMetricsRepository.findAllByViewIdIn(
                 StreamSupport.stream(metrics.spliterator(), false)
                 .map(UserMetricDTO::getViewId)
+                .filter((e) -> e != null)
+                .distinct()
                 .collect(Collectors.toList())
         );
         List<UserMetric> toSave = StreamSupport.stream(metrics.spliterator(), false)
@@ -85,7 +88,7 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     }
 
     @Override
-    public List<UserMetricDTO> getMetricsForDashboard(Dashboard dashboard) {
+    public List<UserMetricDTO> getMetricsForDashboard(DashboardDTO dashboard) {
         List<String> views = dashboard.getAnalyticViews();
         if (views == null || views.isEmpty()) {
             return new ArrayList<>();

@@ -22,6 +22,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -68,7 +69,7 @@ public class NotificationControllerTests {
 
     @Test
     public void getWebSocketTest() throws Exception {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
         SlackDTO notification = TestObjectFactory.createSlackDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
@@ -96,7 +97,7 @@ public class NotificationControllerTests {
 
     @Test
     public void getWebSocketSlackErrorTest() throws Exception {
-        Dashboard dashboard = TestObjectFactory.createDashboard();
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
         SlackDTO error_notification = TestObjectFactory.createSlackErrorDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);

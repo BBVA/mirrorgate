@@ -1,0 +1,73 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- build:js component.min.js -->
+<script src="controller.js"></script>
+<!-- endbuild -->
+
+<link rel="import" href="../../board-column/component.html" >
+<link rel="import" href="../../tile-container/component.html" >
+<link rel="import" href="../../details/component.html" >
+<link rel="import" href="../../tiles/builds/graph.html" >
+<link rel="import" href="../../tiles/builds/stats.html" >
+<link rel="import" href="../../tiles/team/currentSprint.html" >
+<link rel="import" href="../../tiles/markets/component.html" >
+<link rel="import" href="../../header/header.html" >
+
+<template>
+  <style>
+    @import "css/{skin}.css";
+  </style>
+  <div class="header">
+    <div class="subheader" rv-each-board="boards">
+      <details-tile class="header" rv-config="board.detail"></details-tile>
+    </div>
+    <menu-component class="menu" rv-config="config"/>
+  </div>
+  <div class="dashboard">
+    <board-column class="board-container">
+      <board-row class="row--primary">
+        <tile-container rv-each-board="boards" enabled="true">
+            <current-sprint-tile rv-config="board.detail" class="tile component"></current-sprint-tile>
+        </tile-container>
+      </board-row>
+      <board-row class="row--primary">
+        <tile-container rv-each-board="boards" enabled="true">
+            <builds-tile rv-config="board.detail" class="tile component"></builds-tile>
+        </tile-container>
+      </board-row>
+      <board-row class="row--primary">
+        <tile-container rv-each-board="boards" enabled="true">
+            <markets-tile rv-config="board.detail" class="tile component tile--primary"></markets-tile>
+        </tile-container>
+      </board-row>
+    </board-column>
+  </div>
+</template>
+
+<script>
+  MGComponent({
+    name: 'aggregate-dashboard',
+    parent: Tile,
+    controllerClass: AggregateDashboardController,
+    lightDOM: true,
+
+    render: function (data) {
+      this.getModel().boards = data;
+    }
+  });
+</script>

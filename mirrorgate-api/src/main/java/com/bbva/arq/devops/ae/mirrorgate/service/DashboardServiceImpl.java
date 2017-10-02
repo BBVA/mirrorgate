@@ -18,22 +18,20 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
 import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
-
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -43,21 +41,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DashboardServiceImpl.class);
+    private static final Sort SORT_BY_LAST_MODIFICATION
+            = new Sort(Sort.Direction.DESC, "lastModification");
 
-    private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
-
-    private DashboardRepository dashboardRepository;
-
+    private final DashboardRepository dashboardRepository;
 
     @Autowired
     public DashboardServiceImpl(DashboardRepository dashboardRepository){
-
         this.dashboardRepository = dashboardRepository;
     }
 
     @Override
-    public Dashboard getDashboard(String name) {
+    public DashboardDTO getDashboard(String name) {
+        Dashboard dashboard = getRepositoryDashboard(name);
+        return map(dashboard);
+    }
+
+    private Dashboard getRepositoryDashboard(String name) {
         Dashboard dashboard = dashboardRepository.findOneByName(name, SORT_BY_LAST_MODIFICATION);
 
         if (dashboard == null) {
@@ -67,25 +67,24 @@ public class DashboardServiceImpl implements DashboardService {
         if (DELETED.equals(dashboard.getStatus())) {
             throw new DashboardNotFoundException("Dashboard was deleted");
         }
-
         return dashboard;
     }
 
     @Override
     public List<String> getReposByDashboardName(String name) {
-        Dashboard dashboard = this.getDashboard(name);
+        DashboardDTO dashboard = this.getDashboard(name);
         return dashboard.getCodeRepos();
     }
 
     @Override
     public List<String> getAdminUsersByDashboardName(String name) {
-        Dashboard dashboard = this.getDashboard(name);
+        DashboardDTO dashboard = this.getDashboard(name);
         return dashboard.getAdminUsers();
     }
 
     @Override
     public List<String> getApplicationsByDashboardName(String name) {
-        Dashboard dashboard = this.getDashboard(name);
+        DashboardDTO dashboard = this.getDashboard(name);
         return dashboard.getApplications();
     }
 
@@ -96,7 +95,7 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public void deleteDashboard(String name) {
-        Dashboard toDelete = this.getDashboard(name);
+        Dashboard toDelete = this.getRepositoryDashboard(name);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         String authUser = "anonymous";
@@ -113,7 +112,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public Dashboard newDashboard(Dashboard dashboard) {
+    public DashboardDTO newDashboard(DashboardDTO dashboard) {
         Dashboard oldDashboard = dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
 
         if (oldDashboard != null && oldDashboard.getStatus() != DELETED) {
@@ -133,13 +132,13 @@ public class DashboardServiceImpl implements DashboardService {
 
         dashboard.setLastModification(System.currentTimeMillis());
 
-        return dashboardRepository.save(dashboard);
+        return map(dashboardRepository.save(map(dashboard)));
     }
 
 
     @Override
-    public Dashboard updateDashboard(String dashboardName, Dashboard updatedDashboard) {
-        Dashboard currentDashboard = this.getDashboard(dashboardName);
+    public DashboardDTO updateDashboard(String dashboardName, DashboardDTO updatedDashboard) {
+        Dashboard currentDashboard = this.getRepositoryDashboard(dashboardName);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         String authUser = "anonymous";
@@ -149,17 +148,20 @@ public class DashboardServiceImpl implements DashboardService {
             canEdit(authUser, currentDashboard);
         }
 
-        if(null != updatedDashboard.getAdminUsers() && !updatedDashboard.getAdminUsers().contains(authUser))
+        if (updatedDashboard.getAdminUsers() == null) {
+            updatedDashboard.setAdminUsers(Arrays.asList(authUser));
+        } else if (!updatedDashboard.getAdminUsers().contains(authUser)) {
             updatedDashboard.getAdminUsers().add(authUser);
+        }
 
-        Dashboard toSave = mergeDashboard(currentDashboard, updatedDashboard, authUser);
+        Dashboard toSave = mergeDashboard(currentDashboard, map(updatedDashboard), authUser);
 
-        return dashboardRepository.save(toSave);
+        return map(dashboardRepository.save(toSave));
     }
 
     @Override
     public void saveDashboardImage(String dashboardName, InputStream uploadfile) {
-        Dashboard currentDashboard = this.getDashboard(dashboardName);
+        Dashboard currentDashboard = this.getRepositoryDashboard(dashboardName);
 
         if(currentDashboard != null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -202,7 +204,8 @@ public class DashboardServiceImpl implements DashboardService {
             throw new DashboardForbiddenException("Authenticated user not found");
         }
 
-        if (toEdit.getAdminUsers().contains(authUser)) {
+        if (toEdit.getAdminUsers() != null
+                && toEdit.getAdminUsers().contains(authUser)) {
             return;
         }
 
@@ -210,10 +213,13 @@ public class DashboardServiceImpl implements DashboardService {
             return;
         }
 
-        if (toEdit.getAuthor() == null && toEdit.getAdminUsers().isEmpty()) {
+        if (toEdit.getAuthor() == null && toEdit.getAdminUsers() != null
+                && toEdit.getAdminUsers().isEmpty()) {
             return;
         }
 
-        throw new DashboardForbiddenException("You do not have permissions to perform this operation, please contact the Dashboard administrator");
+        throw new DashboardForbiddenException("You do not have permissions to "
+                + "perform this operation, please contact the Dashboard "
+                + "administrator");
     }
 }

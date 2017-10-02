@@ -88,6 +88,10 @@ var Utils = {
     });
     return false;
   },
+
+  browserSupportsShadowDOM : function () {
+    return window.supportsShadowDOM;
+  }
 };
 
 rivets.formatters.dateFrom = function(value, now) {
@@ -137,6 +141,20 @@ rivets.binders['pclass-*'] = function(el, value) {
   }
 };
 
+rivets.binders['setclass-*'] = function(el, value) {
+  var cls = this.args[0];
+  var $el = $(el);
+  var classList = el.className.split(/\s+/);
+  classList.forEach(function(name) {
+    if (name === cls) {
+      $el.removeClass(name);
+    }
+  });
+  if (value) {
+    $(el).addClass(cls);
+  }
+};
+
 function styleBuilder(style, suffix) {
   suffix = suffix || '';
 
@@ -144,6 +162,11 @@ function styleBuilder(style, suffix) {
     $(el).css(style, '' + value + suffix);
   };
 }
+
+rivets.binders.ignore = {
+    block: true,
+    routine: function () { /* do nothing */ }
+};
 
 rivets.binders.width = styleBuilder('width','%');
 rivets.binders.left = styleBuilder('left','%');

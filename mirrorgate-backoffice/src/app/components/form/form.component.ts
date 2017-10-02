@@ -24,11 +24,13 @@ import {DashboardsService} from '../../services/dashboards.service';
 import {SlackService} from '../../services/slack.service';
 import {RequestOptions} from '@angular/http/http';
 
+import {TextsService} from '../../services/texts.service';
+
 @Component({
   selector: 'new-and-edit-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  providers: [DashboardsService, SlackService]
+  providers: [DashboardsService, SlackService, TextsService]
 })
 export class FormComponent {
   dashboard: Dashboard;
@@ -43,15 +45,26 @@ export class FormComponent {
       display?: string,
       value?: string
     }[],
-    analyticViews?: string
+    analyticViews?: string,
+    aggregatedDashboards?: {
+      display?: string,
+      value?: string
+    }[],
+    teamMembers?: {
+      display?: string,
+      value?: string
+    }[],
   } = {};
   errorMessage: string;
   url: string;
   icon: {error?: string, success?: boolean} = {};
+  texts : {loaded?: boolean} = {loaded: false};
 
   constructor(
       private dashboardsService: DashboardsService,
-      private slackService: SlackService, private router: Router,
+      private textsService: TextsService,
+      private slackService: SlackService,
+      private router: Router,
       private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -73,6 +86,13 @@ export class FormComponent {
     } else {
       this.setDashboard(new Dashboard());
     }
+
+    this.textsService.getTexts()
+      .then((texts) => {
+        this.texts = texts;
+        this.texts.loaded = true;
+      })
+      .catch((error: any) => { this.errorMessage = <any>error; });
   }
 
   setDashboard(dashboard: Dashboard) {
@@ -88,13 +108,21 @@ export class FormComponent {
         '';
     this.temp.codeRepos =
         this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
-    this.temp.adminUsers = this.dashboard.adminUsers.length ?
+    this.temp.adminUsers = this.dashboard.adminUsers ?
         this.dashboard.adminUsers.map((e) => {
+          return { display: e, value: e }
+        }) : [];
+    this.temp.aggregatedDashboards = this.dashboard.aggregatedDashboards ?
+        this.dashboard.aggregatedDashboards.map((e) => {
           return { display: e, value: e }
         }) : [];
     this.temp.analyticViews = this.dashboard.analyticViews ?
         this.dashboard.analyticViews.join(',') :
         '';
+    this.temp.teamMembers = this.dashboard.teamMembers ?
+        this.dashboard.teamMembers.map((e) => {
+          return { display: e, value: e }
+        }) : [];
     this.updateSlackChannels();
   }
 
@@ -111,8 +139,14 @@ export class FormComponent {
     this.dashboard.adminUsers = this.temp.adminUsers.length ?
         this.temp.adminUsers.map((e) => e.value.split('@')[0].trim()) :
         undefined;
+    this.dashboard.aggregatedDashboards = this.temp.aggregatedDashboards.length ?
+        this.temp.aggregatedDashboards.map((e) => e.value.trim()) :
+        undefined;
     this.dashboard.analyticViews = this.temp.analyticViews.length ?
         this.temp.analyticViews.split(',').map((e) => e.trim()) :
+        undefined;
+    this.dashboard.teamMembers = this.temp.teamMembers.length ?
+        this.temp.teamMembers.map((e) => e.value.split('@')[0].trim()) :
         undefined;
     if (!this.edit) {
       this.dashboard.name = kebabCase(this.dashboard.displayName);

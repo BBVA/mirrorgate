@@ -22,7 +22,7 @@ describe('BuildsController', () => {
     server = buildFakeServer();
     server.autoRespond = true;
     controller = new BuildsController(dashboardForTesting);
-    controller.init({});
+    return controller.init(detailsForTesting);
   });
 
   afterEach(() => {

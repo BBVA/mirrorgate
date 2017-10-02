@@ -17,8 +17,10 @@
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /**
@@ -29,122 +31,243 @@ public class DashboardDTO {
     private String name;
     private String displayName;
     private String logoUrl;
-    private List<String> codeRepos = new ArrayList<>();
+    private List<String> codeRepos;
     private String sProductName; //Team product name
-    private List<String> applications = new ArrayList<>();
-    private List<String> adminUsers = new ArrayList<>();
+    private List<String> applications;
+    private List<String> adminUsers;
+    private List<String> teamMembers;
     private List<String> boards;
     private Filters filters;
     private DashboardStatus status;
     private String lastUserEdit;
     private Long lastModification;
-    private List<String> analyticViews = new ArrayList<>();
+    private List<String> analyticViews;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String slackToken;
+    private String slackTeam;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String slackChannel;
+
+    private String programIncrement;
 
     private String skin = "classic";
+
+    private String author;
+    private String urlAlerts;
+    private String urlAlertsAuthorization;
+    private List<String> aggregatedDashboards;
+
+    private DashboardType type = DashboardType.Detail;
 
     public String getName() {
         return name;
     }
-    public void setName(String name) {
+    public DashboardDTO setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getLogoUrl() {
         return logoUrl;
     }
-    public void setLogoUrl(String logoUrl) {
+    public DashboardDTO setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
+        return this;
     }
     public List<String> getCodeRepos() {
         return codeRepos;
     }
-    public void setCodeRepos(List<String> codeRepos) {
+    public DashboardDTO setCodeRepos(List<String> codeRepos) {
         this.codeRepos = codeRepos;
+        return this;
     }
     public String getsProductName() {
         return sProductName;
     }
-    public void setsProductName(String sProductName) {
+    public DashboardDTO setsProductName(String sProductName) {
         this.sProductName = sProductName;
+        return this;
     }
 
     public List<String> getApplications() {
         return applications;
     }
 
-    public void setApplications(List<String> applications) {
+    public DashboardDTO setApplications(List<String> applications) {
         this.applications = applications;
+        return this;
     }
 
     public List<String> getBoards() {
         return boards;
     }
 
-    public void setBoards(List<String> boards) {
+    public DashboardDTO setBoards(List<String> boards) {
         this.boards = boards;
+        return this;
     }
 
     public Filters getFilters() {
         return filters;
     }
 
-    public void setFilters(Filters filters) {
+    public DashboardDTO setFilters(Filters filters) {
         this.filters = filters;
+        return this;
     }
 
     public String getDisplayName() {
         return displayName;
     }
 
-    public void setDisplayName(String displayName) {
+    public DashboardDTO setDisplayName(String displayName) {
         this.displayName = displayName;
+        return this;
     }
 
     public DashboardStatus getStatus() {
         return status;
     }
 
-    public void setStatus(DashboardStatus status) {
+    public DashboardDTO setStatus(DashboardStatus status) {
         this.status = status;
+        return this;
     }
 
     public String getLastUserEdit() {
         return lastUserEdit;
     }
 
-    public void setLastUserEdit(String lastUserEdit) {
+    public DashboardDTO setLastUserEdit(String lastUserEdit) {
         this.lastUserEdit = lastUserEdit;
+        return this;
     }
 
     public Long getLastModification() {
         return lastModification;
     }
 
-    public void setLastModification(Long lastModification) {
+    public DashboardDTO setLastModification(Long lastModification) {
         this.lastModification = lastModification;
+        return this;
     }
 
     public List<String> getAdminUsers() {
         return adminUsers;
     }
 
-    public void setAdminUsers(List<String> adminUsers) {
+    public DashboardDTO setAdminUsers(List<String> adminUsers) {
         this.adminUsers = adminUsers;
+        return this;
+    }
+
+    public List<String> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public DashboardDTO setTeamMembers(List<String> teamMembers) {
+        this.teamMembers = teamMembers;
+        return this;
     }
 
     public List<String> getAnalyticViews() {
         return analyticViews;
     }
 
-    public void setAnalyticViews(List<String> analyticViews) {
+    public DashboardDTO setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
     }
 
     public String getSkin() {
         return skin;
     }
 
-    public void setSkin(String skin) {
+    public DashboardDTO setSkin(String skin) {
         this.skin = skin;
+        return this;
+    }
+
+    public String getSlackChannel() {
+        return slackChannel;
+    }
+
+    public DashboardDTO setSlackChannel(String slackChannel) {
+        this.slackChannel = slackChannel;
+        return this;
+    }
+
+    public String getSlackTeam() {
+        return slackTeam;
+    }
+
+    public DashboardDTO setSlackTeam(String slackTeam) {
+        this.slackTeam = slackTeam;
+        return this;
+    }
+
+    public String getSlackToken() {
+        return slackToken;
+    }
+
+    public DashboardDTO setSlackToken(String slackToken) {
+        this.slackToken = slackToken;
+        return this;
+    }
+
+    public String getProgramIncrement() {
+        return programIncrement;
+    }
+
+    public DashboardDTO setProgramIncrement(String programIncrement) {
+        this.programIncrement = programIncrement;
+        return this;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public DashboardDTO setAuthor(String author) {
+        this.author = author;
+        return this;
+    }
+
+
+    public String getUrlAlerts() {
+        return urlAlerts;
+    }
+
+    public DashboardDTO setUrlAlerts(String urlAlerts) {
+        this.urlAlerts = urlAlerts;
+        return this;
+    }
+
+    public DashboardDTO setUrlAlertsAuthorization(String urlAlertsAuthorization) {
+        this.urlAlertsAuthorization = urlAlertsAuthorization;
+        return this;
+    }
+
+    public String getUrlAlertsAuthorization() {
+        return urlAlertsAuthorization;
+    }
+
+    public DashboardDTO setAggregatedDashboards(List<String> aggregatedDashboards) {
+        this.aggregatedDashboards = aggregatedDashboards;
+        return this;
+    }
+
+    public List<String> getAggregatedDashboards() {
+        return aggregatedDashboards;
+    }
+
+    public DashboardType getType() {
+        return type;
+    }
+
+    public DashboardDTO setType(DashboardType type) {
+        this.type = type;
+        return this;
     }
 }

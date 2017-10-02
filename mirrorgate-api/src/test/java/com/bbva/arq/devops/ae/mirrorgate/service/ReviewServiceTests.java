@@ -81,13 +81,13 @@ public class ReviewServiceTests {
         apps.add(app1);
         apps.add(app2);
 
-        when(reviewRepository.getAverageRateByAppNames(appsNames))
+        when(reviewRepository.getAppInfoByAppNames(appsNames))
                 .thenReturn(apps);
 
         List<ApplicationDTO> appsByNames
                 =                reviewService.getAverageRateByAppNames(appsNames);
         verify(reviewRepository, times(1))
-            .getAverageRateByAppNames(appsNames);
+                .getAppInfoByAppNames(appsNames);
 
         assertThat(appsByNames.get(0)).isEqualTo(app1);
         assertThat(appsByNames.get(1)).isEqualTo(app2);

@@ -104,6 +104,8 @@ var AlertsController = (function(dashboardId) {
     if(config.urlAlerts) {
       Timer.eventually.attach(getAlerts);
       getAlerts();
+    } else {
+      return Promise.reject();
     }
   };
 

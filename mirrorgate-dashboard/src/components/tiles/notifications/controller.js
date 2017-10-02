@@ -68,6 +68,9 @@ var NotificationsController = (function(dashboardId) {
   };
   this.init = function(_config) {
     config = _config;
+    if(!config.slackTeam) {
+      return Promise.reject();
+    }
     service.addListener(getWebSocketURL);
   };
 

@@ -16,10 +16,28 @@
 
 import {Component} from '@angular/core';
 
+import {TextsService} from '../../services/texts.service';
+
 @Component({
   selector: 'about',
   styleUrls: ['./about.component.scss'],
-  templateUrl: './about.component.html'
+  templateUrl: './about.component.html',
+  providers: [TextsService]
 })
 export class AboutComponent {
+  errorMessage: string;
+  texts : {loaded?: boolean} = {loaded: false};
+
+  constructor(
+    private textsService: TextsService
+  ) {}
+
+  ngOnInit(): void {
+    this.textsService.getTexts()
+      .then((texts) => {
+        this.texts = texts;
+        this.texts.loaded = true;
+      })
+      .catch((error: any) => { this.errorMessage = <any>error; });
+  }
 }

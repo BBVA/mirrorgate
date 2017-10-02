@@ -1,0 +1,81 @@
+{
+  "about": {
+    "text": "<p>This is the backoffice of MirrorGate.</p><p>Please use it with caution as you will have rights to edit or delete every dashboard in the system.</p><p>If you experience any issues or just want to give us some feedback, please open an issue <a href=\"https://github.com/BBVA/mirrorgate/issues\">here</a></p>"
+  },
+  "delete": {
+    "header": "You're about to delete the dashboard: ",
+    "message": "This action cannot be undone. Are you sure you want to proceed?"
+  },
+  "feedback": {
+    "title": "Please, let us know your thoughts about the MirrorGate tool... Thanks!",
+    "rate_label": "Rating",
+    "comment_label": "Comment"
+  },
+  "form": {
+    "new_input": "New dashboard",
+    "edit_input": "Edit:",
+    "general_block": {
+      "title": "General data",
+      "name_input": "Name",
+      "name_required_text": "Name is required",
+      "display_name_input": "Display Name",
+      "skin_list": "Look & Feel",
+      "logo_url_input": "URL Logo",
+      "logo_url_help": "<p>Please specify a public absolute URL pointing to your logo image file.</p><p>Note that once the dashboard is already saved for the first time, you can also upload an image by clicking the configuration button.</p>",
+      "icon_upload_button": "Icon upload",
+      "icon_text": "Icon",
+      "icon_help": "Select a PNG file from your file system.",
+      "admin_list": "Adiministrator users",
+      "admin_list_help": "Add the users that will have permission to modify the dashboard. Names must be that which precede the users' e-mail address domain names (i.e. user@bbva.com) and must be separated by commas.",
+      "admin_list_placeholder": "Add administrators",
+      "admin_list_secondary_placeholder": "Add a new administrator",
+      "board_type_text": "Board type",
+      "board_type_help": "You can use aggregated dashboards to display in a single view the information of several dashboards.",
+      "aggregated_dashboards_text": "Dashboards list",
+      "aggregated_dashboards_help": "Enter a list of the ids of the dashboards you want to aggregate."
+    },
+    "planning_block": {
+      "title": "Planning data",
+      "boards_input": "Story keywords",
+      "boards_help": "Add a comma separated list with your jira keywords. You can use the team names, project names or project codes as keywords to match jira issues.",
+      "pi_input": "Program Increment",
+      "pi_help": "<p>Add a regular expression matching your Program Increment name if you want it's data to be displayed on your dashboard.</p> <p> If start and end dates are included in the name in <code>yyyy/MM/dd</code> format, you can capture them in the regexp so they are included in the dashboard and the remaining labour days is displayed.</p><p>An example of this regexp could be:</p><p><kbd>MyPI (?&lt;startDate&gt;\\d+/\\d+/\\d+)-(?&lt;endDate&gt;\\d+/\\d+/\\d+)</kbd></p><p>This regexp will match for example <code>MyPI 2017/05/10-2017/06/20</code></p><div class=\"alert alert-warning\" role=\"alert\">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>"
+    },
+    "ci_block": {
+      "title": "Build information",
+      "builds_input": "Build jobs",
+      "builds_help": "Add a comma separated list with your builds. You can use regular expressions to match both, the build name, or the project name. Note that several items will represent an 'Or' match and not an 'And'.<div class=\"alert alert-warning\" role=\"alert\">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>",
+      "team_members_list": "Team Members",
+      "team_members_list_help": "Builds will be filtered by Team Members if those are included.",
+      "team_members_list_placeholder": "Add a new team member",
+      "team_members_list_secondary_placeholder": "Add team members"
+    },
+    "markets_block": {
+      "title": "Application Markets",
+      "apps_input": "Applications",
+      "apps_help": "<p>Add a comma separated list with your market applications.</p><p>Please specify them using the following convention</p><ul><li><kbd>Android/[appid]</kbd>: for Android applications</li><li><kbd>IOS/[bundleId]/[country]</kbd>: for iOS applications. Use the two letter code for the country (i.e. <code>ES</code> for Spain, <code>US</code> for United Stated and so on)</li></ul>"
+    },
+    "analytics_block": {
+      "title": "Analytics",
+      "analytics_input": "Analytics Metrics Sources Ids",
+      "analytics_help": "<p>Add a comma separated list with your analytics metrics sources Ids. For example, in case of using Google Analytics as source of metrics: <kbd>ga:123456789,ga:987654321</kbd></p>"
+    },
+    "alerts_block": {
+      "title": "Notification and alerts",
+      "slack_input": "Slack",
+      "slack_help": "<p>To configure slack please follow this steps:</p><ol><li>Specify the slack team name</li><li>Register an <a href=\"https://api.slack.com/apps\" target=\"_blank\">slack app</a> with access to your team. Enable the \"Permissions\" feature for it.</li><li>Set the app redirect url to <kbd>{{url}}/backoffice/utils/slack/code-capturer</kbd></li><li>Click the configure icon that will appear</li><li>Fill in the authorization data for the application. That data will not be stored in the DB.</li><li>Authorize mirrorgate to access the application</li><li>If you want to select an specific channel, do so</li></ol>",
+      "slack_placeholder": "Your slack Team name",
+      "slack_modal_title": "Slack app details",
+      "slack_client_id_input": "Client Id",
+      "slack_client_id_help": "Add an application to your Slack Team and put here Client Id's Application to show notifications.",
+      "slack_client_secret_input": "Client Secret",
+      "slack_client_secret_help": "Add an application to your Slack Team and put here Client Secret's Application to show notifications.",
+      "slack_token_button": "Get token",
+      "slack_token_input": "Code generated:",
+      "alerts_url_input": "URL Alerts",
+      "alerts_url_help": "<p>URL to gather Alerts from. See <a href=\"https://github.com/BBVA/mirrorgate/blob/master/mirrorgate-dashboard/test/mocks/dashboards/mirrorgate/alerts\">here</a> an example of the response format.</p><p>You can also specify an Authorization header to be sent in case the endpoint is authenticated.</p><p>In order to send multiple headers you can specify them in the form of <code>HEADER_NAME1=HEADER_VALUE1&HEADER_NAME2=HEADER_VALUE2&...</code></p>",
+      "alerts_url_placeholder": "URL Alerts",
+      "alerts_auth_header_placeholder": "Authorization header"
+    }
+  }
+}

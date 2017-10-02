@@ -22,17 +22,15 @@ describe('DetailsController', () => {
     server = buildFakeServer();
     server.autoRespond = true;
     controller = new DetailsController(dashboardForTesting);
-    controller.init();
+    return controller.init(detailsForTesting);
   });
 
   afterEach(() => { server.restore(); });
 
   it('get last details properly', (done) => {
 
-    var detail = new Detail(detailsForTesting);
-
     controller.observable.attach((response) => {
-      expect(_.isEqual(response, detail)).toBe(true);
+      expect(_.isEqual(response, detailsForTesting)).toBe(true);
       done();
     });
   });
