@@ -33,7 +33,7 @@
   <style>
     @import "css/{skin}.css";
   </style>
-  <div>
+  <div rv-show="layout.ready">
     <header-component class="header" rv-config="config"></header-component>
     <div class="dashboard">
       <board-column>
@@ -66,8 +66,11 @@
     name: 'simple-dashboard',
     parent: Tile,
     lightDOM: true,
-    render: function (config) {
-      this.getModel().config = JSON.stringify(config);
+    onCreated: function () {
+      this.getModel().layout = {};
+    },
+    render: function () {
+      this.getModel().layout.ready = true;
     }
   });
 </script>

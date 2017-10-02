@@ -58,7 +58,7 @@
     }
 
   </style>
-  <div rv-if="layout.ready">
+  <div rv-show="layout.ready">
     <header-component class="header" rv-config="config"></header-component>
     <div class="dashboard adaptable" rv-class-with-footer="layout.withFooter">
       <board-column>
@@ -141,7 +141,6 @@
     render: function (config) {
       this.getModel().layout.withFooter = config.slackTeam ? true: false;
       this.getModel().layout.ready = true;
-      this.getModel().config = JSON.stringify(config);
     }
   });
 </script>
