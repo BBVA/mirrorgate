@@ -43,9 +43,13 @@ public class EventScheduler {
     @Scheduled(fixedDelayString = "${events.scheduler.delay.millis}")
     public void checkEventUpdates() throws IOException {
 
-        LOGGER.debug("Processing events for timestamp {}", schedulerTimestamp);
+        LOGGER.info("Processing events for timestamp {}", schedulerTimestamp);
 
         Set<String> dashboardIds = handler.getDashboardsWithSession();
+
+        if(dashboardIds != null){
+            LOGGER.info("Active dashboards {}", dashboardIds.size());
+        }
 
         if(!dashboardIds.isEmpty()) {
 
@@ -69,7 +73,7 @@ public class EventScheduler {
 
         }
 
-        LOGGER.debug("Modified timestamp: {}", schedulerTimestamp);
+        LOGGER.info("Modified timestamp: {}", schedulerTimestamp);
     }
 
     @PostConstruct
