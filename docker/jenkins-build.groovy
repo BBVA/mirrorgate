@@ -8,7 +8,7 @@ def build() {
 
         if(env.SPINUP_JOB == 'true') {
             stage('Docker - tag docker image for spinup on demand'){
-                TAG = "${env.SPINUP_BRANCH}"
+                TAG = "${env.SPINUP_BRANCH_LC}"
                 sh "docker tag mirrorgate bbvaae/mirrorgate:${TAG}"
             }
         } else {
