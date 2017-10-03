@@ -11,6 +11,7 @@ public class Event extends BaseModel{
     private Long timestamp;
     private ObjectId eventTypeCollectionId;
     private EventType eventType;
+    private String dashboardName;
 
     public Long getTimestamp() {
         return timestamp;
@@ -34,5 +35,13 @@ public class Event extends BaseModel{
 
     public void setEventType(EventType eventType) {
         this.eventType = eventType;
+    }
+
+    public String getDashboardName() {
+        return dashboardName;
+    }
+
+    public void setDashboardName(String dashboardName) {
+        this.dashboardName = dashboardName;
     }
 }

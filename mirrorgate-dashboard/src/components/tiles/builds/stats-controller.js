@@ -52,7 +52,6 @@ var BuildsStatsController = (function(dashboardId) {
   this.dispose = function() {
     this.observable.reset();
     service.removeListener(getBuildsStats);
-    ServerSideEvent.removeListener(getBuildsStats);
   };
   this.init = function(config) {
     if(!config.codeRepos || !config.codeRepos.length) {
@@ -60,7 +59,6 @@ var BuildsStatsController = (function(dashboardId) {
     }
 
     service.addListener(getBuildsStats);
-    ServerSideEvent.addListener(getBuildsStats);
   };
 
 });

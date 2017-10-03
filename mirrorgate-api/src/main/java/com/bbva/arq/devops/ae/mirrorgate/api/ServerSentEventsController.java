@@ -1,6 +1,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ServerSideEventsHandler;
+import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
-public class ServerSideEventsController {
+public class ServerSentEventsController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServerSideEventsController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerSentEventsController.class);
 
-    private ServerSideEventsHandler handler;
+    private ConnectionHandler handler;
 
 
     @Autowired
-    public ServerSideEventsController(ServerSideEventsHandler handler){
+    public ServerSentEventsController(ConnectionHandler handler){
 
         this.handler = handler;
     }

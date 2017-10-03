@@ -181,6 +181,10 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardRepository.readFile(dashboardName);
     }
 
+    public List<Dashboard> getDashboardWithNames(List<String> dashboardNames){
+        return dashboardRepository.findByNameIn(dashboardNames);
+    }
+
     private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {
 
         request.setId(dashboard.getId());

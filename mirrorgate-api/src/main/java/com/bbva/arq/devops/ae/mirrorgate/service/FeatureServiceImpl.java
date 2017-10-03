@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
+import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
@@ -26,6 +27,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
@@ -34,8 +36,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class FeatureServiceImpl implements FeatureService{
 
-    @Autowired
     private FeatureRepository repository;
+    private EventService eventService;
+
+    @Autowired
+    public FeatureServiceImpl(FeatureRepository repository, EventService eventService){
+
+        this.repository = repository;
+        this.eventService = eventService;
+    }
 
     @Override
     public List<Feature> getActiveUserStoriesByBoards(List<String> boards) {
@@ -98,10 +107,13 @@ public class FeatureServiceImpl implements FeatureService{
         }
 
         return StreamSupport.stream(repository.save(features).spliterator(), false)
-                .map((feat) -> new IssueDTO()
-                        .setId(Long.parseLong(feat.getsId()))
-                        .setName(feat.getsName())
-                        .setEstimate(feat.getdEstimate())
+                .map((feat) -> {
+                           eventService.saveFeatureEvent(feat);
+                           return new IssueDTO()
+                                .setId(Long.parseLong(feat.getsId()))
+                                .setName(feat.getsName())
+                                .setEstimate(feat.getdEstimate());
+                        }
                 )
                 .collect(Collectors.toList());
     }
@@ -109,6 +121,11 @@ public class FeatureServiceImpl implements FeatureService{
     @Override
     public void deleteStory(Long id, String collectorId) {
         repository.deleteBysIdAndCollectorId(id.toString(), collectorId);
+    }
+
+    @Override
+    public Iterable<Feature> getFeaturesByObjectId(List<ObjectId> ids){
+        return repository.findAll(ids);
     }
 
 }

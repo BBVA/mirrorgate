@@ -50,7 +50,7 @@ module.exports = function(config) {
       'src/js/core/Timer.js',
       'src/js/core/Service.js',
       'src/js/core/request.js',
-      'src/js/core/serversideevent.js',
+      'src/js/core/ServerSentEvent.js',
       'src/**/*.spec.*',
       'src/components/**/*.*',
       {pattern: 'test/**/*', included: false},

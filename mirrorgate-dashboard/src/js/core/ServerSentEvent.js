@@ -14,33 +14,33 @@
  * limitations under the License.
  */
 
-var ServerSideEvent = (function(){
+var ServerSentEvent = (function(){
 
   var event = new Event(this);
-  var serverSideEvent;
+  var serverSentEvent;
 
   function init(){
-    if(!serverSideEvent || serverSideEvent.readyState == EventSource.CLOSED){
+    if(!serverSentEvent || serverSentEvent.readyState == EventSource.CLOSED){
 
-      serverSideEvent = new EventSource(window.location.protocol +"//"+ window.location.host + "/mirrorgate/emitter/" + Utils.getDashboardId());
+      serverSentEvent = new EventSource(window.location.protocol +"//"+ window.location.host + "/mirrorgate/emitter/" + Utils.getDashboardId());
 
-      serverSideEvent.onmessage = function(data){
+      serverSentEvent.onmessage = function(data){
         var response = data.data;
         event.notify(response);
       };
 
-      serverSideEvent.onclose = function(data){
+      serverSentEvent.onclose = function(data){
         console.log("closing connection");
       };
 
-      serverSideEvent.addEventListener('error', function(e) {
+      serverSentEvent.addEventListener('error', function(e) {
         if (e.currentTarget.readyState != EventSource.CONNECTING) {
           console.error("EventSource error", e.error);
         }
       });
     }
   }
-  
+
   function _checkEventRegistration() {
     if (event.getListeners().length && !this._attached) {
       this._attached = true;
@@ -50,7 +50,7 @@ var ServerSideEvent = (function(){
   }
 
   init();
-  
+
   return {
     addListener: function(callback) {
       event.attach(callback);
@@ -62,5 +62,5 @@ var ServerSideEvent = (function(){
       _checkEventRegistration();
     }
   };
-  
+
   })();

@@ -1,22 +1,17 @@
 package com.bbva.arq.devops.ae.mirrorgate.cron;
 
 import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Build;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.cron.handler.EventHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
-import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
-import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -28,22 +23,20 @@ public class EventScheduler {
 
     private final EventService eventService;
 
-    private final BuildService buildService;
-
     private Long schedulerTimestamp = 0L;
 
     private final ConnectionHandler handler;
 
-    private final DashboardService dashboardService;
+    private BeanFactory beanFactory;
 
 
     @Autowired
-    public EventScheduler(EventService eventService, BuildService buildService, ConnectionHandler handler, DashboardService dashboardService){
+    public EventScheduler(EventService eventService,
+        ConnectionHandler handler, BeanFactory beanFactory){
 
         this.eventService = eventService;
-        this.buildService = buildService;
         this.handler = handler;
-        this.dashboardService = dashboardService;
+        this.beanFactory = beanFactory;
     }
 
 
@@ -62,20 +55,13 @@ public class EventScheduler {
             //process events
             if (!unprocessedEvents.isEmpty()) {
 
-                dashboardIds.forEach(dashboardId -> {
-
-                    try {
-                        //Right now only build events are handled through emitter
-                        Map<String, Object> response = getBuildsForDashboard(dashboardId);
-
-                        if (response != null && !response.isEmpty()) {
-                            handler.sendMessageToDashboardSessions(response, dashboardId);
-                        }
-
-                    } catch (Exception unhandledException) {
-                        LOGGER.error("Unhandled exception calculating response of event", unhandledException);
-                    }
-                });
+                //Filter events
+                unprocessedEvents.stream()
+                    .collect(Collectors.groupingBy(Event::getEventType))
+                    .entrySet().stream()
+                    .forEach(eventgroup ->
+                        beanFactory.getBean(eventgroup.getKey().getValue(), EventHandler.class).processEvents(eventgroup.getValue(), dashboardIds)
+                );
 
                 //save last event timestamp to local variable
                 schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size() - 1).getTimestamp();
@@ -84,28 +70,6 @@ public class EventScheduler {
         }
 
         LOGGER.debug("Modified timestamp: {}", schedulerTimestamp);
-    }
-
-    private Map<String, Object> getBuildsForDashboard(String dashboardId) {
-        Map<String, Object> response = new HashMap<>();
-
-        //Handle unchecked exception
-        DashboardDTO dashboard = dashboardService.getDashboard(dashboardId);
-        if (dashboard == null || dashboard.getCodeRepos() == null
-                || dashboard.getCodeRepos().isEmpty()) {
-            return null;
-        }
-
-        List<Build> builds = buildService
-                .getLastBuildsByReposNameAndByTeamMembers(
-                        dashboard.getCodeRepos(), dashboard.getTeamMembers());
-        BuildStats stats = buildService.getStatsFromReposByTeamMembers(
-                dashboard.getCodeRepos(), dashboard.getTeamMembers());
-
-        response.put("lastBuilds", builds);
-        response.put("stats", stats);
-
-        return response;
     }
 
     @PostConstruct

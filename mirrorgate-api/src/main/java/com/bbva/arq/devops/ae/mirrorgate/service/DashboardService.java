@@ -104,4 +104,6 @@ public interface DashboardService {
      * @return
      */
     ImageStream getDashboardImage(String name);
+
+    List<Dashboard> getDashboardWithNames(List<String> dashboardNames);
 }

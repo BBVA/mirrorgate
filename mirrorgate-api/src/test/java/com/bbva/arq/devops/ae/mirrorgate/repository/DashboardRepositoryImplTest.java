@@ -81,4 +81,15 @@ public class DashboardRepositoryImplTest {
         assertTrue(dashboardNames.contains("nullStatusDashboard"));
         assertEquals(activeDashboards.size(), 2);
     }
+
+    @Test
+    public void testGetSeveralDashboards(){
+        List<Dashboard> activeDashboards = dashboardRepository.findByNameIn(Arrays.asList("regularDashboard","nullStatusDashboard",""));
+
+        List<String> dashboardNames = activeDashboards.stream().map(Dashboard::getName).collect(Collectors.toList());
+
+        assertTrue(dashboardNames.contains("regularDashboard"));
+        assertTrue(dashboardNames.contains("nullStatusDashboard"));
+        assertEquals(activeDashboards.size(), 2);
+    }
 }
