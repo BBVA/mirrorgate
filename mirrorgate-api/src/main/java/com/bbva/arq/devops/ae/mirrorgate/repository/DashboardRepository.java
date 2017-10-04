@@ -32,4 +32,5 @@ public interface DashboardRepository extends CrudRepository<Dashboard, ObjectId>
     @Query(value = "{}", fields = "{codeRepos : 1, _id: 0}")
     List<Dashboard> findCodeRepos();
 
+    List<Dashboard> findByNameIn(List<String> dashboardNames);
 }

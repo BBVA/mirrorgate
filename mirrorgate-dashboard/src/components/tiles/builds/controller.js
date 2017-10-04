@@ -132,15 +132,13 @@ var BuildsController = (function(dashboardId) {
   this.dispose = function() {
     this.observable.reset();
     service.removeListener(getLastBuilds);
-    ServerSideEvent.removeListener(getLastBuilds);
   };
+
   this.init = function(_config) {
     config = _config;
     if(!config.codeRepos || !config.codeRepos.length) {
       return Promise.reject();
     }
     service.addListener(getLastBuilds);
-    ServerSideEvent.addListener(getLastBuilds);
   };
-
 });

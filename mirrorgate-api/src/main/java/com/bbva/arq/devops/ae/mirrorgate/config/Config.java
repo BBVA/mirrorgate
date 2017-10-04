@@ -18,19 +18,10 @@ package com.bbva.arq.devops.ae.mirrorgate.config;
 
 import com.bbva.arq.devops.ae.mirrorgate.utils.OneTimeETagGenerationFilter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.apache.catalina.servlet4preview.http.HttpFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.web.filter.GenericFilterBean;
-import org.springframework.web.filter.ShallowEtagHeaderFilter;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * Created by alfonso on 28/05/17.
