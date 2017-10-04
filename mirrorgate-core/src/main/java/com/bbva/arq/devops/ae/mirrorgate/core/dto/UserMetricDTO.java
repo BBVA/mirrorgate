@@ -29,7 +29,7 @@ public class UserMetricDTO {
 
     private String name;
 
-    private Long value;
+    private Double value;
 
     private Long timestamp;
 
@@ -72,11 +72,11 @@ public class UserMetricDTO {
         return this;
     }
 
-    public Long getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public UserMetricDTO setValue(Long value) {
+    public UserMetricDTO setValue(Double value) {
         this.value = value;
         return this;
     }

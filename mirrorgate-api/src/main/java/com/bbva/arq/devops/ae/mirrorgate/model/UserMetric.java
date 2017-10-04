@@ -32,7 +32,7 @@ public class UserMetric extends BaseModel {
 
     private String name;
 
-    private Long value;
+    private Double value;
 
     private Long timestamp;
 
@@ -75,11 +75,11 @@ public class UserMetric extends BaseModel {
         return this;
     }
 
-    public Long getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public UserMetric setValue(Long value) {
+    public UserMetric setValue(Double value) {
         this.value = value;
         return this;
     }
