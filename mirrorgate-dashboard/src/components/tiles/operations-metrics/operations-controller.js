@@ -33,24 +33,34 @@ var OperationsController = (function(dashboardId) {
         let requestsNumber =  0;
         let errorsNumber = 0;
         let availabilityRate;
+        let responseTime;
 
         response.forEach(function(metric) {
           if(metric.name === 'requestsNumber') {
             requestsNumber += parseInt(metric.value);
+            return;
           }
           if(metric.name === 'errorsNumber') {
             errorsNumber += parseInt(metric.value);
+            return;
           }
           if(metric.name === 'availabilityRate') {
             availabilityRate = availabilityRate ? Math.min(availabilityRate, parseFloat(metric.value)) : parseFloat(metric.value);
+            return;
           }
+          if(metric.name === 'responseTime') {
+            responseTime = responseTime ? Math.max(responseTime, parseFloat(metric.value)) : parseFloat(metric.value);
+            return;
+          }
+
         }, this);
 
+        let errorsRate = requestsNumber ? parseFloat((100 * errorsNumber / requestsNumber).toFixed(2)) : undefined;
+
         model.metrics = {
-          requestsNumber: requestsNumber,
-          errorsNumber: errorsNumber,
-          errorsRate: parseFloat((100 * errorsNumber / requestsNumber).toFixed(2)),
-          availabilityRate: availabilityRate
+          errorsRate: errorsRate,
+          availabilityRate: availabilityRate,
+          responseTime: responseTime
         };
       }
     }
