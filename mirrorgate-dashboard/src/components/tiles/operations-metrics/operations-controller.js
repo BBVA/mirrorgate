@@ -32,7 +32,7 @@ var OperationsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         let requestsNumber =  0;
         let errorsNumber = 0;
-        let availabilityRate = undefined;
+        let availabilityRate;
 
         response.forEach(function(metric) {
           if(metric.name === 'requestsNumber') {
