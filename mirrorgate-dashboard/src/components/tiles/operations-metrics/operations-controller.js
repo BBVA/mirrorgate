@@ -15,12 +15,12 @@
  */
 
 /**
- * RequestsController
+ * OperationsController
  *
  */
-var RequestsController = (function(dashboardId) {
+var OperationsController = (function(dashboardId) {
 
-  var observable = new Event('RequestsController');
+  var observable = new Event('OperationsController');
   var service = Service.get(Service.types.userMetrics, dashboardId);
 
   function getMetrics(response) {
@@ -32,6 +32,8 @@ var RequestsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         let requestsNumber =  0;
         let errorsNumber = 0;
+        let availabilityRate = 0;
+        let availabilityRateCount = 0;
 
         response.forEach(function(metric) {
           if(metric.name === 'requestsNumber') {
@@ -40,12 +42,17 @@ var RequestsController = (function(dashboardId) {
           if(metric.name === 'errorsNumber') {
             errorsNumber += parseInt(metric.value);
           }
+          if(metric.name === 'availabilityRate') {
+            availabilityRate += parseFloat(metric.value);
+            availabilityRateCount++;
+          }
         }, this);
 
         model.metrics = {
           requestsNumber: requestsNumber,
           errorsNumber: errorsNumber,
-          errorsRate: Math.round(100 * errorsNumber / requestsNumber)
+          errorsRate: Math.round(100 * errorsNumber / requestsNumber),
+          availabilityRate: !availabilityRateCount ? undefined : parseFloat((availabilityRate/availabilityRateCount).toFixed(2))
         };
       }
     }
