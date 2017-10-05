@@ -13,12 +13,21 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <div class="list">
-  <div class="row">
-    <div class="col-xs-8"><h2>Dashboards list</h2></div>
-    <div class="col-xs-4 text-right">
-      <button type="button" class="btn btn-default btn-sm head-button"  [routerLink]="['/new']">
+
+  <h2>Dashboards list</h2>
+
+  <div class="row form-group">
+    <div class="col-sm-3">
+      <div class="input-group">
+        <input class="form-control" (ngModelChange)="searchDashboard($event)" [ngModel]="searchText" placeholder="Find a Dashboard" type="search">
+        <span class="input-group-btn" *ngIf="searchText">
+          <button class="btn btn-default" (click)="searchDashboard()" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-9  text-right">
+      <button type="button" class="btn btn-default"  [routerLink]="['/new']">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Dashboard
       </button>
     </div>
@@ -48,4 +57,10 @@
       </div>
     </li>
   </ul>
+  <div class="text-center">
+    <div class="btn-group" role="group">
+      <button class="btn btn-default" (click)="pagingDashboard(pageNumber - 1)" [disabled]="pageNumber <= 0" id="prevButton">Prev</button>
+      <button class="btn btn-default"(click)="pagingDashboard(pageNumber + 1)" [disabled]="pageNumber >= maxPages - 1" id="nextButton">Next</button>
+    </div>
+  </div>
 </div>
