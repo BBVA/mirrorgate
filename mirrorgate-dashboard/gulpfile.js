@@ -185,8 +185,11 @@ gulp.task('dist', gulpSequence('build', 'html'));
 
 function getVersionId() {
   let version = new Date().toISOString();
+  if(process.env.GIT_BRANCH) {
+      version += ' - ' + process.env.GIT_BRANCH;
+  }
   if(process.env.BUILD_NUMBER) {
-    version += ' - ' + process.env.BUILD_NUMBER + ' - ' + process.env.GIT_BRANCH;
+    version += ' - ' + process.env.BUILD_NUMBER;
   }
   return version;
 }

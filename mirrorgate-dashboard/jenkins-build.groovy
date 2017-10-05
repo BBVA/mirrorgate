@@ -26,7 +26,7 @@ def build() {
 
       stage('Dashboard - Build app') {
           sh """
-            docker-compose -p \${BUILD_TAG} run -u \$(id -u) build
+            docker-compose -p \${BUILD_TAG} run -e BUILD_NUMBER=\${BUILD_NUMBER} -e GIT_BRANCH=\${BRANCH_NAME} -u \$(id -u) build
           """
       }
 
