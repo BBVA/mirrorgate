@@ -4,7 +4,7 @@
   "description": "Dashboard of MirrorGate project",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/gulp/bin/gulp.js test",
+    "test": "./node_modules/.bin/gulp test",
     "postinstall": "java -version && ./node_modules/.bin/selenium-standalone install || true",
     "watch": "./node_modules/.bin/gulp build:watch"
   },
