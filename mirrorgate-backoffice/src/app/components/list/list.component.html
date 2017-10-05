@@ -20,7 +20,7 @@
   <div class="row form-group">
     <div class="col-sm-3">
       <div class="input-group">
-        <input class="form-control" (ngModelChange)="searchDashboard($event)" [ngModel]="searchText" placeholder="Find a Dashboard" type="search">
+        <input #searchInput class="form-control" (ngModelChange)="searchDashboard($event)" [ngModel]="searchText" placeholder="Find a Dashboard" type="search">
         <span class="input-group-btn" *ngIf="searchText">
           <button class="btn btn-default" (click)="searchDashboard()" type="button"><span class="glyphicon glyphicon-remove"></span></button>
         </span>

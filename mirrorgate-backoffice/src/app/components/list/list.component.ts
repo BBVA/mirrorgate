@@ -17,7 +17,8 @@
 import {Component} from '@angular/core';
 import {DashboardsService} from '../../services/dashboards.service';
 import {Dashboard} from '../../model/dashboard';
-import { OnInit } from '@angular/core';
+import {ElementRef, OnInit, Renderer, ViewChild} from '@angular/core';
+
 import {ConfigService} from '../../services/config.service';
 
 @Component({
@@ -34,10 +35,12 @@ export class ListComponent {
   pageNumber: number = 0;
   maxPages: number = 0;
   itemsPerPage: number = 20;
+  @ViewChild('searchInput') searchInputRef: ElementRef;
 
   constructor(
     private dashboardsService: DashboardsService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private renderer: Renderer
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +48,10 @@ export class ListComponent {
       this.sourceBoards = this.filterBoards = boards;
       this.searchDashboard();
     });
+    this.renderer.invokeElementMethod(
+      this.searchInputRef.nativeElement,
+      'focus'
+    );
   }
 
   getDashboards(): Promise<Dashboard[]> {
