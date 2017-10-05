@@ -1,5 +1,4 @@
-
-/*
+/*!
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +14,18 @@
  * limitations under the License.
  */
 
-/**
- * Story - Despicts Story model
- * @param {String} name    Story name
- * @param {Number} points Estimated story points
- * @param {String} status  Story status;
- */
-function Story(name, points, status, url) {
-  this.name = name;
-  this.points = Number(points);
-  this.status = status;
-  this.url = url;
+// USER-METRICS
+.operations {
+
+    .component__body{
+      display: flex;
+      justify-content: space-around
+    }
+
+    .stats-desc {
+        color: $dark-grey;
+        display: inline-block;
+        padding-top: 10px;
+        padding-bottom: 40px;
+    }
 }

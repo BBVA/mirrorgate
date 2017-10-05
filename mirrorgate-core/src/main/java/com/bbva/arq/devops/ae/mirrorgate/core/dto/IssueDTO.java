@@ -51,6 +51,8 @@ public class IssueDTO implements Serializable {
     private SprintDTO sprint;
     private ProjectDTO project;
 
+    private String url;
+
     @NotNull
     private Date updatedDate;
 
@@ -196,4 +198,12 @@ public class IssueDTO implements Serializable {
         this.collectorId = collectorId;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public IssueDTO setUrl(String url) {
+        this.url = url;
+        return this;
+    }
 }

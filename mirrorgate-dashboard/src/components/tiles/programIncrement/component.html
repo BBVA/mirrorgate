@@ -259,6 +259,9 @@
           featureData.enter()
             .append('path')
             .on('mouseenter', mouseEnterHandler)
+            .on('click', function (d) {
+              d.url && window.open(d.url, "IssueUrl");
+            })
             .attr('d', arc)
             .attr('class', storyClassBuilder('status-'));
 
