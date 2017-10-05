@@ -28,6 +28,12 @@ import {ConfigService} from '../../services/config.service';
 })
 export class ListComponent {
   boards: Dashboard[];
+  sourceBoards: Dashboard[];
+  searchText: string = '';
+  filterBoards: Dashboard[];
+  pageNumber: number = 0;
+  maxPages: number = 0;
+  itemsPerPage: number = 20;
 
   constructor(
     private dashboardsService: DashboardsService,
@@ -35,11 +41,14 @@ export class ListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getDashboards();
+    this.getDashboards().then((boards) => {
+      this.sourceBoards = this.filterBoards = boards;
+      this.searchDashboard();
+    });
   }
 
   getDashboards(): Promise<Dashboard[]> {
-    return this.dashboardsService.getDashboards().then(boards => this.boards = boards.sort((a, b) => {
+    return this.dashboardsService.getDashboards().then(boards => boards.sort((a, b) => {
       let nameA = (a.displayName || a.name).toUpperCase();
       let nameB = (b.displayName || b.name).toUpperCase();
       return nameA > nameB ? 1 : nameA == nameB ? 0 : -1;
@@ -50,5 +59,19 @@ export class ListComponent {
     this.configService.getConfig().then((config) => {
       document.location.href = config.dashboardUrl + '?board=' + encodeURIComponent(dashboard.name);
     });
+  }
+
+  searchDashboard(value?) {
+    this.searchText = value;
+    this.filterBoards = value && value.length ?
+      this.sourceBoards.filter(board => (board.displayName || board.name).toLowerCase().indexOf(value.toLowerCase()) >= 0):
+      this.sourceBoards;
+    this.maxPages = Math.ceil(this.filterBoards.length/this.itemsPerPage);
+    this.pagingDashboard(0);
+  }
+
+  pagingDashboard(pageNumber) {
+    this.boards = this.filterBoards.slice(pageNumber * this.itemsPerPage, (pageNumber + 1) * this.itemsPerPage);
+    this.pageNumber = pageNumber;
   }
 }
