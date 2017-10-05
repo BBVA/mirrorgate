@@ -22,6 +22,8 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.proj
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -126,7 +128,7 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
         AggregationResults<ProgramIncrementBoardFeatures> aggregationResult
             = mongoTemplate.aggregate(agg, "feature", ProgramIncrementBoardFeatures.class);
 
-        return aggregationResult.getUniqueMappedResult() != null ? aggregationResult.getUniqueMappedResult().features : null;
+        return aggregationResult.getUniqueMappedResult() != null ? aggregationResult.getUniqueMappedResult().features : new ArrayList<>();
     }
 
     @Override

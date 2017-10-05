@@ -54,8 +54,13 @@
             </g>
             <g rv-hide="selected">
               <g rv-show="programIncrement.features">
-                <text class="rate-completed" y="0">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</text>
-                <text class="text-completed" y="100">features completed</text>
+                <g rv-show="programIncrement.stats.featureCount">
+                  <text class="rate-completed" y="0">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</text>
+                  <text class="text-completed" y="100">features completed</text>
+                </g>
+                <g rv-hide="programIncrement.stats.featureCount">
+                  <text class="text-completed" y="0">No features found for this PI</text>
+                </g>
                 <text class="days-left" rv-show="dateRange" y="300">
                   {daysLeft} days left
                 </text>
