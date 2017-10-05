@@ -32,8 +32,7 @@ var OperationsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         let requestsNumber =  0;
         let errorsNumber = 0;
-        let availabilityRate = 0;
-        let availabilityRateCount = 0;
+        let availabilityRate = undefined;
 
         response.forEach(function(metric) {
           if(metric.name === 'requestsNumber') {
@@ -43,8 +42,7 @@ var OperationsController = (function(dashboardId) {
             errorsNumber += parseInt(metric.value);
           }
           if(metric.name === 'availabilityRate') {
-            availabilityRate += parseFloat(metric.value);
-            availabilityRateCount++;
+            availabilityRate = availabilityRate ? Math.min(availabilityRate, parseFloat(metric.value)) : parseFloat(metric.value);
           }
         }, this);
 
@@ -52,7 +50,7 @@ var OperationsController = (function(dashboardId) {
           requestsNumber: requestsNumber,
           errorsNumber: errorsNumber,
           errorsRate: parseFloat((100 * errorsNumber / requestsNumber).toFixed(2)),
-          availabilityRate: !availabilityRateCount ? undefined : parseFloat((availabilityRate/availabilityRateCount).toFixed(2))
+          availabilityRate: availabilityRate
         };
       }
     }
