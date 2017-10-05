@@ -41,7 +41,8 @@ var TeamController = (function(dashboardId) {
           var story = new Story(
               currentSprint[index].sName,
               currentSprint[index].dEstimate || 0,
-              currentSprint[index].sStatus);
+              currentSprint[index].sStatus,
+              currentSprint[index].url);
           sprintData.currentSprint.addStory(story);
         }
       } else {
