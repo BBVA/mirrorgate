@@ -21,8 +21,9 @@
  * @param {Number} points Estimated story points
  * @param {String} status  Story status;
  */
-function Story(name, points, status) {
+function Story(name, points, status, url) {
   this.name = name;
   this.points = Number(points);
   this.status = status;
+  this.url = url;
 }

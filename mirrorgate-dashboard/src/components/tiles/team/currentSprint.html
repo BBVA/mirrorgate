@@ -274,6 +274,10 @@
               svg.classed('dimmed', true);
             }
           })
+          .on('click', function (d) {
+            var data = d.data;
+            data && data.url && window.open(data.url, "IssueUrl");
+          })
           .attr("d", outherArc)
           .attr("class", storyClassBuilder('status-'));
         outherUpdate.exit().remove();

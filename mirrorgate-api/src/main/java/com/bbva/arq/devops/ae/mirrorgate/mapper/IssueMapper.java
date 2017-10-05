@@ -75,6 +75,9 @@ public class IssueMapper {
             target.setsProjectId(null);
             target.setsProjectName(null);
         }
+
+        target.setUrl(source.getUrl());
+
         return target;
     }
 
@@ -110,6 +113,7 @@ public class IssueMapper {
         target.setPiNames(source.getsPiNames());
         target.setCollectorId(source.getCollectorId());
         target.setPriority(source.getPriority() == null ? null : IssuePriority.fromName(source.getPriority()));
+        target.setUrl(source.getUrl());
 
         return target;
     }

@@ -37,6 +37,7 @@ public class Feature extends BaseModel{
     private String sStatus;
     private Double dEstimate;
     private String priority;
+    private String url;
 
     /* Associated sprint properties */
     @Indexed
@@ -215,4 +216,12 @@ public class Feature extends BaseModel{
         return this;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public Feature setUrl(String url) {
+        this.url = url;
+        return this;
+    }
 }
