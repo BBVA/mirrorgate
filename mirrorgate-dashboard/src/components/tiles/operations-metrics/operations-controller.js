@@ -51,7 +51,7 @@ var OperationsController = (function(dashboardId) {
         model.metrics = {
           requestsNumber: requestsNumber,
           errorsNumber: errorsNumber,
-          errorsRate: Math.round(100 * errorsNumber / requestsNumber),
+          errorsRate: parseFloat((100 * errorsNumber / requestsNumber).toFixed(2)),
           availabilityRate: !availabilityRateCount ? undefined : parseFloat((availabilityRate/availabilityRateCount).toFixed(2))
         };
       }
