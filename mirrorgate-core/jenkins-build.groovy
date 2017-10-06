@@ -28,7 +28,7 @@ def build() {
     }
 
     
-    if(env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop') {
+    if(env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' && env.SPINUP_JOB != 'true') {
 
         stage(' Publish app ') {
             withCredentials([[$class          : 'UsernamePasswordMultiBinding',

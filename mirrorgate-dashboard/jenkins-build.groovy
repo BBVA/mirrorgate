@@ -25,9 +25,15 @@ def build() {
       }
 
       stage('Dashboard - Build app') {
-          sh """
-            docker-compose -p \${BUILD_TAG} run -e BUILD_NUMBER=\${BUILD_NUMBER} -e GIT_BRANCH=\${BRANCH_NAME} -u \$(id -u) build
-          """
+          if(env.SPINUP_JOB == 'true') {
+              sh """
+                docker-compose -p \${BUILD_TAG} run -e BUILD_NUMBER=\${BUILD_NUMBER} -e GIT_BRANCH=\${SPINUP_BRANCH} -u \$(id -u) build
+              """
+          } else {
+              sh """
+                docker-compose -p \${BUILD_TAG} run -e BUILD_NUMBER=\${BUILD_NUMBER} -e GIT_BRANCH=\${BRANCH_NAME} -u \$(id -u) build
+              """
+          }
       }
 
       stage('Dashboard - Run tests') {
