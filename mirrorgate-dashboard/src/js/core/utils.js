@@ -83,7 +83,7 @@ var Utils = {
   openBackOffice: function (boardId) {
     window.mirrorGateConfig().then(function (config) {
       document.location.href = config.backOfficeUrl + (boardId ?
-        'index.html#/edit/' + encodeURIComponent(boardId) :
+        'index.html#/edit/' + encodeURIComponent(boardId) + "?backToDashboard=true" :
         'index.html#/list');
     });
     return false;
