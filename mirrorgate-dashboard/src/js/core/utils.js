@@ -129,7 +129,7 @@ rivets.formatters.length = function(value) {
 
 rivets.formatters['>='] = function (value, arg) {
   return value >= arg;
-}
+};
 
 rivets.binders['pclass-*'] = function(el, value) {
   var prefix = this.args[0] + '-';
