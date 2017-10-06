@@ -127,6 +127,10 @@ rivets.formatters.length = function(value) {
   return value ? (value.length || 0) : 0;
 };
 
+rivets.formatters['>='] = function (value, arg) {
+  return value >= arg;
+}
+
 rivets.binders['pclass-*'] = function(el, value) {
   var prefix = this.args[0] + '-';
   var $el = $(el);
