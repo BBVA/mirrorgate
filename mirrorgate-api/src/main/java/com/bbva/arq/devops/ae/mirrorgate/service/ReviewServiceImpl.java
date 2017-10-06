@@ -24,6 +24,7 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,8 +37,16 @@ public class ReviewServiceImpl implements ReviewService {
     private static final String MIRRORGATE = "$mirrorgate";
     private static final String MIRRORGATE_COMMENT_ID = MIRRORGATE + "_history";
 
-    @Autowired
     private ReviewRepository repository;
+    private EventService eventService;
+
+
+    @Autowired
+    public ReviewServiceImpl(ReviewRepository repository, EventService eventService){
+
+        this.repository = repository;
+        this.eventService = eventService;
+    }
 
     @Override
     public List<ApplicationDTO> getAverageRateByAppNames(List<String> names) {
@@ -121,6 +130,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .collect(Collectors.toList());
 
         Iterable<Review> newReviews = repository.save(singleReviews);
+        eventService.saveReviewEvents(newReviews);
 
         if (newReviews == null) {
             throw new ReviewsConflictException("Save reviews error");
@@ -180,6 +190,11 @@ public class ReviewServiceImpl implements ReviewService {
         updateHistoryForMirrorGateReview(toSave);
 
         return review;
+    }
+
+    public Iterable<Review> getReviewsByObjectId(List<ObjectId> objectIds){
+
+        return repository.findAll(objectIds);
     }
 
     private synchronized void updateHistoryForMirrorGateReview(Review toSave) {

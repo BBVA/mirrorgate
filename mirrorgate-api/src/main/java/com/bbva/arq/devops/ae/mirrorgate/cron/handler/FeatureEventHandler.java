@@ -7,6 +7,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
+import com.google.common.collect.Iterables;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,14 +49,21 @@ public class FeatureEventHandler implements EventHandler {
                                 .map(Event::getEventTypeCollectionId).collect(Collectors.toList());
         Iterable<Feature> features = featureService.getFeaturesByObjectId(idList);
 
-        dashboards.forEach(dashboard -> {
-            //check if there is a feature changed
-            Optional<Feature> featureCheck = StreamSupport.stream(features.spliterator(), false)
-                .filter(feature -> CollectionUtils.containsAny(feature.getKeywords(), dashboard.getBoards())).findFirst();
-            if(featureCheck.isPresent()){
-                //Send update message to dashboard
-                connectionHandler.sendEventUpdateMessage(EventType.FEATURE, dashboard.getName());
-            }
-        });
+        if(idList.size() != Iterables.size(features)){
+
+            connectionHandler.sendEventUpdateMessageToAll(EventType.FEATURE);
+
+        } else {
+
+            dashboards.forEach(dashboard -> {
+                //check if there is a feature changed
+                Optional<Feature> featureCheck = StreamSupport.stream(features.spliterator(), false)
+                    .filter(feature -> CollectionUtils.containsAny(feature.getKeywords(), dashboard.getBoards())).findFirst();
+                if(featureCheck.isPresent()){
+                    //Send update message to dashboard
+                    connectionHandler.sendEventUpdateMessage(EventType.FEATURE, dashboard.getName());
+                }
+            });
+        }
     }
 }

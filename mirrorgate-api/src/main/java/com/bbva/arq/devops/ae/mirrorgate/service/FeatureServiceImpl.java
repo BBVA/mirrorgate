@@ -22,6 +22,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -120,7 +121,9 @@ public class FeatureServiceImpl implements FeatureService{
 
     @Override
     public void deleteStory(Long id, String collectorId) {
+        List<Feature> features = repository.findAllBysIdInAndCollectorId(Arrays.asList(id.toString()), collectorId);
         repository.deleteBysIdAndCollectorId(id.toString(), collectorId);
+        eventService.saveFeatureEvent(features.get(0));
     }
 
     @Override
