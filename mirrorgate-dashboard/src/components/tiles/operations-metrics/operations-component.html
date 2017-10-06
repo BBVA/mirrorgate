@@ -32,17 +32,17 @@
       </h3>
     </div>
     <div class="component__body">
-      <div class="indicator" rv-if="metrics.errorsRate">
-        <div class="stats">{metrics.errorsRate} % </div>
+      <div class="indicator" rv-show="metrics.errorsRate | >= 0">
+        <div class="stats">{metrics.errorsRate}% </div>
         <div class="stats-desc">of errors</div>
       </div>
-      <div class="indicator" rv-if="metrics.availabilityRate">
-        <div class="stats">{metrics.availabilityRate} % </div>
+      <div class="indicator" rv-show="metrics.availabilityRate | >= 0">
+        <div class="stats">{metrics.availabilityRate}% </div>
         <div class="stats-desc">of availability</div>
       </div>
-      <div class="indicator" rv-if="metrics.responseTime">
+      <div class="indicator" rv-show="metrics.responseTime | >= 0">
         <div class="stats">{metrics.responseTime}s </div>
-        <div class="stats-desc">response time average</div>
+        <div class="stats-desc"> response time</div>
       </div>
     </div>
   </div>
@@ -69,7 +69,7 @@
         this.setAttribute('enabled', model.metrics !== undefined);
 
         if(model.metrics) {
-          this.setAttribute('enabled', !!model.metrics.errorsRate);
+          this.setAttribute('enabled', model.metrics.errorsRate !== undefined);
         }
       }
 
