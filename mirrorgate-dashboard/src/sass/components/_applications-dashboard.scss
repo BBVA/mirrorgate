@@ -73,6 +73,33 @@
 
     font-size: 2rem;
 
+    .page-control {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      button.control {
+        border-radius: 1em;
+        width: 2.1em;
+        height: 2.1em;
+        border: none;
+        background-color: $light-grey;
+        text-align: center;
+        font-size: 0.6vw;
+        color: $dark-grey;
+        float:right;
+        margin-left: 5px;
+        padding: 0;
+      }
+      button.control.play {
+        background-color: $text-color;
+        color: $review-background-color;
+        padding-left: 2px;
+      }
+
+    }
+
+
     .component__body {
         text-align: left;
         margin: 0 auto;

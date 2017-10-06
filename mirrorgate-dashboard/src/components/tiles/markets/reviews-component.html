@@ -25,7 +25,11 @@
     <div class="reviews component__content">
       <div class="component__header">
         <h2 class="title">Latest Comments</h2>
-        <h3 rv-show="count" class="title-desc">{index} of {count}</h3>
+        <span rv-show="count" class="page-control">
+          <h3 class="title-desc">page {index} of {count}</h3>
+          <button rv-hide="ctrl.paused" type="button" class="control" rv-on-click="ctrl.pause"><i class="fa fa-pause" aria-hidden="true"></i></button>
+          <button rv-show="ctrl.paused" type="button" class="control play" rv-on-click="ctrl.resume"><i class="fa fa-play" aria-hidden="true"></i></button>
+        </span>
         <h3 rv-hide="count" class="title-desc">No comments</h3>
       </div>
       <div class="component__body">
@@ -91,7 +95,11 @@
 
         var model = this.getModel();
         model.num = num;
-        model.ctrl = this;
+        model.ctrl = {
+          pause: this._pausePageCycle.bind(this),
+          resume: this._resumePageCycle.bind(this),
+          paused: false
+        };
 
         model.reviews = data && data.reviews && data.reviews.slice(0,3*num);
         if(model.reviews) {
@@ -150,27 +158,35 @@
 
     _resumePageCycle: function () {
       if(!this._disposed && !this.nextReviewHandle) {
+        this.getModel().ctrl.paused = false;
         this._initPageCycle();
       }
     },
 
+    _delayedResumePageCycle: function () {
+      setTimeout(this._resumePageCycle.bind(this), 60000);
+    },
+
     _pausePageCycle: function () {
       if(this.nextReviewHandle) {
+        this.getModel().ctrl.paused = true;
         this._stopPageCycle();
-        setTimeout(this._resumePageCycle().bind(this), 60000);
+        this._delayedResumePageCycle();
       }
     },
 
     onInit: function () {
-      this.addEventListener('mouseover', function () {
-        this._pausePageCycle();
+      var self = this;
+      var list = this.getRootElement().querySelector('.reviews-list')
+      list.addEventListener('mouseover', function () {
+        self._pausePageCycle();
       });
-      this.addEventListener('mouseout', function () {
-        this._resumePageCycle();
+      list.addEventListener('mouseout', function () {
+        self._delayedResumePageCycle();
       });
+
       this._sheet = document.createElement('style')
-      var contents = this.getRootElement().querySelector('.reviews-list');
-      contents.appendChild(this._sheet);
+      list.appendChild(this._sheet);
     },
 
     onDispose: function () {
