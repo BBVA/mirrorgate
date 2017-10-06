@@ -46,7 +46,6 @@ public class DashboardDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackToken;
     private String slackTeam;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackChannel;
 
     private String programIncrement;
