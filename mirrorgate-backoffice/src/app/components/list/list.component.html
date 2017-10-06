@@ -36,7 +36,7 @@
     <li class="list-group-item boards-list-item" *ngFor="let board of boards">
       <div class="row">
         <div class="col-sm-8">
-          <img class="team-logo" *ngIf="board.logoUrl" [src]="board.logoUrl === '#UPLOADED#' ? '../dashboards/' + board.name + '/image' : board.logoUrl" />
+          <img class="team-logo" *ngIf="board.logoUrl" [src]="board.logoUrl === '#UPLOADED#' ? '../dashboards/' + board.name + '/image' : board.logoUrl"  onerror="this.parentNode.removeChild(this)"/>
           <span *ngIf="board.displayName">{{board.displayName}}</span>
           <span *ngIf="!board.displayName">{{board.name}}</span>
         </div>

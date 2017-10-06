@@ -25,7 +25,11 @@
     <div class="reviews component__content">
       <div class="component__header">
         <h2 class="title">Latest Comments</h2>
-        <h3 rv-show="count" class="title-desc">page {index} of {count}</h3>
+        <span rv-show="count" class="page-control">
+          <h3 class="title-desc">page {index} of {count}</h3>
+          <button rv-hide="ctrl.paused" type="button" class="control" rv-on-click="ctrl.pause"><i class="fa fa-pause" aria-hidden="true"></i></button>
+          <button rv-show="ctrl.paused" type="button" class="control play" rv-on-click="ctrl.resume"><i class="fa fa-play" aria-hidden="true"></i></button>
+        </span>
         <h3 rv-hide="count" class="title-desc">No comments</h3>
       </div>
       <div class="component__body">
@@ -90,6 +94,11 @@
         var num = xSize * ySize;
 
         var model = this.getModel();
+        if(this.model.num != num) {
+          model.num = num;
+          this._initPageCycle();
+        }
+
         model.reviews = data && data.reviews && data.reviews.slice(0,3*num);
         if(model.reviews) {
           model.count = Math.ceil(model.reviews.length / num);
@@ -133,37 +142,56 @@
     },
 
     _initPageCycle: function () {
-      this.nextReviewHandle = setInterval(function () {
-        if(this.pauseCount) {
-          this.pauseCount--;
-        } else {
-          this._nextPage();
-        }
-      }.bind(this), 6000);
+      this._stopPageCycle();
+      this.nextReviewHandle = setInterval(
+        this._nextPage.bind(this),
+        20000 * this.getModel().num
+      );
+      this.getModel().ctrl.paused = false;
     },
 
     _stopPageCycle: function () {
+      this._delayedResumeTimeout && clearTimeout(this._delayedResumeTimeout);
+      this._delayedResumeTimeout = undefined;
+
       this.nextReviewHandle && clearInterval(this.nextReviewHandle);
+      this.nextReviewHandle = undefined;
+
+      this.getModel().ctrl.paused = true;
+    },
+
+    _resumePageCycle: function () {
+      if(!this._disposed && !this.nextReviewHandle) {
+        this._initPageCycle();
+      }
     },
 
     _pausePageCycle: function () {
-      this.pauseCount = 10; //Pause for 1 minute
+      if(this.nextReviewHandle) {
+        this._stopPageCycle();
+        this._delayedResumeTimeout = setTimeout(this._resumePageCycle.bind(this), 60000);
+      }
     },
 
     onInit: function () {
-      this.addEventListener('mouseover', function () {
-        this._pausePageCycle();
-      });
-      this._initPageCycle();
+      var self = this;
+      var list = this.getRootElement().querySelector('.reviews-list')
+      list.addEventListener('mousemove', this._pausePageCycle.bind(this));
 
       this._sheet = document.createElement('style')
-      var contents = this.getRootElement().querySelector('.reviews-list');
-      contents.appendChild(this._sheet);
+      list.appendChild(this._sheet);
 
+      this.getModel().ctrl = {
+        pause: this._pausePageCycle.bind(this),
+        resume: this._resumePageCycle.bind(this),
+        paused: false
+      };
+      this._initPageCycle();
     },
 
     onDispose: function () {
       this._stopPageCycle();
+      this._disposed = true;
       this._sheet && this._sheet.remove();
     }
   });

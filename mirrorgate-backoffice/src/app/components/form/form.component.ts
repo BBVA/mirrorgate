@@ -25,14 +25,16 @@ import {SlackService} from '../../services/slack.service';
 import {RequestOptions} from '@angular/http/http';
 
 import {TextsService} from '../../services/texts.service';
+import {ConfigService} from '../../services/config.service';
 
 @Component({
   selector: 'new-and-edit-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  providers: [DashboardsService, SlackService, TextsService]
+  providers: [DashboardsService, SlackService, TextsService, ConfigService]
 })
 export class FormComponent {
+  backToDashboard: boolean;
   dashboard: Dashboard;
   slackChannels: {keys?: string[], values?: Map<string, string>} = {};
   slack: {clientId?: string, clientSecret?: string} = {};
@@ -65,13 +67,15 @@ export class FormComponent {
       private textsService: TextsService,
       private slackService: SlackService,
       private router: Router,
-      private route: ActivatedRoute) {}
+      private route: ActivatedRoute,
+      private configService: ConfigService) {}
 
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
     let url = document.location.href;
     let pos = url.lastIndexOf('/backoffice/');
 
+    this.backToDashboard = this.route.snapshot.queryParams.backToDashboard === 'true';
     if (pos > 0) {
       url = url.substring(0, pos);
     } else {
@@ -153,7 +157,15 @@ export class FormComponent {
     }
   }
 
-  back(): void { this.router.navigate(['/list']); }
+  back(): void {
+    if(this.backToDashboard) {
+      this.configService.getConfig().then((config) => {
+        document.location.href = config.dashboardUrl + '?board=' + encodeURIComponent(this.dashboard.name);
+      });
+    } else {
+      this.router.navigate(['/list']);
+    }
+  }
 
   private updateSlackChannels(): void {
     this.slackService.getChannels(this.dashboard).then((channels) => {
