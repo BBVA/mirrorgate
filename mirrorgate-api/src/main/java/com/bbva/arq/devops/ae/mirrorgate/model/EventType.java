@@ -23,7 +23,7 @@ public enum EventType {
     static{
         MAPPING.put("FeatureType", FEATURE);
         MAPPING.put("BuildType", BUILD);
-        MAPPING.put("ReviewType", BUILD);
+        MAPPING.put("ReviewType", REVIEW);
     }
 
     public static EventType fromString(String value) {
