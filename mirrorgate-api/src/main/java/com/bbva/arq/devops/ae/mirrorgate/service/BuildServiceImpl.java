@@ -25,6 +25,7 @@ import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import java.util.Arrays;
@@ -80,7 +81,7 @@ public class BuildServiceImpl implements BuildService {
                     + "information.");
         }
 
-        eventService.saveBuildEvent(build);
+        eventService.saveEvent(build, EventType.BUILD);
 
         createDashboardForBuildProject(build);
 

@@ -99,7 +99,7 @@ var Service = (function() {
       builds: new ServiceType(Timer.eventually, 'builds','BuildType'),
       bugs: new ServiceType(Timer.eventually, 'bugs'),
       stories: new ServiceType(Timer.rarely, 'stories', 'FeatureType'),
-      apps: new ServiceType(Timer.eventually, 'applications', 'ReviewType'),
+      apps: new ServiceType(Timer.rarely, 'applications', 'ReviewType'),
       dashboard: new ServiceType(Timer.never, 'details'),
       dashboards: new ServiceType(Timer.never),
       programincrement: new ServiceType(Timer.eventually, 'programincrement', 'FeatureType'),

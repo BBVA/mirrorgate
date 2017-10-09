@@ -19,6 +19,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.*;
@@ -130,7 +131,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .collect(Collectors.toList());
 
         Iterable<Review> newReviews = repository.save(singleReviews);
-        eventService.saveReviewEvents(newReviews);
+        eventService.saveEvents(newReviews, EventType.REVIEW);
 
         if (newReviews == null) {
             throw new ReviewsConflictException("Save reviews error");

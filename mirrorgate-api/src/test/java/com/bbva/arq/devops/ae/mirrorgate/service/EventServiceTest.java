@@ -39,7 +39,7 @@ public class EventServiceTest {
 
         Build build = createBuild();
 
-        eventService.saveBuildEvent(build);
+        eventService.saveEvent(build, EventType.BUILD);
 
         verify(eventRepository).save(captor.capture());
 

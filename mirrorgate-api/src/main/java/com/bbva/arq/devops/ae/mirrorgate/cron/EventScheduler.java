@@ -51,7 +51,6 @@ public class EventScheduler {
             LOGGER.info("Active dashboards {}", dashboardIds.size());
         }
 
-
         //query DB for last events
         List<Event> unprocessedEvents = eventService.getEventsSinceTimestamp(schedulerTimestamp);
 

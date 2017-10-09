@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-//TODO add test to check that one bean is created for every event type or create them in config file as beans
 @Component("ReviewType")
 public class ReviewEventHandler implements EventHandler {
 

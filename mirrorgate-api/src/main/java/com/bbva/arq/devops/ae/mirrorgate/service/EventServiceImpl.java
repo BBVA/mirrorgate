@@ -1,5 +1,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.model.BaseModel;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
@@ -30,49 +31,37 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public void saveBuildEvent(Build build) {
-        LOGGER.info("Saving build event with Id :{}", build.getId());
+    public void saveEvent(BaseModel baseObject, EventType type){
 
-        Event buildEvent = new Event();
-
-        buildEvent.setEventType(EventType.BUILD);
-        buildEvent.setEventTypeCollectionId(build.getId());
-        buildEvent.setTimestamp(System.currentTimeMillis());
-
-        eventRepository.save(buildEvent);
-    }
-
-    @Override
-    public void saveFeatureEvent(Feature feature) {
-        LOGGER.info("Saving feature event with Id :{}", feature.getId());
+        LOGGER.info("Saving event with Id :{}", baseObject.getId());
 
         try{
-            Event featureEvent = new Event();
+            Event platformEvent = new Event();
 
-            featureEvent.setEventType(EventType.FEATURE);
-            featureEvent.setEventTypeCollectionId(feature.getId());
-            featureEvent.setTimestamp(System.currentTimeMillis());
+            platformEvent.setEventType(type);
+            platformEvent.setEventTypeCollectionId(baseObject.getId());
+            platformEvent.setTimestamp(System.currentTimeMillis());
 
-            eventRepository.save(featureEvent);
+            eventRepository.save(platformEvent);
         } catch (Exception e){
             LOGGER.error("Error while saving event", e);
         }
     }
 
     @Override
-    public void saveReviewEvents(Iterable<Review> reviews) {
-        LOGGER.info("Saving feature events");
+    public void saveEvents(Iterable<? extends BaseModel> reviews, EventType type) {
+        LOGGER.info("Saving list of events");
 
         try{
             List<Event> eventList = StreamSupport.stream(reviews.spliterator(), false)
                 .map(review -> {
-                    Event reviewEvent = new Event();
+                    Event platformEvent = new Event();
 
-                    reviewEvent.setEventType(EventType.REVIEW);
-                    reviewEvent.setEventTypeCollectionId(review.getId());
-                    reviewEvent.setTimestamp(System.currentTimeMillis());
+                    platformEvent.setEventType(type);
+                    platformEvent.setEventTypeCollectionId(review.getId());
+                    platformEvent.setTimestamp(System.currentTimeMillis());
 
-                    return reviewEvent;
+                    return platformEvent;
                 }).collect(Collectors.toList());
 
             eventRepository.save(eventList);
@@ -80,23 +69,6 @@ public class EventServiceImpl implements EventService{
             LOGGER.error("Error while saving event", e);
         }
     }
-
-//    @Override
-//    public void saveDeletedFeatureEvent(Long id, String collectorId) {
-//        LOGGER.info("Saving feature event with Id :{}", id);
-//
-//        try{
-//            Event buildEvent = new Event();
-//
-//            buildEvent.setEventType(EventType.FEATURE);
-//            buildEvent.setEventTypeCollectionId(feature.getId());
-//            buildEvent.setTimestamp(System.currentTimeMillis());
-//
-//            eventRepository.save(buildEvent);
-//        } catch (Exception e){
-//            LOGGER.error("Error while saving event", e);
-//        }
-//    }
 
     @Override
     public Event getLastEvent(){

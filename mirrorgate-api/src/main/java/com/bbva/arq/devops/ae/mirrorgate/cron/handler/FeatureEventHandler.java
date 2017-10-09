@@ -46,14 +46,13 @@ public class FeatureEventHandler implements EventHandler {
         List<Dashboard> dashboards = dashboardService.getDashboardWithNames(new ArrayList(dashboardIds));
 
         List<ObjectId> idList = eventList.stream()
-                                .map(Event::getEventTypeCollectionId).collect(Collectors.toList());
-        Iterable<Feature> features = featureService.getFeaturesByObjectId(idList);
+                                .map(Event::getEventTypeCollectionId)
+                                .collect(Collectors.toList());
 
-        if(idList.size() != Iterables.size(features)){
-
+        if(idList.contains(null)) {
             connectionHandler.sendEventUpdateMessageToAll(EventType.FEATURE);
-
         } else {
+            Iterable<Feature> features = featureService.getFeaturesByObjectId(idList);
 
             dashboards.forEach(dashboard -> {
                 //check if there is a feature changed
