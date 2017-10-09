@@ -62,6 +62,12 @@ public class ServerSentEventsHandler implements ConnectionHandler {
         }
     }
 
+    @Override
+    public void sendEventUpdateMessageToAll(EventType event) {
+
+        emittersPerDashboard.keySet().forEach(dashboardId -> sendEventUpdateMessage(event, dashboardId));
+    }
+
     public synchronized void addToSessionsMap(SseEmitter session, String dashboardId) {
 
         LOGGER.debug("Add SseEmitter {} to sessions map", dashboardId);

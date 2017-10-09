@@ -51,26 +51,25 @@ public class EventScheduler {
             LOGGER.info("Active dashboards {}", dashboardIds.size());
         }
 
-        if(!dashboardIds.isEmpty()) {
+        //query DB for last events
+        List<Event> unprocessedEvents = eventService.getEventsSinceTimestamp(schedulerTimestamp);
 
-            //query DB for last events
-            List<Event> unprocessedEvents = eventService.getEventsSinceTimestamp(schedulerTimestamp);
+        //process events
+        if (!unprocessedEvents.isEmpty()) {
 
-            //process events
-            if (!unprocessedEvents.isEmpty()) {
-
+            if(!dashboardIds.isEmpty()) {
                 //Filter events
                 unprocessedEvents.stream()
                     .collect(Collectors.groupingBy(Event::getEventType))
                     .entrySet().stream()
                     .forEach(eventgroup ->
-                        beanFactory.getBean(eventgroup.getKey().getValue(), EventHandler.class).processEvents(eventgroup.getValue(), dashboardIds)
-                );
-
-                //save last event timestamp to local variable
-                schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size() - 1).getTimestamp();
+                        beanFactory.getBean(eventgroup.getKey().getValue(), EventHandler.class)
+                            .processEvents(eventgroup.getValue(), dashboardIds)
+                    );
             }
 
+            //save last event timestamp to local variable
+            schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size() - 1).getTimestamp();
         }
 
         LOGGER.info("Modified timestamp: {}", schedulerTimestamp);

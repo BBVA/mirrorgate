@@ -24,6 +24,7 @@ var Timer = (function() {
   var timerDefinitions = {
     'frequently': 2000,
     'eventually': 30000,
+    'rarely': 300000,
     'never': 0,
   };
 
