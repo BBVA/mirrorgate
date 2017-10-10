@@ -33,7 +33,7 @@
         <h3 rv-hide="count" class="title-desc">No comments</h3>
       </div>
       <div class="component__body">
-        <div class="reviews-list">
+        <div class="reviews-list" rv-pclass-layout="layout">
           <div class="review" rv-each-review="page">
             <div class="review-contents" rv-if="review" rv-pclass-mood="review.commentMood">
               <div class="review__header">
@@ -94,6 +94,7 @@
         var num = xSize * ySize;
 
         var model = this.getModel();
+        model.layout = xSize + 'x' + ySize;
         if(this.model.num != num) {
           model.num = num;
           this._initPageCycle();
@@ -179,7 +180,7 @@
       list.addEventListener('mousemove', this._pausePageCycle.bind(this));
 
       this._sheet = document.createElement('style')
-      list.appendChild(this._sheet);
+      list.parentElement.appendChild(this._sheet);
 
       this.getModel().ctrl = {
         pause: this._pausePageCycle.bind(this),
