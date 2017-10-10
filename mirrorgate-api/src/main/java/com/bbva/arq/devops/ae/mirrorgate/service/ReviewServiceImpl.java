@@ -186,7 +186,8 @@ public class ReviewServiceImpl implements ReviewService {
         toSave.setCommentId(Long.toString(id));
         toSave.setPlatform(Platform.Unknown);
 
-        repository.save(toSave);
+        Review savedReview = repository.save(toSave);
+        eventService.saveEvent(savedReview, EventType.REVIEW);
 
         updateHistoryForMirrorGateReview(toSave);
 
