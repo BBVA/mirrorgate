@@ -15,4 +15,5 @@ public interface ConnectionHandler {
 
     void sendEventUpdateMessage(EventType event, String dashboardId);
 
+    void sendEventUpdateMessageToAll(EventType event);
 }

@@ -5,7 +5,8 @@ import java.util.Map;
 
 public enum EventType {
     BUILD("BuildType"),
-    FEATURE("FeatureType");
+    FEATURE("FeatureType"),
+    REVIEW("ReviewType");
 
     private final String value;
 
@@ -22,6 +23,7 @@ public enum EventType {
     static{
         MAPPING.put("FeatureType", FEATURE);
         MAPPING.put("BuildType", BUILD);
+        MAPPING.put("ReviewType", REVIEW);
     }
 
     public static EventType fromString(String value) {

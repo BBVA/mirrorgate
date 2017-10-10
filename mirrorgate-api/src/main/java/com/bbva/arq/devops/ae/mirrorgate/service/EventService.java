@@ -1,15 +1,15 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.model.BaseModel;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import java.util.List;
 
 public interface EventService {
 
-    void saveBuildEvent(Build build);
+    void saveEvent(BaseModel baseObject, EventType type);
 
-    void saveFeatureEvent(Feature feature);
+    void saveEvents(Iterable<? extends BaseModel> reviews, EventType type);
 
     Event getLastEvent();
 

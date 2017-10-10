@@ -7,6 +7,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
+import com.google.common.collect.Iterables;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,17 +46,23 @@ public class FeatureEventHandler implements EventHandler {
         List<Dashboard> dashboards = dashboardService.getDashboardWithNames(new ArrayList(dashboardIds));
 
         List<ObjectId> idList = eventList.stream()
-                                .map(Event::getEventTypeCollectionId).collect(Collectors.toList());
-        Iterable<Feature> features = featureService.getFeaturesByObjectId(idList);
+                                .map(Event::getEventTypeCollectionId)
+                                .collect(Collectors.toList());
 
-        dashboards.forEach(dashboard -> {
-            //check if there is a feature changed
-            Optional<Feature> featureCheck = StreamSupport.stream(features.spliterator(), false)
-                .filter(feature -> CollectionUtils.containsAny(feature.getKeywords(), dashboard.getBoards())).findFirst();
-            if(featureCheck.isPresent()){
-                //Send update message to dashboard
-                connectionHandler.sendEventUpdateMessage(EventType.FEATURE, dashboard.getName());
-            }
-        });
+        if(idList.contains(null)) {
+            connectionHandler.sendEventUpdateMessageToAll(EventType.FEATURE);
+        } else {
+            Iterable<Feature> features = featureService.getFeaturesByObjectId(idList);
+
+            dashboards.forEach(dashboard -> {
+                //check if there is a feature changed
+                Optional<Feature> featureCheck = StreamSupport.stream(features.spliterator(), false)
+                    .filter(feature -> CollectionUtils.containsAny(feature.getKeywords(), dashboard.getBoards())).findFirst();
+                if(featureCheck.isPresent()){
+                    //Send update message to dashboard
+                    connectionHandler.sendEventUpdateMessage(EventType.FEATURE, dashboard.getName());
+                }
+            });
+        }
     }
 }

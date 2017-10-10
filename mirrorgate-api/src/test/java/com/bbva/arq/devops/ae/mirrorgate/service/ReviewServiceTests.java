@@ -39,7 +39,12 @@ public class ReviewServiceTests {
 
     @Mock
     private ReviewRepository reviewRepository;
-    @InjectMocks private ReviewServiceImpl reviewService;
+
+    @Mock
+    private EventService eventService;
+
+    @InjectMocks
+    private ReviewServiceImpl reviewService;
 
     @Test
     public void getAverageRateByAppNamesTest() {
