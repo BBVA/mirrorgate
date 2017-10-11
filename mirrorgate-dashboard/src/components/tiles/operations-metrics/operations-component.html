@@ -57,14 +57,10 @@
         Error: 2
       };
 
-      if(responseTime <= warningLevel){
-        return stateMapping['Ok'];
-      } else if(responseTime > warningLevel && responseTime <= errorLevel){
-        return stateMapping['Warn'];
-      } else if(responseTime > errorLevel){
-        return stateMapping['Error'];
-      }
-    }
+      return responseTime <= warningLevel ? stateMapping['Ok']
+              : responseTime <= errorLevel ? stateMapping['Warn']
+                : stateMapping['Error'];
+  }
 
   MGComponent({
     name: 'operations-metrics-tile',

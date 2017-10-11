@@ -25,8 +25,8 @@ export class Dashboard {
   boards: string[] = [];
   adminUsers: string[] = [];
   analyticViews: string[] = [];
-  responseTimeAlertingLevelWarning: number = 0.3;
-  responseTimeAlertingLevelError: number = 0.5;
+  responseTimeAlertingLevelWarning: number;
+  responseTimeAlertingLevelError: number;
   filter: {
     timeSpan: number,
     branch: Map<string,boolean>,

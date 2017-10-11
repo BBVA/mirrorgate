@@ -272,52 +272,48 @@
                     <h4 class="modal-title" id="alertingLevelsModalLabel">{{texts.form.analytics_block.alerting_levels}}</h4>
                   </div>
                   <div class="modal-body">
-                    <label for="iconModal">{{texts.form.analytics_block.response_time_alerting_levels}}</label>
-                    <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#response-time-alerting-levels-help" aria-expanded="false"
-                       aria-controls="response-time-alerting-levels-help">
-                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                    </a>
+                    <p>
+                      <label for="iconModal">
+                        {{texts.form.analytics_block.response_time_alerting_levels}}
+                        <a data-toggle="collapse" data-target="#response-time-alerting-levels-help" aria-expanded="false" aria-controls="response-time-alerting-levels-help">
+                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                      </label>
+                    </p>
+
                     <div class="collapse" id="response-time-alerting-levels-help">
                       <div class="well" innerHTML="{{texts.form.analytics_block.response_time_alerting_levels_help}}"></div>
                     </div>
-                    <div class="input-group">
+
+                    <p><label for="responseTimeAlertingLevelWarningRange">{{texts.form.analytics_block.response_time_alerting_level_warning_input}}:</label></p>
+                    <div class="form-group row">
                       <div class="col-sm-3">
-                        <input type="number" class="form-control" id="responseTimeAlertingLevelWarning" name="responseTimeAlertingLevelWarning" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelWarning">
+                        <input type="number" class="form-control" id="responseTimeAlertingLevelWarning" name="responseTimeAlertingLevelWarning" min="0" max="10" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelWarning">
                       </div>
 
                       <div class="col-sm-9">
                         <div data-role="rangeslider">
-                          <label for="responseTimeAlertingLevelWarningRange">{{texts.form.analytics_block.response_time_alerting_level_warning_input}}:</label>
                           <input type="range" name="responseTimeAlertingLevelWarningRange" id="responseTimeAlertingLevelWarningRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.responseTimeAlertingLevelWarning">
                         </div>
                       </div>
                     </div>
 
-                    <div class="input-group">
+                    <p><label for="responseTimeAlertingLevelErrorRange">{{texts.form.analytics_block.response_time_alerting_level_error_input}}:</label></p>
+                    <div class="form-group row">
                       <div class="col-sm-3">
-                        <input type="number" class="form-control" id="responseTimeAlertingLevelError" name="responseTimeAlertingLevelError" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
+                        <input type="number" class="form-control" id="responseTimeAlertingLevelError" name="responseTimeAlertingLevelError" min="0" max="10" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
                       </div>
 
                       <div class="col-sm-9">
                         <div data-role="rangeslider">
-                          <label for="responseTimeAlertingLevelErrorRange">{{texts.form.analytics_block.response_time_alerting_level_error_input}}:</label>
                           <input type="range" name="responseTimeAlertingLevelErrorRange" id="responseTimeAlertingLevelErrorRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
                         </div>
                       </div>
                     </div>
 
                     <datalist id="tickmarks">
-                      <option value="0">
-                      <option value="1">
-                      <option value="2">
-                      <option value="3">
-                      <option value="4">
-                      <option value="5">
-                      <option value="6">
-                      <option value="7">
-                      <option value="8">
-                      <option value="9">
-                      <option value="10">
+                      <option value="0"><option value="1"><option value="2"><option value="3"><option value="4"><option value="5">
+                      <option value="6"><option value="7"><option value="8"><option value="9"><option value="10">
                     </datalist>
 
                   </div>
