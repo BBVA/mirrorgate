@@ -91,7 +91,57 @@ var Utils = {
 
   browserSupportsShadowDOM : function () {
     return window.supportsShadowDOM;
-  }
+  },
+
+  versionCompare: function (v1, v2) {
+
+    if(!v1) {
+      return -1;
+    }
+
+    if(!v2) {
+      return 1;
+    }
+
+    v1parts = v1.split('.'),
+    v2parts = v2.split('.');
+
+    // Allow lexico graphical versions
+    function isValidPart(x) {
+      return (/^\d+[A-Za-z]*$/).test(x);
+    }
+
+    if (!v1parts.every(isValidPart) || !v2parts.every(isValidPart)) {
+      return NaN;
+    }
+
+    // Extend zeros
+    while (v1parts.length < v2parts.length) v1parts.push("0");
+    while (v2parts.length < v1parts.length) v2parts.push("0");
+
+    for (var i = 0; i < v1parts.length; ++i) {
+      if (v2parts.length == i) {
+        return 1;
+      }
+
+      if (v1parts[i] == v2parts[i]) {
+        continue;
+      }
+      else if (v1parts[i] > v2parts[i]) {
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    }
+
+    if (v1parts.length != v2parts.length) {
+      return -1;
+    }
+
+    return 0;
+  },
+
 };
 
 rivets.formatters.dateFrom = function(value, now) {

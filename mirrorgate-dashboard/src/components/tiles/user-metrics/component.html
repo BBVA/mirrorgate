@@ -36,6 +36,10 @@
         <div class="stats stats-metrics">{metrics.rtActiveUsers}</div>
         <div class="stats-desc">active users</div>
       </div>
+      <div class="indicator" rv-if="metrics.oldVerisonsActiveUsersRate">
+        <div class="stats stats-metrics">{metrics.oldVerisonsActiveUsersRate}%</div>
+        <div class="stats-desc">old versions active users</div>
+      </div>
       <div class="indicator" rv-if="metrics.sevenDayUsers">
         <div class="stats">{metrics.sevenDayUsers}</div>
         <div class="stats-desc">weekly users</div>

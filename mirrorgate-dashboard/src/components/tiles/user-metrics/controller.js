@@ -32,18 +32,30 @@ var UserMetricsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         model.metrics = {
           rtActiveUsers: 0,
+          lastVerisonActiveUsers: 0,
           sevenDayUsers: 0
         };
+
+        var last_versions = {};
 
         response.forEach(function(metric) {
           if(metric.name === 'activeUsers') {
             model.metrics.rtActiveUsers += parseInt(metric.value);
+            if (metric.appVersion === last_versions[metric.viewId + (metric.platform || '')]) {
+              model.metrics.lastVerisonActiveUsers += parseInt(metric.value);
+            } else {
+              if(Utils.versionCompare(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')]) > 0) {
+                last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
+                model.metrics.lastVerisonActiveUsers = parseInt(metric.value);
+              }
+            }
           }
           if(metric.name === '7dayUsers') {
             model.metrics.sevenDayUsers += parseInt(metric.value);
           }
         }, this);
 
+        model.metrics.oldVerisonsActiveUsersRate = parseFloat((100 * (model.metrics.rtActiveUsers - model.metrics.lastVerisonActiveUsers) / model.metrics.rtActiveUsers).toFixed(2));
       }
     }
 
