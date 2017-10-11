@@ -103,7 +103,7 @@ var Utils = {
       return 1;
     }
 
-    v1parts = v1.split('.'),
+    v1parts = v1.split('.');
     v2parts = v2.split('.');
 
     // Allow lexico graphical versions
@@ -140,7 +140,7 @@ var Utils = {
     }
 
     return 0;
-  },
+  }
 
 };
 
