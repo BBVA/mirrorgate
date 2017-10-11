@@ -258,7 +258,77 @@
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
               </a>
               <input type="text" class="form-control" id="viewIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()" name="viewIds">
+              <a type="button" (click)="icon = {}" class="input-group-addon" data-toggle="modal" data-target="#alertingLevelsModal">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
             </div>
+
+            <!-- Alerting levels Modal -->
+            <div class="modal fade" id="alertingLevelsModal" tabindex="-1" role="dialog" aria-labelledby="alertingLevelsModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="alertingLevelsModalLabel">{{texts.form.analytics_block.alerting_levels}}</h4>
+                  </div>
+                  <div class="modal-body">
+                    <label for="iconModal">{{texts.form.analytics_block.response_time_alerting_levels}}</label>
+                    <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#response-time-alerting-levels-help" aria-expanded="false"
+                       aria-controls="response-time-alerting-levels-help">
+                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    </a>
+                    <div class="collapse" id="response-time-alerting-levels-help">
+                      <div class="well" innerHTML="{{texts.form.analytics_block.response_time_alerting_levels_help}}"></div>
+                    </div>
+                    <div class="input-group">
+                      <div class="col-sm-3">
+                        <input type="number" class="form-control" id="responseTimeAlertingLevelWarning" name="responseTimeAlertingLevelWarning" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelWarning">
+                      </div>
+
+                      <div class="col-sm-9">
+                        <div data-role="rangeslider">
+                          <label for="responseTimeAlertingLevelWarningRange">{{texts.form.analytics_block.response_time_alerting_level_warning_input}}:</label>
+                          <input type="range" name="responseTimeAlertingLevelWarningRange" id="responseTimeAlertingLevelWarningRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.responseTimeAlertingLevelWarning">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-group">
+                      <div class="col-sm-3">
+                        <input type="number" class="form-control" id="responseTimeAlertingLevelError" name="responseTimeAlertingLevelError" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
+                      </div>
+
+                      <div class="col-sm-9">
+                        <div data-role="rangeslider">
+                          <label for="responseTimeAlertingLevelErrorRange">{{texts.form.analytics_block.response_time_alerting_level_error_input}}:</label>
+                          <input type="range" name="responseTimeAlertingLevelErrorRange" id="responseTimeAlertingLevelErrorRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
+                        </div>
+                      </div>
+                    </div>
+
+                    <datalist id="tickmarks">
+                      <option value="0">
+                      <option value="1">
+                      <option value="2">
+                      <option value="3">
+                      <option value="4">
+                      <option value="5">
+                      <option value="6">
+                      <option value="7">
+                      <option value="8">
+                      <option value="9">
+                      <option value="10">
+                    </datalist>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Modal -->
+
           </div>
         </div>
       </div>
@@ -380,3 +450,4 @@
 
     </form>
   </div>
+</div>

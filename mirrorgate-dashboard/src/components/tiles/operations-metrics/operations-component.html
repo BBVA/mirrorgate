@@ -50,13 +50,33 @@
 
 <script>
 
+  function getState(responseTime, warningLevel, errorLevel) {
+      var stateMapping = {
+        Ok: 0,
+        Warn: 1,
+        Error: 2
+      };
+
+      if(responseTime <= warningLevel){
+        return stateMapping['Ok'];
+      } else if(responseTime > warningLevel && responseTime <= errorLevel){
+        return stateMapping['Warn'];
+      } else if(responseTime > errorLevel){
+        return stateMapping['Error'];
+      }
+    }
+
   MGComponent({
     name: 'operations-metrics-tile',
     controllerClass: OperationsController,
     parent: Tile,
     processAlerts: function (data) {
+      var levelEvent = ['ok', 'warn', 'error', 'server-error'];
       Utils.raiseEvent(this, {
-        status: data ? (data.metrics ? 'unknown' : 'empty') : 'server-error'
+        status: data ? (data.metrics ? levelEvent[getState(
+          data.metrics.responseTime,
+          data.responseTimeAlertingLevels.warning,
+          data.responseTimeAlertingLevels.error)] : 'empty') : levelEvent[3]
       });
     },
 

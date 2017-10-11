@@ -43,6 +43,8 @@ public class Dashboard extends BaseModel {
     private String sProductName; //Team product name
     private List<String> applications;
     private List<String> analyticViews;
+    private Float responseTimeAlertingLevelWarning;
+    private Float responseTimeAlertingLevelError;
     private List<String> boards;
     private Filters filters;
 
@@ -235,6 +237,30 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
+    }
+
+    public Float getResponseTimeAlertingLevelWarning() {
+        if(responseTimeAlertingLevelWarning == null){
+            return 0.3f;
+        }
+        return responseTimeAlertingLevelWarning;
+    }
+
+    public Dashboard setResponseTimeAlertingLevelWarning(Float responseTimeAlertingLevelWarning) {
+        this.responseTimeAlertingLevelWarning = responseTimeAlertingLevelWarning;
+        return this;
+    }
+
+    public Float getResponseTimeAlertingLevelError() {
+        if(responseTimeAlertingLevelError == null){
+            return 0.5f;
+        }
+        return responseTimeAlertingLevelError;
+    }
+
+    public Dashboard setResponseTimeAlertingLevelError(Float responseTimeAlertingLevelError) {
+        this.responseTimeAlertingLevelError = responseTimeAlertingLevelError;
         return this;
     }
 

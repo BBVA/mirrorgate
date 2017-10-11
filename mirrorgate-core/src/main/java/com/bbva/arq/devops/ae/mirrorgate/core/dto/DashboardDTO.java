@@ -42,6 +42,8 @@ public class DashboardDTO {
     private String lastUserEdit;
     private Long lastModification;
     private List<String> analyticViews;
+    private Float responseTimeAlertingLevelWarning;
+    private Float responseTimeAlertingLevelError;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackToken;
@@ -176,6 +178,24 @@ public class DashboardDTO {
 
     public DashboardDTO setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
+    }
+
+    public Float getResponseTimeAlertingLevelWarning() {
+        return responseTimeAlertingLevelWarning;
+    }
+
+    public DashboardDTO setResponseTimeAlertingLevelWarning(Float responseTimeAlertingLevelWarning) {
+        this.responseTimeAlertingLevelWarning = responseTimeAlertingLevelWarning;
+        return this;
+    }
+
+    public Float getResponseTimeAlertingLevelError() {
+        return responseTimeAlertingLevelError;
+    }
+
+    public DashboardDTO setResponseTimeAlertingLevelError(Float responseTimeAlertingLevelError) {
+        this.responseTimeAlertingLevelError = responseTimeAlertingLevelError;
         return this;
     }
 
