@@ -60,8 +60,11 @@
       "analytics_input": "Analytics Metrics Sources Ids",
       "analytics_help": "<p>Add a comma separated list with your analytics metrics sources Ids. For example, in case of using Google Analytics as source of metrics: <kbd>ga:123456789,ga:987654321</kbd></p>",
       "alerting_levels": "Alerting levels",
+      "alerting_levels_help": "<p>Here you can set limit values ​​for alerting levels. If the value of response time or errors rate is greater than one of these limits, the component will appear in yellow (warning) or red (error) depending on the limit value that has been exceeded.</p><div class=\"alert alert-warning\" role=\"alert\">Note that error limit should be greater than warning limit.</div>",
+      "errors_rate_alerting_levels": "Errors rate",
+      "errors_rate_alerting_level_warning_input": "Warning",
+      "errors_rate_alerting_level_error_input": "Error",
       "response_time_alerting_levels": "Response time",
-      "response_time_alerting_levels_help": "Here you can set limit values ​​for alerting levels. If the response time value is greater than one of these values, the component will appear in yellow or red depending on the limit value that has been exceeded.",
       "response_time_alerting_level_warning_input": "Warning",
       "response_time_alerting_level_error_input": "Error"
     },

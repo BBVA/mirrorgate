@@ -269,21 +269,19 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="alertingLevelsModalLabel">{{texts.form.analytics_block.alerting_levels}}</h4>
+                    <h4 class="modal-title" id="alertingLevelsModalLabel">
+                      {{texts.form.analytics_block.alerting_levels}}
+                      <a data-toggle="collapse" data-target="#alerting-levels-help" aria-expanded="false" aria-controls="alerting-levels-help">
+                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                      </a>
+                    </h4>
                   </div>
                   <div class="modal-body">
-                    <p>
-                      <label for="iconModal">
-                        {{texts.form.analytics_block.response_time_alerting_levels}}
-                        <a data-toggle="collapse" data-target="#response-time-alerting-levels-help" aria-expanded="false" aria-controls="response-time-alerting-levels-help">
-                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
-                      </label>
-                    </p>
-
-                    <div class="collapse" id="response-time-alerting-levels-help">
-                      <div class="well" innerHTML="{{texts.form.analytics_block.response_time_alerting_levels_help}}"></div>
+                    <div class="collapse" id="alerting-levels-help">
+                      <div class="well" innerHTML="{{texts.form.analytics_block.alerting_levels_help}}"></div>
                     </div>
+
+                    <h5 for="iconModal">{{texts.form.analytics_block.response_time_alerting_levels}}</h5>
 
                     <p><label for="responseTimeAlertingLevelWarningRange">{{texts.form.analytics_block.response_time_alerting_level_warning_input}}:</label></p>
                     <div class="form-group row">
@@ -307,6 +305,34 @@
                       <div class="col-sm-9">
                         <div data-role="rangeslider">
                           <input type="range" name="responseTimeAlertingLevelErrorRange" id="responseTimeAlertingLevelErrorRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
+                        </div>
+                      </div>
+                    </div>
+
+                    <h5 for="iconModal">{{texts.form.analytics_block.errors_rate_alerting_levels}}</h5>
+
+                    <p><label for="errorsRateAlertingLevelWarningRange">{{texts.form.analytics_block.errors_rate_alerting_level_warning_input}}:</label></p>
+                    <div class="form-group row">
+                      <div class="col-sm-3">
+                        <input type="number" class="form-control" id="errorsRateAlertingLevelWarning" name="errorsRateAlertingLevelWarning" min="0" max="10" step="0.1" [(ngModel)]="dashboard.errorsRateAlertingLevelWarning">
+                      </div>
+
+                      <div class="col-sm-9">
+                        <div data-role="rangeslider">
+                          <input type="range" name="errorsRateAlertingLevelWarningRange" id="errorsRateAlertingLevelWarningRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.errorsRateAlertingLevelWarning">
+                        </div>
+                      </div>
+                    </div>
+
+                    <p><label for="errorsRateAlertingLevelErrorRange">{{texts.form.analytics_block.errors_rate_alerting_level_error_input}}:</label></p>
+                    <div class="form-group row">
+                      <div class="col-sm-3">
+                        <input type="number" class="form-control" id="errorsRateAlertingLevelError" name="errorsRateAlertingLevelError" min="0" max="10" step="0.1" [(ngModel)]="dashboard.errorsRateAlertingLevelError">
+                      </div>
+
+                      <div class="col-sm-9">
+                        <div data-role="rangeslider">
+                          <input type="range" name="errorsRateAlertingLevelErrorRange" id="errorsRateAlertingLevelErrorRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.errorsRateAlertingLevelError">
                         </div>
                       </div>
                     </div>

@@ -68,6 +68,11 @@ var OperationsController = (function(dashboardId) {
           warning: config.responseTimeAlertingLevelWarning,
           error: config.responseTimeAlertingLevelError
         };
+
+        model.errorsRateAlertingLevels = {
+          warning: config.errorsRateAlertingLevelWarning,
+          error: config.errorsRateAlertingLevelError
+        };
       }
     }
 

@@ -45,6 +45,8 @@ public class Dashboard extends BaseModel {
     private List<String> analyticViews;
     private Float responseTimeAlertingLevelWarning;
     private Float responseTimeAlertingLevelError;
+    private Float errorsRateAlertingLevelWarning;
+    private Float errorsRateAlertingLevelError;
     private List<String> boards;
     private Filters filters;
 
@@ -242,7 +244,7 @@ public class Dashboard extends BaseModel {
 
     public Float getResponseTimeAlertingLevelWarning() {
         if(responseTimeAlertingLevelWarning == null){
-            return 0.3f;
+            return .3f;
         }
         return responseTimeAlertingLevelWarning;
     }
@@ -254,13 +256,37 @@ public class Dashboard extends BaseModel {
 
     public Float getResponseTimeAlertingLevelError() {
         if(responseTimeAlertingLevelError == null){
-            return 0.5f;
+            return .5f;
         }
         return responseTimeAlertingLevelError;
     }
 
     public Dashboard setResponseTimeAlertingLevelError(Float responseTimeAlertingLevelError) {
         this.responseTimeAlertingLevelError = responseTimeAlertingLevelError;
+        return this;
+    }
+
+    public Float getErrorsRateAlertingLevelWarning() {
+        if(errorsRateAlertingLevelWarning == null){
+            return .3f;
+        }
+        return errorsRateAlertingLevelWarning;
+    }
+
+    public Dashboard setErrorsRateAlertingLevelWarning(Float errorsRateAlertingLevelWarning) {
+        this.errorsRateAlertingLevelWarning = errorsRateAlertingLevelWarning;
+        return this;
+    }
+
+    public Float getErrorsRateAlertingLevelError() {
+        if(errorsRateAlertingLevelError == null){
+            return .5f;
+        }
+        return errorsRateAlertingLevelError;
+    }
+
+    public Dashboard setErrorsRateAlertingLevelError(Float errorsRateAlertingLevelError) {
+        this.errorsRateAlertingLevelError = errorsRateAlertingLevelError;
         return this;
     }
 
