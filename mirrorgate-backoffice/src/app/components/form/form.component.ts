@@ -217,5 +217,5 @@ export class FormComponent {
             this.icon.error = err;
           });
     }
-}
+  }
 }
