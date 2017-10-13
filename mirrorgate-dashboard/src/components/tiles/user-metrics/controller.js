@@ -32,7 +32,7 @@ var UserMetricsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         model.metrics = {
           rtActiveUsers: 0,
-          lastVerisonActiveUsers: 0,
+          lastVersionActiveUsers: 0,
           sevenDayUsers: 0
         };
 
@@ -42,11 +42,11 @@ var UserMetricsController = (function(dashboardId) {
           if(metric.name === 'activeUsers') {
             model.metrics.rtActiveUsers += parseInt(metric.value);
             if (metric.appVersion === last_versions[metric.viewId + (metric.platform || '')]) {
-              model.metrics.lastVerisonActiveUsers += parseInt(metric.value);
+              model.metrics.lastVersionActiveUsers += parseInt(metric.value);
             } else {
               if(Utils.versionCompare(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')]) > 0) {
                 last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
-                model.metrics.lastVerisonActiveUsers = parseInt(metric.value);
+                model.metrics.lastVersionActiveUsers = parseInt(metric.value);
               }
             }
           }
@@ -55,7 +55,7 @@ var UserMetricsController = (function(dashboardId) {
           }
         }, this);
 
-        model.metrics.oldVerisonsActiveUsersRate = parseFloat((100 * (model.metrics.rtActiveUsers - model.metrics.lastVerisonActiveUsers) / model.metrics.rtActiveUsers).toFixed(2));
+        model.metrics.oldVerisonsActiveUsersRate = parseFloat((100 * (model.metrics.rtActiveUsers - model.metrics.lastVersionActiveUsers) / model.metrics.rtActiveUsers).toFixed(2));
       }
     }
 
