@@ -25,6 +25,7 @@ export class Dashboard {
   boards: string[] = [];
   adminUsers: string[] = [];
   analyticViews: string[] = [];
+  lastVersion: string;
   filter: {
     timeSpan: number,
     branch: Map<string,boolean>,

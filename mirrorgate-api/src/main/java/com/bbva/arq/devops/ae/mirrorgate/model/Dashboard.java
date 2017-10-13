@@ -17,7 +17,6 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -43,6 +42,7 @@ public class Dashboard extends BaseModel {
     private String sProductName; //Team product name
     private List<String> applications;
     private List<String> analyticViews;
+    private String lastVersion;
     private List<String> boards;
     private Filters filters;
 
@@ -235,6 +235,15 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
+    }
+
+    public String getLastVersion() {
+        return lastVersion;
+    }
+
+    public Dashboard setLastVersion(String lastVersion) {
+        this.lastVersion = lastVersion;
         return this;
     }
 

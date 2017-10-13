@@ -22,6 +22,7 @@ var UserMetricsController = (function(dashboardId) {
 
   var observable = new Event('UserMetricsController');
   var service = Service.get(Service.types.userMetrics, dashboardId);
+  var _config;
 
   function getUserMetrics(response) {
     var model;
@@ -36,18 +37,11 @@ var UserMetricsController = (function(dashboardId) {
           sevenDayUsers: 0
         };
 
-        var last_versions = {};
-
         response.forEach(function(metric) {
           if(metric.name === 'activeUsers') {
             model.metrics.rtActiveUsers += parseInt(metric.value);
-            if (metric.appVersion === last_versions[metric.viewId + (metric.platform || '')]) {
+            if (metric.appVersion && metric.appVersion.match(_config.lastVersion)) {
               model.metrics.lastVersionActiveUsers += parseInt(metric.value);
-            } else {
-              if(Utils.versionCompare(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')]) > 0) {
-                last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
-                model.metrics.lastVersionActiveUsers = parseInt(metric.value);
-              }
             }
           }
           if(metric.name === '7dayUsers') {
@@ -71,6 +65,7 @@ var UserMetricsController = (function(dashboardId) {
     if(!config.analyticViews || !config.analyticViews.length) {
       return Promise.reject();
     }
+    _config = config;
     service.addListener(getUserMetrics);
   };
 
