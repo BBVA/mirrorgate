@@ -93,7 +93,7 @@ var Utils = {
     return window.supportsShadowDOM;
   },
 
-  versionCompare: function (v1, v2) {
+  compareVersions: function (v1, v2) {
 
     if(!v1) {
       return -1;

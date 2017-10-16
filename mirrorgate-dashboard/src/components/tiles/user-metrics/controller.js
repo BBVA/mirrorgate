@@ -37,11 +37,18 @@ var UserMetricsController = (function(dashboardId) {
           sevenDayUsers: 0
         };
 
+        var last_versions = {};
+
         response.forEach(function(metric) {
           if(metric.name === 'activeUsers') {
             model.metrics.rtActiveUsers += parseInt(metric.value);
-            if (metric.appVersion && metric.appVersion.match(_config.lastVersion)) {
+            if(!metric.appVersion) {
+              return;
+            } else if (metric.appVersion === last_versions[metric.viewId + (metric.platform || '')]) {
               model.metrics.lastVersionActiveUsers += parseInt(metric.value);
+            } else if(metric.appVersion && metric.appVersion.match(_config.lastVersion) && Utils.compareVersions(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')]) > 0) {
+              last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
+              model.metrics.lastVersionActiveUsers = parseInt(metric.value);
             }
           }
           if(metric.name === '7dayUsers') {
