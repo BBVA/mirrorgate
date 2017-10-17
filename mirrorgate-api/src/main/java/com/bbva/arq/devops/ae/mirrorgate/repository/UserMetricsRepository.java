@@ -26,7 +26,10 @@ public interface UserMetricsRepository extends CrudRepository<UserMetric, Object
 
     List<UserMetric> findAllByViewIdIn(List<String> ids);
 
-    @Query(value = "{ collectorId:?0, value: { $gt:0}}")
+    @Query(value = "{ viewId: {$in: ?0}, value: { $ne:0}}")
+    List<UserMetric> findAllByViewIdInWithNon0Values(List<String> ids);
+
+    @Query(value = "{ collectorId:?0, value: { $ne:0}}")
     List<UserMetric> findAllByCollectorId(String collectorId);
 
 }

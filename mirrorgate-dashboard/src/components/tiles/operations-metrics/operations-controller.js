@@ -22,6 +22,7 @@ var OperationsController = (function(dashboardId) {
 
   var observable = new Event('OperationsController');
   var service = Service.get(Service.types.userMetrics, dashboardId);
+  var config;
 
   function getMetrics(response) {
     var model;
@@ -62,6 +63,16 @@ var OperationsController = (function(dashboardId) {
           availabilityRate: availabilityRate,
           responseTime: responseTime
         };
+
+        model.responseTimeAlertingLevels = {
+          warning: config.responseTimeAlertingLevelWarning,
+          error: config.responseTimeAlertingLevelError
+        };
+
+        model.errorsRateAlertingLevels = {
+          warning: config.errorsRateAlertingLevelWarning,
+          error: config.errorsRateAlertingLevelError
+        };
       }
     }
 
@@ -73,7 +84,8 @@ var OperationsController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getMetrics);
   };
-  this.init = function(config) {
+  this.init = function(_config) {
+    config = _config;
     if(!config.analyticViews || !config.analyticViews.length) {
       return Promise.reject();
     }

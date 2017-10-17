@@ -19,7 +19,6 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
 import java.util.ArrayList;
@@ -94,7 +93,7 @@ public class UserMetricsServiceImpl implements UserMetricsService {
             return new ArrayList<>();
         }
 
-        return userMetricsRepository.findAllByViewIdIn(views)
+        return userMetricsRepository.findAllByViewIdInWithNon0Values(views)
                 .stream().map(UserMetricMapper::map)
                 .collect(Collectors.toList());
     }

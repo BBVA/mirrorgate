@@ -39,7 +39,7 @@
     .platform-rate {
         flex: 1 1 20%;
         margin: 0 auto 20px auto;
-        min-width: 30vh;
+        min-width: 70vw;
         max-width: 350px;
 
         .rate__os {
@@ -79,13 +79,13 @@
       align-items: center;
 
       button.control {
-        border-radius: 1em;
-        width: 2.1em;
-        height: 2.1em;
+        border-radius: 1rem;
+        width: 2.1rem;
+        height: 2.1rem;
         border: none;
         background-color: $light-grey;
         text-align: center;
-        font-size: 0.6vw;
+        font-size: 1rem;
         color: $dark-grey;
         float:right;
         margin-left: 5px;
@@ -108,9 +108,18 @@
     }
 
     .review__header{
-        color: $dark-grey;
-        display: flex;
-        justify-content: space-between;
+      color: $dark-grey;
+      display: flex;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .review__name {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+      overflow:hidden;
+      max-width: 70vw;
     }
 
     .reviews-list {
@@ -167,6 +176,7 @@
         }
         .platform-rate{
             font-size: $level-2;
+            min-width: 15vw;
 
             .rate__total {
                 .fa {
@@ -194,6 +204,16 @@
         }
     }
 
+    .reviews .page-control {
+
+      button.control {
+        border-radius: 1em;
+        width: 2.1em;
+        height: 2.1em;
+        font-size: 0.6vw;
+      }
+
+    }
 
     .reviews-list {
         font-size: $level-4 - 0.1;
@@ -230,7 +250,27 @@
           flex: 1 1 50%;
           overflow: hidden;
           margin-bottom: 15px;
-          min-width: 320px;
+          min-width: 20vw;
+        }
+
+        .review__name {
+          max-width: 9vw;
+        }
+
+        &.layout-1x1 .review, &.layout-1x2 .review {
+          flex-basis: 100%;
+        }
+
+        &.layout-2x1 .review, &.layout-2x2 .review {
+          flex-basis: 50%;
+        }
+
+        &.layout-3x1 .review, &.layout-3x2 .review{
+          flex-basis: 33.33%;
+        }
+
+        &.layout-4x1 .review, &.layout-4x2 .review{
+          flex-basis: 25%;
         }
 
         .review:nth-last-child(n+3),
