@@ -20,7 +20,6 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 /**
@@ -42,6 +41,7 @@ public class DashboardDTO {
     private String lastUserEdit;
     private Long lastModification;
     private List<String> analyticViews;
+    private String lastVersion;
     private Float responseTimeAlertingLevelWarning;
     private Float responseTimeAlertingLevelError;
     private Float errorsRateAlertingLevelWarning;
@@ -180,6 +180,15 @@ public class DashboardDTO {
 
     public DashboardDTO setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
+    }
+
+    public String getLastVersion() {
+        return lastVersion;
+    }
+
+    public DashboardDTO setLastVersion(String lastVersion) {
+        this.lastVersion = lastVersion;
         return this;
     }
 

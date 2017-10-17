@@ -26,10 +26,13 @@ public class UserMetric extends BaseModel {
     @Indexed
     private String viewId;
 
+    @Indexed
     private String appVersion;
 
+    @Indexed
     private String platform;
 
+    @Indexed
     private String name;
 
     private Double value;

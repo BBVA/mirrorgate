@@ -22,6 +22,7 @@ var UserMetricsController = (function(dashboardId) {
 
   var observable = new Event('UserMetricsController');
   var service = Service.get(Service.types.userMetrics, dashboardId);
+  var _config;
 
   function getUserMetrics(response) {
     var model;
@@ -32,18 +33,30 @@ var UserMetricsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         model.metrics = {
           rtActiveUsers: 0,
+          lastVersionActiveUsers: 0,
           sevenDayUsers: 0
         };
+
+        var last_versions = {};
 
         response.forEach(function(metric) {
           if(metric.name === 'activeUsers') {
             model.metrics.rtActiveUsers += parseInt(metric.value);
+            if(!metric.appVersion || !metric.appVersion.match(_lastVersion)) {
+              return;
+            } else if (metric.appVersion === last_versions[metric.viewId + (metric.platform || '')]) {
+              model.metrics.lastVersionActiveUsers += parseInt(metric.value);
+            } else if(!last_versions[metric.viewId + (metric.platform || '')] || Utils.compareVersions(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')], _lastVersion) > 0) {
+              last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
+              model.metrics.lastVersionActiveUsers = parseInt(metric.value);
+            }
           }
           if(metric.name === '7dayUsers') {
             model.metrics.sevenDayUsers += parseInt(metric.value);
           }
         }, this);
 
+        model.metrics.oldVerisonsActiveUsersRate = parseFloat((100 * (model.metrics.rtActiveUsers - model.metrics.lastVersionActiveUsers) / model.metrics.rtActiveUsers).toFixed(2));
       }
     }
 
@@ -59,6 +72,7 @@ var UserMetricsController = (function(dashboardId) {
     if(!config.analyticViews || !config.analyticViews.length) {
       return Promise.reject();
     }
+    _lastVersion = new RegExp(config.lastVersion);
     service.addListener(getUserMetrics);
   };
 

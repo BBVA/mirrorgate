@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-describe('Utils', () => {
-  describe('Working Days', () => {
+describe('Utils',  function() {
+  describe('Working Days',  function()  {
 
-    it('should calculate working days diff properly', () => {
+    it('should calculate working days diff properly', function() {
       // Normal
       expect(Utils.getWorkingDays(new Date(2017, 2, 1), new Date(2017, 2, 15)))
           .toBe(10);
@@ -56,4 +56,43 @@ describe('Utils', () => {
 
     });
   });
+
+  describe('compareVersions', function() {
+
+    it('should compare application version properly', function() {
+        var regExp = new RegExp('^(\\d{1,2})\\.(\\d+)\\.?(\\d+)?$');
+
+        // v1 > v2 then greater than 0
+        expect(Utils.compareVersions('6.3.3', '5.4.2', regExp)).toBeGreaterThan(0);
+
+        // v2 > v1 then less than 0
+        expect(Utils.compareVersions('6.3.3', '7.4.3', regExp)).toBeLessThan(0);
+
+        // v2 = v1 then 0
+        expect(Utils.compareVersions('6.3.3', '6.3.3', regExp)).toBe(0);
+
+        // v1 does not match regExp then less than 0
+        expect(Utils.compareVersions('atreyu', '6.3.3', regExp)).toBeLessThan(0);
+
+        // v2 does not match regExp then greater than 0
+        expect(Utils.compareVersions('6.3.3', 'atreyu', regExp)).toBeGreaterThan(0);
+
+        // v1 and v2 does not match regExp then 0
+        expect(Utils.compareVersions('atreyu', 'mirrorgate', regExp)).toBe(0);
+
+        // v1 > v2 and v1.length > v2.length then greater than 0
+        expect(Utils.compareVersions('6.3.3', '5.4', regExp)).toBeGreaterThan(0);
+
+        // v1 > v2 and v2.length > v1.length then greater than 0
+        expect(Utils.compareVersions('6.3', '5.4.6', regExp)).toBeGreaterThan(0);
+
+        // v1 > v2 and v1 out of range then less than 0
+        expect(Utils.compareVersions('9999.3.0', '5.4.6', regExp)).toBeLessThan(0);
+
+        // v1 > v2 and v2 out of range then greater than 0
+        expect(Utils.compareVersions('6.3', '9999.3.0', regExp)).toBeGreaterThan(0);
+    });
+
+  });
+
 });
