@@ -42,6 +42,12 @@ public class UserMetricMapper {
 
     public static UserMetric map(UserMetricDTO source, UserMetric target) {
         return target
+                .setId(source.getViewId()
+                        + source.getPlatform()
+                        + source.getAppVersion()
+                        + source.getName()
+                        + source.getCollectorId()
+                )
                 .setViewId(source.getViewId())
                 .setAppVersion(source.getAppVersion())
                 .setPlatform(source.getPlatform())

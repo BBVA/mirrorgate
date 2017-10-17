@@ -16,11 +16,8 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
-import javax.validation.constraints.NotNull;
-
 public class UserMetricDTO {
 
-    @NotNull
     private String viewId;
 
     private String appVersion;
