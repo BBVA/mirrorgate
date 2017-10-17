@@ -26,6 +26,10 @@ export class Dashboard {
   adminUsers: string[] = [];
   analyticViews: string[] = [];
   lastVersion: string;
+  responseTimeAlertingLevelWarning: number;
+  responseTimeAlertingLevelError: number;
+  errorsRateAlertingLevelWarning: number;
+  errorsRateAlertingLevelError: number;
   filter: {
     timeSpan: number,
     branch: Map<string,boolean>,
