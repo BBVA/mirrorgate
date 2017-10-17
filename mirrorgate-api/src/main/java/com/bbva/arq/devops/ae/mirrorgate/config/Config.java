@@ -18,10 +18,12 @@ package com.bbva.arq.devops.ae.mirrorgate.config;
 
 import com.bbva.arq.devops.ae.mirrorgate.utils.OneTimeETagGenerationFilter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by alfonso on 28/05/17.
@@ -53,4 +55,10 @@ public class Config {
         );
         return frb;
     }
+
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
+
 }

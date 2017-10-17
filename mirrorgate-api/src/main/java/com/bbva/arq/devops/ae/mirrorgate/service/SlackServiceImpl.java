@@ -19,6 +19,7 @@ import allbegray.slack.SlackClientFactory;
 import allbegray.slack.type.Channel;
 import allbegray.slack.webapi.SlackWebApiClient;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +45,6 @@ public class SlackServiceImpl implements SlackService {
 
     @Autowired
     private RestTemplate restTemplate;
-
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
 
     @Override
     public SlackDTO getToken(String team, String client_id, String client_secret, String code) {
