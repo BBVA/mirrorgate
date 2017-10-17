@@ -33,11 +33,11 @@ var UserMetricsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         model.metrics = {
           rtActiveUsers: 0,
-          lastVersionActiveUsers: 0,
           sevenDayUsers: 0
         };
 
         var last_versions = {};
+        var lastVersionActiveUsers;
 
         response.forEach(function(metric) {
           if(metric.name === 'activeUsers') {
@@ -45,10 +45,10 @@ var UserMetricsController = (function(dashboardId) {
             if(!metric.appVersion || !metric.appVersion.match(_lastVersion)) {
               return;
             } else if (metric.appVersion === last_versions[metric.viewId + (metric.platform || '')]) {
-              model.metrics.lastVersionActiveUsers += parseInt(metric.value);
+              lastVersionActiveUsers += parseInt(metric.value);
             } else if(!last_versions[metric.viewId + (metric.platform || '')] || Utils.compareVersions(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')], _lastVersion) > 0) {
               last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
-              model.metrics.lastVersionActiveUsers = parseInt(metric.value);
+              lastVersionActiveUsers = parseInt(metric.value);
             }
           }
           if(metric.name === '7dayUsers') {
@@ -56,7 +56,7 @@ var UserMetricsController = (function(dashboardId) {
           }
         }, this);
 
-        model.metrics.oldVerisonsActiveUsersRate = parseFloat((100 * (model.metrics.rtActiveUsers - model.metrics.lastVersionActiveUsers) / model.metrics.rtActiveUsers).toFixed(2));
+        model.metrics.oldVerisonsActiveUsersRate = lastVersionActiveUsers !== undefined  ? parseFloat((100 * (model.metrics.rtActiveUsers - lastVersionActiveUsers) / model.metrics.rtActiveUsers).toFixed(2)) : undefined;
       }
     }
 
