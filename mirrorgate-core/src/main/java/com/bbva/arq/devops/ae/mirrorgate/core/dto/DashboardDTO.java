@@ -189,6 +189,9 @@ public class DashboardDTO {
 
     public DashboardDTO setLastVersion(String lastVersion) {
         this.lastVersion = lastVersion;
+        return this;
+    }
+
     public Float getResponseTimeAlertingLevelWarning() {
         return responseTimeAlertingLevelWarning;
     }

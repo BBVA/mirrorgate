@@ -248,6 +248,9 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setLastVersion(String lastVersion) {
         this.lastVersion = lastVersion;
+        return this;
+    }
+
     public Float getResponseTimeAlertingLevelWarning() {
         if(responseTimeAlertingLevelWarning == null){
             return .3f;
