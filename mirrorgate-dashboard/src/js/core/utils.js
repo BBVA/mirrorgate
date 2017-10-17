@@ -91,7 +91,25 @@ var Utils = {
 
   browserSupportsShadowDOM : function () {
     return window.supportsShadowDOM;
+  },
+
+  compareVersions: function (version1, version2, regExp) {
+
+    var v1parts = regExp.exec(version1) || [];
+    var v2parts = regExp.exec(version2) || [];
+
+    for (var i = 1; i < Math.max(v1parts.length, v2parts.length); ++i) {
+      var part1 = parseInt(v1parts[i]) || 0;
+      var part2 = parseInt(v2parts[i]) || 0;
+
+      if (part1 !== part2) {
+        return part1 - part2;
+      }
+    }
+
+    return v1parts.length - v2parts.length;
   }
+
 };
 
 rivets.formatters.dateFrom = function(value, now) {
