@@ -42,11 +42,11 @@ var UserMetricsController = (function(dashboardId) {
         response.forEach(function(metric) {
           if(metric.name === 'activeUsers') {
             model.metrics.rtActiveUsers += parseInt(metric.value);
-            if(!metric.appVersion) {
+            if(!metric.appVersion || !metric.appVersion.match(_lastVersion)) {
               return;
             } else if (metric.appVersion === last_versions[metric.viewId + (metric.platform || '')]) {
               model.metrics.lastVersionActiveUsers += parseInt(metric.value);
-            } else if(metric.appVersion && metric.appVersion.match(_config.lastVersion) && Utils.compareVersions(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')]) > 0) {
+            } else if(!last_versions[metric.viewId + (metric.platform || '')] || Utils.compareVersions(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')], _lastVersion) > 0) {
               last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
               model.metrics.lastVersionActiveUsers = parseInt(metric.value);
             }
@@ -72,7 +72,7 @@ var UserMetricsController = (function(dashboardId) {
     if(!config.analyticViews || !config.analyticViews.length) {
       return Promise.reject();
     }
-    _config = config;
+    _lastVersion = new RegExp(config.lastVersion);
     service.addListener(getUserMetrics);
   };
 

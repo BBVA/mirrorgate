@@ -60,7 +60,7 @@
       "analytics_input": "Analytics Metrics Sources Ids",
       "analytics_help": "<p>Add a comma separated list with your analytics metrics sources Ids. For example, in case of using Google Analytics as source of metrics: <kbd>ga:123456789,ga:987654321</kbd></p>",
       "last_version_input": "Application Version Expresion",
-      "last_version_help": "<p>Add a regular expression matching your application possible versions if you want to display the rate of active users using the last version of you applications.</p><p>An example of this regexp could be:</p><p><kbd>^(\\d?\\d(\\.\\d)*)$</kbd></p><p>This regexp with following versions <code>6.1, 9999.0.0, 6.0.4, 6.5.3v</code> will match <code>6.5.3v</code> as last version.</p><div class=\"alert alert-warning\" role=\"alert\">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>"
+      "last_version_help": "<p>Add a regular expression matching your application possible versions if you want to display the rate of active users using the last version of you applications.</p><p>Only groups defined between <kbd>()</kbd> will be compare. An example of this regexp could be:</p><p><kbd>^(\\d{1,2})\\.(\\d+)\\.?(\\d+)?$</kbd></p><p>This regexp with following versions <code>6.1, 9999.0.0, 6.0.4, 6.5.3v</code> will match <code>6.1</code> as last version.</p><div class=\"alert alert-warning\" role=\"alert\">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>"
     },
     "alerts_block": {
       "title": "Notification and alerts",

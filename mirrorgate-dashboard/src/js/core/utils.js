@@ -93,53 +93,21 @@ var Utils = {
     return window.supportsShadowDOM;
   },
 
-  compareVersions: function (v1, v2) {
+  compareVersions: function (version1, version2, regExp) {
 
-    if(!v1) {
-      return -1;
-    }
+    var v1parts = regExp.exec(version1) || [];
+    var v2parts = regExp.exec(version2) || [];
 
-    if(!v2) {
-      return 1;
-    }
+    for (var i = 1; i < Math.max(v1parts.length, v2parts.length); ++i) {
+      var part1 = parseInt(v1parts[i]) || 0;
+      var part2 = parseInt(v2parts[i]) || 0;
 
-    v1parts = v1.split('.');
-    v2parts = v2.split('.');
-
-    // Allow lexico graphical versions
-    function isValidPart(x) {
-      return (/^\d+[A-Za-z]*$/).test(x);
-    }
-
-    if (!v1parts.every(isValidPart) || !v2parts.every(isValidPart)) {
-      return NaN;
-    }
-
-    // Extend zeros
-    while (v1parts.length < v2parts.length) v1parts.push("0");
-    while (v2parts.length < v1parts.length) v2parts.push("0");
-
-    for (var i = 0; i < v1parts.length; ++i) {
-      if (v2parts.length == i) {
-        return 1;
-      }
-
-      if (v1parts[i] == v2parts[i]) {
-        continue;
-      }
-      else if (v1parts[i] > v2parts[i]) {
-        return 1;
-      }
-      else {
-        return -1;
+      if (part1 !== part2) {
+        return part1 - part2;
       }
     }
 
-    if (v1parts.length != v2parts.length) {
-      return -1;
-    }
-
-    return 0;
+    return v1parts.length - v2parts.length;
   }
 
 };
