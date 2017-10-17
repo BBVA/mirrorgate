@@ -17,22 +17,23 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user-metrics")
-public class UserMetric extends BaseModel {
+public class UserMetric {
 
+    @Id
     @Indexed
+    private String _id;
+
     private String viewId;
 
-    @Indexed
     private String appVersion;
 
-    @Indexed
     private String platform;
 
-    @Indexed
     private String name;
 
     private Double value;
@@ -41,6 +42,15 @@ public class UserMetric extends BaseModel {
 
     /* Associated collector ID */
     private String collectorId;
+
+    public String getId() {
+        return _id;
+    }
+
+    public UserMetric setId(String _id) {
+        this._id = _id;
+        return this;
+    }
 
     public String getViewId() {
         return viewId;
@@ -106,7 +116,7 @@ public class UserMetric extends BaseModel {
     }
 
     public boolean isTheSame(UserMetricDTO metric) {
-        return viewId.equals(metric.getViewId())
+        return equalsWithNulls(viewId, metric.getViewId())
                 && equalsWithNulls(collectorId, metric.getCollectorId())
                 && equalsWithNulls(appVersion, metric.getAppVersion())
                 && equalsWithNulls(platform, metric.getPlatform())

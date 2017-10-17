@@ -61,9 +61,10 @@ public class UserMetricsServiceImpl implements UserMetricsService {
 
     @Override
     public List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics) {
-        List<UserMetric> targets = userMetricsRepository.findAllByViewIdIn(
+        List<UserMetric> targets = userMetricsRepository.findAllBy_idIn(
                 StreamSupport.stream(metrics.spliterator(), false)
-                .map(UserMetricDTO::getViewId)
+                .map(UserMetricMapper::map)
+                .map(UserMetric::getId)
                 .filter((e) -> e != null)
                 .distinct()
                 .collect(Collectors.toList())
