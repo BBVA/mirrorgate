@@ -24,8 +24,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserMetricsRepository extends CrudRepository<UserMetric, ObjectId> {
 
-    List<UserMetric> findAllBy_idIn(List<String> ids);
-
     @Query(value = "{ viewId: {$in: ?0}, value: { $ne:0}}")
     List<UserMetric> findAllByViewIdInWithNon0Values(List<String> ids);
 
