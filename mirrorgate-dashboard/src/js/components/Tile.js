@@ -103,6 +103,7 @@ var Tile = (function() {
     switch (attributeName) {
       case 'enabled':
         this._processEnabled();
+        Utils.raiseEvent(this,{});
         break;
       case 'config':
         this._processConfig();
