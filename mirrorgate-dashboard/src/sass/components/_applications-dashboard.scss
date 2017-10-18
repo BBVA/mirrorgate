@@ -43,6 +43,7 @@
         max-width: 350px;
 
         .rate__os {
+            color: $dark-grey;
             font-size: 1.2em;
             padding-right: 8px;
         }
@@ -234,6 +235,10 @@
 
         .review__rate .fa{
             font-size: $level-2 + 0.4;
+        }
+
+        .review__rate > .fa{
+            color: $dark-grey;
         }
 
         .review__comment {
