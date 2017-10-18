@@ -62,41 +62,43 @@
     controllerClass: MarketsController,
     parent: Tile,
     onCreated: function () {
-      this.addEventListener('component-resized', function (e) {
+      this.addEventListener('component-resized', this._setSize);
+    },
 
-        var contents = this.getRootElement().querySelector('.reviews-list');
+    _setSize: function (e) {
 
-        var height = contents.offsetHeight;
-        var width = contents.offsetWidth;
+      var contents = this.getRootElement().querySelector('.reviews-list');
 
-        var xSize = Math.max(1,Math.min(Math.floor(width / 320),4));
-        var ySize = Math.max(1,Math.min(Math.floor(height / 200),2));
-        if(ySize < 2) {
-          //We don't want to render 4 comments in a single row
-          xSize = Math.min(xSize, 3);
-        }
+      var height = contents.offsetHeight;
+      var width = contents.offsetWidth;
 
-        if(window.innerWidth < 992) {
-          xSize = 1;
-          ySize = 1;
-          this._sheet.innerText = "";
-        } else {
-          this._sheet.innerText =
-            ".review {height: " + Math.floor((height  - 15 * (ySize-1)) / ySize) +"px ;}"
-            ;
-        }
+      var xSize = Math.max(1,Math.min(Math.floor(width / 320),4));
+      var ySize = Math.max(1,Math.min(Math.floor(height / 200),2));
+      if(ySize < 2) {
+        //We don't want to render 4 comments in a single row
+        xSize = Math.min(xSize, 3);
+      }
 
-        var model = this.getModel();
-        model.layout = xSize + 'x' + ySize;
-        this.num = xSize * ySize;
-        if(model.num != this.num) {
-          model.num = this.num;
-          this._initPageCycle();
-        }
+      if(window.innerWidth < 992) {
+        xSize = 1;
+        ySize = 1;
+        this._sheet.innerText = "";
+      } else {
+        this._sheet.innerText =
+          ".review {height: " + Math.floor((height  - 15 * (ySize-1)) / ySize) +"px ;}"
+          ;
+      }
 
-        this._loadData();
+      var model = this.getModel();
+      model.layout = xSize + 'x' + ySize;
+      this.num = xSize * ySize;
+      if(model.num != this.num) {
+        model.num = this.num;
+        this._initPageCycle();
+      }
 
-      }.bind(this));
+      this._loadData();
+
     },
 
     render: function (data) {
@@ -106,7 +108,7 @@
       });
 
       this.getModel().data = data;
-      this._loadData();
+      this._setSize();
     },
 
     _loadData: function () {
