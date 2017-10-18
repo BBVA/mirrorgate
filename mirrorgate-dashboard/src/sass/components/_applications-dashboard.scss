@@ -43,7 +43,10 @@
         max-width: 350px;
 
         .rate__os {
-            color: $dark-grey;
+            -webkit-text-stroke-color: #b3b3b3;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-fill-color: $component-background-color;
+
             font-size: 1.2em;
             padding-right: 8px;
         }
@@ -230,15 +233,21 @@
         }
 
         .review__header{
-            font-size: $level-4 - 0.2;
+            font-size: $level-5;
         }
 
-        .review__rate .fa{
-            font-size: $level-2 + 0.4;
-        }
-
-        .review__rate > .fa{
-            color: $dark-grey;
+        .review__rate {
+            margin: 5px 0;
+            
+            .fa{
+                font-size: $level-2 + 0.4;
+            }
+            
+            > .fa {
+                -webkit-text-stroke-color: #b3b3b3;
+                -webkit-text-stroke-width: 1px;
+                -webkit-text-fill-color: $review-background-color;
+            }
         }
 
         .review__comment {
@@ -247,6 +256,7 @@
             text-align: justify;
 
             p {
+                font-size: $level-5;
                 margin: 0;
             }
         }
