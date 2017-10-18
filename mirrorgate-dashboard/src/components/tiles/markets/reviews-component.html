@@ -61,13 +61,8 @@
     name: 'reviews-tile',
     controllerClass: MarketsController,
     parent: Tile,
-    render: function (data) {
-
-      Utils.raiseEvent(this,{
-          status: data && data.reviews ? (data.reviews.length > 0 ? 'unknown' : 'empty') :'server-error'
-      });
-
-      setTimeout(function () {
+    onCreated: function () {
+      this.addEventListener('component-resized', function (e) {
 
         var contents = this.getRootElement().querySelector('.reviews-list');
 
@@ -91,35 +86,52 @@
             ;
         }
 
-        var num = xSize * ySize;
-
         var model = this.getModel();
         model.layout = xSize + 'x' + ySize;
-        if(this.model.num != num) {
-          model.num = num;
+        this.num = xSize * ySize;
+        if(model.num != this.num) {
+          model.num = this.num;
           this._initPageCycle();
         }
 
-        model.reviews = data && data.reviews && data.reviews.slice(0,3*num);
-        if(model.reviews) {
-          model.count = Math.ceil(model.reviews.length / num);
-          model.pages = [];
-          for(var i = 0; i < model.count; i++) {
-            model.pages[i] = []
-            for(var j = 0; j < num; j++) {
-              model.pages[i][j] = null;
-            }
-          }
+        this._loadData();
 
-          model.reviews.forEach(function(review, i) {
-            review.stars = review && this.controller.calculateStars(review.rate);
-            model.pages[Math.floor(i/num)][i%num] = review;
-          }, this);
-        }
-        model.index = model.index ? model.index -1 : 0;
-        this._nextPage();
       }.bind(this));
+    },
 
+    render: function (data) {
+
+      Utils.raiseEvent(this,{
+          status: data && data.reviews ? (data.reviews.length > 0 ? 'unknown' : 'empty') :'server-error'
+      });
+
+      this.getModel().data = data;
+      this._loadData();
+    },
+
+    _loadData: function () {
+      var model = this.getModel();
+      var num = model.num;
+      var data = model.data;
+
+      model.reviews = data && data.reviews && data.reviews.slice(0,3*num);
+      if(model.reviews) {
+        model.count = Math.ceil(model.reviews.length / num);
+        model.pages = [];
+        for(var i = 0; i < model.count; i++) {
+          model.pages[i] = []
+          for(var j = 0; j < num; j++) {
+            model.pages[i][j] = null;
+          }
+        }
+
+        model.reviews.forEach(function(review, i) {
+          review.stars = review && this.controller.calculateStars(review.rate);
+          model.pages[Math.floor(i/num)][i%num] = review;
+        }, this);
+      }
+      model.index = model.index ? model.index -1 : 0;
+      this._nextPage();
     },
 
     _nextPage: function () {
