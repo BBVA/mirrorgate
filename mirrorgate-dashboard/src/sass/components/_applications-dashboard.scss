@@ -237,8 +237,9 @@
         }
 
         .review__rate {
-            margin: 5px 0;
-            
+            margin: 8px 0;
+            line-height: 1em;
+
             .fa{
                 font-size: $level-2 + 0.4;
             }
