@@ -90,24 +90,18 @@
       </board-column>
 
       <board-column>
-        <board-column class="tile--primary">
-          <tile-container class="tile tile--primary">
-            <markets-tile rv-config="config" class="markets component"></markets-tile>
-          </tile-container>
-          <tile-container class="tile tile--primary">
-            <reviews-tile rv-config="config" class="markets component"></reviews-tile>
-          </tile-container>
-        </board-column>
-        <board-row>
-          <tile-container class="tile user-metrics tile--secondary">
-            <user-metrics-tile rv-config="config" class="component"></user-metrics-tile>
-          </tile-container>
-        </board-row>
-        <board-row>
-          <tile-container class="tile tile--secondary">
-            <operations-metrics-tile rv-config="config" class="component"></operations-metrics-tile>
-          </tile-container>
-        </board-row>
+        <tile-container class="tile tile--primary">
+          <markets-tile rv-config="config" class="markets component"></markets-tile>
+        </tile-container>
+        <tile-container class="tile tile--seondary">
+          <reviews-tile rv-config="config" class="markets component"></reviews-tile>
+        </tile-container>
+        <tile-container class="tile user-metrics tile--secondary">
+          <user-metrics-tile rv-config="config" class="component"></user-metrics-tile>
+        </tile-container>
+        <tile-container class="tile tile--secondary">
+          <operations-metrics-tile rv-config="config" class="component"></operations-metrics-tile>
+        </tile-container>
       </board-column>
 
       <board-column class="alerts-column">
