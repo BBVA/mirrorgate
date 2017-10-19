@@ -377,6 +377,38 @@ svg {
   color: $green;
 }
 
+.fill-in-progress {
+  background-color: $blue;
+}
+
+.fill-done {
+  background-color: $green;
+}
+
+.fill-to-rework {
+  background-color: $red;
+}
+
+.fill-impeded {
+  background-color: $red;
+}
+
+.fill-bad {
+  background-color: $red;
+}
+
+.fill-good {
+  background-color: $yellow;
+}
+
+.fill-excellent {
+  background-color: $green;
+}
+
+.fill-backlog {
+  background-color: $light-grey;
+}
+
 .tendency {
 
   &::before {
@@ -421,4 +453,11 @@ svg {
     display: inline-block;
   }
 
+}
+
+.stats-desc {
+    color: $dark-grey;
+    display: inline-block;
+    padding-top: 10px;
+    padding-bottom: 40px;
 }
