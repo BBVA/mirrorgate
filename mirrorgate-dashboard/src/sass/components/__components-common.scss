@@ -93,9 +93,21 @@
         line-height: 0.9em;
     }
 
+    .stats-desc {
+        color: $dark-grey;
+        display: inline-block;
+        padding-top: 10px;
+        padding-bottom: 40px;
+    }
+
     .stat-desc{
         font-size: $level-4;
     }
+
+    .stat-important{
+        font-size: $level-2;
+    }
+
 }
 
 //Modules states backgrounds
@@ -221,6 +233,26 @@ tile-container.module-data-error {
 
 .legend__build-item--branches{
     top: -0.2em;
+}
+
+.status__build {
+    background-color: $dark-grey;
+    border-radius: 50%;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    margin: 0 3px 0 0;
+}
+
+.status__build-ok{
+    background-color: $green;
+}
+
+.status__build-error{
+    background-color: $red;
+}
+.status__build-warn{
+    background-color: $yellow;
 }
 
 // RESPONIVE
@@ -389,11 +421,4 @@ svg {
     display: inline-block;
   }
 
-}
-
-.stats-desc {
-    color: $dark-grey;
-    display: inline-block;
-    padding-top: 10px;
-    padding-bottom: 40px;
 }

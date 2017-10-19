@@ -22,8 +22,7 @@
 <link rel="import" href="../../board-column/component.html" >
 <link rel="import" href="../../tile-container/component.html" >
 <link rel="import" href="../../details/component.html" >
-<link rel="import" href="../../tiles/builds/graph.html" >
-<link rel="import" href="../../tiles/builds/stats.html" >
+<link rel="import" href="../../tiles/builds/simple-builds.html" >
 <link rel="import" href="../../tiles/team/currentSprint.html" >
 <link rel="import" href="../../tiles/programIncrement/aggregated-component.html" >
 <link rel="import" href="../../tiles/markets/component.html" >
@@ -53,7 +52,7 @@
       </board-row>
       <board-row class="row--primary">
         <tile-container rv-each-board="boards" enabled="true">
-            <builds-tile rv-config="board.detail" class="tile component"></builds-tile>
+            <simple-builds-tile rv-config="board.detail" class="tile component"></simple-builds-tile>
         </tile-container>
       </board-row>
       <board-row class="row--primary">
