@@ -31,7 +31,6 @@ var BuildsStatsController = (function(dashboardId) {
       response = JSON.parse(response);
 
       if (response.lastBuilds) {
-        // We structure the build list in a tree.
         data = {stats: response.stats, buildRoot: []};
         data.stats.lastBuildTimestamp = 0;
 
