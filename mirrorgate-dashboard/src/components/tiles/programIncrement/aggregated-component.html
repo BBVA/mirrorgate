@@ -41,7 +41,7 @@
         <div class="indicator" rv-hide="programIncrement.stats.featureCount">
           <div class="stats-desc">No features found for this PI</div>
         </div>
-      </g>
+      </div>
     </div>
   </div>
 </template>
@@ -78,8 +78,6 @@
           let format = "MMMM Do";
 
           model.programIncrement = data;
-
-          console.log(model.programIncrement.stats);
 
           if (data.startDate){
             model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
