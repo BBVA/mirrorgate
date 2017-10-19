@@ -29,18 +29,36 @@ var MarketsController = (function(dashboardId) {
     if(response) {
       data.apps = [];
       var reviews = [];
+      var total = {
+        rating7Days: 0,
+        votes7Days: 0,
+        ratingMonth: 0,
+        votesMonth: 0,
+        ratingTotal: 0,
+        votesTotal: 0
+      };
       response = JSON.parse(response);
       for(var index in response) {
-          var app = new Market(response[index]);
-          reviews = reviews.concat(response[index].reviews);
-          data.apps.push(app);
+        var item = response[index];
+        total.rating7Days += item.rating7Days;
+        total.ratingMonth += item.ratingMonth;
+        total.ratingTotal += item.ratingTotal;
+        total.votes7Days += item.votes7Days;
+        total.votesMonth += item.votesMonth;
+        total.votesTotal += item.votesTotal;
+
+        var app = new Market(item);
+        reviews = reviews.concat(item.reviews);
+        data.apps.push(app);
       }
+      data.total = new Market(total);
       data.reviews = reviews.filter((review) =>  {
         return review.timestamp > 0;
       });
       data.reviews = reviews.sort((r1, r2) => {
         return r1.timestamp < r2.timestamp ? 1 : -1;
       }).slice(0,8);
+
     }
 
     observable.notify(data);
