@@ -29,6 +29,7 @@
       <h2 class="title">Markets</h2>
       <h3 class="title-desc">
         <span rv-hide="apps | length">No applications reviews found</span>
+        <span class="rate__legend">Last 7 days average</span>
       </h3>
     </div>
     <div class="component__body">
@@ -36,17 +37,11 @@
 
         <div rv-each-app="apps" class="platform-rate">
           <div class="rate-7days-data">
-
-            <div class="rate__value">
-              <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
-
-              <span class="rate__legend">Last 7 days average</span>
-
-            </div>
-
             <div class="rate-stars" rv-if="app.starsTotal">
 
               <span class="rate__total">
+                <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
+                
                 <span rv-show="app.rate7Days">
                   <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
                 </span>
