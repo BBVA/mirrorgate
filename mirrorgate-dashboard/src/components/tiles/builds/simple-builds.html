@@ -32,6 +32,7 @@
         <span rv-if="status | = 'error'" class="indicator"><span class="stat-important">{failedMasterBuildsCount}</span> of {masterBuildsCount} master barnches failed</span>
         <span rv-if="status | = 'warn'" class="indicator"><span class="stat-important">{failedDevelopBuildsCount}</span> of {developBuildsCount} develop barnches failed</span>
         <span rv-if="status | = 'ok'" class="indicator">Everything looks fine</span>
+        <span rv-hide="status"  class="indicator">No builds in the last 7 days</span>
       </h2>
     </div>
     <div class="component__body" rv-show="stats.count">
