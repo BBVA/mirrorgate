@@ -30,7 +30,6 @@ function Market(data) {
   this.name = data.appname;
   this.rateTotal = Math.round(data.ratingTotal/data.votesTotal * 10) / 10;
   this.votesTotal = data.votesTotal;
-  this.rating7Days = data.rating7Days;
   this.rate7Days = Math.round(data.rating7Days/data.votes7Days * 10) / 10;
   this.votes7Days = data.votes7Days;
   this.rateMonth = Math.round(data.ratingMonth/data.votesMonth * 10) / 10;
