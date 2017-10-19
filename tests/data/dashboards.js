@@ -65,5 +65,17 @@ db.getCollection('dashboards').insertMany([
     {
         "name":"mood",
         "applications":["Mood"]
+    },
+    {
+        "name" : "aggregated",
+        "type" : "Aggregate",
+        "skin" : "classic",
+        "aggregatedDashboards" : [
+            "mirrorgate",
+            "all-the-stuff",
+            "nothing",
+            "empty",
+            "all"
+        ]
     }
 ]);
