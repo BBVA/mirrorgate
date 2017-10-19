@@ -25,8 +25,8 @@
 <link rel="import" href="../../tiles/builds/graph.html" >
 <link rel="import" href="../../tiles/builds/stats.html" >
 <link rel="import" href="../../tiles/team/currentSprint.html" >
-<link rel="import" href="../../tiles/programIncrement/aggregated-component.html" >
-<link rel="import" href="../../tiles/markets/component.html" >
+<link rel="import" href="../../tiles/programIncrement/simple-pi.html" >
+<link rel="import" href="../../tiles/markets/simple-markets.html" >
 <link rel="import" href="../../header/header.html" >
 
 <template>
@@ -48,7 +48,7 @@
       </board-row>
       <board-row class="row--primary">
         <tile-container rv-each-board="boards" enabled="true">
-            <aggregated-program-increment-tile rv-config="board.detail" class="tile component"></aggregated-program-increment-tile>
+            <simple-program-increment rv-config="board.detail" class="tile component"></simple-program-increment>
         </tile-container>
       </board-row>
       <board-row class="row--primary">
@@ -58,7 +58,7 @@
       </board-row>
       <board-row class="row--primary">
         <tile-container rv-each-board="boards" enabled="true">
-            <markets-tile rv-config="board.detail" class="tile component tile--primary"></markets-tile>
+            <simple-markets rv-config="board.detail" class="tile component tile--primary"></simple-markets>
         </tile-container>
       </board-row>
     </board-column>

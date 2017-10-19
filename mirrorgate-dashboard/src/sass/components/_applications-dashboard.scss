@@ -175,6 +175,15 @@
 
     .applications{
 
+        &.simple {
+           .rate__tag {
+             display:block;
+           }
+           .rate-stars {
+             text-align: center;
+           }
+        }
+
         .component__body {
             display: inline-block;
         }
@@ -243,7 +252,7 @@
             .fa{
                 font-size: $level-2 + 0.4;
             }
-            
+
             > .fa {
                 -webkit-text-stroke-color: #b3b3b3;
                 -webkit-text-stroke-width: 1px;

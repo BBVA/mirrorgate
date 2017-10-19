@@ -18,13 +18,13 @@
 
 <html>
 <head>
-  <title>aggregated-program-increment-tile web component testing page</title>
+  <title>simple-program-increment web component testing page</title>
 </head>
 <body>
   <script>
-    genericTileComponentTest('aggregated-program-increment-tile','.indicator');
+    genericTileComponentTest('simple-program-increment','.indicator');
 
-    describe('<aggregated-program-increment-tile>', function() {
+    describe('<simple-program-increment>', function() {
 
       let server;
 
@@ -37,7 +37,7 @@
       });
 
       it('should give Program Increment stats', function(done) {
-        createTestComponent('aggregated-program-increment-tile').then(function (component) {
+        createTestComponent('simple-program-increment').then(function (component) {
           server.respond();
 
           setTimeout(function () {

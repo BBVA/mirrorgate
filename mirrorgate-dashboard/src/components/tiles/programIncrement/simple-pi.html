@@ -27,16 +27,16 @@
 
   <div class="aggregated-pi component__content">
     <div class="component__header">
-      <h3 class="title-desc" rv-show="programIncrement.features">
-        <span class="title-desc" rv-show="dateRange">{dateRange}</span>
-      </h3>
-      <h3 class="title-desc" rv-hide="programIncrement.features">No data for PI</h3>
+      <h2 class="title" rv-show="programIncrement.features">
+        <span rv-show="dateRange">{dateRange}</span>
+      </h2>
+      <h2 class="title" rv-hide="programIncrement.features">No data for PI</h2>
     </div>
     <div class="component__body">
       <div rv-show="programIncrement.stats">
         <div class="indicator" rv-show="programIncrement.stats.featureCount">
           <div class="stats">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</div>
-          <div class="stats-desc" >features completed</div>
+          <div class="stats-desc" >Features completed</div>
         </div>
         <div class="indicator" rv-hide="programIncrement.stats.featureCount">
           <div class="stats-desc">No features found for this PI</div>
@@ -58,7 +58,7 @@
     };
 
     MGComponent({
-      name: 'aggregated-program-increment-tile',
+      name: 'simple-program-increment',
       controllerClass: ProgramIncrementController,
       parent: Tile,
 
