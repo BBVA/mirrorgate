@@ -30,3 +30,14 @@
 .color-success{
     color: $green !important;
 }
+
+//Uses :host and directly the selector for Firefox to work.... Why firefox oh why!!?
+@mixin host($selector) {
+  :host(#{$selector}) {
+    @content;
+  }
+
+  #{$selector} {
+    @content;
+  }
+}

@@ -14,42 +14,55 @@
  * limitations under the License.
  */
 
+ @include host('.simple-tile') {
+  .title {
+    font-size: 0.95rem;
+  }
+}
+
+@include host('.header-title.simple-tile') {
+  .title {
+    font-size: 1.50rem;
+    text-align: center;
+  }
+}
+
 aggregate-dashboard {
-  .header {
+
+  .row-header {
     width: 100%;
-    padding: 0px;
-  }
-
-  .subheader {
-    flex: 1 1 100%;
-    border-left: 3px solid $separator-color;
-  }
-
-  .subheader:first-child {
-    border-left: none;
   }
 
   board-column.board-container {
-    max-height: 100%;
     width: 100%;
+
+    tile-container {
+      flex-grow:1;
+      flex-shrink: 1;
+      flex-basis: 100%;
+    }
+
+    tile-container.title-tile {
+      flex-basis:0;
+      min-width: 11rem;
+    }
+
+    tile-container.small-tile {
+      flex-grow:1;
+      flex-shrink:1;
+      flex-basis: 80%;
+    }
   }
 
-  tile-container {
-    border-left: 3px solid $separator-color;
+  board-row {
+    border-bottom: 1px solid $darker-grey;
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
-  tile-container:first-child {
-    border-left: none;
-  }
-
-  .dashboard {
-    padding: 0px;
-  }
-
-  .menu {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100px;
+  header-title {
+    width:100%;
+    text-align: center;
   }
 }

@@ -27,37 +27,71 @@
 <link rel="import" href="../../tiles/programIncrement/simple-pi.html" >
 <link rel="import" href="../../tiles/markets/simple-markets.html" >
 <link rel="import" href="../../header/header.html" >
+<link rel="import" href="../../shards/header-title.html" >
 
 <template>
   <style>
     @import "css/{skin}.css";
   </style>
-  <div class="header">
+  <!-- <div class="header">
     <div class="subheader" rv-each-board="boards">
       <details-tile class="header" rv-config="board.detail"></details-tile>
     </div>
     <menu-component class="menu" rv-config="config"/>
-  </div>
+  </div> -->
+  <header-component class="header" rv-config="config"></header-component>
   <div class="dashboard">
+    <!-- <board-row class="board-container" rv-each-board="boards">
+        <details-tile class="row--primary" rv-config="board.detail"></details-tile>
+    </board-row> -->
     <board-column class="board-container">
-      <board-row class="row--primary">
-        <tile-container rv-each-board="boards" enabled="true">
-            <simple-sprint rv-config="board.detail" class="tile component"></simple-sprint>
+      <board-row>
+        <tile-container enabled="true" class="title-tile">
+            <!-- placeholder for logos -->
+        </tile-container>
+        <tile-container enabled="true">
+          <header-title title="Current Sprint" class="header-title simple-tile">
+            <div class="legend">
+              <div class="legend__item">
+                <span class="legend__color legend__color--green"></span>Done
+              </div>
+              <div class="legend__item">
+                <span class="legend__color legend__color--blue"></span>In progress
+              </div>
+              <div class="legend__item">
+                <span class="legend__color legend__color--red"></span>Blocked
+              </div>
+              <div class="legend__item">
+                <span class="legend__color"></span>To Do
+              </div>
+            </div>
+          </header-title>
+        </tile-container>
+        <tile-container enabled="true" class="small-tile">
+            <header-title class="header-title simple-tile" title="Current PI Features"></header-title>
+        </tile-container>
+        <tile-container enabled="true">
+            <header-title class="header-title simple-tile" title="Builds"></header-title>
+        </tile-container>
+        <tile-container enabled="true" class="small-tile">
+            <header-title class="header-title simple-tile" title="Feedback"></header-title>
         </tile-container>
       </board-row>
-      <board-row class="row--primary">
-        <tile-container rv-each-board="boards" enabled="true">
-            <simple-program-increment rv-config="board.detail" class="tile component"></simple-program-increment>
+      <board-row rv-each-board="boards">
+        <tile-container enabled="true" class="title-tile">
+          <details-tile class="row--primary row-header" link="true" rv-config="board.detail"></details-tile>
         </tile-container>
-      </board-row>
-      <board-row class="row--primary">
-        <tile-container rv-each-board="boards" enabled="true">
-            <simple-builds-tile rv-config="board.detail" class="tile component"></simple-builds-tile>
+        <tile-container enabled="true">
+            <simple-sprint rv-config="board.detail" class="tile component simple-tile"></simple-sprint>
         </tile-container>
-      </board-row>
-      <board-row class="row--primary">
-        <tile-container rv-each-board="boards" enabled="true">
-            <simple-markets rv-config="board.detail" class="tile component tile--primary"></simple-markets>
+        <tile-container enabled="true" class="small-tile">
+            <simple-program-increment rv-config="board.detail" class="tile component simple-tile"></simple-program-increment>
+        </tile-container>
+        <tile-container enabled="true">
+            <simple-builds-tile rv-config="board.detail" class="tile component simple-tile"></simple-builds-tile>
+        </tile-container>
+        <tile-container enabled="true" class="small-tile">
+            <simple-markets rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-markets>
         </tile-container>
       </board-row>
     </board-column>
