@@ -116,7 +116,8 @@
 
   //Hack due to bootstrap styles coliding in firefox
   width: 100%;
-  background-color: white;
+  box-sizing: border-box;
+  background-color: transparent;
   height: auto;
   box-shadow: none;
 
