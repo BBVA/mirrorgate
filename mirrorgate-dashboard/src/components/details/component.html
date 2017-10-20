@@ -28,8 +28,12 @@
 
   <div class="details component__content">
     <h1 class="team">
-      <img rv-if="logo" rv-src="logo" class="team-logo">
-      <span>{name}</span>
+      <img rv-hide="attrs.link" rv-if="logo" rv-src="logo" class="team-logo">
+      <span rv-hide="attrs.link">{name}</span>
+      <a rv-show="attrs.link" rv-href="url">
+        <img rv-if="logo" rv-src="logo" class="team-logo">
+        <span>{name}</span>
+      </a>
     </h1>
   </div>
 </template>
@@ -40,10 +44,13 @@
     controllerClass: DetailsController,
     parent: Tile,
     render: function (details) {
-      this.getModel().logo = details.logoUrl == '#UPLOADED#' ?
+      var model = this.getModel();
+      model.logo = details.logoUrl == '#UPLOADED#' ?
               'dashboards/' + this.getDashboardId() + '/image' :
               details.logoUrl;
-      this.getModel().name = details.displayName || details.name || '';
+      model.name = details.displayName || details.name || '';
+      model.url = '?board=' + encodeURIComponent(details.name);
+
       Utils.raiseEvent(this, {status: 'ok'});
     }
   });
