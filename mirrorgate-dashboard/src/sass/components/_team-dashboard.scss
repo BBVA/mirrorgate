@@ -95,16 +95,6 @@
       stroke-opacity: 1;
     }
 
-    &.simple {
-      .progress-bar {
-        transform: skewX(-25deg);
-        padding: 10px 20px;
-
-        .progress__bar {
-          height: 2.5rem;
-        }
-      }
-    }
 }
 
 @media all and (min-width: $l) {

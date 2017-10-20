@@ -110,6 +110,21 @@
 
 }
 
+.progress-bar {
+  transform: skewX(-25deg);
+  padding: 10px 20px;
+
+  //Hack due to bootstrap styles coliding in firefox
+  width: 100%;
+  background-color: white;
+  height: auto;
+  box-shadow: none;
+
+  .progress__bar {
+    height: 2rem;
+  }
+}
+
 //Modules states backgrounds
 $border-width: -5px;
 
