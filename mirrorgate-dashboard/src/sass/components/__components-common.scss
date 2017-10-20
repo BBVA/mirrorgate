@@ -97,7 +97,6 @@
         color: $dark-grey;
         display: inline-block;
         padding-top: 10px;
-        padding-bottom: 40px;
     }
 
     .stat-desc{
@@ -112,7 +111,7 @@
 
 .progress-bar {
   transform: skewX(-25deg);
-  padding: 10px 20px;
+  padding: 0 10px;
 
   //Hack due to bootstrap styles coliding in firefox
   width: 100%;
@@ -221,53 +220,6 @@ tile-container.module-data-error {
     background-color: $red;
 }
 .legend__color--yellow{
-    background-color: $yellow;
-}
-
-//Builds
-.legend__build-item{
-    background-color: $dark-grey;
-    border-radius: 5px;
-    display: inline-block;
-    height: 4px;
-    margin: 0 7px 0 0;
-    position: relative;
-    width: 20px;
-}
-
-.legend__build-item--product{
-    border-radius: 5px;
-    height: 15px;
-    top: 0.06em;
-    width: 15px
-}
-
-.legend__build-item--repos{
-    height: 10px;
-    top: -0.05em;
-}
-
-.legend__build-item--branches{
-    top: -0.2em;
-}
-
-.status__build {
-    background-color: $dark-grey;
-    border-radius: 50%;
-    display: inline-block;
-    height: 15px;
-    width: 15px;
-    margin: 0 3px 0 0;
-}
-
-.status__build-ok{
-    background-color: $green;
-}
-
-.status__build-error{
-    background-color: $red;
-}
-.status__build-warn{
     background-color: $yellow;
 }
 
@@ -469,11 +421,4 @@ svg {
     display: inline-block;
   }
 
-}
-
-.stats-desc {
-    color: $dark-grey;
-    display: inline-block;
-    padding-top: 10px;
-    padding-bottom: 40px;
 }
