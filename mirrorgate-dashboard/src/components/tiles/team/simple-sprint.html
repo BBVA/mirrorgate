@@ -1,0 +1,124 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- build:js component.min.js -->
+<script src="model-story.js"></script>
+<script src="model-sprint.js"></script>
+<script src="controller.js"></script>
+<!-- endbuild -->
+
+<template>
+  <style>
+    @import "css/{skin}.css";
+  </style>
+  <div class="team simple component__content">
+    <div class="component__header">
+      <h2 class="title" rv-show="sprint">{sprint.dateRange}</h2>
+      <h2 class="title" rv-hide="sprint">No active sprint</h2>
+    </div>
+    <div class="component__body" rv-show="sprint">
+      <div class="progress-bar">
+        <div rv-each-item="items" class="progress__bar" role="progressbar" rv-pclass-fill="item.status" rv-width="item.width"></div>
+      </div>
+
+      <div class="indicator__bar">
+        <div class="indicator sprint__completed-ratio">
+          <div class="stats" rv-show="sprint.doneRatio">{sprint.doneRatio}%</div>
+          <div class="stats-desc" rv-show="sprint.doneRatio">Completed</div>
+          <div class="stats" rv-hide="sprint.doneRatio">{sprint.doneStories} of {sprint.totalStories}</div>
+          <div class="stats-desc" rv-hide="sprint.doneRatio">Stories completed</div>
+        </div>
+        <div class="indicator sprint__days-left">
+          <div class="stats">{sprint.daysLeft}</div>
+          <div class="stats-desc">Days left</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  MGComponent({
+    name: 'simple-sprint',
+    controllerClass: TeamController,
+    parent: Tile,
+
+    render: function (sprintData) {
+
+      var order = {
+        'Done': 0,
+        'In Progress': 1,
+        'To Rework': 2,
+        'Impeded': 3,
+        'Waiting': 4,
+        'Backlog': 4
+      };
+
+      var sprint = sprintData && sprintData.currentSprint;
+      var model = this.getModel();
+
+      Utils.raiseEvent(this, {
+        status: sprintData ? {
+          'Bad': 'error',
+          'Good': 'warn'
+        }[sprint.getAdvanceSprintStatus()] || 'ok' : 'server-error'
+      });
+
+      var format = "MMMM Do";
+
+      if (sprint && sprint.startDate) {
+        model.sprint = {
+          doneRatio: sprint.getDoneRatio(),
+          doneStories: sprint.doneStories,
+          totalStories: sprint.totalStories,
+          daysLeft: sprint.getDaysLeft(),
+          dateRange: (moment(sprint.startDate).format(format) + ' - ' + moment(sprint.endDate).format(format))
+        };
+      } else {
+        model.sprint = undefined;
+      }
+
+      var daysPassed = 2;
+      var daysInSprint = 10;
+      var dayProgress = Math.PI * 2 * daysPassed / daysInSprint - Math.PI / 2;
+
+      var items = sprint ? sprint.stories : [];
+      var totalStoryPoints = 0;
+
+      var joinedItemsMap = items.reduce(function (acc, item) {
+        var pos = order[item.status];
+        acc[pos] = acc[pos] || new Story('', 0, item.status);
+        totalStoryPoints += item.points || 0.5;
+        acc[pos].points += item.points || 0.5;
+        return acc;
+      }, {});
+
+      var joinedItems = [];
+
+      for (var status in joinedItemsMap) {
+        var item = joinedItemsMap[status];
+        item.width = item.points * 100 / totalStoryPoints;
+        joinedItems.push(item);
+      }
+
+      this.getModel().items = joinedItems.sort(function (a, b) {
+        return order[a.status] < order[b.status] ? -1 : 1;
+      });
+    }
+  });
+
+</script>

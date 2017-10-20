@@ -23,7 +23,7 @@
 <link rel="import" href="../../tile-container/component.html" >
 <link rel="import" href="../../details/component.html" >
 <link rel="import" href="../../tiles/builds/simple-builds.html" >
-<link rel="import" href="../../tiles/team/currentSprint.html" >
+<link rel="import" href="../../tiles/team/simple-sprint.html" >
 <link rel="import" href="../../tiles/programIncrement/simple-pi.html" >
 <link rel="import" href="../../tiles/markets/simple-markets.html" >
 <link rel="import" href="../../header/header.html" >
@@ -42,7 +42,7 @@
     <board-column class="board-container">
       <board-row class="row--primary">
         <tile-container rv-each-board="boards" enabled="true">
-            <current-sprint-tile rv-config="board.detail" class="tile component"></current-sprint-tile>
+            <simple-sprint rv-config="board.detail" class="tile component"></simple-sprint>
         </tile-container>
       </board-row>
       <board-row class="row--primary">
