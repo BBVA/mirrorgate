@@ -144,6 +144,35 @@ alerts-tile {
   .alert-state-red::before {
     background-color: darken($red, 10);
   }
+
+  .indicator__bar {
+    padding: 3rem 10px;
+  }
+
+  .indicator.alert__accomplished {
+    float: left;
+  }
+}
+
+.status__alerts {
+    background-color: $dark-grey;
+    border-radius: 50%;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    margin: 0 3px 0 0;
+
+    &.status__alerts-ok{
+        background-color: $green;
+    }
+
+    &.status__alerts-error{
+        background-color: $red;
+    }
+
+    &.status__alerts-warn{
+        background-color: $yellow;
+    }
 }
 
 @media all and (min-width: $l) {

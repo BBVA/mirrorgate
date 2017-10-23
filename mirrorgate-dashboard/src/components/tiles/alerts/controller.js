@@ -70,7 +70,11 @@ var AlertsController = (function(dashboardId) {
       }
       data = JSON.parse(data);
 
+      var model = {};
       var alert_groups = [];
+      var totalAlertsCount = 0;
+      var failedAlertsCount = 0;
+      var unstableAlertsCount = 0;
 
       //TODO: to improve
       if(data.alerts) {
@@ -78,6 +82,17 @@ var AlertsController = (function(dashboardId) {
 
           for (var i in data.alerts) {
             alert_groups.push(buildAlerts(data.alerts[i], 6));
+
+            for(var j in data.alerts[i].alerts){
+              totalAlertsCount += 1;
+
+              if(data.alerts[i].alerts[j].state.currentState === 'red'){
+                failedAlertsCount += 1;
+              } else if(data.alerts[i].alerts[j].state.currentState === 'black'){
+                unstableAlertsCount += 1;
+              }
+            }
+
             /* Just show 2 groups of alerts */
             if(alert_groups.length == 2) {
               break;
@@ -88,7 +103,12 @@ var AlertsController = (function(dashboardId) {
         }
       }
 
-      observable.notify(alert_groups);
+      model.alert_groups = alert_groups;
+      model.totalAlertsCount = totalAlertsCount;
+      model.failedAlertsCount = failedAlertsCount;
+      model.unstableAlertsCount = unstableAlertsCount;
+
+      observable.notify(model);
     },{
       headers: headers
     });

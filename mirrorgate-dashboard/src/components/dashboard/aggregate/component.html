@@ -26,6 +26,7 @@
 <link rel="import" href="../../tiles/team/simple-sprint.html" >
 <link rel="import" href="../../tiles/programIncrement/simple-pi.html" >
 <link rel="import" href="../../tiles/markets/simple-markets.html" >
+<link rel="import" href="../../tiles/alerts/simple-alerts.html" >
 <link rel="import" href="../../header/header.html" >
 <link rel="import" href="../../shards/header-title.html" >
 <link rel="import" href="../../tiles/user-metrics/component.html" >
@@ -80,6 +81,21 @@
         <tile-container enabled="true" class="mid-tile">
             <header-title class="header-title simple-tile" title="Analytics"></header-title>
         </tile-container>
+        <tile-container enabled="true">
+          <header-title class="header-title simple-tile" title="Alerts">
+            <div class="legend">
+              <div class="legend__item">
+                <span class="legend__color legend__color--green"></span>Done
+              </div>
+              <div class="legend__item">
+                <span class="legend__color legend__color--yellow"></span>Can not verify
+              </div>
+              <div class="legend__item">
+                <span class="legend__color legend__color--red"></span>Failed
+              </div>
+            </div>
+          </header-title>
+        </tile-container>
       </board-row>
       <board-row rv-each-board="boards">
         <tile-container enabled="true" class="title-tile">
@@ -99,6 +115,9 @@
         </tile-container>
         <tile-container enabled="true" class="mid-tile">
             <user-metrics-tile rv-config="board.detail" class="tile component simple-tile tile--primary"></user-metrics-tile>
+        </tile-container>
+        <tile-container enabled="true">
+          <simple-alerts rv-config="board.detail" class="tile component simple-tile"></simple-alerts>
         </tile-container>
       </board-row>
     </board-column>
