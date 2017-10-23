@@ -121,7 +121,9 @@
   box-shadow: none;
 
   .progress__bar {
-    height: 2rem;
+    height: 1rem;
+    box-sizing: border-box;
+    border-right: 2px solid $light-grey;
   }
 }
 
