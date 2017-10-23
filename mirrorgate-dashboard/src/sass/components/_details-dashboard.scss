@@ -14,6 +14,29 @@
  * limitations under the License.
  */
 
+@include host('.row-header') {
+  .details .team {
+    width: 100%;
+    display: block;
+    min-width: 7rem;
+
+    .team-logo {
+      min-width: 7rem;
+      min-height: 7rem;
+      margin: 5px;
+    }
+
+    span {
+      width: 100%;
+      display: block;
+      color: $text-color;
+      font-size: 0.7rem;
+    }
+
+  }
+}
+
+
 .details{
     justify-content: center;
     padding-top: 0;
@@ -42,6 +65,10 @@
             color: $header-color;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        a {
+          text-decoration: none;
         }
     }
 }

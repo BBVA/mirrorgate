@@ -15,13 +15,12 @@
  */
 
 /**
- * BuildsStatsController - Controller to handle the builds stats
+ * SimpleBuildsController - Controller to handle simple builds component
  *
  */
+var SimpleBuildsController = (function(dashboardId) {
 
-var BuildsStatsController = (function(dashboardId) {
-
-  var observable = new Event('BuildsStatsController');
+  var observable = new Event('SimpleBuildsController');
   var service = Service.get(Service.types.builds, dashboardId);
   var config;
 
@@ -31,14 +30,34 @@ var BuildsStatsController = (function(dashboardId) {
       response = JSON.parse(response);
 
       if (response.lastBuilds) {
+
         data = {stats: response.stats, buildRoot: []};
         data.stats.lastBuildTimestamp = 0;
+        data.masterBuildsCount = 0;
+        data.failedMasterBuildsCount = 0;
+        data.developBuildsCount = 0;
+        data.failedDevelopBuildsCount = 0;
 
         for (var index in response.lastBuilds) {
-          var item = response.lastBuilds[index];
 
-          if(item.timestamp > data.stats.lastBuildTimestamp) {
-            data.stats.lastBuildTimestamp = item.timestamp;
+          var build = response.lastBuilds[index];
+          switch (build.branch) {
+            case 'master':
+              data.masterBuildsCount++;
+              if(build.buildStatus === 'Failure') {
+                data.failedMasterBuildsCount++;
+              }
+              break;
+            case 'develop':
+              data.developBuildsCount++;
+              if(build.buildStatus === 'Failure') {
+                data.failedDevelopBuildsCount++;
+              }
+              break;
+          }
+
+          if(build.timestamp > data.stats.lastBuildTimestamp) {
+            data.stats.lastBuildTimestamp = build.timestamp;
           }
         }
       }

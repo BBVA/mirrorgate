@@ -15,9 +15,9 @@
   ~ limitations under the License.
   -->
 
-<!-- build:js stats.min.js -->
+<!-- build:js simple-builds.min.js -->
 <script src="model.js"></script>
-<script src="stats-controller.js"></script>
+<script src="simple-controller.js"></script>
 <!-- endbuild -->
 
 <template>
@@ -27,20 +27,22 @@
 
   <div class="builds-stats component__content">
     <div class="component__header">
-      <h2 class="title">Build stats</h2>
-      <h3 class="title-desc">
-        <span rv-show="stats.count">7 days average ({stats.count} builds)</span>
-        <span rv-hide="stats.count">No builds in the last 7 days</span>
-      </h3>
+      <h2 class="title">
+        <span class="status__build" rv-pclass-status__build="status"></span>
+        <span rv-if="status | = 'error'" class="indicator"><span class="stat-important">{failedMasterBuildsCount}</span> of {masterBuildsCount} master branches failed</span>
+        <span rv-if="status | = 'warn'" class="indicator"><span class="stat-important">{failedDevelopBuildsCount}</span> of {developBuildsCount} develop branches failed</span>
+        <span rv-if="status | = 'ok'" class="indicator">Everything looks fine</span>
+        <span rv-hide="status"  class="indicator">No builds in the last 7 days</span>
+      </h2>
     </div>
     <div class="component__body" rv-show="stats.count">
       <div class="indicator indicator--builds-failed">
         <div class="stats">{stats.failureRate}%<span class="builds-tendency" rv-pclass-tendency="stats.failureTendency"></span></div>
-        <div class="stat-desc">failed</div>
+        <div class="stat-desc">Builds failed</div>
       </div>
       <div class="indicator indicator--build-time">
         <div class="stats"><span rv-show="avgBuildTime.hours">{avgBuildTime.hours}h </span><span rv-show="avgBuildTime.mins">{avgBuildTime.mins}m </span>{avgBuildTime.secs}s</div>
-        <div class="stat-desc">average duration</div>
+        <div class="stat-desc">Average duration</div>
       </div>
     </div>
   </div>
@@ -49,15 +51,19 @@
 <script>
 
   MGComponent({
-    name: 'buildsstats-tile',
-    controllerClass: BuildsStatsController,
+    name: 'simple-builds-tile',
+    controllerClass: SimpleBuildsController,
     parent: Tile,
     processAlerts: function (data) {
       Utils.raiseEvent(this, {
-        status: data ? (data.stats && data.stats.count) ? 'unknown' : 'empty' : 'server-error'
+        status: !data ? 'server-error' :
+          !data.stats || !data.stats.count ? 'empty' :
+          data.failedMasterBuildsCount > 0 ? 'error' :
+          data.failedDevelopBuildsCount > 0 ? 'warn' : 'unknown'
       });
     },
     render: function (data) {
+
       this.processAlerts(data);
 
       var model = this.getModel();
@@ -72,6 +78,15 @@
           mins: avgBuildTime.minutes(),
           hours: Math.floor(avgBuildTime.asHours())
         };
+
+        model.masterBuildsCount = data.masterBuildsCount;
+        model.failedMasterBuildsCount = data.failedMasterBuildsCount;
+        model.developBuildsCount = data.developBuildsCount;
+        model.failedDevelopBuildsCount = data.failedDevelopBuildsCount;
+
+        model.status = data.failedMasterBuildsCount > 0 ? 'error' :
+          data.failedDevelopBuildsCount > 0 ? 'warn' :
+          'ok';
       }
     }
   });

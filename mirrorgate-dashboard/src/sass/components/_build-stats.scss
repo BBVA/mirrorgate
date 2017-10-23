@@ -21,13 +21,6 @@
         justify-content: space-around
     }
 
-    .stat-desc {
-        color: $dark-grey;
-        display: inline-block;
-        padding-top: 10px;
-        padding-bottom: 40px;
-    }
-
     .builds-tendency{
 
         &.tendency-equal::before {

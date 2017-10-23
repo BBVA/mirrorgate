@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,30 +14,28 @@
  * limitations under the License.
  */
 
-// COLORS
-.color-info{
-    color: $blue !important;
-}
+describe('SimpleBuildsController', () => {
 
-.color-warning{
-    color: $yellow !important;
-}
+  var server;
+  var controller;
 
-.color-error{
-    color: $red !important;
-}
+  beforeEach(() => {
+    server = buildFakeServer();
+    server.autoRespond = true;
+    controller = new SimpleBuildsController(dashboardForTesting);
+    return controller.init(detailsForTesting);
+  });
 
-.color-success{
-    color: $green !important;
-}
+  afterEach(() => {
+    server.restore();
+    controller.dispose();
+  });
 
-//Uses :host and directly the selector for Firefox to work.... Why firefox oh why!!?
-@mixin host($selector) {
-  :host(#{$selector}) {
-    @content;
-  }
+  it('should provide the last build timestamp', (done) => {
+    controller.observable.attach((response) => {
+      expect(response.stats.lastBuildTimestamp).toBe(1491584773370);
+      done();
+    });
+  });
 
-  #{$selector} {
-    @content;
-  }
-}
+});
