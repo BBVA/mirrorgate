@@ -38,7 +38,7 @@ describe('AlertsController', () => {
     }
 
     controller.observable.attach((response) => {
-      expect(response).toEqual(alert_groups);
+      expect(response.alert_groups).toEqual(alert_groups);
       done();
     });
   });
