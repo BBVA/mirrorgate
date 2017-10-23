@@ -17,17 +17,11 @@
 
 <link rel="import" href="../../board-column/component.html">
 <link rel="import" href="../../tile-container/component.html">
-<link rel="import" href="../../details/component.html">
+<link rel="import" href="../../header/header.html">
 <link rel="import" href="../../tiles/builds/graph.html">
 <link rel="import" href="../../tiles/team/currentSprint.html">
 <link rel="import" href="../../tiles/markets/component.html">
 <link rel="import" href="../../tiles/markets/reviews-component.html">
-<link rel="import" href="../../tiles/programIncrement/component.html">
-<link rel="import" href="../../tiles/bugs/component.html" >
-<link rel="import" href="../../tiles/notifications/component.html" >
-<link rel="import" href="../../tiles/alerts/component.html" >
-<link rel="import" href="../../tiles/user-metrics/component.html" >
-<link rel="import" href="../../tiles/operations-metrics/operations-component.html" >
 
 <template>
   <style>
@@ -38,21 +32,21 @@
     <div class="dashboard">
       <board-column>
         <tile-container>
-            <current-sprint-tile rv-config="config" class="tile component tile--primary"></current-sprint-tile>
+          <current-sprint-tile rv-config="config" class="tile component tile--primary"></current-sprint-tile>
         </tile-container>
       </board-column>
       <board-column>
         <tile-container>
-            <builds-tile rv-config="config" class="tile component tile--primary"></builds-tile>
+          <builds-tile rv-config="config" class="tile component tile--primary"></builds-tile>
         </tile-container>
       </board-column>
 
       <board-column>
         <tile-container>
-            <markets-tile rv-config="config" class="tile component tile--primary"></markets-tile>
+          <markets-tile rv-config="config" class="tile component tile--primary"></markets-tile>
         </tile-container>
         <tile-container>
-            <reviews-tile rv-config="config" class="tile component"></reviews-tile>
+          <reviews-tile rv-config="config" class="tile component"></reviews-tile>
         </tile-container>
 
       </board-column>

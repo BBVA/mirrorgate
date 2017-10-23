@@ -1,4 +1,5 @@
 <!doctype html>
+
 <!--
   ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
   ~
@@ -15,24 +16,29 @@
   ~ limitations under the License.
   -->
 
-<link rel="import" href="./menu/menu.html" >
-<link rel="import" href="../details/component.html" >
-
-<template>
-  <style>
-    @import "css/{skin}.css";
-  </style>
-  <div class="logos">
-    <img class="logo--mg" src="img/logo-ae.png"/>
-  </div>
-  <details-tile class="board-title" rv-config="config"></details-tile>
-  <menu-component rv-config="config" class="menu"/>
-</template>
-
+<html>
+<head>
+  <title>dashboard-notification component testing page</title>
+</head>
+<body>
+</body>
 <script>
-  MGComponent({
-    name: 'header-component',
-    lightDOM: true
-  });
 
+  describe('dashboard-notifications', function(){
+
+    var type = 'dashboard-notifications';
+    var contentProveSelector = '.notifications';
+
+    it('should show content', (done) => {
+      createTestComponent(type).then((component) => {
+        setTimeout(function () {
+          let items = component.getRootElement().querySelectorAll(contentProveSelector);
+          expect(items.length).not.toBe(0);
+          done();
+        });
+      });
+    });
+
+  });
 </script>
+</html>

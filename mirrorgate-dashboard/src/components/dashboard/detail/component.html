@@ -27,6 +27,7 @@
 <link rel="import" href="../../tiles/programIncrement/component.html">
 <link rel="import" href="../../tiles/bugs/component.html" >
 <link rel="import" href="../../tiles/notifications/component.html" >
+<link rel="import" href="../../tiles/dashboard-notifications/component.html" >
 <link rel="import" href="../../tiles/alerts/component.html" >
 <link rel="import" href="../../tiles/user-metrics/component.html" >
 <link rel="import" href="../../tiles/operations-metrics/operations-component.html" >
@@ -113,9 +114,14 @@
       <!-- / .dashboard -->
 
     <!-- .bottom -->
-    <board-column class="bottom">
-      <notifications-tile rv-config="config" class="tile"></notifications-tile>
-    </board-column>
+    <board-row class="bottom">
+      <board-column>
+        <notifications-tile rv-config="config" class="tile"></notifications-tile>
+      </board-column>
+      <board-column>
+        <dashboard-notifications rv-config="config" class="tile"></dashboard-notifications>
+      </board-column>
+    </board-row>
     <!-- / .bottom -->
   </div>
 </template>
