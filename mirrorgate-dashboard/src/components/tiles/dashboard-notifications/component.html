@@ -43,10 +43,25 @@
   (function (window, document, undefined) {
 
     var breakTimeout;
+    var breakFavIconTimeout;
+
     var colorMapping = {
+      'green': '1FB759',
       'red' : 'FF2B2B',
       'yellow': 'FDD80D',
       'blue': '2CE6FB'
+    }
+
+    function notifyFavIcon(color) {
+      var icon = document.querySelector('link[rel*="icon"]');
+      icon.href = 'img/favicon-' + (color || 'grey') + '.png';
+      if(breakFavIconTimeout) {
+        clearTimeout(breakFavIconTimeout);
+      }
+      breakFavIconTimeout = setTimeout(function() {
+        icon.href = 'img/favicon.png';
+        breakFavIconTimeout = undefined;
+      }, 60000);
     }
 
     MGComponent({
@@ -77,8 +92,12 @@
             breakTimeout = undefined;
           }.bind(this), 600000);
 
+          var color = data.detail.color.toLowerCase();
+
           this.getModel().notification = data.detail;
-          this.getModel().notification.color = colorMapping[data.detail.color.toLowerCase()];
+          this.getModel().notification.color = colorMapping[color];
+
+          notifyFavIcon(color);
         }
       }
     });
