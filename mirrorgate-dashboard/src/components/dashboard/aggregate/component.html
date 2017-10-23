@@ -28,6 +28,7 @@
 <link rel="import" href="../../tiles/markets/simple-markets.html" >
 <link rel="import" href="../../header/header.html" >
 <link rel="import" href="../../shards/header-title.html" >
+<link rel="import" href="../../tiles/user-metrics/component.html" >
 
 <template>
   <style>
@@ -76,6 +77,9 @@
         <tile-container enabled="true" class="small-tile">
             <header-title class="header-title simple-tile" title="Feedback"></header-title>
         </tile-container>
+        <tile-container enabled="true" class="mid-tile">
+            <header-title class="header-title simple-tile" title="Analytics"></header-title>
+        </tile-container>
       </board-row>
       <board-row rv-each-board="boards">
         <tile-container enabled="true" class="title-tile">
@@ -92,6 +96,9 @@
         </tile-container>
         <tile-container enabled="true" class="small-tile">
             <simple-markets rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-markets>
+        </tile-container>
+        <tile-container enabled="true" class="mid-tile">
+            <user-metrics-tile rv-config="board.detail" class="tile component simple-tile tile--primary"></user-metrics-tile>
         </tile-container>
       </board-row>
     </board-column>

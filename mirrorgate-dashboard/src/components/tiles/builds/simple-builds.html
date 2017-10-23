@@ -27,7 +27,7 @@
 
   <div class="builds-stats component__content">
     <div class="component__header">
-      <h2 class="title-desc">
+      <h2 class="title">
         <span class="status__build" rv-pclass-status__build="status"></span>
         <span rv-if="status | = 'error'" class="indicator"><span class="stat-important">{failedMasterBuildsCount}</span> of {masterBuildsCount} master branches failed</span>
         <span rv-if="status | = 'warn'" class="indicator"><span class="stat-important">{failedDevelopBuildsCount}</span> of {developBuildsCount} develop branches failed</span>

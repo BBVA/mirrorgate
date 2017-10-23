@@ -33,12 +33,40 @@ aggregate-dashboard {
     width: 100%;
   }
 
+  .legend {
+    padding: 5px 0 0 0;
+
+    .legend__item {
+      padding: 0 3px;
+    }
+  }
+
+  header-component {
+    position: relative;
+    z-index: 1;
+  }
+
   .dashboard {
-    height: auto;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    top: 0;
+    padding: 50px 0 10px 0;
+    z-index: 0;
   }
 
   board-column.board-container {
     width: 100%;
+
+    & > board-row {
+      padding: 5px 0;
+      border-bottom: 1px solid $darker-grey;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
 
     tile-container {
       flex-grow:1;
@@ -54,14 +82,13 @@ aggregate-dashboard {
     tile-container.small-tile {
       flex-grow:1;
       flex-shrink:1;
-      flex-basis: 80%;
+      flex-basis: 65%;
     }
-  }
 
-  board-row {
-    border-bottom: 1px solid $darker-grey;
-    &:last-child {
-      border-bottom: none;
+    tile-container.mid-tile {
+      flex-grow:1;
+      flex-shrink:1;
+      flex-basis: 85%;
     }
   }
 

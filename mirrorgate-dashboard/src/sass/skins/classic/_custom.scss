@@ -18,3 +18,17 @@
     background-color: darken($background-color, 20);
     border-top: 1px solid #2F2E2E;
 }
+
+@include host('.simple-tile') {
+  .title {
+    font-size: 1.3rem;
+  }
+}
+
+@include host('.header-title.simple-tile') {
+  .title {
+    font-size: 2.0rem;
+    text-align: center;
+  }
+}
+
