@@ -46,9 +46,11 @@ var UserMetricsController = (function(dashboardId) {
               return;
             } else if (metric.appVersion === last_versions[metric.viewId + (metric.platform || '')]) {
               lastVersionActiveUsers += parseInt(metric.value);
-            } else if(!last_versions[metric.viewId + (metric.platform || '')] || Utils.compareVersions(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')], _lastVersion) > 0) {
-              last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
-              lastVersionActiveUsers = parseInt(metric.value);
+            } else {
+              if(!last_versions[metric.viewId + (metric.platform || '')] || Utils.compareVersions(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')], _lastVersion) > 0) {
+                last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
+                lastVersionActiveUsers = lastVersionActiveUsers || 0 + parseInt(metric.value);
+              }
             }
           }
           if(metric.name === '7dayUsers') {
@@ -56,7 +58,7 @@ var UserMetricsController = (function(dashboardId) {
           }
         }, this);
 
-        model.metrics.oldVerisonsActiveUsersRate = lastVersionActiveUsers !== undefined  ? parseFloat((100 * (model.metrics.rtActiveUsers - lastVersionActiveUsers) / model.metrics.rtActiveUsers).toFixed(2)) : undefined;
+        model.metrics.lastVersionActiveUsersRate = lastVersionActiveUsers !== undefined  ? parseFloat((100 * lastVersionActiveUsers / model.metrics.rtActiveUsers).toFixed(2)) : undefined;
       }
     }
 

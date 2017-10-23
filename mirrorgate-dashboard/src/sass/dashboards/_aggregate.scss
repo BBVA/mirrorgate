@@ -14,42 +14,86 @@
  * limitations under the License.
  */
 
+ @include host('.simple-tile') {
+  .title {
+    font-size: 0.95rem;
+  }
+}
+
+@include host('.header-title.simple-tile') {
+  .title {
+    font-size: 1.50rem;
+    text-align: center;
+  }
+}
+
 aggregate-dashboard {
-  .header {
-    width: 100%;
-    padding: 0px;
-  }
 
-  .subheader {
-    flex: 1 1 100%;
-    border-left: 3px solid $separator-color;
-  }
-
-  .subheader:first-child {
-    border-left: none;
-  }
-
-  board-column.board-container {
-    max-height: 100%;
+  .row-header {
     width: 100%;
   }
 
-  tile-container {
-    border-left: 3px solid $separator-color;
+  .legend {
+    padding: 5px 0 0 0;
+
+    .legend__item {
+      padding: 0 3px;
+    }
   }
 
-  tile-container:first-child {
-    border-left: none;
+  header-component {
+    position: relative;
+    z-index: 1;
   }
 
   .dashboard {
-    padding: 0px;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    top: 0;
+    padding: 50px 0 10px 0;
+    z-index: 0;
   }
 
-  .menu {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100px;
+  board-column.board-container {
+    width: 100%;
+
+    & > board-row {
+      padding: 5px 0;
+      border-bottom: 1px solid $darker-grey;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    tile-container {
+      flex-grow:1;
+      flex-shrink: 1;
+      flex-basis: 100%;
+    }
+
+    tile-container.title-tile {
+      flex-basis:0;
+      min-width: 11rem;
+    }
+
+    tile-container.small-tile {
+      flex-grow:1;
+      flex-shrink:1;
+      flex-basis: 65%;
+    }
+
+    tile-container.mid-tile {
+      flex-grow:1;
+      flex-shrink:1;
+      flex-basis: 85%;
+    }
+  }
+
+  header-title {
+    width:100%;
+    text-align: center;
   }
 }

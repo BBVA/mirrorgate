@@ -37,6 +37,10 @@ var DashboardComponent = (function() {
       window.addEventListener('resize', function() {
         setTimeout(this._computeSize.bind(this));
       }.bind(this));
+      window.addEventListener('dashboard-updated', function() {
+        setTimeout(this._computeSize.bind(this));
+      }.bind(this));
+
     }.bind(this));
   };
 
@@ -52,13 +56,22 @@ var DashboardComponent = (function() {
 
     if (isNaN(min)) {
       setTimeout(this._computeSize.bind(this), 1);
-    } else {
+    } else if(this._width !== width || this._height !== height) {
+      this._width = width;
+      this._height = height;
+
       var classes = {
         'tile-s': min < 300,
         'tile-m': min >= 300 && min <= 600,
         'tile-l': min > 600
       };
       d3.select(this).classed(classes);
+
+      this.dispatchEvent(
+        new CustomEvent('component-resized', {bubbles: false, detail: {
+          width: width,
+          height: height
+        }}));
     }
   };
 

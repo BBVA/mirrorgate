@@ -1,0 +1,14 @@
+{
+  "name" : "aggregated",
+  "type" : "Aggregate",
+  "skin" : "classic",
+  "aggregatedDashboards" : [
+      "mirrorgate",
+      "all",
+      "failures",
+      "empty",
+      "empty_dashboard",
+      "feedback",
+      "errors"
+  ]
+}

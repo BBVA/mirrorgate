@@ -16,6 +16,20 @@
 
 .team{
 
+    .indicator.sprint__completed-ratio {
+      float: left;
+      text-align: left;
+    }
+
+    .indicator.sprint__days-left {
+      float: right;
+      text-align: right;
+    }
+
+    .indicator__bar {
+      padding: 3rem 10px;
+    }
+
     svg text {
       fill: $headers-color;
       text-anchor: middle;
@@ -80,6 +94,7 @@
       fill-opacity: 1;
       stroke-opacity: 1;
     }
+
 }
 
 @media all and (min-width: $l) {
@@ -89,19 +104,36 @@
 }
 
 @media all and (min-width: $xxl) {
+  .progress {
+    height: 20px;
+  }
+
+  .progress__bar {
+    height: 20px;
+  }
+
   .next-sprint {
-    .backlog-progress {
-      height: 20px;
-    }
-
-    .backlog-progress__bar {
-      height: 20px;
-    }
-
     .velocity-line {
       height: 40px;
     }
   }
+}
+
+.progress {
+  background-color: $neutral;
+  border-radius: 10px;
+  height: 10px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.progress__bar {
+  height: 10px;
+  float: left;
+}
+
+.progress__bar-success {
+  background-color: $green;
 }
 
 .next-sprint {
@@ -110,22 +142,6 @@
 
   .backlog-status {
     position: relative;
-  }
-
-  .backlog-progress {
-    background-color: $neutral;
-    border-radius: 10px;
-    height: 10px;
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .backlog-progress__bar {
-    height: 10px;
-  }
-
-  .backlog-progress__bar-success {
-    background-color: $green;
   }
 
   .velocity-line {
@@ -139,6 +155,7 @@
 
   .velocity-info {
     color: $dark-grey;
+    font-size: $level-6;
     margin: 15px;
     text-align: right;
   }

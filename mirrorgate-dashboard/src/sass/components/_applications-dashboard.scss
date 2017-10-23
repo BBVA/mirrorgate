@@ -43,6 +43,10 @@
         max-width: 350px;
 
         .rate__os {
+            -webkit-text-stroke-color: #b3b3b3;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-fill-color: $component-background-color;
+
             font-size: 1.2em;
             padding-right: 8px;
         }
@@ -171,11 +175,20 @@
 
     .applications{
 
+        &.simple {
+           .rate__tag {
+             display:block;
+           }
+           .rate-stars {
+             text-align: center;
+           }
+        }
+
         .component__body {
             display: inline-block;
         }
         .platform-rate{
-            font-size: $level-2;
+            font-size: $level-3 + 0.2;
             min-width: 15vw;
 
             .rate__total {
@@ -229,11 +242,22 @@
         }
 
         .review__header{
-            font-size: $level-4 - 0.2;
+            font-size: $level-5;
         }
 
-        .review__rate .fa{
-            font-size: $level-2 + 0.4;
+        .review__rate {
+            margin: 8px 0;
+            line-height: 1em;
+
+            .fa{
+                font-size: $level-2 + 0.4;
+            }
+
+            > .fa {
+                -webkit-text-stroke-color: #b3b3b3;
+                -webkit-text-stroke-width: 1px;
+                -webkit-text-fill-color: $review-background-color;
+            }
         }
 
         .review__comment {
@@ -242,6 +266,7 @@
             text-align: justify;
 
             p {
+                font-size: $level-5;
                 margin: 0;
             }
         }

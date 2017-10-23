@@ -23,7 +23,6 @@ import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -61,30 +60,13 @@ public class UserMetricsServiceImpl implements UserMetricsService {
 
     @Override
     public List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics) {
-        List<UserMetric> targets = userMetricsRepository.findAllBy_idIn(
-                StreamSupport.stream(metrics.spliterator(), false)
-                .map(UserMetricMapper::map)
-                .map(UserMetric::getId)
-                .filter((e) -> e != null)
-                .distinct()
-                .collect(Collectors.toList())
-        );
         List<UserMetric> toSave = StreamSupport.stream(metrics.spliterator(), false)
-                .map((metric) -> {
-
-            Optional<UserMetric> optTarget = targets.stream()
-                    .filter((t) -> t.isTheSame(metric))
-                    .findAny();
-
-            return UserMetricMapper.map(
-                    metric,
-                    optTarget.isPresent() ? optTarget.get() : new UserMetric()                    );
-        }).collect(Collectors.toList());
+                .map(UserMetricMapper::map)
+                .collect(Collectors.toList());
 
         userMetricsRepository.save(toSave);
 
         return toSave.stream().map(UserMetricMapper::map).collect(Collectors.toList());
-
     }
 
     @Override

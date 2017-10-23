@@ -61,65 +61,79 @@
     name: 'reviews-tile',
     controllerClass: MarketsController,
     parent: Tile,
+    onCreated: function () {
+      this.addEventListener('component-resized', this._setSize);
+    },
+
+    _setSize: function (e) {
+
+      var contents = this.getRootElement().querySelector('.reviews-list');
+
+      var height = contents.offsetHeight;
+      var width = contents.offsetWidth;
+
+      var xSize = Math.max(1,Math.min(Math.floor(width / 320),4));
+      var ySize = Math.max(1,Math.min(Math.floor(height / 200),2));
+      if(ySize < 2) {
+        //We don't want to render 4 comments in a single row
+        xSize = Math.min(xSize, 3);
+      }
+
+      if(window.innerWidth < 992) {
+        xSize = 1;
+        ySize = 1;
+        this._sheet.innerText = "";
+      } else {
+        this._sheet.innerText =
+          ".review {height: " + Math.floor((height  - 15 * (ySize-1)) / ySize) +"px ;}"
+          ;
+      }
+
+      var model = this.getModel();
+      model.layout = xSize + 'x' + ySize;
+      this.num = xSize * ySize;
+      if(model.num != this.num) {
+        model.num = this.num;
+        this._initPageCycle();
+      }
+
+      this._loadData();
+
+    },
+
     render: function (data) {
 
       Utils.raiseEvent(this,{
           status: data && data.reviews ? (data.reviews.length > 0 ? 'unknown' : 'empty') :'server-error'
       });
 
-      setTimeout(function () {
+      this.getModel().data = data;
+      this._setSize();
+    },
 
-        var contents = this.getRootElement().querySelector('.reviews-list');
+    _loadData: function () {
+      var model = this.getModel();
+      var num = model.num;
+      var data = model.data;
 
-        var height = contents.offsetHeight;
-        var width = contents.offsetWidth;
-
-        var xSize = Math.max(1,Math.min(Math.floor(width / 320),4));
-        var ySize = Math.max(1,Math.min(Math.floor(height / 200),2));
-        if(ySize < 2) {
-          //We don't want to render 4 comments in a single row
-          xSize = Math.min(xSize, 3);
-        }
-
-        if(window.innerWidth < 992) {
-          xSize = 1;
-          ySize = 1;
-          this._sheet.innerText = "";
-        } else {
-          this._sheet.innerText =
-            ".review {height: " + Math.floor((height  - 15 * (ySize-1)) / ySize) +"px ;}"
-            ;
-        }
-
-        var num = xSize * ySize;
-
-        var model = this.getModel();
-        model.layout = xSize + 'x' + ySize;
-        if(this.model.num != num) {
-          model.num = num;
-          this._initPageCycle();
-        }
-
-        model.reviews = data && data.reviews && data.reviews.slice(0,3*num);
-        if(model.reviews) {
-          model.count = Math.ceil(model.reviews.length / num);
-          model.pages = [];
-          for(var i = 0; i < model.count; i++) {
-            model.pages[i] = []
-            for(var j = 0; j < num; j++) {
-              model.pages[i][j] = null;
-            }
+      model.reviews = data && data.reviews && data.reviews.slice(0,3*num);
+      if(model.reviews) {
+        model.count = Math.ceil(model.reviews.length / num);
+        model.pages = [];
+        for(var i = 0; i < model.count; i++) {
+          model.pages[i] = []
+          for(var j = 0; j < num; j++) {
+            model.pages[i][j] = null;
           }
-
-          model.reviews.forEach(function(review, i) {
-            review.stars = review && this.controller.calculateStars(review.rate);
-            model.pages[Math.floor(i/num)][i%num] = review;
-          }, this);
         }
-        model.index = model.index ? model.index -1 : 0;
-        this._nextPage();
-      }.bind(this));
 
+        model.reviews.forEach(function(review, i) {
+          review.stars = review && this.controller.calculateStars(review.rate);
+          model.pages[Math.floor(i/num)][i%num] = review;
+        }, this);
+      }
+      model.index = model.index ? model.index -1 : 0;
+      this._nextPage();
     },
 
     _nextPage: function () {

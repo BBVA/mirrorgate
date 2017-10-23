@@ -24,24 +24,23 @@
     @import "css/{skin}.css";
   </style>
 
-  <div class="applications component__content">
+  <div class="applications simple component__content">
     <div class="component__header">
-      <h2 class="title">Markets</h2>
-      <h3 class="title-desc">
-        <span rv-hide="apps | length">No applications reviews found</span>
-        <span class="rate__legend">Last 7 days average</span>
-      </h3>
+      <h2 class="title">
+        <span rv-hide="app.stars7Days">No reviews in 7 days</span>
+        <span rv-show="app.stars7Days" class="rate__legend">Last 7 days</span>
+      </h2>
     </div>
     <div class="component__body">
       <div class="platform-rates">
 
-        <div rv-each-app="apps" class="platform-rate">
+        <div class="platform-rate">
           <div class="rate-7days-data">
-            <div class="rate-stars" rv-if="app.starsTotal">
+            <div class="rate-stars" rv-if="app.stars7Days">
 
               <span class="rate__total">
                 <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
-                
+
                 <span rv-show="app.rate7Days">
                   <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
                 </span>
@@ -54,20 +53,8 @@
               <span class="tendency" rv-show="app.rate7Days" rv-pclass-tendency="app.tendency"></span>
 
               <span class="rate__tag" rv-show="app.rate7Days">
-                ({app.votes7Days} votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
+                {app.votes7Days} votes
               </span>
-              <span class="rate__tag" rv-hide="app.rate7Days">
-                (No votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
-              </span>
-
-              <div class="rate__total-data">
-                <span>All times: <span class="rate-value sr-only">{app.rateTotal}</span> </span>
-
-                <i rv-each-star="app.starsTotal" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
-
-                <span class="rate-legend-votes">({app.votesTotal} votes)</span>
-              </div>
-
             </div>
           </div>
 
@@ -80,35 +67,25 @@
 <script>
 
   MGComponent({
-    name: 'markets-tile',
+    name: 'simple-markets',
     controllerClass: MarketsController,
     parent: Tile,
     render: function (data) {
 
-      //Hack to make the height stick to the contents
-      setTimeout(function () {
-
-        var contents = this.getRootElement().querySelector('.component__body');
-
-        var height = contents.offsetHeight + contents.offsetTop - contents.parentElement.offsetTop;
-
-        this.parentElement.style["min-height"]=height + 'px';
-        this.parentElement.style["flex-basis"]='unset';
-
-      }.bind(this));
-
-      var apps = data && data.apps;
+      var totalRate;
+      var totalVotes;
 
       Utils.raiseEvent(this, {
-        status: apps ? 'unknown' : 'server-error'
+        status: data.total ?
+          data.total.tendencyChange < -5 ? 'error':
+            data.total.tendencyChange < -1 ? 'warn': 'ok':
+          'server-error'
       });
 
-      if(apps) {
-        this.model.apps = apps;
-        this.model.apps.forEach(function(app) {
-          app.starsTotal = this.controller.calculateStars(app.rateTotal);
-          app.stars7Days = this.controller.calculateStars(app.rate7Days);
-        }, this);
+      if(data.total) {
+        var app = this.getModel().app = data.total;
+        app.starsTotal = this.controller.calculateStars(app.rateTotal);
+        app.stars7Days = this.controller.calculateStars(app.rate7Days);
       }
 
     }

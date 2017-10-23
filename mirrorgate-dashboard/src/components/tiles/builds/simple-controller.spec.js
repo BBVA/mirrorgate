@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,17 +14,28 @@
  * limitations under the License.
  */
 
-// USER-METRICS
-.operations {
+describe('SimpleBuildsController', () => {
 
-    .component__body{
-      display: flex;
-      justify-content: space-around
-    }
+  var server;
+  var controller;
 
-    .stats-desc {
-        color: $dark-grey;
-        display: inline-block;
-        padding: 10px 0;
-    }
-}
+  beforeEach(() => {
+    server = buildFakeServer();
+    server.autoRespond = true;
+    controller = new SimpleBuildsController(dashboardForTesting);
+    return controller.init(detailsForTesting);
+  });
+
+  afterEach(() => {
+    server.restore();
+    controller.dispose();
+  });
+
+  it('should provide the last build timestamp', (done) => {
+    controller.observable.attach((response) => {
+      expect(response.stats.lastBuildTimestamp).toBe(1491584773370);
+      done();
+    });
+  });
+
+});
