@@ -23,6 +23,64 @@ var ProgramIncrementController = (
     var observable = new Event('ProgramIncrementController');
     var service = Service.get(Service.types.programincrement, dashboardId);
 
+    function buildProgramIncrementReport (programIncrement) {
+      if(!programIncrement.stories || !programIncrement.features) {
+        return;
+      }
+
+      var spEstimation = Utils.normalEstimation(
+          programIncrement.stories.filter(function (story) {
+              return story.status !== 'BACKLOG' || story.estimate !== 0;
+          }).map(function (story) {
+              return story.estimate || 0;
+          })
+      );
+
+      var ftEstimation = Utils.normalEstimation(
+          programIncrement.features.filter(function(feature) {
+              return feature.status !== 'BACKLOG';
+          }).map(function (feature) {
+              return feature.children.length;
+          })
+      );
+
+      var report = {
+          total: 0,
+          totalEstimate: 0,
+          perStatus: {}
+      };
+
+      programIncrement.features.forEach(function (feature) {
+          if(feature.status !== 'BACKLOG') {
+              if(feature.status !== 'DONE') {
+                  let diff = ftEstimation.estimate - feature.children.length;
+                  if(diff > 0) {
+                      report.totalEstimate += diff * spEstimation.estimate;
+                  }
+                  feature.children.forEach(function(story) {
+                      if(story.estimate === 0 && story.status === 'BACKLOG') {
+                          report.totalEstimate += spEstimation.estimate;
+                      }
+                  }, this);
+              }
+              feature.children.forEach(function(story) {
+                  if(story.estimate) {
+                    report.perStatus[story.status] = (report.perStatus[story.status] || 0) + story.estimate;
+                    report.total += story.estimate;
+                    report.totalEstimate += story.estimate;
+                  }
+              }, this);
+
+          } else {
+              report.totalEstimate +=  ftEstimation.estimate * spEstimation.estimate;
+          }
+      });
+
+      report.completed = (Math.round(report.perStatus.DONE/report.totalEstimate * 10000) / 100);
+      return (programIncrement.report = report);
+    }
+
+
     function getProgramIncrement(response) {
       var programIncrement;
 
@@ -66,6 +124,7 @@ var ProgramIncrementController = (
         } else {
           programIncrement = {};
         }
+        buildProgramIncrementReport(programIncrement);
       }
 
       observable.notify(programIncrement);

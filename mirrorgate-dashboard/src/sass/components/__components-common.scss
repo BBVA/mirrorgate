@@ -93,12 +93,6 @@
         line-height: 0.9em;
     }
 
-    .stats-desc {
-        color: $dark-grey;
-        display: inline-block;
-        padding-top: 10px;
-    }
-
     .stat-desc{
         font-size: $level-6;
     }
@@ -121,9 +115,13 @@
   box-shadow: none;
 
   .progress__bar {
-    height: 1rem;
+    height: 1.3rem;
     box-sizing: border-box;
-    border-right: 2px solid $light-grey;
+    border-left: 2px solid $light-grey;
+
+    &:first-child {
+      border-left: none;
+    }
   }
 }
 
@@ -210,8 +208,17 @@ tile-container.module-data-error {
     width: 12px;
 }
 
+.legend__color--grey{
+    background-color: $light-grey;
+}
+
+.legend__color--dashed{
+  background-color: transparent;
+  border: 1.5px dashed $light-grey;
+}
+
 .legend__color--green{
-    background-color: $green;
+  background-color: $green;
 }
 
 .legend__color--blue{
@@ -223,6 +230,10 @@ tile-container.module-data-error {
 }
 .legend__color--yellow{
     background-color: $yellow;
+}
+
+.indicator__bar {
+  padding: 2.3rem 10px 0 10px;
 }
 
 // RESPONIVE
@@ -377,6 +388,10 @@ svg {
 
 .fill-backlog {
   background-color: $light-grey;
+}
+
+.fill-remain {
+  border: 1px dashed $light-grey;
 }
 
 .tendency {

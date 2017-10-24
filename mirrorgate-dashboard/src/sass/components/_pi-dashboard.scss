@@ -14,6 +14,18 @@
  *    limitations under the License.
  */
 
+.aggregated-pi {
+  .indicator:first-child {
+    float: left;
+    text-align: left;
+  }
+
+  .indicator:last-child {
+    float: right;
+    text-align: right;
+  }
+}
+
 .pi{
     align-items: stretch;
 
