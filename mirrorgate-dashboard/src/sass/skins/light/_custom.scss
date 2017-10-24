@@ -26,3 +26,12 @@
 .alerts {
   border-left: 2px solid #dbdbdb;
 }
+
+h2 {
+  color: inherit;
+}
+
+@include host('.tile--primary.module-error') {
+  color: white;
+}
+
