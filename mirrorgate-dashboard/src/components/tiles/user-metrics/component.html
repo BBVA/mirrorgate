@@ -34,15 +34,15 @@
     <div class="component__body">
       <div class="indicator" rv-if="metrics.rtActiveUsers">
         <div class="stats stats-metrics">{metrics.rtActiveUsers}</div>
-        <div class="stats-desc">active users</div>
+        <div class="stat-desc">active users</div>
       </div>
       <div class="indicator" rv-show="metrics.lastVersionActiveUsersRate | >= 0">
         <div class="stats stats-metrics">{metrics.lastVersionActiveUsersRate}%</div>
-        <div class="stats-desc">of active users in last version</div>
+        <div class="stat-desc">of active users in last version</div>
       </div>
       <div class="indicator" rv-if="metrics.sevenDayUsers">
         <div class="stats">{metrics.sevenDayUsers}</div>
-        <div class="stats-desc">weekly users</div>
+        <div class="stat-desc">weekly users</div>
       </div>
     </div>
   </div>

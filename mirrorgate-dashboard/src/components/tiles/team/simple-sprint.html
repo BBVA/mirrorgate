@@ -38,13 +38,13 @@
       <div class="indicator__bar">
         <div class="indicator sprint__completed-ratio">
           <div class="stats" rv-show="sprint.doneRatio">{sprint.doneRatio}%</div>
-          <div class="stats-desc" rv-show="sprint.doneRatio">Completed</div>
+          <div class="stat-desc" rv-show="sprint.doneRatio">Completed</div>
           <div class="stats" rv-hide="sprint.doneRatio">{sprint.doneStories} of {sprint.totalStories}</div>
-          <div class="stats-desc" rv-hide="sprint.doneRatio">Stories completed</div>
+          <div class="stat-desc" rv-hide="sprint.doneRatio">Stories completed</div>
         </div>
         <div class="indicator sprint__days-left">
           <div class="stats">{sprint.daysLeft}</div>
-          <div class="stats-desc">Days left</div>
+          <div class="stat-desc">Days left</div>
         </div>
       </div>
     </div>

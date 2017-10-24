@@ -57,6 +57,29 @@ describe('Utils',  function() {
     });
   });
 
+  describe('normalEstimation', function () {
+    it('should correctly calculate the average', function () {
+      expect(Utils.normalEstimation([1]).avg).toBe(1);
+      expect(Utils.normalEstimation([1,2,3]).avg).toBe(2);
+      expect(Utils.normalEstimation([]).avg).toBeNaN();
+      expect(Utils.normalEstimation().avg).toBeNaN();
+    });
+
+    it('should correctly calculate the estandar deviation', function () {
+      expect(Utils.normalEstimation([1,2,3]).sigma).toBeCloseTo(0.632,3);
+      expect(Utils.normalEstimation([1]).sigma).toBeNaN();
+      expect(Utils.normalEstimation([]).avg).toBeNaN();
+      expect(Utils.normalEstimation().avg).toBeNaN();
+    });
+
+    it('should correctly perform estimate', function () {
+      expect(Utils.normalEstimation([1,2,3]).estimate).toBeCloseTo(2.531,3);
+      expect(Utils.normalEstimation([1]).estimate).toBeNaN();
+      expect(Utils.normalEstimation([]).estimate).toBeNaN();
+      expect(Utils.normalEstimation().estimate).toBeNaN();
+    });
+  });
+
   describe('compareVersions', function() {
 
     it('should compare application version properly', function() {

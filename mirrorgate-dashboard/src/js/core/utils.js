@@ -108,7 +108,35 @@ var Utils = {
     }
 
     return v1parts.length - v2parts.length;
+  },
+
+  normalEstimation: function (serie, confidence) {
+    serie = serie || [];
+    var z = {'80%': 0.84,'90%':1.29, '95%': 1.65, '99%': 2.33}[confidence || '80%'];
+
+    var r = {
+        count: 0,
+        total: 0,
+        avg: 0,
+        sigma: 0,
+        estimate: 0
+    };
+
+    serie.forEach(function(value) {
+        r.count++;
+        r.total += value;
+    }, this);
+    r.avg = r.total / r.count;
+
+    serie.forEach(function(value) {
+        r.sigma += Math.pow(value - r.avg,2);
+    }, this);
+
+    r.sigma = Math.sqrt(r.sigma / (r.total - 1));
+    r.estimate = r.sigma * z + r.avg;
+    return r;
   }
+
 
 };
 
