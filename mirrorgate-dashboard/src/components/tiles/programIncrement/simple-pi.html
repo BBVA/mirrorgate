@@ -33,8 +33,11 @@
       <h2 class="title" rv-hide="programIncrement.features">No data for PI</h2>
     </div>
     <div class="component__body">
-      <div class="progress-bar">
+      <div class="progress-bar" rv-show="programIncrement.report.completed">
         <div rv-each-item="items" class="progress__bar" role="progressbar" rv-pclass-fill="item.status" rv-width="item.width"></div>
+      </div>
+      <div class="progress-bar-fallback" rv-hide="programIncrement.report.completed">
+        <span>Not enough data</span>
       </div>
       <div rv-show="programIncrement.stats" class="indicator__bar">
         <div class="indicator" rv-show="programIncrement.stats.featureCount">
