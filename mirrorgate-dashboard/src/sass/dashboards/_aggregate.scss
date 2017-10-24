@@ -35,6 +35,10 @@ aggregate-dashboard {
 
   .legend {
     padding: 5px 0 0 0;
+
+    .legend__item {
+      padding: 0 7px;
+    }
   }
 
   header-component {

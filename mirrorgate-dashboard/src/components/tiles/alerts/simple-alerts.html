@@ -39,7 +39,7 @@
     </div>
     <div class="component__body" rv-show="alerts">
       <div class="progress-bar">
-        <div rv-each-item="items" class="progress__bar" role="progressbar" rv-pclass-fill="item.status" rv-width="item.width"></div>
+        <div rv-each-item="items" rv-show="item.width" class="progress__bar" role="progressbar" rv-pclass-fill="item.status" rv-width="item.width"></div>
       </div>
       <div class="indicator__bar">
         <div class="indicator alert__accomplished">
