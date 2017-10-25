@@ -86,7 +86,7 @@
 
 
 .indicator__bar {
-  padding: 10px 0;
+  padding: 0;
   display: flex;
   clear: both;
   width: 100%;
@@ -155,6 +155,7 @@
 .progress-bar {
   transform: skewX(-25deg);
   padding-left: 7px;
+  padding-bottom: 2.5rem;
 
   //Hack due to bootstrap styles coliding in firefox
   width: 100%;
