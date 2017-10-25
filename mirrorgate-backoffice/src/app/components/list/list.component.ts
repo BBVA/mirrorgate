@@ -30,6 +30,7 @@ import {ConfigService} from '../../services/config.service';
 export class ListComponent {
   boards: Dashboard[];
   sourceBoards: Dashboard[];
+  recentBoards: Dashboard[];
   searchText: string = '';
   filterBoards: Dashboard[];
   pageNumber: number = 0;
@@ -45,7 +46,10 @@ export class ListComponent {
 
   ngOnInit(): void {
     this.getDashboards().then((boards) => {
-      this.sourceBoards = this.filterBoards = boards;
+      let recentIds: string[] = JSON.parse(localStorage.getItem('recentDashboards') || '[]');
+      this.sourceBoards = boards;
+      this.recentBoards = boards.filter((b) => recentIds.indexOf(b.name) >= 0);
+      this.filterBoards = boards.filter((b) => recentIds.indexOf(b.name) < 0);;
       this.searchDashboard();
     });
     this.renderer.invokeElementMethod(

@@ -32,6 +32,34 @@
       </button>
     </div>
   </div>
+  <h3 *ngIf="pageNumber === 0 && !searchText">Last opened dashboards</h3>
+  <ul class="list-group boards-list" *ngIf="pageNumber === 0 && !searchText">
+    <li class="list-group-item boards-list-item" *ngFor="let board of recentBoards">
+      <div class="row">
+        <div class="col-sm-8">
+          <img class="team-logo" *ngIf="board.logoUrl" [src]="board.logoUrl === '#UPLOADED#' ? '../dashboards/' + board.name + '/image' : board.logoUrl"  onerror="this.parentNode.removeChild(this)"/>
+          <span *ngIf="board.displayName">{{board.displayName}}</span>
+          <span *ngIf="!board.displayName">{{board.name}}</span>
+        </div>
+        <div class="col-sm-4 text-right">
+          <a role="button" class="btn btn-danger btn-sm" [routerLink]="['/delete/' + board.name]">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <span class="sr-only">Delete</span>
+          </a>
+
+          <a role="button" class="btn btn-default btn-sm" [routerLink]="['/edit/' + board.name]">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <span class="sr-only">Edit</span>
+          </a>
+
+          <a role="button" class="btn btn-default btn-sm" (click)="openDashboard(board)">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span class="sr-only">View</span>
+          </a>
+
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <h3 *ngIf="pageNumber === 0 && !searchText">Other dashboards</h3>
   <ul class="list-group boards-list">
     <li class="list-group-item boards-list-item" *ngFor="let board of boards">
       <div class="row">
