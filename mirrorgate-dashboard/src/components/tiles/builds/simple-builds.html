@@ -28,7 +28,7 @@
   <div class="builds-stats component__content">
     <div class="component__header">
       <h2 class="title">
-        <span class="status__build" rv-pclass-status__build="status"></span>
+        <span class="status__indicator" rv-pclass-status__indicator="status"></span>
         <span rv-if="status | = 'error'" class="indicator"><span class="stat-important">{failedMasterBuildsCount}</span> of {masterBuildsCount} master branches failed</span>
         <span rv-if="status | = 'warn'" class="indicator"><span class="stat-important">{failedDevelopBuildsCount}</span> of {developBuildsCount} develop branches failed</span>
         <span rv-if="status | = 'ok'" class="indicator">Everything looks fine</span>
@@ -36,13 +36,15 @@
       </h2>
     </div>
     <div class="component__body" rv-show="stats.count">
-      <div class="indicator indicator--builds-failed">
-        <div class="stats">{stats.failureRate}%<span class="builds-tendency" rv-pclass-tendency="stats.failureTendency"></span></div>
-        <div class="stat-desc">Builds failed</div>
-      </div>
-      <div class="indicator indicator--build-time">
-        <div class="stats"><span rv-show="avgBuildTime.hours">{avgBuildTime.hours}h </span><span rv-show="avgBuildTime.mins">{avgBuildTime.mins}m </span><span rv-hide="avgBuildTime.hours">{avgBuildTime.secs}s</span></div>
-        <div class="stat-desc">Average duration</div>
+      <div class="indicator__bar">
+        <div class="indicator indicator--builds-failed">
+          <div class="stats">{stats.failureRate}%<span class="builds-tendency" rv-pclass-tendency="stats.failureTendency"></span></div>
+          <div class="stat-desc">Builds failed</div>
+        </div>
+        <div class="indicator indicator--build-time">
+          <div class="stats"><span rv-show="avgBuildTime.hours">{avgBuildTime.hours}h </span><span rv-show="avgBuildTime.mins">{avgBuildTime.mins}m </span><span rv-hide="avgBuildTime.hours">{avgBuildTime.secs}s</span></div>
+          <div class="stat-desc">Average duration</div>
+        </div>
       </div>
     </div>
     <div class="component__body" rv-hide="stats.count">

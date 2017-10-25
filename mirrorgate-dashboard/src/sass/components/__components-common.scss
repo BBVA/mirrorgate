@@ -84,28 +84,77 @@
     text-align: right;
 }
 
-.indicator {
+
+.indicator__bar {
+  padding: 10px 0;
+  display: flex;
+  clear: both;
+  width: 100%;
+
+  .indicator {
     line-height: 1em;
     text-align: center;
+    flex: 1 1 auto;
+    margin-left: 5px;
+
+    &:first-child {
+      margin-left: 0;
+    }
 
     .stats{
-        font-size: 2em;
+        font-size: 2.2em;
         line-height: 0.9em;
     }
 
     .stat-desc{
         font-size: $level-6;
+        padding: 0 3px;
     }
 
     .stat-important{
         font-size: $level-2;
     }
 
+    &:nth-last-child(n+2):first-child {
+      text-align: left;
+      .stat-desc {
+        padding-left: 0;
+      }
+    }
+
+    &:nth-last-child(n+2) ~ :last-child {
+      text-align: right;
+      .stat-desc {
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+.status__indicator {
+  background-color: $dark-grey;
+  border-radius: 50%;
+  display: inline-block;
+  height: 1.1rem;
+  width: 1.1rem;
+  margin: 0 3px 0 0;
+
+  &.status__indicator-ok{
+      background-color: $green;
+  }
+
+  &.status__indicator-error{
+      background-color: $red;
+  }
+
+  &.status__indicator-warn{
+      background-color: $yellow;
+  }
 }
 
 .progress-bar {
   transform: skewX(-25deg);
-  padding: 0 10px;
+  padding-left: 7px;
 
   //Hack due to bootstrap styles coliding in firefox
   width: 100%;
@@ -117,16 +166,22 @@
   .progress__bar {
     height: 1.3rem;
     box-sizing: border-box;
-    border-left: 2px solid $light-grey;
 
-    &:first-child {
-      border-left: none;
+    &:nth-last-child(n+2) ~ .progress__bar {
+      border-left: 2px solid $light-grey;
     }
   }
 }
 
 .progress-bar-fallback {
   text-align: center;
+  height: 1.3rem;
+  width: 100%;
+  display: table;
+  span {
+    display: table-cell;
+    line-height: 1.3rem;
+  }
 }
 
 //Modules states backgrounds
@@ -218,7 +273,7 @@ tile-container.module-data-error {
 
 .legend__color--dashed{
   background-color: transparent;
-  border: 1.5px dashed $light-grey;
+  border: 1.5px dashed $darker-grey;
 }
 
 .legend__color--green{
@@ -234,10 +289,6 @@ tile-container.module-data-error {
 }
 .legend__color--yellow{
     background-color: $yellow;
-}
-
-.indicator__bar {
-  padding: 2.3rem 10px 0 10px;
 }
 
 // RESPONIVE
@@ -395,7 +446,7 @@ svg {
 }
 
 .fill-remain {
-  border: 1px dashed $light-grey;
+  border: 1px dashed $darker-grey;
 }
 
 .tendency {

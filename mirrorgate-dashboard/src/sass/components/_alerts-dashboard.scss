@@ -146,27 +146,6 @@ alerts-tile {
   }
 }
 
-.status__alerts {
-    background-color: $dark-grey;
-    border-radius: 50%;
-    display: inline-block;
-    height: 15px;
-    width: 15px;
-    margin: 0 3px 0 0;
-
-    &.status__alerts-ok{
-        background-color: $green;
-    }
-
-    &.status__alerts-error{
-        background-color: $red;
-    }
-
-    &.status__alerts-warn{
-        background-color: $yellow;
-    }
-}
-
 @media all and (min-width: $l) {
   .alerts__content{
     .alert__title {

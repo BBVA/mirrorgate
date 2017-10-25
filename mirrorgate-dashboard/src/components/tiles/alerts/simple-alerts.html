@@ -31,7 +31,7 @@
     </div>
     <div class="component__header" rv-show="alerts">
       <h2 class="title">
-        <span class="status__alerts" rv-pclass-status__alerts="status"></span>
+        <span class="status__indicator" rv-pclass-status__indicator="status"></span>
         <span rv-if="status | = 'error'" class="indicator"><span class="stat-important">{failedAlertsCount}</span> of {totalAlertsCount} alerts failed</span>
         <span rv-if="status | = 'warn'" class="indicator"><span class="stat-important">{unstableAlertsCount}</span> of {totalAlertsCount} unstable alerts</span>
         <span rv-if="status | = 'ok'" class="indicator"><span class="stat-important">{accomplishedAlertsCount}</span> alerts ok</span>

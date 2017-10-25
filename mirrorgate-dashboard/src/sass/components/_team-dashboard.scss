@@ -16,16 +16,6 @@
 
 .team{
 
-    .indicator.sprint__completed-ratio {
-      float: left;
-      text-align: left;
-    }
-
-    .indicator.sprint__days-left {
-      float: right;
-      text-align: right;
-    }
-
     svg text {
       fill: $headers-color;
       text-anchor: middle;

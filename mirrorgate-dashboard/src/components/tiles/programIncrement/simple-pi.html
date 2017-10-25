@@ -36,8 +36,10 @@
       <div class="progress-bar" rv-show="programIncrement.report.completed">
         <div rv-each-item="items" class="progress__bar" role="progressbar" rv-pclass-fill="item.status" rv-width="item.width"></div>
       </div>
-      <div class="progress-bar-fallback" rv-hide="programIncrement.report.completed">
-        <span>Not enough data</span>
+      <div class="progress-bar" rv-hide="programIncrement.report.completed">
+        <div class="progress__bar fill-remain progress-bar-fallback" role="progressbar" width="100%">
+          <span>Not enough data</span>
+        </div>
       </div>
       <div rv-show="programIncrement.stats" class="indicator__bar">
         <div class="indicator" rv-show="programIncrement.stats.featureCount">
