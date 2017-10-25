@@ -105,23 +105,6 @@
   }
 }
 
-.progress {
-  background-color: $neutral;
-  border-radius: 10px;
-  height: 10px;
-  overflow: hidden;
-  width: 100%;
-}
-
-.progress__bar {
-  height: 10px;
-  float: left;
-}
-
-.progress__bar-success {
-  background-color: $green;
-}
-
 .next-sprint {
 
   font-size: 1.5rem;
@@ -144,6 +127,23 @@
     font-size: $level-6;
     margin: 15px;
     text-align: right;
+  }
+
+  .backlog-bar {
+    background-color: $neutral;
+    border-radius: 10px;
+    height: 10px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .backlog__bar {
+    height: 10px;
+    float: left;
+  }
+
+  .backlog__bar-success {
+    background-color: $green;
   }
 
 }
