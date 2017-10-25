@@ -167,6 +167,8 @@
   .progress__bar {
     height: 1.3rem;
     box-sizing: border-box;
+    float: left;
+
 
     &:nth-last-child(n+2) ~ .progress__bar {
       border-left: 2px solid $light-grey;
