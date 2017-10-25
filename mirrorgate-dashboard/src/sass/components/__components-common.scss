@@ -154,15 +154,14 @@
 
 .progress-bar {
   transform: skewX(-25deg);
-  padding-left: 7px;
-  padding-bottom: 2.5rem;
 
   //Hack due to bootstrap styles coliding in firefox
   width: 100%;
   box-sizing: border-box;
   background-color: transparent;
-  height: auto;
+  height: 2.5rem;
   box-shadow: none;
+  padding-right: 5px;
 
   .progress__bar {
     height: 1.3rem;
