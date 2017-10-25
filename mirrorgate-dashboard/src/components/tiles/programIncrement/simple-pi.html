@@ -33,13 +33,25 @@
       <h2 class="title" rv-hide="programIncrement.features">No data for PI</h2>
     </div>
     <div class="component__body">
-      <div rv-show="programIncrement.stats">
+      <div class="progress-bar" rv-show="programIncrement.report.completed">
+        <div rv-each-item="items" class="progress__bar" role="progressbar" rv-pclass-fill="item.status" rv-width="item.width"></div>
+      </div>
+      <div class="progress-bar" rv-hide="programIncrement.report.completed">
+        <div class="progress__bar fill-remain progress-bar-fallback" role="progressbar" width="100%">
+          <span>Not enough data</span>
+        </div>
+      </div>
+      <div rv-show="programIncrement.stats" class="indicator__bar">
         <div class="indicator" rv-show="programIncrement.stats.featureCount">
           <div class="stats">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</div>
-          <div class="stats-desc" >Features completed</div>
+          <div class="stat-desc" >Features completed</div>
         </div>
         <div class="indicator" rv-hide="programIncrement.stats.featureCount">
-          <div class="stats-desc">No features found for this PI</div>
+          <div class="stat-desc">No features found for this PI</div>
+        </div>
+        <div class="indicator pi__days-left" rv-show="programIncrement.daysLeft">
+          <div class="stats">{programIncrement.daysLeft}</div>
+          <div class="stat-desc">Days left</div>
         </div>
       </div>
     </div>
@@ -50,11 +62,11 @@
   (function (window, document, undefined) {
 
     var order = {
-      'DONE': 3,
-      'IN_PROGRESS': 2,
-      'IMPEDED': 1,
-      'WAITING': 0,
-      'BACKLOG': 0
+      'DONE':'DONE',
+      'IN_PROGRESS':'IN_PROGRESS',
+      'IMPEDED':'IMPEDED',
+      'WAITING':'BACKLOG',
+      'BACKLOG':'BACKLOG'
     };
 
     MGComponent({
@@ -63,9 +75,22 @@
       parent: Tile,
 
       processAlerts: function (data) {
+        var totalWorkingDays = data && Utils.getWorkingDays(data.startDate,data.endDate);
+        var remainingWorkingDays = data && Utils.getWorkingDays(new Date(),data.endDate);
+        var timePassed = data && ((totalWorkingDays - remainingWorkingDays) /totalWorkingDays * 100);
+        var diff = data && (data.report.completed - timePassed);
+
         Utils.raiseEvent(this, {
-          status: data ? 'unknown' : 'server-error'
+          status: data ? diff < - 30 || isNaN(diff) ? diff < -50 ?
+            'error' :
+            'warn' :
+            'ok':
+            'server-error'
         });
+
+        if(data) {
+          data.daysLeft = remainingWorkingDays;
+        }
       },
 
       // Fires when an instance of the element is created
@@ -82,6 +107,30 @@
           if (data.startDate){
             model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
           }
+
+          model.items = [];
+          var remain = 100;
+
+
+          for(var i in order) {
+            var width = 100 * data.report.perStatus[i] / data.report.totalEstimate;
+            if(width) {
+              remain -= width;
+              if(!model.items[i]) {
+                model.items.push({
+                  status: i,
+                  width: width
+                });
+              } else {
+                model.items[i].width += width;
+              }
+            }
+          }
+
+          model.items.push({
+            status: 'remain',
+            width: remain
+          });
 
         }
       }

@@ -171,25 +171,3 @@ svg .status-unstable {
 .legend__build-item--branches{
     top: -0.2em;
 }
-
-.status__build {
-    background-color: $dark-grey;
-    border-radius: 50%;
-    display: inline-block;
-    height: 1.1rem;
-    width: 1.1rem;
-    margin: 0 3px 0 0;
-
-    &.status__build-ok{
-        background-color: $green;
-    }
-
-    &.status__build-error{
-        background-color: $red;
-    }
-    &.status__build-warn{
-        background-color: $yellow;
-    }
-
-}
-

@@ -1,0 +1,107 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<template>
+  <style>
+    @import "css/{skin}.css";
+  </style>
+  <div rv-show="notification" class="notifications">
+    <a class="notification__link" rv-href="notification.url" target="_blank">
+      <div class="notifications">
+        <div class="notification__icon" rv-color="notification.color">
+          <i class="fa fa-exclamation" aria-hidden="true"></i>
+        </div>
+        <div class="notifications__content">
+          <div class="notification__type">
+            <span class="notification__title">Dashboard notification
+              <span rv-show="notification.user"> from {notification.user}</span>
+            </span>
+            <span class="date title-desc" rv-show="notification.date">{ notification.date | date updatedDate}</span></div>
+          <div rv-show="notification.description">{ notification.description }</div>
+          <div rv-hidden="notification.description">No dashboard notifications</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</template>
+
+<script>
+  (function (window, document, undefined) {
+
+    var breakTimeout;
+    var breakFavIconTimeout;
+
+    var colorMapping = {
+      'green': '1FB759',
+      'red' : 'FF2B2B',
+      'yellow': 'FDD80D',
+      'blue': '2CE6FB'
+    }
+
+    function notifyFavIcon(color) {
+      var icon = document.querySelector('link[rel*="icon"]');
+      icon.href = 'img/favicon-' + (color || 'grey') + '.png';
+      if(breakFavIconTimeout) {
+        clearTimeout(breakFavIconTimeout);
+      }
+      breakFavIconTimeout = setTimeout(function() {
+        icon.href = 'img/favicon.png';
+        breakFavIconTimeout = undefined;
+      }, 60000);
+    }
+
+    MGComponent({
+      name: 'dashboard-notifications',
+      parent: Tile,
+
+      processAlerts: function (data) {
+        Utils.raiseEvent(this, {
+          status: data ? 'unknown' : 'error'
+        });
+      },
+
+      onCreated: function() {
+        document.addEventListener('DashboardEvent', this.render.bind(this));
+      },
+
+      render: function (data) {
+
+        this.processAlerts(data);
+
+        if (data && data.detail) {
+
+          if(breakTimeout) {
+            clearTimeout(breakTimeout);
+          }
+          breakTimeout = setTimeout(function () {
+            this.getModel().notification = undefined;
+            breakTimeout = undefined;
+          }.bind(this), 600000);
+
+          var color = data.detail.color.toLowerCase();
+
+          this.getModel().notification = data.detail;
+          this.getModel().notification.color = colorMapping[color];
+
+          notifyFavIcon(color);
+        }
+      }
+    });
+
+  })(window, document);
+
+</script>

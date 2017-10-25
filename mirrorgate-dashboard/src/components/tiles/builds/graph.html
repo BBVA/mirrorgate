@@ -117,6 +117,33 @@
       .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) + 20; })
       .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -1; });
 
+    var buildsMap;
+
+    function checkRepoBuildToSendEvent(repoBuild, firstTime){
+
+      if(repoBuild.data &&
+         (repoBuild.data.branch === 'master' || repoBuild.data.branch === 'develop') &&
+          buildsMap[repoBuild.data.buildUrl] !== repoBuild.data.buildStatus) {
+
+        buildsMap[repoBuild.data.buildUrl] = repoBuild.data.buildStatus;
+        var event = new CustomEvent('DashboardEvent', {
+          detail: {
+            description: 'Build Notification: Project [' + repoBuild.data.projectName + '], Branch [' + repoBuild.data.branch + '], Status [' + repoBuild.data.buildStatus + ']',
+            date: new Date() ,
+            url: repoBuild.data.buildUrl,
+            user: repoBuild.data.culprits,
+            color: repoBuild.data.branch === 'master' && repoBuild.data.buildStatus === 'Failure' ? 'red'
+                  : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus === 'Failure' ? 'yellow'
+                  : 'blue'
+          }
+        });
+
+        if(!firstTime) {
+          document.dispatchEvent(event);
+        }
+      }
+    }
+
     MGComponent({
       name: 'builds-tile',
       controllerClass: BuildsController,
@@ -156,13 +183,23 @@
           buildRoot.children.push({});
         }
 
+        var firstTime = true;
+        if(buildsMap) {
+          firstTime = false;
+        } else {
+          buildsMap = {};
+        }
+
         //Chage sizes so that all the repos take the same size
         buildRoot && buildRoot.children.forEach(function (repoBuild) {
           repoBuild.size = 100;
+          checkRepoBuildToSendEvent(repoBuild, firstTime);
           repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
             depth = Math.max(depth, 2);
+            checkRepoBuildToSendEvent(repoBuild, firstTime);
             repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
               depth = Math.max(depth, 3);
+              checkRepoBuildToSendEvent(repoBuild, firstTime);
             });
           });
         });

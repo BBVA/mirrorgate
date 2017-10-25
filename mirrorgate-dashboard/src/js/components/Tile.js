@@ -75,6 +75,7 @@ var Tile = (function() {
       } else {
         this.onInit();
         this.render(this.getConfig());
+        this.setAttribute('enabled', 'true');
       }
     }
   };

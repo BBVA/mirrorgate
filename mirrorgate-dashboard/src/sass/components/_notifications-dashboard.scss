@@ -36,9 +36,14 @@ notifications-tile{
         padding-right: 10px;
     }
 
-    .notification__icon{
+    .notification__icon {
         padding: 0px 10px 5px 20px;
         font-size: 1.3em;
+    }
+
+    .notification__link {
+        color: inherit; /* blue colors for links too */
+        text-decoration: inherit; /* no underline */
     }
 }
 

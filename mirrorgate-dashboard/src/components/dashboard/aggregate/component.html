@@ -26,6 +26,7 @@
 <link rel="import" href="../../tiles/team/simple-sprint.html" >
 <link rel="import" href="../../tiles/programIncrement/simple-pi.html" >
 <link rel="import" href="../../tiles/markets/simple-markets.html" >
+<link rel="import" href="../../tiles/alerts/simple-alerts.html" >
 <link rel="import" href="../../header/header.html" >
 <link rel="import" href="../../shards/header-title.html" >
 <link rel="import" href="../../tiles/user-metrics/component.html" >
@@ -51,24 +52,9 @@
             <!-- placeholder for logos -->
         </tile-container>
         <tile-container enabled="true">
-          <header-title title="Current Sprint" class="header-title simple-tile">
-            <div class="legend">
-              <div class="legend__item">
-                <span class="legend__color legend__color--green"></span>Done
-              </div>
-              <div class="legend__item">
-                <span class="legend__color legend__color--blue"></span>In progress
-              </div>
-              <div class="legend__item">
-                <span class="legend__color legend__color--red"></span>Blocked
-              </div>
-              <div class="legend__item">
-                <span class="legend__color"></span>To Do
-              </div>
-            </div>
-          </header-title>
+          <header-title title="Current Sprint" class="header-title simple-tile"></header-title>
         </tile-container>
-        <tile-container enabled="true" class="small-tile">
+        <tile-container enabled="true">
             <header-title class="header-title simple-tile" title="Current PI Features"></header-title>
         </tile-container>
         <tile-container enabled="true">
@@ -80,25 +66,74 @@
         <tile-container enabled="true" class="mid-tile">
             <header-title class="header-title simple-tile" title="Analytics"></header-title>
         </tile-container>
+        <tile-container enabled="true">
+          <header-title class="header-title simple-tile" title="Alerts"></header-title>
+        </tile-container>
+      </board-row>
+      <board-row class="bottom">
+        <tile-container enabled="true" class="title-tile">
+            <!-- placeholder for logos -->
+        </tile-container>
+        <tile-container enabled="true" class="double-tile">
+          <div class="legend">
+            <div class="legend__item">
+              <span class="legend__color legend__color--green"></span>Done
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--blue"></span>Doing
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--red"></span>Blocked
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--grey"></span>To Do
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--dashed"></span>Remain (80% trust)
+            </div>
+          </div>
+        </tile-container>
+        <tile-container enabled="true">
+        </tile-container>
+        <tile-container enabled="true" class="small-tile">
+        </tile-container>
+        <tile-container enabled="true" class="mid-tile">
+        </tile-container>
+        <tile-container enabled="true">
+          <div class="legend">
+            <div class="legend__item">
+              <span class="legend__color legend__color--green"></span>Ok
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--yellow"></span>Unknown
+            </div>
+            <div class="legend__item">
+              <span class="legend__color legend__color--red"></span>Failed
+            </div>
+          </div>
+        </tile-container>
       </board-row>
       <board-row rv-each-board="boards">
         <tile-container enabled="true" class="title-tile">
           <details-tile class="row--primary row-header" link="true" rv-config="board.detail"></details-tile>
         </tile-container>
         <tile-container enabled="true">
-            <simple-sprint rv-config="board.detail" class="tile component simple-tile"></simple-sprint>
-        </tile-container>
-        <tile-container enabled="true" class="small-tile">
-            <simple-program-increment rv-config="board.detail" class="tile component simple-tile"></simple-program-increment>
+            <simple-sprint rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-sprint>
         </tile-container>
         <tile-container enabled="true">
-            <simple-builds-tile rv-config="board.detail" class="tile component simple-tile"></simple-builds-tile>
+            <simple-program-increment rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-program-increment>
+        </tile-container>
+        <tile-container enabled="true">
+            <simple-builds-tile rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-builds-tile>
         </tile-container>
         <tile-container enabled="true" class="small-tile">
             <simple-markets rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-markets>
         </tile-container>
         <tile-container enabled="true" class="mid-tile">
             <user-metrics-tile rv-config="board.detail" class="tile component simple-tile tile--primary"></user-metrics-tile>
+        </tile-container>
+        <tile-container enabled="true">
+          <simple-alerts rv-config="board.detail" class="tile component simple-tile"></simple-alerts>
         </tile-container>
       </board-row>
     </board-column>
