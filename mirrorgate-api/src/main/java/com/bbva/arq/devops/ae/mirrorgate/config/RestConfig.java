@@ -57,6 +57,7 @@ public class RestConfig {
                         .antMatchers(HttpMethod.OPTIONS,"**").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/**").hasAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString())
                         .antMatchers(HttpMethod.DELETE, "/api/**").hasAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString())
+                        .antMatchers(HttpMethod.POST, "/api/reviews/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
                         .antMatchers(HttpMethod.GET, "/dashboards/**").hasAnyAuthority(SecurityAuthoritiesEnum.REGULAR.toString(), SecurityAuthoritiesEnum.SCREEN.toString())
                         .antMatchers(HttpMethod.GET, "/emitter/**").hasAnyAuthority(SecurityAuthoritiesEnum.REGULAR.toString(), SecurityAuthoritiesEnum.SCREEN.toString())
                         .antMatchers(HttpMethod.POST, "/dashboards/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())

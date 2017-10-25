@@ -43,7 +43,7 @@ public interface ReviewService {
      */
     List<String> save(Iterable<Review> reviews);
 
-    ReviewDTO saveMirrorGateReview(ReviewDTO review);
+    ReviewDTO saveApplicationReview(String appId, Double rating, String comment);
 
     Iterable<Review> getReviewsByObjectId(List<ObjectId> objectIds);
 }
