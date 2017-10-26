@@ -169,6 +169,10 @@ rivets.formatters.duration = function(value) {
   return rt;
 };
 
+rivets.formatters.round = function(value) {
+  return Math.round(value);
+};
+
 rivets.formatters.length = function(value) {
   return value ? (value.length || 0) : 0;
 };

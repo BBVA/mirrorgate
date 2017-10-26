@@ -17,24 +17,6 @@
 .pi{
     align-items: stretch;
 
-    svg text {
-      fill: $headers-color;
-      text-anchor: middle;
-      font-size: 60px;
-    }
-
-    svg text.days-left {
-      fill: $text-color;
-    }
-
-    text.rate-completed {
-      font-size: 200px;
-    }
-
-    text.text-completed {
-      font-size: 63px;
-    }
-
     svg span {
       font-size: 50px;
     }

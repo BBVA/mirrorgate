@@ -49,8 +49,8 @@
         <div class="indicator" rv-hide="programIncrement.stats.featureCount">
           <div class="stat-desc">No features found for this PI</div>
         </div>
-        <div class="indicator pi__days-left" rv-show="programIncrement.daysLeft">
-          <div class="stats">{programIncrement.daysLeft}</div>
+        <div class="indicator pi__days-left" rv-show="daysLeft">
+          <div class="stats">{daysLeft}</div>
           <div class="stat-desc">Days left</div>
         </div>
       </div>
@@ -75,24 +75,9 @@
       parent: Tile,
 
       processAlerts: function (data) {
-        var totalWorkingDays = data && Utils.getWorkingDays(data.startDate,data.endDate);
-        var remainingWorkingDays = data && Utils.getWorkingDays(new Date(),data.endDate);
-        var timePassed = data && ((totalWorkingDays - remainingWorkingDays) /totalWorkingDays * 100);
-
-        //If no more than 10% of time has passed, don't take a decission yet
-        var diff = timePassed > 10 ? (data.report.completed - timePassed) : 0;
-
         Utils.raiseEvent(this, {
-          status: data ? diff < - 20 || isNaN(diff) ? diff < -40 ?
-            'error' :
-            'warn' :
-            'ok':
-            'server-error'
+          status: data ? this.controller.getProgramIncrementStatus(data): 'server-error'
         });
-
-        if(data) {
-          data.daysLeft = remainingWorkingDays;
-        }
       },
 
       // Fires when an instance of the element is created
@@ -105,6 +90,7 @@
           let format = "MMMM Do";
 
           model.programIncrement = data;
+          model.daysLeft = data.getDaysLeft();
 
           if (data.startDate){
             model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);

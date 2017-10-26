@@ -130,6 +130,22 @@ var ProgramIncrementController = (
 
     }
 
+    this.getProgramIncrementStatus = function (programIncrement) {
+      if(!programIncrement) return;
+
+      var totalWorkingDays = Utils.getWorkingDays(programIncrement.startDate,programIncrement.endDate);
+      var remainingWorkingDays = programIncrement.getDaysLeft();
+      var timePassed = (totalWorkingDays - remainingWorkingDays) /totalWorkingDays * 100;
+
+      //If no more than 10% of time has passed, don't take a decission yet
+      var diff = timePassed > 10 ? (programIncrement.report.completed - timePassed) : 0;
+
+      return diff < - 20 || isNaN(diff) ? diff < -40 ?
+          'error' :
+          'warn' :
+          'ok';
+    };
+
     this.observable = observable;
     this.dispose = function() {
       this.observable.reset();

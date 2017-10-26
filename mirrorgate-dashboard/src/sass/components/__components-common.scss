@@ -346,6 +346,43 @@ tile-container.module-data-error {
 }
 
 svg {
+
+  .innerData {
+    text-align: center;
+    span {
+      white-space: nowrap;
+    }
+
+    .rate-completed {
+      font-size: 260px;
+      line-height: 240px;
+
+      span {
+        font-size: 200px;
+      }
+      .note {
+        font-size: 100px;
+        vertical-align: super;
+        margin-left: -30px;
+        line-height: 0;
+      }
+    }
+
+    .text-completed {
+      font-size: 60px;
+      line-height: 55px;
+      span {
+        font-size: 83px;
+        font-weight: 300;
+      }
+    }
+
+    .days-left {
+      font-size: 71px;
+      bottom: 0;
+    }
+  }
+
   path {
     fill: $svg-path-fill;
 

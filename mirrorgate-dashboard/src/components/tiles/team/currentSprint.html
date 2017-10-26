@@ -37,29 +37,42 @@
           <g class="outher"></g>
           <g class="data">
             <g rv-show="selected">
-              <switch>
-                <foreignObject x="-250" y="-250" width="500" height="500">
-                  <div xmlns="http://www.w3.org/1999/xhtml">
-                    <p>
-                      <span class="story-name">{selected.name}</span>
-                      <span class="story-estimate">Estimate</span>
-                      <span class="story-points">{selected.points}</span>
-                      <span class="story-status" rv-pclass-status="selected.status">Status: {selected.status}</span>
-                    </p>
-                  </div>
-                </foreignObject>
-                <text x="20" y="20"></text>
-              </switch>
+              <foreignObject x="-250" y="-250" width="500" height="500">
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <p>
+                    <span class="story-name">{selected.name}</span>
+                    <span class="story-estimate">Estimate</span>
+                    <span class="story-points">{selected.points}</span>
+                    <span class="story-status" rv-pclass-status="selected.status">Status: {selected.status}</span>
+                  </p>
+                </div>
+              </foreignObject>
             </g>
             <g rv-hide="selected">
               <g rv-show="sprint">
-                <text class="rate-completed" y="0" rv-show="sprint.doneRatio">{sprint.doneRatio}%</text>
-                <text class="text-completed" y="100" rv-show="sprint.doneRatio">points completed</text>
-                <text class="stories-completed" y="0" rv-hide="sprint.doneRatio">{sprint.doneStories} of {sprint.totalStories}</text>
-                <text class="text-completed" y="100" rv-hide="sprint.doneRatio">stories completed</text>
-                <text class="days-left" y="300">
-                  {sprint.daysLeft} days left
-                </text>
+                <foreignObject x="-400" y="-200" width="800" height="400">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="innerData">
+                    <div rv-show="sprint.doneRatio">
+                      <div>
+                        <span class="rate-completed">{sprint.doneRatio | round}<span>%</span></span>
+                      </div>
+                      <span class="text-completed"><span>{sprint.doneStories}</span> / {sprint.totalStories} stories</span>
+                    </div>
+                    <div rv-hide="sprint.doneRatio">
+                      <div>
+                        <span class="rate-completed">{sprint.doneStories}<span> / {sprint.totalStories}</span></span>
+                      </div>
+                      <span class="text-completed">stories completed</span>
+                    </div>
+                  </div>
+                </foreignObject>
+                <foreignObject x="-350" y="250" width="700" height="100">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="innerData">
+                    <span class="days-left" rv-show="dateRange">
+                        {sprint.daysLeft} days left
+                      </span>
+                  </div>
+                </foreignObject>
               </g>
             </g>
           </g>

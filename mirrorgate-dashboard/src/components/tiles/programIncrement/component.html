@@ -39,32 +39,45 @@
           <g class="slices"></g>
           <g class="data">
             <g rv-show="selected">
-              <switch>
-                <foreignObject x="-250" y="-250" width="500" height="500">
-                  <div xmlns="http://www.w3.org/1999/xhtml">
-                    <p>
-                      <span class="feature-name">{selected.name}</span>
-                      <span class="feature-status" rv-show="selected.status" rv-pclass-status="selected.status">Status: {selected.status}</span>
-                      <span class="feature-status" rv-show="selected.completed">{selected.completed} of {selected.count} completed</span>
-                    </p>
-                  </div>
-                </foreignObject>
-                <text x="20" y="20"></text>
-              </switch>
+              <foreignObject x="-250" y="-250" width="500" height="500">
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <p>
+                    <span class="feature-name">{selected.name}</span>
+                    <span class="feature-status" rv-show="selected.status" rv-pclass-status="selected.status">Status: {selected.status}</span>
+                    <span class="feature-status" rv-show="selected.completed">{selected.completed} of {selected.count} completed</span>
+                  </p>
+                </div>
+              </foreignObject>
             </g>
             <g rv-hide="selected">
-              <g rv-show="programIncrement.features">
-                <g rv-show="programIncrement.stats.featureCount">
-                  <text class="rate-completed" y="0">{programIncrement.stats.completedFeatureCount} of {programIncrement.stats.featureCount}</text>
-                  <text class="text-completed" y="100">features completed</text>
-                </g>
-                <g rv-hide="programIncrement.stats.featureCount">
-                  <text class="text-completed" y="0">No features found for this PI</text>
-                </g>
-                <text class="days-left" rv-show="dateRange" y="300">
-                  {daysLeft} days left
-                </text>
-              </g>
+              <foreignObject x="-400" y="-200" width="800" height="400" rv-show="programIncrement.features">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="innerData">
+                  <div rv-show="programIncrement.stats.featureCount">
+                    <div rv-show="programIncrement.report.completed">
+                      <div>
+                        <span class="rate-completed">{programIncrement.report.completed | round}<span>%</span><span class="note">*</span></span>
+                      </div>
+                      <span class="text-completed" rv-if="programIncrement.report.completed"><span>{programIncrement.stats.completedFeatureCount}</span> / {programIncrement.stats.featureCount} features</span>
+                    </div>
+                    <div rv-hide="programIncrement.report.completed">
+                      <div>
+                        <span class="rate-completed">{programIncrement.stats.completedFeatureCount}<span> / {programIncrement.stats.featureCount}</span></span>
+                      </div>
+                      <span class="text-completed">features completed</span>
+                    </div>
+                  </div>
+                  <div rv-hide="programIncrement.stats.featureCount">
+                    <span class="text-completed">No features found for this PI</span>
+                  </div>
+                </div>
+              </foreignObject>
+              <foreignObject x="-350" y="250" width="700" height="100" rv-show="programIncrement.features">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="innerData">
+                  <span class="days-left" rv-show="dateRange">
+                      {daysLeft} days left
+                    </span>
+                </div>
+              </foreignObject>
             </g>
           </g>
           <g class="time"></g>
@@ -81,7 +94,10 @@
       <div class="legend__item">
         <span class="legend__build-item  legend__build-item--branches"></span>Story
       </div>
-    </div>
+      <div class="legend__item" rv-show="programIncrement.report.completed">
+          * 80% trust
+        </div>
+      </div>
   </div>
 </template>
 
@@ -134,8 +150,8 @@
         .endAngle(function(d) { return d.x + d.dx  - 3 * Math.PI/4; })
         .padAngle(Math.PI/180)
         .cornerRadius(20)
-        .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) + 20; })
-        .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -1; });
+        .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) - 10; })
+        .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -31; });
 
     function storyClassBuilder(prefix) {
       return function (d) {
@@ -154,7 +170,7 @@
 
       processAlerts: function (data) {
         Utils.raiseEvent(this, {
-          status: data ? 'unknown' : 'server-error'
+          status: data ? this.controller.getProgramIncrementStatus(data): 'server-error'
         });
       },
 
@@ -246,7 +262,7 @@
           var svg = container
             .select("g.main").attr("transform",
             "translate(" + radius + "," + (radius + marginTop) + ") " +
-            "scale(" + (radius / 530) + ")"
+            "scale(" + (radius / 500) + ")"
             ).on('mouseout', function (d) {
               svg.classed('dimmed', false);
               model.selected = undefined;
