@@ -78,10 +78,12 @@
         var totalWorkingDays = data && Utils.getWorkingDays(data.startDate,data.endDate);
         var remainingWorkingDays = data && Utils.getWorkingDays(new Date(),data.endDate);
         var timePassed = data && ((totalWorkingDays - remainingWorkingDays) /totalWorkingDays * 100);
-        var diff = data && (data.report.completed - timePassed);
+
+        //If no more than 10% of time has passed, don't take a decission yet
+        var diff = timePassed > 10 ? (data.report.completed - timePassed) : 0;
 
         Utils.raiseEvent(this, {
-          status: data ? diff < - 30 || isNaN(diff) ? diff < -50 ?
+          status: data ? diff < - 20 || isNaN(diff) ? diff < -40 ?
             'error' :
             'warn' :
             'ok':

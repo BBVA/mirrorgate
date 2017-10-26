@@ -51,29 +51,28 @@ var ProgramIncrementController = (
       };
 
       programIncrement.features.forEach(function (feature) {
-          if(feature.status !== 'BACKLOG') {
-              if(feature.status !== 'DONE') {
-                  let diff = ftEstimation.estimate - feature.children.length;
-                  if(diff > 0) {
-                      report.totalEstimate += diff * spEstimation.estimate;
-                  }
-                  feature.children.forEach(function(story) {
-                      if(story.estimate === 0 && story.status === 'BACKLOG') {
-                          report.totalEstimate += spEstimation.estimate;
-                      }
-                  }, this);
-              }
-              feature.children.forEach(function(story) {
-                  if(story.estimate) {
-                    report.perStatus[story.status] = (report.perStatus[story.status] || 0) + story.estimate;
-                    report.total += story.estimate;
-                    report.totalEstimate += story.estimate;
-                  }
-              }, this);
-
-          } else {
-              report.totalEstimate +=  ftEstimation.estimate * spEstimation.estimate;
-          }
+        if(feature.status !== 'DONE') {
+            let diff = ftEstimation.estimate - feature.children.length;
+            //We assume that the degree of uncertainty is less if the feature is at least ready
+            if(feature.status !== 'BACKLOG' && feature.children.length > 0) {
+              diff = diff / 2;
+            }
+            if(diff > 0) {
+                //report.totalEstimate += diff * spEstimation.estimate;
+            }
+            feature.children.forEach(function(story) {
+                if(story.estimate === 0 && story.status === 'BACKLOG') {
+                    report.totalEstimate += spEstimation.estimate;
+                }
+            }, this);
+        }
+        feature.children.forEach(function(story) {
+            if(story.estimate) {
+              report.perStatus[story.status] = (report.perStatus[story.status] || 0) + story.estimate;
+              report.total += story.estimate;
+              report.totalEstimate += story.estimate;
+            }
+        }, this);
       });
 
       report.completed = (Math.round(report.perStatus.DONE/report.totalEstimate * 10000) / 100);
