@@ -56,7 +56,7 @@ public class HeaderSecurityFilter extends OncePerRequestFilter {
 
         String referer = request.getHeader(REFERER_HEADER);
 
-        if(request.getMethod().equals("POST") && request.getRequestURI().contains("/mirrorgate/api/reviews/")) {
+        if(request.getMethod().equals("POST") && request.getRequestURI().contains("/mirrorgate/reviews/")) {
             LOG.info("Referer header value {}", referer);
         }
 

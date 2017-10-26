@@ -71,7 +71,7 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.save(reviews));
     }
 
-    @RequestMapping(value = "/api/reviews/{appid}", method = POST)
+    @RequestMapping(value = "/reviews/{appid}", method = POST)
     public ResponseEntity<?> createReviewsOfApplication(
         @PathVariable("appid") String appId,
         @RequestParam("rating") Double rating,

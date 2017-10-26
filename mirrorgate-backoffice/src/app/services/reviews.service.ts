@@ -26,7 +26,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ReviewsService {
 
-  private reviewsUrl = '../api/reviews/mirrorgate';
+  private reviewsUrl = '../reviews/mirrorgate';
 
   constructor(private http: Http) { }
 
