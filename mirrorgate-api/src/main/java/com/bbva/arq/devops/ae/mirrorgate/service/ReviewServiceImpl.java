@@ -35,6 +35,8 @@ import org.springframework.stereotype.Service;
 public class ReviewServiceImpl implements ReviewService {
 
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
+    private static final String FB_NAMESPACE = "Mirrorgate/";
+    private static final String FB_HISTORY_SUFFIX = "_history";
 
     private ReviewRepository repository;
     private EventService eventService;
@@ -182,7 +184,7 @@ public class ReviewServiceImpl implements ReviewService {
             toSave.setAuthorName((String) auth.getPrincipal());
         }
 
-        toSave.setAppname(appId);
+        toSave.setAppname(FB_NAMESPACE + appId);
         toSave.setStarrating(rating);
         toSave.setComment(comment);
         toSave.setTimestamp(id);
@@ -207,7 +209,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private synchronized void updateHistoryForApplicationReview(Review toSave) {
-        List<Review> historyList = repository.findAllByCommentIdIn(Arrays.asList("$" + toSave.getAppname() + "_history"));
+        List<Review> historyList = repository.findAllByCommentIdIn(Arrays.asList(toSave.getAppname() + FB_HISTORY_SUFFIX));
 
         Review history;
 
@@ -217,7 +219,7 @@ public class ReviewServiceImpl implements ReviewService {
             history = new Review();
             history.setPlatform(Platform.Unknown);
             history.setAppname(toSave.getAppname());
-            history.setCommentId("$" + toSave.getAppname() + "_history");
+            history.setCommentId(toSave.getAppname() + FB_HISTORY_SUFFIX);
             history.setAmount(0);
         }
 

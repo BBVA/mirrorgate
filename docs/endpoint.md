@@ -4,7 +4,7 @@
 
 The following api endpoint allows users to send feedback via an html form, so that teams can collect it and read it on their dashboard.
 
-http://localhost:8080/mirrorgate/reviews/foobar/{appid}
+http://localhost:8080/mirrorgate/reviews/{appid}
 
 where {appid} corresponds to the name of the application.
 
@@ -28,3 +28,5 @@ An example below of a simple html form (for a hypothetical 'foobar' application)
 </form>
 </html>
 ```
+
+Note: in order to display the feedback in MirrorGate, the "Mirrorgate/" prefix must be included before the application name in the "Application Markets" section of dashboard configuration. Example (for the same 'foobar' application): "Mirrorgate/foobar".
