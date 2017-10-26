@@ -123,17 +123,18 @@
 
       if(repoBuild.data &&
          (repoBuild.data.branch === 'master' || repoBuild.data.branch === 'develop') &&
+          repoBuild.data.buildStatus !== 'InProgress' &&
           buildsMap[repoBuild.data.buildUrl] !== repoBuild.data.buildStatus) {
 
         buildsMap[repoBuild.data.buildUrl] = repoBuild.data.buildStatus;
         var event = new CustomEvent('DashboardEvent', {
           detail: {
-            description: 'Build Notification: Project [' + repoBuild.data.projectName + '], Branch [' + repoBuild.data.branch + '], Status [' + repoBuild.data.buildStatus + ']',
+            description: 'Build Notification: Repository [' + repoBuild.data.repoName + '], Branch [' + repoBuild.data.branch + '], Status [' + repoBuild.data.buildStatus + ']',
             date: new Date() ,
             url: repoBuild.data.buildUrl,
             user: repoBuild.data.culprits,
-            color: repoBuild.data.branch === 'master' && repoBuild.data.buildStatus === 'Failure' ? 'red'
-                  : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus === 'Failure' ? 'yellow'
+            color: repoBuild.data.branch === 'master' && repoBuild.data.buildStatus !== 'Success' ? 'red'
+                  : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus !== 'Success' ? 'yellow'
                   : 'blue'
           }
         });
