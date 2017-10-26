@@ -8,10 +8,10 @@ http://localhost:8080/mirrorgate/reviews/{appid}
 
 where {appid} corresponds to the name of the application.
 
-The html form must send three fields of type "text":
+The html form must send three parameters:
 - rating: contains the application score (must be a number from 1 to 5).
 - comment: contains the user comment about the application.
-- url: contains the url to be redirected after sending feedback.
+- url (optional): contains the url to be redirected after sending feedback.
 
 An example below of a simple html form (for a hypothetical 'foobar' application):
 ```
@@ -23,7 +23,7 @@ An example below of a simple html form (for a hypothetical 'foobar' application)
 <form method="POST" action="http://localhost:8080/mirrorgate/reviews/foobar" id="form" name ="form">
     Rating: <input type="text" id="rating" name="rating" value="" />
     Comment: <input type="text" id="comment" name="comment" value="" />
-    Url: <input type="text" id="url" name="url" value="" />
+    <input type="hidden" id="url" name="url" value="http://localhost:8080/mirrorgate/" />
     <input type="submit" value="Submit"/>
 </form>
 </html>

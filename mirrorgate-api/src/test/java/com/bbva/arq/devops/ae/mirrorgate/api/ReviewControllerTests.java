@@ -43,9 +43,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -176,6 +178,47 @@ public class ReviewControllerTests {
                 .andExpect(status().is(HttpStatus.CONFLICT.value()));
     }
 
+    @Test
+    public void createFeedbackReviewTest() throws Exception {
+        Review review = createFeedbackReview();
+
+        ReviewDTO reviewDTO = new ReviewDTO()
+                    .setAuthor(review.getAuthorName())
+                    .setRate(review.getStarrating())
+                    .setComment(review.getComment());
+
+        when(reviewService.saveApplicationReview(review.getAppname(), review.getStarrating(), review.getComment())).thenReturn(reviewDTO);
+
+        MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
+
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rating", String.valueOf(review.getStarrating()))
+            .param("comment", review.getComment()))
+            .andExpect(status().is(HttpStatus.CREATED.value()));
+    }
+
+    @Test
+    public void createFeedbackReviewRedirectTest() throws Exception {
+        Review review = createFeedbackReview();
+
+        ReviewDTO reviewDTO = new ReviewDTO()
+            .setAuthor(review.getAuthorName())
+            .setRate(review.getStarrating())
+            .setComment(review.getComment());
+
+        when(reviewService.saveApplicationReview(review.getAppname(), review.getStarrating(), review.getComment())).thenReturn(reviewDTO);
+
+        MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
+
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rating", String.valueOf(review.getStarrating()))
+            .param("comment", review.getComment())
+            .param("url", "foobar"))
+            .andExpect(status().is(HttpStatus.FOUND.value()));
+    }
+
     private Review createReview() {
         Review review = new Review();
         review.setId(ObjectId.get());
@@ -184,6 +227,17 @@ public class ReviewControllerTests {
         review.setComment("Good App!");
         review.setPlatform(Platform.Android);
         review.setStarrating(4.0);
+
+        return review;
+    }
+
+    private Review createFeedbackReview() {
+        Review review = new Review();
+        review.setId(ObjectId.get());
+        review.setAppname("Foobar");
+        review.setAuthorName("Author");
+        review.setComment("Good App!");
+        review.setStarrating(5.0);
 
         return review;
     }

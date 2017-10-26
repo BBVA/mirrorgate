@@ -34,7 +34,6 @@ public class HeaderSecurityFilter extends OncePerRequestFilter {
 
     private static final Logger LOG = LoggerFactory.getLogger(HeaderSecurityFilter.class.getName());
     private static final String USER_HEADER = "X-Forwarded-User";
-    private static final String REFERER_HEADER = "Referer";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -53,12 +52,6 @@ public class HeaderSecurityFilter extends OncePerRequestFilter {
         String xForwardedUser = request.getHeader(USER_HEADER);
 
         LOG.info("X-Forwarded-User header value {}", xForwardedUser);
-
-        String referer = request.getHeader(REFERER_HEADER);
-
-        if(request.getMethod().equals("POST")) {
-            LOG.info("Referer header value {}", referer);
-        }
 
         Authentication auth = TokenCreator.createHeaderBasedToken(xForwardedUser);
         SecurityContextHolder.getContext().setAuthentication(auth);

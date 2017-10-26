@@ -28,9 +28,11 @@ import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
 import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,11 +75,15 @@ public class ReviewController {
 
     @RequestMapping(value = "/reviews/{appid}", method = POST)
     public ResponseEntity<?> createReviewsOfApplication(
+        HttpServletRequest request,
         @PathVariable("appid") String appId,
         @RequestParam("rating") Double rating,
         @RequestParam("comment") String comment,
         @RequestParam(name = "url", required = false) String url
     ) throws MirrorGateException {
+        String referer = request.getHeader(HttpHeaders.REFERER);
+        LOG.info("Referer header value " + referer);
+
         ReviewDTO review = reviewService.saveApplicationReview(appId, rating, comment);
 
         if(review == null){
