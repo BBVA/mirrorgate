@@ -51,22 +51,22 @@
         <tile-container enabled="true" class="title-tile">
             <!-- placeholder for logos -->
         </tile-container>
-        <tile-container enabled="true">
+        <tile-container enabled="true" class="for-simple-sprint">
           <header-title title="Current Sprint" class="header-title simple-tile"></header-title>
         </tile-container>
-        <tile-container enabled="true">
+        <tile-container enabled="true" class="for-simple-program-increment">
             <header-title class="header-title simple-tile" title="Current PI Features"></header-title>
         </tile-container>
-        <tile-container enabled="true">
+        <tile-container enabled="true" class="for-simple-builds-tile">
             <header-title class="header-title simple-tile" title="Builds"></header-title>
         </tile-container>
-        <tile-container enabled="true" class="small-tile">
+        <tile-container enabled="true" class="for-simple-markets small-tile">
             <header-title class="header-title simple-tile" title="Feedback"></header-title>
         </tile-container>
-        <tile-container enabled="true" class="mid-tile">
+        <tile-container enabled="true" class="mid-tile for-user-metrics-tile">
             <header-title class="header-title simple-tile" title="Analytics"></header-title>
         </tile-container>
-        <tile-container enabled="true">
+        <tile-container enabled="true" class="for-simple-alerts">
           <header-title class="header-title simple-tile" title="Alerts"></header-title>
         </tile-container>
       </board-row>
@@ -74,7 +74,7 @@
         <tile-container enabled="true" class="title-tile">
             <!-- placeholder for logos -->
         </tile-container>
-        <tile-container enabled="true" class="double-tile">
+        <tile-container enabled="true" class="double-tile for-simple-sprint for-simple-program-increment">
           <div class="legend">
             <div class="legend__item">
               <span class="legend__color legend__color--green"></span>Done
@@ -93,13 +93,13 @@
             </div>
           </div>
         </tile-container>
-        <tile-container enabled="true">
+        <tile-container enabled="true" class="for-simple-builds-tile">
         </tile-container>
-        <tile-container enabled="true" class="small-tile">
+        <tile-container enabled="true" class="small-tile for-simple-markets ">
         </tile-container>
-        <tile-container enabled="true" class="mid-tile">
+        <tile-container enabled="true" class="for-user-metrics-tile mid-tile">
         </tile-container>
-        <tile-container enabled="true">
+        <tile-container enabled="true" class="for-simple-alerts">
           <div class="legend">
             <div class="legend__item">
               <span class="legend__color legend__color--green"></span>Ok
@@ -117,23 +117,23 @@
         <tile-container enabled="true" class="title-tile">
           <details-tile class="row--primary row-header" link="true" rv-config="board.detail"></details-tile>
         </tile-container>
-        <tile-container enabled="true">
-            <simple-sprint rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-sprint>
+        <tile-container enabled="true" class="for-simple-sprint">
+            <simple-sprint rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-sprint>
         </tile-container>
-        <tile-container enabled="true">
-            <simple-program-increment rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-program-increment>
+        <tile-container enabled="true" class="for-simple-program-increment">
+            <simple-program-increment rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-program-increment>
         </tile-container>
-        <tile-container enabled="true">
-            <simple-builds-tile rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-builds-tile>
+        <tile-container enabled="true" class="for-simple-builds-tile">
+            <simple-builds-tile rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-builds-tile>
         </tile-container>
-        <tile-container enabled="true" class="small-tile">
-            <simple-markets rv-config="board.detail" class="tile component simple-tile tile--primary"></simple-markets>
+        <tile-container enabled="true" class="small-tile for-simple-markets">
+            <simple-markets rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-markets>
         </tile-container>
-        <tile-container enabled="true" class="mid-tile">
-            <user-metrics-tile rv-config="board.detail" class="tile component simple-tile tile--primary"></user-metrics-tile>
+        <tile-container enabled="true" class="mid-tile for-user-metrics-tile">
+            <user-metrics-tile rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></user-metrics-tile>
         </tile-container>
-        <tile-container enabled="true">
-          <simple-alerts rv-config="board.detail" class="tile component simple-tile"></simple-alerts>
+        <tile-container enabled="true" class="for-simple-alerts">
+          <simple-alerts rv-config="board.detail" class="tile optional-tile component simple-tile"></simple-alerts>
         </tile-container>
       </board-row>
     </board-column>
@@ -149,6 +149,26 @@
 
     render: function (data) {
       this.getModel().boards = data;
+    },
+
+    onInit: function () {
+      this.addEventListener('dashboard-updated', function () {
+        var names = {};
+        this.querySelectorAll('.optional-tile').forEach(function (e) {
+          names[e.tagName.toLowerCase()] = true;
+        });
+
+        Object.keys(names).forEach(function (name) {
+          $('tile-container.for-' + name,this).removeClass('visible');
+        },this);
+
+        //Separate the loop so that legends can be shared
+        Object.keys(names).forEach(function (name) {
+          if(this.querySelector(name + '[enabled=true]')) {
+            $('tile-container.for-' + name,this).addClass('visible');
+          }
+        },this);
+      });
     }
   });
 </script>
