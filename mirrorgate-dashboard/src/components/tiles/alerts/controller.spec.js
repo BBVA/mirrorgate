@@ -30,11 +30,7 @@ describe('AlertsController', () => {
 
     alert_groups = [];
     for (var i in alertsForTesting.alerts) {
-      alert_groups.push(buildAlerts(alertsForTesting.alerts[i], 6));
-      /* Just show 2 groups of alerts */
-      if(alert_groups.length == 2) {
-        break;
-      }
+      alert_groups.push(buildAlerts(alertsForTesting.alerts[i]));
     }
 
     controller.observable.attach((response) => {
