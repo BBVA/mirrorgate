@@ -117,38 +117,37 @@
       .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) + 20; })
       .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -1; });
 
-    var buildsMap;
-
-    function checkRepoBuildToSendEvent(repoBuild, firstTime){
-
-      if(repoBuild.data &&
-         (repoBuild.data.branch === 'master' || repoBuild.data.branch === 'develop') &&
-          repoBuild.data.buildStatus !== 'InProgress' &&
-          buildsMap[repoBuild.data.buildUrl] !== repoBuild.data.buildStatus) {
-
-        buildsMap[repoBuild.data.buildUrl] = repoBuild.data.buildStatus;
-        var event = new CustomEvent('DashboardEvent', {
-          detail: {
-            description: 'Build Notification: Repository [' + repoBuild.data.repoName + '], Branch [' + repoBuild.data.branch + '], Status [' + repoBuild.data.buildStatus + ']',
-            date: new Date() ,
-            url: repoBuild.data.buildUrl,
-            user: repoBuild.data.culprits,
-            color: repoBuild.data.branch === 'master' && repoBuild.data.buildStatus !== 'Success' ? 'red'
-                  : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus !== 'Success' ? 'yellow'
-                  : 'blue'
-          }
-        });
-
-        if(!firstTime) {
-          document.dispatchEvent(event);
-        }
-      }
-    }
-
     MGComponent({
       name: 'builds-tile',
       controllerClass: BuildsController,
       parent: Tile,
+      buildsMap: {},
+
+      checkRepoBuildToSendEvent: function (repoBuild){
+
+        if(repoBuild.data &&
+            (repoBuild.data.branch === 'master' || repoBuild.data.branch === 'develop') &&
+              repoBuild.data.buildStatus !== 'InProgress' &&
+              this.buildsMap[repoBuild.data.buildUrl] !== repoBuild.data.buildStatus) {
+
+                if(this.buildsMap[repoBuild.data.buildUrl]) {
+                  var color = repoBuild.data.branch === 'master' && repoBuild.data.buildStatus !== 'Success' ? 'red'
+                    : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus !== 'Success' ? 'yellow'
+                    : 'blue';
+                  var event = new CustomEvent('DashboardEvent', {
+                    detail: {
+                      title: (color === 'blue' ? 'Fixed' : 'Broken') + (repoBuild.data.culprits && ' by ' + repoBuild.data.culprits),
+                      description: 'Details: ' + repoBuild.data.repoName + (repoBuild.data.branch && '/' + repoBuild.data.branch),
+                      date: new Date() ,
+                      url: repoBuild.data.buildUrl,
+                      color: color
+                    }
+                  });
+                  document.dispatchEvent(event);
+                }
+                this.buildsMap[repoBuild.data.buildUrl] = repoBuild.data.buildStatus;
+        }
+      },
 
       processAlerts: function (data) {
         var levelEvent = ['unknown', 'ok', 'warn', 'error', 'critical', 'server-error'];
@@ -184,26 +183,19 @@
           buildRoot.children.push({});
         }
 
-        var firstTime = true;
-        if(buildsMap) {
-          firstTime = false;
-        } else {
-          buildsMap = {};
-        }
-
         //Chage sizes so that all the repos take the same size
         buildRoot && buildRoot.children.forEach(function (repoBuild) {
           repoBuild.size = 100;
-          checkRepoBuildToSendEvent(repoBuild, firstTime);
+          this.checkRepoBuildToSendEvent(repoBuild);
           repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
             depth = Math.max(depth, 2);
-            checkRepoBuildToSendEvent(repoBuild, firstTime);
+            this.checkRepoBuildToSendEvent(repoBuild);
             repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
               depth = Math.max(depth, 3);
-              checkRepoBuildToSendEvent(repoBuild, firstTime);
-            });
-          });
-        });
+              this.checkRepoBuildToSendEvent(repoBuild);
+            },this);
+          },this);
+        },this);
 
         partition = partition.size([1, 1 - (0.25 * (3-depth))]);
 

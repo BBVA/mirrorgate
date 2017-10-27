@@ -27,9 +27,7 @@
         </div>
         <div class="notifications__content">
           <div class="notification__type">
-            <span class="notification__title">Dashboard notification
-              <span rv-show="notification.user"> from {notification.user}</span>
-            </span>
+            <span class="notification__title">{notification.title}</span>
             <span class="date title-desc" rv-show="notification.date">{ notification.date | date updatedDate}</span></div>
           <div rv-show="notification.description">{ notification.description }</div>
           <div rv-hidden="notification.description">No dashboard notifications</div>
