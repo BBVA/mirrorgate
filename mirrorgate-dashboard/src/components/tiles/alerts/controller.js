@@ -39,7 +39,7 @@ var AlertsController = (function(dashboardId) {
 
     httpGetAsync(config.urlAlerts, function(data) {
 
-      function buildAlerts(data, limit) {
+      function buildAlerts(data) {
 
         var state;
         if(data.state) {
@@ -53,11 +53,6 @@ var AlertsController = (function(dashboardId) {
         );
 
         for (var j in data.alerts) {
-          /* Just show limited alerts for group */
-          if(limit && j == limit) {
-            break;
-          }
-
           var children = buildAlerts(data.alerts[j]);
           alert.addChild(children);
         }
@@ -81,7 +76,7 @@ var AlertsController = (function(dashboardId) {
         if(data.alerts[0].alerts) { //It is a group
 
           for (var i in data.alerts) {
-            alert_groups.push(buildAlerts(data.alerts[i], 6));
+            alert_groups.push(buildAlerts(data.alerts[i]));
 
             for(var j in data.alerts[i].alerts){
               totalAlertsCount += 1;
@@ -92,14 +87,9 @@ var AlertsController = (function(dashboardId) {
                 unstableAlertsCount += 1;
               }
             }
-
-            /* Just show 2 groups of alerts */
-            if(alert_groups.length == 2) {
-              break;
-            }
           }
         } else {
-          alert_groups.push(buildAlerts(data, 12));
+          alert_groups.push(buildAlerts(data));
         }
       }
 

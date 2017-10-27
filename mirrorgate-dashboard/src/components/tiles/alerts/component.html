@@ -74,7 +74,10 @@
       this.processAlerts(data);
       var model = this.getModel();
       if (data && data.alert_groups) {
-        model.alerts = data.alert_groups;
+        model.alerts = data.alert_groups.slice(0,3);
+        model.alerts.forEach(function(group) {
+          group.children = group.children.slice(0,Math.round(15 / model.alerts.length));
+        }, this);
         model.count = data.alert_groups.length;
       }
     },
