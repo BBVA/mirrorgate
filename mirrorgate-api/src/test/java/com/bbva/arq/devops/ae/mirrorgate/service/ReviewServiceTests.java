@@ -15,8 +15,8 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
@@ -119,36 +119,15 @@ public class ReviewServiceTests {
     public void createFeedbackReviewTest() {
         Review review = createFeedbackReview();
 
-        ReviewDTO savedReview = new ReviewDTO()
-            .setAuthor(review.getAuthorName())
-            .setComment(review.getComment())
-            .setRate(review.getStarrating())
-            .setTimestamp(1L);
+        ReviewDTO savedReview = map(review);
 
         when(reviewRepository.save(any(Review.class))).thenReturn(review);
 
-        ReviewDTO reviewDTO = reviewService.saveApplicationReview(review.getAppname(), review.getStarrating(), review.getComment());
+        ReviewDTO reviewDTO = reviewService.saveApplicationReview(review.getAppname(), savedReview);
 
         assertThat(reviewDTO.getComment()).isEqualTo(savedReview.getComment());
         assertThat(reviewDTO.getRate()).isEqualTo(savedReview.getRate());
         assertThat(reviewDTO.getTimestamp()).isEqualTo(savedReview.getTimestamp());
-    }
-
-    @Test
-    public void createWrongRatingFeedbackReviewTest() {
-        Review review = createFeedbackReview();
-
-        when(reviewRepository.save(any(Review.class))).thenReturn(review);
-
-        ReviewDTO reviewDTO1 = reviewService.saveApplicationReview(review.getAppname(), null, review.getComment());
-        ReviewDTO reviewDTO2 = reviewService.saveApplicationReview(review.getAppname(), 0D, review.getComment());
-        ReviewDTO reviewDTO3 = reviewService.saveApplicationReview(review.getAppname(), 6D, review.getComment());
-        ReviewDTO reviewDTO4 = reviewService.saveApplicationReview(review.getAppname(), review.getStarrating(), "");
-
-        assertNull(reviewDTO1);
-        assertNull(reviewDTO2);
-        assertNull(reviewDTO3);
-        assertNull(reviewDTO4);
     }
 
     private Review createReview() {

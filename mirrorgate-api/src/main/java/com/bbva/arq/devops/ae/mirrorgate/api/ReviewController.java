@@ -35,11 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
@@ -77,23 +73,23 @@ public class ReviewController {
     public ResponseEntity<?> createReviewsOfApplication(
         HttpServletRequest request,
         @PathVariable("appid") String appId,
-        @RequestParam("rating") Double rating,
-        @RequestParam("comment") String comment,
+        @ModelAttribute() @Valid ReviewDTO review,
         @RequestParam(name = "url", required = false) String url
     ) throws MirrorGateException {
         String referer = request.getHeader(HttpHeaders.REFERER);
-        LOG.info("Referer header value " + referer);
+        LOG.info("Review -> Referer header value " + referer);
 
-        ReviewDTO review = reviewService.saveApplicationReview(appId, rating, comment);
+        ReviewDTO savedReview = reviewService.saveApplicationReview(appId, review);
 
-        if(review == null){
-            return ResponseEntity.badRequest().build();
-        }else if(url == null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(review);
+        if(url == null) {
+            if (savedReview == null) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.CREATED).body(savedReview);
+            }
         }else{
             URI uri = UriComponentsBuilder.fromUriString(url).build().toUri();
-            return ResponseEntity.status(HttpStatus.FOUND).location(uri).body(review);
+            return ResponseEntity.status(HttpStatus.FOUND).location(uri).body(savedReview);
         }
     }
-
 }

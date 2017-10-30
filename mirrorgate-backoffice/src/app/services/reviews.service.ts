@@ -35,7 +35,7 @@ export class ReviewsService {
     let options = new RequestOptions({ headers: headers });
 
     let data = new URLSearchParams();
-    data.append('rating', review.rate.toString());
+    data.append('rate', review.rate.toString());
     data.append('comment', review.comment);
 
     return this.http.post(this.reviewsUrl, data, options)

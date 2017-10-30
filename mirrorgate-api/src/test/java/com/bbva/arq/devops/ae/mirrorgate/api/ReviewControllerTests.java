@@ -15,8 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -182,38 +184,57 @@ public class ReviewControllerTests {
     public void createFeedbackReviewTest() throws Exception {
         Review review = createFeedbackReview();
 
-        ReviewDTO reviewDTO = new ReviewDTO()
-                    .setAuthor(review.getAuthorName())
-                    .setRate(review.getStarrating())
-                    .setComment(review.getComment());
-
-        when(reviewService.saveApplicationReview(review.getAppname(), review.getStarrating(), review.getComment())).thenReturn(reviewDTO);
+        when(reviewService.saveApplicationReview(eq(review.getAppname()), any())).thenReturn(map(review));
 
         MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
 
         this.mockMvc.perform(mockHSRB
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .param("rating", String.valueOf(review.getStarrating()))
+            .param("rate", String.valueOf(review.getStarrating()))
             .param("comment", review.getComment()))
             .andExpect(status().is(HttpStatus.CREATED.value()));
+    }
+
+    @Test
+    public void createFeedbackReviewBadRequestTest() throws Exception {
+        Review review = createFeedbackReview();
+
+        when(reviewService.saveApplicationReview(eq(review.getAppname()), any())).thenReturn(map(review));
+
+        MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
+
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", "0")
+            .param("comment", review.getComment()))
+            .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", "10")
+            .param("comment", review.getComment()))
+            .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", "3"))
+            .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", "3")
+            .param("comment", ""))
+            .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
     }
 
     @Test
     public void createFeedbackReviewRedirectTest() throws Exception {
         Review review = createFeedbackReview();
 
-        ReviewDTO reviewDTO = new ReviewDTO()
-            .setAuthor(review.getAuthorName())
-            .setRate(review.getStarrating())
-            .setComment(review.getComment());
-
-        when(reviewService.saveApplicationReview(review.getAppname(), review.getStarrating(), review.getComment())).thenReturn(reviewDTO);
+        when(reviewService.saveApplicationReview(eq(review.getAppname()), any())).thenReturn(map(review));
 
         MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
 
         this.mockMvc.perform(mockHSRB
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .param("rating", String.valueOf(review.getStarrating()))
+            .param("rate", String.valueOf(review.getStarrating()))
             .param("comment", review.getComment())
             .param("url", "foobar"))
             .andExpect(status().is(HttpStatus.FOUND.value()));

@@ -31,6 +31,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
+
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
@@ -169,25 +171,19 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewDTO saveApplicationReview(String appId, Double rating, String comment) {
-        if(rating == null || rating < 1 || rating > 5 || comment.equals("")){
-            return null;
-        }
-
+    public ReviewDTO saveApplicationReview(String appId, ReviewDTO review) {
         Review toSave = new Review();
-        ReviewDTO savedReviewDTO = new ReviewDTO();
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Long id = System.currentTimeMillis();
 
         if(auth != null) {
-            savedReviewDTO.setAuthor((String) auth.getPrincipal());
             toSave.setAuthorName((String) auth.getPrincipal());
         }
 
         toSave.setAppname(FB_NAMESPACE + appId);
-        toSave.setStarrating(rating);
-        toSave.setComment(comment);
+        toSave.setStarrating(review.getRate());
+        toSave.setComment(review.getComment());
         toSave.setTimestamp(id);
         toSave.setCommentId(Long.toString(id));
         toSave.setPlatform(Platform.Unknown);
@@ -195,14 +191,9 @@ public class ReviewServiceImpl implements ReviewService {
         Review savedReview = repository.save(toSave);
         eventService.saveEvent(savedReview, EventType.REVIEW);
 
-        savedReviewDTO
-            .setTimestamp(savedReview.getTimestamp())
-            .setComment(savedReview.getComment())
-            .setRate(savedReview.getStarrating());
-
         updateHistoryForApplicationReview(toSave);
 
-        return savedReviewDTO;
+        return map(savedReview);
     }
 
     public Iterable<Review> getReviewsByObjectId(List<ObjectId> objectIds){
