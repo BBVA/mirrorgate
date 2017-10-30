@@ -39,7 +39,7 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
         }
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        httpResponse.setHeader(HttpHeaders.CACHE_CONTROL, "must-revalidate");
+        httpResponse.setHeader(HttpHeaders.CACHE_CONTROL, "max-age=0, must-revalidate");
 
         String key = httpRequest.getPathTranslated();
         if(cache.containsKey(key)) {
