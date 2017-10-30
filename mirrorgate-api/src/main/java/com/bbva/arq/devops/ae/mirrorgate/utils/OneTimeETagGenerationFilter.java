@@ -33,14 +33,13 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain
-            chain) throws IOException, ServletException {
-        httpResponse.setHeader(HttpHeaders.CACHE_CONTROL, "must-revalidate");
-
+ chain) throws IOException, ServletException {
         if (!(request instanceof HttpServletRequest) || !(response instanceof HttpServletResponse)) {
             throw new ServletException("Just supports HTTP requests");
         }
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+        httpResponse.setHeader(HttpHeaders.CACHE_CONTROL, "must-revalidate");
 
         String key = httpRequest.getPathTranslated();
         if(cache.containsKey(key)) {
