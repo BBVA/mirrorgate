@@ -175,12 +175,13 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         Review toSave = new Review();
-        ReviewDTO review = new ReviewDTO();
+        ReviewDTO savedReviewDTO = new ReviewDTO();
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Long id = System.currentTimeMillis();
 
         if(auth != null) {
-            review.setAuthor((String) auth.getPrincipal());
+            savedReviewDTO.setAuthor((String) auth.getPrincipal());
             toSave.setAuthorName((String) auth.getPrincipal());
         }
 
@@ -191,16 +192,17 @@ public class ReviewServiceImpl implements ReviewService {
         toSave.setCommentId(Long.toString(id));
         toSave.setPlatform(Platform.Unknown);
 
-        review.setRate(rating);
-        review.setComment(comment);
-        review.setTimestamp(id);
-
         Review savedReview = repository.save(toSave);
         eventService.saveEvent(savedReview, EventType.REVIEW);
 
+        savedReviewDTO
+            .setTimestamp(savedReview.getTimestamp())
+            .setComment(savedReview.getComment())
+            .setRate(savedReview.getStarrating());
+
         updateHistoryForApplicationReview(toSave);
 
-        return review;
+        return savedReviewDTO;
     }
 
     public Iterable<Review> getReviewsByObjectId(List<ObjectId> objectIds){

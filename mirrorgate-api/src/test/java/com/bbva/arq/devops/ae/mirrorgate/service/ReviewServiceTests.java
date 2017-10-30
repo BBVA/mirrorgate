@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
@@ -98,7 +99,6 @@ public class ReviewServiceTests {
         assertThat(appsByNames.get(1)).isEqualTo(app2);
     }
 
-
     @Test(expected = ReviewsConflictException.class)
     public void createReviewThrowErrorTest() {
         Review review1 = createReview();
@@ -115,6 +115,42 @@ public class ReviewServiceTests {
         reviewService.save(reviews);
     }
 
+    @Test
+    public void createFeedbackReviewTest() {
+        Review review = createFeedbackReview();
+
+        ReviewDTO savedReview = new ReviewDTO()
+            .setAuthor(review.getAuthorName())
+            .setComment(review.getComment())
+            .setRate(review.getStarrating())
+            .setTimestamp(1L);
+
+        when(reviewRepository.save(any(Review.class))).thenReturn(review);
+
+        ReviewDTO reviewDTO = reviewService.saveApplicationReview(review.getAppname(), review.getStarrating(), review.getComment());
+
+        assertThat(reviewDTO.getComment()).isEqualTo(savedReview.getComment());
+        assertThat(reviewDTO.getRate()).isEqualTo(savedReview.getRate());
+        assertThat(reviewDTO.getTimestamp()).isEqualTo(savedReview.getTimestamp());
+    }
+
+    @Test
+    public void createWrongRatingFeedbackReviewTest() {
+        Review review = createFeedbackReview();
+
+        when(reviewRepository.save(any(Review.class))).thenReturn(review);
+
+        ReviewDTO reviewDTO1 = reviewService.saveApplicationReview(review.getAppname(), null, review.getComment());
+        ReviewDTO reviewDTO2 = reviewService.saveApplicationReview(review.getAppname(), 0D, review.getComment());
+        ReviewDTO reviewDTO3 = reviewService.saveApplicationReview(review.getAppname(), 6D, review.getComment());
+        ReviewDTO reviewDTO4 = reviewService.saveApplicationReview(review.getAppname(), review.getStarrating(), "");
+
+        assertNull(reviewDTO1);
+        assertNull(reviewDTO2);
+        assertNull(reviewDTO3);
+        assertNull(reviewDTO4);
+    }
+
     private Review createReview() {
         Review review = new Review();
         review.setId(ObjectId.get());
@@ -123,6 +159,18 @@ public class ReviewServiceTests {
         review.setComment("Good App!");
         review.setPlatform(Platform.Android);
         review.setStarrating(4);
+
+        return review;
+    }
+
+    private Review createFeedbackReview() {
+        Review review = new Review();
+        review.setId(ObjectId.get());
+        review.setAppname("Foobar");
+        review.setAuthorName("Author");
+        review.setComment("Good App!");
+        review.setStarrating(5.0);
+        review.setTimestamp(1L);
 
         return review;
     }
