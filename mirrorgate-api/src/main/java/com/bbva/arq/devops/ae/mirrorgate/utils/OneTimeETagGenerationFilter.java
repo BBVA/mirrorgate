@@ -34,6 +34,7 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain
             chain) throws IOException, ServletException {
+        httpResponse.setHeader(HttpHeaders.CACHE_CONTROL, "must-revalidate");
 
         if (!(request instanceof HttpServletRequest) || !(response instanceof HttpServletResponse)) {
             throw new ServletException("Just supports HTTP requests");
@@ -53,7 +54,6 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
         filter.doFilter(request, response, chain);
         String etag = httpResponse.getHeader(HttpHeaders.ETAG);
-        httpResponse.setHeader("Cache-Control", "must-revalidate");
         cache.put(key, etag);
     }
 
