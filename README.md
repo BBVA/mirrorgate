@@ -33,6 +33,10 @@ We expect to be adding much more information in the near future so stay tuned.
 
 Additionally, MirrorGate offers a backoffice application where dashboards can be configured.
 
+## Collecting feedback
+
+It also offers an [endpoint](./docs/endpoint.md) that allows teams to collect feedback on their products (via an html form).
+
 ## Spinning up a simple local environment
 
 To execute a simple local environment with Jira and Jenkins capabilities, please check the [mirrorgate-sample-deployment](https://github.com/BBVA/mirrorgate-sample-deployment) project.

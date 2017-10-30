@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -98,7 +99,6 @@ public class ReviewServiceTests {
         assertThat(appsByNames.get(1)).isEqualTo(app2);
     }
 
-
     @Test(expected = ReviewsConflictException.class)
     public void createReviewThrowErrorTest() {
         Review review1 = createReview();
@@ -115,6 +115,21 @@ public class ReviewServiceTests {
         reviewService.save(reviews);
     }
 
+    @Test
+    public void createFeedbackReviewTest() {
+        Review review = createFeedbackReview();
+
+        ReviewDTO savedReview = map(review);
+
+        when(reviewRepository.save(any(Review.class))).thenReturn(review);
+
+        ReviewDTO reviewDTO = reviewService.saveApplicationReview(review.getAppname(), savedReview);
+
+        assertThat(reviewDTO.getComment()).isEqualTo(savedReview.getComment());
+        assertThat(reviewDTO.getRate()).isEqualTo(savedReview.getRate());
+        assertThat(reviewDTO.getTimestamp()).isEqualTo(savedReview.getTimestamp());
+    }
+
     private Review createReview() {
         Review review = new Review();
         review.setId(ObjectId.get());
@@ -123,6 +138,18 @@ public class ReviewServiceTests {
         review.setComment("Good App!");
         review.setPlatform(Platform.Android);
         review.setStarrating(4);
+
+        return review;
+    }
+
+    private Review createFeedbackReview() {
+        Review review = new Review();
+        review.setId(ObjectId.get());
+        review.setAppname("Foobar");
+        review.setAuthorName("Author");
+        review.setComment("Good App!");
+        review.setStarrating(5.0);
+        review.setTimestamp(1L);
 
         return review;
     }

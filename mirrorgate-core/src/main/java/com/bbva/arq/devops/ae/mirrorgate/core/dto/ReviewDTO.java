@@ -16,14 +16,24 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by alfonso on 30/6/17.
  */
 public class ReviewDTO {
 
     private String author;
+
+    @Min(1) @Max(5)
     private double rate;
+
     private long timestamp;
+
+    @NotNull @Size(min=1)
     private String comment;
 
     public String getAuthor() {

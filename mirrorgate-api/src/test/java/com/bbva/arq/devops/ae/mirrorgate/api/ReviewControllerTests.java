@@ -15,8 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -43,9 +45,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -176,6 +180,66 @@ public class ReviewControllerTests {
                 .andExpect(status().is(HttpStatus.CONFLICT.value()));
     }
 
+    @Test
+    public void createFeedbackReviewTest() throws Exception {
+        Review review = createFeedbackReview();
+
+        when(reviewService.saveApplicationReview(eq(review.getAppname()), any())).thenReturn(map(review));
+
+        MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
+
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", String.valueOf(review.getStarrating()))
+            .param("comment", review.getComment()))
+            .andExpect(status().is(HttpStatus.CREATED.value()));
+    }
+
+    @Test
+    public void createFeedbackReviewBadRequestTest() throws Exception {
+        Review review = createFeedbackReview();
+
+        when(reviewService.saveApplicationReview(eq(review.getAppname()), any())).thenReturn(map(review));
+
+        MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
+
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", "0")
+            .param("comment", review.getComment()))
+            .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", "10")
+            .param("comment", review.getComment()))
+            .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", "3"))
+            .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", "3")
+            .param("comment", ""))
+            .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+    }
+
+    @Test
+    public void createFeedbackReviewRedirectTest() throws Exception {
+        Review review = createFeedbackReview();
+
+        when(reviewService.saveApplicationReview(eq(review.getAppname()), any())).thenReturn(map(review));
+
+        MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
+
+        this.mockMvc.perform(mockHSRB
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("rate", String.valueOf(review.getStarrating()))
+            .param("comment", review.getComment())
+            .param("url", "foobar"))
+            .andExpect(status().is(HttpStatus.FOUND.value()));
+    }
+
     private Review createReview() {
         Review review = new Review();
         review.setId(ObjectId.get());
@@ -184,6 +248,17 @@ public class ReviewControllerTests {
         review.setComment("Good App!");
         review.setPlatform(Platform.Android);
         review.setStarrating(4.0);
+
+        return review;
+    }
+
+    private Review createFeedbackReview() {
+        Review review = new Review();
+        review.setId(ObjectId.get());
+        review.setAppname("Foobar");
+        review.setAuthorName("Author");
+        review.setComment("Good App!");
+        review.setStarrating(5.0);
 
         return review;
     }

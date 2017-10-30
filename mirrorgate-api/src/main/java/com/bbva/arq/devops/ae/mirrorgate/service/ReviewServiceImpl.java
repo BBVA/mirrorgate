@@ -31,12 +31,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
+
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
-    private static final String MIRRORGATE = "$mirrorgate";
-    private static final String MIRRORGATE_COMMENT_ID = MIRRORGATE + "_history";
+    private static final String FB_NAMESPACE = "Mirrorgate/";
+    private static final String FB_HISTORY_SUFFIX = "_history";
 
     private ReviewRepository repository;
     private EventService eventService;
@@ -169,19 +171,17 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewDTO saveMirrorGateReview(ReviewDTO review) {
-        Review toSave = new Review();
+    public ReviewDTO saveApplicationReview(String appId, ReviewDTO review) {
+        Review toSave = map(review);
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Long id = System.currentTimeMillis();
 
         if(auth != null) {
-            review.setAuthor((String) auth.getPrincipal());
             toSave.setAuthorName((String) auth.getPrincipal());
         }
 
-        toSave.setAppname(MIRRORGATE);
-        toSave.setStarrating(review.getRate());
-        toSave.setComment(review.getComment());
+        toSave.setAppname(FB_NAMESPACE + appId);
         toSave.setTimestamp(id);
         toSave.setCommentId(Long.toString(id));
         toSave.setPlatform(Platform.Unknown);
@@ -189,9 +189,9 @@ public class ReviewServiceImpl implements ReviewService {
         Review savedReview = repository.save(toSave);
         eventService.saveEvent(savedReview, EventType.REVIEW);
 
-        updateHistoryForMirrorGateReview(toSave);
+        updateHistoryForApplicationReview(toSave);
 
-        return review;
+        return map(savedReview);
     }
 
     public Iterable<Review> getReviewsByObjectId(List<ObjectId> objectIds){
@@ -199,8 +199,8 @@ public class ReviewServiceImpl implements ReviewService {
         return repository.findAll(objectIds);
     }
 
-    private synchronized void updateHistoryForMirrorGateReview(Review toSave) {
-        List<Review> historyList = repository.findAllByCommentIdIn(Arrays.asList(MIRRORGATE_COMMENT_ID));
+    private synchronized void updateHistoryForApplicationReview(Review toSave) {
+        List<Review> historyList = repository.findAllByCommentIdIn(Arrays.asList(toSave.getAppname() + FB_HISTORY_SUFFIX));
 
         Review history;
 
@@ -209,8 +209,8 @@ public class ReviewServiceImpl implements ReviewService {
         } else {
             history = new Review();
             history.setPlatform(Platform.Unknown);
-            history.setAppname(MIRRORGATE);
-            history.setCommentId(MIRRORGATE_COMMENT_ID);
+            history.setAppname(toSave.getAppname());
+            history.setCommentId(toSave.getAppname() + FB_HISTORY_SUFFIX);
             history.setAmount(0);
         }
 

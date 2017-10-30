@@ -53,7 +53,7 @@
     "markets_block": {
       "title": "Application Markets",
       "apps_input": "Applications",
-      "apps_help": "<p>Add a comma separated list with your market applications.</p><p>Please specify them using the following convention</p><ul><li><kbd>Android/[appid]</kbd>: for Android applications</li><li><kbd>IOS/[bundleId]/[country]</kbd>: for iOS applications. Use the two letter code for the country (i.e. <code>ES</code> for Spain, <code>US</code> for United Stated and so on)</li></ul>"
+      "apps_help": "<p>Add a comma separated list with your market applications.</p><p>Please specify them using the following convention</p><ul><li><kbd>Android/[appid]</kbd>: for Android applications</li><li><kbd>IOS/[bundleId]/[country]</kbd>: for iOS applications. Use the two letter code for the country (i.e. <code>ES</code> for Spain, <code>US</code> for United Stated and so on)</li><li><kbd>Mirrorgate/[appid]</kbd>: for comments sent via feedback form</li></ul>"
     },
     "analytics_block": {
       "title": "Analytics",

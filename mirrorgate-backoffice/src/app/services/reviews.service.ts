@@ -19,21 +19,26 @@ import { Injectable } from '@angular/core';
 import { Review } from '../model/review';
 import { Http } from '@angular/http';
 import { Headers, RequestOptions, Response } from '@angular/http';
+import { URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ReviewsService {
 
-  private reviewsUrl = '../reviews';
+  private reviewsUrl = '../reviews/mirrorgate';
 
   constructor(private http: Http) { }
 
   saveReview(review: Review): Promise<Review> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.reviewsUrl, review, options)
+    let data = new URLSearchParams();
+    data.append('rate', review.rate.toString());
+    data.append('comment', review.comment);
+
+    return this.http.post(this.reviewsUrl, data, options)
               .toPromise()
               .then(response => response.json() as Review)
               .catch(this.handleError);
