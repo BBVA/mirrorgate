@@ -172,7 +172,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ReviewDTO saveApplicationReview(String appId, ReviewDTO review) {
-        Review toSave = new Review();
+        Review toSave = map(review);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Long id = System.currentTimeMillis();
@@ -182,8 +182,6 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         toSave.setAppname(FB_NAMESPACE + appId);
-        toSave.setStarrating(review.getRate());
-        toSave.setComment(review.getComment());
         toSave.setTimestamp(id);
         toSave.setCommentId(Long.toString(id));
         toSave.setPlatform(Platform.Unknown);
