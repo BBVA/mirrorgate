@@ -37,7 +37,7 @@ var AlertsController = (function(dashboardId) {
       };
     });
 
-    httpGetAsync(config.urlAlerts, function(data) {
+    httpGetAsync(config.urlAlerts, function(err, data) {
 
       function buildAlerts(data) {
 

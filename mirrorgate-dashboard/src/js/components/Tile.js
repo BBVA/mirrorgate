@@ -15,7 +15,7 @@
  */
 
 var Tile = (function() {
-'use strict';
+  'use strict';
 
   // Creates an object based in the HTML Element prototype
   var TilePrototype = Object.create(DashboardComponent);

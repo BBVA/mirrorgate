@@ -25,12 +25,30 @@ var Service = (function() {
     var event = new Event(this);
     var pending = false;
 
+    var that = this;
+    var attempt = 1;
+    var breakTimeout;
+
     function callHttpService() {
       if (pending) {
         return;
       }
       pending = true;
-      httpGetAsync(url, function(data) {
+      httpGetAsync(url, function(err, data) {
+
+        if(err) {
+          if(breakTimeout) {
+            clearTimeout(breakTimeout);
+          }
+          breakTimeout = setTimeout(function() {
+            attempt++;
+            breakTimeout = undefined;
+            that.request();
+          }, Math.min(32000, Math.pow(2, attempt) * 1000));
+        } else {
+          attempt = 1;
+        }
+
         pending = false;
         event.notify(data);
       });
