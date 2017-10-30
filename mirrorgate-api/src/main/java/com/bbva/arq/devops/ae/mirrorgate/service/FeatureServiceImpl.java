@@ -18,12 +18,11 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
-import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -60,7 +59,7 @@ public class FeatureServiceImpl implements FeatureService{
 
     @Override
     public List<Feature> getProductIncrementFeatures(String name){
-        return repository.findAllBysPiNamesIn(name);
+        return repository.findAllBySTypeNameAndSPiNames("Feature", name);
     }
 
     @Override
