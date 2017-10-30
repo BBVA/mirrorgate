@@ -41,7 +41,7 @@ var SimpleBuildsController = (function(dashboardId) {
         for (var index in response.lastBuilds) {
 
           var build = response.lastBuilds[index];
-          switch (build.branch) {
+          switch (build.branch || 'master') {
             case 'master':
               data.masterBuildsCount++;
               if(build.buildStatus === 'Failure') {
