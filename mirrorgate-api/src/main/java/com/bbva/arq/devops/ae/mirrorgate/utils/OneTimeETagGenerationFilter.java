@@ -16,29 +16,20 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.utils;
 
-import com.bbva.arq.devops.ae.mirrorgate.service.DashboardServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.GenericFilterBean;
-import org.springframework.web.filter.ShallowEtagHeaderFilter;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * Created by alfonso on 18/09/17.
- */
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
-    private Filter filter = new ShallowEtagHeaderFilter();
-    private Map<String,String> cache = new HashMap();
+    private final Filter filter = new ShallowEtagHeaderFilter();
+    private final Map<String, String> cache = new HashMap();
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain
@@ -62,6 +53,7 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
         filter.doFilter(request, response, chain);
         String etag = httpResponse.getHeader(HttpHeaders.ETAG);
+        httpResponse.setHeader("Cache-Control", "must-revalidate");
         cache.put(key, etag);
     }
 
