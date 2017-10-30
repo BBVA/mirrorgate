@@ -115,11 +115,12 @@
             }
           }
 
-          model.items.push({
-            status: 'remain',
-            width: remain
-          });
-
+          if(remain && remain > 0.01) {
+            model.items.push({
+              status: 'remain',
+              width: remain
+            });
+          }
         }
       }
     });
