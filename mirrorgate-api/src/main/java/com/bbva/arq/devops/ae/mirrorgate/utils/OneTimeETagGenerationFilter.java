@@ -32,8 +32,9 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
     private final Map<String, String> cache = new HashMap();
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain
- chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+
         if (!(request instanceof HttpServletRequest) || !(response instanceof HttpServletResponse)) {
             throw new ServletException("Just supports HTTP requests");
         }
