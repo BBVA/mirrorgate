@@ -10,7 +10,7 @@ pushd ../mirrorgate-dashboard
 
 npm install
 $(npm bin)/bower install
-$(npm bin)/gulp build
+$(npm bin)/gulp dist
 
 popd
 

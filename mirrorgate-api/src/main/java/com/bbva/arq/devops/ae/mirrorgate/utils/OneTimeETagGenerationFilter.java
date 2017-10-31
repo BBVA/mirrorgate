@@ -25,11 +25,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
+import java.util.regex.Pattern;
+
+/**
+ * Created by alfonso on 18/09/17.
+ */
 
 public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
     private final Filter filter = new ShallowEtagHeaderFilter();
     private final Map<String, String> cache = new HashMap();
+
+    private static final Map<Pattern, Integer> TIME_FOR_URL = new HashMap(){{
+        put(Pattern.compile(".*-reved-.*"), 31536000);
+        put(Pattern.compile(".*/fonts/.*"), 60 * 60 * 24 * 7);
+    }};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -40,7 +50,17 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
         }
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        httpResponse.setHeader(HttpHeaders.CACHE_CONTROL, "max-age=0, must-revalidate");
+
+        int cacheTime = 0;
+
+        for(Pattern pattern : TIME_FOR_URL.keySet()) {
+            if(pattern.matcher(httpRequest.getRequestURI()).matches()) {
+                cacheTime = TIME_FOR_URL.get(pattern);
+            }
+        }
+        httpResponse.setHeader(HttpHeaders.CACHE_CONTROL, "max-age="+cacheTime+", must-revalidate");
+
+        httpRequest.getRequestURI();
 
         String key = httpRequest.getPathTranslated();
         if(cache.containsKey(key)) {

@@ -30,8 +30,13 @@ const sourcemaps = require('gulp-sourcemaps');
 const useref = require('gulp-useref'), gulpif = require('gulp-if'),
 
       minifyCss = require('gulp-clean-css'), glob = require('glob');
+
+const filter = require('gulp-filter');
 const path = require('path');
 const fs = require('fs');
+const rev = require('gulp-rev');
+const revReplace = require('gulp-rev-replace');
+const revFormat = require('gulp-rev-format');
 
 var uglifyjs = require('uglify-js-harmony');
 var minifier = require('gulp-uglify/minifier');
@@ -57,7 +62,7 @@ const paths = {
   ]
 };
 
-gulp.task('clean', () => gulp.src(paths.dist, {read: false}).pipe(clean()));
+gulp.task('clean', () => gulp.src(paths.dist + "*", {read: false}).pipe(clean()));
 
 gulp.task('lint', function() {
   return gulp.src('./src/**/*.js')
@@ -101,6 +106,11 @@ gulp.task(':build:sass', function() {
 
 /* To be runned against mocks */
 gulp.task('serve', ['build'], () => {
+  browserSync.init({port: 8080, server: {baseDir: ['dist', 'test/mocks']}});
+  gulp.watch(['src/**/*'], [':serve:watch']);
+});
+
+gulp.task('serve:dist', ['dist'], () => {
   browserSync.init({port: 8080, server: {baseDir: ['dist', 'test/mocks']}});
   gulp.watch(['src/**/*'], [':serve:watch']);
 });
@@ -162,22 +172,59 @@ gulp.task(':endSelenium', (done) => {
 
 gulp.task('html', function() {
 
-  var promises = [];
-
-  glob.sync('dist/**/*.html').forEach(function(filePath) {
-    console.log('Processing: ' + filePath);
-    promises.push(new Promise(function(resolve) {
-      var pipeline =
-          gulp.src(filePath)
-              .pipe(useref({base: path.dirname(filePath)}))
-              .pipe(gulpif('*.js', minifier({compress: false}, uglifyjs)))
-              .on('error', function(err) { console.error(err.toString()); })
-              .pipe(gulpif('*.css', minifyCss()))
-              .pipe(gulp.dest(path.dirname(filePath)));
-      pipeline.on('end', resolve);
-    }));
+  //Useref and rev revReplace for js and css
+  return glob.sync('dist/**/*.html').reduce((prev, filePath) =>
+    prev.then(() => new Promise(function(resolve) {
+      const f = filter(['**/*.js','**/*.css'], {restore: true});
+      gulp.src(filePath)
+        .pipe(useref({base: path.dirname(filePath)}))
+        .pipe(gulpif('*.js', minifier({compress: false}, uglifyjs)))
+        .on('error', function(err) { console.error(err.toString()); })
+        .pipe(gulpif('*.css', minifyCss()))
+        .pipe(f)
+        .pipe(rev())
+        .pipe(revFormat({prefix:'-reved-'}))
+        .pipe(f.restore)
+        .pipe(revReplace())
+        .pipe(gulp.dest(path.dirname(filePath)))
+        .on('end', resolve);
+    }))
+  , Promise.resolve()).then(() => {
+    //Rev and RevReplace for html references... they are relative so lots of work to do :-(
+      const f = filter(['dist/components/**/*.html'], {restore: true});
+      return gulp.src('dist/**/*.html')
+        .pipe(f)
+        .pipe(rev())
+        .pipe(revFormat({prefix:'-reved-'}))
+        .pipe(f.restore)
+        .pipe(gulp.dest('dist'))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('dist'))
+        .on('end', () => {
+          return glob.sync('dist/**/*.html').reduce((prev, filePath) => {
+            var manifest = gulp.src("dist/rev-manifest.json");
+            var base = path.resolve(path.dirname(filePath));
+            var relativeToCurrent = (f) => {
+              var value = path.relative(base, path.resolve(path.join('dist', f)));
+              //This is a hack to avoid replacing the own html name globally in the file
+              if(value.indexOf(path.sep) < 0) {
+                value = f;
+              }
+              return value;
+            }
+            return prev.then(() => new Promise(function(resolve) {
+              gulp.src(path.basename(filePath), {cwd:path.dirname(filePath)})
+                .pipe(revReplace({
+                  manifest: manifest,
+                  modifyUnreved: relativeToCurrent,
+                  modifyReved: relativeToCurrent
+                }))
+                .pipe(gulp.dest(path.dirname(filePath)))
+                .on('end', resolve);
+            }));
+          }, Promise.resolve());
+        });
   });
-  return Promise.all(promises);
 });
 
 gulp.task('default', gulpSequence('build', 'test:local'));
