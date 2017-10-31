@@ -44,14 +44,14 @@ public class Config {
         FilterRegistrationBean frb = new FilterRegistrationBean();
         frb.setFilter(new OneTimeETagGenerationFilter());
         frb.addUrlPatterns(
-                "/backoffice",
+                "/backoffice/*",
                 "*.html",
                 "*.js",
                 "*.css",
-                "/fonts",
-                "/bower_components",
-                "/components",
-                "/img"
+                "/fonts/*",
+                "/bower_components/*",
+                "/components/*",
+                "/img/*"
         );
         return frb;
     }

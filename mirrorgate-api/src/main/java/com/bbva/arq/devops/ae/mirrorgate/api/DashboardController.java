@@ -20,7 +20,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 
 import java.io.IOException;
@@ -126,6 +125,7 @@ public class DashboardController {
         if(is == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } else {
+            response.setHeader(HttpHeaders.CACHE_CONTROL, "max-age=0, must-revalidate");
             String expectedEtag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
             if(is.getEtag() != null && is.getEtag().equals(expectedEtag)) {
                 response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
