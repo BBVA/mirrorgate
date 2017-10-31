@@ -25,7 +25,6 @@ var Service = (function() {
     var event = new Event(this);
     var pending = false;
 
-    var that = this;
     var attempt = 1;
     var breakTimeout;
 
@@ -43,7 +42,7 @@ var Service = (function() {
           breakTimeout = setTimeout(function() {
             attempt++;
             breakTimeout = undefined;
-            that.request();
+            callHttpService();
           }, Math.min(32000, Math.pow(2, attempt) * 1000));
         } else {
           attempt = 1;
