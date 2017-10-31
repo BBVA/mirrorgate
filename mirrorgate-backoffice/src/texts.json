@@ -29,6 +29,8 @@
       "admin_list_help": "Add the users that will have permission to modify the dashboard. Names must be that which precede the users' e-mail address domain names (i.e. user@bbva.com) and must be separated by commas.",
       "admin_list_placeholder": "Add administrators",
       "admin_list_secondary_placeholder": "Add a new administrator",
+      "category": "Category",
+      "category_help": "Select a tag to categorize the board.",
       "board_type_text": "Board type",
       "board_type_help": "You can use aggregated dashboards to display in a single view the information of several dashboards.",
       "aggregated_dashboards_text": "Dashboards list",

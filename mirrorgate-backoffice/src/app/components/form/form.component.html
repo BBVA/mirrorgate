@@ -138,6 +138,25 @@
               </div>
           <!-- /Modal -->
 
+          <div class="form-group row" *ngIf="categories">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="category">{{texts.form.general_block.category}}</label>
+                <div class="collapse" id="category-help">
+                  <div class="well" innerHTML="{{texts.form.general_block.category_help}}"></div>
+                </div>
+                <div class="input-group">
+                  <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#category-help" aria-expanded="false" aria-controls="icon-url-help">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                  </a>
+                  <select type="text" class="form-control" id="category" [(ngModel)]="dashboard.category" name="category" required>
+                    <option *ngFor="let category of categories" value="{{category.value}}">{{category.display}}</option>
+                  </select>
+                  </div>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="adminUsers">{{texts.form.general_block.admin_list}}</label>
             <div class="collapse" id="admin-users-help">

@@ -56,6 +56,8 @@ public class DashboardDTO {
 
     private String skin = "classic";
 
+    private String category;
+
     private String author;
     private String urlAlerts;
     private String urlAlertsAuthorization;
@@ -316,6 +318,15 @@ public class DashboardDTO {
 
     public DashboardDTO setType(DashboardType type) {
         this.type = type;
+        return this;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public DashboardDTO setCategory(String category) {
+        this.category = category;
         return this;
     }
 }

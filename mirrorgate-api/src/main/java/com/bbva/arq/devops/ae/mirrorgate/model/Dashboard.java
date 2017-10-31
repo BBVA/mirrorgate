@@ -62,6 +62,7 @@ public class Dashboard extends BaseModel {
     private String urlAlertsAuthorization;
     private String author;
     private String skin = "classic";
+    private String category;
 
     private List<String> aggregatedDashboards;
 
@@ -332,6 +333,14 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setType(String type) {
         this.type = type;
+        return this;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+    public Dashboard setCategory(String category) {
+        this.category = category;
         return this;
     }
 }

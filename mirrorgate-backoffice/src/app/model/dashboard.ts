@@ -19,6 +19,7 @@ export class Dashboard {
   displayName: string;
   logoUrl: string;
   programIncrement: string;
+  category: string;
   applications: string[] = [];
   codeRepos: string[] = [];
   teamMembers: string[] = [];

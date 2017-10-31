@@ -61,6 +61,10 @@ export class FormComponent {
   url: string;
   icon: {error?: string, success?: boolean} = {};
   texts : {loaded?: boolean} = {loaded: false};
+  categories?: {
+    display?: string,
+    value?: string
+  }[];
 
   constructor(
       private dashboardsService: DashboardsService,
@@ -82,6 +86,10 @@ export class FormComponent {
       url = '';
     }
     this.url = url;
+
+    this.configService.getConfig().then((config) => {
+      this.categories = config.categories;
+    });
 
     if (id) {
       this.edit = true;
