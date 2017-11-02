@@ -38,6 +38,9 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
     private static final Map<Pattern, Integer> TIME_FOR_URL = new HashMap(){{
         put(Pattern.compile(".*-reved-.*"), 31536000);
+        put(Pattern.compile(".*\\.css"), 60 * 60 * 24 * 7);
+        put(Pattern.compile(".*\\.png"), 60 * 60 * 24 * 7);
+        put(Pattern.compile(".*/bower_components/.*"), 60 * 60 * 24 * 7);
         put(Pattern.compile(".*/fonts/.*"), 60 * 60 * 24 * 7);
     }};
 
