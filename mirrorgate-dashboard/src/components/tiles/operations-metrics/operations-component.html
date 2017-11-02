@@ -93,10 +93,6 @@
         var model = this.getModel();
         model.metrics = data.metrics;
         this.setAttribute('enabled', model.metrics !== undefined);
-
-        if(model.metrics) {
-          this.setAttribute('enabled', model.metrics.errorsRate !== undefined);
-        }
       }
 
       this.processAlerts(data);
