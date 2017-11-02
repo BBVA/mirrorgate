@@ -135,7 +135,8 @@
       this.getModel().layout = {};
     },
     render: function (config) {
-      this.getModel().layout.withFooter = config.slackTeam ? true: false;
+      this.getModel().layout.withFooter =
+          config.slackTeam || (config.codeRepos && config.codeRepos.length) ? true: false;
       this.getModel().layout.ready = true;
     }
   });

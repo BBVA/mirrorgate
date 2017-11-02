@@ -1,4 +1,4 @@
 {
-    "name":"Feedback",
-    "applications":["feedback"]
+    "name":"feedback",
+    "applications":["moods"]
 }
