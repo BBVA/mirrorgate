@@ -49,7 +49,7 @@ describe('Service', function() {
         _instances: {},
         timer: Timer.never,
         serverEventType: 'fakeType',
-        getUrl: function () { return 'fakeURl'}
+        getUrl: function () { return 'fakeURl';}
       }, dashboardForTesting);
 
       service.addListener(function (response) {
