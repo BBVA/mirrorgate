@@ -52,7 +52,6 @@ var Tile = (function() {
         this.controller = new CtrlClass(this.getDashboardId());
 
         if(this.controller.observable) {
-          this._inited = true;
           this.controller.observable.attach(function (data) {
             if(data) {
               this.getModel().updatedDate = Date.now();
@@ -64,6 +63,7 @@ var Tile = (function() {
         var promise = this.controller.init(config) || Promise.resolve();
         promise.then(function () {
           this.onInit();
+          this._inited = true;
           this.setAttribute('enabled', 'true');
         }.bind(this)).catch(function (err) {
           if(err) {
