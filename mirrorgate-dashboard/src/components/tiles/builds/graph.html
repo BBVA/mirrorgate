@@ -124,28 +124,30 @@
       buildsMap: {},
 
       checkRepoBuildToSendEvent: function (repoBuild){
+        if(repoBuild.data) {
+          var jobId = [repoBuild.data.branch, repoBuild.data.repoName, repoBuild.data.projectName].join('-');
 
-        if(repoBuild.data &&
-            (repoBuild.data.branch === 'master' || repoBuild.data.branch === 'develop') &&
-              repoBuild.data.buildStatus !== 'InProgress' &&
-              this.buildsMap[repoBuild.data.buildUrl] !== repoBuild.data.buildStatus) {
+          if((repoBuild.data.branch === 'master' || repoBuild.data.branch === 'develop') &&
+                repoBuild.data.buildStatus !== 'InProgress' &&
+                this.buildsMap[jobId] !== repoBuild.data.buildStatus) {
 
-                if(this.buildsMap[repoBuild.data.buildUrl]) {
-                  var color = repoBuild.data.branch === 'master' && repoBuild.data.buildStatus !== 'Success' ? 'red'
-                    : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus !== 'Success' ? 'yellow'
-                    : 'blue';
-                  var event = new CustomEvent('DashboardEvent', {
-                    detail: {
-                      title: (color === 'blue' ? 'Fixed' : 'Broken') + (repoBuild.data.culprits && ' by ' + repoBuild.data.culprits),
-                      description: 'Details: ' + repoBuild.data.repoName + (repoBuild.data.branch && '/' + repoBuild.data.branch),
-                      date: new Date() ,
-                      url: repoBuild.data.buildUrl,
-                      color: color
-                    }
-                  });
-                  document.dispatchEvent(event);
-                }
-                this.buildsMap[repoBuild.data.buildUrl] = repoBuild.data.buildStatus;
+                  if(this.buildsMap[jobId]) {
+                    var color = repoBuild.data.branch === 'master' && repoBuild.data.buildStatus !== 'Success' ? 'red'
+                      : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus !== 'Success' ? 'yellow'
+                      : 'blue';
+                    var event = new CustomEvent('DashboardEvent', {
+                      detail: {
+                        title: (color === 'blue' ? 'Fixed' : 'Broken') + (repoBuild.data.culprits ? ' by ' + repoBuild.data.culprits : ''),
+                        description: 'Details: ' + repoBuild.data.repoName + (repoBuild.data.branch ? '/' + repoBuild.data.branch : ''),
+                        date: new Date() ,
+                        url: repoBuild.data.buildUrl,
+                        color: color
+                      }
+                    });
+                    document.dispatchEvent(event);
+                  }
+                  this.buildsMap[jobId] = repoBuild.data.buildStatus;
+          }
         }
       },
 
