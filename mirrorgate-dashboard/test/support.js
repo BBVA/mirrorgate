@@ -85,7 +85,7 @@ function genericTileComponentTest(type, contentProveSelector, focus) {
       it('should raise an event when servers fail', (done) => {
         server.restore();
         server = sinon.fakeServer.create();
-        server.autoRespond = false;
+        server.autoRespond = true;
 
         createTestComponent(type).then(function () {
           server.lastRequest.respond(404, {});

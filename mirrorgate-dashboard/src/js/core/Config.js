@@ -22,7 +22,11 @@
 
     return config ? Promise.resolve(config) : new Promise(function (resolve) {
 
-      httpGetAsync('config.json', function (data) {
+      httpGetAsync('config.json', function (err, data) {
+
+        if(err) {
+          reject(err);
+        }
 
         config = JSON.parse(data);
 

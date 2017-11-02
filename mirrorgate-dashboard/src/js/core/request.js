@@ -19,13 +19,16 @@ function httpGetAsync(url, callback, options) {
   xmlHttp.onreadystatechange = function() {
     if (xmlHttp.readyState === 4) {
       if (xmlHttp.status === 200) {
-        callback(xmlHttp.responseText);
+        callback(null, xmlHttp.responseText);
       } else if (xmlHttp.status >= 400) {
-        callback();
+        callback({
+          status: xmlHttp.status,
+          message: 'Server error'
+        });
       }
     }
   };
-  xmlHttp.onerror = function() { callback(); };
+  xmlHttp.onerror = function(err) { callback(err); };
 
   xmlHttp.open('GET', url, true);  // true for asynchronous
 

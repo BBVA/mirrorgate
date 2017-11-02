@@ -15,7 +15,7 @@
  */
 
 var Tile = (function() {
-'use strict';
+  'use strict';
 
   // Creates an object based in the HTML Element prototype
   var TilePrototype = Object.create(DashboardComponent);
@@ -52,7 +52,6 @@ var Tile = (function() {
         this.controller = new CtrlClass(this.getDashboardId());
 
         if(this.controller.observable) {
-          this._inited = true;
           this.controller.observable.attach(function (data) {
             if(data) {
               this.getModel().updatedDate = Date.now();
@@ -64,6 +63,7 @@ var Tile = (function() {
         var promise = this.controller.init(config) || Promise.resolve();
         promise.then(function () {
           this.onInit();
+          this._inited = true;
           this.setAttribute('enabled', 'true');
         }.bind(this)).catch(function (err) {
           if(err) {
