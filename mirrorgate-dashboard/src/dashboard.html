@@ -59,8 +59,21 @@
 
 </head>
 <body>
-  <div class="main-content">
+  <div class="main-content" id="main-content">
     <dashboard-component simple="true" class="page-component"></dashboard-component>
   </div>
+  <div id="unsupported-msg">
+      <h2>Only Chrome or Firefox are supported in MirrorGate. Please use one of those browsers to access.</h2>
+      <h3>Thanks and sorry for the inconvenience.</h3>
+  </div>
+  <script>
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    if(isFirefox || isChrome) {
+      document.getElementById('unsupported-msg').remove();
+    } else {
+      document.getElementById('main-content').remove();
+    }
+  </script>
 </body>
 </html>
