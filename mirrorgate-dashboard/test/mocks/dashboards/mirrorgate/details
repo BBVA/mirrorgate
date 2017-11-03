@@ -12,5 +12,6 @@
   "programIncrement": "MG02",
   "urlAlerts": "dashboards/mirrorgate/alerts",
   "analyticViews": ["123412"],
-  "skin": "classic"
+  "skin": "classic",
+  "lastVersion": "^(\\d*)"
 }

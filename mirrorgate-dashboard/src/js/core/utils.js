@@ -66,7 +66,7 @@ var Utils = {
         new CustomEvent('dashboard-updated', {bubbles: true, detail: detail}));
   },
 
-  toClassName: function(s) { return s && s.toLowerCase().replace(' ', '-').replace('_','-'); },
+  toClassName: function(s) { return (s || s === 0) && ('' + s).toLowerCase().replace(' ', '-').replace('_','-'); },
 
   openDashboard : function(type, boardId) {
     document.location.href = type + '.html?board=' + encodeURIComponent( boardId || Utils.getDashboardId());
@@ -108,6 +108,11 @@ var Utils = {
     }
 
     return v1parts.length - v2parts.length;
+  },
+
+  rephraseVersion: function (version, regExp) {
+    var parts = regExp.exec(version);
+    return parts && (parts.length > 1) ? 'v' + parts.slice(1).join('.') : version;
   },
 
   normalEstimation: function (serie, confidence) {
@@ -194,7 +199,7 @@ rivets.binders['pclass-*'] = function(el, value) {
       $el.removeClass(name);
     }
   });
-  if (value) {
+  if (value !== null && value !== undefined) {
     $(el).addClass(prefix + Utils.toClassName(value));
   }
 };

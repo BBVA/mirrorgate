@@ -19,10 +19,12 @@
  *
  */
 var UserMetricsController = (function(dashboardId) {
+  'user strict';
 
   var observable = new Event('UserMetricsController');
   var service = Service.get(Service.types.userMetrics, dashboardId);
   var _config;
+  var _lastVersion;
 
   function getUserMetrics(response) {
     var model;
@@ -36,29 +38,40 @@ var UserMetricsController = (function(dashboardId) {
           sevenDayUsers: 0
         };
 
-        var last_versions = {};
-        var lastVersionActiveUsers;
+        var versions = [];
+        var versionsMap = {};
 
         response.forEach(function(metric) {
           if(metric.name === 'activeUsers') {
             model.metrics.rtActiveUsers += parseInt(metric.value);
-            if(!metric.appVersion || !metric.appVersion.match(_lastVersion)) {
-              return;
-            } else if (metric.appVersion === last_versions[metric.viewId + (metric.platform || '')]) {
-              lastVersionActiveUsers += parseInt(metric.value);
-            } else {
-              if(!last_versions[metric.viewId + (metric.platform || '')] || Utils.compareVersions(metric.appVersion, last_versions[metric.viewId + (metric.platform || '')], _lastVersion) > 0) {
-                last_versions[metric.viewId + (metric.platform || '')] = metric.appVersion;
-                lastVersionActiveUsers = lastVersionActiveUsers || 0 + parseInt(metric.value);
+            if(metric.appVersion && metric.appVersion.match(_lastVersion)) {
+              var value = parseInt(metric.value);
+              var name = Utils.rephraseVersion(metric.appVersion, _lastVersion);
+              var versionData = versionsMap[name];
+
+              if(!versionData) {
+                versionData = versionsMap[name] = {
+                  value: 0,
+                  versions: {},
+                  cannonical: metric.appVersion,
+                  name: name
+                };
+                versions.push(versionData);
               }
+              versionData.versions[metric.appVersion] = metric.appVersion;
+              versionData.value += value;
             }
-          }
-          if(metric.name === '7dayUsers') {
+          } else if(metric.name === '7dayUsers') {
             model.metrics.sevenDayUsers += parseInt(metric.value);
           }
         }, this);
 
-        model.metrics.lastVersionActiveUsersRate = lastVersionActiveUsers !== undefined  ? parseFloat((100 * lastVersionActiveUsers / model.metrics.rtActiveUsers).toFixed(2)) : undefined;
+        versions = versions.sort(function(a,b) {
+          return - Utils.compareVersions(a.cannonical, b.cannonical, _lastVersion);
+        });
+
+        model.metrics.lastVersionActiveUsersRate = versions.length > 0 ? parseFloat((100 * versions[0].value / model.metrics.rtActiveUsers).toFixed(2)) : undefined;
+        model.metrics.versions = versions.length && versions;
       }
     }
 

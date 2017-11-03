@@ -80,6 +80,23 @@ describe('Utils',  function() {
     });
   });
 
+  describe('rephraseVersions', function () {
+    it('should rephrase versions according to regexp', function() {
+      var regExp = new RegExp('^(\\d{1,2})\\.(\\d+).*$');
+
+      expect(Utils.rephraseVersion('1.2.3', regExp)).toBe('v1.2');
+      expect(Utils.rephraseVersion('1.2', regExp)).toBe('v1.2');
+      expect(Utils.rephraseVersion('1.3.5', regExp)).toBe('v1.3');
+    });
+
+    it('should rephrase versions falling back to version parameter', function() {
+      var regExp = new RegExp('^(\\d{1,2})\\.(\\d+).*$');
+
+      expect(Utils.rephraseVersion('1', regExp)).toBe('1');
+      expect(Utils.rephraseVersion('pepe', regExp)).toBe('pepe');
+    });
+  });
+
   describe('compareVersions', function() {
 
     it('should compare application version properly', function() {
