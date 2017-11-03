@@ -78,34 +78,36 @@
       this.processAlerts(data);
       if (data) {
         var total = 0;
-        var max = data.metrics.versions.reduce(function (accum, version) {
-          total += version.value;
-          return Math.max(accum, version.value);
-        }, 0);
+        if(data.metrics.versions) {
+          var max = data.metrics.versions.reduce(function (accum, version) {
+            total += version.value;
+            return Math.max(accum, version.value);
+          }, 0);
 
-        var other = {
-          name: 'Other',
-          percent: 0,
-          width: 0
-        };
+          var other = {
+            name: 'Other',
+            percent: 0,
+            width: 0
+          };
 
-        data.metrics.versions.concat().sort(function (a, b) {
-          return b.value - a.value;
-        }).forEach(function(version, index) {
-          var width = version.value / max * 80;
-          var percent = version.value / total * 100;
+          data.metrics.versions.concat().sort(function (a, b) {
+            return b.value - a.value;
+          }).forEach(function(version, index) {
+            var width = version.value / max * 80;
+            var percent = version.value / total * 100;
 
-          //We cut the list at 5% keeping atleast 3 items and max 5 items.
-          if((index > 2 && percent < 5) || index > 5) {
-            other.width += width;
-            other.percent += percent;
-          } else {
-            version.width = width;
-            version.percent = percent;
-          }
-        }, this);
-        data.metrics.versions.push(other);
-        data.metrics.versions = data.metrics.versions.filter(function (v) {return v.percent;});
+            //We cut the list at 5% keeping atleast 3 items and max 5 items.
+            if((index > 2 && percent < 5) || index > 5) {
+              other.width += width;
+              other.percent += percent;
+            } else {
+              version.width = width;
+              version.percent = percent;
+            }
+          }, this);
+          data.metrics.versions.push(other);
+          data.metrics.versions = data.metrics.versions.filter(function (v) {return v.percent;});
+        }
         this.getModel().metrics = data.metrics;
       }
     }
