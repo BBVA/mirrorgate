@@ -68,7 +68,9 @@
   </div>
   <script>
     var isFirefox = typeof InstallTrigger !== 'undefined';
-    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    var isChrome =
+        /Chrome/i.test(navigator.userAgent) ||
+        /CriOS/i.test(navigator.userAgent);
     if(isFirefox || isChrome) {
       document.getElementById('unsupported-msg').remove();
     } else {
