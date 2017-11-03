@@ -15,3 +15,43 @@
  */
 
 // USER-METRICS
+
+.users {
+
+  .versions {
+    padding-top: 10px;
+
+    ol {
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+
+      .version-usage {
+        flex: 1 1 90%;
+
+        .progress-bar {
+          float: left;
+        }
+
+        .version-legend {
+          padding-left: 10px;
+        }
+
+        .progress__bar {
+          margin-top: 0.2em;
+          width: 100%;
+        }
+      }
+
+      .version-name {
+        text-align: right;
+        padding-right: 10px;
+        flex: 1 1 10%;
+      }
+    }
+
+
+  }
+}

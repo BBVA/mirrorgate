@@ -162,11 +162,13 @@
   height: 2.5rem;
   box-shadow: none;
   padding-right: 5px;
+  display: block;
 
   .progress__bar {
     height: 1.3rem;
     box-sizing: border-box;
     float: left;
+    display: block;
 
 
     &:nth-last-child(n+2) ~ .progress__bar {
@@ -486,6 +488,37 @@ svg {
 
 .fill-remain {
   border: 1px dashed $darker-grey;
+}
+
+.fill-generic-0 {
+  background-color: #2DCCCD;
+}
+.fill-generic-1 {
+  background-color: #8F7AE5;
+}
+.fill-generic-2 {
+  background-color: #D8BE75;
+}
+.fill-generic-3 {
+  background-color: #0073D0;
+}
+.fill-generic-4 {
+  background-color: #F78BE8;
+}
+.fill-generic-5 {
+  background-color: #F35E61;
+}
+.fill-generic-6 {
+  background-color: #277A3E;
+}
+.fill-generic-7 {
+  background-color: #8E7022;
+}
+.fill-generic-8 {
+  background-color: #AD53A1;
+}
+.fill-generic-9 {
+  background-color: #6754B8;
 }
 
 .tendency {
