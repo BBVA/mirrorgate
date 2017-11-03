@@ -64,10 +64,6 @@
     parent: DashboardComponent,
     lightDOM: true,
     onCreated: function () {
-      this.addEventListener('component-ready', function () {
-        this.getRootElement().querySelector('#main-container').style.display='block';
-      }.bind(this));
-
       var dId = Utils.getDashboardId();
       var model = this.getModel();
       if(dId) {
@@ -106,9 +102,16 @@
             }).then(function () {
               return config;
             })
-        });
+        }).then(function () {
+          this.addEventListener('component-ready', function () {
+            this.getRootElement().querySelector('#main-container').style.display='block';
+          }.bind(this));
+        }.bind(this));
       } else {
         model.noDashboard = true;
+        this.addEventListener('component-ready', function () {
+          this.getRootElement().querySelector('#main-container').style.display='block';
+        }.bind(this));
       }
     }
   });
