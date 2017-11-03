@@ -42,7 +42,7 @@
           <div class="stat-desc">weekly users</div>
         </div>
       </div>
-      <div class="versions">
+      <div class="versions" rv-if="metrics.versions">
         <ol>
           <li rv-each-version="metrics.versions" rv-show="version.width" >
             <span class="version-name">{version.name}</span>
