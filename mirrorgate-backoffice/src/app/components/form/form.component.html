@@ -31,61 +31,29 @@
         </div>
         <div class="panel-body">
           <div class="form-group row">
-            <div class="col-sm-6">
-              <label for="name">{{texts.form.general_block.name_input}}</label>
-              <input type="text" class="form-control" id="name" required [(ngModel)]="dashboard.name" name="name"
-              readonly="true" #name="ngModel">
-              <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                {{texts.form.general_block.name_required_text}}
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <label for="skin">{{texts.form.general_block.skin_list}}</label>
-              <select type="text" class="form-control" id="skin" [(ngModel)]="dashboard.skin" name="skin">
-                <option value="classic">Dark</option>
-                <option value="light">Light</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <div class="col-sm-6" *ngIf="!edit">
-              <label for="type">{{texts.form.general_block.board_type_text}}</label>
-              <div class="collapse" id="board-type-help">
-                <div class="well" innerHTML="{{texts.form.general_block.board_type_help}}"></div>
-              </div>
-              <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#board-type-help" aria-expanded="false" aria-controls="icon-url-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
-                <select type="text" class="form-control" id="type" [(ngModel)]="dashboard.type" name="type">
-                  <option value="Detail">Detail</option>
-                  <option value="Aggregate">Aggregate</option>
-                </select>
-              </div>
-            </div>
-            <div *ngIf="dashboard.type=='Aggregate'" class="col-sm-6">
-              <label for="aggregatedDashboards">{{texts.form.general_block.aggregated_dashboards_text}}</label>
-              <div class="collapse" id="dashboard-ids-help">
-                <div class="well" innerHTML="{{texts.form.general_block.aggregated_dashboards_help}}"></div>
-              </div>
-              <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#dashboard-ids-help" aria-expanded="false" aria-controls="dashboard-ids-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
-                <tag-input class="form-control" id="aggregatedDashboards" name="aggregatedDashboards" [(ngModel)]="temp.aggregatedDashboards" (ngModelChange)="mirrorTempValues()" placeholder="Add a new dashboard" secondaryPlaceholder="Add a new dashboard"></tag-input>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="form-group row">
-            <div class="col-sm-6">
-              <label for="displayName">{{texts.form.general_block.display_name_input}}</label>
+            <div [ngClass]="{'col-sm-6':categories, 'col-sm-12':!categories}">
+              <label for="displayName">{{texts.form.general_block.display_name_input}} (*)</label>
               <input type="text" class="form-control" id="displayName" [(ngModel)]="dashboard.displayName" (ngModelChange)="mirrorTempValues()" name="displayName" #name="ngModel">
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6" *ngIf="categories">
+              <div class="form-group">
+                <label for="category">{{texts.form.general_block.category}} (*)</label>
+                <div class="collapse" id="category-help">
+                  <div class="well" innerHTML="{{texts.form.general_block.category_help}}"></div>
+                </div>
+                <div class="input-group">
+                  <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#category-help" aria-expanded="false" aria-controls="icon-url-help">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                  </a>
+                  <select type="text" class="form-control" id="category" [(ngModel)]="dashboard.category" name="category" required>
+                    <option *ngFor="let category of categories" value="{{category.value}}">{{category.display}}</option>
+                  </select>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+              <div class="col-sm-6">
               <label for="logoURL">{{texts.form.general_block.logo_url_input}}</label>
               <div class="collapse" id="icon-url-help">
                 <div class="well" innerHTML="{{texts.form.general_block.logo_url_help}}"></div>
@@ -104,6 +72,21 @@
                 </a>
               </div>
             </div>
+            <!--<div class="col-sm-6">
+              <label for="name">{{texts.form.general_block.name_input}}</label>
+              <input type="text" class="form-control" id="name" required [(ngModel)]="dashboard.name" name="name"
+              readonly="true" #name="ngModel">
+              <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                {{texts.form.general_block.name_required_text}}
+              </div>
+            </div>-->
+            <div class="col-sm-6">
+                <label for="skin">{{texts.form.general_block.skin_list}}</label>
+                <select type="text" class="form-control" id="skin" [(ngModel)]="dashboard.skin" name="skin">
+                  <option value="classic">Dark</option>
+                  <option value="light">Light</option>
+                </select>
+              </div>
           </div>
 
           <!-- Icon upload Modal -->
@@ -138,24 +121,6 @@
               </div>
           <!-- /Modal -->
 
-          <div class="form-group row" *ngIf="categories">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="category">{{texts.form.general_block.category}}</label>
-                <div class="collapse" id="category-help">
-                  <div class="well" innerHTML="{{texts.form.general_block.category_help}}"></div>
-                </div>
-                <div class="input-group">
-                  <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#category-help" aria-expanded="false" aria-controls="icon-url-help">
-                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                  </a>
-                  <select type="text" class="form-control" id="category" [(ngModel)]="dashboard.category" name="category" required>
-                    <option *ngFor="let category of categories" value="{{category.value}}">{{category.display}}</option>
-                  </select>
-                  </div>
-              </div>
-            </div>
-          </div>
 
           <div class="form-group">
             <label for="adminUsers">{{texts.form.general_block.admin_list}}</label>
@@ -168,6 +133,38 @@
               </a>
               <tag-input class="form-control" id="adminUsers" name="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()" placeholder="{{texts.form.general_block.admin_list_placeholder}}" secondaryPlaceholder="{{texts.form.general_block.admin_list_secondary_placeholder}}"></tag-input>
             </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-6" *ngIf="!edit">
+              <label for="type">{{texts.form.general_block.board_type_text}}</label>
+              <div class="collapse" id="board-type-help">
+                <div class="well" innerHTML="{{texts.form.general_block.board_type_help}}"></div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#board-type-help" aria-expanded="false" aria-controls="icon-url-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <select type="text" class="form-control" id="type" [(ngModel)]="dashboard.type" name="type">
+                  <option value="Detail">Detail</option>
+                  <option value="Aggregate">Aggregate</option>
+                </select>
+              </div>
+            </div>
+            <div *ngIf="dashboard.type=='Aggregate'" class="col-sm-6">
+              <label for="aggregatedDashboards">{{texts.form.general_block.aggregated_dashboards_text}}</label>
+              <div class="collapse" id="dashboard-ids-help">
+                <div class="well" innerHTML="{{texts.form.general_block.aggregated_dashboards_help}}"></div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#dashboard-ids-help" aria-expanded="false" aria-controls="dashboard-ids-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <tag-input class="form-control" id="aggregatedDashboards" name="aggregatedDashboards" [(ngModel)]="temp.aggregatedDashboards" (ngModelChange)="mirrorTempValues()" placeholder="Add a new dashboard" secondaryPlaceholder="Add a new dashboard"></tag-input>
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>
