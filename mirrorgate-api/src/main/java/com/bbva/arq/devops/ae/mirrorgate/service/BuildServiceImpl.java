@@ -28,10 +28,8 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -180,6 +178,12 @@ public class BuildServiceImpl implements BuildService {
         build.setProjectName(request.getProjectName());
         build.setRepoName(request.getRepoName());
         build.setBranch(request.getBranch());
+
+        ArrayList <String> keywords = new ArrayList<>();
+        keywords.add(request.getBuildUrl());
+        keywords.add(request.getProjectName());
+        keywords.add(request.getRepoName());
+        build.setKeywords(keywords);
 
         return build;
     }
