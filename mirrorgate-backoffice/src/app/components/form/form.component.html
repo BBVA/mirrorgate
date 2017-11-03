@@ -33,7 +33,7 @@
           <div class="form-group row">
             <div [ngClass]="{'col-sm-6':categories, 'col-sm-12':!categories}">
               <label for="displayName">{{texts.form.general_block.display_name_input}} (*)</label>
-              <input type="text" class="form-control" id="displayName" [(ngModel)]="dashboard.displayName" (ngModelChange)="mirrorTempValues()" name="displayName" #name="ngModel">
+              <input type="text" class="form-control" id="displayName" [(ngModel)]="dashboard.displayName" (ngModelChange)="mirrorTempValues()" name="displayName" #name="ngModel" required>
             </div>
             <div class="col-sm-6" *ngIf="categories">
               <div class="form-group">
@@ -476,6 +476,14 @@
         <div class="col-sm-12">
           <div class="alert alert-danger" role="alert">
             <p class="error">{{errorMessage}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!dashboardForm.form.valid">
+        <div class="col-sm-12">
+          <div class="alert alert-warning" role="alert">
+            <span>Please fill in the mandatory fields marked with (*)</span>
           </div>
         </div>
       </div>
