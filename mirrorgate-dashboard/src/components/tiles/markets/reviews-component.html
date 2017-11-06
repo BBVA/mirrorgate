@@ -34,7 +34,7 @@
       </div>
       <div class="component__body">
         <div class="reviews-list" rv-pclass-layout="layout">
-          <div class="review" rv-each-review="page">
+          <div class="review" rv-each-review="page" rv-on-click="openDetails" rv-data-url="review.url" rv-data-url="review.url">
             <div class="review-contents" rv-if="review" rv-pclass-mood="review.commentMood">
               <div class="review__header">
                 <div class="review__name">{review.author}</div>
@@ -63,6 +63,12 @@
     parent: Tile,
     onCreated: function () {
       this.addEventListener('component-resized', this._setSize);
+      this.getModel().openDetails = function (review) {
+        var url = this.getAttribute('data-url');
+        if(url) {
+          window.open(url, 'reviews');
+        }
+      }
     },
 
     _setSize: function (e) {

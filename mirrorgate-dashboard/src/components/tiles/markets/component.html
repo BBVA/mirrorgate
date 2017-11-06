@@ -40,14 +40,16 @@
             <div class="rate-stars" rv-if="app.starsTotal">
 
               <span class="rate__total">
-                <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
-                
-                <span rv-show="app.rate7Days">
-                  <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
-                </span>
-                <span class="no-reviews-in-seven-days" rv-hide="app.rate7Days">
-                  <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa fa-star-o"></i>
-                </span>
+                <a rv-href="app.url" target="reviews">
+                  <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
+                  
+                  <span rv-show="app.rate7Days">
+                    <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
+                  </span>
+                  <span class="no-reviews-in-seven-days" rv-hide="app.rate7Days">
+                    <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa fa-star-o"></i>
+                  </span>
+                </a>
               </span>
               <span class="sr-only" rv-show="app.rate7Days">{app.rate7Days}</span>
 

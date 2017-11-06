@@ -16,9 +16,14 @@
 
 .applications{
 
+    a, a:hover, a:visited {
+        color: inherit;
+        text-decoration: none;
+    }
+
     font-size: 2rem;
 
-
+    
     .component__body {
       height: auto;
       min-height: auto;
@@ -109,6 +114,13 @@
         margin: 0 auto;
         width: 100%;
         box-sizing: border-box;
+    }
+
+    .review {
+        cursor: pointer;
+        &:hover .review-contents{
+            background-color: lighten($color: $review-background-color, $amount: 1) ;
+        }
     }
 
     .review__header{

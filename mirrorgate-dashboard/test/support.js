@@ -45,7 +45,6 @@ function genericTileComponentTest(type, contentProveSelector, focus) {
       createTestComponent(type).then((component) => {
         server.respond();
         setTimeout(function () {
-          debugger;
           let items = component.getRootElement().querySelectorAll(contentProveSelector);
           expect(items.length).not.toBe(0);
           done();

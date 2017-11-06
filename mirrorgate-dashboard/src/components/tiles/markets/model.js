@@ -28,6 +28,7 @@
  */
 function Market(data) {
   this.name = data.appname;
+  this.url = data.url;
   this.rateTotal = Math.round(data.ratingTotal/data.votesTotal * 10) / 10;
   this.votesTotal = data.votesTotal;
   this.rate7Days = Math.round(data.rating7Days/data.votes7Days * 10) / 10;
