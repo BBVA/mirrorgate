@@ -44,6 +44,7 @@ public class Review extends BaseModel {
     private double starrating;
     private String comment;
 
+    private String url;
 
     private String commentTitle;
     private int amount = 1;
@@ -136,4 +137,10 @@ public class Review extends BaseModel {
         return (s1 == null && s2 == null) || (s1 != null && s1.equals(s2));
     }
 
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

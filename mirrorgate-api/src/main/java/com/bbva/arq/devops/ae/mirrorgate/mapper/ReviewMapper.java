@@ -30,6 +30,7 @@ public class ReviewMapper {
                 .setAuthor(source.getAuthorName())
                 .setRate(source.getStarrating())
                 .setTimestamp(source.getTimestamp() == null ? 0 : source.getTimestamp())
+                .setUrl(source.getUrl())
                 .setComment(source.getComment());
     }
 
@@ -42,6 +43,7 @@ public class ReviewMapper {
         target.setAuthorName(source.getAuthor());
         target.setStarrating(source.getRate());
         target.setComment(source.getComment());
+        target.setUrl(source.getUrl());
 
         return target;
     }
