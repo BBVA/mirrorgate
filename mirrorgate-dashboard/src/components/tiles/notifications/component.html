@@ -48,6 +48,11 @@
 
     var breakTimeout;
 
+    var colorMapping = {
+      'daa038' : 'yellow', // Warning status color for Slack
+      'd00000': 'red' // Danger status color for Slack
+    }
+
     MGComponent({
       name: 'notifications-tile',
       controllerClass: NotificationsController,
@@ -77,6 +82,7 @@
               breakTimeout = undefined;
             }, 60000);
           }
+          Utils.notifyFavIcon(colorMapping[data.color] || 'blue');
         }
       }
     });
