@@ -49,6 +49,9 @@ public class Build extends BaseModel {
     @Indexed
     private Boolean latest;
 
+    @Indexed
+    private List<String> keywords;
+
     public long getTimestamp() {
         return timestamp;
     }
@@ -154,6 +157,15 @@ public class Build extends BaseModel {
 
     public Build setLatest(Boolean latest) {
         this.latest = latest;
+        return this;
+    }
+
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
+    public Build setKeywords(List<String> keywords) {
+        this.keywords = keywords;
         return this;
     }
 }
