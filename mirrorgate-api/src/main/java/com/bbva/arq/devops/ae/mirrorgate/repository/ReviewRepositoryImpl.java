@@ -45,12 +45,13 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
             match(Criteria.where("appname").in(names).and("timestamp").exists(true)),
             sort(new Sort(DESC, "timestamp")),
             project("appname", "platform", "starrating",
-                        "timestamp", "comment", "authorName"),
+                        "timestamp", "comment", "authorName","url"),
             group("appname", "platform")
                 .push(new BasicDBObject("author", "$authorName")
                     .append("rate", "$starrating" )
                     .append("timestamp", "$timestamp")
                     .append("comment", "$comment")
+                    .append("url", "$url")
                 ).as("reviews"),
             project("appname", "platform")
                 .and("reviews").slice(8, 0)

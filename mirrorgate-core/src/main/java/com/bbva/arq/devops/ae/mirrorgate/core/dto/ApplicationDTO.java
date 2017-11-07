@@ -33,6 +33,7 @@ public class ApplicationDTO {
 
     private Platform platform;
     private List<ReviewDTO> reviews;
+    private String url;
 
     public ApplicationDTO() {
 
@@ -115,5 +116,13 @@ public class ApplicationDTO {
 
     public void setVotesMonth(long votesMonth) {
         this.votesMonth = votesMonth;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

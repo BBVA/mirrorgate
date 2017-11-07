@@ -5,14 +5,12 @@ var week = 7 * day;
 
 db.getCollection('reviews').insertMany([
   {
-    "timestamp" : 0,
     "appname" : "moods",
     "starrating" : 3.5,
     "platform" : "Android",
     "amount": 20
   },
   {
-    "timestamp" : 0,
     "appname" : "moods",
     "starrating" : 4.3,
     "platform" : "IOS",

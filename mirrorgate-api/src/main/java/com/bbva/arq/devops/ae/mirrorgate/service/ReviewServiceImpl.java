@@ -65,6 +65,7 @@ public class ReviewServiceImpl implements ReviewService {
             if(historyReviewOpt.isPresent()) {
                 Review historyReview = historyReviewOpt.get();
                 app.setVotesTotal(historyReview.getAmount());
+                app.setUrl(historyReview.getUrl());
                 app.setRatingTotal((long) (historyReview.getStarrating() * historyReview.getAmount()));
             }
         });
