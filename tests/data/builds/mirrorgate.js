@@ -12,7 +12,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-jenkins-plugin",
-    "branch": "develop"
+    "branch": "develop",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-jenkins-plugin"
+    ]
   },
   {
     "timestamp": now,
@@ -26,7 +31,12 @@ db.getCollection('builds').insertMany([
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-jenkins-plugin",
     "branch": "PR-7",
-    "culprits": ["Gmork"]
+    "culprits": ["Gmork"],
+    "keywords": [
+         "http://fake.url",
+         "MirrorGate",
+         "mirrorgate-jenkins-plugin"
+    ]
   },
   {
     "timestamp": now,
@@ -39,7 +49,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
-    "branch": "PR-12"
+    "branch": "PR-12",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-app"
+    ]
   },
   {
     "timestamp": now,
@@ -52,7 +67,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
-    "branch": "PR-10"
+    "branch": "PR-10",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-app"
+    ]
   },
   {
     "timestamp": now,
@@ -66,7 +86,12 @@ db.getCollection('builds').insertMany([
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
     "branch": "refactor/APINaming",
-    "culprits": ["gmork"]
+    "culprits": ["gmork"],
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-app"
+    ]
   },
   {
     "timestamp": now,
@@ -79,7 +104,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-jenkins-plugin",
-    "branch": "refactor/APINaming"
+    "branch": "refactor/APINaming",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-jenkins-plugin"
+    ]
   },
   {
     "timestamp": now,
@@ -92,7 +122,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
-    "branch": "chore/Perceptual-testing"
+    "branch": "chore/Perceptual-testing",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-app"
+    ]
   },
   {
     "timestamp": now,
@@ -106,7 +141,12 @@ db.getCollection('builds').insertMany([
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
     "branch": "feature/DOST05-128-docs-add-tool-documentation",
-    "culprits": ["Gmork", "Xayide"]
+    "culprits": ["Gmork", "Xayide"],
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-app"
+    ]
   },
   {
     "timestamp": now,
@@ -119,7 +159,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
-    "branch": "WIP-Refactor-D3"
+    "branch": "WIP-Refactor-D3",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-app"
+    ]
   },
   {
     "timestamp": now,
@@ -132,7 +177,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "jira-collector",
-    "branch": "develop"
+    "branch": "develop",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "jira-collector"
+    ]
   },
   {
     "timestamp": now,
@@ -145,7 +195,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "design",
-    "branch": "master"
+    "branch": "master",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "design"
+    ]
   },
   {
     "timestamp": now,
@@ -158,7 +213,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
-    "branch": "develop"
+    "branch": "develop",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-app"
+    ]
   },
   {
     "timestamp": now,
@@ -171,7 +231,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
-    "branch": "PR-8"
+    "branch": "PR-8",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-app"
+    ]
   },
   {
     "timestamp": now,
@@ -184,7 +249,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-app",
-    "branch": "feature/RegexBuilds"
+    "branch": "feature/RegexBuilds",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-app"
+    ]
   },
   {
     "timestamp": now,
@@ -197,6 +267,11 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "MirrorGate",
     "repoName": "mirrorgate-jenkins-plugin",
-    "branch": "master"
+    "branch": "master",
+    "keywords": [
+        "http://fake.url",
+        "MirrorGate",
+        "mirrorgate-jenkins-plugin"
+    ]
   }
 ]);

@@ -46,7 +46,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     MongoTemplate mongoTemplate;
 
     @Override
-    public List<Build> findLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers) {
+    public List<Build> findLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
         TypedAggregation<Build> agg = newAggregation(Build.class,
                 match(Criteria.where("buildStatus")
                         .nin(
@@ -62,7 +62,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                                 BuildStatus.Deleted.toString())
                         )
                         .andOperator(
-                                getCriteriaExpressionsForRepos(repos),
+                                getCriteriaExpressionsForKeywords(keywords),
                                 getCriteriaExpressionsForTeamMembers(teamMembers)
                         )
                 ),
@@ -100,7 +100,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     }
 
     @Override
-    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, Long timestamp) {
+    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> keywords, List<String> teamMembers, Long timestamp) {
         Aggregation agg = newAggregation(
                 match(Criteria
                         .where("timestamp").gt(timestamp)
@@ -112,7 +112,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                                     BuildStatus.InProgress.toString()
                             )
                         .andOperator(
-                                getCriteriaExpressionsForRepos(repos),
+                                getCriteriaExpressionsForKeywords(keywords),
                                 getCriteriaExpressionsForTeamMembers(teamMembers)
                         )
                 ),
@@ -144,16 +144,14 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
         return result;
     }
 
-    private Criteria getCriteriaExpressionsForRepos(List<String> repos) {
+    private Criteria getCriteriaExpressionsForKeywords(List<String> keywords) {
         List<Criteria> regExs = new ArrayList<>();
-        repos.forEach((String repo) -> {
-            regExs.add(Criteria.where("repoName")
-                    .is(Pattern.compile("^" + repo + "$")));
-            regExs.add(Criteria.where("projectName")
-                    .is(Pattern.compile("^" + repo + "$")));
+        keywords.forEach((String kw) -> {
+            regExs.add(Criteria.where("keywords")
+                .in(Pattern.compile("^" + kw + "$")));
         });
         return new Criteria()
-                .orOperator(regExs.toArray(new Criteria[regExs.size()]));
+            .orOperator(regExs.toArray(new Criteria[regExs.size()]));
     }
 
     private Criteria getCriteriaExpressionsForTeamMembers(List<String> teamMembers) {

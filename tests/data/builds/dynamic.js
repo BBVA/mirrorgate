@@ -12,7 +12,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "dynamic",
     "repoName": "dynamic",
-    "branch": "master"
+    "branch": "master",
+    "keywords": [
+        "http://fake.url",
+        "dynamic",
+        "dynamic"
+    ]
   },
   {
     "timestamp": now,
@@ -25,6 +30,11 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "dynamic",
     "repoName": "dynamic",
-    "branch": "develop"
+    "branch": "develop",
+    "keywords": [
+        "http://fake.url",
+        "dynamic",
+        "dynamic"
+    ]
   }
 ]);

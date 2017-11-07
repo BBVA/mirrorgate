@@ -12,7 +12,12 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "two-and-one-failed-master",
     "repoName": "failed",
-    "branch": "master"
+    "branch": "master",
+    "keywords": [
+        "http://fake.url",
+        "two-and-one-failed-master",
+        "failed"
+    ]
   },
   {
     "timestamp": now,
@@ -25,6 +30,11 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "two-and-one-failed-master",
     "repoName": "ok",
-    "branch": "master"
+    "branch": "master",
+    "keywords": [
+        "http://fake.url",
+        "two-and-one-failed-master",
+        "ok"
+    ]
   }
 ]);

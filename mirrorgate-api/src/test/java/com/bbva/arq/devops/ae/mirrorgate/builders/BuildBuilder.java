@@ -17,6 +17,8 @@ package com.bbva.arq.devops.ae.mirrorgate.builders;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -46,6 +48,10 @@ public class BuildBuilder {
     public static Build makeBuild(String repoName, BuildStatus buildStatus) {
         Build build = new Build();
         build.setId(ObjectId.get());
+        ArrayList<String> keywords = new ArrayList<>();
+        keywords.add("buildUrl");
+        keywords.add("mirrorgate");
+        keywords.add(repoName);
         return build
                 .setTimestamp(System.currentTimeMillis())
                 .setNumber("1")
@@ -57,7 +63,8 @@ public class BuildBuilder {
                 .setCulprits(Arrays.asList("foo"))
                 .setProjectName("mirrorgate")
                 .setRepoName(repoName)
-                .setBranch("test");
+                .setBranch("test")
+                .setKeywords(keywords);
     }
 
 
