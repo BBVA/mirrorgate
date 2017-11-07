@@ -14,18 +14,20 @@ The html form must send three parameters:
 - url (optional): contains the url to be redirected after sending feedback.
 
 An example below of a simple html form (for a hypothetical 'foobar' application):
-```
+```html
 <html>
-<header>
-<title>Send feedback to MirrorGate</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</header>
-<form method="POST" action="http://localhost:8080/mirrorgate/reviews/foobar" id="form" name ="form">
-    Rate: <input type="text" id="rate" name="rate" value="" />
-    Comment: <input type="text" id="comment" name="comment" value="" />
-    <input type="hidden" id="url" name="url" value="http://localhost:8080/mirrorgate/" />
-    <input type="submit" value="Submit"/>
-</form>
+    <body>
+        <header>
+            <title>Send feedback to MirrorGate</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        </header>
+        <form method="POST" action="http://localhost:8080/mirrorgate/reviews/foobar" id="form" name ="form">
+            Rate: <input type="text" id="rate" name="rate" value="" />
+            Comment: <input type="text" id="comment" name="comment" value="" />
+            <input type="hidden" id="url" name="url" value="http://localhost:8080/mirrorgate/" />
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
 </html>
 ```
 

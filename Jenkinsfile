@@ -19,6 +19,7 @@ modules = [
   'mirrorgate-api',
   'mirrorgate-dashboard',
   'mirrorgate-backoffice',
+  'mirrorgate-docs',
   'docker'
 ]
 

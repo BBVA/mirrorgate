@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,3 +14,10 @@
  * limitations under the License.
  */
 
+@import "../../../../mirrorgate-backoffice/src/assets/css/general";
+@import "../../../../mirrorgate-backoffice/src/app/components/app/app.component";
+@import "_prism";
+
+img {
+  max-width: 100%;
+}

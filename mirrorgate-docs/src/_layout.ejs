@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html>
+  <head>
+    <meta charset=UTF-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>MirrorGate Documentation</title>
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/roboto-fontface/css/roboto/roboto-fontface.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <base url="./"></head>
+  </head>
+  <body>
+
+      <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-3">
+              </div>
+        
+              <div class="col-sm-6 text-center navbar-title">
+                  <h1><span class="font-ae">MIRRORGATE</span> console</h1>
+              </div>
+        
+              <div class="col-sm-3 text-right menu">
+                <div class="dropdown">
+                  <button type="button" id="menuBtn" class="dropdown__button" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+        
+                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="menuBtn">
+                    <li><a href="../backoffice/index.html#/list"="['/list']">Dashboards list</a></li>
+                    <li><a href="../backoffice/index.html#/feedback">Feedback</a></li>
+                    <li class="active"><a [routerLink]="#">About</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="container">
+            <%- yield.replace(/\.md/g,'.html') %>
+        </div>
+        <script src="./vendor/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="./vendor/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="./assets/js/prism.js" type="text/javascript"></script>
+      </body>
+
+</html>

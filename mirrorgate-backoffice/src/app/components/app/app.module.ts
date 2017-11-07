@@ -24,7 +24,6 @@ import { HttpModule } from '@angular/http';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AboutComponent } from '../about/about.component';
 import { ListComponent } from '../list/list.component';
 import { FormComponent } from '../form/form.component';
 import { DeleteComponent } from '../delete/delete.component';
@@ -35,7 +34,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent,
     ListComponent,
     FormComponent,
     FeedbackComponent,

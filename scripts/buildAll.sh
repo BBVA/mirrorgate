@@ -21,6 +21,13 @@ npm run build
 
 popd
 
+pushd ../mirrorgate-docs
+
+npm install
+npm run build
+
+popd
+
 pushd ../mirrorgate-api
 
 ./gradlew clean build

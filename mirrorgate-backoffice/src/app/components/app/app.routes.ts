@@ -16,7 +16,6 @@
 
 import { Routes } from '@angular/router';
 
-import { AboutComponent } from '../about/about.component';
 import { ListComponent } from '../list/list.component';
 import { FormComponent } from '../form/form.component';
 import { DeleteComponent } from '../delete/delete.component';
@@ -25,7 +24,7 @@ import { FeedbackComponent } from '../feedback/feedback.component';
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
   { path: 'list', component: ListComponent },
-  { path: 'about', component: AboutComponent },
+  { path: 'about', redirectTo: '../docs/index.html'},
   { path: 'feedback', component: FeedbackComponent },
   { path: 'new', component: FormComponent },
   { path: 'edit/:id', component: FormComponent },

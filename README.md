@@ -35,7 +35,7 @@ Additionally, MirrorGate offers a backoffice application where dashboards can be
 
 ## Collecting feedback
 
-It also offers an [endpoint](./docs/endpoint.md) that allows teams to collect feedback on their products (via an html form).
+It also offers an [endpoint](./mirrorgate-docs/src/collect-feedback.md) that allows teams to collect feedback on their products (via an html form).
 
 ## Spinning up a simple local environment
 

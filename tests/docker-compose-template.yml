@@ -19,6 +19,7 @@ services:
       - ../mirrorgate-api/build/libs:/temp
       - ../mirrorgate-dashboard/dist:/temp/public
       - ../mirrorgate-backoffice/dist:/temp/public/backoffice
+      - ../mirrorgate-docs/dist:/temp/public/docs
     links:
       - mongo
     working_dir: "/temp"
