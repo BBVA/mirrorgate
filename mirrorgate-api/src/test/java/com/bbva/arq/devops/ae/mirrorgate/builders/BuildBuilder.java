@@ -51,7 +51,7 @@ public class BuildBuilder {
         ArrayList<String> keywords = new ArrayList<>();
         keywords.add("buildUrl");
         keywords.add("mirrorgate");
-        keywords.add("repoName");
+        keywords.add(repoName);
         return build
                 .setTimestamp(System.currentTimeMillis())
                 .setNumber("1")
