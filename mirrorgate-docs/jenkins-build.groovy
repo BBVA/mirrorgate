@@ -16,32 +16,13 @@
 
 def build() {
 
-  try {
+    stage('Docs - Install dependencies') {
+        sh "npm i"
+    }
 
-      stage('Docs - Install dependencies') {
-          sh """
-              docker-compose -p \${BUILD_TAG} run -u \$(id -u) install
-          """
-      }
-
-      stage('Docs - Build app') {
-          if(env.SPINUP_JOB == 'true') {
-              sh """
-                docker-compose -p \${BUILD_TAG} run -e BUILD_NUMBER=\${BUILD_NUMBER} -e GIT_BRANCH=\${SPINUP_BRANCH} -u \$(id -u) build
-              """
-          } else {
-              sh """
-                docker-compose -p \${BUILD_TAG} run -e BUILD_NUMBER=\${BUILD_NUMBER} -e GIT_BRANCH=\${BRANCH_NAME} -u \$(id -u) build
-              """
-          }
-      }
-
-  } finally {
-      sh """
-          docker-compose -p \${BUILD_TAG} down --volumes
-      """
-  }
-
+    stage('Docs - Build app') {
+        sh "npm run build"
+    }
 }
 
 return this;

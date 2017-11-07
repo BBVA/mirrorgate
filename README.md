@@ -1,4 +1,4 @@
-![MirrorGate](./docs/assets/logo.png)
+![MirrorGate](./mirrorgate-docs/src/assets/img/logo.png)
 
 MirrorGate is a WallBoard application meant to give teams fast feedback in all the different areas related to software development.
 
@@ -27,7 +27,7 @@ Right now MirrorGate offers information on:
 - Alerts.
 - Slack notifications.
 
-![ScreenCatpure](./docs/assets/screencapture.png)
+![ScreenCatpure](./mirrorgate-docs/src/assets/img/screencapture.png)
 
 We expect to be adding much more information in the near future so stay tuned.
 
