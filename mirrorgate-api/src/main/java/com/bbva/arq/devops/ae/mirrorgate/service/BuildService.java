@@ -28,14 +28,14 @@ import java.util.Map;
 public interface BuildService {
 
     /**
-     * Get last builds by repositories and filtered by team members if those
-     * exist.
+     * Get last builds by keywords (repositories names, projects names or builds urls)
+     * and filtered by team members if those exist.
      *
-     * @param repos
+     * @param keywords
      * @param teamMembers
      * @return List of builds
      */
-    List<Build> getLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers);
+    List<Build> getLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
 
     /**
      * Create a build from a request
@@ -57,13 +57,13 @@ public interface BuildService {
     Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, long timestamp);
 
     /**
-     * Get statistics of builds from a repositories and filtered by team members
-     * if those exist.
+     * Get statistics of builds by keywords (repositories names, projects names or builds urls)
+     * and filtered by team members if those exist.
      *
-     * @param repos
+     * @param keywords
      * @param teamMembers
      * @return
      */
-    BuildStats getStatsFromReposByTeamMembers(List<String> repos, List<String> teamMembers);
+    BuildStats getStatsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
 
 }

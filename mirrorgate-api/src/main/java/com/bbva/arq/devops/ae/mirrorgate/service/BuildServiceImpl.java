@@ -54,9 +54,8 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public List<Build> getLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers) {
-        return buildRepository.findLastBuildsByReposNameAndByTeamMembers(
-                repos, teamMembers);
+    public List<Build> getLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
+        return buildRepository.findLastBuildsByKeywordsAndByTeamMembers(keywords, teamMembers);
     }
 
     @Override
@@ -106,10 +105,10 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public BuildStats getStatsFromReposByTeamMembers(List<String> repos, List<String> teamMembers) {
+    public BuildStats getStatsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
 
-        BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(repos, teamMembers, 7);
-        BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(repos, teamMembers, 15);
+        BuildStats statsSevenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 7);
+        BuildStats statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
 
         FailureTendency failureTendency = BuildStatsUtils.failureTendency(
                 statsSevenDaysBefore.getFailureRate(),
@@ -142,16 +141,16 @@ public class BuildServiceImpl implements BuildService {
         }
     }
 
-    private BuildStats getStatsWithoutFailureTendency(List<String> repoName, List<String> teamMembers, int daysBefore) {
+    private BuildStats getStatsWithoutFailureTendency(List<String> keywords, List<String> teamMembers, int daysBefore) {
 
-        if (repoName == null) {
+        if (keywords == null) {
             return null;
         }
 
         Date numberOfDaysBefore
                 = new Date(System.currentTimeMillis() - (daysBefore * DAY_IN_MS));
         Map<BuildStatus, BuildStats> info = getBuildStatusStatsAfterTimestamp(
-                repoName, teamMembers, numberOfDaysBefore.getTime());
+                keywords, teamMembers, numberOfDaysBefore.getTime());
 
         return BuildStatsUtils.combineBuildStats(
                 info.values().toArray(new BuildStats[]{}));

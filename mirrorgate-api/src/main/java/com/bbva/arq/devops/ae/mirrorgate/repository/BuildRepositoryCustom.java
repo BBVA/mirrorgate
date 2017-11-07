@@ -24,7 +24,7 @@ import java.util.Map;
 
 public interface BuildRepositoryCustom {
 
-    List<Build> findLastBuildsByReposNameAndByTeamMembers(List<String> repos, List<String> teamMembers);
+    List<Build> findLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
 
     Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, Long timestamp);
 

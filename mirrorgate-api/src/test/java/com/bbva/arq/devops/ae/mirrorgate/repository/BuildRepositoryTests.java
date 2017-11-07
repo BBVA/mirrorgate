@@ -59,7 +59,7 @@ public class BuildRepositoryTests {
         repository.save(build4);
 
         List<Build> builds = repository
-              .findLastBuildsByReposNameAndByTeamMembers(repos, teamMembers);
+              .findLastBuildsByKeywordsAndByTeamMembers(repos, teamMembers);
 
         assertThat(builds.size()).isEqualTo(2);
         assertThat(builds.get(0).getTimestamp()).isEqualTo(build4.getTimestamp());
@@ -81,7 +81,7 @@ public class BuildRepositoryTests {
         repository.save(build3);
 
         List<Build> builds = repository
-                .findLastBuildsByReposNameAndByTeamMembers(repos, null);
+                .findLastBuildsByKeywordsAndByTeamMembers(repos, null);
 
         assertThat(builds.get(0).getTimestamp()).isEqualTo(build3.getTimestamp());
         assertThat(builds.get(0).getBranch()).isEqualTo(build3.getBranch());

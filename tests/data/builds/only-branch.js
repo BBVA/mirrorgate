@@ -12,6 +12,11 @@ db.getCollection('builds').insertMany([
     "startedBy": null,
     "projectName": "only-branch",
     "repoName": "only-branch",
-    "branch": "branch"
+    "branch": "branch",
+    "keywords": [
+        "http://fake.url",
+        "only-branch",
+        "only-branch"
+    ]
   }
 ]);

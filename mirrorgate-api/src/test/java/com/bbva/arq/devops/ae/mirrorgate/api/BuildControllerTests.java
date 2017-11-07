@@ -82,7 +82,7 @@ public class BuildControllerTests {
 
         when(dashboardService.getDashboard(dashboard.getName()))
                 .thenReturn(dashboard);
-        when(buildService.getLastBuildsByReposNameAndByTeamMembers(dashboard.getCodeRepos(), dashboard.getTeamMembers()))
+        when(buildService.getLastBuildsByKeywordsAndByTeamMembers(dashboard.getCodeRepos(), dashboard.getTeamMembers()))
                 .thenReturn(Arrays.asList(build1, build2));
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/builds"))
@@ -103,7 +103,7 @@ public class BuildControllerTests {
 
         when(dashboardService.getDashboard(dashboard.getName()))
                 .thenReturn(dashboard);
-        when(buildService.getStatsFromReposByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
+        when(buildService.getStatsByKeywordsAndByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
                 .thenReturn(buildStats);
 
         this.mockMvc.perform(
@@ -125,7 +125,7 @@ public class BuildControllerTests {
 
         when(dashboardService.getDashboard(dashboard.getName()))
                 .thenReturn(dashboard);
-        when(buildService.getStatsFromReposByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
+        when(buildService.getStatsByKeywordsAndByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
                 .thenReturn(buildStats);
 
         this.mockMvc.perform(
@@ -147,7 +147,7 @@ public class BuildControllerTests {
 
         when(dashboardService.getDashboard(dashboard.getName()))
                 .thenReturn(dashboard);
-        when(buildService.getStatsFromReposByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
+        when(buildService.getStatsByKeywordsAndByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
                 .thenReturn(buildStats);
 
         this.mockMvc.perform(
