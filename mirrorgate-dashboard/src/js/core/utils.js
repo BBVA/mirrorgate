@@ -149,16 +149,19 @@ var Utils = (function() {
 
     notifyFavIcon: function (color) {
       var icon = document.querySelector('link[rel*="icon"]');
-      icon.href = 'img/favicon-' + (color || 'grey') + '.png';
-      if(breakFavIconTimeout) {
-        clearTimeout(breakFavIconTimeout);
+
+      if(icon) {
+        icon.href = 'img/favicon-' + (color || 'grey') + '.png';
+        if(breakFavIconTimeout) {
+          clearTimeout(breakFavIconTimeout);
+        }
+        breakFavIconTimeout = setTimeout(function() {
+          icon.href = 'img/favicon.png';
+          breakFavIconTimeout = undefined;
+        }, 60000);
       }
-      breakFavIconTimeout = setTimeout(function() {
-        icon.href = 'img/favicon.png';
-        breakFavIconTimeout = undefined;
-      }, 60000);
     }
-  }
+  };
 
 })();
 
