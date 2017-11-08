@@ -1,8 +1,8 @@
+![MirrorGate](./assets/img/logo.png)
+
 # MirrorGate
 
 MirrorGate is a WallBoard application meant to give teams fast feedback in all the different areas related to software development.
-
-![MirrorGate](./assets/img/logo.png)
 
 ## Why that name?
 
@@ -26,7 +26,7 @@ Offers information on:
 * Incidences visualization by criticality.
 * Build status per repository.
 * Build statistics and failure tendency.
-* Marketplace feedback for mobile applications in iTunes, PlayStore or [directly captured](#feedback).
+* Marketplace feedback for mobile applications in iTunes, PlayStore or [directly captured](feedback/collect.md).
 * Active users from Google Analytics and Adobe Analytics.
 * AWS operation metrics.
 * Alerts.
@@ -48,7 +48,6 @@ It also offers a view where you can display several product dashboards in a sing
 Additionally, MirrorGate offers a backoffice application where dashboards can be configured.
 
 ![ScreenCatpure](assets/img/backoffice.png)
-
 
 # Architecture
 
@@ -72,10 +71,6 @@ It provides 3 different authorization depending on the value of the `X-Forwarded
 - For any other case, the header is taken as the user id. It will have access to dashboards both write and read.
 
 > If you wan to completely disable the security in MirrorGate you can execute it with the env variable `SPRING_PROFILES_ACTIVE=embedded`.
-
-# Collecting feedback
-
-MirrorGate ecosystem includes a markets-collector to be able to fetch feedback directly from the iOS and Android App Stores. Eventhough, it also offers an [endpoint](./collect-feedback.md) that might be invoked to directly send feedback on an specific product (directly from the front via form post or ajax request or from server side).
 
 # Supported browsers
 

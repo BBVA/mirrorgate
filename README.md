@@ -58,7 +58,7 @@ In MirrorGate we use some edge HTML and CSS features, thus only latest Chrome an
 
 # Collecting feedback
 
-MirrorGate ecosystem includes a markets-collector to be able to fetch feedback directly from the iOS and Android App Stores. Eventhough, it also offers an [endpoint](./collect-feedback.md) that might be invoked to directly send feedback on an specific product (directly from the front via form post or ajax request or from server side).
+MirrorGate ecosystem includes a markets-collector to be able to fetch feedback directly from the iOS and Android App Stores. Eventhough, it also offers an [endpoint](./mirrorgate-docs/src/feedback/collect.md) that might be invoked to directly send feedback on an specific product (directly from the front via form post or ajax request or from server side).
 
 # Running
 

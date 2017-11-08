@@ -1,0 +1,12 @@
+{
+    "menu": [{
+        "name":"Introduction",
+        "file":"index"
+    },{
+        "name":"Feedback",
+        "menu": [{
+            "name":"Collect",
+            "file":"feedback/collect"
+        }]
+    }]
+}

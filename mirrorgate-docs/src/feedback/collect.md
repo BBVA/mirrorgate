@@ -1,6 +1,8 @@
 # Collect feedback
 
-## How to send a review
+MirrorGate provides a markets collector that is able to capture feedback from the iOS and Android maketplaces. As there might be a lot other sources for user feedback, it also enables to send reviews directly using a simple HTTP post mechanism.
+
+## How to send a review directly
 
 The following api endpoint allows users to send feedback via an html form, so that teams can collect it and read it on their dashboard.
 
@@ -31,4 +33,4 @@ An example below of a simple html form (for a hypothetical 'foobar' application)
 </html>
 ```
 
-Note: in order to display the feedback in MirrorGate, the "Mirrorgate/" prefix must be included before the application name in the "Application Markets" section of dashboard configuration. Example (for the same 'foobar' application): "Mirrorgate/foobar".
+> In order to display the feedback in MirrorGate, the "Mirrorgate/" prefix must be included before the application name in the "Application Markets" section of dashboard configuration. Example (for the same 'foobar' application): "Mirrorgate/foobar".
