@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
-    command: bash -c "npm install"
+    command: bash -c "npm install && ./node_modules/.bin/bower install --allow-root"
   build:
     image: "node:7"
     volumes:
