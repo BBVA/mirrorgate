@@ -15,15 +15,27 @@
  * limitations under the License.
  */
 
-/**
- * Notification model
- * @param {String} title       Title of Notification
- * @param {String} description Description of Notification
- * @param {Date} date        Date of Notification
- */
-function Notification(description, date, user, color) {
-  this.description = description;
-  this.date = date;
-  this.user = user;
-  this.color = color;
-}
+(function() {
+  'use strict';
+
+  var breakTimeout;
+
+  function notifyFavIcon(event) {
+    if(event && event.detail) {
+      var icon = document.querySelector('link[rel*="icon"]');
+
+      icon.href = 'img/favicon-' + (event.detail.color || 'blue') + '.png';
+      if(breakTimeout) {
+        clearTimeout(breakTimeout);
+      }
+      breakTimeout = setTimeout(function() {
+        icon.href = 'img/favicon.png';
+        breakTimeout = undefined;
+      }, 60000);
+    }
+  }
+
+  document.addEventListener('HeadsUp', notifyFavIcon);
+  document.addEventListener('Message', notifyFavIcon);
+
+})();

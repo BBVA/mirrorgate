@@ -28,6 +28,11 @@ var NotificationsController = (function(dashboardId) {
 
     function loadNotification(notification) {
 
+      var colorMapping = {
+        'daa038' : 'yellow', // Warning status color for Slack
+        'd00000': 'red', // Danger status color for Slack
+      };
+
       if('message' === notification.type) {
         if(config.slackChannel && config.slackChannel != notification.channel) {
           return;
@@ -35,17 +40,19 @@ var NotificationsController = (function(dashboardId) {
         var attachment = (notification.attachments &&
             notification.attachments[0]);
 
-        observable.notify(new Notification(
-          notification.text || (attachment && (attachment.pretext || attachment.fallback)),
-          new Date(parseFloat(notification.ts) * 1000) ,
-          notification.username,
-          (attachment && attachment.color) || 'fff'
-        ));
+        document.dispatchEvent(new CustomEvent('Message', {
+          detail: {
+            description: notification.text || (attachment && (attachment.pretext || attachment.fallback)),
+            date: new Date(parseFloat(notification.ts) * 1000),
+            user: notification.username,
+            color: colorMapping[(attachment && attachment.color)]
+          }
+        }));
       }
     }
 
     if(!response) {
-        return observable.notify(undefined);
+        return;
     }
 
     if(response.indexOf('ws') === 0) {

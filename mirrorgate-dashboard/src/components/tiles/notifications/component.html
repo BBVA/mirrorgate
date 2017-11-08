@@ -16,7 +16,6 @@
   -->
 
 <!-- build:js component.min.js -->
-<script src="model.js"></script>
 <script src="controller.js"></script>
 <!-- endbuild -->
 
@@ -25,7 +24,7 @@
     @import "css/{skin}.css";
   </style>
   <div class="notifications">
-      <div class="notification__icon" rv-color="notification.color">
+      <div class="notification__icon" rv-pclass-notification__color="notification.color">
         <i class="fa fa-slack" aria-hidden="true"></i>
       </div>
 
@@ -59,15 +58,19 @@
         });
       },
 
+      onCreated: function() {
+        document.addEventListener('Message', this.render.bind(this));
+      },
+
       render: function (data) {
 
         this.processAlerts(data);
 
         var model = this.getModel();
 
-        if (data) {
-          model.notification = data;
-          if(data.description.indexOf('MIRRORBREAK!') >= 0) {
+        if (data && data.detail) {
+          model.notification = data.detail;
+          if(model.notification.description.indexOf('MIRRORBREAK!') >= 0) {
             $('.easter-egg').css('display','block');
             if(breakTimeout) {
               clearTimeout(breakTimeout);

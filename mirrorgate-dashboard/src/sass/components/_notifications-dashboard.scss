@@ -45,6 +45,18 @@ notifications-tile{
         color: inherit; /* blue colors for links too */
         text-decoration: inherit; /* no underline */
     }
+
+    .notification__color-blue {
+        color: $blue;
+    }
+
+    .notification__color-yellow {
+        color: $yellow;
+    }
+
+    .notification__color-red {
+        color: $red;
+    }
 }
 
 //RESPONSIVE
