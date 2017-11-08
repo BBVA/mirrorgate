@@ -135,7 +135,7 @@
                     var color = repoBuild.data.branch === 'master' && repoBuild.data.buildStatus !== 'Success' ? 'red'
                       : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus !== 'Success' ? 'yellow'
                       : 'blue';
-                    document.dispatchEvent(new CustomEvent('NotificationEvent', {
+                    document.dispatchEvent(new CustomEvent('HeadsUp', {
                       detail: {
                         title: (color === 'blue' ? 'Fixed' : 'Broken') + (repoBuild.data.culprits ? ' by ' + repoBuild.data.culprits : ''),
                         description: 'Details: ' + repoBuild.data.repoName + (repoBuild.data.branch ? '/' + repoBuild.data.branch : ''),

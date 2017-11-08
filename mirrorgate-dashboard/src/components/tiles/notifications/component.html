@@ -24,7 +24,7 @@
     @import "css/{skin}.css";
   </style>
   <div class="notifications">
-      <div class="notification__icon" rv-color="notification.color">
+      <div class="notification__icon" rv-pclass-notification__color="notification.color">
         <i class="fa fa-slack" aria-hidden="true"></i>
       </div>
 
@@ -59,7 +59,7 @@
       },
 
       onCreated: function() {
-        document.addEventListener('SlackEvent', this.render.bind(this));
+        document.addEventListener('Message', this.render.bind(this));
       },
 
       render: function (data) {
