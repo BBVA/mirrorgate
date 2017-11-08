@@ -35,17 +35,19 @@ var NotificationsController = (function(dashboardId) {
         var attachment = (notification.attachments &&
             notification.attachments[0]);
 
-        observable.notify(new Notification(
-          notification.text || (attachment && (attachment.pretext || attachment.fallback)),
-          new Date(parseFloat(notification.ts) * 1000) ,
-          notification.username,
-          (attachment && attachment.color) || 'fff'
-        ));
+        document.dispatchEvent(new CustomEvent('SlackEvent', {
+          detail: {
+            description: notification.text || (attachment && (attachment.pretext || attachment.fallback)),
+            date: new Date(parseFloat(notification.ts) * 1000),
+            user: notification.username,
+            color: (attachment && attachment.color) || 'fff'
+          }
+        }));
       }
     }
 
     if(!response) {
-        return observable.notify(undefined);
+        return;
     }
 
     if(response.indexOf('ws') === 0) {

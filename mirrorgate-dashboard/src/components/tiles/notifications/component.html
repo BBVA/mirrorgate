@@ -16,7 +16,6 @@
   -->
 
 <!-- build:js component.min.js -->
-<script src="model.js"></script>
 <script src="controller.js"></script>
 <!-- endbuild -->
 
@@ -48,11 +47,6 @@
 
     var breakTimeout;
 
-    var colorMapping = {
-      'daa038' : 'yellow', // Warning status color for Slack
-      'd00000': 'red' // Danger status color for Slack
-    }
-
     MGComponent({
       name: 'notifications-tile',
       controllerClass: NotificationsController,
@@ -64,15 +58,19 @@
         });
       },
 
+      onCreated: function() {
+        document.addEventListener('SlackEvent', this.render.bind(this));
+      },
+
       render: function (data) {
 
         this.processAlerts(data);
 
         var model = this.getModel();
 
-        if (data) {
-          model.notification = data;
-          if(data.description.indexOf('MIRRORBREAK!') >= 0) {
+        if (data && data.detail) {
+          model.notification = data.detail;
+          if(model.notification.description.indexOf('MIRRORBREAK!') >= 0) {
             $('.easter-egg').css('display','block');
             if(breakTimeout) {
               clearTimeout(breakTimeout);
@@ -82,7 +80,6 @@
               breakTimeout = undefined;
             }, 60000);
           }
-          Utils.notifyFavIcon(colorMapping[data.color] || 'blue');
         }
       }
     });

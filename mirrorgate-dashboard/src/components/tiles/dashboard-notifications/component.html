@@ -60,7 +60,7 @@
       },
 
       onCreated: function() {
-        document.addEventListener('DashboardEvent', this.render.bind(this));
+        document.addEventListener('NotificationEvent', this.render.bind(this));
       },
 
       render: function (data) {
@@ -81,8 +81,6 @@
 
           this.getModel().notification = data.detail;
           this.getModel().notification.color = colorMapping[color];
-
-          Utils.notifyFavIcon(color);
         }
       }
     });

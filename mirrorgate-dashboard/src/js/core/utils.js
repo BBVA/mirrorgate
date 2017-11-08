@@ -18,6 +18,32 @@ var Utils = (function() {
   'use strict';
 
   var breakFavIconTimeout;
+  var colorMapping = {
+    'daa038' : 'yellow', // Warning status color for Slack
+    'd00000': 'red', // Danger status color for Slack
+    'red': 'red',
+    'yellow': 'yellow'
+  };
+
+  function notifyFavIcon(event) {
+    if(event && event.detail) {
+      console.log(event.detail.color);
+
+      var icon = document.querySelector('link[rel*="icon"]');
+
+      icon.href = 'img/favicon-' + (colorMapping[event.detail.color] || 'blue') + '.png';
+      if(breakFavIconTimeout) {
+        clearTimeout(breakFavIconTimeout);
+      }
+      breakFavIconTimeout = setTimeout(function() {
+        icon.href = 'img/favicon.png';
+        breakFavIconTimeout = undefined;
+      }, 60000);
+    }
+  }
+
+  document.addEventListener('NotificationEvent', notifyFavIcon);
+  document.addEventListener('SlackEvent', notifyFavIcon);
 
   return {
     getDashboardId: function() {
@@ -146,21 +172,6 @@ var Utils = (function() {
       r.estimate = r.sigma * z + r.avg;
       return r;
     },
-
-    notifyFavIcon: function (color) {
-      var icon = document.querySelector('link[rel*="icon"]');
-
-      if(icon) {
-        icon.href = 'img/favicon-' + (color || 'grey') + '.png';
-        if(breakFavIconTimeout) {
-          clearTimeout(breakFavIconTimeout);
-        }
-        breakFavIconTimeout = setTimeout(function() {
-          icon.href = 'img/favicon.png';
-          breakFavIconTimeout = undefined;
-        }, 60000);
-      }
-    }
   };
 
 })();
