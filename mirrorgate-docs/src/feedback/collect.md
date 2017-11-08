@@ -6,7 +6,7 @@ MirrorGate provides a markets collector that is able to capture feedback from th
 
 The following api endpoint allows users to send feedback via an html form, so that teams can collect it and read it on their dashboard.
 
-http://localhost:8080/mirrorgate/reviews/{appid}
+http://[mirrorgate-host]/mirrorgate/reviews/{appid}
 
 where {appid} corresponds to the name of the application.
 
