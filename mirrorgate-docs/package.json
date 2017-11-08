@@ -1,0 +1,16 @@
+{
+  "name": "mirrorgate-docs",
+  "version": "1.0.0",
+  "description": "Docs module for MirrorGate",
+  "scripts": {
+    "build": "scripts/vendorize.sh && ./node_modules/.bin/harp compile src dist",
+    "start": "scripts/vendorize.sh && ./node_modules/.bin/harp server src",
+    "postinstall": "$(npm bin)/bower install --allow-root"
+  },
+  "author": "BBVA",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "bower": "^1.8.2",
+    "harp": "^0.24.1"
+  }
+}

@@ -1,0 +1,4 @@
+src/vendor
+dist
+bower_components
+node_modules

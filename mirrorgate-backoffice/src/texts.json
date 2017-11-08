@@ -1,7 +1,4 @@
 {
-  "about": {
-    "text": "<p>This is the backoffice of MirrorGate.</p><p>Please use it with caution as you will have rights to edit or delete every dashboard in the system.</p><p>If you experience any issues or just want to give us some feedback, please open an issue <a href=\"https://github.com/BBVA/mirrorgate/issues\">here</a></p>"
-  },
   "delete": {
     "header": "You're about to delete the dashboard: ",
     "message": "This action cannot be undone. Are you sure you want to proceed?"
