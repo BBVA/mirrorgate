@@ -52,7 +52,7 @@ var NotificationsController = (function(dashboardId) {
     }
 
     if(!response) {
-        return;
+        return document.dispatchEvent(new CustomEvent('Message', undefined));
     }
 
     if(response.indexOf('ws') === 0) {

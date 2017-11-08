@@ -54,7 +54,7 @@
 
       processAlerts: function (data) {
         Utils.raiseEvent(this, {
-          status: data ? 'unknown' : 'server-error'
+          status: (data && data.detail) ? 'unknown' : 'server-error'
         });
       },
 

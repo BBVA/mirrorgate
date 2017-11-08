@@ -29,15 +29,14 @@ describe('NotificationsController', () => {
 
   it('should get last notification', (done) => {
 
-    var notification = new Notification(
-      lastNotification.text,
-      new Date(parseFloat(lastNotification.ts) * 1000) ,
-      lastNotification.username,
-      lastNotification.attachments[0].color
-    );
+    var notification = new CustomEvent('Message', {
+      detail: {
+        description: lastNotification.text
+      }
+    });
 
-    controller.observable.attach((response) => {
-      expect(_.isEqual(response, notification)).toBe(true);
+    document.addEventListener('Message',(response) => {
+      expect(_.isEqual(response.description, notification.description)).toBe(true);
       done();
     });
 
