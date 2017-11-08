@@ -16,13 +16,28 @@
 
 def build() {
 
-    stage('Docs - Install dependencies') {
-        sh "npm i"
-    }
+  try {
 
-    stage('Docs - Build app') {
-        sh "npm run build"
-    }
+      stage('Docs - Install dependencies') {
+          sh """
+              docker-compose -p \${BUILD_TAG} run install
+          """
+      }
+
+      stage('Docs - Build app') {
+          sh """
+            docker-compose -p \${BUILD_TAG} run build
+          """
+      }
+
+
+  } finally {
+      sh """
+          docker-compose -p \${BUILD_TAG} down --volumes
+      """
+  }      
+
 }
 
-return this;
+return this
+

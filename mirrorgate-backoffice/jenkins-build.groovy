@@ -16,6 +16,8 @@
 
 def build() {
 
+  try {
+
       stage('Backoffice - Install dependencies') {
           sh """
               docker-compose -p \${BUILD_TAG} run install
@@ -27,6 +29,13 @@ def build() {
             docker-compose -p \${BUILD_TAG} run -e PRODUCTION=true build
           """
       }
+
+
+  } finally {
+      sh """
+          docker-compose -p \${BUILD_TAG} down --volumes
+      """
+  }
 
 }
 
