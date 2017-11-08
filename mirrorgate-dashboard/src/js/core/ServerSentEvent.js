@@ -22,7 +22,7 @@ var ServerSentEvent = (function(){
   function init(){
     if(!serverSentEvent || serverSentEvent.readyState == EventSource.CLOSED){
 
-      serverSentEvent = new EventSource(window.location.protocol +"//"+ window.location.host + "/mirrorgate/emitter/" + Utils.getDashboardId());
+      serverSentEvent = new EventSource("emitter/" + Utils.getDashboardId());
 
       serverSentEvent.onmessage = function(data){
         var response = data.data;
