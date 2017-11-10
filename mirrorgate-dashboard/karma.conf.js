@@ -36,7 +36,6 @@ module.exports = function(config) {
       'bower_components/rivets/dist/rivets.bundled.min.js',
       'bower_components/moment/min/moment.min.js',
       'bower_components/moment-weekday-calc/build/moment-weekday-calc.min.js',
-      'bower_components/sockjs-client/dist/sockjs.min.js',
       'bower_components/jQuery.dotdotdot/dist/jquery.dotdotdot.js',
       'node_modules/lodash/lodash.min.js',
       'node_modules/karma-read-json/karma-read-json.js',
