@@ -217,8 +217,8 @@ public class DashboardServiceImpl implements DashboardService {
             return;
         }
 
-        if (toEdit.getAuthor() == null && toEdit.getAdminUsers() != null
-                && toEdit.getAdminUsers().isEmpty()) {
+        if (toEdit.getAuthor() == null && (toEdit.getAdminUsers() == null
+                || toEdit.getAdminUsers().isEmpty())) {
             return;
         }
 
