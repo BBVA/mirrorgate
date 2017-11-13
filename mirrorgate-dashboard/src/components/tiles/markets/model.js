@@ -31,13 +31,15 @@ function Market(data) {
   this.url = data.url;
   this.rateTotal = Math.round(data.ratingTotal/data.votesTotal * 10) / 10;
   this.votesTotal = data.votesTotal;
-  this.rate7Days = Math.round(data.rating7Days/data.votes7Days * 10) / 10;
-  this.votes7Days = data.votes7Days;
-  this.rateMonth = Math.round(data.ratingMonth/data.votesMonth * 10) / 10;
-  this.votesMonth = data.votesMonth;
+  this.rateShortTerm = Math.round(data.ratingShortTerm/data.votesShortTerm * 10) / 10;
+  this.votesShortTerm = data.votesShortTerm;
+  this.rateLongTerm = Math.round(data.ratingLongTerm/data.votesLongTerm * 10) / 10;
+  this.votesLongTerm = data.votesLongTerm;
+  this.shortTermLength = data.shortTermLength;
+  this.longTermLength = data.longTermLength;
 
-  this.tendencyChange = (this.rate7Days - this.rateMonth) / this.rateMonth * 100;
-  this.voteTendencyChange = (this.votes7Days * 30 / 7 - this.votesMonth) / this.votesMonth * 100;
+  this.tendencyChange = (this.rateShortTerm - this.rateLongTerm) / this.rateLongTerm * 100;
+  this.voteTendencyChange = (this.votesShortTerm * this.longTermLength / this.shortTermLength - this.votesLongTerm) / this.votesLongTerm * 100;
   this.tendency = this.tendencyChange < -10 ? 'threedown' : this.tendencyChange < -5 ? 'twodown' : this.tendencyChange < -1 ? 'onedown' : this.tendencyChange > 10 ? 'threeup' : this.tendencyChange > 5 ? 'twoup' : this.tendencyChange > 1 ? 'oneup' : 'eq';
   this.voteTendency = this.voteTendencyChange < -5 ? 'down' : this.voteTendencyChange > 5 ? 'up' : 'eq';
   this.platform = data.platform;

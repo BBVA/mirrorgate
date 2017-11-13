@@ -90,8 +90,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         Aggregation aggregation = newAggregation(
                 match(Criteria.where("appname").in(names).and("timestamp").gte(timestamp)),
                 group("appname", "platform")
-                        .count().as("votes7Days")
-                        .sum("starrating").as("rating7Days")
+                        .count().as("votesShortTerm")
+                        .sum("starrating").as("ratingShortTerm")
         );
 
         //Convert the aggregation result into a List

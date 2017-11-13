@@ -33,10 +33,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.stubbing.Answer;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 public class ReviewServiceTests {
+
+    private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
 
     @Mock
     private ReviewRepository reviewRepository;
@@ -51,15 +54,17 @@ public class ReviewServiceTests {
     public void getAverageRateByAppNamesTest() {
 
         String appName1 = "mirrorgateApp";
-        String appName2 = "mirrorgateApp2";
         List<String> appsNames = new ArrayList<>();
         appsNames.add(appName1);
-        appsNames.add(appName2);
 
         ApplicationDTO app1 = new ApplicationDTO()
                 .setAppname(appName1)
                 .setRatingTotal(1003)
                 .setPlatform(Platform.Android)
+                .setVotesShortTerm(8)
+                .setRatingShortTerm(19)
+                .setVotesLongTerm(61)
+                .setRatingLongTerm(195)
                 .setReviews(Arrays.asList(
                         new ReviewDTO()
                                 .setAuthor("reviewer1")
@@ -72,31 +77,38 @@ public class ReviewServiceTests {
                                 .setTimestamp(2L)
                                 .setComment("comment2")
                 ));
-        ApplicationDTO app2 = new ApplicationDTO()
-                .setAppname(appName2)
-                .setRatingTotal(1203)
-                .setPlatform(Platform.IOS)
-                .setReviews(Arrays.asList(
-                        new ReviewDTO()
-                                .setAuthor("reviewer2")
-                                .setRate(4.5)
-                                .setTimestamp(2L)
-                                .setComment("comment")
-                ));
         List<ApplicationDTO> apps = new ArrayList<>();
         apps.add(app1);
-        apps.add(app2);
 
-        when(reviewRepository.getAppInfoByAppNames(appsNames))
-                .thenReturn(apps);
+        when(reviewRepository.getAppInfoByAppNames(appsNames)).thenReturn(apps);
+        when(reviewRepository.getAverageRateByAppNamesAfterTimestamp(eq(appsNames), any())).then((Answer<List<ApplicationDTO>>) invocation -> {
+            if(invocation.getArgumentAt(1, Long.class) > System.currentTimeMillis() - 8 * DAY_IN_MS) {
+                List<ApplicationDTO> statsShortTerm = new ArrayList<>();
+                statsShortTerm.add(
+                    new ApplicationDTO()
+                        .setAppname(app1.getAppname())
+                        .setPlatform(app1.getPlatform())
+                        .setVotesShortTerm(app1.getVotesShortTerm())
+                        .setRatingShortTerm(app1.getRatingShortTerm())
+                );
+                return statsShortTerm;
+            } else {
+                List<ApplicationDTO> statsLongTerm = new ArrayList<>();
+                statsLongTerm.add(
+                    new ApplicationDTO()
+                        .setAppname(app1.getAppname())
+                        .setPlatform(app1.getPlatform())
+                        .setVotesShortTerm(app1.getVotesLongTerm())
+                        .setRatingShortTerm(app1.getRatingLongTerm())
+                );
+                return statsLongTerm;
+            }
+        });
 
         List<ApplicationDTO> appsByNames
-                =                reviewService.getAverageRateByAppNames(appsNames);
-        verify(reviewRepository, times(1))
-                .getAppInfoByAppNames(appsNames);
+                =                reviewService.getAverageRateByAppNames(appsNames, 7);
 
         assertThat(appsByNames.get(0)).isEqualTo(app1);
-        assertThat(appsByNames.get(1)).isEqualTo(app2);
     }
 
     @Test(expected = ReviewsConflictException.class)

@@ -25,10 +25,12 @@ public class ApplicationDTO {
     private String appname;
     private long votesTotal;
     private long ratingTotal;
-    private long votes7Days;
-    private long rating7Days;
-    private long votesMonth;
-    private long ratingMonth;
+    private long votesShortTerm;
+    private long ratingShortTerm;
+    private long votesLongTerm;
+    private long ratingLongTerm;
+    private int shortTermLength;
+    private int longTermLength;
 
 
     private Platform platform;
@@ -83,37 +85,57 @@ public class ApplicationDTO {
         return this;
     }
 
-    public long getVotes7Days() {
-        return votes7Days;
+    public long getVotesShortTerm() {
+        return votesShortTerm;
     }
 
-    public ApplicationDTO setVotes7Days(long votes7Days) {
-        this.votes7Days = votes7Days;
+    public ApplicationDTO setVotesShortTerm(long votesShortTerm) {
+        this.votesShortTerm = votesShortTerm;
         return this;
     }
 
-    public long getRating7Days() {
-        return rating7Days;
+    public long getRatingShortTerm() {
+        return ratingShortTerm;
     }
 
-    public ApplicationDTO setRating7Days(long rating7Days) {
-        this.rating7Days = rating7Days;
+    public ApplicationDTO setRatingShortTerm(long ratingShortTerm) {
+        this.ratingShortTerm = ratingShortTerm;
         return this;
     }
 
-    public long getRatingMonth() {
-        return ratingMonth;
+    public long getRatingLongTerm() {
+        return ratingLongTerm;
     }
 
-    public void setRatingMonth(long ratingMonth) {
-        this.ratingMonth = ratingMonth;
+    public ApplicationDTO setRatingLongTerm(long ratingLongTerm) {
+        this.ratingLongTerm = ratingLongTerm;
+        return this;
     }
 
-    public long getVotesMonth() {
-        return votesMonth;
+    public long getVotesLongTerm() {
+        return votesLongTerm;
     }
 
-    public void setVotesMonth(long votesMonth) {
-        this.votesMonth = votesMonth;
+    public ApplicationDTO setVotesLongTerm(long votesLongTerm) {
+        this.votesLongTerm = votesLongTerm;
+        return this;
+    }
+
+    public int getShortTermLength() {
+        return shortTermLength;
+    }
+
+    public ApplicationDTO setShortTermLength(int shortTermLength) {
+        this.shortTermLength = shortTermLength;
+        return this;
+    }
+
+    public int getLongTermLength() {
+        return longTermLength;
+    }
+
+    public ApplicationDTO setLongTermLength(int longTermLength) {
+        this.longTermLength = longTermLength;
+        return this;
     }
 }

@@ -33,7 +33,7 @@ public interface ReviewService {
      * @return Al List of ApplicationDTO objects with name and rate of every
      * application
      */
-    List<ApplicationDTO> getAverageRateByAppNames(List<String> names);
+    List<ApplicationDTO> getAverageRateByAppNames(List<String> names, int marketsStatsDays);
 
     /**
      * Save reviews

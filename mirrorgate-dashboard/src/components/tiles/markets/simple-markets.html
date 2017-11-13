@@ -27,34 +27,36 @@
   <div class="applications simple component__content">
     <div class="component__header">
       <h2 class="title">
-        <span rv-hide="app.stars7Days">No reviews in 7 days</span>
-        <span rv-show="app.stars7Days" class="rate__legend">Last 7 days</span>
+        <span rv-hide="app.starsShortTerm">No reviews found</span>
+        <span rv-show="app.starsShortTerm" class="rate__legend">Last {marketsStatsDays} days</span>
       </h2>
     </div>
     <div class="component__body">
       <div class="platform-rates">
 
         <div class="platform-rate">
-          <div class="rate-7days-data">
-            <div class="rate-stars" rv-if="app.stars7Days">
+          <div class="rate-short-term-data">
+            <div class="rate-stars" rv-if="app.starsShortTerm">
 
               <span class="rate__total">
                 <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
 
-                <span rv-show="app.rate7Days">
-                  <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
+                <span rv-show="app.rateShortTerm">
+                  <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
                 </span>
-                <span class="no-reviews-in-seven-days" rv-hide="app.rate7Days">
-                  <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa fa-star-o"></i>
+                <span class="no-reviews-in-short-term" rv-hide="app.rateShortTerm">
+                  <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa fa-star-o"></i>
                 </span>
               </span>
-              <span class="sr-only" rv-show="app.rate7Days">{app.rate7Days}</span>
+              <span class="sr-only" rv-show="app.rateShortTerm">{app.rateShortTerm}</span>
 
-              <span class="tendency" rv-show="app.rate7Days" rv-pclass-tendency="app.tendency"></span>
+              <span class="tendency" rv-show="app.rateShortTerm" rv-pclass-tendency="app.tendency"></span>
 
-              <span class="rate__tag" rv-show="app.rate7Days">
-                {app.votes7Days} votes
+              <span class="rate__tag" rv-show="app.rateShortTerm">
+                {app.votesShortTerm} votes
               </span>
+
+              <span class="rate__tag" rv-hide="app.rateShortTerm">(No votes)</span>
             </div>
           </div>
 
@@ -85,7 +87,8 @@
       if(data.total) {
         var app = this.getModel().app = data.total;
         app.starsTotal = this.controller.calculateStars(app.rateTotal);
-        app.stars7Days = this.controller.calculateStars(app.rate7Days);
+        app.starsShortTerm = this.controller.calculateStars(app.rateShortTerm);
+        this.model.marketsStatsDays = data.marketsStatsDays;
       }
 
     }

@@ -65,6 +65,8 @@ public class DashboardDTO {
 
     private DashboardType type = DashboardType.Detail;
 
+    private Integer marketsStatsDays = 7;
+
     public String getName() {
         return name;
     }
@@ -327,6 +329,14 @@ public class DashboardDTO {
 
     public DashboardDTO setCategory(String category) {
         this.category = category;
+        return this;
+    }
+
+    public Integer getMarketsStatsDays() {
+        return marketsStatsDays;
+    }
+    public DashboardDTO setMarketsStatsDays(Integer marketsStatsDays) {
+        this.marketsStatsDays = marketsStatsDays;
         return this;
     }
 }

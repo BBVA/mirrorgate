@@ -26,12 +26,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,7 +76,7 @@ public class ReviewControllerTests {
 
     @Test
     public void getApplicationReviewRatingsTest() throws Exception {
-        String dashboardName = "mirrorgate";
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         String appName1 = "mirrorgateApp";
         String appName2 = "mirrorgateApp2";
@@ -113,10 +115,11 @@ public class ReviewControllerTests {
         apps.add(app1);
         apps.add(app2);
 
-        when(dashboardService.getApplicationsByDashboardName(dashboardName)).thenReturn(appsNames);
-        when(reviewService.getAverageRateByAppNames(appsNames)).thenReturn(apps);
+        when(dashboardService.getApplicationsByDashboardName(dashboard.getName())).thenReturn(appsNames);
+        when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
+        when(reviewService.getAverageRateByAppNames(appsNames, dashboard.getMarketsStatsDays())).thenReturn(apps);
 
-        this.mockMvc.perform(get("/dashboards/" + dashboardName + "/applications"))
+        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/applications"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].appname", equalTo(app1.getAppname())))
                 .andExpect(jsonPath("$[0].ratingTotal", equalTo((int) app1.getRatingTotal())))

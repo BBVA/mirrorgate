@@ -66,6 +66,8 @@ public class Dashboard extends BaseModel {
 
     private List<String> aggregatedDashboards;
 
+    private Integer marketsStatsDays = 7;
+
 
     public String getName() {
         return name;
@@ -341,6 +343,14 @@ public class Dashboard extends BaseModel {
     }
     public Dashboard setCategory(String category) {
         this.category = category;
+        return this;
+    }
+
+    public Integer getMarketsStatsDays() {
+        return marketsStatsDays;
+    }
+    public Dashboard setMarketsStatsDays(Integer marketsStatsDays) {
+        this.marketsStatsDays = marketsStatsDays;
         return this;
     }
 }

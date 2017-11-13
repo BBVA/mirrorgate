@@ -63,7 +63,8 @@ public class DashboardMapper {
                 .setUrlAlertsAuthorization(source.getUrlAlertsAuthorization())
                 .setAggregatedDashboards(source.getAggregatedDashboards())
                 .setSkin(source.getSkin())
-                .setCategory(source.getCategory());
+                .setCategory(source.getCategory())
+                .setMarketsStatsDays(source.getMarketsStatsDays());
     }
 
     public static Dashboard map(DashboardDTO source, Dashboard target) {
@@ -97,7 +98,8 @@ public class DashboardMapper {
                 .setUrlAlertsAuthorization(source.getUrlAlertsAuthorization())
                 .setAggregatedDashboards(source.getAggregatedDashboards())
                 .setSkin(source.getSkin())
-                .setCategory(source.getCategory());
+                .setCategory(source.getCategory())
+                .setMarketsStatsDays(source.getMarketsStatsDays());
     }
 
 }
