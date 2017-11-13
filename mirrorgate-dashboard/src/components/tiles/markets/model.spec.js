@@ -19,10 +19,10 @@ describe('MarketsController', () => {
   var baseMarketData = {
     votesTotal: 10,
     ratingTotal: 36,
-    votes7Days: 2,
-    rating7Days: 5,
-    votesMonth: 3,
-    ratingMonth: 10,
+    votesShortTerm: 2,
+    ratingShortTerm: 5,
+    votesLongTerm: 3,
+    ratingLongTerm: 10,
     reviews: [
       {
         author: 'kike',
@@ -66,15 +66,15 @@ describe('MarketsController', () => {
     it('calculates rates correctly when empty data', () => {
       let market = new Market({});
       expect(market.rateTotal).toEqual(NaN);
-      expect(market.rate7Days).toEqual(NaN);
-      expect(market.rateMonth).toEqual(NaN);
+      expect(market.rateShortTerm).toEqual(NaN);
+      expect(market.rateLongTerm).toEqual(NaN);
     });
 
     it('calculates rates correctly and rounds them', () => {
       let market = new Market(Object.assign({}, baseMarketData));
       expect(market.rateTotal).toEqual(3.6);
-      expect(market.rate7Days).toEqual(2.5);
-      expect(market.rateMonth).toEqual(3.3);
+      expect(market.rateShortTerm).toEqual(2.5);
+      expect(market.rateLongTerm).toEqual(3.3);
     });
 
     it('calculates rates tendencies correctly', () => {
@@ -82,7 +82,7 @@ describe('MarketsController', () => {
       expect(market.tendency).toEqual('threedown');
       expect(Math.round(market.tendencyChange)).toEqual(-24);
 
-      market = new Market(Object.assign({},baseMarketData, {votesMonth: 9}));
+      market = new Market(Object.assign({},baseMarketData, {votesLongTerm: 9}));
       expect(Math.round(market.tendencyChange)).toEqual(127);
 
     });
