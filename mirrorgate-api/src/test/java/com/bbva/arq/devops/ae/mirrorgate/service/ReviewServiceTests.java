@@ -82,27 +82,22 @@ public class ReviewServiceTests {
 
         when(reviewRepository.getAppInfoByAppNames(appsNames)).thenReturn(apps);
         when(reviewRepository.getAverageRateByAppNamesAfterTimestamp(eq(appsNames), any())).then((Answer<List<ApplicationDTO>>) invocation -> {
+            List<ApplicationDTO> stats = new ArrayList<>();
+            ApplicationDTO app = new ApplicationDTO()
+                .setAppname(app1.getAppname())
+                .setPlatform(app1.getPlatform());
+
             if(invocation.getArgumentAt(1, Long.class) > System.currentTimeMillis() - 8 * DAY_IN_MS) {
-                List<ApplicationDTO> statsShortTerm = new ArrayList<>();
-                statsShortTerm.add(
-                    new ApplicationDTO()
-                        .setAppname(app1.getAppname())
-                        .setPlatform(app1.getPlatform())
-                        .setVotesShortTerm(app1.getVotesShortTerm())
-                        .setRatingShortTerm(app1.getRatingShortTerm())
-                );
-                return statsShortTerm;
+                app.setVotesShortTerm(app1.getVotesShortTerm());
+                app.setRatingShortTerm(app1.getRatingShortTerm());
+                stats.add(app);
             } else {
-                List<ApplicationDTO> statsLongTerm = new ArrayList<>();
-                statsLongTerm.add(
-                    new ApplicationDTO()
-                        .setAppname(app1.getAppname())
-                        .setPlatform(app1.getPlatform())
-                        .setVotesShortTerm(app1.getVotesLongTerm())
-                        .setRatingShortTerm(app1.getRatingLongTerm())
-                );
-                return statsLongTerm;
+                app.setVotesShortTerm(app1.getVotesLongTerm());
+                app.setRatingShortTerm(app1.getRatingLongTerm());
+                stats.add(app);
             }
+
+            return stats;
         });
 
         List<ApplicationDTO> appsByNames
