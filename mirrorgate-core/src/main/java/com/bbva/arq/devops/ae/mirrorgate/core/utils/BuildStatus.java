@@ -37,9 +37,6 @@ public enum BuildStatus {
 
     static{
         MAPPING.put("not_built", NotBuilt);
-        MAPPING.put("successful", Success);
-        MAPPING.put("failed", Failure);
-
         for (BuildStatus buildStatus : values()) {
             MAPPING.put(buildStatus.toString().toLowerCase(), buildStatus);
         }
