@@ -65,6 +65,7 @@ export class FormComponent {
     display?: string,
     value?: string
   }[];
+  marketsStatsDays: number;
 
   constructor(
       private dashboardsService: DashboardsService,

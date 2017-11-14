@@ -45,4 +45,5 @@ export class Dashboard {
   lastModification: number;
   type: string = 'Detail';
   aggregatedDashboards: string[] = [];
+  marketsStatsDays: number;
 }

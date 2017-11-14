@@ -29,38 +29,36 @@
       <h2 class="title">Markets</h2>
       <h3 class="title-desc">
         <span rv-hide="apps | length">No applications reviews found</span>
-        <span class="rate__legend">Last 7 days average</span>
+        <span class="rate__legend">Last {marketsStatsDays} days average</span>
       </h3>
     </div>
     <div class="component__body">
       <div class="platform-rates">
 
         <div rv-each-app="apps" class="platform-rate">
-          <div class="rate-7days-data">
+          <div class="rate-short-term-data">
             <div class="rate-stars" rv-if="app.starsTotal">
 
               <span class="rate__total">
                 <a rv-href="app.url" target="reviews">
                   <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
-                  
-                  <span rv-show="app.rate7Days">
-                    <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
+
+                  <span rv-show="app.rateShortTerm">
+                    <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
                   </span>
-                  <span class="no-reviews-in-seven-days" rv-hide="app.rate7Days">
-                    <i rv-each-star="app.stars7Days" aria-hidden="true" class="fa fa-star-o"></i>
+                  <span class="no-reviews-in-short-term" rv-hide="app.rateShortTerm">
+                    <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa fa-star-o"></i>
                   </span>
                 </a>
               </span>
-              <span class="sr-only" rv-show="app.rate7Days">{app.rate7Days}</span>
+              <span class="sr-only" rv-show="app.rateShortTerm">{app.rateShortTerm}</span>
 
-              <span class="tendency" rv-show="app.rate7Days" rv-pclass-tendency="app.tendency"></span>
+              <span class="tendency" rv-show="app.rateShortTerm" rv-pclass-tendency="app.tendency"></span>
 
-              <span class="rate__tag" rv-show="app.rate7Days">
-                ({app.votes7Days} votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
+              <span class="rate__tag" rv-show="app.rateShortTerm">
+                ({app.votesShortTerm} votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
               </span>
-              <span class="rate__tag" rv-hide="app.rate7Days">
-                (No votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
-              </span>
+              <span class="rate__tag" rv-hide="app.rateShortTerm">(No votes)</span>
 
               <div class="rate__total-data">
                 <span>All times: <span class="rate-value sr-only">{app.rateTotal}</span> </span>
@@ -109,8 +107,9 @@
         this.model.apps = apps;
         this.model.apps.forEach(function(app) {
           app.starsTotal = this.controller.calculateStars(app.rateTotal);
-          app.stars7Days = this.controller.calculateStars(app.rate7Days);
+          app.starsShortTerm = this.controller.calculateStars(app.rateShortTerm);
         }, this);
+        this.model.marketsStatsDays = data.marketsStatsDays;
       }
 
     }

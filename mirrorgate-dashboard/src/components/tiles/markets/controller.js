@@ -22,6 +22,7 @@ var MarketsController = (function(dashboardId) {
 
   var observable = new Event('ApplicationsController');
   var service = Service.get(Service.types.apps, dashboardId);
+  var config;
 
   function getRates(response) {
     var data = {};
@@ -30,21 +31,21 @@ var MarketsController = (function(dashboardId) {
       data.apps = [];
       var reviews = [];
       var total = {
-        rating7Days: 0,
-        votes7Days: 0,
-        ratingMonth: 0,
-        votesMonth: 0,
+        ratingShortTerm: 0,
+        votesShortTerm: 0,
+        ratingLongTerm: 0,
+        votesLongTerm: 0,
         ratingTotal: 0,
         votesTotal: 0
       };
       response = JSON.parse(response);
       for(var index in response) {
         var item = response[index];
-        total.rating7Days += item.rating7Days;
-        total.ratingMonth += item.ratingMonth;
+        total.ratingShortTerm += item.ratingShortTerm;
+        total.ratingLongTerm += item.ratingLongTerm;
         total.ratingTotal += item.ratingTotal;
-        total.votes7Days += item.votes7Days;
-        total.votesMonth += item.votesMonth;
+        total.votesShortTerm += item.votesShortTerm;
+        total.votesLongTerm += item.votesLongTerm;
         total.votesTotal += item.votesTotal;
 
         var app = new Market(item);
@@ -58,7 +59,7 @@ var MarketsController = (function(dashboardId) {
       data.reviews = reviews.sort((r1, r2) => {
         return r1.timestamp < r2.timestamp ? 1 : -1;
       }).slice(0,8);
-
+      data.marketsStatsDays = config.marketsStatsDays;
     }
 
     observable.notify(data);
@@ -69,7 +70,8 @@ var MarketsController = (function(dashboardId) {
     this.observable.reset();
     service.removeListener(getRates);
   };
-  this.init = function(config) {
+  this.init = function(_config) {
+    config = _config;
     if(!config.applications || !config.applications.length) {
       return Promise.reject();
     }

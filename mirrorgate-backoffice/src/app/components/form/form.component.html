@@ -86,7 +86,7 @@
                   <option value="classic">Dark</option>
                   <option value="light">Light</option>
                 </select>
-              </div>
+            </div>
           </div>
 
           <!-- Icon upload Modal -->
@@ -241,7 +241,7 @@
           <h3 class="panel-title">{{texts.form.markets_block.title}}</h3>
         </div>
         <div class="panel-body">
-          <div class="form-group">
+          <div class="form-group col-sm-6">
             <label for="applications">{{texts.form.markets_block.apps_input}}</label>
             <div class="collapse" id="applications-help">
               <div class="well" innerHTML="{{texts.form.markets_block.apps_help}}"></div>
@@ -253,6 +253,24 @@
               </a>
               <input type="text" class="form-control" id="applications" [(ngModel)]="temp.applications" (ngModelChange)="mirrorTempValues()"
                 name="applications">
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="lastVersion">{{texts.form.markets_block.stats_days}}</label>
+            <div class="collapse" id="stats-days-help">
+              <div class="well" innerHTML="{{texts.form.markets_block.stats_days_help}}"></div>
+            </div>
+            <div class="input-group">
+              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#stats-days-help" aria-expanded="false"
+                 aria-controls="stats-days-help">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </a>
+              <select type="text" class="form-control" id="stats_days" [(ngModel)]="dashboard.marketsStatsDays" name="statsDays">
+                <option value="7">7 days</option>
+                <option value="15">15 days</option>
+                <option value="30">30 days</option>
+              </select>
             </div>
           </div>
         </div>

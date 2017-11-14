@@ -36,6 +36,7 @@ import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
+    private static final int LONG_TERM_MULTIPLIER = 3;
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
     private static final String FB_NAMESPACE = "Mirrorgate/";
     private static final String FB_HISTORY_SUFFIX = "_history";
@@ -52,7 +53,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ApplicationDTO> getAverageRateByAppNames(List<String> names) {
+    public List<ApplicationDTO> getAverageRateByAppNames(List<String> names, int daysShortTerm) {
         List<ApplicationDTO> result = repository.getAppInfoByAppNames(names);
 
         List<Review> history = repository.findHistoricalForApps(names);
@@ -70,28 +71,32 @@ public class ReviewServiceImpl implements ReviewService {
             }
         });
 
-        Date sevenDaysBefore = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
-        Date monthBefore = new Date(System.currentTimeMillis() - (30 * DAY_IN_MS));
+        int daysLongTerm = daysShortTerm * LONG_TERM_MULTIPLIER;
 
-        List<ApplicationDTO> stats7Days = repository.getAverageRateByAppNamesAfterTimestamp(names, sevenDaysBefore.getTime());
-        List<ApplicationDTO> statsMonth = repository.getAverageRateByAppNamesAfterTimestamp(names, monthBefore.getTime());
+        Date dateShortTerm = new Date(System.currentTimeMillis() - (daysShortTerm * DAY_IN_MS));
+        Date dateLongTerm = new Date(System.currentTimeMillis() - (daysLongTerm * DAY_IN_MS));
+
+        List<ApplicationDTO> statsShortTerm = repository.getAverageRateByAppNamesAfterTimestamp(names, dateShortTerm.getTime());
+        List<ApplicationDTO> statsLongTerm = repository.getAverageRateByAppNamesAfterTimestamp(names, dateLongTerm.getTime());
 
         result.forEach((app) -> {
-            Optional<ApplicationDTO> appStats7Days = stats7Days.stream()
+            Optional<ApplicationDTO> appStatsShortTerm = statsShortTerm.stream()
                     .filter((stat) -> stat.getAppname().equals(app.getAppname()) && stat.getPlatform().equals(app.getPlatform()))
                     .findFirst();
-            Optional<ApplicationDTO> appStatsMonth = statsMonth.stream()
+            Optional<ApplicationDTO> appStatsLongTerm = statsLongTerm.stream()
                     .filter((stat) -> stat.getAppname().equals(app.getAppname()) && stat.getPlatform().equals(app.getPlatform()))
                     .findFirst();
 
-            if(appStats7Days.isPresent()) {
-                app.setRating7Days(appStats7Days.get().getRating7Days());
-                app.setVotes7Days(appStats7Days.get().getVotes7Days());
+            if(appStatsShortTerm.isPresent()) {
+                app.setRatingShortTerm(appStatsShortTerm.get().getRatingShortTerm());
+                app.setVotesShortTerm(appStatsShortTerm.get().getVotesShortTerm());
+                app.setShortTermLength(daysShortTerm);
             }
-            if(appStatsMonth.isPresent()) {
-                //Ugly hack... we use the 7days to return the data even if it's for month :-(
-                app.setRatingMonth(appStatsMonth.get().getRating7Days());
-                app.setVotesMonth(appStatsMonth.get().getVotes7Days());
+            if(appStatsLongTerm.isPresent()) {
+                //Ugly hack... we use the shortTerm to return the data even if it's for longTerm :-(
+                app.setRatingLongTerm(appStatsLongTerm.get().getRatingShortTerm());
+                app.setVotesLongTerm(appStatsLongTerm.get().getVotesShortTerm());
+                app.setLongTermLength(daysLongTerm);
             }
 
         });

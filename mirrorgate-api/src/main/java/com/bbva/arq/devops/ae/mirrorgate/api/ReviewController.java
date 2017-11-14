@@ -58,7 +58,11 @@ public class ReviewController {
     @RequestMapping(value = "/dashboards/{name}/applications", method = GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getApplicationReviewRatings(@PathVariable("name") String name) {
         List<String> appNames = dashboardService.getApplicationsByDashboardName(name);
-        return ResponseEntity.ok(reviewService.getAverageRateByAppNames(appNames));
+        return ResponseEntity.ok(
+            reviewService.getAverageRateByAppNames(
+                appNames, dashboardService.getDashboard(name).getMarketsStatsDays()
+            )
+        );
     }
 
     @RequestMapping(value = "/api/reviews",
