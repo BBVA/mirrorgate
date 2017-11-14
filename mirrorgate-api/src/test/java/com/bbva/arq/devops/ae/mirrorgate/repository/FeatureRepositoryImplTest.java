@@ -25,7 +25,6 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.Progra
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
@@ -103,11 +102,10 @@ public class FeatureRepositoryImplTest {
         story.setsSprintAssetState("Active");
         story.setsProjectName(sProjectName);
         story.setsNumber("story_name");
-        story.setsParentKey(sParentKey);
+        story.setsParentKey(Arrays.asList(sParentKey));
         story.setKeywords(Arrays.asList(sProjectName));
 
         return story;
     }
-
 
 }

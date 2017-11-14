@@ -55,9 +55,8 @@ public class Feature extends BaseModel{
     /* Associated PI properties */
     private List<String> sPiNames;
 
-    @Indexed
-    private String sParentKey;
-    private Long lParentId;
+    private List<String> sParentKey;
+    private List<Long> lParentId;
 
     /* Associated collector ID */
     private String collectorId;
@@ -180,20 +179,20 @@ public class Feature extends BaseModel{
         return this;
     }
 
-    public String getsParentKey() {
+    public List<String> getsParentKey() {
         return sParentKey;
     }
 
-    public Feature setsParentKey(String sParentKey) {
+    public Feature setsParentKey(List<String> sParentKey) {
         this.sParentKey = sParentKey;
         return this;
     }
 
-    public Long getlParentId() {
+    public List<Long> getlParentId() {
         return lParentId;
     }
 
-    public Feature setlParentId(Long lParentId) {
+    public Feature setlParentId(List<Long> lParentId) {
         this.lParentId = lParentId;
         return this;
     }

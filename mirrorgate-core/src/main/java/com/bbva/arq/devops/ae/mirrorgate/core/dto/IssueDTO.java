@@ -18,15 +18,11 @@ package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
-
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
-/**
- * Created by alfonso on 26/05/17.
- */
 public class IssueDTO implements Serializable {
 
     @NotNull
@@ -44,8 +40,8 @@ public class IssueDTO implements Serializable {
     private IssuePriority priority;
     private Double estimate = 0.0;
     private String jiraKey;
-    private String parentKey;
-    private String parentId;
+    private List<String> parentKey;
+    private List<String> parentId;
     private List<String> piNames;
 
     private SprintDTO sprint;
@@ -123,20 +119,20 @@ public class IssueDTO implements Serializable {
         return this;
     }
 
-    public String getParentKey() {
+    public List<String> getParentKey() {
         return parentKey;
     }
 
-    public IssueDTO setParentKey(String parentKey) {
+    public IssueDTO setParentKey(List<String> parentKey) {
         this.parentKey = parentKey;
         return this;
     }
 
-    public String getParentId() {
+    public List<String> getParentId() {
         return parentId;
     }
 
-    public IssueDTO setParentId(String parentId) {
+    public IssueDTO setParentId(List<String> parentId) {
         this.parentId = parentId;
         return this;
     }
@@ -194,8 +190,9 @@ public class IssueDTO implements Serializable {
         return collectorId;
     }
 
-    public void setCollectorId(String collectorId) {
+    public IssueDTO setCollectorId(String collectorId) {
         this.collectorId = collectorId;
+        return this;
     }
 
     public String getUrl() {

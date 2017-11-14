@@ -52,4 +52,6 @@ public interface FeatureService {
 
     Iterable<Feature> getFeaturesByObjectId(List<ObjectId> ids);
 
+    List<Feature> getEpicsBySNumber(List<String> keys);
+
 }
