@@ -32,6 +32,7 @@ public class BuildDTO {
 
     private List<String> culprits;
     private long endTime;
+    private Long timestamp;
     private long duration;
 
     private String projectName;
@@ -126,4 +127,11 @@ public class BuildDTO {
 
     public void setKeywords(List<String> keyword) { this.keywords = keywords; }
 
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
 }
