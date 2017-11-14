@@ -57,7 +57,7 @@
                       <div>
                         <span class="rate-completed">{programIncrement.report.completed | round}<span>%</span><span class="note">*</span></span>
                       </div>
-                      <span class="text-completed" rv-if="programIncrement.report.completed"><span>{programIncrement.stats.completedFeatureCount}</span> / {programIncrement.stats.featureCount} features</span>
+                      <span class="text-completed" rv-show="programIncrement.report.completed"><span>{programIncrement.stats.completedFeatureCount}</span> / {programIncrement.stats.featureCount} features</span>
                     </div>
                     <div rv-hide="programIncrement.report.completed">
                       <div>
