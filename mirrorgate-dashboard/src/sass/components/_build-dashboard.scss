@@ -138,12 +138,9 @@ svg .status-unstable {
     fill: $yellow;
 }
 
-.slices.dimmed path {
-    fill-opacity: 0.3;
-}
-
-.slices.dimmed path:hover {
-    fill-opacity: 1;
+.slices path:hover, .slices.select path.selected {
+    stroke: rgba(255,255,255,0.4);
+    stroke-width: 3px;
 }
 
 .legend__build-item{

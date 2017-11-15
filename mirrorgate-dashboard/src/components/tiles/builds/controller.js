@@ -100,25 +100,37 @@ var BuildsController = (function(dashboardId) {
               build = getMainBranch(item, data);
               build.data = item;
               build.status = item.buildStatus;
+              build.data.branchType = 'master';
               break;
             case 'develop':
               build = getDevelopBranch(item,data);
               build.data = item;
               build.status = item.buildStatus;
+              build.data.branchType = 'develop';
               break;
             default:
               build = new Build(key, item.buildStatus);
               getDevelopBranch(item,data).addChild(build);
               build.data = item;
+              build.data.branchType = 'feature';
           }
 
           if(item.timestamp > data.stats.lastBuildTimestamp) {
             data.stats.lastBuildTimestamp = item.timestamp;
           }
 
-          if((build.status === 'Failure' || build.status === 'Unstable') &&
-                (!data.lastRelevantBuild || data.lastRelevantBuild.data.timestamp < item.timestamp)) {
-            data.lastRelevantBuild = build;
+          if((build.status === 'Failure' || build.status === 'Unstable')) {
+            if(!data.lastRelevantBuild) {
+              data.lastRelevantBuild = build;
+            } else if(data.lastRelevantBuild.data.branchType === build.data.branchType) {
+              if(data.lastRelevantBuild.data.timestamp < build.data.timestamp) {
+                data.lastRelevantBuild = build;
+              }
+            } else if(build.data.branchType === 'master') {
+              data.lastRelevantBuild = build;
+            } else if(build.data.branchType === 'develop' && data.lastRelevantBuild.data.branchType !== 'master') {
+              data.lastRelevantBuild = build;
+            }
           }
 
         }

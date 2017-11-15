@@ -160,9 +160,12 @@
       render: function (data) {
         function classBuilder(d) {
           var classes = 'build-result status-' + Utils.toClassName(d.status);
-          var data = (d.data || d.developData);
-          if (data && data.buildUrl) {
-            classes += ' clickable'
+          var bdata = (d.data || d.developData);
+          if (bdata && bdata.buildUrl) {
+            classes += ' clickable';
+          }
+          if (data.lastRelevantBuild && data.lastRelevantBuild.name === d.name) {
+            classes += ' selected';
           }
           return classes;
         }
@@ -173,9 +176,6 @@
 
         var model = this.getModel();
         model.stats = data ? data.stats : {};
-        if(data && !model.hover) {
-          model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
-        }
 
         var buildRoot = data && {children: data.buildRoot};
         var depth = 1;
@@ -209,6 +209,13 @@
 
         var container = d3.select(this.getRootElement()).select("svg");
 
+        if(data && !model.hover) {
+          container
+            .select('.slices')
+            .classed('select', true);
+          model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
+        }
+
         var svg = container
           .attr('preserveAspectRatio', 'xMidYMid meet')
           .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
@@ -231,29 +238,28 @@
             model.hover = true;
             model.selectedBuild = d.data;
 
-            if (model.selectedBuild) {
-              container
-                .select('.slices')
-                .classed('dimmed', true)
-                .select('path:first-child')
-                .style('fill', 'transparent')
-            }
+            container
+              .select('.slices')
+              .classed('select', false)
           })
           .on('click', function (d) {
             var data = (d.data || d.developData);
             data && window.open(data.buildUrl, "JenkinsBuild");
           })
           .attr('d', arc)
-          .attr('class', classBuilder);
+          .attr('class', classBuilder)
+          .style('fill-opacity', function (d) {
+            var data = (d.data || d.developData);
+            if(!data) return;
+            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - data.timestamp) / (2 * 14 * 24 * 3600 * 1000),1/2));
+          });
 
         buildsData.exit().remove();
 
         svg.select('.slices').on('mouseout', function (d) {
           container
             .select('.slices')
-            .classed('dimmed', false)
-            .select('path:first-child')
-            .style('fill', null);
+            .classed('select', true);
           model.hover = false;
           model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
         });
