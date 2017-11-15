@@ -154,9 +154,14 @@
     onInit: function () {
       this.addEventListener('dashboard-updated', function () {
         var names = {};
-        this.querySelectorAll('.optional-tile').forEach(function (e) {
-          names[e.tagName.toLowerCase()] = true;
-        });
+        var tiles = this.querySelectorAll ?
+          this.querySelectorAll('.optional-tile'):
+          document.querySelectorAll('.optional-tile');
+        for(var e in tiles) {
+          if(tiles[e].tagName) {
+            names[tiles[e].tagName.toLowerCase()] = true;
+          }
+        }
 
         Object.keys(names).forEach(function (name) {
           $('tile-container.for-' + name,this).removeClass('visible');
