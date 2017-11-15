@@ -212,7 +212,7 @@ rivets.formatters.round = function(value) {
 rivets.formatters.bigNumber = function(value) {
   if(value < 10000) {
     return value;
-  } else if(value < 1000000) {
+  } else if(value < 10000000) {
     return Math.round(value / 1000) + 'K';
   } else {
     return Math.round(value / 1000000) + 'M';
