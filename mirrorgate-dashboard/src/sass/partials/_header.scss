@@ -38,7 +38,7 @@
     }
 
     .board-title {
-      flex: 0 1 30%;
+      flex: 0 1 70%;
     }
 
     .menu{
@@ -103,6 +103,10 @@ details-dashboard{
         .menu{
             flex: 0 1 30%;
             text-align: right;
+        }
+
+        details-tile {
+            white-space: nowrap;
         }
     }
 }
