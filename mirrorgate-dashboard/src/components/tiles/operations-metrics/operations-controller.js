@@ -61,7 +61,8 @@ var OperationsController = (function(dashboardId) {
         model.metrics = {
           errorsRate: errorsRate,
           availabilityRate: availabilityRate,
-          responseTime: responseTime
+          responseTime: responseTime,
+          requestsNumber: requestsNumber
         };
 
         model.responseTimeAlertingLevels = {

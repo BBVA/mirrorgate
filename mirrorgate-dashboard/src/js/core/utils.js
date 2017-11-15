@@ -209,6 +209,16 @@ rivets.formatters.round = function(value) {
   return Math.round(value);
 };
 
+rivets.formatters.bigNumber = function(value) {
+  if(value < 10000) {
+    return value;
+  } else if(value < 1000000) {
+    return Math.round(value / 1000) + 'K';
+  } else {
+    return Math.round(value / 1000000) + 'M';
+  }
+};
+
 rivets.formatters.length = function(value) {
   return value ? (value.length || 0) : 0;
 };
