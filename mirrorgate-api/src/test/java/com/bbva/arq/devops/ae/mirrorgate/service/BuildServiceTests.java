@@ -121,11 +121,11 @@ public class BuildServiceTests {
         when(dashboardService.getDashboard(anyString())).thenReturn(new DashboardDTO());
         when(buildRepository.save((Build)any())).thenReturn(build);
 
-        String id = buildService.createOrUpdate(request);
+        BuildDTO b = buildService.createOrUpdate(request);
 
         verify(buildRepository, times(1)).save((Build)any());
         verify(dashboardService, times(1)).newDashboard((DashboardDTO) any());
 
-        assertThat(id).isEqualTo(build.getId().toString());
+        assertThat(b.getBuildUrl()).isEqualTo(build.getBuildUrl());
     }
 }

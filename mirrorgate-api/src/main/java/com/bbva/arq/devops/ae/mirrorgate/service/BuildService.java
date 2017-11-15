@@ -43,7 +43,7 @@ public interface BuildService {
      * @param request Build request type
      * @return Id of the new Build
      */
-    String createOrUpdate(BuildDTO request);
+    BuildDTO createOrUpdate(BuildDTO request);
 
     /**
      * Get a list of builds by repositories with timestamp after specified and

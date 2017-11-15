@@ -23,8 +23,8 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
@@ -35,6 +35,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper.map;
 
 @Service
 public class BuildServiceImpl implements BuildService {
@@ -59,7 +61,7 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public String createOrUpdate(BuildDTO request) {
+    public BuildDTO createOrUpdate(BuildDTO request) {
         Build toSave = getBuildToSave(request);
 
         boolean shouldUpdateLatest = toSave.getBuildStatus() != BuildStatus.Aborted &&
@@ -101,7 +103,7 @@ public class BuildServiceImpl implements BuildService {
 
         }
 
-        return build.getId().toString();
+        return map(build);
     }
 
     @Override
@@ -165,31 +167,7 @@ public class BuildServiceImpl implements BuildService {
         if(build == null) {
             build = new Build();
         }
-
-        build.setBuildUrl(request.getBuildUrl());
-        build.setNumber(request.getNumber());
-        build.setStartTime(request.getStartTime());
-        build.setEndTime(request.getEndTime());
-        build.setDuration(request.getDuration());
-        build.setCulprits(request.getCulprits());
-        build.setBuildStatus(BuildStatus.fromString(request.getBuildStatus()));
-        if(request.getTimestamp() != null) {
-            build.setTimestamp(request.getTimestamp());
-        } else {
-            build.setTimestamp(System.currentTimeMillis());
-        }
-
-        build.setProjectName(request.getProjectName());
-        build.setRepoName(request.getRepoName());
-        build.setBranch(request.getBranch());
-
-        ArrayList <String> keywords = new ArrayList<>();
-        keywords.add(request.getBuildUrl());
-        keywords.add(request.getProjectName());
-        keywords.add(request.getRepoName());
-        build.setKeywords(keywords);
-
-        return build;
+        return map(request, build);
     }
 
 }

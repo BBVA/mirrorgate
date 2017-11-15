@@ -94,9 +94,9 @@ public class BuildController {
     @RequestMapping(value = "/api/builds", method = POST,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createBuilds(@Valid @RequestBody BuildDTO request) {
+    public ResponseEntity<BuildDTO> createBuilds(@Valid @RequestBody BuildDTO request) {
 
-        String response = buildService.createOrUpdate(request);
+        BuildDTO response = buildService.createOrUpdate(request);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

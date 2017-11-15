@@ -161,7 +161,7 @@ public class BuildControllerTests {
     public void createBuildTest() throws Exception {
         BuildDTO request = TestObjectFactory.createBuildDTO();
         when(buildService.createOrUpdate(Matchers.any(BuildDTO.class)))
-                .thenReturn("123456");
+                .thenReturn(request);
         this.mockMvc.perform(post("/api/builds")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(request)))
