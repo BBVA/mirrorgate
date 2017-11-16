@@ -1,8 +1,12 @@
 version: '2'
 
 services:
-  selenium:
+  selenium-chrome:
     image: "selenium/standalone-chrome:3.0.1-aluminum"
+    volumes:
+      - /dev/shm:/dev/shm
+  selenium-firefox:
+    image: "selenium/standalone-firefox:3.0.1-aluminum"
     volumes:
       - /dev/shm:/dev/shm
   install:
@@ -20,9 +24,11 @@ services:
   test:
     image: "node:7"
     links:
-      - selenium
+      - selenium-chrome
+      - selenium-firefox
     environment:
-      - SELENIUM_HOST=selenium
+      - SELENIUM_HOST_CHROME=selenium-chrome
+      - SELENIUM_HOST_FIREFOX=selenium-firefox
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"

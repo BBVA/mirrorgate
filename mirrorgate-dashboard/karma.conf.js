@@ -104,17 +104,25 @@ module.exports = function(config) {
       'chrome': {
         base: 'WebDriver',
         config: {
-          port: process.env.SELENIUM_PORT || 4444,
-          hostname: process.env.SELENIUM_HOST || 'localhost'
+          port: process.env.SELENIUM_PORT_CHROME || 4444,
+          hostname: process.env.SELENIUM_HOST_CHROME || 'localhost'
         },
         browserName: 'chrome'
+      },
+      'firefox': {
+        base: 'WebDriver',
+        config: {
+          port: process.env.SELENIUM_PORT_FIREFOX || 4444,
+          hostname: process.env.SELENIUM_HOST_FIREFOX || 'localhost'
+        },
+        browserName: 'firefox'
       }
     },
 
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['chrome'], //An browser with WebGLRenderer is needed to pass test
+    browsers: ['chrome','firefox'],
 
 
     // Continuous Integration mode
