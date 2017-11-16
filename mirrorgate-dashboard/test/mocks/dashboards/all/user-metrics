@@ -4,7 +4,7 @@
     "appVersion" : "1.0.0",
     "platform" : "Unknown",
     "name" : "activeUsers",
-    "value" : "6",
+    "value" : 6,
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
@@ -13,7 +13,7 @@
     "appVersion" : "1.0.1",
     "platform" : "Android",
     "name" : "7dayUsers",
-    "value" : "55",
+    "value" : 55,
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
@@ -22,7 +22,7 @@
     "appVersion" : "1",
     "platform" : "Android",
     "name" : "activeUsers",
-    "value" : "12",
+    "value" : 12,
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
@@ -31,7 +31,7 @@
     "appVersion" : "1",
     "platform" : "Android",
     "name" : "7dayUsers",
-    "value" : "12",
+    "value" : 12,
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
@@ -40,7 +40,7 @@
     "appVersion" : "2",
     "platform" : "Android",
     "name" : "activeUsers",
-    "value" : "12",
+    "value" : 12,
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
@@ -49,7 +49,7 @@
     "appVersion" : "1",
     "platform" : "Android",
     "name" : "requestsNumber",
-    "value" : "12",
+    "value" : 5,
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
@@ -58,7 +58,7 @@
     "appVersion" : "1",
     "platform" : "Android",
     "name" : "errorsNumber",
-    "value" : "12",
+    "value" : 12,
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
@@ -67,25 +67,36 @@
     "appVersion" : "2",
     "platform" : "Android",
     "name" : "requestsNumber",
-    "value" : "12",
+    "value" : 15,
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1",
+    "platform" : "Android",
+    "name" : "responseTime",
+    "value" : 0.25,
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1",
+    "sampleSize": 5
   },
   {
     "viewId" : "1234123",
     "appVersion" : "2",
     "platform" : "Android",
     "name" : "responseTime",
-    "value" : "0.25",
+    "value" : 0.675,
     "timestamp" : "1505301880665",
-    "collectorId" : "collector1"
+    "collectorId" : "collector1",
+    "sampleSize": 15
   },
   {
     "viewId" : "1234123",
     "appVersion" : "2",
     "platform" : "Android",
     "name" : "availabilityRate",
-    "value" : "85",
+    "value" : 85,
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   }

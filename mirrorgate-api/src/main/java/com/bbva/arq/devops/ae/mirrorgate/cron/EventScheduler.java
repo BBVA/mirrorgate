@@ -43,12 +43,12 @@ public class EventScheduler {
     @Scheduled(fixedDelayString = "${events.scheduler.delay.millis}")
     public void checkEventUpdates() throws IOException {
 
-        LOGGER.info("Processing events for timestamp {}", schedulerTimestamp);
+        LOGGER.debug("Processing events for timestamp {}", schedulerTimestamp);
 
         Set<String> dashboardIds = handler.getDashboardsWithSession();
 
         if(dashboardIds != null){
-            LOGGER.info("Active dashboards {}", dashboardIds.size());
+            LOGGER.debug("Active dashboards {}", dashboardIds.size());
         }
 
         //query DB for last events
@@ -72,7 +72,7 @@ public class EventScheduler {
             schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size() - 1).getTimestamp();
         }
 
-        LOGGER.info("Modified timestamp: {}", schedulerTimestamp);
+        LOGGER.debug("Modified timestamp: {}", schedulerTimestamp);
     }
 
     @PostConstruct

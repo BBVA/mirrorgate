@@ -28,6 +28,8 @@ public class UserMetricDTO {
 
     private Double value;
 
+    private Double sampleSize;
+
     private Long timestamp;
 
     /* Associated collector ID */
@@ -96,4 +98,12 @@ public class UserMetricDTO {
         return this;
     }
 
+    public Double getSampleSize() {
+        return sampleSize;
+    }
+
+    public UserMetricDTO setSampleSize(Double sampleSize) {
+        this.sampleSize = sampleSize;
+        return this;
+    }
 }

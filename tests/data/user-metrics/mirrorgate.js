@@ -70,5 +70,25 @@ db.getCollection('user-metrics').insertMany([
     "value" : 12,
     "timestamp" : 1505301880665,
     "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1",
+    "platform" : "Android",
+    "name" : "responseTime",
+    "value" : 0.25,
+    "timestamp" : 1505301880665,
+    "collectorId" : "collector1",
+    "sampleSize": 12
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "2",
+    "platform" : "Android",
+    "name" : "responseTime",
+    "value" : 0.675,
+    "timestamp" : 1505301880665,
+    "collectorId" : "collector1",
+    "sampleSize": 12
   }
 ]);

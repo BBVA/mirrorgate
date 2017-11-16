@@ -38,6 +38,8 @@ public class UserMetric {
 
     private Double value;
 
+    private Double sampleSize;
+
     private Long timestamp;
 
     /* Associated collector ID */
@@ -133,4 +135,12 @@ public class UserMetric {
         return a.equals(b);
     }
 
+    public Double getSampleSize() {
+        return sampleSize;
+    }
+
+    public UserMetric setSampleSize(Double sampleSize) {
+        this.sampleSize = sampleSize;
+        return this;
+    }
 }

@@ -32,6 +32,7 @@ public class UserMetricMapper {
                 .setPlatform(source.getPlatform())
                 .setName(source.getName())
                 .setValue(source.getValue())
+                .setSampleSize(source.getSampleSize())
                 .setTimestamp(source.getTimestamp())
                 .setCollectorId(source.getCollectorId());
     }
@@ -53,6 +54,7 @@ public class UserMetricMapper {
                 .setPlatform(source.getPlatform())
                 .setName(source.getName())
                 .setValue(source.getValue())
+                .setSampleSize(source.getSampleSize())
                 .setTimestamp(source.getTimestamp())
                 .setCollectorId(source.getCollectorId());
     }
