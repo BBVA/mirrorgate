@@ -170,6 +170,12 @@
           return classes;
         }
 
+        var fadeOutLimitTimeSpan = 2 * 14 * 24 * 3600 * 1000;
+        var config = this.getConfig();
+        if(config.filters && config.filters.timeSpan) {
+          fadeOutLimitTimeSpan = config.filters.timeSpan || fadeOutLimitTimeSpan;
+        }
+
         this.processAlerts(data);
 
         var style = window.getComputedStyle(this.getRootElement().querySelector('.component__body'));
@@ -251,7 +257,7 @@
           .style('fill-opacity', function (d) {
             var data = (d.data || d.developData);
             if(!data) return;
-            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - data.timestamp) / (2 * 14 * 24 * 3600 * 1000),1/2));
+            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - data.timestamp - 10 * 60 * 1000) / (fadeOutLimitTimeSpan),1/2));
           });
 
         buildsData.exit().remove();
