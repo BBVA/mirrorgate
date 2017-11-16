@@ -20,8 +20,8 @@
   var version;
 
   setInterval(function () {
-    httpGetAsync('versionTag', function (newVersion) {
-      if(version && version !== newVersion) {
+    httpGetAsync('versionTag', function (err, newVersion) {
+      if(!err && newVersion && version && version !== newVersion) {
         //Wait 10 secconds to let the server warm up
         setTimeout(function () {
           window.location.reload(true);
