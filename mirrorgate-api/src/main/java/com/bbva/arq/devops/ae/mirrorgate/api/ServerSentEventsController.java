@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,16 @@ public class ServerSentEventsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerSentEventsController.class);
 
     private ConnectionHandler handler;
+
+    private static class NotCachedSseEmitter extends SseEmitter {
+        @Override
+        protected void extendResponse(ServerHttpResponse outputMessage) {
+            outputMessage.getHeaders().add("X-Accel-Buffering", "no");
+            outputMessage.getHeaders().add("Cache-Control", "no-cache;");
+
+            super.extendResponse(outputMessage);
+        }
+    }
 
 
     @Autowired
@@ -29,7 +40,7 @@ public class ServerSentEventsController {
 
         LOGGER.info("Creating SseEmitter for dashboard {}", dashboardId);
 
-        SseEmitter sseEmitter = new SseEmitter();
+        SseEmitter sseEmitter = new NotCachedSseEmitter();
 
         sseEmitter.onCompletion(() -> {
             handler.removeFromSessionsMap(sseEmitter, dashboardId);
