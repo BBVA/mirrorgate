@@ -76,10 +76,10 @@ public class ServerSentEventsHandler implements ConnectionHandler {
 
         if(dashboardEmitters == null){
             dashboardEmitters = new ArrayList<>();
+            emittersPerDashboard.put(dashboardId, dashboardEmitters);
         }
 
         dashboardEmitters.add(session);
-        emittersPerDashboard.put(dashboardId, dashboardEmitters);
     }
 
     public synchronized void removeFromSessionsMap(SseEmitter session, String dashboardId){

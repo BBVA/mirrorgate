@@ -55,6 +55,9 @@ public class DashboardServiceTests {
     @Mock
     private DashboardRepository dashboardRepository;
 
+    @Mock
+    private EventService eventService;
+
     @InjectMocks
     private DashboardServiceImpl dashboardService;
 
