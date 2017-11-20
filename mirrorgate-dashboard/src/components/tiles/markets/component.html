@@ -104,12 +104,12 @@
       });
 
       if(apps) {
-        this.model.apps = apps;
-        this.model.apps.forEach(function(app) {
+        this.getModel().apps = apps;
+        this.getModel().apps.forEach(function(app) {
           app.starsTotal = this.controller.calculateStars(app.rateTotal);
           app.starsShortTerm = this.controller.calculateStars(app.rateShortTerm);
         }, this);
-        this.model.marketsStatsDays = data.marketsStatsDays;
+        this.getModel().marketsStatsDays = data.marketsStatsDays;
       }
 
     }

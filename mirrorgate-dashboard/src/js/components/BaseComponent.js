@@ -18,17 +18,17 @@ var BaseComponent = (function() {
 'use strict';
 
   // Creates an object based in the HTML Element prototype
-  var BaseComponentPrototype = Object.create(HTMLElement.prototype);
+  function BaseComponent() {
+    return Reflect.construct(HTMLElement, [], new.target);
+  }
 
-  BaseComponentPrototype.createdCallback = function() {
+  Object.setPrototypeOf(BaseComponent.prototype, HTMLElement.prototype);
+  Object.setPrototypeOf(BaseComponent, HTMLElement);
 
-    this.model = {
-      true: true,
-      attrs: {}
-    };
+  BaseComponent.prototype.connectedCallback = function() {
     for(var i = 0; i < this.attributes.length; i++) {
       var attr = this.attributes[i];
-      this.model.attrs[attr.name] = attr.value;
+      this.getModel().attrs[attr.name] = attr.value;
     }
     var promise = this.onCreated() || Promise.resolve();
     return promise.then(function () {
@@ -56,12 +56,16 @@ var BaseComponent = (function() {
         this.appendChild(wrapper);
         this._fakeShadowRoot = container;
       } else {
-        this.createShadowRoot();
-        this.shadowRoot.appendChild(this._rootElement);
+        if(this.lightDOM) {
+          this.appendChild(this._rootElement);
+        } else {
+          this.createShadowRoot();
+          this.shadowRoot.appendChild(this._rootElement);
+        }
       }
 
-      this.model.config = this.getAttribute('config') ? this.getAttribute('config') : this.model.config;
-      this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.model);
+      this.getModel().config = this.getAttribute('config') ? this.getAttribute('config') : this.getModel().config;
+      this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.getModel());
       this.isReady = true;
       setTimeout(function () {
         this.dispatchEvent(new CustomEvent('component-ready', {bubbles: false}));
@@ -71,60 +75,103 @@ var BaseComponent = (function() {
     });
   };
 
-  BaseComponentPrototype.getRootElement = function () {
+  BaseComponent.prototype.getRootElement = function () {
     return this._fakeShadowRoot || this.shadowRoot;
   };
 
-  BaseComponentPrototype.getConfig = function() {
+  BaseComponent.prototype.getConfig = function() {
     var config = this.getAttribute('config');
     return config && JSON.parse(config);
   };
 
-  BaseComponentPrototype.getModel = function() { return this.model; };
-  BaseComponentPrototype.onCreated = function() {};
-  BaseComponentPrototype.getTemplate = function() {
+  BaseComponent.prototype.getModel = function() {
+    if(!this._model) {
+      this._model = {
+        true: true,
+        attrs: {}
+      };
+    }
+    return this._model;
+  };
+  BaseComponent.prototype.onCreated = function() {};
+  BaseComponent.prototype.getTemplate = function() {
     throw 'getTemplate not implemented';
   };
 
 
-  BaseComponentPrototype.attributeChangedCallback = function(
+  BaseComponent.prototype.attributeChangedCallback = function(
       attributeName, oldValue, newValue, namespace) {
-    this.model.attrs[attributeName] = newValue;
+    if(oldValue === newValue) {
+      return;
+    }
+    this.getModel().attrs[attributeName] = newValue;
     switch (attributeName) {
       case 'config':
-        this.model.config = newValue;
+      this.getModel().config = newValue;
         break;
     }
   };
 
-  return BaseComponentPrototype;
+  BaseComponent.observedAttributes = ['config','pid','enabled'];
+
+  customElements.define('base-component', BaseComponent);
+
+  return BaseComponent;
 
 })();
 
 var MGComponent = function (spec) {
+
+  function findTemplate(node) {
+    var childs = node.children;
+    for(var i = 0; i < childs.length; i++) {
+      if(childs[i].tagName === 'TEMPLATE') {
+        return childs[i];
+      }
+    }
+    return node.querySelector('template');
+  }
+
   if(MGComponent.cache[spec.name]) {
     console.error("Tag already defined " + spec.name);
     return;
   }
-  MGComponent.cache[spec.name]= true;
 
-  var thisDoc = (document._currentScript || document.currentScript).ownerDocument;
-  var tmpl = thisDoc.querySelector('template');
+  var parentClass = spec.parent || BaseComponent;
+  var Component = (function(spec, parentClass) {
+    return function (){
+      var _ = Reflect.construct(parentClass, [], Object.getPrototypeOf(this).constructor);
+      _.lightDOM = spec.lightDOM || !Utils.browserSupportsShadowDOM();
+      return _;
+    };
+  })(spec, parentClass);
 
-  var parent = spec.parent || BaseComponent;
+  MGComponent.cache[spec.name] = Component;
+
+  var thisDoc;
+
+  if(typeof HTMLImports !== 'undefined') {
+    thisDoc = HTMLImports.importForElement(document.currentScript);
+  } else {
+    thisDoc= (document._currentScript || document.currentScript).ownerDocument;
+  }
+
+  var template = findTemplate(thisDoc);
+
   var name = spec.name;
+  delete spec.name;
 
-  var prototype = Object.assign(Object.create(parent), {
+  Object.setPrototypeOf(Component.prototype, parentClass.prototype);
+  Object.setPrototypeOf(Component, parentClass);
+
+  Object.assign(Component.prototype, {
     getTemplate: function () {
-      return tmpl;
+      return template;
     }
   },spec);
 
-  prototype.lightDOM = prototype.lightDOM || !Utils.browserSupportsShadowDOM();
-
-  return document.registerElement(name, {
-    prototype: prototype
-  });
+  customElements.define(name, Component);
+  return Component;
 
 };
 

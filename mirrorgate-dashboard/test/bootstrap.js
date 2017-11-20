@@ -15,6 +15,19 @@
  * limitations under the License.
  */
 
+ //Intercepts Karma loading to ensure webcomponents are ready when loaded through polyfill
+var loaded = window.__karma__.loaded.bind(window.__karma__);
+window.__karma__.loaded = (() => {
+  if(window.WebComponents && !window.WebComponents.ready) {
+    window.addEventListener('WebComponentsReady', () => {
+      loaded();
+    });
+  } else {
+    loaded();
+  }
+}).bind(window.__karma__);
+
+
 beforeEach(() => {
   Events.reset();
   Service.reset();
@@ -50,6 +63,13 @@ var EventSource = function (){
 function buildFakeServer() {
 
   var server = sinon.fakeServer.create();
+
+  //This is needed in order to not interrupt html downloads for HTML Imports of the polyfill
+  XMLHttpRequest.useFilters = true;
+  XMLHttpRequest.addFilter((method, url) => {
+    return !!url.match(/^.*\.html$/);
+  });
+
   server.autoRespond = false;
 
   server.respondWith(

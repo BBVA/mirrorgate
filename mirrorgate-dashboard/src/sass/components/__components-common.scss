@@ -27,6 +27,13 @@
     //display: block;
 
     max-height: 100%;
+
+    &.component-wrapper, &.component-host {
+      background:transparent;
+      border: none;
+      padding: none;
+      margin: none;
+    }
 }
 
 .component__content {

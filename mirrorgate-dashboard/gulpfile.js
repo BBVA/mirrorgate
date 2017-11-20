@@ -52,6 +52,7 @@ const paths = {
   target: 'target/',
   bower: [
     'bower_components*/**/*.min.*',
+    'bower_components*/webcomponentsjs/webcomponents-hi-sd-ce.js',
     'bower_components*/**/dist/**/*.js'
   ],
   fonts: [

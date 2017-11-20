@@ -31,6 +31,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/webcomponentsjs/webcomponents-hi-sd-ce.js',
       'bower_components/d3/d3.min.js',
       'bower_components/jquery/dist/jquery.slim.min.js',
       'bower_components/rivets/dist/rivets.bundled.min.js',

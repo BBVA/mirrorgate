@@ -17,12 +17,16 @@
 var DashboardComponent = (function() {
 'use strict';
 
-  // Creates an object based in the HTML Element prototype
-  var DashboardComponentPrototype = Object.create(BaseComponent);
+  function DashboardComponent() {
+    return Reflect.construct(BaseComponent, [], new.target);
+  }
 
-  DashboardComponentPrototype.createdCallback = function() {
+  Object.setPrototypeOf(DashboardComponent.prototype, BaseComponent.prototype);
+  Object.setPrototypeOf(DashboardComponent, BaseComponent);
 
-    return BaseComponent.createdCallback.apply(this).then(function () {
+  DashboardComponent.prototype.connectedCallback = function() {
+
+    return BaseComponent.prototype.connectedCallback.apply(this).then(function () {
       this.addEventListener('dashboard-updated', function(e) {
         d3.select(this).classed({
           'module-error': e.detail.status === 'error',
@@ -44,11 +48,11 @@ var DashboardComponent = (function() {
     }.bind(this));
   };
 
-  DashboardComponentPrototype.getDashboardId = function() {
+  DashboardComponent.prototype.getDashboardId = function() {
     return this.getConfig() && this.getConfig().name;
   };
 
-  DashboardComponentPrototype._computeSize = function() {
+  DashboardComponent.prototype._computeSize = function() {
     var style = window.getComputedStyle(this);
     var width = parseFloat(style.width.substring(0, style.width.length - 2)),
         height = parseFloat(style.height.substring(0, style.height.length - 2));
@@ -75,7 +79,7 @@ var DashboardComponent = (function() {
     }
   };
 
-
-  return DashboardComponentPrototype;
+  customElements.define('dashboard-inner-component', DashboardComponent);
+  return DashboardComponent;
 
 })();

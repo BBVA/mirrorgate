@@ -21,7 +21,7 @@
     "tests"
   ],
   "dependencies": {
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.24",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.17",
     "bootstrap": "^3.3.7",
     "d3": "^3.4.4",
     "roboto-fontface": "^0.7.0",

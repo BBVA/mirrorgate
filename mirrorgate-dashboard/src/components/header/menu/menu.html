@@ -52,7 +52,7 @@
     },
     attributeChangedCallback: function(
       attributeName, oldValue, newValue, namespace) {
-      BaseComponent.attributeChangedCallback.call(this, arguments);
+      BaseComponent.prototype.attributeChangedCallback.call(this, arguments);
       if(attributeName === 'config') {
         this.updateModel();
       }

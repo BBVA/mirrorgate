@@ -18,17 +18,22 @@ var Tile = (function() {
   'use strict';
 
   // Creates an object based in the HTML Element prototype
-  var TilePrototype = Object.create(DashboardComponent);
+  function Tile() {
+    return Reflect.construct(DashboardComponent, [], new.target);
+  }
 
-  TilePrototype.createdCallback = function() {
+  Object.setPrototypeOf(Tile.prototype, DashboardComponent.prototype);
+  Object.setPrototypeOf(Tile, DashboardComponent);
+
+  Tile.prototype.connectedCallback = function() {
     this.forceEnabled = this.getAttribute('enabled') === 'true';
     this.addEventListener('component-ready', function () {
       this._processEnabled();
     }.bind(this));
-    return DashboardComponent.createdCallback.call(this, arguments);
+    return DashboardComponent.prototype.connectedCallback.call(this, arguments);
   };
 
-  TilePrototype._dispose = function() {
+  Tile.prototype._dispose = function() {
     if(!this._inited) {
       return;
     }
@@ -41,7 +46,7 @@ var Tile = (function() {
   };
 
   // Fires when an instance of the element is created
-  TilePrototype._init = function() {
+  Tile.prototype._init = function() {
     if(this._inited) {
       return;
     }
@@ -80,7 +85,7 @@ var Tile = (function() {
     }
   };
 
-  TilePrototype._processEnabled = function() {
+  Tile.prototype._processEnabled = function() {
     if (this.getAttribute('enabled') === 'false' && !this.forceEnabled) {
       this._dispose();
     } else {
@@ -88,17 +93,17 @@ var Tile = (function() {
     }
   };
 
-  TilePrototype._processConfig = function() {
+  Tile.prototype._processConfig = function() {
     if (this.getAttribute('enabled') !== 'false' || this.forceEnabled) {
       this._dispose();
       this._init();
     }
   };
 
-  TilePrototype.attributeChangedCallback = function(
+  Tile.prototype.attributeChangedCallback = function(
       attributeName, oldValue, newValue, namespace) {
-    DashboardComponent.attributeChangedCallback.call(this, arguments);
-    if(!this.isReady) {
+    DashboardComponent.prototype.attributeChangedCallback.call(this, arguments);
+    if(!this.isReady || oldValue === newValue) {
       return;
     }
     switch (attributeName) {
@@ -111,17 +116,19 @@ var Tile = (function() {
     }
   };
 
-  TilePrototype.getControllerClass = function() {
+  Tile.prototype.getControllerClass = function() {
     return this.controllerClass;
   };
 
-  TilePrototype.render = function() {
+  Tile.prototype.render = function() {
     throw 'Render not implemented';
   };
 
-  TilePrototype.onInit = function () {};
-  TilePrototype.onDispose = function () {};
+  Tile.prototype.onInit = function () {};
+  Tile.prototype.onDispose = function () {};
 
-  return TilePrototype;
+  customElements.define('tile-component', Tile);
+
+  return Tile;
 
 })();
