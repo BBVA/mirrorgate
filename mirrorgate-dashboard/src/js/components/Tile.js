@@ -47,6 +47,10 @@ var Tile = (function() {
 
   // Fires when an instance of the element is created
   Tile.prototype._init = function() {
+    //Ugly hack.... firefox doesn't load correctly without this :-(
+    if(!this.isReady) {
+      setTimeout(this._init.bind(this), 10);
+    }
     if(this._inited) {
       return;
     }
@@ -108,9 +112,6 @@ var Tile = (function() {
   Tile.prototype.attributeChangedCallback = function(
       attributeName, oldValue, newValue, namespace) {
     DashboardComponent.prototype.attributeChangedCallback.call(this, arguments);
-    /*if(!this.isReady || oldValue === newValue) {
-      return;
-    }*/
     switch (attributeName) {
       case 'enabled':
         this._processEnabled();
