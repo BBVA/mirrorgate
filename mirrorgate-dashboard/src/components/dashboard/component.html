@@ -99,6 +99,10 @@
               link.setAttribute('type', 'text/css');
               link.setAttribute('href', 'css/'+skin+'.css');
               document.getElementsByTagName('head')[0].appendChild(link);
+              //Await for css to be ready
+              return new Promise(function (resolve) {
+                link.onload = resolve;
+              });
             }).then(function () {
               return config;
             })
