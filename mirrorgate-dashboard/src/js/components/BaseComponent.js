@@ -26,16 +26,21 @@ var BaseComponent = (function() {
   Object.setPrototypeOf(BaseComponent, HTMLElement);
 
   BaseComponent.prototype.connectedCallback = function() {
+    //Rivets might detach and attach the node several times...
+    if(this._initialized) {
+      return Promise.resolve();
+    }
+    this._initialized = true;
     for(var i = 0; i < this.attributes.length; i++) {
       var attr = this.attributes[i];
       this.getModel().attrs[attr.name] = attr.value;
     }
     var promise = this.onCreated() || Promise.resolve();
     return promise.then(function () {
-      this._rootElement = document.importNode(this.getTemplate().content, true);
+      var rootElement = document.importNode(this.getTemplate().content, true);
 
       //Replace skin placeholder as rivets ignore style tags :-(
-      var styles = this._rootElement.querySelectorAll('style');
+      var styles = rootElement.querySelectorAll('style');
 
       for(var i = 0; i < styles.length; i++) {
         var tag = styles[i];
@@ -52,22 +57,34 @@ var BaseComponent = (function() {
         container.className = "component-host " + this.className;
 
         wrapper.appendChild(container);
-        container.appendChild(this._rootElement);
+        container.appendChild(rootElement);
         this.appendChild(wrapper);
         this._fakeShadowRoot = container;
-      } else if(!this.lightDOM){
-        this.createShadowRoot();
-        this.shadowRoot.appendChild(this._rootElement);
+      } else if(!this.lightDOM && (this.childNodes.length === 0 || !this.innerHTML.trim().length)){
+        if(this.createShadowRoot) {
+          this.createShadowRoot();
+        } else {
+          this.attachShadow({
+            mode: 'open'
+          });
+        }
+
+        this.shadowRoot.appendChild(rootElement);
       }
 
-      this.getModel().config = this.getAttribute('config') ? this.getAttribute('config') : this.getModel().config;
-      if(this._fakeShadowRoot || this.shadowRoot) {
-        this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.getModel());
-      }
-      this.isReady = true;
-      setTimeout(function () {
-        this.dispatchEvent(new CustomEvent('component-ready', {bubbles: false}));
-      }.bind(this));
+      return this.bootstrap()
+      .then(function () {
+          if(this._fakeShadowRoot || this.shadowRoot) {
+            this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.getModel());
+          }
+          setTimeout(function () {
+            this.dispatchEvent(new CustomEvent('component-ready', {bubbles: false}));
+          }.bind(this));
+        }.bind(this))
+      .catch(function (err) {
+          console.error('Error Bootstrapping tag ', this.tagName, err);
+        }.bind(this));
+
     }.bind(this)).catch(function (err) {
       console.error(err);
     });
@@ -75,11 +92,6 @@ var BaseComponent = (function() {
 
   BaseComponent.prototype.getRootElement = function () {
     return this._fakeShadowRoot || this.shadowRoot;
-  };
-
-  BaseComponent.prototype.getConfig = function() {
-    var config = this.getAttribute('config');
-    return config && JSON.parse(config);
   };
 
   BaseComponent.prototype.getModel = function() {
@@ -96,18 +108,17 @@ var BaseComponent = (function() {
     throw 'getTemplate not implemented';
   };
 
+  BaseComponent.prototype.bootstrap = function() {
+    return Promise.resolve();
+  };
 
   BaseComponent.prototype.attributeChangedCallback = function(
       attributeName, oldValue, newValue, namespace) {
     this.getModel().attrs[attributeName] = newValue;
-    switch (attributeName) {
-      case 'config':
-      this.getModel().config = newValue;
-        break;
-    }
   };
 
-  BaseComponent.observedAttributes = ['config','pid','enabled'];
+  /* TODO: this shouldn't be here */
+  BaseComponent.observedAttributes = ['config'];
 
   customElements.define('base-component', BaseComponent);
 
@@ -136,7 +147,7 @@ var MGComponent = function (spec) {
   var Component = (function(spec, parentClass) {
     return function (){
       var _ = Reflect.construct(parentClass, [], Object.getPrototypeOf(this).constructor);
-      _.lightDOM = spec.lightDOM || !Utils.browserSupportsShadowDOM();
+      _.lightDOM = spec.lightDOM;
       return _;
     };
   })(spec, parentClass);

@@ -60,6 +60,15 @@ var EventSource = function (){
   this.addEventListener = function () {};
 };
 
+beforeEach(function () {
+  Timer.stop();
+  Service.reattempt = false;
+});
+
+afterEach(function () {
+  Service.reset();
+});
+
 function buildFakeServer() {
 
   var server = sinon.fakeServer.create();

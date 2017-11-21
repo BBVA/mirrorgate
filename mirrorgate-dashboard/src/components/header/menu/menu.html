@@ -27,8 +27,8 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="menuBtn">
         <li rv-if="config">
-          <a rv-if="simple" href="canary.html" onclick="return Utils.openDashboard('canary');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a>
-          <a rv-unless="simple" href="dashboard.html" onclick="return Utils.openDashboard('dashboard');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Simple view</a>
+          <a rv-if="config.simple" href="canary.html" onclick="return Utils.openDashboard('canary');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Advanced view</a>
+          <a rv-unless="config.simple" href="dashboard.html" onclick="return Utils.openDashboard('dashboard');"><i class="fa fa-pie-chart" aria-hidden="true"></i> Simple view</a>
         </li>
         <li class="dropdown-header">Manage</li>
         <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice()"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
@@ -47,20 +47,16 @@
     name: 'menu-component',
     lightDOM: true,
     parent: BaseComponent,
-    updateModel: function () {
-      this.getModel().simple = this.getConfig() ? this.getConfig().simple : false;
-    },
     attributeChangedCallback: function(
       attributeName, oldValue, newValue, namespace) {
       BaseComponent.prototype.attributeChangedCallback.call(this, arguments);
       if(attributeName === 'config') {
-        this.updateModel();
+        this.getModel().config = JSON.parse(newValue);
       }
     },
     onCreated: function () {
       var model = this.getModel();
       model.dashboards = [];
-      this.updateModel();
       var dashboardsService = Service.get(Service.types.dashboards);
       dashboardsService.addListener(function (response) {
         dashboardsService.removeListener(this);

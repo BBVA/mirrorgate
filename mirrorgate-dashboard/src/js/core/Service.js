@@ -36,14 +36,16 @@ var Service = (function() {
       httpGetAsync(url, function(err, data) {
 
         if(err) {
-          if(breakTimeout) {
-            clearTimeout(breakTimeout);
+          if(window.Service.reattempt) {
+            if(breakTimeout) {
+              clearTimeout(breakTimeout);
+            }
+            breakTimeout = setTimeout(function() {
+              attempt++;
+              breakTimeout = undefined;
+              callHttpService();
+            }, Math.min(32000, Math.pow(2, attempt) * 1000));
           }
-          breakTimeout = setTimeout(function() {
-            attempt++;
-            breakTimeout = undefined;
-            callHttpService();
-          }, Math.min(32000, Math.pow(2, attempt) * 1000));
         } else {
           attempt = 1;
         }
@@ -136,7 +138,8 @@ var Service = (function() {
         }
         item._instances = {};
       }
-    }
+    },
+    reattempt: true
   };
 
   return self;

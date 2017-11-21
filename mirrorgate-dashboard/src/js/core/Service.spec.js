@@ -42,6 +42,7 @@ describe('Service', function() {
     var attempt;
 
     beforeEach(function() {
+      Service.reattempt = true;
       jasmine.clock().install();
       server = sinon.fakeServer.create();
       server.autoRespond = true;
