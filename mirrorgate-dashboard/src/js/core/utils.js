@@ -121,7 +121,7 @@ var Utils = (function() {
     },
 
     browserSupportsShadowDOM : function () {
-      return window.supportsShadowDOM;
+      return !!window.supportsShadowDOM;
     },
 
     compareVersions: function (version1, version2, regExp) {

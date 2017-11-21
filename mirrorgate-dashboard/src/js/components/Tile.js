@@ -69,21 +69,26 @@ var Tile = (function() {
         promise.then(function () {
           this.onInit();
           this._inited = true;
-          this.setAttribute('enabled', 'true');
+          this._setEnabled('true');
         }.bind(this)).catch(function (err) {
           if(err) {
             console.error(err);
           }
           Utils.raiseEvent(this,{});
-          this.setAttribute('enabled', 'false');
+          this._setEnabled('false');
         }.bind(this));
       } else {
         this.onInit();
         this.render(this.getConfig());
-        this.setAttribute('enabled', 'true');
+        this._setEnabled('true');
       }
     }
   };
+  Tile.prototype._setEnabled = function(value) {
+    if(this.getAttribute('enabled') !== value) {
+      this.setAttribute('enabled', value);
+    }
+  }
 
   Tile.prototype._processEnabled = function() {
     if (this.getAttribute('enabled') === 'false' && !this.forceEnabled) {
@@ -103,9 +108,9 @@ var Tile = (function() {
   Tile.prototype.attributeChangedCallback = function(
       attributeName, oldValue, newValue, namespace) {
     DashboardComponent.prototype.attributeChangedCallback.call(this, arguments);
-    if(!this.isReady || oldValue === newValue) {
+    /*if(!this.isReady || oldValue === newValue) {
       return;
-    }
+    }*/
     switch (attributeName) {
       case 'enabled':
         this._processEnabled();

@@ -55,17 +55,15 @@ var BaseComponent = (function() {
         container.appendChild(this._rootElement);
         this.appendChild(wrapper);
         this._fakeShadowRoot = container;
-      } else {
-        if(this.lightDOM) {
-          this.appendChild(this._rootElement);
-        } else {
-          this.createShadowRoot();
-          this.shadowRoot.appendChild(this._rootElement);
-        }
+      } else if(!this.lightDOM){
+        this.createShadowRoot();
+        this.shadowRoot.appendChild(this._rootElement);
       }
 
       this.getModel().config = this.getAttribute('config') ? this.getAttribute('config') : this.getModel().config;
-      this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.getModel());
+      if(this._fakeShadowRoot || this.shadowRoot) {
+        this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.getModel());
+      }
       this.isReady = true;
       setTimeout(function () {
         this.dispatchEvent(new CustomEvent('component-ready', {bubbles: false}));
@@ -101,9 +99,6 @@ var BaseComponent = (function() {
 
   BaseComponent.prototype.attributeChangedCallback = function(
       attributeName, oldValue, newValue, namespace) {
-    if(oldValue === newValue) {
-      return;
-    }
     this.getModel().attrs[attributeName] = newValue;
     switch (attributeName) {
       case 'config':
