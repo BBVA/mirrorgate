@@ -19,29 +19,17 @@ import allbegray.slack.SlackClientFactory;
 import allbegray.slack.type.Channel;
 import allbegray.slack.webapi.SlackWebApiClient;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-/**
- *
- * @author enrique
- */
 @Service
 public class SlackServiceImpl implements SlackService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(SlackServiceImpl.class);
 
     @Autowired
     private RestTemplate restTemplate;
