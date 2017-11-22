@@ -79,6 +79,20 @@ var ProgramIncrementController = (
       return (programIncrement.report = report);
     }
 
+    function getProductSetFromFeatures(features) {
+      return features.reduce(function(productSet, feat) {
+        if (!productSet[feat.project.name]) {
+          productSet[feat.project.name] = {
+            name: feat.project.name,
+            children: [],
+            completed: 0,
+            count: 0
+          };
+        }
+        return productSet;
+      }, {});
+    }
+
 
     function getProgramIncrement(response) {
       var programIncrement;
@@ -91,21 +105,35 @@ var ProgramIncrementController = (
             return element.status === 'DONE';
           }, this);
           var featMap = {};
-          var productSet = {};
-          arg.programIncrementFeatures.forEach(function(feat) {
-            featMap[feat.jiraKey] = feat;
-            feat.children = [];
-            if(!productSet[feat.project.name]){
-              productSet[feat.project.name] = {
-                name: feat.project.name,
+          var productSet = getProductSetFromFeatures(arg.programIncrementFeatures);
+
+          if(Object.keys(productSet).length === 1) {
+            arg.programIncrementEpics.forEach(function(epic) {
+              productSet[epic.jiraKey] = {
+                name: epic.name,
+                url: epic.url,
                 children: [],
                 completed: 0,
                 count: 0
               };
+            });
+          }
+
+          arg.programIncrementFeatures.forEach(function(feat) {
+            featMap[feat.jiraKey] = feat;
+            feat.children = [];
+            productKey = feat.project.name;
+            if(feat.parentKey) {
+              for(var i =0; i<feat.parentKey.length; i++) {
+                if(productSet[feat.parentKey[i]]) {
+                  productKey = feat.parentKey[i];
+                  break;
+                }
+              }
             }
-            productSet[feat.project.name].children.push(feat);
-            productSet[feat.project.name].completed += feat.status === 'DONE' ? 1 : 0;
-            productSet[feat.project.name].count++;
+            productSet[productKey].children.push(feat);
+            productSet[productKey].completed += feat.status === 'DONE' ? 1 : 0;
+            productSet[productKey].count++;
           }, this);
           var productArray = [];
           for (var i in productSet){
