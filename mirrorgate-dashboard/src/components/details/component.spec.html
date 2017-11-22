@@ -39,8 +39,8 @@
         createTestComponent('details-tile').then((component) => {
           server.respond();
           setTimeout(function () {
-            let img = component.querySelector(component.shadowRoot ? '* /deep/ img' : 'img');
-            let span = component.querySelector(component.shadowRoot ? '* /deep/ span' : 'span');
+            let img = component.shadowRoot.querySelector('img');
+            let span = component.shadowRoot.querySelector('span');
             expect(img.attributes.src.value).toBe(detailsForTesting.logoUrl);
             expect(span.textContent).toBe(detailsForTesting.displayName);
             done();

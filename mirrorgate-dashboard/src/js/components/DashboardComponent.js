@@ -45,11 +45,9 @@ var DashboardComponent = (function() {
         setTimeout(this._computeSize.bind(this));
       }.bind(this));
 
-    }.bind(this));
-  };
+      this._computeSize();
 
-  DashboardComponent.prototype.getDashboardId = function() {
-    return this.getConfig() && this.getConfig().name;
+    }.bind(this));
   };
 
   DashboardComponent.prototype._computeSize = function() {
@@ -76,7 +74,12 @@ var DashboardComponent = (function() {
           width: width,
           height: height
         }}));
+
+      this.refresh();
     }
+  };
+
+  DashboardComponent.prototype.refresh = function () {
   };
 
   customElements.define('dashboard-inner-component', DashboardComponent);

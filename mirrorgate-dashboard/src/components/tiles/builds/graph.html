@@ -164,7 +164,7 @@
           if (bdata && bdata.buildUrl) {
             classes += ' clickable';
           }
-          if (data.lastRelevantBuild && data.lastRelevantBuild.name === d.name) {
+          if (data && data.lastRelevantBuild && data.lastRelevantBuild.name === d.name) {
             classes += ' selected';
           }
           return classes;

@@ -27,9 +27,9 @@ var Tile = (function() {
 
   Tile.prototype.connectedCallback = function() {
     this.forceEnabled = this.getAttribute('enabled') === 'true';
-    this.addEventListener('component-ready', function () {
-      this._processEnabled();
-    }.bind(this));
+    if(this.getAttribute('config')) {
+      this.getModel().config = this.getAttribute('config');
+    }
     return DashboardComponent.prototype.connectedCallback.call(this, arguments);
   };
 
@@ -45,13 +45,14 @@ var Tile = (function() {
     this.onDispose();
   };
 
+  Tile.prototype.getDashboardId = function() {
+    return this.getConfig() && this.getConfig().name;
+  };
+
   // Fires when an instance of the element is created
   Tile.prototype._init = function() {
-    if(this._inited) {
-      return;
-    }
     var config = this.getConfig();
-    if (config) {
+    if (!this._inited && config) {
       var CtrlClass = this.getControllerClass();
       if(CtrlClass) {
         this.controller = new CtrlClass(this.getDashboardId());
@@ -61,32 +62,79 @@ var Tile = (function() {
             if(data) {
               this.getModel().updatedDate = Date.now();
             }
+            this._prevData = Utils.clone(data);
             this.render(data);
           }.bind(this));
         }
 
-        var promise = this.controller.init(config) || Promise.resolve();
-        promise.then(function () {
+        var promise = this.controller.init(config) || Promise.resolve(true);
+        return promise.then(function () {
           this.onInit();
           this._inited = true;
-          this.setAttribute('enabled', 'true');
+          this._setEnabled('true');
+          this._resolveBootstrapping();
+          return true;
         }.bind(this)).catch(function (err) {
           if(err) {
             console.error(err);
           }
           Utils.raiseEvent(this,{});
-          this.setAttribute('enabled', 'false');
+          this._setEnabled('false');
+          return false;
         }.bind(this));
       } else {
         this.onInit();
+        this._inited = true;
         this.render(this.getConfig());
-        this.setAttribute('enabled', 'true');
+        this._setEnabled('true');
+        this._resolveBootstrapping();
+        return Promise.resolve(true);
       }
+    }
+    return Promise.resolve(false);
+  };
+
+  Tile.prototype.bootstrap = function () {
+    return DashboardComponent.prototype.bootstrap.call(this, arguments).then(function () {
+      return this._inited ? Promise.resolve() : new Promise(function (resolve, reject) {
+        this._init().then(function (loaded) {
+          if(loaded) {
+            resolve();
+          } else {
+            this._awaitingBootstrapPromise = {
+              resolve: resolve,
+              reject: reject
+            };
+          }
+        }.bind(this));
+      }.bind(this)).then(function () {
+        this._awaitingBootstrapPromise = undefined;
+      }.bind(this));
+    }.bind(this));
+  };
+
+  Tile.prototype._resolveBootstrapping = function () {
+    if(this.getConfig() && this._awaitingBootstrapPromise) {
+      this._awaitingBootstrapPromise.resolve();
+    }
+  };
+
+  Tile.prototype.getConfig = function() {
+    return this.getModel().config && JSON.parse(this.getModel().config);
+  };
+
+  Tile.prototype.isEnabled = function () {
+    return this.getAttribute('enabled') !== 'false' || this.forceEnabled;
+  };
+
+  Tile.prototype._setEnabled = function(value) {
+    if(this.getAttribute('enabled') !== value) {
+      this.setAttribute('enabled', value);
     }
   };
 
   Tile.prototype._processEnabled = function() {
-    if (this.getAttribute('enabled') === 'false' && !this.forceEnabled) {
+    if (!this.isEnabled()) {
       this._dispose();
     } else {
       this._init();
@@ -94,23 +142,23 @@ var Tile = (function() {
   };
 
   Tile.prototype._processConfig = function() {
-    if (this.getAttribute('enabled') !== 'false' || this.forceEnabled) {
+    if (this.isEnabled()) {
       this._dispose();
       this._init();
     }
   };
 
+  Tile.observedAttributes = ['config','pid','enabled'];
+
   Tile.prototype.attributeChangedCallback = function(
       attributeName, oldValue, newValue, namespace) {
     DashboardComponent.prototype.attributeChangedCallback.call(this, arguments);
-    if(!this.isReady || oldValue === newValue) {
-      return;
-    }
     switch (attributeName) {
       case 'enabled':
         this._processEnabled();
         break;
       case 'config':
+        this.getModel().config = newValue;
         this._processConfig();
         break;
     }
@@ -122,6 +170,12 @@ var Tile = (function() {
 
   Tile.prototype.render = function() {
     throw 'Render not implemented';
+  };
+
+  Tile.prototype.refresh = function () {
+    if(this._prevData) {
+      this.render(Utils.clone(this._prevData));
+    }
   };
 
   Tile.prototype.onInit = function () {};

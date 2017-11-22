@@ -18,13 +18,9 @@
 function createTestComponent(type) {
   return new Promise((resolve) => {
     var component = document.createElement(type);
-    component.addEventListener('component-ready', function () {
-      setTimeout(function () {
-        resolve(component);
-      });
-    });
     document.body.appendChild(component);
     component.setAttribute('config', JSON.stringify(detailsForTesting));
+    resolve(component);
   });
 }
 
@@ -39,61 +35,46 @@ function genericTileComponentTest(type, contentProveSelector, focus) {
 
     beforeEach(() => {
       server = buildFakeServer();
+      server.autoRespond = false;
     });
 
     it('should show content', (done) => {
       createTestComponent(type).then((component) => {
-        server.respond();
-        setTimeout(function () {
+        component.addEventListener('component-ready', function () {
           let items = component.getRootElement().querySelectorAll(contentProveSelector);
           expect(items.length).not.toBe(0);
           done();
         });
+        server.respond();
       });
     });
 
     describe('events', () => {
 
-      var testHandler;
-      var handler = function (e) {
-        if (testHandler) {
-          testHandler(e);
-        }
-      };
-
-      beforeEach(() => {
-        document.addEventListener('dashboard-updated', handler);
-      });
-
-      afterEach(() => {
-        document.removeEventListener('dashboard-updated', handler);
-        testHandler = undefined;
-      });
-
       it('should raise an event with ok or unknown when it succeds', (done) => {
-        testHandler = function (e) {
+        function handler(e) {
+          this.removeEventListener('dashboard-updated', handler);
           expect(e.detail.status).not.toBe('server-error');
           done();
         };
 
-        createTestComponent(type).then(function () {
+        createTestComponent(type).then(function (component) {
+          component.addEventListener('dashboard-updated', handler);
           server.respond();
         });
       });
 
-      it('should raise an event when servers fail', (done) => {
-        server.restore();
-        server = sinon.fakeServer.create();
-        server.autoRespond = true;
-
-        createTestComponent(type).then(function () {
-          server.lastRequest.respond(404, {});
-        });
-
-        testHandler = function (e) {
+      it('should raise an event when server fail', (done) => {
+        function handler(e) {
+          this.removeEventListener('dashboard-updated', handler);
           expect(e.detail.status).toBe('server-error');
           done();
         };
+
+        createTestComponent(type).then(function (component) {
+          component.addEventListener('dashboard-updated', handler);
+          server.lastRequest.error();
+        });
 
       });
 

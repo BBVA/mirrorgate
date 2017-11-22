@@ -25,22 +25,24 @@ modules = [
 
 node ('global') {
 
-  withEnv(['CI=true']) {
+  wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm', 'defaultFg': 1, 'defaultBg': 2]) {
+    withEnv(['CI=true']) {
 
-    try {
+      try {
 
-      stage('Checkout') {
-          checkout(scm)
-      }
-
-      for (module in modules) {
-        dir(module) {
-          fileLoader.load('jenkins-build').build();
+        stage('Checkout') {
+            checkout(scm)
         }
-      }
 
-    } catch(Exception e) {
-      throw e;
+        for (module in modules) {
+          dir(module) {
+            fileLoader.load('jenkins-build').build();
+          }
+        }
+
+      } catch(Exception e) {
+        throw e;
+      }
     }
   }
 }
