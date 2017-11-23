@@ -69,7 +69,8 @@
           window.open(url, 'reviews');
         }
       }
-      setTimeout(this._setSize.bind(this), 10000);
+      //setTimeout(this._setSize.bind(this), 10000);
+      setTimeout(this._setSize.bind(this), 100000);
     },
 
     _setSize: function (e) {
@@ -86,7 +87,7 @@
         xSize = Math.min(xSize, 3);
       }
 
-      if(window.innerWidth < 992) {
+      /*if(window.innerWidth < 992) {
         xSize = 1;
         ySize = 1;
         this._sheet.innerText = "";
@@ -94,7 +95,7 @@
         this._sheet.innerText =
           ".review {height: " + Math.floor((height  - 15 * (ySize-1)) / ySize) +"px ;}"
           ;
-      }
+      }*/
 
       var model = this.getModel();
       model.layout = xSize + 'x' + ySize;
@@ -104,13 +105,15 @@
         this._initPageCycle();
       }
 
-      setTimeout(function () {
+      this._loadData();
+
+      /*setTimeout(function () {
         if(contents.offsetHeight > height) {
           this._loadData();
         } else {
           this._setSize();
         }
-      }.bind(this),10);
+      }.bind(this),10);*/
     },
 
     render: function (data) {
