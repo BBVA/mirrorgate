@@ -58,8 +58,8 @@ var BaseComponent = (function() {
 
         wrapper.appendChild(container);
         container.appendChild(rootElement);
-        this.appendChild(wrapper);
         this._fakeShadowRoot = container;
+        this._wrapper = wrapper;
       } else if(!this.lightDOM && (this.childNodes.length === 0 || !this.innerHTML.trim().length)){
         if(this.createShadowRoot) {
           this.createShadowRoot();
@@ -74,9 +74,7 @@ var BaseComponent = (function() {
 
       return this.bootstrap()
       .then(function () {
-          if(this._fakeShadowRoot || this.shadowRoot) {
-            this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.getModel());
-          }
+
           setTimeout(function () {
             this.dispatchEvent(new CustomEvent('component-ready', {bubbles: false}));
           }.bind(this));
@@ -109,6 +107,12 @@ var BaseComponent = (function() {
   };
 
   BaseComponent.prototype.bootstrap = function() {
+    if(this._fakeShadowRoot || this.shadowRoot) {
+      this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.getModel());
+    }
+    if(this._wrapper) {
+      this.appendChild(this._wrapper);
+    }
     return Promise.resolve();
   };
 
@@ -147,7 +151,9 @@ var MGComponent = function (spec) {
   var Component = (function(spec, parentClass) {
     return function (){
       var _ = Reflect.construct(parentClass, [], Object.getPrototypeOf(this).constructor);
-      _.lightDOM = spec.lightDOM;
+      _.lightDOM = spec.lightDOM ||
+        /*In shake of testability */
+        !!document.location.href.match(/lightDOM/);
       return _;
     };
   })(spec, parentClass);

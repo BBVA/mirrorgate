@@ -151,7 +151,7 @@
       this.getModel().boards = data;
     },
 
-    onInit: function () {
+    onCreated: function () {
       this.addEventListener('dashboard-updated', function () {
         var names = {};
         var tiles = this.querySelectorAll ?

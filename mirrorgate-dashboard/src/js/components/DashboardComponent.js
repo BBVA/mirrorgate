@@ -41,24 +41,19 @@ var DashboardComponent = (function() {
       window.addEventListener('resize', function() {
         setTimeout(this._computeSize.bind(this));
       }.bind(this));
-      window.addEventListener('dashboard-updated', function() {
-        setTimeout(this._computeSize.bind(this));
-      }.bind(this));
 
       this._computeSize();
 
     }.bind(this));
   };
 
-  DashboardComponent.prototype._computeSize = function() {
+  DashboardComponent.prototype._computeSize = function(attempts) {
     var style = window.getComputedStyle(this);
     var width = parseFloat(style.width.substring(0, style.width.length - 2)),
         height = parseFloat(style.height.substring(0, style.height.length - 2));
     var min = Math.min(width, height);
 
-    if (isNaN(min)) {
-      setTimeout(this._computeSize.bind(this), 1);
-    } else if(this._width !== width || this._height !== height) {
+    if(!isNaN(min) && (this._width !== width || this._height !== height)) {
       this._width = width;
       this._height = height;
 

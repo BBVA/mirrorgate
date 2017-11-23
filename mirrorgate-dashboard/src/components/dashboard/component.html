@@ -20,7 +20,7 @@
 <link rel="import" href="./simple/component.html" >
 <link rel="import" href="./message/component.html" >
 <template>
-  <div id="main-container" style="display:none">
+  <div id="main-container" style="visibility:hidden">
     <message-dashboard
         message="This dashboard doesn't have any data configured."
         rv-link="editLink"
@@ -108,13 +108,13 @@
             })
         }).then(function () {
           this.addEventListener('component-ready', function () {
-            this.getRootElement().querySelector('#main-container').style.display='block';
+            this.getRootElement().querySelector('#main-container').style.visibility='visible';
           }.bind(this));
         }.bind(this));
       } else {
         model.noDashboard = true;
         this.addEventListener('component-ready', function () {
-          this.getRootElement().querySelector('#main-container').style.display='block';
+          this.getRootElement().querySelector('#main-container').style.visibility='visible';
         }.bind(this));
       }
     }

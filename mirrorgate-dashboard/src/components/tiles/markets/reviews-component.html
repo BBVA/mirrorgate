@@ -62,13 +62,14 @@
     controllerClass: MarketsController,
     parent: Tile,
     onCreated: function () {
-      this.addEventListener('component-resized', this._setSize);
+      this.addEventListener('component-resized', this._setSize.bind(this));
       this.getModel().openDetails = function (review) {
         var url = this.getAttribute('data-url');
         if(url) {
           window.open(url, 'reviews');
         }
       }
+      setTimeout(this._setSize.bind(this), 10000);
     },
 
     _setSize: function (e) {
@@ -103,8 +104,13 @@
         this._initPageCycle();
       }
 
-      this._loadData();
-
+      setTimeout(function () {
+        if(contents.offsetHeight > height) {
+          this._loadData();
+        } else {
+          this._setSize();
+        }
+      }.bind(this),10);
     },
 
     render: function (data) {
