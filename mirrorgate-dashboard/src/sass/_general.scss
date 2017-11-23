@@ -182,12 +182,6 @@ tile-container{
         height: 100%;
     }
 
-    //Vertical fixes
-    .tile--primary  + .full-height--tile  {
-        flex-grow: 3;
-        height: 300%;
-    }
-
     tile-container.alerts {
         background: $alerts-background;
         border-left: 2px solid lighten($alerts-background, 5);
