@@ -20,7 +20,6 @@ import static com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils.failureTen
 import static org.junit.Assert.assertEquals;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
