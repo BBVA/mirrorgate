@@ -161,10 +161,10 @@ tile-container{
     //TILES
 
     tile-container{
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex: 1;
-        flex-basis: auto;
+        flex-grow: 0;
+        /*flex-shrink: 1;
+        flex: 1;*/
+        flex-basis: unset;
         display: flex;
         margin: 0;
         padding: 5px;
@@ -174,9 +174,19 @@ tile-container{
     }
 
     .tile--primary{
-        flex-basis: 100%;
+        flex-grow: 1;
+        height: 100%
     }
 
+    .full-height--tile {
+        height: 100%;
+    }
+
+    //Vertical fixes
+    .tile--primary  + .full-height--tile  {
+        flex-grow: 3;
+        height: 300%;
+    }
 
     tile-container.alerts {
         background: $alerts-background;
