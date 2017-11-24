@@ -23,10 +23,8 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import java.util.stream.Collectors;
 
-/**
- * Created by alfonso on 28/05/17.
- */
 public class IssueMapper {
 
     private IssueMapper(){}
@@ -36,23 +34,21 @@ public class IssueMapper {
     }
 
     public static Feature map(IssueDTO source, Feature target) {
-        target.setdEstimate(source.getEstimate());
-        target.setsName(source.getName());
-        target.setsId(source.getId().toString());
-        target.setsStatus(source.getStatus().getName());
-        if(source.getPriority() != null) {
-            target.setPriority(source.getPriority().getName());
-        } else {
-            target.setPriority(null);
-        }
-        
-        target.setKeywords(source.getKeywords());
-        target.setsTypeName(source.getType());
-        target.setsNumber(source.getJiraKey());
-        target.setlParentId(source.getParentId() == null ? null : Long.parseLong(source.getParentId()));
-        target.setsParentKey(source.getParentKey());
-        target.setsPiNames(source.getPiNames());
-        target.setCollectorId(source.getCollectorId());
+        target
+            .setdEstimate(source.getEstimate())
+            .setsName(source.getName())
+            .setsId(source.getId().toString())
+            .setsStatus(source.getStatus().getName())
+            .setPriority(source.getPriority() == null ? null : source.getPriority().getName())
+            .setKeywords(source.getKeywords())
+            .setsTypeName(source.getType())
+            .setsNumber(source.getJiraKey())
+            .setlParentId(source.getParentId() == null ? null : source.getParentId().stream().map(Long::parseLong).collect(Collectors.toList()))
+            .setsParentKey(source.getParentKey())
+            .setsPiNames(source.getPiNames())
+            .setCollectorId(source.getCollectorId())
+            .setUrl(source.getUrl());
+
         SprintDTO sprint = source.getSprint();
         if(sprint != null) {
             target.setsSprintID(sprint.getId());
@@ -67,6 +63,7 @@ public class IssueMapper {
             target.setSprintBeginDate(null);
             target.setSprintEndDate(null);
         }
+
         ProjectDTO project = source.getProject();
         if(project != null) {
             target.setsProjectId(project.getId() == null ? null : project.getId().toString());
@@ -76,8 +73,6 @@ public class IssueMapper {
             target.setsProjectName(null);
         }
 
-        target.setUrl(source.getUrl());
-
         return target;
     }
 
@@ -86,37 +81,28 @@ public class IssueMapper {
     }
 
     public static IssueDTO map(Feature source, IssueDTO target) {
-        target.setEstimate(source.getdEstimate());
-        target.setName(source.getsName());
-        target.setId(source.getsId() == null ? null : Long.parseLong(source.getsId()));
-        target.setStatus(IssueStatus.fromName(source.getsStatus()));
-        target.setType(source.getsTypeName());
-        target.setParentId(source.getlParentId() == null ? null : source.getlParentId().toString());
-        target.setSprint(new SprintDTO()
-                .setId(source.getsSprintID())
-                .setName(source.getsSprintName())
-                .setStatus(source.getsSprintAssetState() == null ?
-                        null :
-                        SprintStatus.valueOf(source.getsSprintAssetState())
-                )
-                .setStartDate(source.getSprintBeginDate())
-                .setEndDate(source.getSprintEndDate())
-        );
-        target.setProject(new ProjectDTO()
-                .setId(source.getsProjectId() == null ? null : Long.parseLong(source.getsProjectId()))
-                .setName(source.getsProjectName())
-        );
-        target.setParentKey(source.getsParentKey());
-        target.setParentKey(source.getsParentKey());
-        target.setJiraKey(source.getsNumber());
-        target.setKeywords(source.getKeywords());
-        target.setPiNames(source.getsPiNames());
-        target.setCollectorId(source.getCollectorId());
-        target.setPriority(source.getPriority() == null ? null : IssuePriority.fromName(source.getPriority()));
-        target.setUrl(source.getUrl());
-
-        return target;
+        return target
+            .setEstimate(source.getdEstimate())
+            .setName(source.getsName())
+            .setId(source.getsId() == null ? null : Long.parseLong(source.getsId()))
+            .setStatus(IssueStatus.fromName(source.getsStatus()))
+            .setType(source.getsTypeName())
+            .setSprint(new SprintDTO()
+                    .setId(source.getsSprintID())
+                    .setName(source.getsSprintName())
+                    .setStatus(source.getsSprintAssetState() == null ? null : SprintStatus.valueOf(source.getsSprintAssetState()))
+                    .setStartDate(source.getSprintBeginDate())
+                    .setEndDate(source.getSprintEndDate()))
+            .setProject(new ProjectDTO()
+                    .setId(source.getsProjectId() == null ? null : Long.parseLong(source.getsProjectId()))
+                    .setName(source.getsProjectName()))
+            .setParentKey(source.getsParentKey())
+            .setParentId(source.getlParentId() == null ? null : source.getlParentId().stream().map(String::valueOf).collect(Collectors.toList()))
+            .setJiraKey(source.getsNumber())
+            .setKeywords(source.getKeywords())
+            .setPiNames(source.getsPiNames())
+            .setCollectorId(source.getCollectorId())
+            .setPriority(source.getPriority() == null ? null : IssuePriority.fromName(source.getPriority()))
+            .setUrl(source.getUrl());
     }
-
-
 }

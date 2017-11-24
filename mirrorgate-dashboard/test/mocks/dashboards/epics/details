@@ -1,0 +1,9 @@
+{
+  "name": "epics",
+  "displayName": "Display Epics",
+  "logoUrl": "img/logo.png",
+  "boards": [
+    "epics"
+  ],
+  "programIncrement": "blah"
+}

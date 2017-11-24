@@ -15,21 +15,13 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -40,8 +32,6 @@ import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Sub
 import org.springframework.data.mongodb.core.query.Criteria;
 
 public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(FeatureRepositoryImpl.class);
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -109,6 +99,7 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
     }
 
+    @Override
     public List<String> programIncrementBoardFeatures(List<String> boards, List<String> programIncrementFeatures){
 
         Aggregation agg = newAggregation(
