@@ -17,8 +17,6 @@
 /**
  * Product Increment model
  *
- * @param {Number} featuresNumber     Number of features in the PI
-
  */
 function ProgramIncrement(completedFeatures, features, stories, products, startDate, endDate){
   this.completedFeatures = completedFeatures;

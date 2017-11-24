@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EventType {
+    DETAIL("DashboardType"),
     BUILD("BuildType"),
     FEATURE("FeatureType"),
     REVIEW("ReviewType");
@@ -24,6 +25,7 @@ public enum EventType {
         MAPPING.put("FeatureType", FEATURE);
         MAPPING.put("BuildType", BUILD);
         MAPPING.put("ReviewType", REVIEW);
+        MAPPING.put("DashboardType", DETAIL);
     }
 
     public static EventType fromString(String value) {

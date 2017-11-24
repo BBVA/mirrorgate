@@ -22,7 +22,6 @@ import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
-
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -37,12 +36,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class FeatureServiceImpl implements FeatureService{
 
-    private FeatureRepository repository;
-    private EventService eventService;
+    private final FeatureRepository repository;
+    private final EventService eventService;
 
     @Autowired
     public FeatureServiceImpl(FeatureRepository repository, EventService eventService){
-
         this.repository = repository;
         this.eventService = eventService;
     }
@@ -53,7 +51,7 @@ public class FeatureServiceImpl implements FeatureService{
     }
 
     @Override
-    public List<Feature> getFeatureRelatedIssues(List<String> featuresKeys){
+    public List<Feature> getFeatureRelatedIssues(List<String> featuresKeys) {
         return repository.findAllBysParentKeyIn(featuresKeys);
     }
 
@@ -130,4 +128,8 @@ public class FeatureServiceImpl implements FeatureService{
         return repository.findAll(ids);
     }
 
+    @Override
+    public List<Feature> getEpicsBySNumber(List<String> keys) {
+        return repository.findAllBySNumberInAndSTypeName(keys, "Epic");
+    }
 }

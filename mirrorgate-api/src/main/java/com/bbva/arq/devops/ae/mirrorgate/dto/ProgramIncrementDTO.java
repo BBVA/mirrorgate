@@ -1,13 +1,13 @@
 package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
-
 import java.util.Date;
 import java.util.List;
 
 public class ProgramIncrementDTO {
 
     private String programIncrementName;
+    private List<IssueDTO> programIncrementEpics;
     private List<IssueDTO> programIncrementFeatures;
     private List<IssueDTO> programIncrementStories;
     private Date startDate;
@@ -40,7 +40,18 @@ public class ProgramIncrementDTO {
         return this;
     }
 
-    public Date getProgramIncrementStartDate() { return startDate; }
+    public List<IssueDTO> getProgramIncrementEpics() {
+        return programIncrementEpics;
+    }
+
+    public ProgramIncrementDTO setProgramIncrementEpics(List<IssueDTO> programIncrementEpics) {
+        this.programIncrementEpics = programIncrementEpics;
+        return this;
+    }
+
+    public Date getProgramIncrementStartDate() {
+        return startDate;
+    }
 
     public ProgramIncrementDTO setProgramIncrementStartDate(Date startDate) {
         this.startDate = startDate;

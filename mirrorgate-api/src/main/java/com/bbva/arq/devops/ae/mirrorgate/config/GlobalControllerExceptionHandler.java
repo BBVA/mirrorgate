@@ -17,15 +17,13 @@ package com.bbva.arq.devops.ae.mirrorgate.config;
 
 import com.bbva.arq.devops.ae.mirrorgate.exception.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
-/**
- *
- * @author enrique
- */
 @ControllerAdvice
 class GlobalControllerExceptionHandler {
 
@@ -52,5 +50,10 @@ class GlobalControllerExceptionHandler {
     @ResponseBody
     String handleConflict(Exception ex) {
         return ex.getMessage();
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    ResponseEntity<?> handleClientError(HttpClientErrorException ex) {
+        return ResponseEntity.status(ex.getStatusCode()).body(ex.getMessage());
     }
 }

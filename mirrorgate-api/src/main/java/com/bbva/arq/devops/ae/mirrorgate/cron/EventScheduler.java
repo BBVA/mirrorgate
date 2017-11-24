@@ -51,13 +51,12 @@ public class EventScheduler {
             LOGGER.debug("Active dashboards {}", dashboardIds.size());
         }
 
-        //query DB for last events
-        List<Event> unprocessedEvents = eventService.getEventsSinceTimestamp(schedulerTimestamp);
-
         //process events
-        if (!unprocessedEvents.isEmpty()) {
+        if(!dashboardIds.isEmpty()) {
+            //query DB for last events
+            List<Event> unprocessedEvents = eventService.getEventsSinceTimestamp(schedulerTimestamp);
+            if (!unprocessedEvents.isEmpty()) {
 
-            if(!dashboardIds.isEmpty()) {
                 //Filter events
                 unprocessedEvents.stream()
                     .collect(Collectors.groupingBy(Event::getEventType))
@@ -66,13 +65,13 @@ public class EventScheduler {
                         beanFactory.getBean(eventgroup.getKey().getValue(), EventHandler.class)
                             .processEvents(eventgroup.getValue(), dashboardIds)
                     );
+                //save last event timestamp to local variable
+                schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size() - 1).getTimestamp();
+                LOGGER.debug("Modified timestamp: {}", schedulerTimestamp);
             }
 
-            //save last event timestamp to local variable
-            schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size() - 1).getTimestamp();
         }
 
-        LOGGER.debug("Modified timestamp: {}", schedulerTimestamp);
     }
 
     @PostConstruct

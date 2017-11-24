@@ -20,4 +20,10 @@
     Timer.start();
   });
   window.addEventListener('resize', function() { Timer.trigger(); });
+  ServerSentEvent.addListener(function(serverEventType){
+    var serverSentEventtype=JSON.parse(serverEventType);
+    if(serverSentEventtype.type === 'DashboardType'){
+      window.document.location.reload();
+    }
+  });
 })();

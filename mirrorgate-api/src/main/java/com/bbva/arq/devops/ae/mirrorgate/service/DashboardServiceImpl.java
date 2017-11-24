@@ -26,6 +26,7 @@ import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import java.io.InputStream;
@@ -45,10 +46,12 @@ public class DashboardServiceImpl implements DashboardService {
             = new Sort(Sort.Direction.DESC, "lastModification");
 
     private final DashboardRepository dashboardRepository;
+    private EventService eventService;
 
     @Autowired
-    public DashboardServiceImpl(DashboardRepository dashboardRepository){
+    public DashboardServiceImpl(DashboardRepository dashboardRepository, EventService eventService){
         this.dashboardRepository = dashboardRepository;
+        this.eventService = eventService;
     }
 
     @Override
@@ -156,7 +159,11 @@ public class DashboardServiceImpl implements DashboardService {
 
         Dashboard toSave = mergeDashboard(currentDashboard, map(updatedDashboard), authUser);
 
-        return map(dashboardRepository.save(toSave));
+        Dashboard saved = dashboardRepository.save(toSave);
+
+        eventService.saveEvent(saved, EventType.DETAIL);
+
+        return map(saved);
     }
 
     @Override
