@@ -7,7 +7,8 @@ public enum EventType {
     DETAIL("DashboardType"),
     BUILD("BuildType"),
     FEATURE("FeatureType"),
-    REVIEW("ReviewType");
+    REVIEW("ReviewType"),
+    PING("PingType");
 
     private final String value;
 
@@ -26,6 +27,7 @@ public enum EventType {
         MAPPING.put("BuildType", BUILD);
         MAPPING.put("ReviewType", REVIEW);
         MAPPING.put("DashboardType", DETAIL);
+        MAPPING.put("PingType", PING);
     }
 
     public static EventType fromString(String value) {

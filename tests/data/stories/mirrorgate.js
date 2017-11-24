@@ -1,6 +1,9 @@
+var start = new Date((new Date()).getTime() - (1000 * 60 * 60 * 24 * 3));
+var end = new Date((new Date()).getTime() + (1000 * 60 * 60 * 24 * 11));
+
 db.getCollection('feature').insertMany([
   {
-    'sId': '43021',
+    'sId': '430210',
     'sNumber': 'DOST05-47',
     'sName': '[ISW] Build failure rate',
     'sTypeName': 'Story',
@@ -9,10 +12,14 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP4',
     'sSprintAssetState': 'ACTIVE',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'collectorId': "mirrorgate-collectors-jira",
+    keywords: [
+        'MirrorGate',
+    ]
   },
   {
     'sId': '46093',
@@ -24,8 +31,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP4',
     'sSprintAssetState': 'ACTIVE',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate'
   },
@@ -39,8 +46,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP4',
     'sSprintAssetState': 'ACTIVE',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate'
   },
@@ -54,8 +61,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP4',
     'sSprintAssetState': 'ACTIVE',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate'
   },
@@ -69,8 +76,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP4',
     'sSprintAssetState': 'ACTIVE',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate'
   },
@@ -99,8 +106,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP4',
     'sSprintAssetState': 'ACTIVE',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
     'priority':'High'
@@ -115,8 +122,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP4',
     'sSprintAssetState': 'ACTIVE',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
     'priority':'High'
@@ -131,8 +138,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP4',
     'sSprintAssetState': 'ACTIVE',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate'
   },
@@ -146,8 +153,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP4',
     'sSprintAssetState': 'ACTIVE',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
     'priority':'Lowest'
@@ -192,8 +199,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP1',
     'sSprintAssetState': 'CLOSED',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
     'sPiNames': ['MG01','MG02'],
@@ -211,8 +218,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP1',
     'sSprintAssetState': 'CLOSED',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
     'sPiNames': ['MG02'],
@@ -230,8 +237,8 @@ db.getCollection('feature').insertMany([
     'sSprintID': '1225',
     'sSprintName': 'MIRRORGATE_SP1',
     'sSprintAssetState': 'CLOSED',
-    'sprintBeginDate': ISODate('2017-03-21T22:00:50.3050000'),
-    'sprintEndDate': ISODate('2017-04-04T22:00:00.0000000'),
+    'sprintBeginDate': start,
+    'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
     'sParentKey': 'DOST05-101',

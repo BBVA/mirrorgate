@@ -43,9 +43,9 @@ function Event(sender) {
 
 Event.prototype = {
 
-  attach: function(listener) {
+  attach: function(listener, ignorePrevious) {
     this._listeners.push(listener);
-    if (this._lastResult) {
+    if (this._lastResult && !ignorePrevious) {
       dispatch(listener, this, this._lastResult);
     }
   },

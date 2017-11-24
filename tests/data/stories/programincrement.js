@@ -1,9 +1,7 @@
 db.getCollection('feature').insertMany([
   /* 1 */
 {
-    "_id" : ObjectId("589c9805f06123290173c240"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40161",
+    "sId" : "240161",
     "sNumber" : "DOST05-16",
     "sName" : "Dummy name DOST05-16",
     "sTypeName" : "Feature",
@@ -15,18 +13,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 2 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c247"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40162",
+    "sId" : "240162",
     "sNumber" : "DOST05-19",
     "sName" : "Dummy name DOST05-19",
     "sTypeName" : "Feature",
@@ -38,18 +34,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 3 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4d4"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40157",
+    "sId" : "240157",
     "sNumber" : "DOST05-20",
     "sName" : "Dummy name DOST05-20",
     "sTypeName" : "Feature",
@@ -61,18 +55,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 4 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4ef"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40275",
+    "sId" : "240275",
     "sNumber" : "DOST05-29",
     "sName" : "Dummy name DOST05-29",
     "sTypeName" : "Story",
@@ -87,18 +79,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 5 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c244"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40163",
+    "sId" : "240163",
     "sNumber" : "DOST05-23",
     "sName" : "Dummy name DOST05-23",
     "sTypeName" : "Feature",
@@ -110,18 +100,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 6 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c245"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40169",
+    "sId" : "240169",
     "sNumber" : "DOST05-18",
     "sName" : "Dummy name DOST05-18",
     "sTypeName" : "Feature",
@@ -133,18 +121,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 7 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4ee"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40274",
+    "sId" : "240274",
     "sNumber" : "DOST05-33",
     "sName" : "Dummy name DOST05-33",
     "sTypeName" : "Story",
@@ -159,18 +145,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 8 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c23c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40154",
+    "sId" : "240154",
     "sNumber" : "DOST05-15",
     "sName" : "Dummy name DOST05-15",
     "sTypeName" : "Feature",
@@ -182,18 +166,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 9 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c243"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40175",
+    "sId" : "240175",
     "sNumber" : "DOST05-21",
     "sName" : "Dummy name DOST05-21",
     "sTypeName" : "Feature",
@@ -205,18 +187,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 10 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c23e"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40158",
+    "sId" : "240158",
     "sNumber" : "DOST05-6",
     "sName" : "Dummy name DOST05-6",
     "sTypeName" : "Feature",
@@ -228,18 +208,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 11 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c242"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40173",
+    "sId" : "240173",
     "sNumber" : "DOST05-22",
     "sName" : "Dummy name DOST05-22",
     "sTypeName" : "Feature",
@@ -251,18 +229,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 12 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4d5"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40152",
+    "sId" : "240152",
     "sNumber" : "DOST05-11",
     "sName" : "Dummy name DOST05-11",
     "sTypeName" : "Feature",
@@ -274,18 +250,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 13 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4e7"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40179",
+    "sId" : "240179",
     "sNumber" : "DOST05-38",
     "sName" : "Dummy name DOST05-38",
     "sTypeName" : "Story",
@@ -300,18 +274,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-23",
     "lParentId" : NumberLong(40163),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 14 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c232"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40155",
+    "sId" : "240155",
     "sNumber" : "DOST05-3",
     "sName" : "Dummy name DOST05-3",
     "sTypeName" : "Feature",
@@ -323,18 +295,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 15 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c233"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40159",
+    "sId" : "240159",
     "sNumber" : "DOST05-2",
     "sName" : "Dummy name DOST05-2",
     "sTypeName" : "Feature",
@@ -346,18 +316,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 16 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c23b"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40153",
+    "sId" : "240153",
     "sNumber" : "DOST05-13",
     "sName" : "Dummy name DOST05-13",
     "sTypeName" : "Feature",
@@ -369,18 +337,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 17 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c236"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40174",
+    "sId" : "240174",
     "sNumber" : "DOST05-8",
     "sName" : "Dummy name DOST05-8",
     "sTypeName" : "Feature",
@@ -392,18 +358,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 18 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c23d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40156",
+    "sId" : "240156",
     "sNumber" : "DOST05-12",
     "sName" : "Dummy name DOST05-12",
     "sTypeName" : "Feature",
@@ -415,18 +379,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 19 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c231"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40166",
+    "sId" : "240166",
     "sNumber" : "DOST05-1",
     "sName" : "Dummy name DOST05-1",
     "sTypeName" : "Feature",
@@ -438,18 +400,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 20 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c23a"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40165",
+    "sId" : "240165",
     "sNumber" : "DOST05-5",
     "sName" : "Dummy name DOST05-5",
     "sTypeName" : "Feature",
@@ -461,18 +421,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 21 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4ea"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40268",
+    "sId" : "240268",
     "sNumber" : "DOST05-28",
     "sName" : "Dummy name DOST05-28",
     "sTypeName" : "Story",
@@ -487,18 +445,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-27",
     "lParentId" : NumberLong(40176),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 22 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4eb"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40269",
+    "sId" : "240269",
     "sNumber" : "DOST05-26",
     "sName" : "Dummy name DOST05-26",
     "sTypeName" : "Story",
@@ -513,18 +469,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-27",
     "lParentId" : NumberLong(40176),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 23 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4f0"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40276",
+    "sId" : "240276",
     "sNumber" : "DOST05-35",
     "sName" : "Dummy name DOST05-35",
     "sTypeName" : "Story",
@@ -539,18 +493,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 24 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c238"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40170",
+    "sId" : "240170",
     "sNumber" : "DOST05-4",
     "sName" : "Dummy name DOST05-4",
     "sTypeName" : "Feature",
@@ -562,18 +514,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 25 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c23f"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40160",
+    "sId" : "240160",
     "sNumber" : "DOST05-9",
     "sName" : "Dummy name DOST05-9",
     "sTypeName" : "Feature",
@@ -585,18 +535,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 26 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4ed"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40272",
+    "sId" : "240272",
     "sNumber" : "DOST05-36",
     "sName" : "Dummy name DOST05-36",
     "sTypeName" : "Story",
@@ -611,18 +559,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 27 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c239"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40164",
+    "sId" : "240164",
     "sNumber" : "DOST05-7",
     "sName" : "Dummy name DOST05-7",
     "sTypeName" : "Feature",
@@ -634,18 +580,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 28 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c246"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40168",
+    "sId" : "240168",
     "sNumber" : "DOST05-24",
     "sName" : "Dummy name DOST05-24",
     "sTypeName" : "Feature",
@@ -657,18 +601,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 29 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c235"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40172",
+    "sId" : "240172",
     "sNumber" : "DOST05-14",
     "sName" : "Dummy name DOST05-14",
     "sTypeName" : "Feature",
@@ -680,18 +622,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 30 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c241"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40171",
+    "sId" : "240171",
     "sNumber" : "DOST05-17",
     "sName" : "Dummy name DOST05-17",
     "sTypeName" : "Feature",
@@ -703,18 +643,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 31 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4f2"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40278",
+    "sId" : "240278",
     "sNumber" : "DOST05-32",
     "sName" : "Dummy name DOST05-32",
     "sTypeName" : "Story",
@@ -729,18 +667,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-2",
     "lParentId" : NumberLong(40159),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 32 */
 ,{
-    "_id" : ObjectId("589c9805f06123290173c237"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40167",
+    "sId" : "240167",
     "sNumber" : "DOST05-10",
     "sName" : "Dummy name DOST05-10",
     "sTypeName" : "Feature",
@@ -752,18 +688,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 33 */
 ,{
-    "_id" : ObjectId("589c983cf06123290173c4f1"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40176",
+    "sId" : "240176",
     "sNumber" : "DOST05-27",
     "sName" : "Dummy name DOST05-27",
     "sTypeName" : "Story",
@@ -778,18 +712,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 34 */
 ,{
-    "_id" : ObjectId("589c989bf06123290173c88d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40270",
+    "sId" : "240270",
     "sNumber" : "DOST05-34",
     "sName" : "Dummy name DOST05-34",
     "sTypeName" : "Story",
@@ -804,18 +736,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-13",
     "lParentId" : NumberLong(40153),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 35 */
 ,{
-    "_id" : ObjectId("589c989bf06123290173c88b"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40271",
+    "sId" : "240271",
     "sNumber" : "DOST05-30",
     "sName" : "Dummy name DOST05-30",
     "sTypeName" : "Story",
@@ -830,18 +760,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 36 */
 ,{
-    "_id" : ObjectId("589c987ef06123290173c7bd"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40277",
+    "sId" : "240277",
     "sNumber" : "DOST05-25",
     "sName" : "Dummy name DOST05-25",
     "sTypeName" : "Story",
@@ -856,18 +784,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-2",
     "lParentId" : NumberLong(40159),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 37 */
 ,{
-    "_id" : ObjectId("589c987ef06123290173c7c2"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "40177",
+    "sId" : "240177",
     "sNumber" : "DOST05-37",
     "sName" : "Dummy name DOST05-37",
     "sTypeName" : "Story",
@@ -882,18 +808,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 38 */
 ,{
-    "_id" : ObjectId("58b951b0f06123093fc4a6d8"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43024",
+    "sId" : "243024",
     "sNumber" : "DOST05-50",
     "sName" : "Dummy name DOST05-50",
     "sTypeName" : "Story",
@@ -908,18 +832,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-13",
     "lParentId" : NumberLong(40153),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 39 */
 ,{
-    "_id" : ObjectId("58b951b0f06123093fc4a6c7"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43025",
+    "sId" : "243025",
     "sNumber" : "DOST05-51",
     "sName" : "Dummy name DOST05-51",
     "sTypeName" : "Story",
@@ -929,18 +851,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-116",
     "lParentId" : NumberLong(54889),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 40 */
 ,{
-    "_id" : ObjectId("58b951adf06123093fc4a6bc"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43300",
+    "sId" : "243300",
     "sNumber" : "DOST05-75",
     "sName" : "Dummy name DOST05-75",
     "sTypeName" : "Story",
@@ -955,18 +875,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-24",
     "lParentId" : NumberLong(40168),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 41 */
 ,{
-    "_id" : ObjectId("58b95196f06123093fc4a61c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43023",
+    "sId" : "243023",
     "sNumber" : "DOST05-49",
     "sName" : "Dummy name DOST05-49",
     "sTypeName" : "Story",
@@ -981,18 +899,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 42 */
 ,{
-    "_id" : ObjectId("589dd576f06123290173c974"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "41636",
+    "sId" : "241636",
     "sNumber" : "DOST05-39",
     "sName" : "Dummy name DOST05-39",
     "sTypeName" : "Story",
@@ -1007,18 +923,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-2",
     "lParentId" : NumberLong(40159),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 43 */
 ,{
-    "_id" : ObjectId("589dd6a2f06123290173c975"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "41637",
+    "sId" : "241637",
     "sNumber" : "DOST05-40",
     "sName" : "Dummy name DOST05-40",
     "sTypeName" : "Story",
@@ -1033,18 +947,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-14",
     "lParentId" : NumberLong(40172),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 44 */
 ,{
-    "_id" : ObjectId("58b951cbf06123093fc4a7aa"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43302",
+    "sId" : "243302",
     "sNumber" : "DOST05-77",
     "sName" : "Dummy name DOST05-77",
     "sTypeName" : "Story",
@@ -1057,18 +969,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 45 */
 ,{
-    "_id" : ObjectId("58b951b0f06123093fc4a6c9"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43027",
+    "sId" : "243027",
     "sNumber" : "DOST05-53",
     "sName" : "Dummy name DOST05-53",
     "sTypeName" : "Story",
@@ -1083,18 +993,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 46 */
 ,{
-    "_id" : ObjectId("58b95196f06123093fc4a617"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43026",
+    "sId" : "243026",
     "sNumber" : "DOST05-52",
     "sName" : "Dummy name DOST05-52",
     "sTypeName" : "Story",
@@ -1109,18 +1017,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 47 */
 ,{
-    "_id" : ObjectId("58b951b0f06123093fc4a6c8"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "42701",
+    "sId" : "242701",
     "sNumber" : "DOST05-45",
     "sName" : "Dummy name DOST05-45",
     "sTypeName" : "Story",
@@ -1135,18 +1041,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 48 */
 ,{
-    "_id" : ObjectId("58b951a4f06123093fc4a662"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "42700",
+    "sId" : "242700",
     "sNumber" : "DOST05-44",
     "sName" : "Dummy name DOST05-44",
     "sTypeName" : "Story",
@@ -1161,18 +1065,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 49 */
 ,{
-    "_id" : ObjectId("58b951b0f06123093fc4a6ca"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "41830",
+    "sId" : "241830",
     "sNumber" : "DOST05-43",
     "sName" : "Dummy name DOST05-43",
     "sTypeName" : "Story",
@@ -1185,18 +1087,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 50 */
 ,{
-    "_id" : ObjectId("58b9520af06123093fc4abed"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "41810",
+    "sId" : "241810",
     "sNumber" : "DOST05-41",
     "sName" : "Dummy name DOST05-41",
     "sTypeName" : "Story",
@@ -1211,18 +1111,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 51 */
 ,{
-    "_id" : ObjectId("58b9521df06123093fc4addf"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "46086",
+    "sId" : "246086",
     "sNumber" : "DOST05-83",
     "sName" : "Dummy name DOST05-83",
     "sTypeName" : "Feature",
@@ -1234,18 +1132,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 52 */
 ,{
-    "_id" : ObjectId("58bfe55ef06123093fc4b02b"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "47179",
+    "sId" : "247179",
     "sNumber" : "DOST05-94",
     "sName" : "Dummy name DOST05-94",
     "sTypeName" : "Story",
@@ -1260,18 +1156,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 53 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad49"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43022",
+    "sId" : "243022",
     "sNumber" : "DOST05-48",
     "sName" : "Dummy name DOST05-48",
     "sTypeName" : "Story",
@@ -1281,18 +1175,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 54 */
 ,{
-    "_id" : ObjectId("58b95219f06123093fc4ad4b"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "45374",
+    "sId" : "245374",
     "sNumber" : "DOST05-81",
     "sName" : "Dummy name DOST05-81",
     "sTypeName" : "Story",
@@ -1307,18 +1199,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 55 */
 ,{
-    "_id" : ObjectId("58b95219f06123093fc4ad4c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43307",
+    "sId" : "243307",
     "sNumber" : "DOST05-78",
     "sName" : "Dummy name DOST05-78",
     "sTypeName" : "Story",
@@ -1326,18 +1216,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 56 */
 ,{
-    "_id" : ObjectId("58bd4131f06123093fc4aed1"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "46419",
+    "sId" : "246419",
     "sNumber" : "DOST05-93",
     "sName" : "Dummy name DOST05-93",
     "sTypeName" : "Story",
@@ -1352,18 +1240,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 57 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad45"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43811",
+    "sId" : "243811",
     "sNumber" : "DOST05-79",
     "sName" : "Dummy name DOST05-79",
     "sTypeName" : "Story",
@@ -1373,18 +1259,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 58 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad48"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43105",
+    "sId" : "243105",
     "sNumber" : "DOST05-54",
     "sName" : "Dummy name DOST05-54",
     "sTypeName" : "Story",
@@ -1397,18 +1281,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 59 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad44"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43301",
+    "sId" : "243301",
     "sNumber" : "DOST05-76",
     "sName" : "Dummy name DOST05-76",
     "sTypeName" : "Story",
@@ -1423,19 +1305,17 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-115",
     "lParentId" : NumberLong(54886),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 60 */
 ,{
-    "_id" : ObjectId("58b95220f06123093fc4ae01"),
-    "_class" : "com.capitalone.dashboard.model.Feature",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sId" : "45372",
+    "sId" : "245372",
     "sNumber" : "DOST05-80",
     "sName" : "Dummy name DOST05-80",
     "sTypeId" : "10000",
@@ -1481,7 +1361,7 @@ db.getCollection('feature').insertMany([
     "sProjectChangeDate" : "",
     "sProjectEndDate" : "",
     "sProjectBeginDate" : "",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "sProjectID" : "12508",
     "dEstimate" : 0.0,
     "sprintEndDate" : ISODate("1970-01-01T00:00:00.000Z"),
@@ -1490,9 +1370,7 @@ db.getCollection('feature').insertMany([
 
 /* 61 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad47"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43020",
+    "sId" : "243020",
     "sNumber" : "DOST05-46",
     "sName" : "Dummy name DOST05-46",
     "sTypeName" : "Story",
@@ -1502,18 +1380,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 62 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad4a"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "41811",
+    "sId" : "241811",
     "sNumber" : "DOST05-42",
     "sName" : "Dummy name DOST05-42",
     "sTypeName" : "Bug",
@@ -1526,19 +1402,17 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 63 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad37"),
-    "_class" : "com.capitalone.dashboard.model.Feature",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sId" : "46089",
+    "sId" : "246089",
     "sNumber" : "DOST05-86",
     "sName" : "Dummy name DOST05-86",
     "sTypeId" : "10001",
@@ -1585,7 +1459,7 @@ db.getCollection('feature').insertMany([
     "sProjectChangeDate" : "",
     "sProjectEndDate" : "",
     "sProjectBeginDate" : "",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "sProjectID" : "12508",
     "dEstimate" : 3.0,
     "sprintEndDate" : ISODate("1970-01-01T00:00:00.000Z"),
@@ -1594,9 +1468,7 @@ db.getCollection('feature').insertMany([
 
 /* 64 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad42"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "46092",
+    "sId" : "246092",
     "sNumber" : "DOST05-89",
     "sName" : "Dummy name DOST05-89",
     "sTypeName" : "Story",
@@ -1611,18 +1483,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 65 */
 ,{
-    "_id" : ObjectId("58bfe55ef06123093fc4b02d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "47181",
+    "sId" : "247181",
     "sNumber" : "DOST05-95",
     "sName" : "Dummy name DOST05-95",
     "sTypeName" : "Story",
@@ -1637,18 +1507,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 66 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad3f"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "46085",
+    "sId" : "246085",
     "sNumber" : "DOST05-82",
     "sName" : "Dummy name DOST05-82",
     "sTypeName" : "Feature",
@@ -1660,18 +1528,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-82",
     "lParentId" : NumberLong(46083),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 67 */
 ,{
-    "_id" : ObjectId("58b95217f06123093fc4ad40"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43136",
+    "sId" : "243136",
     "sNumber" : "DOST05-73",
     "sName" : "Dummy name DOST05-73",
     "sTypeName" : "Story",
@@ -1686,18 +1552,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 68 */
 ,{
-    "_id" : ObjectId("58d14ba9f06123093fc4b480"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "49152",
+    "sId" : "249152",
     "sNumber" : "DOST05-101",
     "sName" : "Dummy name DOST05-101",
     "sTypeName" : "Story",
@@ -1712,18 +1576,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 69 */
 ,{
-    "_id" : ObjectId("58c67701f06123093fc4b180"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "47719",
+    "sId" : "247719",
     "sNumber" : "DOST05-96",
     "sName" : "Dummy name DOST05-96",
     "sTypeName" : "Bug",
@@ -1738,18 +1600,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 70 */
 ,{
-    "_id" : ObjectId("58d13a14f06123093fc4b47d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "49140",
+    "sId" : "249140",
     "sNumber" : "DOST05-99",
     "sName" : "Dummy name DOST05-99",
     "sTypeName" : "Story",
@@ -1764,18 +1624,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 71 */
 ,{
-    "_id" : ObjectId("58d14ba9f06123093fc4b47f"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "49151",
+    "sId" : "249151",
     "sNumber" : "DOST05-100",
     "sName" : "Dummy name DOST05-100",
     "sTypeName" : "Story",
@@ -1785,18 +1643,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 72 */
 ,{
-    "_id" : ObjectId("58cbaef1f06123093fc4b40c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "48885",
+    "sId" : "248885",
     "sNumber" : "DOST05-98",
     "sName" : "Dummy name DOST05-98",
     "sTypeName" : "Bug",
@@ -1811,18 +1667,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 73 */
 ,{
-    "_id" : ObjectId("58d14cd5f06123093fc4b481"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "49153",
+    "sId" : "249153",
     "sNumber" : "DOST05-102",
     "sName" : "Dummy name DOST05-102",
     "sTypeName" : "Story",
@@ -1832,18 +1686,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-2",
     "lParentId" : NumberLong(40159),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 74 */
 ,{
-    "_id" : ObjectId("58d92a2246e0fb0006fe0126"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "50281",
+    "sId" : "250281",
     "sNumber" : "DOST05-104",
     "sName" : "Dummy name DOST05-104",
     "sTypeName" : "Story",
@@ -1853,18 +1705,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-92",
     "lParentId" : NumberLong(46095),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 75 */
 ,{
-    "_id" : ObjectId("58d92a2246e0fb0006fe0127"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "50282",
+    "sId" : "250282",
     "sNumber" : "DOST05-105",
     "sName" : "Dummy name DOST05-105",
     "sTypeName" : "Story",
@@ -1874,18 +1724,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-92",
     "lParentId" : NumberLong(46095),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 76 */
 ,{
-    "_id" : ObjectId("58d92b4d46e0fb0006fe0128"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "50283",
+    "sId" : "250283",
     "sNumber" : "DOST05-106",
     "sName" : "Dummy name DOST05-106",
     "sTypeName" : "Story",
@@ -1895,18 +1743,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-92",
     "lParentId" : NumberLong(46095),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 77 */
 ,{
-    "_id" : ObjectId("58d3e7a2c9e77c0005b3d2d7"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "49714",
+    "sId" : "249714",
     "sNumber" : "DOST05-103",
     "sName" : "Dummy name DOST05-103",
     "sTypeName" : "Bug",
@@ -1914,18 +1760,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 78 */
 ,{
-    "_id" : ObjectId("58e2558a46e0fb00051f4f88"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "43021",
+    "sId" : "243021",
     "sNumber" : "DOST05-47",
     "sName" : "Dummy name DOST05-47",
     "sTypeName" : "Story",
@@ -1940,18 +1784,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 79 */
 ,{
-    "_id" : ObjectId("58ee4a5746e0fb0005b1fd18"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55726",
+    "sId" : "255726",
     "sNumber" : "DOST05-147",
     "sName" : "Dummy name DOST05-147",
     "sTypeName" : "Story",
@@ -1966,18 +1808,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-117",
     "lParentId" : NumberLong(54890),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 80 */
 ,{
-    "_id" : ObjectId("58ee4a5746e0fb0005b1fd1a"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55728",
+    "sId" : "255728",
     "sNumber" : "DOST05-149",
     "sName" : "Dummy name DOST05-149",
     "sTypeName" : "Story",
@@ -1987,18 +1827,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-119",
     "lParentId" : NumberLong(54893),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 81 */
 ,{
-    "_id" : ObjectId("58ee45a446e0fb0005b1fd0a"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55715",
+    "sId" : "255715",
     "sNumber" : "DOST05-140",
     "sName" : "Dummy name DOST05-140",
     "sTypeName" : "Story",
@@ -2013,18 +1851,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-111",
     "lParentId" : NumberLong(54871),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 82 */
 ,{
-    "_id" : ObjectId("58ee4dd946e0fb0005b1fd21"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55735",
+    "sId" : "255735",
     "sNumber" : "DOST05-155",
     "sName" : "Dummy name DOST05-155",
     "sTypeName" : "Story",
@@ -2039,18 +1875,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 83 */
 ,{
-    "_id" : ObjectId("58eb6bb946e0fb00050069b8"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54871",
+    "sId" : "254871",
     "sNumber" : "DOST05-111",
     "sName" : "Dummy name DOST05-111",
     "sTypeName" : "Feature",
@@ -2062,18 +1896,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 84 */
 ,{
-    "_id" : ObjectId("58ee40f546e0fb0005f54901"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55706",
+    "sId" : "255706",
     "sNumber" : "DOST05-134",
     "sName" : "Dummy name DOST05-134",
     "sTypeName" : "Story",
@@ -2088,18 +1920,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 85 */
 ,{
-    "_id" : ObjectId("58ee4caf46e0fb0005b1fd1f"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55733",
+    "sId" : "255733",
     "sNumber" : "DOST05-154",
     "sName" : "Dummy name DOST05-154",
     "sTypeName" : "Story",
@@ -2114,18 +1944,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-125",
     "lParentId" : NumberLong(54910),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 86 */
 ,{
-    "_id" : ObjectId("58eb696346e0fb00050069af"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "46095",
+    "sId" : "246095",
     "sNumber" : "DOST05-92",
     "sName" : "Dummy name DOST05-92",
     "sTypeName" : "Story",
@@ -2140,18 +1968,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-7",
     "lParentId" : NumberLong(40164),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 87 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069c4"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54886",
+    "sId" : "254886",
     "sNumber" : "DOST05-115",
     "sName" : "Dummy name DOST05-115",
     "sTypeName" : "Feature",
@@ -2163,18 +1989,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 88 */
 ,{
-    "_id" : ObjectId("58ee3e9a46e0fb0005f548fc"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55701",
+    "sId" : "255701",
     "sNumber" : "DOST05-131",
     "sName" : "Dummy name DOST05-131",
     "sTypeName" : "Story",
@@ -2189,18 +2013,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-10",
     "lParentId" : NumberLong(40167),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 89 */
 ,{
-    "_id" : ObjectId("58ee447846e0fb0005b1fd08"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55713",
+    "sId" : "255713",
     "sNumber" : "DOST05-138",
     "sName" : "Dummy name DOST05-138",
     "sTypeName" : "Story",
@@ -2215,9 +2037,9 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-1",
     "lParentId" : NumberLong(40166),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate",
+        "MirrorGate2",
         "UX"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2225,9 +2047,7 @@ db.getCollection('feature').insertMany([
 
 /* 90 */
 ,{
-    "_id" : ObjectId("58eb6e1746e0fb00050069e1"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54913",
+    "sId" : "254913",
     "sNumber" : "DOST05-127",
     "sName" : "Dummy name DOST05-127",
     "sTypeName" : "Feature",
@@ -2239,18 +2059,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-38",
     "lParentId" : NumberLong(40224),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 91 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069be"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54880",
+    "sId" : "254880",
     "sNumber" : "DOST05-113",
     "sName" : "Dummy name DOST05-113",
     "sTypeName" : "Feature",
@@ -2262,18 +2080,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 92 */
 ,{
-    "_id" : ObjectId("58ee47ff46e0fb0005b1fd14"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55722",
+    "sId" : "255722",
     "sNumber" : "DOST05-144",
     "sName" : "Dummy name DOST05-144",
     "sTypeName" : "Story",
@@ -2288,18 +2104,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-114",
     "lParentId" : NumberLong(54882),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 93 */
 ,{
-    "_id" : ObjectId("58ee4dd946e0fb0005b1fd23"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55738",
+    "sId" : "255738",
     "sNumber" : "DOST05-156",
     "sName" : "Dummy name DOST05-156",
     "sTypeName" : "Story",
@@ -2314,18 +2128,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 94 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069c9"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54890",
+    "sId" : "254890",
     "sNumber" : "DOST05-117",
     "sName" : "Dummy name DOST05-117",
     "sTypeName" : "Feature",
@@ -2337,18 +2149,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 95 */
 ,{
-    "_id" : ObjectId("58eb6e1746e0fb00050069d2"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54900",
+    "sId" : "254900",
     "sNumber" : "DOST05-122",
     "sName" : "Dummy name DOST05-122",
     "sTypeName" : "Feature",
@@ -2360,18 +2170,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-38",
     "lParentId" : NumberLong(40224),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 96 */
 ,{
-    "_id" : ObjectId("58eb6e1746e0fb00050069dd"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54910",
+    "sId" : "254910",
     "sNumber" : "DOST05-125",
     "sName" : "Dummy name DOST05-125",
     "sTypeName" : "Feature",
@@ -2383,18 +2191,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 97 */
 ,{
-    "_id" : ObjectId("58eb7d6446e0fb00050069fb"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54940",
+    "sId" : "254940",
     "sNumber" : "DOST05-128",
     "sName" : "Dummy name DOST05-128",
     "sTypeName" : "Story",
@@ -2409,18 +2215,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 98 */
 ,{
-    "_id" : ObjectId("58ee447846e0fb0005b1fd09"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55714",
+    "sId" : "255714",
     "sNumber" : "DOST05-139",
     "sName" : "Dummy name DOST05-139",
     "sTypeName" : "Story",
@@ -2435,18 +2239,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-111",
     "lParentId" : NumberLong(54871),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 99 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069c8"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54893",
+    "sId" : "254893",
     "sNumber" : "DOST05-119",
     "sName" : "Dummy name DOST05-119",
     "sTypeName" : "Feature",
@@ -2458,18 +2260,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-38",
     "lParentId" : NumberLong(40224),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 100 */
 ,{
-    "_id" : ObjectId("58ee3e9a46e0fb0005f548fb"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55700",
+    "sId" : "255700",
     "sNumber" : "DOST05-130",
     "sName" : "Dummy name DOST05-130",
     "sTypeName" : "Story",
@@ -2484,18 +2284,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-10",
     "lParentId" : NumberLong(40167),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 101 */
 ,{
-    "_id" : ObjectId("58ee40f546e0fb0005f548ff"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55705",
+    "sId" : "255705",
     "sNumber" : "DOST05-133",
     "sName" : "Dummy name DOST05-133",
     "sTypeName" : "Story",
@@ -2510,18 +2308,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 102 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069c2"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54894",
+    "sId" : "254894",
     "sNumber" : "DOST05-120",
     "sName" : "Dummy name DOST05-120",
     "sTypeName" : "Feature",
@@ -2533,18 +2329,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 103 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069c3"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54897",
+    "sId" : "254897",
     "sNumber" : "DOST05-121",
     "sName" : "Dummy name DOST05-121",
     "sTypeName" : "Feature",
@@ -2556,18 +2350,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 104 */
 ,{
-    "_id" : ObjectId("58eb6e1746e0fb00050069db"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54908",
+    "sId" : "254908",
     "sNumber" : "DOST05-124",
     "sName" : "Dummy name DOST05-124",
     "sTypeName" : "Feature",
@@ -2579,18 +2371,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 105 */
 ,{
-    "_id" : ObjectId("58ee40f546e0fb0005f54902"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55707",
+    "sId" : "255707",
     "sNumber" : "DOST05-135",
     "sName" : "Dummy name DOST05-135",
     "sTypeName" : "Story",
@@ -2605,18 +2395,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 106 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069c5"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54882",
+    "sId" : "254882",
     "sNumber" : "DOST05-114",
     "sName" : "Dummy name DOST05-114",
     "sTypeName" : "Feature",
@@ -2628,18 +2416,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 107 */
 ,{
-    "_id" : ObjectId("58ee434c46e0fb000555558b"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55711",
+    "sId" : "255711",
     "sNumber" : "DOST05-136",
     "sName" : "Dummy name DOST05-136",
     "sTypeName" : "Story",
@@ -2649,18 +2435,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-1",
     "lParentId" : NumberLong(40166),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 108 */
 ,{
-    "_id" : ObjectId("58ee46d046e0fb0005b1fd0d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55718",
+    "sId" : "255718",
     "sNumber" : "DOST05-141",
     "sName" : "Dummy name DOST05-141",
     "sTypeName" : "Story",
@@ -2675,18 +2459,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 109 */
 ,{
-    "_id" : ObjectId("58ee4caf46e0fb0005b1fd1d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55731",
+    "sId" : "255731",
     "sNumber" : "DOST05-152",
     "sName" : "Dummy name DOST05-152",
     "sTypeName" : "Story",
@@ -2696,18 +2478,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-126",
     "lParentId" : NumberLong(54911),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 110 */
 ,{
-    "_id" : ObjectId("58ee46d046e0fb0005b1fd10"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55719",
+    "sId" : "255719",
     "sNumber" : "DOST05-142",
     "sName" : "Dummy name DOST05-142",
     "sTypeName" : "Story",
@@ -2717,18 +2497,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 111 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069c7"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54891",
+    "sId" : "254891",
     "sNumber" : "DOST05-118",
     "sName" : "Dummy name DOST05-118",
     "sTypeName" : "Feature",
@@ -2740,18 +2518,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 112 */
 ,{
-    "_id" : ObjectId("58ee4b8246e0fb0005b1fd1b"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55729",
+    "sId" : "255729",
     "sNumber" : "DOST05-150",
     "sName" : "Dummy name DOST05-150",
     "sTypeName" : "Story",
@@ -2766,18 +2542,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-121",
     "lParentId" : NumberLong(54897),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 113 */
 ,{
-    "_id" : ObjectId("58ee4b8246e0fb0005b1fd1c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55730",
+    "sId" : "255730",
     "sNumber" : "DOST05-151",
     "sName" : "Dummy name DOST05-151",
     "sTypeName" : "Story",
@@ -2792,18 +2566,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-124",
     "lParentId" : NumberLong(54908),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 114 */
 ,{
-    "_id" : ObjectId("58ee4f0646e0fb0005b1fd26"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55740",
+    "sId" : "255740",
     "sNumber" : "DOST05-157",
     "sName" : "Dummy name DOST05-157",
     "sTypeName" : "Story",
@@ -2818,18 +2590,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 115 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069c6"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54889",
+    "sId" : "254889",
     "sNumber" : "DOST05-116",
     "sName" : "Dummy name DOST05-116",
     "sTypeName" : "Feature",
@@ -2841,18 +2611,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 116 */
 ,{
-    "_id" : ObjectId("58ec84cc46e0fb000500aad6"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55195",
+    "sId" : "255195",
     "sNumber" : "DOST05-129",
     "sName" : "Dummy name DOST05-129",
     "sTypeName" : "Story",
@@ -2860,18 +2628,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 117 */
 ,{
-    "_id" : ObjectId("58ee492946e0fb0005b1fd17"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55725",
+    "sId" : "255725",
     "sNumber" : "DOST05-146",
     "sName" : "Dummy name DOST05-146",
     "sTypeName" : "Story",
@@ -2881,18 +2647,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-116",
     "lParentId" : NumberLong(54889),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 118 */
 ,{
-    "_id" : ObjectId("58eb6e1746e0fb00050069d8"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54906",
+    "sId" : "254906",
     "sNumber" : "DOST05-123",
     "sName" : "Dummy name DOST05-123",
     "sTypeName" : "Feature",
@@ -2904,19 +2668,17 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 119 */
 ,{
-    "_id" : ObjectId("58eb6e1146e0fb00050069bd"),
-    "_class" : "com.capitalone.dashboard.model.Feature",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sId" : "54878",
+    "sId" : "254878",
     "sNumber" : "DOST05-112",
     "sName" : "Dummy name DOST05-112",
     "sTypeId" : "10000",
@@ -2963,7 +2725,7 @@ db.getCollection('feature').insertMany([
     "sProjectChangeDate" : "",
     "sProjectEndDate" : "",
     "sProjectBeginDate" : "",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "sProjectID" : "12508",
     "dEstimate" : 0.0,
     "sprintEndDate" : ISODate("1970-01-01T00:00:00.000Z"),
@@ -2972,9 +2734,7 @@ db.getCollection('feature').insertMany([
 
 /* 120 */
 ,{
-    "_id" : ObjectId("58ee40f546e0fb0005f548fe"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55703",
+    "sId" : "255703",
     "sNumber" : "DOST05-132",
     "sName" : "Dummy name DOST05-132",
     "sTypeName" : "Story",
@@ -2989,18 +2749,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 121 */
 ,{
-    "_id" : ObjectId("58ee434c46e0fb000555558c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55712",
+    "sId" : "255712",
     "sNumber" : "DOST05-137",
     "sName" : "Dummy name DOST05-137",
     "sTypeName" : "Story",
@@ -3016,17 +2774,15 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-1",
     "lParentId" : NumberLong(40166),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 122 */
 ,{
-    "_id" : ObjectId("58ee47ff46e0fb0005b1fd15"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55724",
+    "sId" : "255724",
     "sNumber" : "DOST05-145",
     "sName" : "Dummy name DOST05-145",
     "sTypeName" : "Story",
@@ -3041,18 +2797,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-115",
     "lParentId" : NumberLong(54886),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 123 */
 ,{
-    "_id" : ObjectId("58ee4caf46e0fb0005b1fd1e"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55732",
+    "sId" : "255732",
     "sNumber" : "DOST05-153",
     "sName" : "Dummy name DOST05-153",
     "sTypeName" : "Story",
@@ -3062,18 +2816,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-127",
     "lParentId" : NumberLong(54913),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 124 */
 ,{
-    "_id" : ObjectId("58f45fbd46e0fb0005b1fdc5"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56230",
+    "sId" : "256230",
     "sNumber" : "DOST05-158",
     "sName" : "Dummy name DOST05-158",
     "sTypeName" : "Story",
@@ -3083,18 +2835,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-124",
     "lParentId" : NumberLong(54908),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 125 */
 ,{
-    "_id" : ObjectId("58eb6e1746e0fb00050069df"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "54911",
+    "sId" : "254911",
     "sNumber" : "DOST05-126",
     "sName" : "Dummy name DOST05-126",
     "sTypeName" : "Feature",
@@ -3106,18 +2856,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 126 */
 ,{
-    "_id" : ObjectId("58ee46d046e0fb0005b1fd11"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55720",
+    "sId" : "255720",
     "sNumber" : "DOST05-143",
     "sName" : "Dummy name DOST05-143",
     "sTypeName" : "Story",
@@ -3132,18 +2880,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 127 */
 ,{
-    "_id" : ObjectId("58ee4a5746e0fb0005b1fd19"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "55727",
+    "sId" : "255727",
     "sNumber" : "DOST05-148",
     "sName" : "Dummy name DOST05-148",
     "sTypeName" : "Story",
@@ -3153,18 +2899,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-118",
     "lParentId" : NumberLong(54891),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 128 */
 ,{
-    "_id" : ObjectId("58f61ab946e0fb0005b4291f"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56749",
+    "sId" : "256749",
     "sNumber" : "DOST05-164",
     "sName" : "Dummy name DOST05-164",
     "sTypeName" : "Story",
@@ -3179,18 +2923,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 129 */
 ,{
-    "_id" : ObjectId("58f9b50246e0fb0005b5494c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "57378",
+    "sId" : "257378",
     "sNumber" : "DOST05-171",
     "sName" : "Dummy name DOST05-171",
     "sTypeName" : "Story",
@@ -3198,18 +2940,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 130 */
 ,{
-    "_id" : ObjectId("58f9d82746e0fb00055dbae7"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "57537",
+    "sId" : "257537",
     "sNumber" : "DOST05-174",
     "sName" : "Dummy name DOST05-174",
     "sTypeName" : "Bug",
@@ -3224,18 +2964,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 131 */
 ,{
-    "_id" : ObjectId("58f9b51946e0fb0005b5499a"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "57511",
+    "sId" : "257511",
     "sNumber" : "DOST05-173",
     "sName" : "Dummy name DOST05-173",
     "sTypeName" : "Story",
@@ -3245,18 +2983,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 132 */
 ,{
-    "_id" : ObjectId("58f71db946e0fb0005b4298d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56969",
+    "sId" : "256969",
     "sNumber" : "DOST05-168",
     "sName" : "Dummy name DOST05-168",
     "sTypeName" : "Story",
@@ -3271,18 +3007,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 133 */
 ,{
-    "_id" : ObjectId("58f61be546e0fb0005b42923"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56754",
+    "sId" : "256754",
     "sNumber" : "DOST05-165",
     "sName" : "Dummy name DOST05-165",
     "sTypeName" : "Story",
@@ -3292,18 +3026,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 134 */
 ,{
-    "_id" : ObjectId("58f61d1146e0fb0005b42925"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56756",
+    "sId" : "256756",
     "sNumber" : "DOST05-167",
     "sName" : "Dummy name DOST05-167",
     "sTypeName" : "Story",
@@ -3318,18 +3050,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 135 */
 ,{
-    "_id" : ObjectId("58f6198c46e0fb0005b42917"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56741",
+    "sId" : "256741",
     "sNumber" : "DOST05-159",
     "sName" : "Dummy name DOST05-159",
     "sTypeName" : "Story",
@@ -3344,18 +3074,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 136 */
 ,{
-    "_id" : ObjectId("58f61ab946e0fb0005b4291d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56747",
+    "sId" : "256747",
     "sNumber" : "DOST05-162",
     "sName" : "Dummy name DOST05-162",
     "sTypeName" : "Story",
@@ -3370,18 +3098,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-114",
     "lParentId" : NumberLong(54882),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 137 */
 ,{
-    "_id" : ObjectId("58f61d1046e0fb0005b42924"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56755",
+    "sId" : "256755",
     "sNumber" : "DOST05-166",
     "sName" : "Dummy name DOST05-166",
     "sTypeName" : "Story",
@@ -3396,18 +3122,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-10",
     "lParentId" : NumberLong(40167),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 138 */
 ,{
-    "_id" : ObjectId("58f61ab946e0fb0005b4291e"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56748",
+    "sId" : "256748",
     "sNumber" : "DOST05-163",
     "sName" : "Dummy name DOST05-163",
     "sTypeName" : "Story",
@@ -3417,18 +3141,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-115",
     "lParentId" : NumberLong(54886),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 139 */
 ,{
-    "_id" : ObjectId("58f9b51946e0fb0005b54999"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "57510",
+    "sId" : "257510",
     "sNumber" : "DOST05-172",
     "sName" : "Dummy name DOST05-172",
     "sTypeName" : "Story",
@@ -3443,18 +3165,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 140 */
 ,{
-    "_id" : ObjectId("58f61ab946e0fb0005b4291b"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56745",
+    "sId" : "256745",
     "sNumber" : "DOST05-160",
     "sName" : "Dummy name DOST05-160",
     "sTypeName" : "Story",
@@ -3464,18 +3184,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-116",
     "lParentId" : NumberLong(54889),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 141 */
 ,{
-    "_id" : ObjectId("58f71ee546e0fb0005b42991"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56971",
+    "sId" : "256971",
     "sNumber" : "DOST05-169",
     "sName" : "Dummy name DOST05-169",
     "sTypeName" : "Story",
@@ -3490,18 +3208,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 142 */
 ,{
-    "_id" : ObjectId("58f61ab946e0fb0005b4291c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "56746",
+    "sId" : "256746",
     "sNumber" : "DOST05-161",
     "sName" : "Dummy name DOST05-161",
     "sTypeName" : "Story",
@@ -3516,18 +3232,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-126",
     "lParentId" : NumberLong(54911),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 143 */
 ,{
-    "_id" : ObjectId("58f8b32b46e0fb0005fb0526"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "57359",
+    "sId" : "257359",
     "sNumber" : "DOST05-170",
     "sName" : "Dummy name DOST05-170",
     "sTypeName" : "Story",
@@ -3535,18 +3249,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 144 */
 ,{
-    "_id" : ObjectId("5903162946e0fb0005bc71de"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "58722",
+    "sId" : "258722",
     "sNumber" : "DOST05-176",
     "sName" : "Dummy name DOST05-176",
     "sTypeName" : "Story",
@@ -3559,18 +3271,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 145 */
 ,{
-    "_id" : ObjectId("590993e246e0fb0005bc72d4"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "59161",
+    "sId" : "259161",
     "sNumber" : "DOST05-177",
     "sName" : "Dummy name DOST05-177",
     "sTypeName" : "Bug",
@@ -3583,18 +3293,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 146 */
 ,{
-    "_id" : ObjectId("59099d4646e0fb0005bc72db"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "59167",
+    "sId" : "259167",
     "sNumber" : "DOST05-178",
     "sName" : "Dummy name DOST05-178",
     "sTypeName" : "Story",
@@ -3607,18 +3315,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 147 */
 ,{
-    "_id" : ObjectId("5903162946e0fb0005bc71dd"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "58721",
+    "sId" : "258721",
     "sNumber" : "DOST05-175",
     "sName" : "Dummy name DOST05-175",
     "sTypeName" : "Story",
@@ -3631,18 +3337,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 148 */
 ,{
-    "_id" : ObjectId("590c7e5cc9e77c00058dc7e7"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "60298",
+    "sId" : "260298",
     "sNumber" : "DOST05-179",
     "sName" : "Dummy name DOST05-179",
     "sTypeName" : "Story",
@@ -3652,18 +3356,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-233",
     "lParentId" : NumberLong(69985),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 149 */
 ,{
-    "_id" : ObjectId("59104721c9e77c00058dc990"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "46094",
+    "sId" : "246094",
     "sNumber" : "DOST05-91",
     "sName" : "Dummy name DOST05-91",
     "sTypeName" : "Story",
@@ -3678,18 +3380,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 150 */
 ,{
-    "_id" : ObjectId("5910a7a446e0fb00051f6e06"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "60690",
+    "sId" : "260690",
     "sNumber" : "DOST05-180",
     "sName" : "Dummy name DOST05-180",
     "sTypeName" : "Bug",
@@ -3699,18 +3399,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-111",
     "lParentId" : NumberLong(54871),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 151 */
 ,{
-    "_id" : ObjectId("59116b4a46e0fb00051f6e92"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "60941",
+    "sId" : "260941",
     "sNumber" : "DOST05-181",
     "sName" : "Dummy name DOST05-181",
     "sTypeName" : "Story",
@@ -3718,18 +3416,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 152 */
 ,{
-    "_id" : ObjectId("5911cc9546e0fb00051f6eb2"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "60973",
+    "sId" : "260973",
     "sNumber" : "DOST05-183",
     "sName" : "Dummy name DOST05-183",
     "sTypeName" : "Story",
@@ -3744,18 +3440,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 153 */
 ,{
-    "_id" : ObjectId("59144b3b46e0fb00051f70c0"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "61721",
+    "sId" : "261721",
     "sNumber" : "DOST05-185",
     "sName" : "Dummy name DOST05-185",
     "sTypeName" : "Story",
@@ -3763,18 +3457,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 154 */
 ,{
-    "_id" : ObjectId("5911ca3a46e0fb00051f6eab"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "60966",
+    "sId" : "260966",
     "sNumber" : "DOST05-182",
     "sName" : "Dummy name DOST05-182",
     "sTypeName" : "Story",
@@ -3789,18 +3481,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 155 */
 ,{
-    "_id" : ObjectId("5910473fc9e77c00058dc9e4"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "46093",
+    "sId" : "246093",
     "sNumber" : "DOST05-90",
     "sName" : "Dummy name DOST05-90",
     "sTypeName" : "Story",
@@ -3815,18 +3505,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-83",
     "lParentId" : NumberLong(46086),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 156 */
 ,{
-    "_id" : ObjectId("59144b3b46e0fb00051f70bf"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "61720",
+    "sId" : "261720",
     "sNumber" : "DOST05-184",
     "sName" : "Dummy name DOST05-184",
     "sTypeName" : "Story",
@@ -3834,18 +3522,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 157 */
 ,{
-    "_id" : ObjectId("591acda846e0fb00051f72ca"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "62876",
+    "sId" : "262876",
     "sNumber" : "DOST05-187",
     "sName" : "Dummy name DOST05-187",
     "sTypeName" : "Story",
@@ -3858,18 +3544,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 158 */
 ,{
-    "_id" : ObjectId("591b165146e0fb00051f731c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "62963",
+    "sId" : "262963",
     "sNumber" : "DOST05-189",
     "sName" : "Dummy name DOST05-189",
     "sTypeName" : "Story",
@@ -3882,18 +3566,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 159 */
 ,{
-    "_id" : ObjectId("591c030546e0fb00051f7416"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "63428",
+    "sId" : "263428",
     "sNumber" : "DOST05-190",
     "sName" : "Dummy name DOST05-190",
     "sTypeName" : "Bug",
@@ -3906,18 +3588,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 160 */
 ,{
-    "_id" : ObjectId("591acda846e0fb00051f72c9"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "62877",
+    "sId" : "262877",
     "sNumber" : "DOST05-188",
     "sName" : "Dummy name DOST05-188",
     "sTypeName" : "Story",
@@ -3930,18 +3610,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 161 */
 ,{
-    "_id" : ObjectId("591c15d746e0fb00051f742d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "63472",
+    "sId" : "263472",
     "sNumber" : "DOST05-198",
     "sName" : "Dummy name DOST05-198",
     "sTypeName" : "Story",
@@ -3949,18 +3627,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "High",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 162 */
 ,{
-    "_id" : ObjectId("591c043246e0fb00051f7417"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "63430",
+    "sId" : "263430",
     "sNumber" : "DOST05-191",
     "sName" : "Dummy name DOST05-191",
     "sTypeName" : "Story",
@@ -3973,18 +3649,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 163 */
 ,{
-    "_id" : ObjectId("59159b8f46e0fb00051f719a"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "62179",
+    "sId" : "262179",
     "sNumber" : "DOST05-186",
     "sName" : "Dummy name DOST05-186",
     "sTypeName" : "Story",
@@ -3992,18 +3666,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 164 */
 ,{
-    "_id" : ObjectId("591c069446e0fb00051f741a"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "63436",
+    "sId" : "263436",
     "sNumber" : "DOST05-192",
     "sName" : "Dummy name DOST05-192",
     "sTypeName" : "Bug",
@@ -4016,18 +3688,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 165 */
 ,{
-    "_id" : ObjectId("592446424cedfd0005b0fc73"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "65019",
+    "sId" : "265019",
     "sNumber" : "DOST05-205",
     "sName" : "Dummy name DOST05-205",
     "sTypeName" : "Story",
@@ -4040,18 +3710,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 166 */
 ,{
-    "_id" : ObjectId("5923ec014cedfd0005b0fc4c"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "64970",
+    "sId" : "264970",
     "sNumber" : "DOST05-201",
     "sName" : "Dummy name DOST05-201",
     "sTypeName" : "Story",
@@ -4064,18 +3732,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 167 */
 ,{
-    "_id" : ObjectId("59243e0c4cedfd0005b0fc68"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "64999",
+    "sId" : "264999",
     "sNumber" : "DOST05-204",
     "sName" : "Dummy name DOST05-204",
     "sTypeName" : "Story",
@@ -4088,18 +3754,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 168 */
 ,{
-    "_id" : ObjectId("59243e0c4cedfd0005b0fc65"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "64996",
+    "sId" : "264996",
     "sNumber" : "DOST05-202",
     "sName" : "Dummy name DOST05-202",
     "sTypeName" : "Story",
@@ -4112,18 +3776,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 169 */
 ,{
-    "_id" : ObjectId("592446424cedfd0005b0fc72"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "65023",
+    "sId" : "265023",
     "sNumber" : "DOST05-208",
     "sName" : "Dummy name DOST05-208",
     "sTypeName" : "Story",
@@ -4136,18 +3798,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 170 */
 ,{
-    "_id" : ObjectId("59243e0c4cedfd0005b0fc66"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "64997",
+    "sId" : "264997",
     "sNumber" : "DOST05-203",
     "sName" : "Dummy name DOST05-203",
     "sTypeName" : "Story",
@@ -4160,18 +3820,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 171 */
 ,{
-    "_id" : ObjectId("5923ec014cedfd0005b0fc4d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "64969",
+    "sId" : "264969",
     "sNumber" : "DOST05-200",
     "sName" : "Dummy name DOST05-200",
     "sTypeName" : "Story",
@@ -4185,17 +3843,15 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
     "sProjectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 172 */
 ,{
-    "_id" : ObjectId("591f24974cedfd0005b0fae4"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "64404",
+    "sId" : "264404",
     "sNumber" : "DOST05-199",
     "sName" : "Dummy name DOST05-199",
     "sTypeName" : "Story",
@@ -4203,18 +3859,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 173 */
 ,{
-    "_id" : ObjectId("592446424cedfd0005b0fc71"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "65022",
+    "sId" : "265022",
     "sNumber" : "DOST05-207",
     "sName" : "Dummy name DOST05-207",
     "sTypeName" : "Story",
@@ -4227,18 +3881,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 174 */
 ,{
-    "_id" : ObjectId("592446424cedfd0005b0fc74"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "65020",
+    "sId" : "265020",
     "sNumber" : "DOST05-206",
     "sName" : "Dummy name DOST05-206",
     "sTypeName" : "Story",
@@ -4251,18 +3903,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 175 */
 ,{
-    "_id" : ObjectId("592c884e4cedfd0005b10568"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "67116",
+    "sId" : "267116",
     "sNumber" : "DOST05-213",
     "sName" : "Dummy name DOST05-213",
     "sTypeName" : "Feature",
@@ -4274,18 +3924,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 176 */
 ,{
-    "_id" : ObjectId("592b402c4cedfd0005b104e5"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "66868",
+    "sId" : "266868",
     "sNumber" : "DOST05-211",
     "sName" : "Dummy name DOST05-211",
     "sTypeName" : "Feature",
@@ -4297,18 +3945,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 177 */
 ,{
-    "_id" : ObjectId("592b402c4cedfd0005b104e6"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "66869",
+    "sId" : "266869",
     "sNumber" : "DOST05-212",
     "sName" : "Dummy name DOST05-212",
     "sTypeName" : "Feature",
@@ -4320,18 +3966,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 178 */
 ,{
-    "_id" : ObjectId("592b3f014cedfd0005b104e4"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "66867",
+    "sId" : "266867",
     "sNumber" : "DOST05-210",
     "sName" : "Dummy name DOST05-210",
     "sTypeName" : "Feature",
@@ -4343,18 +3987,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 179 */
 ,{
-    "_id" : ObjectId("59274cdc4cedfd0005b103c3"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "66291",
+    "sId" : "266291",
     "sNumber" : "DOST05-209",
     "sName" : "Dummy name DOST05-209",
     "sTypeName" : "Story",
@@ -4362,18 +4004,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 180 */
 ,{
-    "_id" : ObjectId("592fc9834cedfd0005b107a4"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68242",
+    "sId" : "268242",
     "sNumber" : "DOST05-216",
     "sName" : "Dummy name DOST05-216",
     "sTypeName" : "Story",
@@ -4388,18 +4028,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-212",
     "lParentId" : NumberLong(66869),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 181 */
 ,{
-    "_id" : ObjectId("5937e1644cedfd0005b10b15"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "69988",
+    "sId" : "269988",
     "sNumber" : "DOST05-236",
     "sName" : "Dummy name DOST05-236",
     "sTypeName" : "Story",
@@ -4414,18 +4052,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-233",
     "lParentId" : NumberLong(69985),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 182 */
 ,{
-    "_id" : ObjectId("5937e0384cedfd0005b10b13"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "69986",
+    "sId" : "269986",
     "sNumber" : "DOST05-234",
     "sName" : "Dummy name DOST05-234",
     "sTypeName" : "Story",
@@ -4440,18 +4076,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-233",
     "lParentId" : NumberLong(69985),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 183 */
 ,{
-    "_id" : ObjectId("592fcf604cedfd0005b107af"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68253",
+    "sId" : "268253",
     "sNumber" : "DOST05-219",
     "sName" : "Dummy name DOST05-219",
     "sTypeName" : "Story",
@@ -4466,18 +4100,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 184 */
 ,{
-    "_id" : ObjectId("592fd1b94cedfd0005b107b3"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68259",
+    "sId" : "268259",
     "sNumber" : "DOST05-221",
     "sName" : "Dummy name DOST05-221",
     "sTypeName" : "Story",
@@ -4492,18 +4124,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 185 */
 ,{
-    "_id" : ObjectId("592fd66a4cedfd0005b107b9"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68268",
+    "sId" : "268268",
     "sNumber" : "DOST05-227",
     "sName" : "Dummy name DOST05-227",
     "sTypeName" : "Story",
@@ -4519,17 +4149,15 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-211",
     "lParentId" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 186 */
 ,{
-    "_id" : ObjectId("592fcaaf4cedfd0005b107a6"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68243",
+    "sId" : "268243",
     "sNumber" : "DOST05-217",
     "sName" : "Dummy name DOST05-217",
     "sTypeName" : "Story",
@@ -4544,18 +4172,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-212",
     "lParentId" : NumberLong(66869),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 187 */
 ,{
-    "_id" : ObjectId("592fd9f04cedfd0005b107bd"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68272",
+    "sId" : "268272",
     "sNumber" : "DOST05-229",
     "sName" : "Dummy name DOST05-229",
     "sTypeName" : "Story",
@@ -4570,18 +4196,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-230",
     "lParentId" : NumberLong(68282),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 188 */
 ,{
-    "_id" : ObjectId("5937fd834cedfd0005b10b1b"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "70005",
+    "sId" : "270005",
     "sNumber" : "DOST05-238",
     "sName" : "Dummy name DOST05-238",
     "sTypeName" : "Story",
@@ -4597,17 +4221,15 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-211",
     "lParentId" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 189 */
 ,{
-    "_id" : ObjectId("592fd2e64cedfd0005b107b4"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68260",
+    "sId" : "268260",
     "sNumber" : "DOST05-222",
     "sName" : "Dummy name DOST05-222",
     "sTypeName" : "Story",
@@ -4622,18 +4244,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-211",
     "lParentId" : NumberLong(66868),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 190 */
 ,{
-    "_id" : ObjectId("592fd7964cedfd0005b107bc"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68271",
+    "sId" : "268271",
     "sNumber" : "DOST05-228",
     "sName" : "Dummy name DOST05-228",
     "sTypeName" : "Story",
@@ -4648,18 +4268,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 191 */
 ,{
-    "_id" : ObjectId("592fce364cedfd0005b107ad"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68251",
+    "sId" : "268251",
     "sNumber" : "DOST05-218",
     "sName" : "Dummy name DOST05-218",
     "sTypeName" : "Story",
@@ -4674,18 +4292,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 192 */
 ,{
-    "_id" : ObjectId("592fe92e4cedfd0005b107c4"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68282",
+    "sId" : "268282",
     "sNumber" : "DOST05-230",
     "sName" : "Dummy name DOST05-230",
     "sTypeName" : "Feature",
@@ -4697,18 +4313,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 193 */
 ,{
-    "_id" : ObjectId("592fd4114cedfd0005b107b6"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68266",
+    "sId" : "268266",
     "sNumber" : "DOST05-226",
     "sName" : "Dummy name DOST05-226",
     "sTypeName" : "Story",
@@ -4724,17 +4338,15 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-211",
     "lParentId" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 194 */
 ,{
-    "_id" : ObjectId("592fcf614cedfd0005b107b0"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "68255",
+    "sId" : "268255",
     "sNumber" : "DOST05-220",
     "sName" : "Dummy name DOST05-220",
     "sTypeName" : "Story",
@@ -4749,19 +4361,17 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 195 */
 ,{
-    "_id" : ObjectId("593ea56f4cedfd0005b10d34"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.collectors.jira.model.Feature",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sId" : "71516",
+    "sId" : "271516",
     "sNumber" : "DOST05-247",
     "sName" : "Dummy name DOST05-247",
     "sTypeId" : "10001",
@@ -4776,7 +4386,7 @@ db.getCollection('feature').insertMany([
     "isDeleted" : "False",
     "keywords" : [ 
         "Team Fast Feedback", 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "sOwnersID" : [],
     "sOwnersIsDeleted" : [],
@@ -4814,15 +4424,13 @@ db.getCollection('feature').insertMany([
     "sProjectChangeDate" : "",
     "sProjectEndDate" : "",
     "sProjectBeginDate" : "",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "sProjectID" : "12508"
 }
 
 /* 196 */
 ,{
-    "_id" : ObjectId("593a84664cedfd0005b10c9e"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "71188",
+    "sId" : "271188",
     "sNumber" : "DOST05-242",
     "sName" : "Dummy name DOST05-242",
     "sTypeName" : "Bug",
@@ -4837,18 +4445,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 197 */
 ,{
-    "_id" : ObjectId("593a84664cedfd0005b10c9f"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "71190",
+    "sId" : "271190",
     "sNumber" : "DOST05-243",
     "sName" : "Dummy name DOST05-243",
     "sTypeName" : "Bug",
@@ -4863,18 +4469,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 198 */
 ,{
-    "_id" : ObjectId("593a901e4cedfd0005b10ca3"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "71194",
+    "sId" : "271194",
     "sNumber" : "DOST05-245",
     "sName" : "Dummy name DOST05-245",
     "sTypeName" : "Story",
@@ -4889,18 +4493,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 199 */
 ,{
-    "_id" : ObjectId("593e3d1d4cedfd0005b10d14"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "71466",
+    "sId" : "271466",
     "sNumber" : "DOST05-246",
     "sName" : "Dummy name DOST05-246",
     "sTypeName" : "Story",
@@ -4908,18 +4510,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 200 */
 ,{
-    "_id" : ObjectId("593a68424cedfd0005b10c85"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "71163",
+    "sId" : "271163",
     "sNumber" : "DOST05-240",
     "sName" : "Dummy name DOST05-240",
     "sTypeName" : "Bug",
@@ -4932,18 +4532,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 201 */
 ,{
-    "_id" : ObjectId("593a68424cedfd0005b10c86"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "71164",
+    "sId" : "271164",
     "sNumber" : "DOST05-241",
     "sName" : "Dummy name DOST05-241",
     "sTypeName" : "Bug",
@@ -4956,18 +4554,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 202 */
 ,{
-    "_id" : ObjectId("5937fd834cedfd0005b10b1a"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "70004",
+    "sId" : "270004",
     "sNumber" : "DOST05-237",
     "sName" : "Dummy name DOST05-237",
     "sTypeName" : "Story",
@@ -4983,17 +4579,15 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-211",
     "lParentId" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 203 */
 ,{
-    "_id" : ObjectId("5937df0c4cedfd0005b10b12"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "69985",
+    "sId" : "269985",
     "sNumber" : "DOST05-233",
     "sName" : "Dummy name DOST05-233",
     "sTypeName" : "Feature",
@@ -5005,18 +4599,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 204 */
 ,{
-    "_id" : ObjectId("5937e0384cedfd0005b10b14"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "69987",
+    "sId" : "269987",
     "sNumber" : "DOST05-235",
     "sName" : "Dummy name DOST05-235",
     "sTypeName" : "Story",
@@ -5032,17 +4624,15 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-233",
     "lParentId" : NumberLong(69985),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 205 */
 ,{
-    "_id" : ObjectId("593a45184cedfd0005b10c7d"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "71155",
+    "sId" : "271155",
     "sNumber" : "DOST05-239",
     "sName" : "Dummy name DOST05-239",
     "sTypeName" : "Story",
@@ -5050,18 +4640,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 206 */
 ,{
-    "_id" : ObjectId("594793be4cedfd0005b110ba"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "73638",
+    "sId" : "273638",
     "sNumber" : "DOST05-249",
     "sName" : "Dummy name DOST05-249",
     "sTypeName" : "Story",
@@ -5077,17 +4665,15 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-1",
     "lParentId" : NumberLong(40166),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 207 */
 ,{
-    "_id" : ObjectId("59479d204cedfd0005b110c1"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "73646",
+    "sId" : "273646",
     "sNumber" : "DOST05-251",
     "sName" : "Dummy name DOST05-251",
     "sTypeName" : "Story",
@@ -5095,18 +4681,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.5,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 208 */
 ,{
-    "_id" : ObjectId("594a1b8cc9e77c0010e3e806"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "74387",
+    "sId" : "274387",
     "sNumber" : "DOST05-254",
     "sName" : "Dummy name DOST05-254",
     "sTypeName" : "Story",
@@ -5114,18 +4698,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 1.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 209 */
 ,{
-    "_id" : ObjectId("594a2258c9e77c00102ed365"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "74390",
+    "sId" : "274390",
     "sNumber" : "DOST05-256",
     "sName" : "Dummy name DOST05-256",
     "sTypeName" : "Story",
@@ -5138,18 +4720,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 210 */
 ,{
-    "_id" : ObjectId("594238a44cedfd0005b10fe1"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "73016",
+    "sId" : "273016",
     "sNumber" : "DOST05-248",
     "sName" : "Dummy name DOST05-248",
     "sTypeName" : "Story",
@@ -5157,18 +4737,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 211 */
 ,{
-    "_id" : ObjectId("59479ac84cedfd0005b110be"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "73642",
+    "sId" : "273642",
     "sNumber" : "DOST05-250",
     "sName" : "Dummy name DOST05-250",
     "sTypeName" : "Story",
@@ -5181,18 +4759,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 212 */
 ,{
-    "_id" : ObjectId("594a1de4c9e77c00102ed34f"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "74389",
+    "sId" : "274389",
     "sNumber" : "DOST05-255",
     "sName" : "Dummy name DOST05-255",
     "sTypeName" : "Story",
@@ -5200,18 +4776,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 3.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 213 */
 ,{
-    "_id" : ObjectId("59491202c9e77c0010e3e644"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "74124",
+    "sId" : "274124",
     "sNumber" : "DOST05-252",
     "sName" : "Dummy name DOST05-252",
     "sTypeName" : "Bug",
@@ -5224,18 +4798,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 214 */
 ,{
-    "_id" : ObjectId("594a1b14c9e77c00102ed347"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "74386",
+    "sId" : "274386",
     "sNumber" : "DOST05-253",
     "sName" : "Dummy name DOST05-253",
     "sTypeName" : "Story",
@@ -5243,18 +4815,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 1.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 215 */
 ,{
-    "_id" : ObjectId("5950d274c9e77c001069cf84"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "75700",
+    "sId" : "275700",
     "sNumber" : "DOST05-258",
     "sName" : "Dummy name DOST05-258",
     "sTypeName" : "Story",
@@ -5267,18 +4837,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 216 */
 ,{
-    "_id" : ObjectId("5950db98c9e77c001086f6c2"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "75706",
+    "sId" : "275706",
     "sNumber" : "DOST05-260",
     "sName" : "Dummy name DOST05-260",
     "sTypeName" : "Story",
@@ -5286,18 +4854,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 2.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 217 */
 ,{
-    "_id" : ObjectId("59523ee846e0fb00109ed0d6"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "76327",
+    "sId" : "276327",
     "sNumber" : "DOST05-264",
     "sName" : "Dummy name DOST05-264",
     "sTypeName" : "Story",
@@ -5305,18 +4871,16 @@ db.getCollection('feature').insertMany([
     "dEstimate" : 0.0,
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 218 */
 ,{
-    "_id" : ObjectId("5951ff28c9e77c001086f74b"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "76313",
+    "sId" : "276313",
     "sNumber" : "DOST05-261",
     "sName" : "Dummy name DOST05-261",
     "sTypeName" : "Story",
@@ -5330,17 +4894,15 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
     "sProjectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 219 */
 ,{
-    "_id" : ObjectId("5951ffa0c9e77c001069d000"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "76314",
+    "sId" : "276314",
     "sNumber" : "DOST05-262",
     "sName" : "Dummy name DOST05-262",
     "sTypeName" : "Story",
@@ -5354,17 +4916,15 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
     "sProjectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 220 */
 ,{
-    "_id" : ObjectId("59522430c9e77c0010774d2e"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "76318",
+    "sId" : "276318",
     "sNumber" : "DOST05-263",
     "sName" : "Dummy name DOST05-263",
     "sTypeName" : "Bug",
@@ -5378,17 +4938,15 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
     "sProjectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ]
 }
 
 /* 221 */
 ,{
-    "_id" : ObjectId("5950c248c9e77c001069cf79"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "75669",
+    "sId" : "275669",
     "sNumber" : "DOST05-257",
     "sName" : "Dummy name DOST05-257",
     "sTypeName" : "Story",
@@ -5401,18 +4959,16 @@ db.getCollection('feature').insertMany([
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 222 */
 ,{
-    "_id" : ObjectId("5950d5f8c9e77c001069cf86"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "75703",
+    "sId" : "275703",
     "sNumber" : "DOST05-259",
     "sName" : "Dummy name DOST05-259",
     "sTypeName" : "Story",
@@ -5422,18 +4978,16 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "sParentKey" : "DOST05-213",
     "lParentId" : NumberLong(67116),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 223 */
 ,{
-    "_id" : ObjectId("5959e15c46e0fb00108dee7f"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "77964",
+    "sId" : "277964",
     "sNumber" : "DOST05-267",
     "sName" : "Dummy name DOST05-267",
     "sTypeName" : "Feature",
@@ -5445,18 +4999,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 224 */
 ,{
-    "_id" : ObjectId("5959e03046e0fb0010a2106f"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "77962",
+    "sId" : "277962",
     "sNumber" : "DOST05-265",
     "sName" : "Dummy name DOST05-265",
     "sTypeName" : "Feature",
@@ -5468,18 +5020,16 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }
 
 /* 225 */
 ,{
-    "_id" : ObjectId("5959e06c46e0fb0010a21070"),
-    "_class" : "com.bbva.arq.devops.ae.mirrorgate.model.Feature",
-    "sId" : "77963",
+    "sId" : "277963",
     "sNumber" : "DOST05-266",
     "sName" : "Dummy name DOST05-266",
     "sTypeName" : "Feature",
@@ -5491,9 +5041,9 @@ db.getCollection('feature').insertMany([
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate",
+    "sProjectName" : "MirrorGate2",
     "keywords" : [ 
-        "MirrorGate"
+        "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
 }]);

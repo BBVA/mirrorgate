@@ -19,7 +19,20 @@ var Tile = (function() {
 
   // Creates an object based in the HTML Element prototype
   function Tile() {
-    return Reflect.construct(DashboardComponent, [], new.target);
+    var _ = Reflect.construct(DashboardComponent, [], new.target);
+
+    _.__loadingPromise = new Promise(function (resolve, reject) {
+      this._awaitingBootstrapPromise = {
+        resolve: function () {
+          this._awaitingBootstrapPromise.resolved = true;
+          resolve();
+        }.bind(this),
+        reject: reject,
+        resolved: false
+      };
+    }.bind(_));
+
+    return _;
   }
 
   Object.setPrototypeOf(Tile.prototype, DashboardComponent.prototype);
@@ -47,6 +60,14 @@ var Tile = (function() {
 
   Tile.prototype.getDashboardId = function() {
     return this.getConfig() && this.getConfig().name;
+  };
+
+  Tile.prototype.readyPromise = function() {
+    if(this._awaitingBootstrapPromise.resolved) {
+      return Promise.resolve();
+    } else {
+      return this.__loadingPromise;
+    }
   };
 
   // Fires when an instance of the element is created
@@ -93,25 +114,17 @@ var Tile = (function() {
 
   Tile.prototype.bootstrap = function () {
     return DashboardComponent.prototype.bootstrap.call(this, arguments).then(function () {
-      return this._inited ? Promise.resolve() : new Promise(function (resolve, reject) {
-        this._init().then(function (loaded) {
-          if(loaded) {
-            window.addEventListener('dashboard-updated', function() {
-              if(this.isEnabled()){
-                setTimeout(this._computeSize.bind(this));
-              }
-            }.bind(this));
-            resolve();
-          } else {
-            this._awaitingBootstrapPromise = {
-              resolve: resolve,
-              reject: reject
-            };
-          }
-        }.bind(this));
-      }.bind(this)).then(function () {
-        this._awaitingBootstrapPromise = undefined;
-      }.bind(this));
+      this._init().then(function (loaded) {
+        if(loaded) {
+          window.addEventListener('dashboard-updated', function() {
+            if(this.isEnabled()){
+              setTimeout(this._computeSize.bind(this));
+            }
+          }.bind(this));
+          this._resolveBootstrapping();
+        }
+      });
+      return this.readyPromise();
     }.bind(this)).then(this.onInit.bind(this));
   };
 

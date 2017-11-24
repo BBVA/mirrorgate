@@ -48,7 +48,14 @@ public class ServerSentEventsHandler implements ConnectionHandler {
 
         if(emitters != null){
 
-            for(SseEmitter sseEmitter : emitters) {
+            if(event != EventType.PING) {
+                sendEventUpdateMessage(EventType.PING, dashboardId);
+            }
+
+            LOGGER.info("Notifying {} dashboards with name {} and event type {}", emitters.size(), dashboardId, event);
+
+            for(int i = emitters.size(); i > 0; i--) {
+                SseEmitter sseEmitter = emitters.get(i-1);
 
                 try {
                     Map<String, String> message = new HashMap<>();
@@ -56,9 +63,12 @@ public class ServerSentEventsHandler implements ConnectionHandler {
                     String jsonMessage = objectMapper.writeValueAsString(message);
                     sseEmitter.send(jsonMessage, MediaType.APPLICATION_JSON);
                 } catch (IOException e) {
+                    this.removeFromSessionsMap(sseEmitter, dashboardId);
                     LOGGER.error("Exception while sending message to emitter for dashboard {}", dashboardId);
                 }
+
             }
+
         }
     }
 

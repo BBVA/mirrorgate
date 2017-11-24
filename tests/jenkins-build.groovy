@@ -14,36 +14,22 @@
  * limitations under the License.
  */
 
-modules = [
-  'mirrorgate-core',
-  'mirrorgate-api',
-  'mirrorgate-dashboard',
-  'mirrorgate-backoffice',
-  'mirrorgate-docs',
-  'tests',
-  'docker',
-]
+def build() {
 
-node ('global') {
+  try {
 
-  wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm', 'defaultFg': 1, 'defaultBg': 2]) {
-    withEnv(['CI=true']) {
-
-      try {
-
-        stage('Checkout') {
-            checkout(scm)
-        }
-
-        for (module in modules) {
-          dir(module) {
-            fileLoader.load('jenkins-build').build();
-          }
-        }
-
-      } catch(Exception e) {
-        throw e;
+      stage('Running E2E tests') {
+          sh """
+              docker-compose -p \${BUILD_TAG} run -u \$(id -u) e2e-tests
+          """
       }
-    }
+
+  } finally {
+      sh """
+          docker-compose -p \${BUILD_TAG} down --volumes
+      """
   }
+
 }
+
+return this;
