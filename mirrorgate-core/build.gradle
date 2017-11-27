@@ -62,6 +62,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
+artifacts {
+     archives sourcesJar
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -77,10 +81,10 @@ uploadArchives {
 
             pom.project {
                 name baseName
-                group group
+                group  group
                 artifactId baseName
                 version version
-                packaging 'sourcesJar'
+                packaging sourcesJar
                 url url
                 scm {
                     url scmUrl
