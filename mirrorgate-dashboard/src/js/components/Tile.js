@@ -19,7 +19,20 @@ var Tile = (function() {
 
   // Creates an object based in the HTML Element prototype
   function Tile() {
-    return Reflect.construct(DashboardComponent, [], new.target);
+    var _ = Reflect.construct(DashboardComponent, [], new.target);
+
+    _.__loadingPromise = new Promise(function (resolve, reject) {
+      this._awaitingBootstrapPromise = {
+        resolve: function () {
+          this._awaitingBootstrapPromise.resolved = true;
+          resolve();
+        }.bind(this),
+        reject: reject,
+        resolved: false
+      };
+    }.bind(_));
+
+    return _;
   }
 
   Object.setPrototypeOf(Tile.prototype, DashboardComponent.prototype);
@@ -49,6 +62,14 @@ var Tile = (function() {
     return this.getConfig() && this.getConfig().name;
   };
 
+  Tile.prototype.readyPromise = function() {
+    if(this._awaitingBootstrapPromise.resolved) {
+      return Promise.resolve();
+    } else {
+      return this.__loadingPromise;
+    }
+  };
+
   // Fires when an instance of the element is created
   Tile.prototype._init = function() {
     var config = this.getConfig();
@@ -62,14 +83,12 @@ var Tile = (function() {
             if(data) {
               this.getModel().updatedDate = Date.now();
             }
-            this._prevData = Utils.clone(data);
-            this.render(data);
+            this.refresh(data);
           }.bind(this));
         }
 
         var promise = this.controller.init(config) || Promise.resolve(true);
         return promise.then(function () {
-          this.onInit();
           this._inited = true;
           this._setEnabled('true');
           this._resolveBootstrapping();
@@ -83,10 +102,9 @@ var Tile = (function() {
           return false;
         }.bind(this));
       } else {
-        this.onInit();
         this._inited = true;
-        this.render(this.getConfig());
         this._setEnabled('true');
+        this.refresh(this.getConfig());
         this._resolveBootstrapping();
         return Promise.resolve(true);
       }
@@ -96,21 +114,18 @@ var Tile = (function() {
 
   Tile.prototype.bootstrap = function () {
     return DashboardComponent.prototype.bootstrap.call(this, arguments).then(function () {
-      return this._inited ? Promise.resolve() : new Promise(function (resolve, reject) {
-        this._init().then(function (loaded) {
-          if(loaded) {
-            resolve();
-          } else {
-            this._awaitingBootstrapPromise = {
-              resolve: resolve,
-              reject: reject
-            };
-          }
-        }.bind(this));
-      }.bind(this)).then(function () {
-        this._awaitingBootstrapPromise = undefined;
-      }.bind(this));
-    }.bind(this));
+      this._init().then(function (loaded) {
+        if(loaded) {
+          window.addEventListener('dashboard-updated', function() {
+            if(this.isEnabled()){
+              setTimeout(this._computeSize.bind(this));
+            }
+          }.bind(this));
+          this._resolveBootstrapping();
+        }
+      });
+      return this.readyPromise();
+    }.bind(this)).then(this.onInit.bind(this));
   };
 
   Tile.prototype._resolveBootstrapping = function () {
@@ -172,10 +187,14 @@ var Tile = (function() {
     throw 'Render not implemented';
   };
 
-  Tile.prototype.refresh = function () {
-    if(this._prevData) {
-      this.render(Utils.clone(this._prevData));
-    }
+  Tile.prototype.refresh = function (data) {
+    DashboardComponent.prototype.refresh.call(this, arguments);
+    this._prevData = data ? Utils.clone(data): this._prevData;
+    if(this.__pending_refresh) return;
+    this.__pending_refresh = setTimeout(function () {
+      this.__pending_refresh = undefined;
+      this.render(this._prevData && Utils.clone(this._prevData));
+    }.bind(this));
   };
 
   Tile.prototype.onInit = function () {};

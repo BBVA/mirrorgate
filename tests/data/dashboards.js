@@ -43,7 +43,7 @@ db.getCollection('dashboards').insertMany([
             "design"
         ],
         "boards":[
-            "MirrorGate"
+            "MirrorGate2"
         ],
         'programIncrement': '2017_PI03'
     },

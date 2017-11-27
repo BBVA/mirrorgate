@@ -44,7 +44,8 @@ public class MirrorgateApiApplicationTests {
 	public void testBeanPerEventType(){
 
         EnumSet.allOf(EventType.class)
-            .forEach(eventType -> beanFactory.getBean(eventType.getValue(), EventHandler.class));
+				.stream().filter((e) -> e != EventType.PING)
+            	.forEach(eventType -> beanFactory.getBean(eventType.getValue(), EventHandler.class));
 
     }
 

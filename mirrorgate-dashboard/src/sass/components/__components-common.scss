@@ -18,6 +18,14 @@
   width: 100%;
 }
 
+@include host('.keep-height') {
+  .component__body {
+    height: auto;
+    min-height: auto;
+    flex-basis: unset;
+  }
+}
+
 .component {
     background-color: $component-background-color;
     display: flex;

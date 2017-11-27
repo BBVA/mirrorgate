@@ -4,4 +4,3 @@ reports/eyebot/*/report
 reports/eyebot/*/screenshots/diff
 reports/eyebot/*/screenshots/20*
 logs
-docker-compose.yml

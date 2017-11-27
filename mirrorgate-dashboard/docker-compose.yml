@@ -2,11 +2,11 @@ version: '2'
 
 services:
   selenium-chrome:
-    image: "selenium/standalone-chrome:3.0.1-aluminum"
+    image: "selenium/standalone-chrome:latest"
     volumes:
       - /dev/shm:/dev/shm
   selenium-firefox:
-    image: "selenium/standalone-firefox:3.0.1-aluminum"
+    image: "selenium/standalone-firefox:latest"
     volumes:
       - /dev/shm:/dev/shm
   install:

@@ -52,8 +52,8 @@ var ServerSentEvent = (function(){
   init();
 
   return {
-    addListener: function(callback) {
-      event.attach(callback);
+    addListener: function(callback, ignorePrevious) {
+      event.attach(callback, ignorePrevious);
       _checkEventRegistration();
     },
 

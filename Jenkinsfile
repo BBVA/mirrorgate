@@ -20,7 +20,8 @@ modules = [
   'mirrorgate-dashboard',
   'mirrorgate-backoffice',
   'mirrorgate-docs',
-  'docker'
+  'tests',
+  'docker',
 ]
 
 node ('global') {

@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,46 +14,26 @@
  * limitations under the License.
  */
 
-// USER-METRICS
+def build() {
 
-.users {
+  try {
 
-  .versions {
-    padding-top: 10px;
-
-    ol {
-      list-style: none;
-      margin-bottom: 0;
-      padding: 0;
-    }
-
-    li {
-      display: flex;
-
-      .version-usage {
-        flex: 1 1 90%;
-
-        .progress-bar {
-          float: left;
-        }
-
-        .version-legend {
-          padding-left: 10px;
-        }
-
-        .progress__bar {
-          margin-top: 0.2em;
-          width: 100%;
-        }
+      stage('Running E2E tests') {
+          sh """
+              docker-compose -p \${BUILD_TAG} run -u \$(id -u) e2e-tests
+          """
       }
 
-      .version-name {
-        text-align: right;
-        padding-right: 10px;
-        flex: 1 1 10%;
-      }
-    }
+  } catch(e) {
 
+      //Optional by the moment
 
+  } finally {
+      sh """
+          docker-compose -p \${BUILD_TAG} down --volumes
+      """
   }
+
 }
+
+return this;

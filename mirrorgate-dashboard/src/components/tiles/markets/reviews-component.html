@@ -62,7 +62,7 @@
     controllerClass: MarketsController,
     parent: Tile,
     onCreated: function () {
-      this.addEventListener('component-resized', this._setSize);
+      this.addEventListener('component-resized', this._setSize.bind(this));
       this.getModel().openDetails = function (review) {
         var url = this.getAttribute('data-url');
         if(url) {
@@ -104,7 +104,6 @@
       }
 
       this._loadData();
-
     },
 
     render: function (data) {
@@ -153,13 +152,22 @@
     },
 
     _addEllipsis: function () {
-        $(this).find('.review__comment')
-        .dotdotdot({
-          ellipsis: '...',
-          height: function () {
-            return Math.max(1,(this.parentElement.offsetHeight + this.parentElement.offsetTop - this.offsetTop - 20));
-          }
-        });
+      var contents = this.getRootElement().querySelector('.review-contents');
+      if(contents) {
+        var commentDif = this.getRootElement().querySelector('.review__comment');
+        var height = contents.offsetHeight - commentDif.offsetTop;
+
+        try {
+          $(this.getRootElement()).find('.review__comment')
+          .dotdotdot({
+            ellipsis: '...',
+            truncate: 'letter',
+            height: Math.max(1,height)
+          });
+        } catch(e) {
+          console.warn('Error adding ellipsis', e);
+        }
+      }
     },
 
     _initPageCycle: function () {
