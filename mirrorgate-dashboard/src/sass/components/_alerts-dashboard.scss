@@ -44,11 +44,8 @@ alerts-tile {
   }
 
   .alerts-list__group {
-    border-image: linear-gradient(to right, invert( #f0f0f0) 0%,invert(#888) 50%,invert(#f0f0f0) 100%) 1;
-    border-width: 1px;
-    border-bottom-style: solid;
-    padding-bottom: 10px;
-    margin-top: 20px;
+    border-bottom: 1px solid #333;
+    margin: 10px 0 10px 0;
     display: table;
     border-collapse: collapse;
     flex-wrap: wrap;
@@ -74,80 +71,77 @@ alerts-tile {
 
 
     .alert {
-      margin: 0;
-      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      margin: 5px 0;
+      padding: 0;
+      text-align: left;
       width: 100%;
-      display: table-row;
-      height: 2.5em;
-      margin-bottom: 20px;
 
       .image {
-        display: table-cell;
-        vertical-align: middle;
-        padding-left: 10px;
-
-        span {
-          overflow: hidden;
-          display: block;
-          line-height: 0;
-        }
+        padding: 0 0 0 5px;
 
         svg, img {
           filter: #{"grayscale()"} opacity(70%);
-          max-height: 30px;
-          max-width: 30px;
+          height: auto;
+          max-height: 20px;
+          max-width: 20px;
+          width: auto;
         }
 
       }
-    }
-  }
 
-  .alert__title {
-      display: table-cell;
-      vertical-align: middle;
-      padding-left: 10px;
+      &::last-child{
+        margin-bottom: 10px;
+      }
+    }
+
+    .alert__title {
+      padding: 0 0 0 5px;
 
       span {
-        text-align: left;
         overflow: hidden;
         font-size: $level-6;
         line-height: $level-6 + 0.3;
-        max-height: 120px;
         text-overflow: ellipsis;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         display: -webkit-box;
       }
-  }
+    }
 
-  .alert__state  {
-    border-style: solid;
-    border-top-width: 10px;
-    border-color: transparent;
-  }
+    .alert__state  {
+      
+      .fa {
+        font-size: $level-6;
+      }
+    }
 
-  .alert__state::before {
-    display: table-cell;
-    width: 5px;
-    position: relative;
-    content: "";
-  }
+    .alert-state-green{
+      .fa:before{
+        color: $green;
+        content: "\f058";
+      }
+    }
 
-  .alert-state-green::before {
-    background-color: darken($green, 10);
-  }
+    .alert-state-yellow {
+      .fa:before{
+        color: $yellow;
+        content: "\f071";
+      }
+    }
 
-  .alert-state-yellow::before {
-    background-color: darken($dark-yellow, 10);
-  }
-
-  .alert-state-red::before {
-    background-color: darken($red, 10);
+    .alert-state-red{
+      .fa:before{
+        color: $red;
+        content: "\f057";
+      }
+    }
   }
 }
 
 @media all and (min-width: $l) {
-  .alerts__content{
+  .alerts__content {
     .alert__title {
         font-size: $level-3;
     }
