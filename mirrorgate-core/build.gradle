@@ -57,6 +57,11 @@ mavenSettings {
     userSettingsFileName = ".m3/settings.xml"
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -72,10 +77,10 @@ uploadArchives {
 
             pom.project {
                 name baseName
-                groupId group
+                group group
                 artifactId baseName
                 version version
-                packaging 'jar'
+                packaging 'sourcesJar'
                 url url
                 scm {
                     url scmUrl
