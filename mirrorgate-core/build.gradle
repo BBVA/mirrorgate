@@ -72,7 +72,7 @@ uploadArchives {
 
             pom.project {
                 name baseName
-                group group
+                groupId group
                 artifactId baseName
                 version version
                 packaging 'jar'
