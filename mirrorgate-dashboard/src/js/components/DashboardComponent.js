@@ -35,40 +35,50 @@ var DashboardComponent = (function() {
           'module-empty': e.detail.status === 'empty',
           'module-data-error': e.detail.status === 'server-error'
         });
-        this._computeSize();
+
+        if(this.classList.contains('keep-height')) {
+          setTimeout(function () {
+            var contents = this.getRootElement().querySelector('.component__body');
+            if(contents) {
+              var height = contents.offsetHeight + contents.offsetTop - contents.parentElement.offsetTop;
+
+              this.parentElement.style["min-height"]=height + 'px';
+              this.parentElement.style["height"]='auto';
+              //this.parentElement.style["flex-basis"]='unset';
+            }
+          }.bind(this));
+        }
       }.bind(this));
 
-      window.addEventListener('resize', function() {
-        setTimeout(this._computeSize.bind(this));
-      }.bind(this));
-
-      this._computeSize();
+      this._resizeObserver = new ResizeObserver(this._computeSize.bind(this));
+      this._resizeObserver.observe(this);
 
     }.bind(this));
   };
 
-  DashboardComponent.prototype._computeSize = function(attempts) {
+  DashboardComponent.prototype._computeSize = function() {
     var style = window.getComputedStyle(this);
     var width = parseFloat(style.width.substring(0, style.width.length - 2)),
         height = parseFloat(style.height.substring(0, style.height.length - 2));
     var min = Math.min(width, height);
 
+    var classes = {
+      'tile-s': min < 300,
+      'tile-m': min >= 300 && min <= 600,
+      'tile-l': min > 600
+    };
+    d3.select(this).classed(classes);
+
     if(!isNaN(min) && (this._width !== width || this._height !== height)) {
-      this._width = width;
-      this._height = height;
-
-      var classes = {
-        'tile-s': min < 300,
-        'tile-m': min >= 300 && min <= 600,
-        'tile-l': min > 600
-      };
-      d3.select(this).classed(classes);
-
       this.dispatchEvent(
         new CustomEvent('component-resized', {bubbles: false, detail: {
           width: width,
           height: height
         }}));
+
+
+      this._width = width;
+      this._height = height;
 
       this.refresh();
     }
