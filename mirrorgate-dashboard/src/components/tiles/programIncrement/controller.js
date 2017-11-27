@@ -112,6 +112,7 @@ var ProgramIncrementController = (
               productSet[epic.jiraKey] = {
                 name: epic.name,
                 url: epic.url,
+                status: epic.status,
                 children: [],
                 completed: 0,
                 count: 0

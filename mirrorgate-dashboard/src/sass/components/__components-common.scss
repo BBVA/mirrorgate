@@ -357,6 +357,7 @@ tile-container.module-data-error {
 svg {
 
   .innerData {
+    pointer-events: none;
     text-align: center;
     span {
       white-space: nowrap;
