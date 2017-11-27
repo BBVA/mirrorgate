@@ -162,8 +162,7 @@ tile-container{
 
     tile-container{
         flex-grow: 0;
-        /*flex-shrink: 1;
-        flex: 1;*/
+        flex-shrink: 2;
         flex-basis: unset;
         display: flex;
         margin: 0;
@@ -179,7 +178,13 @@ tile-container{
     }
 
     .full-height--tile {
-        height: 100%;
+        flex-basis: 100%;
+        flex-shrink: 1;
+    }
+
+    .full-height--tile ~ tile-container {
+        flex-basis: 100%;
+        flex-shrink: 2;
     }
 
     tile-container.alerts {
