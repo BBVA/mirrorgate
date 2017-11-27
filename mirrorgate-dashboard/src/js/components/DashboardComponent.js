@@ -43,7 +43,7 @@ var DashboardComponent = (function() {
               var height = contents.offsetHeight + contents.offsetTop - contents.parentElement.offsetTop;
 
               this.parentElement.style["min-height"]=height + 'px';
-              this.parentElement.style["height"]='auto';
+              this.parentElement.style.height='auto';
               //this.parentElement.style["flex-basis"]='unset';
             }
           }.bind(this));

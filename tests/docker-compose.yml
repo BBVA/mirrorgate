@@ -1,0 +1,76 @@
+version: '2'
+
+services:
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+  mongo-clean:
+    image: "mongo"
+    entrypoint: "/usr/bin/env bash -c 'until mongo dashboarddb --host mongo --eval db.dropDatabase(); do >&2 echo Mongo is unavailable - sleeping & sleep 1; done'"
+    links:
+      - mongo
+  mongo-populate-test:
+    image: "mongo"
+    volumes:
+      - ".:/temp"
+    working_dir: "/temp"
+    entrypoint: "/usr/bin/env bash -c 'until mongo dashboarddb --host mongo < data/main.js; do >&2 echo Mongo is unavailable - sleeping & sleep 1; done'"
+    links:
+      - mongo
+      - mongo-clean
+  mongo-populate-dump:
+    image: "mongo"
+    volumes:
+      - "/tmp/latest_mongo_dump:/temp"
+    working_dir: "/temp"
+    entrypoint: "/usr/bin/env bash -c 'until mongorestore --host mongo --db dashboarddb --drop /temp/dashboarddb; do >&2 echo Mongo is unavailable - sleeping & sleep 1; done'"
+    links:
+      - mongo
+      - mongo-clean
+  app:
+    image: "openjdk:8-jdk"
+    volumes:
+      - ../mirrorgate-api/build/libs:/temp
+      - ../mirrorgate-dashboard/dist:/temp/public
+      - ../mirrorgate-backoffice/dist:/temp/public/backoffice
+      - ../mirrorgate-docs/dist:/temp/public/docs
+    links:
+      - mongo
+    working_dir: "/temp"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/dashboarddb
+      - SPRING_PROFILES_ACTIVE=embedded
+      - SERVER_CONTEXT_PATH=/mirrorgate
+      - SPRING_RESOURCE_CACHE_PERIOD=0
+      - SPRING_RESOURCE_STATIC_LOCATIONS=classpath:/public/
+    entrypoint: "sh -c 'java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n -jar $$(ls *.jar)'"
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+  selenium-chrome:
+    image: "selenium/standalone-chrome:latest"
+    links: 
+      - app
+    volumes:
+      - /dev/shm:/dev/shm
+  selenium-firefox:
+    image: "selenium/standalone-firefox:latest"
+    links: 
+      - app
+    volumes:
+      - /dev/shm:/dev/shm      
+  e2e-tests:
+    image: "node:7"
+    volumes: 
+      - ".:/temp/"
+    working_dir: "/temp"
+    links:
+      - mongo-populate-test
+      - selenium-chrome
+      - selenium-firefox
+    environment:
+      - DOCKER=true
+    entrypoint: "sh -c 'until curl http://app:8080/mirrorgate/health; do >&2 echo App is unavailable - sleeping & sleep 1; done && \
+        ./node_modules/.bin/protractor ./e2e/protractor.conf.js && \
+        BROWSER=firefox ./node_modules/.bin/protractor ./e2e/protractor.conf.js'"
