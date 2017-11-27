@@ -72,5 +72,6 @@ services:
     environment:
       - DOCKER=true
     entrypoint: "sh -c 'until curl http://app:8080/mirrorgate/health; do >&2 echo App is unavailable - sleeping & sleep 1; done && \
+        npm install && \
         ./node_modules/.bin/protractor ./e2e/protractor.conf.js && \
         BROWSER=firefox ./node_modules/.bin/protractor ./e2e/protractor.conf.js'"
