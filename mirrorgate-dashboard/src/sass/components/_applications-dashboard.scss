@@ -23,13 +23,6 @@
 
     font-size: 2rem;
 
-
-    .component__body {
-      height: auto;
-      min-height: auto;
-      flex-basis: unset;
-    }
-
     .platform-rates {
       display: flex;
       flex-direction: row;
@@ -274,8 +267,9 @@
 
         .review__comment {
             overflow: hidden;
-            word-break: break-word;
             text-align: justify;
+            word-break: break-all;
+            word-break: break-word;
 
             p {
                 font-size: $level-5;

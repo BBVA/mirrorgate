@@ -53,7 +53,7 @@ const paths = {
   bower: [
     'bower_components*/**/*.min.*',
     'bower_components*/webcomponentsjs/webcomponents-hi-sd-ce.js',
-    'bower_components*/**/dist/**/*.js'
+    'bower_components*/**/dist/**/*.js',
   ],
   fonts: [
     'bower_components*/roboto-fontface/css/roboto/roboto-fontface.css',
@@ -107,17 +107,17 @@ gulp.task(':build:sass', function() {
 
 /* To be runned against mocks */
 gulp.task('serve', ['build'], () => {
-  browserSync.init({port: 8080, server: {baseDir: ['dist', 'test/mocks']}});
+  browserSync.init({port: 8082, server: {baseDir: ['dist', 'test/mocks']}});
   gulp.watch(['src/**/*'], [':serve:watch']);
 });
 
 gulp.task('serve:dist', ['dist'], () => {
-  browserSync.init({port: 8080, server: {baseDir: ['dist', 'test/mocks']}});
+  browserSync.init({port: 8082, server: {baseDir: ['dist', 'test/mocks']}});
   gulp.watch(['src/**/*'], [':serve:watch']);
 });
 
 gulp.task('serve:noclean', [':serve:watch'], () => {
-  browserSync.init({port: 8080, server: {baseDir: ['dist', 'test/mocks']}});
+  browserSync.init({port: 8082, server: {baseDir: ['dist', 'test/mocks']}});
   gulp.watch(['src/**/*'], [':serve:watch']);
 });
 

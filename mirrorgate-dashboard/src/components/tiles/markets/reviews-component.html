@@ -69,7 +69,6 @@
           window.open(url, 'reviews');
         }
       }
-      setTimeout(this._setSize.bind(this), 10000);
     },
 
     _setSize: function (e) {
@@ -104,13 +103,7 @@
         this._initPageCycle();
       }
 
-      setTimeout(function () {
-        if(contents.offsetHeight > height) {
-          this._loadData();
-        } else {
-          this._setSize();
-        }
-      }.bind(this),10);
+      this._loadData();
     },
 
     render: function (data) {
@@ -159,13 +152,22 @@
     },
 
     _addEllipsis: function () {
-        $(this).find('.review__comment')
-        .dotdotdot({
-          ellipsis: '...',
-          height: function () {
-            return Math.max(1,(this.parentElement.offsetHeight + this.parentElement.offsetTop - this.offsetTop - 20));
-          }
-        });
+      var contents = this.getRootElement().querySelector('.review-contents');
+      if(contents) {
+        var commentDif = this.getRootElement().querySelector('.review__comment');
+        var height = contents.offsetHeight - commentDif.offsetTop;
+
+        try {
+          $(this.getRootElement()).find('.review__comment')
+          .dotdotdot({
+            ellipsis: '...',
+            truncate: 'letter',
+            height: Math.max(1,height)
+          });
+        } catch(e) {
+          console.warn('Error adding ellipsis', e);
+        }
+      }
     },
 
     _initPageCycle: function () {

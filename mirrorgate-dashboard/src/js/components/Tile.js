@@ -188,13 +188,12 @@ var Tile = (function() {
   };
 
   Tile.prototype.refresh = function (data) {
+    DashboardComponent.prototype.refresh.call(this, arguments);
     this._prevData = data ? Utils.clone(data): this._prevData;
     if(this.__pending_refresh) return;
     this.__pending_refresh = setTimeout(function () {
       this.__pending_refresh = undefined;
-      if(this._prevData) {
-        this.render(Utils.clone(this._prevData));
-      }
+      this.render(this._prevData && Utils.clone(this._prevData));
     }.bind(this));
   };
 
