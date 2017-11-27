@@ -113,7 +113,7 @@
       });
 
       this.getModel().data = data;
-      setTimeout(this._setSize.bind(this));
+      this._setSize();
     },
 
     _loadData: function () {
@@ -157,12 +157,16 @@
         var commentDif = this.getRootElement().querySelector('.review__comment');
         var height = contents.offsetHeight - commentDif.offsetTop;
 
-        $(this.getRootElement()).find('.review__comment')
-        .dotdotdot({
-          ellipsis: '...',
-          truncate: 'letter',
-          height: Math.max(1,height)
-        });
+        try {
+          $(this.getRootElement()).find('.review__comment')
+          .dotdotdot({
+            ellipsis: '...',
+            truncate: 'letter',
+            height: Math.max(1,height)
+          });
+        } catch(e) {
+          console.warn('Error adding ellipsis', e);
+        }
       }
     },
 

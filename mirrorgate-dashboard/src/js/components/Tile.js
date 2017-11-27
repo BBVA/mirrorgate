@@ -180,9 +180,7 @@ var Tile = (function() {
     if(this.__pending_refresh) return;
     this.__pending_refresh = setTimeout(function () {
       this.__pending_refresh = undefined;
-      if(this._prevData) {
-        this.render(Utils.clone(this._prevData));
-      }
+      this.render(this._prevData && Utils.clone(this._prevData));
     }.bind(this));
   };
 
