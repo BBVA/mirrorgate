@@ -24,10 +24,6 @@ def build() {
           """
       }
 
-  } catch(e) {
-
-      //Optional by the moment
-
   } finally {
       sh """
           docker-compose -p \${BUILD_TAG} down --volumes
