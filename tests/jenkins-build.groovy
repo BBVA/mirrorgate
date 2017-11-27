@@ -24,6 +24,9 @@ def build() {
           """
       }
 
+  } catch (e) {
+      println e
+      currentBuild.result = "UNSTABLE"
   } finally {
       sh """
           docker-compose -p \${BUILD_TAG} down --volumes
