@@ -78,13 +78,13 @@
       var totalVotes;
 
       Utils.raiseEvent(this, {
-        status: data.total ?
+        status: data && data.total ?
           data.total.tendencyChange < -5 ? 'error':
             data.total.tendencyChange < -1 ? 'warn': 'ok':
           'server-error'
       });
 
-      if(data.total) {
+      if(data && data.total) {
         var app = this.getModel().app = data.total;
         app.starsTotal = this.controller.calculateStars(app.rateTotal);
         app.starsShortTerm = this.controller.calculateStars(app.rateShortTerm);
