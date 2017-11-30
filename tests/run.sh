@@ -13,8 +13,9 @@ then
     aws s3 --profile $AWS_PROFILE --region $AWS_REGION cp $MONGODUMP_BUCKET/${last_dump} /tmp
     tar -xf /tmp/${last_dump} --directory /tmp
 
-    rm -f /tmp/latest_mongo_dump || true
-    ln -s /tmp/${last_dump%%.*} /tmp/latest_mongo_dump
+    rm -frd /tmp/latest_mongo_dump || true
+    mkdir /tmp/latest_mongo_dump
+    cp -R /tmp/${last_dump%%.*} /tmp/latest_mongo_dump/dump
     docker-compose -p ${BUILD_TAG} run -u $(id -u) mongo-populate-dump
 else
     docker-compose -p ${BUILD_TAG} run -u $(id -u) mongo-populate-test

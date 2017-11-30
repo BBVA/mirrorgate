@@ -22,7 +22,7 @@ services:
     working_dir: "/temp"
     entrypoint: "/usr/bin/env bash -c ' \
       until mongo dashboarddb --host mongo --eval \"db.dropDatabase()\"; do >&2 echo Mongo is unavailable - sleeping & sleep 1; done && \
-      mongorestore --host mongo --db dashboarddb --drop /temp/dashboarddb'"
+      mongorestore --host mongo --db dashboarddb --drop /temp/dump/dashboarddb'"
     links:
       - mongo
   app:
