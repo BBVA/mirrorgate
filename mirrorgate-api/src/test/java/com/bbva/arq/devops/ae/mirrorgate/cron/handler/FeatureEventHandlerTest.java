@@ -31,12 +31,15 @@ public class FeatureEventHandlerTest {
     @MockBean
     private FeatureService featureService;
 
+    @MockBean
+    private ProcessEventsHelper eventsHelper;
+
     private FeatureEventHandler eventHandler;
 
     @Before
     public void init(){
 
-        eventHandler = new FeatureEventHandler(connectionHandler, dashboardService, featureService);
+        eventHandler = new FeatureEventHandler(connectionHandler, featureService, eventsHelper);
     }
 
     @Test
