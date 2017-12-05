@@ -15,7 +15,7 @@ These Scripts aim to help MirrorGate development and deployment helping to conso
   *  MONGO_USER: mongo username with Read Access to MONGO_AUTHDB.
   *  MONGO_PASS: mongo password for MONGO_USER.
 
-  It also allows two parameters for uploading the result dump to a S3 Bucket of AWS, i.e.
+  It also allows two parameters for uploading resulted dump to a S3 Bucket of AWS, i.e.
 
   ```sh
   ./mongoDump.sh --secrets-file {{ secrets_file }} --bucket {{ backups_bucket }}
