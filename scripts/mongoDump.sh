@@ -52,9 +52,9 @@ echo "Done."
 echo "Dumping database..."
 if [ -z "$MONGO_USER" ]
   then
-    mongodump -h $MONGO_HOST:$MONGO_PORT --out $BACKUP_NAME --oplog
+    mongodump -h $MONGO_HOST:$MONGO_PORT -d $MONGO_DB --out $BACKUP_NAME
   else
-    mongodump -h $MONGO_HOST:$MONGO_PORT -u $MONGO_USER -p $MONGO_PASS --authenticationDatabase $MONGO_AUTHDB --out $BACKUP_NAME --oplog
+    mongodump -h $MONGO_HOST:$MONGO_PORT -u $MONGO_USER -p $MONGO_PASS --authenticationDatabase $MONGO_DB --out $BACKUP_NAME --oplog
 fi
 if [[ $? -ne 0 ]]; then echo "Error al hacer dump de la base de datos ($MONGO_HOST:$MONGO_PORT)."; exit 1; fi
 echo "Done."
@@ -66,7 +66,7 @@ if [[ $? -ne 0 ]]; then echo "Error al crear el tgz."; rm -fr $BACKUP_NAME; exit
 echo "Done."
 
 # Upload backup to s3 bucket
-if [ -z "$BUCKET" ]
+if [ -z ${$BUCKET} ]
     then
         echo "Uploading backup to s3..."
         aws s3 cp $BACKUP_NAME.tgz $BUCKET/mongodb/$BACKUP_NAME.tgz
