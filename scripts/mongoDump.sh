@@ -50,7 +50,7 @@ echo "Done."
 
 # Dump the database
 echo "Dumping database..."
-if [ -z "$MONGO_USER" ]
+if [ -z $MONGO_USER ]
   then
     mongodump -h $MONGO_HOST:$MONGO_PORT -d $MONGO_DB --out $BACKUP_NAME
   else
