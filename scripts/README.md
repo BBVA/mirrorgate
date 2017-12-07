@@ -23,8 +23,8 @@ These Scripts aim to help MirrorGate development and deployment helping to conso
 * mongoCleanUp.sh: this utility run clean up mongo scripts only if it is executed in a secondary node of a replica set environment. Environment variables:
   *  MONGO_HOST: mongo host (127.0.0.1 by default).
   *  MONGO_PORT: mongo port (27017 by default).
-  *  MONGO_DB: mongo database to be dumped.
-  *  MONGO_USER: mongo username with Read Access to MONGO_DB.
+  *  MONGO_AUTHDB: mongo database to be dumped.
+  *  MONGO_USER: mongo username with Read Access to MONGO_AUTHDB.
   *  MONGO_PASS: mongo password for MONGO_USER.
 
 ### Mongo Scripts

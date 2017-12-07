@@ -52,9 +52,9 @@ echo "Done."
 echo "Dumping database..."
 if [ -z $MONGO_USER ]
   then
-    mongodump -h $MONGO_HOST:$MONGO_PORT -d $MONGO_DB --out $BACKUP_NAME
+    mongodump -h $MONGO_HOST:$MONGO_PORT -d $MONGO_AUTHDB --out $BACKUP_NAME
   else
-    mongodump -h $MONGO_HOST:$MONGO_PORT -u $MONGO_USER -p $MONGO_PASS --authenticationDatabase $MONGO_DB --out $BACKUP_NAME --oplog
+    mongodump -h $MONGO_HOST:$MONGO_PORT -u $MONGO_USER -p $MONGO_PASS --authenticationDatabase $MONGO_AUTHDB --out $BACKUP_NAME --oplog
 fi
 if [[ $? -ne 0 ]]; then echo "Error al hacer dump de la base de datos ($MONGO_HOST:$MONGO_PORT)."; exit 1; fi
 echo "Done."
