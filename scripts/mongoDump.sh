@@ -66,7 +66,7 @@ if [[ $? -ne 0 ]]; then echo "Error al crear el tgz."; rm -fr $BACKUP_NAME; exit
 echo "Done."
 
 # Upload backup to s3 bucket
-if [ -z ${$BUCKET} ]
+if [ -z ${BUCKET} ]
     then
         echo "Uploading backup to s3..."
         aws s3 cp $BACKUP_NAME.tgz $BUCKET/mongodb/$BACKUP_NAME.tgz
