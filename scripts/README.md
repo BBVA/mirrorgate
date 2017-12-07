@@ -11,8 +11,8 @@ These Scripts aim to help MirrorGate development and deployment helping to conso
 * mongoDump.sh: this utility create a dump of the database with current date extension only if it is executed in a secondary node of a replica set environment. Very useful for maintaining a backup strategy. It needs to set following environment variables:
   *  MONGO_HOST: mongo host (127.0.0.1 by default).
   *  MONGO_PORT: mongo port (27017 by default).
-  *  MONGO_DB: mongo database to be dumped.
-  *  MONGO_USER: mongo username with Read Access to MONGO_DB.
+  *  MONGO_AUTHDB: mongo database to be dumped.
+  *  MONGO_USER: mongo username with Read Access to MONGO_AUTHDB.
   *  MONGO_PASS: mongo password for MONGO_USER.
 
   It also allows two parameters for uploading resulted dump to a S3 Bucket of AWS, i.e.
