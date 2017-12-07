@@ -3,7 +3,7 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "HistoricUserMetrics")
+@Document(collection = "historicUserMetrics")
 public class HistoricUserMetric extends BaseModel{
 
     @Indexed
@@ -15,6 +15,7 @@ public class HistoricUserMetric extends BaseModel{
 
     private String platform;
 
+    @Indexed
     private String name;
 
     private Double value;

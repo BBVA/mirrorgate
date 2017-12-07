@@ -14,6 +14,7 @@ import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HistoricUserMetricServiceImpl implements HistoricUserMetricService {
 
+    private static final int MAX_NUMBER_OF_PERIODS_TO_STORE = 30;
     private HistoricUserMetricRepository repository;
 
     @Autowired
@@ -48,10 +50,11 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     }
 
     @Override
-    public void getLastNPeriods(int n) {
+    public List<HistoricUserMetric> getLastNPeriods(int n, String metricName, String identifier) {
 
-        //Recover from DB ordered
+        return repository.findByNameAndIdentifierOrderByTimestampAsc(new PageRequest(0, n), metricName, identifier);
     }
+
 
     @Override
     public void addToCurrentPeriod(Iterable<UserMetric> saved) {
@@ -70,14 +73,21 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
             metric.setSampleSize(metric.getSampleSize() + r.getSampleSize());
             repository.save(metric);
+            removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_PERIODS_TO_STORE, metric.getName(), metric.getIdentifier());
         });
 
-        removePeriod();
     }
 
     @Override
-    public void removePeriod() {
-        getLastNPeriods(31);
+    public void removeExtraPeriodsForMetricAndIdentifier(int periodNumber, String metricName, String identifier) {
+
+        List<HistoricUserMetric> lastNPeriods = getAllPeriodsForMetricAndIdentifier(metricName, identifier);
+
+        int periodsToDelete = lastNPeriods.size() - periodNumber;
+
+        for (int i = 0; i < periodsToDelete; i++){
+            repository.delete(lastNPeriods.get(i));
+        }
     }
 
 
@@ -90,5 +100,12 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         return metricTimestamp.toInstant(ZoneOffset.UTC).getEpochSecond();
     }
+
+
+    private List<HistoricUserMetric> getAllPeriodsForMetricAndIdentifier(String metricName, String identifier) {
+
+        return repository.findByNameAndIdentifierOrderByTimestampAsc(null, metricName, identifier);
+    }
+
 
 }
