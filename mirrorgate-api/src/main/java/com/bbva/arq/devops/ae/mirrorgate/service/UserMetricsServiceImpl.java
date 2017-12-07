@@ -34,11 +34,14 @@ public class UserMetricsServiceImpl implements UserMetricsService {
 
     private final DashboardService dashboardService;
     private final UserMetricsRepository userMetricsRepository;
+    private final HistoricUserMetricService historicUserMetricService;
 
     @Autowired
-    public UserMetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository){
+    public UserMetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository
+                                , HistoricUserMetricService historicUserMetricService){
         this.dashboardService = dashboardService;
         this.userMetricsRepository = userMetricsRepository;
+        this.historicUserMetricService = historicUserMetricService;
     }
 
     @Override
@@ -64,7 +67,10 @@ public class UserMetricsServiceImpl implements UserMetricsService {
                 .map(UserMetricMapper::map)
                 .collect(Collectors.toList());
 
-        userMetricsRepository.save(toSave);
+        Iterable<UserMetric> saved = userMetricsRepository.save(toSave);
+
+        //send to historic
+        historicUserMetricService.addToCurrentPeriod(saved);
 
         return toSave.stream().map(UserMetricMapper::map).collect(Collectors.toList());
     }
