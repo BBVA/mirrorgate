@@ -10,5 +10,5 @@ public interface HistoricUserMetricRepository extends CrudRepository<HistoricUse
 
     HistoricUserMetric findByTimestampAndIdentifier(Long timestamp, String identifier);
     List<HistoricUserMetric> findByNameAndIdentifierOrderByTimestampAsc(Pageable page, String name, String identifier);
-    //List<HistoricUserMetric> findByNameAndIdentifierOrderByTimestampAsc(Pageable page, String name, String identifier);
+    List<HistoricUserMetric> findByNameAndIdentifierAndTimestampLessThan(String name, String identifier,long timestamp);
 }

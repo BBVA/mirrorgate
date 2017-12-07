@@ -14,5 +14,5 @@ public interface HistoricUserMetricService {
 
     void addToCurrentPeriod(Iterable<UserMetric> saved);
 
-    void removeExtraPeriodsForMetricAndIdentifier(int periodNumber, String metricName, String identifier);
+    void removeExtraPeriodsForMetricAndIdentifier(int daysToKeep, String metricName, String identifier);
 }

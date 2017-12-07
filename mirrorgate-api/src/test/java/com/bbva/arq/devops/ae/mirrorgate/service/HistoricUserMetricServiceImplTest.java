@@ -5,7 +5,14 @@ import static org.junit.Assert.assertTrue;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
+import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.TimeZone;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,6 +34,10 @@ public class HistoricUserMetricServiceImplTest {
 
     private static Iterable<UserMetric> userMetrics;
 
+    private static long date1 = LocalDateTime.now(ZoneId.of("UTC")).toInstant(ZoneOffset.UTC).getEpochSecond();
+    private static long date2 = LocalDateTime.now(ZoneId.of("UTC")).minusDays(1).toInstant(ZoneOffset.UTC).getEpochSecond();
+    private static long date3 = LocalDateTime.now(ZoneId.of("UTC")).minusDays(30).toInstant(ZoneOffset.UTC).getEpochSecond();
+
     @BeforeClass
     public static void init(){
 
@@ -34,17 +45,18 @@ public class HistoricUserMetricServiceImplTest {
             .setName("requestNumber")
             .setSampleSize(12d)
             .setId("AWSRequestNumber")
-            .setTimestamp(1512389543l);
+            .setTimestamp(date1);
         UserMetric userMetric2 = new UserMetric()
             .setName("requestNumber")
             .setSampleSize(12d)
             .setId("AWSRequestNumber")
-            .setTimestamp(1492002720l);
+            .setTimestamp(date2);
         UserMetric userMetric3 = new UserMetric()
             .setName("requestNumber")
             .setSampleSize(12d)
             .setId("AWSRequestNumber")
-            .setTimestamp(1491996840l);
+            .setTimestamp(date3);
+
         UserMetric userMetric4 = new UserMetric().setName("notRequestNumber").setSampleSize(12d).setId("AWSRequestNumber");
 
         userMetrics = Arrays.asList(userMetric1, userMetric2, userMetric3, userMetric4);
@@ -56,10 +68,10 @@ public class HistoricUserMetricServiceImplTest {
         service.addToCurrentPeriod(userMetrics);
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findByTimestampAndIdentifier(1512388800l, "AWSRequestNumber");
+        HistoricUserMetric result = repository.findByTimestampAndIdentifier(LocalDateTimeHelper.getTimestampPeriod(date1), "AWSRequestNumber");
 
         assertTrue(result.getIdentifier().equals("AWSRequestNumber"));
-        assertTrue(result.getTimestamp() == 1512388800l);
+        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(date1));
         assertTrue(result.getSampleSize() == 24);
     }
 
@@ -68,10 +80,10 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findByTimestampAndIdentifier(1512388800l, "AWSRequestNumber");
+        HistoricUserMetric result = repository.findByTimestampAndIdentifier(LocalDateTimeHelper.getTimestampPeriod(date1), "AWSRequestNumber");
 
         assertTrue(result.getIdentifier().equals("AWSRequestNumber"));
-        assertTrue(result.getTimestamp() == 1512388800l);
+        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(date1));
         assertTrue(result.getSampleSize() == 12);
     }
 
@@ -105,7 +117,7 @@ public class HistoricUserMetricServiceImplTest {
 
         assertTrue(repository.count() == 3);
 
-        service.removeExtraPeriodsForMetricAndIdentifier(3, "requestNumber","AWSRequestNumber");
+        service.removeExtraPeriodsForMetricAndIdentifier(30, "requestNumber","AWSRequestNumber");
 
         assertTrue(repository.count() == 3);
     }

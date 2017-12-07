@@ -5,12 +5,8 @@ import static com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper.mapToHis
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
+import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +14,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
-
 @Service
 public class HistoricUserMetricServiceImpl implements HistoricUserMetricService {
 
-    private static final int MAX_NUMBER_OF_PERIODS_TO_STORE = 30;
+    private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 30;
     private HistoricUserMetricRepository repository;
 
     @Autowired
@@ -38,7 +33,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
 
         historicUserMetric.setSampleSize(0d);
-        historicUserMetric.setTimestamp(getUserMetricPeriod(userMetric));
+        historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp()));
 
         return historicUserMetric;
     }
@@ -65,7 +60,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
 
         requestNumberMetrics.forEach( r -> {
-            HistoricUserMetric metric = getHistoricMetricForPeriod(getUserMetricPeriod(r), r.getId());
+            HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp()), r.getId());
 
             if (metric == null){
                 metric = createNextPeriod(r);
@@ -73,39 +68,17 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
             metric.setSampleSize(metric.getSampleSize() + r.getSampleSize());
             repository.save(metric);
-            removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_PERIODS_TO_STORE, metric.getName(), metric.getIdentifier());
+            removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
         });
-
     }
 
     @Override
-    public void removeExtraPeriodsForMetricAndIdentifier(int periodNumber, String metricName, String identifier) {
+    public void removeExtraPeriodsForMetricAndIdentifier(int daysToKeep, String metricName, String identifier) {
 
-        List<HistoricUserMetric> lastNPeriods = getAllPeriodsForMetricAndIdentifier(metricName, identifier);
+        List<HistoricUserMetric> oldPeriods =
+            repository.findByNameAndIdentifierAndTimestampLessThan(metricName, identifier, LocalDateTimeHelper.getTimestampForNDaysAgo(daysToKeep));
 
-        int periodsToDelete = lastNPeriods.size() - periodNumber;
-
-        for (int i = 0; i < periodsToDelete; i++){
-            repository.delete(lastNPeriods.get(i));
-        }
+        repository.delete(oldPeriods);
     }
-
-
-    private long getUserMetricPeriod(UserMetric userMetric){
-
-        Instant instant = Instant.ofEpochSecond(userMetric.getTimestamp());
-
-        LocalDateTime metricTimestamp = LocalDateTime.ofInstant(instant,
-                TimeZone.getTimeZone("UTC").toZoneId()).truncatedTo(ChronoUnit.HOURS);
-
-        return metricTimestamp.toInstant(ZoneOffset.UTC).getEpochSecond();
-    }
-
-
-    private List<HistoricUserMetric> getAllPeriodsForMetricAndIdentifier(String metricName, String identifier) {
-
-        return repository.findByNameAndIdentifierOrderByTimestampAsc(null, metricName, identifier);
-    }
-
 
 }
