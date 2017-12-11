@@ -9,6 +9,8 @@ import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class HistoricUserMetricServiceImpl implements HistoricUserMetricService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
     private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 30;
+
     private HistoricUserMetricRepository repository;
 
     @Autowired
@@ -55,9 +59,10 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     public void addToCurrentPeriod(Iterable<UserMetric> saved) {
 
         List<UserMetric> requestNumberMetrics = StreamSupport.stream(saved.spliterator(), false)
-            .filter( u -> "requestNumber".compareTo(u.getName()) == 0)
+            .filter( u -> "requestsNumber".compareTo(u.getName()) == 0)
             .collect(Collectors.toList());
 
+        LOGGER.info("requestNumber user metrics: {}", requestNumberMetrics.size());
 
         requestNumberMetrics.forEach( r -> {
             HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp()), r.getId());
