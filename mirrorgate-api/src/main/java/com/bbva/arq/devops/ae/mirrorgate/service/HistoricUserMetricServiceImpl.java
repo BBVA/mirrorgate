@@ -67,12 +67,15 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
                     metric = createNextPeriod(r);
                 }
 
+                LOGGER.info("" + metric.getSampleSize());
+                LOGGER.info("" + r.getSampleSize());
+
                 metric.setSampleSize(metric.getSampleSize() + r.getSampleSize());
                 LOGGER.info("metric timestamp to save: {}", metric.getTimestamp());
                 historicUserMetricRepository.save(metric);
                 removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
             } catch (Exception e){
-                LOGGER.error("Error while processing metrics");
+                LOGGER.error("Error while processing metrics", e);
             }
 
         });
