@@ -14,12 +14,12 @@ public class LocalDateTimeHelper {
 
     public static long getTimestampPeriod(long timestamp){
 
-        Instant instant = Instant.ofEpochSecond(timestamp);
+        Instant instant = Instant.ofEpochMilli(timestamp);
 
         LocalDateTime metricTimestamp = LocalDateTime.ofInstant(instant,
             TimeZone.getTimeZone("UTC").toZoneId()).truncatedTo(ChronoUnit.HOURS);
 
-        return metricTimestamp.toInstant(ZoneOffset.UTC).getEpochSecond();
+        return metricTimestamp.toInstant(ZoneOffset.UTC).toEpochMilli();
     }
 
     public static long getTimestampForNDaysAgo(int days){
@@ -27,7 +27,7 @@ public class LocalDateTimeHelper {
         LocalDateTime daysAgo =
             LocalDateTime.now(ZoneId.of("UTC")).minusDays(days).truncatedTo(ChronoUnit.HOURS);
 
-        return daysAgo.toInstant(ZoneOffset.UTC).getEpochSecond();
+        return daysAgo.toInstant(ZoneOffset.UTC).toEpochMilli();
     }
 
 }
