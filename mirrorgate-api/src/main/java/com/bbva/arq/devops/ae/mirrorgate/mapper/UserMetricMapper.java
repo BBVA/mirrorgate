@@ -60,21 +60,4 @@ public class UserMetricMapper {
                 .setCollectorId(source.getCollectorId());
     }
 
-    public static HistoricUserMetric mapToHistoric(UserMetric origin){
-
-        HistoricUserMetric historicUserMetric = new HistoricUserMetric();
-
-        historicUserMetric.setSampleSize(origin.getSampleSize());
-        historicUserMetric.setAppVersion(origin.getAppVersion());
-        historicUserMetric.setCollectorId(origin.getCollectorId());
-        historicUserMetric.setIdentifier(origin.getId());
-        historicUserMetric.setName(origin.getName());
-        historicUserMetric.setPlatform(origin.getPlatform());
-        historicUserMetric.setValue(origin.getValue());
-        historicUserMetric.setViewId(origin.getViewId());
-        historicUserMetric.setTimestamp(origin.getTimestamp());
-
-        return historicUserMetric;
-    }
-
 }

@@ -1,11 +1,15 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper.mapToHistoric;
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper.mapToHistoric;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricUserMetricDTO;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -22,17 +26,19 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
     private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 30;
 
-    private HistoricUserMetricRepository repository;
+    private HistoricUserMetricRepository historicUserMetricRepository;
 
     @Autowired
-    public HistoricUserMetricServiceImpl(HistoricUserMetricRepository repository){
+    public HistoricUserMetricServiceImpl(HistoricUserMetricRepository historicUserMetricRepository){
 
-        this.repository = repository;
+        this.historicUserMetricRepository = historicUserMetricRepository;
     }
 
 
     @Override
     public HistoricUserMetric createNextPeriod(UserMetric userMetric) {
+
+        LOGGER.info("creating new Historic Metric Period");
 
         HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
 
@@ -42,19 +48,8 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return historicUserMetric;
     }
 
-    @Override
-    public HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier) {
 
-        return repository.findByTimestampAndIdentifier(periodTimestamp, identifier);
-    }
-
-    @Override
-    public List<HistoricUserMetric> getLastNPeriods(int n, String metricName, String identifier) {
-
-        return repository.findByNameAndIdentifierOrderByTimestampAsc(new PageRequest(0, n), metricName, identifier);
-    }
-
-
+    //TODO add Exception control
     @Override
     public void addToCurrentPeriod(Iterable<UserMetric> saved) {
 
@@ -72,7 +67,8 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
             }
 
             metric.setSampleSize(metric.getSampleSize() + r.getSampleSize());
-            repository.save(metric);
+            LOGGER.info("metric timestamp to save: {}", metric.getTimestamp());
+            historicUserMetricRepository.save(metric);
             removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
         });
     }
@@ -80,10 +76,34 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     @Override
     public void removeExtraPeriodsForMetricAndIdentifier(int daysToKeep, String metricName, String identifier) {
 
-        List<HistoricUserMetric> oldPeriods =
-            repository.findByNameAndIdentifierAndTimestampLessThan(metricName, identifier, LocalDateTimeHelper.getTimestampForNDaysAgo(daysToKeep));
+        LOGGER.info("removing extra periods for: {}, {}", metricName, identifier);
 
-        repository.delete(oldPeriods);
+        List<HistoricUserMetric> oldPeriods =
+            historicUserMetricRepository.findByNameAndIdentifierAndTimestampLessThan(metricName, identifier, LocalDateTimeHelper.getTimestampForNDaysAgo(daysToKeep));
+
+        historicUserMetricRepository.delete(oldPeriods);
     }
+
+    @Override
+    public List<HistoricUserMetricDTO> getHistoricMetricsForDashboard(DashboardDTO dashboard, String metricName, int numberOfResults) {
+        List<String> views = dashboard.getAnalyticViews();
+
+        if (views == null || views.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return historicUserMetricRepository.findAllByViewIdInAndValueGreaterThanAndNameOrderByTimestampAsc
+            (new PageRequest(0, numberOfResults), views, 0d, metricName)
+            .stream().map(HistoricUserMetricMapper::map)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier) {
+
+        return historicUserMetricRepository.findByTimestampAndIdentifier(periodTimestamp, identifier);
+    }
+
+
 
 }
