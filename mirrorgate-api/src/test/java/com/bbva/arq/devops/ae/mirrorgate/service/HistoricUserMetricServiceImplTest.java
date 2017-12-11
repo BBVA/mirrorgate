@@ -104,7 +104,7 @@ public class HistoricUserMetricServiceImplTest {
 
         assertTrue(repository.count() == 0);
 
-        service.removeExtraPeriodsForMetricAndIdentifier(2, "requestNumber","AWSRequestNumber");
+        service.removeExtraPeriodsForMetricAndIdentifier(2, "requestsNumber","AWSRequestNumber");
 
         assertTrue(repository.count() == 0);
     }
