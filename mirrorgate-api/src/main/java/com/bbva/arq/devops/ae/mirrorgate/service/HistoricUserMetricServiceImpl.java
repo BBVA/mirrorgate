@@ -59,8 +59,9 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         LOGGER.info("requestNumber user metrics: {}", requestNumberMetrics.size());
 
-        requestNumberMetrics.forEach( r -> {
-            try{
+        try{
+            requestNumberMetrics.forEach( r -> {
+
                 HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp()), r.getId());
 
                 if (metric == null){
@@ -68,17 +69,16 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
                 }
 
                 LOGGER.info("" + metric.getSampleSize());
-                LOGGER.info("" + r.getSampleSize());
+                LOGGER.info("received metric {} {} {} {} {} {}",r.getSampleSize(), r.getCollectorId(), r.getName(), r.getPlatform(), r.getValue(), r.getViewId());
 
                 metric.setSampleSize(metric.getSampleSize() + r.getSampleSize());
                 LOGGER.info("metric timestamp to save: {}", metric.getTimestamp());
                 historicUserMetricRepository.save(metric);
                 removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
-            } catch (Exception e){
-                LOGGER.error("Error while processing metrics", e);
-            }
-
-        });
+            });
+        } catch (Exception e){
+            LOGGER.error("Error while processing metrics", e);
+        }
     }
 
     @Override
