@@ -60,23 +60,28 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         LOGGER.info("requestNumber user metrics: {}", requestNumberMetrics.size());
 
         requestNumberMetrics.forEach( r -> {
-            HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp()), r.getId());
+            try{
+                HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp()), r.getId());
 
-            if (metric == null){
-                metric = createNextPeriod(r);
+                if (metric == null){
+                    metric = createNextPeriod(r);
+                }
+
+                metric.setSampleSize(metric.getSampleSize() + r.getSampleSize());
+                LOGGER.info("metric timestamp to save: {}", metric.getTimestamp());
+                historicUserMetricRepository.save(metric);
+                removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
+            } catch (Exception e){
+                LOGGER.error("Error while processing metrics");
             }
 
-            metric.setSampleSize(metric.getSampleSize() + r.getSampleSize());
-            LOGGER.info("metric timestamp to save: {}", metric.getTimestamp());
-            historicUserMetricRepository.save(metric);
-            removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
         });
     }
 
     @Override
     public void removeExtraPeriodsForMetricAndIdentifier(int daysToKeep, String metricName, String identifier) {
 
-        LOGGER.info("removing extra periods for: {}, {}", metricName, identifier);
+        LOGGER.info("removing extra periods for: {}, {}, {}", daysToKeep, metricName, identifier);
 
         List<HistoricUserMetric> oldPeriods =
             historicUserMetricRepository.findByNameAndIdentifierAndTimestampLessThan(metricName, identifier, LocalDateTimeHelper.getTimestampForNDaysAgo(daysToKeep));
