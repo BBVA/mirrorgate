@@ -38,18 +38,18 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     @Override
     public HistoricUserMetric createNextPeriod(UserMetric userMetric) {
 
-        LOGGER.info("creating new Historic Metric Period");
+        LOGGER.debug("creating new Historic Metric Period");
 
         HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
 
         historicUserMetric.setSampleSize(0d);
         historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp()));
+        historicUserMetric.setValue(0d);
 
         return historicUserMetric;
     }
 
 
-    //TODO add Exception control
     @Override
     public void addToCurrentPeriod(Iterable<UserMetric> saved) {
 
@@ -57,31 +57,28 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
             .filter( u -> "requestsNumber".compareTo(u.getName()) == 0)
             .collect(Collectors.toList());
 
-        LOGGER.info("requestNumber user metrics: {}", requestNumberMetrics.size());
+        try{
+            requestNumberMetrics.forEach( r -> {
 
-        requestNumberMetrics.forEach( r -> {
-            try{
-                HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp()), r.getId());
+                    HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp()), r.getId());
 
-                if (metric == null){
-                    metric = createNextPeriod(r);
-                }
+                    if (metric == null){
+                        metric = createNextPeriod(r);
+                    }
 
-                metric.setSampleSize(metric.getSampleSize() + r.getSampleSize());
-                LOGGER.info("metric timestamp to save: {}", metric.getTimestamp());
-                historicUserMetricRepository.save(metric);
-                removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
-            } catch (Exception e){
-                LOGGER.error("Error while processing metrics");
-            }
-
-        });
+                    metric.setValue(metric.getValue() + r.getValue());
+                    historicUserMetricRepository.save(metric);
+                    removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
+            });
+        } catch (Exception e){
+            LOGGER.error("Error while processing metrics", e);
+        }
     }
 
     @Override
     public void removeExtraPeriodsForMetricAndIdentifier(int daysToKeep, String metricName, String identifier) {
 
-        LOGGER.info("removing extra periods for: {}, {}, {}", daysToKeep, metricName, identifier);
+        LOGGER.debug("removing extra periods for: {}, {}, {}", daysToKeep, metricName, identifier);
 
         List<HistoricUserMetric> oldPeriods =
             historicUserMetricRepository.findByNameAndIdentifierAndTimestampLessThan(metricName, identifier, LocalDateTimeHelper.getTimestampForNDaysAgo(daysToKeep));
@@ -108,7 +105,5 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         return historicUserMetricRepository.findByTimestampAndIdentifier(periodTimestamp, identifier);
     }
-
-
 
 }
