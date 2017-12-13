@@ -21,7 +21,6 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.*;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import java.util.ArrayList;
@@ -153,18 +152,18 @@ public class TestObjectFactory {
     }
 
     public static BuildDTO createBuildDTO() {
-        BuildDTO build = new BuildDTO();
-        build.setNumber("1");
-        build.setBuildUrl("buildUrl");
-        build.setStartTime(3);
-        build.setEndTime(8);
-        build.setDuration(5);
-        build.setBuildStatus("Success");
-        build.setCulprits(Arrays.asList("foo"));
-        build.setProjectName("mirrorgate");
-        build.setRepoName("api");
-        build.setBranch("test");
-        return build;
+        return new BuildDTO()
+                .setNumber("1")
+                .setBuildUrl("buildUrl")
+                .setStartTime(3)
+                .setEndTime(8)
+                .setDuration(5)
+                .setBuildStatus("Success")
+                .setCulprits(Arrays.asList("foo"))
+                .setProjectName("mirrorgate")
+                .setRepoName("api")
+                .setBranch("test")
+                .setTimestamp(5L);
     }
 
 }

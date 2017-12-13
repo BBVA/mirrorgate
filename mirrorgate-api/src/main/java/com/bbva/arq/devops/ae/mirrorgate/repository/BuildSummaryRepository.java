@@ -13,24 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
 import java.util.List;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-/**
- * Builds repository.
- */
-public interface BuildRepository extends CrudRepository<Build, ObjectId>, BuildRepositoryCustom {
+public interface BuildSummaryRepository extends CrudRepository<BuildSummary, ObjectId> {
 
-    Build findByBuildUrl(String buildUrl);
+    BuildSummary findByRepoNameAndProjectNameAndTimestamp(String repoName, String projectName, Long timestamp);
 
-    List<Build> findAllByRepoNameAndProjectNameAndBranchAndLatestIsTrue(String repoName, String projectName, String branch);
-
-    List<Build> findByIdIn(List<ObjectId> buildIds);
-
-    List<Build> findAllByTimestampAfter(Long timestampPeriod);
+    @Query(value = "{$or:[{repoName: {$in: ?0 }},{projectName: {$in: ?0 }}], timestamp: {$gte: ?1}}")
+    List<BuildSummary> findAllWithKeywordsAndTimestampAfter(List<String> keywords, Long timestamp);
 }

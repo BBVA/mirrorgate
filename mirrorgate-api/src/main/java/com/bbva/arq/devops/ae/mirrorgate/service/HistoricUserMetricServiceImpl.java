@@ -9,6 +9,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +27,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
     private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 30;
 
-    private HistoricUserMetricRepository historicUserMetricRepository;
+    private final HistoricUserMetricRepository historicUserMetricRepository;
 
     @Autowired
     public HistoricUserMetricServiceImpl(HistoricUserMetricRepository historicUserMetricRepository){
@@ -43,7 +44,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
 
         historicUserMetric.setSampleSize(0d);
-        historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp()));
+        historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), ChronoUnit.HOURS));
 
         return historicUserMetric;
     }
@@ -60,8 +61,8 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         LOGGER.info("requestNumber user metrics: {}", requestNumberMetrics.size());
 
         requestNumberMetrics.forEach( r -> {
-            try{
-                HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp()), r.getId());
+            try {
+                HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp(), ChronoUnit.HOURS), r.getId());
 
                 if (metric == null){
                     metric = createNextPeriod(r);
@@ -83,8 +84,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         LOGGER.info("removing extra periods for: {}, {}, {}", daysToKeep, metricName, identifier);
 
-        List<HistoricUserMetric> oldPeriods =
-            historicUserMetricRepository.findByNameAndIdentifierAndTimestampLessThan(metricName, identifier, LocalDateTimeHelper.getTimestampForNDaysAgo(daysToKeep));
+        List<HistoricUserMetric> oldPeriods = historicUserMetricRepository.findByNameAndIdentifierAndTimestampLessThan(metricName, identifier, LocalDateTimeHelper.getTimestampForNDaysAgo(daysToKeep, ChronoUnit.HOURS));
 
         historicUserMetricRepository.delete(oldPeriods);
     }
