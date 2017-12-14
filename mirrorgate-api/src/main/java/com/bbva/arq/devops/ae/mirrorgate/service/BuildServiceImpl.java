@@ -40,6 +40,7 @@ import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,10 @@ public class BuildServiceImpl implements BuildService {
         this.buildSummaryRepository = buildSummaryRepository;
         this.eventService = eventService;
         this.dashboardService = dashboardService;
+    }
 
+    @PostConstruct
+    public void initIt() throws Exception {
         updateBuildSummaries();
     }
 
