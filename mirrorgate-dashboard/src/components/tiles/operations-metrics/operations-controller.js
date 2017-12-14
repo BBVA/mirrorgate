@@ -61,12 +61,12 @@ var OperationsController = (function(dashboardId) {
 
         }, this);
 
-        let errorsRate = requestsNumber ? (100 * errorsNumber / requestsNumber).toFixed(2) : undefined;
+        let errorsRate = requestsNumber ? (100 * parseFloat(errorsNumber / requestsNumber).toFixed(2)) : undefined;
 
         model.metrics = {
           errorsRate: errorsRate,
           availabilityRate: availabilityRate,
-          responseTime: responseTime.toFixed(2),
+          responseTime: parseFloat(responseTime.toFixed(2)),
           requestsNumber: requestsNumber
         };
 

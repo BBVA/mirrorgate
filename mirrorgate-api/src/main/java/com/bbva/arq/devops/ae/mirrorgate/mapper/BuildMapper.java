@@ -22,9 +22,6 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by alfonso on 28/05/17.
- */
 public class BuildMapper {
 
     private BuildMapper(){}
@@ -34,31 +31,26 @@ public class BuildMapper {
     }
 
     public static Build map(BuildDTO source, Build target) {
-        target.setBuildUrl(source.getBuildUrl());
-        target.setNumber(source.getNumber());
-        target.setStartTime(source.getStartTime());
-        target.setEndTime(source.getEndTime());
-        target.setDuration(source.getDuration());
-        target.setCulprits(source.getCulprits());
-        target.setBuildStatus(BuildStatus.fromString(source.getBuildStatus()));
-        if(source.getTimestamp() != null) {
-            target.setTimestamp(source.getTimestamp());
-        } else {
-            target.setTimestamp(System.currentTimeMillis());
-        }
-
-        target.setProjectName(source.getProjectName());
-        target.setRepoName(source.getRepoName());
-        target.setBranch(source.getBranch());
 
         ArrayList<String> keywords = new ArrayList<>();
         keywords.add(source.getBuildUrl());
         keywords.add(source.getProjectName());
         keywords.add(source.getRepoName());
         keywords.removeAll(Collections.singleton(null));
-        target.setKeywords(keywords);
 
-        return target;
+        return target
+                .setBuildUrl(source.getBuildUrl())
+                .setNumber(source.getNumber())
+                .setStartTime(source.getStartTime())
+                .setEndTime(source.getEndTime())
+                .setDuration(source.getDuration())
+                .setCulprits(source.getCulprits())
+                .setBuildStatus(BuildStatus.fromString(source.getBuildStatus()))
+                .setTimestamp(source.getTimestamp() != null ? source.getTimestamp() : System.currentTimeMillis())
+                .setProjectName(source.getProjectName())
+                .setRepoName(source.getRepoName())
+                .setBranch(source.getBranch())
+                .setKeywords(keywords);
     }
 
     public static BuildDTO map(Build source) {
@@ -66,27 +58,26 @@ public class BuildMapper {
     }
 
     public static BuildDTO map(Build source, BuildDTO target) {
-        target.setBuildUrl(source.getBuildUrl());
-        target.setNumber(source.getNumber());
-        target.setStartTime(source.getStartTime());
-        target.setEndTime(source.getEndTime());
-        target.setDuration(source.getDuration());
-        target.setCulprits(source.getCulprits());
-        target.setBuildStatus(source.getBuildStatus().toString());
-        target.setTimestamp(source.getTimestamp());
-
-        target.setProjectName(source.getProjectName());
-        target.setRepoName(source.getRepoName());
-        target.setBranch(source.getBranch());
 
         ArrayList<String> keywords = new ArrayList<>();
         keywords.add(source.getBuildUrl());
         keywords.add(source.getProjectName());
         keywords.add(source.getRepoName());
         keywords.removeAll(Collections.singleton(null));
-        target.setKeywords(keywords);
-        return target;
-    }
 
+        return target
+                .setBuildUrl(source.getBuildUrl())
+                .setNumber(source.getNumber())
+                .setStartTime(source.getStartTime())
+                .setEndTime(source.getEndTime())
+                .setDuration(source.getDuration())
+                .setCulprits(source.getCulprits())
+                .setBuildStatus(source.getBuildStatus().toString())
+                .setTimestamp(source.getTimestamp())
+                .setProjectName(source.getProjectName())
+                .setRepoName(source.getRepoName())
+                .setBranch(source.getBranch())
+                .setKeywords(keywords);
+    }
 
 }

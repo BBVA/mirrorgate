@@ -15,10 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.utils;
 
+import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.*;
+
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
-
-import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.*;
 
 public class BuildStatsUtils {
 
@@ -44,13 +44,13 @@ public class BuildStatsUtils {
         return result;
     }
 
-    public static FailureTendency failureTendency(long failureRateSevenDaysBefore, long failureRateFifteenDaysBefore){
+    public static FailureTendency failureTendency(double failureRateSevenDaysBefore, double failureRateFifteenDaysBefore) {
         if(failureRateSevenDaysBefore == 0) {
             return failureRateFifteenDaysBefore == 0 ? equal : down;
         }
 
-        long failureTendencyPercentage =
-                (100 * (failureRateFifteenDaysBefore - failureRateSevenDaysBefore))
+        double failureTendencyPercentage
+                = (100 * (failureRateFifteenDaysBefore - failureRateSevenDaysBefore))
                 / failureRateSevenDaysBefore;
         return Math.abs(failureTendencyPercentage) < 5 ? equal : failureTendencyPercentage <= 0 ? up : down;
     }

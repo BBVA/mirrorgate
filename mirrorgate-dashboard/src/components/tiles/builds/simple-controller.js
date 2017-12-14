@@ -60,6 +60,9 @@ var SimpleBuildsController = (function(dashboardId) {
             data.stats.lastBuildTimestamp = build.timestamp;
           }
         }
+
+        data.stats.failureRate = data.stats.failureRate ? parseFloat(data.stats.failureRate.toFixed(1)) : undefined;
+
       }
     }
 

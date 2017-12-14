@@ -77,6 +77,9 @@
         model.alerts = data.alert_groups.slice(0,3);
         model.alerts.forEach(function(group) {
           group.children = group.children.slice(0,Math.round(15 / model.alerts.length));
+          group.children.forEach(function(alert) {
+            alert.state = alert.state != 'green' && alert.state != 'red' ? 'yellow' : alert.state;
+          });
         }, this);
         model.count = data.alert_groups.length;
       }

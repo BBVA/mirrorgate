@@ -28,7 +28,6 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
@@ -110,7 +109,7 @@ public class BuildControllerTests {
                 get("/dashboards/" + dashboard.getName() + "/builds/rate"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("{\"duration\":0.0,\"count\":3,\""
-                        + "failureRate\":33,\"failureTendency\":\"equal\"}"));
+                        + "failureRate\":33.0,\"failureTendency\":\"equal\"}"));
     }
 
     @Test
@@ -132,7 +131,7 @@ public class BuildControllerTests {
                 get("/dashboards/" + dashboard.getName() + "/builds/rate"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("{\"duration\":0.0,\"count\":0,\""
-                        + "failureRate\":0,\"failureTendency\":\"equal\"}"));
+                        + "failureRate\":0.0,\"failureTendency\":\"equal\"}"));
     }
 
     @Test
@@ -154,7 +153,7 @@ public class BuildControllerTests {
                 get("/dashboards/" + dashboard.getName() + "/builds/rate"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("{\"duration\":0.0,\"count\":3,\""
-                        + "failureRate\":0,\"failureTendency\":\"equal\"}"));
+                        + "failureRate\":0.0,\"failureTendency\":\"equal\"}"));
     }
 
     @Test

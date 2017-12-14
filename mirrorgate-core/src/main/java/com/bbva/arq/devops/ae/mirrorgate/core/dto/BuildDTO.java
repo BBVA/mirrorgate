@@ -39,99 +39,113 @@ public class BuildDTO {
     private String repoName;
     private String branch;
 
-    private List<String> keywords = null;
+    private List<String> keywords;
 
     public String getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public BuildDTO setNumber(String number) {
         this.number = number;
+        return this;
     }
 
     public String getBuildUrl() {
         return buildUrl;
     }
 
-    public void setBuildUrl(String buildUrl) {
+    public BuildDTO setBuildUrl(String buildUrl) {
         this.buildUrl = buildUrl;
+        return this;
     }
 
     public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
+    public BuildDTO setStartTime(long startTime) {
         this.startTime = startTime;
+        return this;
     }
 
     public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public BuildDTO setEndTime(long endTime) {
         this.endTime = endTime;
+        return this;
     }
 
     public long getDuration() {
         return duration;
     }
 
-    public void setDuration(long duration) {
+    public BuildDTO setDuration(long duration) {
         this.duration = duration;
+        return this;
     }
 
     public String getBuildStatus() {
         return buildStatus;
     }
 
-    public void setBuildStatus(String buildStatus) {
+    public BuildDTO setBuildStatus(String buildStatus) {
         this.buildStatus = buildStatus;
+        return this;
     }
 
     public List<String> getCulprits() {
         return culprits;
     }
 
-    public void setCulprits(List<String> culprits) {
+    public BuildDTO setCulprits(List<String> culprits) {
         this.culprits = culprits;
+        return this;
     }
 
     public String getProjectName() {
         return projectName;
     }
 
-    public void setProjectName(String projectName) {
+    public BuildDTO setProjectName(String projectName) {
         this.projectName = projectName;
+        return this;
     }
 
     public String getRepoName() {
         return repoName;
     }
 
-    public void setRepoName(String repoName) {
+    public BuildDTO setRepoName(String repoName) {
         this.repoName = repoName;
+        return this;
     }
 
     public String getBranch() {
         return branch;
     }
 
-    public void setBranch(String branch) {
+    public BuildDTO setBranch(String branch) {
         this.branch = branch;
+        return this;
     }
 
     public List<String> getKeywords() {
         return keywords;
     }
 
-    public void setKeywords(List<String> keyword) { this.keywords = keywords; }
+    public BuildDTO setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+        return this;
+    }
 
     public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public BuildDTO setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 }

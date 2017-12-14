@@ -70,5 +70,24 @@
     "value" : "12",
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "2",
+    "platform" : "Android",
+    "name" : "availabilityRate",
+    "value" : "99.99",
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "2",
+    "platform" : "AWS",
+    "name" : "responseTime",
+    "value" : "1.2",
+    "sampleSize": "369.0",
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1"
   }
 ]
