@@ -20,6 +20,7 @@ import static com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType.BUG;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.*;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
+import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
@@ -164,6 +165,18 @@ public class TestObjectFactory {
                 .setRepoName("api")
                 .setBranch("test")
                 .setTimestamp(5L);
+    }
+
+    public static IssueDTO createIssueDTO(Long id, String name, String collectorid){
+
+        IssueDTO issueDTO = new IssueDTO();
+
+        issueDTO.setId(id)
+            .setCollectorId(collectorid)
+            .setName(name)
+        .setStatus(IssueStatus.DONE);
+
+        return issueDTO;
     }
 
 }
