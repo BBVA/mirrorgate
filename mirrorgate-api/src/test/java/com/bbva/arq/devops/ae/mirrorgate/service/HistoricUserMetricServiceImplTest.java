@@ -1,14 +1,12 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
 import static org.junit.Assert.assertTrue;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import org.junit.After;
@@ -31,10 +29,6 @@ public class HistoricUserMetricServiceImplTest {
     private HistoricUserMetricServiceImpl service;
 
     private static Iterable<UserMetric> userMetrics;
-
-    private static final long TODAY = LocalDateTime.now(ZoneId.of("UTC")).toInstant(ZoneOffset.UTC).toEpochMilli();
-    private static final long YESTERDAY = LocalDateTime.now(ZoneId.of("UTC")).minusDays(1).toInstant(ZoneOffset.UTC).toEpochMilli();
-    private static final long ONE_MONTH_AGO = LocalDateTime.now(ZoneId.of("UTC")).minusDays(30).toInstant(ZoneOffset.UTC).toEpochMilli();
 
     @BeforeClass
     public static void init(){

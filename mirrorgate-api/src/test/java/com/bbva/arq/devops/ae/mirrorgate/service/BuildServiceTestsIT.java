@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
@@ -22,9 +23,6 @@ import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildSummaryRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,10 +39,6 @@ public class BuildServiceTestsIT {
 
     @Autowired
     private BuildSummaryRepository buildSummaryRepository;
-
-    private static final long TODAY = LocalDateTime.now(ZoneId.of("UTC")).toInstant(ZoneOffset.UTC).toEpochMilli();
-    private static final long YESTERDAY = LocalDateTime.now(ZoneId.of("UTC")).minusDays(1).toInstant(ZoneOffset.UTC).toEpochMilli();
-    private static final long ONE_WEEK_AGO = LocalDateTime.now(ZoneId.of("UTC")).minusDays(7).toInstant(ZoneOffset.UTC).toEpochMilli();
 
     @Test
     public void createOrUpdateAddBuildsStatsProperly() {
