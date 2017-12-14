@@ -31,7 +31,7 @@ public class BuildSummaryMapper {
     public static BuildStats map(BuildSummary source, BuildStats target) {
         return target
                 .setCount(source.getTotalBuilds())
-                .setDuration((source.getTotalDuration() / source.getTotalBuilds()))
+                .setDuration(source.getTotalDuration() != null && source.getTotalBuilds() != null ? source.getTotalDuration() / source.getTotalBuilds() : null)
                 .setFailureRate(source.getStatusMap().get(BuildStatus.Failure) == null ? 0
                         : 100 * source.getStatusMap().get(BuildStatus.Failure) / (double) source.getTotalBuilds());
 
