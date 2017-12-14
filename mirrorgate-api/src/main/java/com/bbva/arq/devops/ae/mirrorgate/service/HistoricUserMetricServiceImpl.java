@@ -38,26 +38,24 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     @Override
     public HistoricUserMetric createNextPeriod(UserMetric userMetric) {
 
-        LOGGER.info("creating new Historic Metric Period");
+        LOGGER.debug("creating new Historic Metric Period");
 
         HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
 
         historicUserMetric.setSampleSize(0d);
         historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp()));
+        historicUserMetric.setValue(0d);
 
         return historicUserMetric;
     }
 
 
-    //TODO add Exception control
     @Override
     public void addToCurrentPeriod(Iterable<UserMetric> saved) {
 
         List<UserMetric> requestNumberMetrics = StreamSupport.stream(saved.spliterator(), false)
             .filter( u -> "requestsNumber".compareTo(u.getName()) == 0)
             .collect(Collectors.toList());
-
-        LOGGER.info("requestNumber user metrics: {}", requestNumberMetrics.size());
 
         try{
             requestNumberMetrics.forEach( r -> {
@@ -68,11 +66,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
                     metric = createNextPeriod(r);
                 }
 
-                LOGGER.info("" + metric.getSampleSize());
-                LOGGER.info("received metric {} {} {} {} {} {}",r.getSampleSize(), r.getCollectorId(), r.getName(), r.getPlatform(), r.getValue(), r.getViewId());
-
-                metric.setSampleSize(metric.getSampleSize() + r.getSampleSize());
-                LOGGER.info("metric timestamp to save: {}", metric.getTimestamp());
+                metric.setValue(metric.getValue() + r.getValue());
                 historicUserMetricRepository.save(metric);
                 removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
             });
@@ -84,7 +78,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     @Override
     public void removeExtraPeriodsForMetricAndIdentifier(int daysToKeep, String metricName, String identifier) {
 
-        LOGGER.info("removing extra periods for: {}, {}, {}", daysToKeep, metricName, identifier);
+        LOGGER.debug("removing extra periods for: {}, {}, {}", daysToKeep, metricName, identifier);
 
         List<HistoricUserMetric> oldPeriods =
             historicUserMetricRepository.findByNameAndIdentifierAndTimestampLessThan(metricName, identifier, LocalDateTimeHelper.getTimestampForNDaysAgo(daysToKeep));
@@ -111,7 +105,5 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         return historicUserMetricRepository.findByTimestampAndIdentifier(periodTimestamp, identifier);
     }
-
-
 
 }

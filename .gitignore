@@ -1,4 +1,8 @@
 .idea
+.vscode
 **/.DS_Store
 *.iml
 *.log
+
+#VSCode
+.vscode

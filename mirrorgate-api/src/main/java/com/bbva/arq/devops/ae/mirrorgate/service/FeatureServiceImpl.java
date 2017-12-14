@@ -22,8 +22,14 @@ import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -32,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class FeatureServiceImpl implements FeatureService{
@@ -88,15 +95,31 @@ public class FeatureServiceImpl implements FeatureService{
 
         List<Feature> features = repository.findAllBysIdInAndCollectorId(ids, collectorId);
 
-        Map<String, Feature> entryMap = features.stream()
-                .collect(Collectors.toMap(Feature::getsId, (p) -> p));
+        //prevent duplicates
+        Map<String, List<Feature>> entryMap = features.stream()
+            .collect(Collectors.toMap(Feature::getsId, Arrays::asList,
+                //merger
+                (list1, list2) -> {
+                    List<Feature> list = new ArrayList<>();
+
+                    list.addAll(list1);
+                    list.addAll(list2);
+
+                    return list;
+                }));
 
         features = issues.stream()
                 .map((issue) -> {
                     String key = issue.getId().toString();
                     Feature feat = entryMap.containsKey(key) ?
-                            entryMap.get(key):
+                            entryMap.get(key).get(0):
                             new Feature();
+                    //Remove extra occurences
+                    if(entryMap.containsKey(key) && entryMap.get(key).size() > 1){
+                        for (int i = 1; i<entryMap.get(key).size();i++){
+                            repository.delete(entryMap.get(key).get(i));
+                        }
+                    }
                     return IssueMapper.map(issue, feat);
                 })
                 .collect(Collectors.toList());
@@ -132,4 +155,6 @@ public class FeatureServiceImpl implements FeatureService{
     public List<Feature> getEpicsBySNumber(List<String> keys) {
         return repository.findAllBySNumberInAndSTypeName(keys, "Epic");
     }
+
+
 }

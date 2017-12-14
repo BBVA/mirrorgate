@@ -258,7 +258,12 @@
             data && window.open(data.buildUrl, "JenkinsBuild");
           })
           .attr('d', arc)
-          .attr('class', classBuilder);
+          .attr('class', classBuilder)
+          .style('fill-opacity', function (d) {
+            var data = (d.data || d.developData);
+            if(!data) return;
+            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - data.timestamp - 10 * 60 * 1000) / (fadeOutLimitTimeSpan),1/2));
+          });
 
         buildsData.exit().remove();
 

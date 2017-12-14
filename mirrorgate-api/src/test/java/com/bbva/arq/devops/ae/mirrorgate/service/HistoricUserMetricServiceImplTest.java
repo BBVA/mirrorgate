@@ -40,21 +40,21 @@ public class HistoricUserMetricServiceImplTest {
 
         UserMetric userMetric1 = new UserMetric()
             .setName("requestsNumber")
-            .setSampleSize(12d)
+            .setValue(12d)
             .setId("AWSRequestNumber")
             .setTimestamp(date1);
         UserMetric userMetric2 = new UserMetric()
             .setName("requestsNumber")
-            .setSampleSize(12d)
+            .setValue(12d)
             .setId("AWSRequestNumber")
             .setTimestamp(date2);
         UserMetric userMetric3 = new UserMetric()
             .setName("requestsNumber")
-            .setSampleSize(12d)
+            .setValue(12d)
             .setId("AWSRequestNumber")
             .setTimestamp(date3);
 
-        UserMetric userMetric4 = new UserMetric().setName("notRequestNumber").setSampleSize(12d).setId("AWSRequestNumber");
+        UserMetric userMetric4 = new UserMetric().setName("notRequestNumber").setId("AWSRequestNumber").setValue(12d);
 
         userMetrics = Arrays.asList(userMetric1, userMetric2, userMetric3, userMetric4);
     }
@@ -71,7 +71,7 @@ public class HistoricUserMetricServiceImplTest {
 
         assertTrue(result.getIdentifier().equals("AWSRequestNumber"));
         assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(date1));
-        assertTrue(result.getSampleSize() == 24);
+        assertTrue(result.getValue() == 24);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class HistoricUserMetricServiceImplTest {
 
         assertTrue(result.getIdentifier().equals("AWSRequestNumber"));
         assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(date1));
-        assertTrue(result.getSampleSize() == 12);
+        assertTrue(result.getValue() == 12);
     }
 
 

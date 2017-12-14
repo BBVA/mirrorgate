@@ -45,7 +45,7 @@ var NotificationsController = (function(dashboardId) {
             description: notification.text || (attachment && (attachment.pretext || attachment.fallback)),
             date: new Date(parseFloat(notification.ts) * 1000),
             user: notification.username,
-            color: colorMapping[(attachment && attachment.color)]
+            color: colorMapping[(attachment && attachment.color && attachment.color.toLowerCase())]
           }
         }));
       }
