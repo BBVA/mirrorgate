@@ -2,7 +2,7 @@
     "alerts": [
         {
             "type": "group",
-            "title": "Dev infraestructure",
+            "title": "Pro infraestructure",
             "alerts": [
                 {
                     "type": "alert",
@@ -28,6 +28,39 @@
                     "state": {
                         "type": "since",
                         "currentState": "green",
+                        "since": "2017-07-18T14:34:39.294+0000"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "title": "Dev infraestructure",
+            "alerts": [
+                {
+                    "type": "alert",
+                    "title": "Mongo DB cluster",
+                    "state": {
+                        "type": "since",
+                        "currentState": "green",
+                        "since": "2017-07-18T14:34:40.214+0000"
+                    }
+                },
+                {
+                    "type": "alert",
+                    "title": "ECS cluster",
+                    "state": {
+                        "type": "since",
+                        "currentState": "red",
+                        "since": "2017-07-18T14:34:40.214+0000"
+                    }
+                },
+                {
+                    "type": "alert",
+                    "title": "ALB 500 Alerts",
+                    "state": {
+                        "type": "since",
+                        "currentState": "black",
                         "since": "2017-07-18T14:34:39.294+0000"
                     }
                 }
