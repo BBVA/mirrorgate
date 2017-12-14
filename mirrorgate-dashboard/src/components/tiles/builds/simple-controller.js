@@ -61,7 +61,7 @@ var SimpleBuildsController = (function(dashboardId) {
           }
         }
 
-        data.stats.failureRate = data.stats.failureRate ? data.stats.failureRate.toFixed(1) : undefined;
+        data.stats.failureRate = data.stats.failureRate ? parseFloat(data.stats.failureRate.toFixed(1)) : undefined;
 
       }
     }
