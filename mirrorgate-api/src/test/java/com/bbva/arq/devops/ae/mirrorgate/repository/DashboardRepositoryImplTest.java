@@ -34,8 +34,6 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
-//Ignore this test due to jacoco adding static members and thus making it fail
-@Ignore
 @RunWith(SpringRunner.class)
 @DataMongoTest
 public class DashboardRepositoryImplTest {
@@ -71,8 +69,10 @@ public class DashboardRepositoryImplTest {
         dashboardRepository.deleteAll();
     }
 
+    //Ignore this test due to jacoco adding static members and thus making it fail
+    @Ignore
     @Test
-    public void transientAndDeletedDashboardsAreNotReturnedTest(){
+    public void transientAndDeletedDashboardsAreNotReturnedTest() {
         List<Dashboard> activeDashboards = dashboardRepository.getActiveDashboards();
 
         List<String> dashboardNames = activeDashboards.stream().map(Dashboard::getName).collect(Collectors.toList());
