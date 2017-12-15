@@ -28,8 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
+import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
@@ -40,7 +40,6 @@ import java.util.Arrays;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,7 +163,6 @@ public class ReviewControllerTests {
     }
 
     @Test
-    @Ignore
     public void createReviewFailTest() throws Exception {
         Review review1 = createReview();
         Review review2 = createReview();
@@ -175,7 +173,7 @@ public class ReviewControllerTests {
 
         Iterable<Review> reviews = list;
 
-        when(reviewService.save(any())).thenThrow(MirrorGateException.class);
+        when(reviewService.save(any())).thenThrow(ReviewsConflictException.class);
 
         this.mockMvc.perform(post("/api/reviews")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

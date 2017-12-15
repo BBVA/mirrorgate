@@ -240,7 +240,7 @@
           .style('fill-opacity', function (d) {
             var data = (d.data || d.developData);
             if(!data) return;
-            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - data.timestamp - 10 * 60 * 1000) / (fadeOutLimitTimeSpan),1/2));
+            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - (data.timestamp - 10 * 60 * 1000)) / (fadeOutLimitTimeSpan),1/2));
           });
 
         buildsData.enter()
@@ -262,7 +262,7 @@
           .style('fill-opacity', function (d) {
             var data = (d.data || d.developData);
             if(!data) return;
-            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - data.timestamp - 10 * 60 * 1000) / (fadeOutLimitTimeSpan),1/2));
+            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - (data.timestamp - 10 * 60 * 1000)) / (fadeOutLimitTimeSpan),1/2));
           });
 
         buildsData.exit().remove();

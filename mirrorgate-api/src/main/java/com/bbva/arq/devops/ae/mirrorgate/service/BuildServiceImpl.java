@@ -34,13 +34,9 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildSummaryRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +47,6 @@ public class BuildServiceImpl implements BuildService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildServiceImpl.class);
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
-    private static final long ONE_MONTH_AGO = LocalDateTime.now(ZoneId.of("UTC")).minusDays(30).toInstant(ZoneOffset.UTC).toEpochMilli();
 
     private final BuildRepository buildRepository;
     private final BuildSummaryRepository buildSummaryRepository;
@@ -64,11 +59,6 @@ public class BuildServiceImpl implements BuildService {
         this.buildSummaryRepository = buildSummaryRepository;
         this.eventService = eventService;
         this.dashboardService = dashboardService;
-    }
-
-    @PostConstruct
-    public void initIt() throws Exception {
-        updateBuildSummaries();
     }
 
     @Override
@@ -129,6 +119,7 @@ public class BuildServiceImpl implements BuildService {
             statsSevenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 7);
             statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
         } else {
+            updateBuildSummaries();
             statsSevenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
                     .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(7, ChronoUnit.DAYS))
                     .stream()
@@ -231,7 +222,7 @@ public class BuildServiceImpl implements BuildService {
 
     private void updateBuildSummaries() {
         if (buildSummaryRepository.count() == 0 && buildRepository.count() > 0) {
-            buildRepository.findAllByTimestampAfter(ONE_MONTH_AGO)
+            buildRepository.findAllByTimestampAfter(LocalDateTimeHelper.getTimestampForOneMonthAgo())
                     .stream()
                     .filter((build) -> this.shouldUpdateLatest(build))
                     .map(BuildMapper::map)

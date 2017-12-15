@@ -22,13 +22,15 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Before;
+import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DashboardServiceTestsIT {
@@ -39,18 +41,14 @@ public class DashboardServiceTestsIT {
     @Autowired
     private DashboardRepository dashboardRepository;
 
-    @Before
-    public void init(){
-        Dashboard dashboard = new Dashboard();
-        dashboard.setName("mirrorgate");
-        dashboard.setsProductName("mirrorgate");
-        dashboard.setApplications(Collections.singletonList("mirrorgate"));
-
-        dashboardRepository.save(dashboard);
-    }
-
     @Test
     public void testMongo() throws MirrorGateException {
+        Dashboard dashboard = new Dashboard()
+                .setName("mirrorgate")
+                .setsProductName("mirrorgate")
+                .setApplications(Collections.singletonList("mirrorgate"));
+
+        dashboardRepository.save(dashboard);
 
         List<String> dashboardFromMongo = dashboardService.getApplicationsByDashboardName("mirrorgate");
 
@@ -58,4 +56,8 @@ public class DashboardServiceTestsIT {
 
     }
 
+    @After
+    public void cleanUp() {
+        dashboardRepository.deleteAll();
+    }
 }
