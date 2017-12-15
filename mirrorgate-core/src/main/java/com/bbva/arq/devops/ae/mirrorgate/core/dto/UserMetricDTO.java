@@ -35,6 +35,10 @@ public class UserMetricDTO {
     /* Associated collector ID */
     private String collectorId;
 
+    private double longTermTendency;
+
+    private double shortTermTendency;
+
     public String getViewId() {
         return viewId;
     }
@@ -104,6 +108,24 @@ public class UserMetricDTO {
 
     public UserMetricDTO setSampleSize(Double sampleSize) {
         this.sampleSize = sampleSize;
+        return this;
+    }
+
+    public double getLongTermTendency() {
+        return longTermTendency;
+    }
+
+    public UserMetricDTO setLongTermTendency(double longTermTendency) {
+        this.longTermTendency = longTermTendency;
+        return this;
+    }
+
+    public double getShortTermTendency() {
+        return shortTermTendency;
+    }
+
+    public UserMetricDTO setShortTermTendency(double shortTermTendency) {
+        this.shortTermTendency = shortTermTendency;
         return this;
     }
 }
