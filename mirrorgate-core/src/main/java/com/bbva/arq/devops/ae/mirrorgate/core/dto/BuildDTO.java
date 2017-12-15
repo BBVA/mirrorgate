@@ -68,7 +68,7 @@ public class BuildDTO {
         return this;
     }
 
-    public long getEndTime() {
+    public Long getEndTime() {
         return endTime;
     }
 

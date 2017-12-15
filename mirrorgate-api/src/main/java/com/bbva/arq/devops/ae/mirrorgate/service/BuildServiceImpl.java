@@ -194,16 +194,17 @@ public class BuildServiceImpl implements BuildService {
 
     private void updateStats(BuildDTO request) {
 
-        if (BuildStatus.fromString(request.getBuildStatus()).equals(BuildStatus.Deleted)) {
+        if (BuildStatus.fromString(request.getBuildStatus()).equals(BuildStatus.Deleted)
+                || (request.getTimestamp() == null && request.getEndTime() == null)) {
             return;
         }
 
-        BuildSummary buildSummary = buildSummaryRepository.findByRepoNameAndProjectNameAndTimestamp(request.getRepoName(), request.getProjectName(), LocalDateTimeHelper.getTimestampPeriod(request.getTimestamp(), ChronoUnit.DAYS));
+        BuildSummary buildSummary = buildSummaryRepository.findByRepoNameAndProjectNameAndTimestamp(request.getRepoName(), request.getProjectName(), LocalDateTimeHelper.getTimestampPeriod(request.getTimestamp() != null ? request.getTimestamp() : request.getEndTime(), ChronoUnit.DAYS));
 
         if (buildSummary == null) {
 
             buildSummary = new BuildSummary()
-                    .setTimestamp(LocalDateTimeHelper.getTimestampPeriod(request.getTimestamp(), ChronoUnit.DAYS))
+                    .setTimestamp(LocalDateTimeHelper.getTimestampPeriod(request.getTimestamp() != null ? request.getTimestamp() : request.getEndTime(), ChronoUnit.DAYS))
                     .setProjectName(request.getProjectName())
                     .setRepoName(request.getRepoName())
                     .setStatusMap(new HashMap<>())
