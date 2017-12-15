@@ -25,6 +25,7 @@ import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class BuildServiceTestsIT {
     @Autowired
     private BuildSummaryRepository buildRepository;
 
+    @Ignore
     @Test
     public void createOrUpdateAddBuildsStatsProperly() {
         BuildDTO request1 = TestObjectFactory

@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate;
 import com.bbva.arq.devops.ae.mirrorgate.cron.handler.EventHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import java.util.EnumSet;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.BeanFactory;
@@ -32,18 +33,19 @@ public class MirrorgateApiApplicationTests {
     @Autowired
     private BeanFactory beanFactory;
 
+    @Ignore
     @Test
-	public void contextLoads() {
-		long port = (Math.round(Math.random() * 10000) + 10000);
-	    MirrorgateApiApplication.main(new String[]{"--server.port=" + port});
-	}
+    public void contextLoads() {
+        long port = (Math.round(Math.random() * 10000) + 10000);
+        MirrorgateApiApplication.main(new String[]{"--server.port=" + port});
+    }
 
-	@Test
-	public void testBeanPerEventType(){
+    @Test
+    public void testBeanPerEventType() {
 
         EnumSet.allOf(EventType.class)
-				.stream().filter((e) -> e != EventType.PING)
-            	.forEach(eventType -> beanFactory.getBean(eventType.getValue(), EventHandler.class));
+                .stream().filter((e) -> e != EventType.PING)
+                .forEach(eventType -> beanFactory.getBean(eventType.getValue(), EventHandler.class));
 
     }
 
