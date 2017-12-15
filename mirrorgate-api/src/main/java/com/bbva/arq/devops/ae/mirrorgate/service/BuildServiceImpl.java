@@ -26,6 +26,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildSummaryMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
@@ -33,13 +34,9 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildSummaryRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +47,8 @@ public class BuildServiceImpl implements BuildService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildServiceImpl.class);
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
-    private static final long ONE_MONTH_AGO = LocalDateTime.now(ZoneId.of("UTC")).minusDays(30).toInstant(ZoneOffset.UTC).toEpochMilli();
+
+    private static final long ONE_MONTH_AGO = LocalDateTimeHelper.getTimestampForOneMonthAgo();
 
     private final BuildRepository buildRepository;
     private final BuildSummaryRepository buildSummaryRepository;
@@ -63,11 +61,6 @@ public class BuildServiceImpl implements BuildService {
         this.buildSummaryRepository = buildSummaryRepository;
         this.eventService = eventService;
         this.dashboardService = dashboardService;
-    }
-
-    @PostConstruct
-    public void initIt() throws Exception {
-        updateBuildSummaries();
     }
 
     @Override
@@ -113,8 +106,7 @@ public class BuildServiceImpl implements BuildService {
                 );
             }
 
-            //FIXME: Ensure updateStats works properly
-            //updateStats(request);
+            updateStats(request);
         }
 
         return map(build);
@@ -129,22 +121,19 @@ public class BuildServiceImpl implements BuildService {
             statsSevenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 7);
             statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
         } else {
-            statsSevenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 7);
-            statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
-
-            //FIXME: Ensure updateStats works properly
-//            statsSevenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
-//                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(7, ChronoUnit.DAYS))
-//                    .stream()
-//                    .map(BuildSummaryMapper::map)
-//                    .toArray(BuildStats[]::new)
-//            );
-//            statsFifteenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
-//                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(15, ChronoUnit.DAYS))
-//                    .stream()
-//                    .map(BuildSummaryMapper::map)
-//                    .toArray(BuildStats[]::new)
-//            );
+            updateBuildSummaries();
+            statsSevenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
+                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(7, ChronoUnit.DAYS))
+                    .stream()
+                    .map(BuildSummaryMapper::map)
+                    .toArray(BuildStats[]::new)
+            );
+            statsFifteenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
+                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(15, ChronoUnit.DAYS))
+                    .stream()
+                    .map(BuildSummaryMapper::map)
+                    .toArray(BuildStats[]::new)
+            );
         }
 
         FailureTendency failureTendency = BuildStatsUtils.failureTendency(
@@ -235,7 +224,7 @@ public class BuildServiceImpl implements BuildService {
 
     private void updateBuildSummaries() {
         if (buildSummaryRepository.count() == 0 && buildRepository.count() > 0) {
-            buildRepository.findAllByTimestampAfter(ONE_MONTH_AGO)
+            buildRepository.findAllByTimestampAfter(LocalDateTimeHelper.getTimestampForOneMonthAgo())
                     .stream()
                     .filter((build) -> this.shouldUpdateLatest(build))
                     .map(BuildMapper::map)

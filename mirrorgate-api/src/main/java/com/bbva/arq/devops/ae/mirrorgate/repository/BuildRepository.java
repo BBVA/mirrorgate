@@ -32,5 +32,5 @@ public interface BuildRepository extends CrudRepository<Build, ObjectId>, BuildR
 
     List<Build> findByIdIn(List<ObjectId> buildIds);
 
-    List<Build> findAllByTimestampAfter(Long timestampPeriod);
+    List<Build> findAllByTimestampAfter(long timestamp);
 }

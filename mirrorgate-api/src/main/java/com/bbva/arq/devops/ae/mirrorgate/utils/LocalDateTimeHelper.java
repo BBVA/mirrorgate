@@ -30,4 +30,7 @@ public class LocalDateTimeHelper {
         return daysAgo.toInstant(ZoneOffset.UTC).toEpochMilli();
     }
 
+    public static long getTimestampForOneMonthAgo() {
+        return LocalDateTime.now(ZoneId.of("UTC")).minusDays(30).toInstant(ZoneOffset.UTC).toEpochMilli();
+    }
 }

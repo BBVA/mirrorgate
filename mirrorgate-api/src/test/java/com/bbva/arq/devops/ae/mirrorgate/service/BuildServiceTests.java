@@ -32,7 +32,6 @@ import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -119,7 +118,6 @@ public class BuildServiceTests {
                 .isEqualTo(build2.getBuildStatus());
     }
 
-    @Ignore
     @Test
     public void createBuildTest() {
         Build build = makeBuild();
