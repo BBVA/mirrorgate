@@ -48,8 +48,6 @@ public class BuildServiceImpl implements BuildService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildServiceImpl.class);
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
 
-    private static final long ONE_MONTH_AGO = LocalDateTimeHelper.getTimestampForOneMonthAgo();
-
     private final BuildRepository buildRepository;
     private final BuildSummaryRepository buildSummaryRepository;
     private final EventService eventService;
