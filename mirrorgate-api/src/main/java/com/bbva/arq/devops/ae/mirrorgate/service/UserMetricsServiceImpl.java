@@ -91,25 +91,18 @@ public class UserMetricsServiceImpl implements UserMetricsService {
                             historicUserMetricService.getHistoricMetricsForDashboard(dashboard,u.getName(),24);
 
                         if(!historicUserMetrics.isEmpty()){
-                            u.setLongTermTendency(getLongTermTendency(historicUserMetrics));
-                            u.setShortTermTendency(getShortTermTendency(historicUserMetrics, 3l));
+                            u.setLongTermTendency(getAverageValue(historicUserMetrics));
+                            u.setShortTermTendency(getAverageValue(historicUserMetrics.subList(0, 3)));
                         }
 
                         return u;
                     }).collect(Collectors.toList());
     }
 
-    private double getLongTermTendency(List<HistoricUserMetricDTO> historicUserMetrics){
+    private double getAverageValue(List<HistoricUserMetricDTO> historicUserMetrics){
         return historicUserMetrics.stream()
                     .mapToDouble(HistoricUserMetricDTO::getValue)
                     .sum()/historicUserMetrics.size();
-    }
-
-    private double getShortTermTendency(List<HistoricUserMetricDTO> historicUserMetrics, long limit){
-        return historicUserMetrics.stream()
-                    .limit(limit)
-                    .mapToDouble(HistoricUserMetricDTO::getValue)
-                    .sum()/limit;
     }
 
 }
