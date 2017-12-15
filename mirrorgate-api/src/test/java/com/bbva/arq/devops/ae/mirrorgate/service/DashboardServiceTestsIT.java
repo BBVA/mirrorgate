@@ -22,6 +22,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import java.util.Collections;
 import java.util.List;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,10 @@ public class DashboardServiceTestsIT {
 
         assertTrue(dashboardFromMongo.contains("mirrorgate"));
 
+    }
+
+    @After
+    public void cleanUp() {
+        dashboardRepository.deleteAll();
     }
 }

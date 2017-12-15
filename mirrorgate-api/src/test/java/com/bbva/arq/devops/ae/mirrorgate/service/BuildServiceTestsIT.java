@@ -24,6 +24,7 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.BuildSummaryRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class BuildServiceTestsIT {
 
     @Autowired
     private BuildSummaryRepository buildSummaryRepository;
+
+    @Autowired
+    private BuildSummaryRepository buildRepository;
 
     @Test
     public void createOrUpdateAddBuildsStatsProperly() {
@@ -71,5 +75,11 @@ public class BuildServiceTestsIT {
         assertThat(buildSummary1.getTotalDuration()).isEqualTo(request1.getDuration() * 3);
         assertThat(buildSummary2.getTotalBuilds()).isEqualTo(2);
         assertThat(buildSummary3.getTotalBuilds()).isEqualTo(1);
+    }
+
+    @After
+    public void cleanUp() {
+        buildSummaryRepository.deleteAll();
+        buildRepository.deleteAll();
     }
 }
