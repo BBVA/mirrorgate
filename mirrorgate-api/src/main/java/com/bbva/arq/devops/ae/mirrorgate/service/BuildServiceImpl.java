@@ -37,6 +37,7 @@ import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,6 @@ public class BuildServiceImpl implements BuildService {
     public void initIt() throws Exception {
         updateBuildSummaries();
     }
-
 
     @Override
     public List<Build> getLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
@@ -125,7 +125,6 @@ public class BuildServiceImpl implements BuildService {
             statsSevenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 7);
             statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
         } else {
-            updateBuildSummaries();
             statsSevenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
                     .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(7, ChronoUnit.DAYS))
                     .stream()
