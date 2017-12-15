@@ -61,6 +61,12 @@ public class BuildServiceImpl implements BuildService {
         this.dashboardService = dashboardService;
     }
 
+    @PostConstruct
+    public void initIt() throws Exception {
+        updateBuildSummaries();
+    }
+
+
     @Override
     public List<Build> getLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
         return buildRepository.findLastBuildsByKeywordsAndByTeamMembers(keywords, teamMembers);
