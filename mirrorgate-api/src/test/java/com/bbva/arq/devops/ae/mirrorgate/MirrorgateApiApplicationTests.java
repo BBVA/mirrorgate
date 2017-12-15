@@ -18,7 +18,6 @@ package com.bbva.arq.devops.ae.mirrorgate;
 import com.bbva.arq.devops.ae.mirrorgate.cron.handler.EventHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import java.util.EnumSet;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.BeanFactory;
@@ -33,7 +32,6 @@ public class MirrorgateApiApplicationTests {
     @Autowired
     private BeanFactory beanFactory;
 
-    @Ignore
     @Test
     public void contextLoads() {
         long port = (Math.round(Math.random() * 10000) + 10000);
