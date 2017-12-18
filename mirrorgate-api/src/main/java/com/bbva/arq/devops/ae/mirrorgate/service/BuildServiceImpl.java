@@ -125,7 +125,6 @@ public class BuildServiceImpl implements BuildService {
             statsSevenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 7);
             statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
         } else {
-            updateBuildSummaries();
             statsSevenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
                     .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(7, ChronoUnit.DAYS))
                     .stream()
