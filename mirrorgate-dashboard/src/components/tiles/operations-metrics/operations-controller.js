@@ -36,10 +36,13 @@ var OperationsController = (function(dashboardId) {
         let availabilityRate;
         let responseTime = 0;
         let responseTimeSampleSize = 0;
+        let requestsNumberTendency;
 
         response.forEach(function(metric) {
           if(metric.name === 'requestsNumber') {
             requestsNumber += parseInt(metric.value);
+            let tendencyChange = (metric.longTermTendency - metric.shortTermTendency) / metric.longTermTendency * 100;
+            requestsNumberTendency = this.tendencyChange < -10 ? 'onedown' : this.tendencyChange < -5 ? 'twodown' : this.tendencyChange < -1 ? 'onedown' : this.tendencyChange > 10 ? 'threeup' : this.tendencyChange > 5 ? 'twoup' : this.tendencyChange > 1 ? 'oneup' : 'eq';
             return;
           }
           if(metric.name === 'errorsNumber') {
@@ -67,7 +70,8 @@ var OperationsController = (function(dashboardId) {
           errorsRate: errorsRate,
           availabilityRate: availabilityRate,
           responseTime: parseFloat(responseTime.toFixed(2)),
-          requestsNumber: requestsNumber
+          requestsNumber: requestsNumber,
+          requestsNumberTendency: requestsNumberTendency,
         };
 
         model.responseTimeAlertingLevels = {
