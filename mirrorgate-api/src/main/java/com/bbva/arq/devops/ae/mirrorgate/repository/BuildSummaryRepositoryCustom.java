@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
-import org.bson.types.ObjectId;
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
-public interface BuildSummaryRepository extends CrudRepository<BuildSummary, ObjectId>, BuildSummaryRepositoryCustom {
+public interface BuildSummaryRepositoryCustom {
 
-    BuildSummary findByRepoNameAndProjectNameAndTimestamp(String repoName, String projectName, Long timestamp);
-
+    List<BuildSummary> findAllWithKeywordsAndTimestampAfter(List<String> keywords, Long timestamp);
 }
