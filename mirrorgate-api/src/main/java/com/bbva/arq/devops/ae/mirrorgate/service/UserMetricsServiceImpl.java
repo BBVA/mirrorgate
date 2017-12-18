@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricUserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
@@ -83,8 +84,25 @@ public class UserMetricsServiceImpl implements UserMetricsService {
         }
 
         return userMetricsRepository.findAllByViewIdInWithNon0Values(views)
-                .stream().map(UserMetricMapper::map)
-                .collect(Collectors.toList());
+                    .stream()
+                    .map(UserMetricMapper::map)
+                    .map(u ->  {
+                        List<HistoricUserMetricDTO> historicUserMetrics =
+                            historicUserMetricService.getHistoricMetricsForDashboard(dashboard,u.getName(),24);
+
+                        if(!historicUserMetrics.isEmpty()){
+                            u.setLongTermTendency(getAverageValue(historicUserMetrics));
+                            u.setShortTermTendency(getAverageValue(historicUserMetrics.subList(0, 3)));
+                        }
+
+                        return u;
+                    }).collect(Collectors.toList());
+    }
+
+    private double getAverageValue(List<HistoricUserMetricDTO> historicUserMetrics){
+        return historicUserMetrics.stream()
+                    .mapToDouble(HistoricUserMetricDTO::getValue)
+                    .sum()/historicUserMetrics.size();
     }
 
 }
