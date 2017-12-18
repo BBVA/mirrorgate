@@ -26,7 +26,6 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper;
-import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildSummaryMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
@@ -125,18 +124,20 @@ public class BuildServiceImpl implements BuildService {
             statsSevenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 7);
             statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
         } else {
-            statsSevenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
-                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(7, ChronoUnit.DAYS))
-                    .stream()
-                    .map(BuildSummaryMapper::map)
-                    .toArray(BuildStats[]::new)
-            );
-            statsFifteenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
-                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(15, ChronoUnit.DAYS))
-                    .stream()
-                    .map(BuildSummaryMapper::map)
-                    .toArray(BuildStats[]::new)
-            );
+            statsSevenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 7);
+            statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
+//            statsSevenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
+//                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(7, ChronoUnit.DAYS))
+//                    .stream()
+//                    .map(BuildSummaryMapper::map)
+//                    .toArray(BuildStats[]::new)
+//            );
+//            statsFifteenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
+//                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(15, ChronoUnit.DAYS))
+//                    .stream()
+//                    .map(BuildSummaryMapper::map)
+//                    .toArray(BuildStats[]::new)
+//            );
         }
 
         FailureTendency failureTendency = BuildStatsUtils.failureTendency(
