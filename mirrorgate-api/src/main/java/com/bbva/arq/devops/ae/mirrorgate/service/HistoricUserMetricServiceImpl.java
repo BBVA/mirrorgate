@@ -13,7 +13,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class HistoricUserMetricServiceImpl implements HistoricUserMetricService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
-    private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 30;
+    private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 90;
 
     private final HistoricUserMetricRepository historicUserMetricRepository;
 
@@ -54,26 +53,24 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     @Override
     public void addToCurrentPeriod(Iterable<UserMetric> saved) {
 
-        List<UserMetric> requestNumberMetrics = StreamSupport.stream(saved.spliterator(), false)
-            .filter( u -> "requestsNumber".compareTo(u.getName()) == 0)
-            .collect(Collectors.toList());
-
-        try{
-            requestNumberMetrics.forEach( r -> {
-
-                HistoricUserMetric metric = getHistoricMetricForPeriod(LocalDateTimeHelper.getTimestampPeriod(r.getTimestamp(), ChronoUnit.HOURS), r.getId());
+        saved.forEach( s -> {
+            try {
+                HistoricUserMetric metric = getHistoricMetricForPeriod(
+                    LocalDateTimeHelper.getTimestampPeriod(s.getTimestamp(), ChronoUnit.HOURS),
+                    s.getId());
 
                 if (metric == null) {
-                    metric = createNextPeriod(r);
+                    metric = createNextPeriod(s);
                 }
 
-                metric.setValue(metric.getValue() + r.getValue());
-                historicUserMetricRepository.save(metric);
-                removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE, metric.getName(), metric.getIdentifier());
-            });
-        } catch (Exception e){
-            LOGGER.error("Error while processing metrics", e);
-        }
+                HistoricUserMetric addedMetric = addMetrics(metric, s);
+                historicUserMetricRepository.save(addedMetric);
+                removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE,
+                    metric.getName(), metric.getIdentifier());
+            } catch (Exception e) {
+                LOGGER.error("Error while processing metric : {}", s.getName(), e);
+            }
+        });
     }
 
     @Override
@@ -104,6 +101,21 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     public HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier) {
 
         return historicUserMetricRepository.findByTimestampAndIdentifier(periodTimestamp, identifier);
+    }
+
+    private HistoricUserMetric addMetrics (final HistoricUserMetric historic, final UserMetric saved){
+
+        HistoricUserMetric response =  historic;
+
+        if(saved.getSampleSize() != null){
+            double value = (historic.getValue()*historic.getSampleSize()+saved.getValue()*saved.getSampleSize())/(historic.getSampleSize()+saved.getSampleSize());
+            response.setValue(value);
+            response.setSampleSize(response.getSampleSize()+saved.getSampleSize());
+        } else {
+            response.setValue(response.getValue() + saved.getValue());
+        }
+
+        return response;
     }
 
 }

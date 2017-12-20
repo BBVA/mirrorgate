@@ -49,9 +49,10 @@ public class HistoricUserMetricServiceImplTest {
             .setId("AWSRequestNumber")
                 .setTimestamp(ONE_MONTH_AGO);
 
-        UserMetric userMetric4 = new UserMetric().setName("notRequestNumber").setId("AWSRequestNumber").setValue(12d);
+        UserMetric userMetric4 = new UserMetric().setName("responseTime").setId("AWSResponseTime").setValue(15d).setSampleSize(100d).setTimestamp(TODAY);;
+        UserMetric userMetric5 = new UserMetric().setName("responseTime").setId("AWSResponseTime").setValue(10d).setSampleSize(150d).setTimestamp(TODAY);;
 
-        userMetrics = Arrays.asList(userMetric1, userMetric2, userMetric3, userMetric4);
+        userMetrics = Arrays.asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5);
     }
 
     @Test
@@ -85,11 +86,11 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        assertTrue(repository.count() == 3);
+        assertTrue(repository.count() == 4);
 
         service.removeExtraPeriodsForMetricAndIdentifier(2, "requestsNumber","AWSRequestNumber");
 
-        assertTrue(repository.count() == 2);
+        assertTrue(repository.count() == 3);
     }
 
     @Test
@@ -107,13 +108,24 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        assertTrue(repository.count() == 3);
+        assertTrue(repository.count() == 4);
 
         service.removeExtraPeriodsForMetricAndIdentifier(30, "requestNumber","AWSRequestNumber");
 
-        assertTrue(repository.count() == 3);
+        assertTrue(repository.count() == 4);
     }
 
+    @Test
+    public void testAddWithSampleSize(){
+        service.addToCurrentPeriod(userMetrics);
+
+        HistoricUserMetric result = repository.findByTimestampAndIdentifier(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS), "AWSResponseTime");
+
+        assertTrue(result.getIdentifier().equals("AWSResponseTime"));
+        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS));
+        assertTrue(result.getSampleSize() == 250d);
+        assertTrue(result.getValue() == 12d);
+    }
 
     @After
     public void cleanCollection(){
