@@ -61,7 +61,7 @@ public class BugServiceTests {
         bugs.add(bug1);
         bugs.add(bug2);
 
-        when(featureRepository.findBySProjectNameInAndSTypeNameAndSStatusNot(
+        when(featureRepository.findByKeywordsInAndSTypeNameAndSStatusNot(
                 Arrays.asList(dashboard.getName()),
                 IssueType.BUG.getName(),
                 IssueStatus.DONE.getName())
@@ -70,7 +70,7 @@ public class BugServiceTests {
         List<BugDTO> activeBugsByDashboardName
                 = bugService.getActiveBugsByBoards(Arrays.asList(dashboard.getName()));
         verify(featureRepository, times(1))
-                .findBySProjectNameInAndSTypeNameAndSStatusNot(
+                .findByKeywordsInAndSTypeNameAndSStatusNot(
                         Arrays.asList(dashboard.getName()),
                         IssueType.BUG.getName(),
                         IssueStatus.DONE.getName()

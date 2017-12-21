@@ -40,5 +40,5 @@ public interface FeatureRepository extends CrudRepository<Feature, ObjectId>, Fe
 
     void deleteBysIdAndCollectorId(String id, String collectorId);
 
-    List<Feature> findBySProjectNameInAndSTypeNameAndSStatusNot(List<String> boards, String type, String status);
+    List<Feature> findByKeywordsInAndSTypeNameAndSStatusNot(List<String> boards, String type, String status);
 }
