@@ -63,6 +63,20 @@
       Error: 2
     };
 
+    function sendEvent(metricName, description, color){
+      document.dispatchEvent(new CustomEvent('HeadsUp', {
+        detail: {
+          title: metricName,
+          description: description,
+          date: new Date(),
+          url: '',
+          color: color
+        }
+      }));
+
+      firstTime = false;
+    }
+
     function checkOperationMetricsToSendEvent(responseTimeState, errorsRateState, responseTimeAlertingLevels, errorsRateAlertingLevels){
         var metricName = '';
         var thresholds = '';
@@ -78,17 +92,7 @@
             state = Math.max(errorsRateState, responseTimeState);
             color = state == stateMapping['Error'] ? 'red' : state == stateMapping['Warn'] ? 'yellow' : 'blue';
 
-            document.dispatchEvent(new CustomEvent('HeadsUp', {
-              detail: {
-                title: metricName,
-                description: description,
-                date: new Date(),
-                url: '',
-                color: color
-              }
-            }));
-
-            firstTime = false;
+            sendEvent(metricName, description, color);
           }
 
         } else {
@@ -105,21 +109,10 @@
           }
           
           description = 'Greater than the threshold (' + thresholds + ')';
-
           state = Math.max(errorsRateState, responseTimeState);
           color = state == stateMapping['Error'] ? 'red' : state == stateMapping['Warn'] ? 'yellow' : 'blue';
 
-          document.dispatchEvent(new CustomEvent('HeadsUp', {
-            detail: {
-              title: metricName,
-              description: description,
-              date: new Date(),
-              url: '',
-              color: color
-            }
-          }));
-
-          firstTime = false;
+          sendEvent(metricName, description, color);
         }
     };
 
@@ -132,11 +125,9 @@
                 : metrics.errorsRate <= errorsRateAlertingLevels.error ? stateMapping['Warn']
                 : stateMapping['Error'];
 
-        var state = Math.max(responseTimeState, errorsRateState);
-
         checkOperationMetricsToSendEvent(responseTimeState, errorsRateState, responseTimeAlertingLevels, errorsRateAlertingLevels);
         
-        return state;
+        return Math.max(responseTimeState, errorsRateState);
     }
   
     MGComponent({
