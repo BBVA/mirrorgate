@@ -25,6 +25,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
     private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 90;
+    private static final int MAX_NUMBER_OF_MINUTES_TO_STORE = 150;
 
     private final HistoricUserMetricRepository historicUserMetricRepository;
 
@@ -36,15 +37,16 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
 
     @Override
-    public HistoricUserMetric createNextPeriod(UserMetric userMetric) {
+    public HistoricUserMetric createNextPeriod(UserMetric userMetric, ChronoUnit unit) {
 
         LOGGER.debug("creating new Historic Metric Period");
 
         HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
 
         historicUserMetric.setSampleSize(0d);
-        historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), ChronoUnit.HOURS));
+        historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit));
         historicUserMetric.setValue(0d);
+        historicUserMetric.setHistoricType(unit);
 
         return historicUserMetric;
     }
@@ -55,18 +57,8 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         saved.forEach( s -> {
             try {
-                HistoricUserMetric metric = getHistoricMetricForPeriod(
-                    LocalDateTimeHelper.getTimestampPeriod(s.getTimestamp(), ChronoUnit.HOURS),
-                    s.getId());
-
-                if (metric == null) {
-                    metric = createNextPeriod(s);
-                }
-
-                HistoricUserMetric addedMetric = addMetrics(metric, s);
-                historicUserMetricRepository.save(addedMetric);
-                removeExtraPeriodsForMetricAndIdentifier(MAX_NUMBER_OF_DAYS_TO_STORE,
-                    metric.getName(), metric.getIdentifier());
+               addToShortTermTendency(s);
+               addToLongTermTendency(s);
             } catch (Exception e) {
                 LOGGER.error("Error while processing metric : {}", s.getName(), e);
             }
@@ -74,11 +66,11 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     }
 
     @Override
-    public void removeExtraPeriodsForMetricAndIdentifier(int daysToKeep, String metricName, String identifier) {
+    public void removeExtraPeriodsForMetricAndIdentifier(String metricName, String identifier, ChronoUnit unit, long timestamp) {
 
-        LOGGER.debug("removing extra periods for: {}, {}, {}", daysToKeep, metricName, identifier);
+        LOGGER.debug("removing extra periods for: {}, {}, {}", metricName, identifier, timestamp);
 
-        List<HistoricUserMetric> oldPeriods = historicUserMetricRepository.findByNameAndIdentifierAndTimestampLessThan(metricName, identifier, LocalDateTimeHelper.getTimestampForNDaysAgo(daysToKeep, ChronoUnit.HOURS));
+        List<HistoricUserMetric> oldPeriods = historicUserMetricRepository.findByNameAndIdentifierAndHistoricTypeAndTimestampLessThan(metricName, identifier, unit, timestamp);
 
         historicUserMetricRepository.delete(oldPeriods);
     }
@@ -98,9 +90,40 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     }
 
     @Override
-    public HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier) {
+    public HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier, ChronoUnit type) {
 
-        return historicUserMetricRepository.findByTimestampAndIdentifier(periodTimestamp, identifier);
+        return historicUserMetricRepository.findByTimestampAndIdentifierAndHistoricType(periodTimestamp, identifier, type);
+    }
+
+    private void addToShortTermTendency(UserMetric userMetric){
+        HistoricUserMetric metric = addToTendency(userMetric, ChronoUnit.MINUTES);
+
+        removeExtraPeriodsForMetricAndIdentifier( metric.getName(), metric.getIdentifier(),
+            ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNMinutesAgo(MAX_NUMBER_OF_MINUTES_TO_STORE, ChronoUnit.MINUTES));
+    }
+
+    private void addToLongTermTendency(UserMetric userMetric){
+        HistoricUserMetric metric = addToTendency(userMetric, ChronoUnit.HOURS);
+
+        removeExtraPeriodsForMetricAndIdentifier( metric.getName(), metric.getIdentifier(),
+            ChronoUnit.HOURS, LocalDateTimeHelper.getTimestampForNDaysAgo(MAX_NUMBER_OF_DAYS_TO_STORE, ChronoUnit.HOURS));
+    }
+
+
+    private HistoricUserMetric addToTendency(UserMetric userMetric, ChronoUnit unit){
+
+        HistoricUserMetric metric = getHistoricMetricForPeriod(
+            LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit),
+            userMetric.getId(), unit);
+
+        if (metric == null) {
+            metric = createNextPeriod(userMetric, unit);
+        }
+
+        HistoricUserMetric addedMetric = addMetrics(metric, userMetric);
+        historicUserMetricRepository.save(addedMetric);
+
+        return metric;
     }
 
     private HistoricUserMetric addMetrics (final HistoricUserMetric historic, final UserMetric saved){
