@@ -3,16 +3,13 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper.mapToHistoric;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricUserMetricDTO;
-import com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper;
+import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +23,8 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
     private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 90;
     private static final int MAX_NUMBER_OF_MINUTES_TO_STORE = 150;
+    private static final int LONG_TERM_TENDENCY_LONG_PERIOD = 720; //30 days in hours
+    private static final int LONG_TERM_TENDENCY_SHORT_PERIOD = 96; //4 days in hours
 
     private final HistoricUserMetricRepository historicUserMetricRepository;
 
@@ -33,22 +32,6 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     public HistoricUserMetricServiceImpl(HistoricUserMetricRepository historicUserMetricRepository){
 
         this.historicUserMetricRepository = historicUserMetricRepository;
-    }
-
-
-    @Override
-    public HistoricUserMetric createNextPeriod(UserMetric userMetric, ChronoUnit unit) {
-
-        LOGGER.debug("creating new Historic Metric Period");
-
-        HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
-
-        historicUserMetric.setSampleSize(0d);
-        historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit));
-        historicUserMetric.setValue(0d);
-        historicUserMetric.setHistoricType(unit);
-
-        return historicUserMetric;
     }
 
 
@@ -76,17 +59,19 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     }
 
     @Override
-    public List<HistoricUserMetricDTO> getHistoricMetricsForDashboard(DashboardDTO dashboard, String metricName, int numberOfResults) {
+    public HistoricTendenciesDTO getHistoricMetricsForDashboard(DashboardDTO dashboard, String metricName) {
         List<String> views = dashboard.getAnalyticViews();
 
+        HistoricTendenciesDTO tendencies = new HistoricTendenciesDTO();
+
         if (views == null || views.isEmpty()) {
-            return new ArrayList<>();
+            return tendencies;
         }
 
-        return historicUserMetricRepository.findAllByViewIdInAndValueGreaterThanAndNameOrderByTimestampAsc
-            (new PageRequest(0, numberOfResults), views, 0d, metricName)
-            .stream().map(HistoricUserMetricMapper::map)
-            .collect(Collectors.toList());
+        tendencies.setLongTermTendency(calculateLongTermTendency(views, metricName));
+        tendencies.setShortTermTendency(calculateShortTermTendency());
+
+        return tendencies;
     }
 
     @Override
@@ -141,4 +126,45 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return response;
     }
 
+    private HistoricUserMetric createNextPeriod(UserMetric userMetric, ChronoUnit unit) {
+
+        LOGGER.debug("creating new Historic Metric Period");
+
+        HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
+
+        historicUserMetric.setSampleSize(0d);
+        historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit));
+        historicUserMetric.setValue(0d);
+        historicUserMetric.setHistoricType(unit);
+
+        return historicUserMetric;
+    }
+
+    private double calculateLongTermTendency(List<String> views, String metricName){
+
+        List<HistoricUserMetric> historicUserMetrics =
+            historicUserMetricRepository.findAllByViewIdInAndValueGreaterThanAndNameAndHistoricTypeOrderByTimestampAsc
+            (new PageRequest(0, LONG_TERM_TENDENCY_LONG_PERIOD), views, 0d, metricName, ChronoUnit.HOURS);
+
+        double fourDaysAverage = getAverageValue(historicUserMetrics.subList(0, LONG_TERM_TENDENCY_SHORT_PERIOD));
+        double thirtyDaysAverage = getAverageValue(historicUserMetrics);
+
+        return getPercentualDifference(thirtyDaysAverage, fourDaysAverage);
+    }
+
+    //TODO
+    private long calculateShortTermTendency(){
+        return 0L;
+    }
+
+    private double getAverageValue(List<HistoricUserMetric> historicUserMetrics){
+        return historicUserMetrics.stream()
+            .mapToDouble(HistoricUserMetric::getValue)
+            .sum()/historicUserMetrics.size();
+    }
+
+    private double getPercentualDifference(double longPeriod, double shortPeriod){
+
+        return ((shortPeriod - longPeriod)/longPeriod) * 100;
+    }
 }

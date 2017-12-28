@@ -29,6 +29,7 @@ public class HistoricUserMetric extends BaseModel{
     /* Associated collector ID */
     private String collectorId;
 
+    @Indexed
     private ChronoUnit historicType;
 
     public String getIdentifier() {
