@@ -17,12 +17,16 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.CommitService;
+import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -36,11 +40,26 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 public class CommitController {
 
     private final CommitService commitService;
+    private final DashboardService dashboardService;
 
     @Autowired
-    public CommitController(CommitService commitService) {
+    public CommitController(CommitService commitService, DashboardService dashboardService) {
         this.commitService = commitService;
+        this.dashboardService = dashboardService;
+    }
 
+    @RequestMapping(value = "/api/repositories", method = GET,
+        produces = APPLICATION_JSON_VALUE)
+    public List<String> getRepositories() {
+        return dashboardService.getActiveDashboards()
+            .stream()
+            .filter(d -> d.getBitbucketRepos() != null)
+            .filter(d -> !d.getBitbucketRepos().isEmpty())
+            .flatMap(d -> d.getBitbucketRepos().stream()
+                .filter(r -> r != null)
+                .filter(r -> !r.isEmpty()))
+            .distinct()
+            .collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/api/commits", method = PUT,
