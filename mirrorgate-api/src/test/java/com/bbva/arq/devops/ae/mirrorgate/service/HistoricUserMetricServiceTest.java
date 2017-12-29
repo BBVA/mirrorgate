@@ -67,9 +67,11 @@ public class HistoricUserMetricServiceTest {
 
         when(historicUserMetricRepository.findAllByViewIdInAndValueGreaterThanAndNameAndHistoricTypeOrderByTimestampAsc(any(
             PageRequest.class),anyListOf(String.class), anyDouble(), anyString(), any(ChronoUnit.class)))
-            .thenReturn(null);
+            .thenReturn(new ArrayList<>());
 
-        HistoricTendenciesDTO historicTendenciesDTO = historicUserMetricService.getHistoricMetricsForDashboard(new DashboardDTO(), "requestNumber");
+        HistoricTendenciesDTO historicTendenciesDTO =
+            historicUserMetricService.getHistoricMetricsForDashboard(new DashboardDTO().setAnalyticViews(
+                Arrays.asList("view")), "requestNumber");
 
         assertTrue(historicTendenciesDTO.getShortTermTendency() == 0);
         assertTrue(historicTendenciesDTO.getLongTermTendency() == 0);

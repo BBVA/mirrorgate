@@ -115,16 +115,18 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         HistoricUserMetric response =  historic;
 
-        if(saved.getSampleSize() != null){
+        if(saved.getSampleSize() != null && saved.getSampleSize() != 0){
             double value = (historic.getValue()*historic.getSampleSize()+saved.getValue()*saved.getSampleSize())/(historic.getSampleSize()+saved.getSampleSize());
             response.setValue(value);
             response.setSampleSize(response.getSampleSize()+saved.getSampleSize());
         } else {
-            response.setValue(response.getValue() + saved.getValue());
+            if(saved.getValue() != null)
+                response.setValue(response.getValue() + saved.getValue());
         }
 
         return response;
     }
+
 
     private HistoricUserMetric createNextPeriod(UserMetric userMetric, ChronoUnit unit) {
 
@@ -142,14 +144,28 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private double calculateLongTermTendency(List<String> views, String metricName){
 
+        double fourDaysAverage = 0;
+        double thirtyDaysAverage = 0;
+        double percentualDifference = 0;
+
         List<HistoricUserMetric> historicUserMetrics =
             historicUserMetricRepository.findAllByViewIdInAndValueGreaterThanAndNameAndHistoricTypeOrderByTimestampAsc
-            (new PageRequest(0, LONG_TERM_TENDENCY_LONG_PERIOD), views, 0d, metricName, ChronoUnit.HOURS);
+                (new PageRequest(0, LONG_TERM_TENDENCY_LONG_PERIOD), views, 0d, metricName, ChronoUnit.HOURS);
 
-        double fourDaysAverage = getAverageValue(historicUserMetrics.subList(0, LONG_TERM_TENDENCY_SHORT_PERIOD));
-        double thirtyDaysAverage = getAverageValue(historicUserMetrics);
 
-        return getPercentualDifference(thirtyDaysAverage, fourDaysAverage);
+        if(historicUserMetrics.size() != 0){
+            if(historicUserMetrics.size() < LONG_TERM_TENDENCY_SHORT_PERIOD) {
+                fourDaysAverage = getAverageValue(historicUserMetrics.subList(0, historicUserMetrics.size()));
+            } else {
+                fourDaysAverage = getAverageValue(historicUserMetrics.subList(0, LONG_TERM_TENDENCY_SHORT_PERIOD));
+            }
+
+            thirtyDaysAverage = getAverageValue(historicUserMetrics);
+            getAverageValue(historicUserMetrics);
+            percentualDifference = getPercentualDifference(thirtyDaysAverage, fourDaysAverage);
+        }
+
+        return percentualDifference;
     }
 
     //TODO
