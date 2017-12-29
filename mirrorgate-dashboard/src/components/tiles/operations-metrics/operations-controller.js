@@ -41,7 +41,7 @@ var OperationsController = (function(dashboardId) {
         response.forEach(function(metric) {
           if(metric.name === 'requestsNumber') {
             requestsNumber += parseInt(metric.value);
-            let tendencyChange = (metric.longTermTendency - metric.shortTermTendency) / metric.longTermTendency * 100;
+            let tendencyChange = metric.longTermTendency;
             requestsNumberTendency = this.tendencyChange < -10 ? 'onedown' : this.tendencyChange < -5 ? 'twodown' : this.tendencyChange < -1 ? 'onedown' : this.tendencyChange > 10 ? 'threeup' : this.tendencyChange > 5 ? 'twoup' : this.tendencyChange > 1 ? 'oneup' : 'eq';
             return;
           }
