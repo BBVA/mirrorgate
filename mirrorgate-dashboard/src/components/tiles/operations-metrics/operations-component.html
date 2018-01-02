@@ -29,7 +29,7 @@
       <h2 class="title">Operations</h2>
       <h3 class="title-desc">
         <span rv-hide="metrics">No metrics collected</span>
-        <span rv-show="metrics.requestsNumber">{metrics.requestsNumber | bigNumber} requests</span>
+        <span rv-show="metrics.requestsNumber | >= 0">{metrics.requestsNumber | bigNumber} requests</span>
         <span rv-show="metrics.requestsNumberTendency" class="tendency" rv-pclass-tendency="metrics.requestsNumberTendency"></span>
       </h3>
     </div>
@@ -84,7 +84,7 @@
         var description = '';
         var state;
         var color;
-  
+
         if(errorsRateState == stateMapping['Ok'] && responseTimeState == stateMapping['Ok']){
 
           if(!firstTime){
@@ -108,7 +108,7 @@
             thresholds = thresholds === '' ? '' : thresholds + ' and ';
             thresholds = thresholds + (responseTimeState == stateMapping['Warn'] ? responseTimeAlertingLevels.warning : responseTimeAlertingLevels.error);
           }
-          
+
           description = 'Greater than the threshold (' + thresholds + ')';
           state = Math.max(errorsRateState, responseTimeState);
           color = state == stateMapping['Error'] ? 'red' : state == stateMapping['Warn'] ? 'yellow' : 'blue';
@@ -118,19 +118,19 @@
     };
 
     function getComponentState(metrics, responseTimeAlertingLevels, errorsRateAlertingLevels){
-        var responseTimeState = metrics.responseTime <= responseTimeAlertingLevels.warning ? stateMapping['Ok']
+        var responseTimeState = metrics.responseTime === undefined || metrics.responseTime  <= responseTimeAlertingLevels.warning ? stateMapping['Ok']
                 : metrics.responseTime <= responseTimeAlertingLevels.error ? stateMapping['Warn']
                 : stateMapping['Error'];
 
-        var errorsRateState = metrics.errorsRate <= errorsRateAlertingLevels.warning ? stateMapping['Ok']
+        var errorsRateState = metrics.errorsRate === undefined || metrics.errorsRate <= errorsRateAlertingLevels.warning ? stateMapping['Ok']
                 : metrics.errorsRate <= errorsRateAlertingLevels.error ? stateMapping['Warn']
                 : stateMapping['Error'];
 
         checkOperationMetricsToSendEvent(responseTimeState, errorsRateState, responseTimeAlertingLevels, errorsRateAlertingLevels);
-        
+
         return Math.max(responseTimeState, errorsRateState);
     }
-  
+
     MGComponent({
       name: 'operations-metrics-tile',
       controllerClass: OperationsController,
