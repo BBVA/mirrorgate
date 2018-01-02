@@ -17,7 +17,7 @@
 var conn = new Mongo();
 var db = conn.getDB('dashboarddb');
 
-var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 1));
+var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 3));
 
 'Removing old builds until: ' + purgeDate;
 
