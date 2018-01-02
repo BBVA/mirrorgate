@@ -30,6 +30,7 @@ These Scripts aim to help MirrorGate development and deployment helping to conso
 ### Mongo Scripts
 
 * remove_old_events.js: remove events documents older than 1 day from database.
+* remove_old_issues.js: remove unnecessary issues older than 3 months from database.
 * remove_old_not_latest_builds.js: remove not latest builds documents older than 3 months from database.
 * clean_mirrorgate_db.js: run previous scripts to clean mirrorgate database from old documents.
 

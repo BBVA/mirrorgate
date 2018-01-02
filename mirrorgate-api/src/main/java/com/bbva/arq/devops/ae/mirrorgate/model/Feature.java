@@ -38,6 +38,7 @@ public class Feature extends BaseModel{
     private Double dEstimate;
     private String priority;
     private String url;
+    private Long timestamp;
 
     /* Associated sprint properties */
     @Indexed
@@ -223,4 +224,14 @@ public class Feature extends BaseModel{
         this.url = url;
         return this;
     }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public Feature setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+
 }

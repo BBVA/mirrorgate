@@ -16,9 +16,9 @@ if [ -z ${MONGO_PORT} ]; then export MONGO_PORT="27017"; fi
 echo "Cleaning up database..."
 if [ -z $MONGO_USER ]
   then
-    mongo $MONGO_HOST:$MONGO_PORT/$MONGO_DB < ./clean_mirrorgate_db.js
+    mongo $MONGO_HOST:$MONGO_PORT/$MONGO_DB ./clean_mirrorgate_db.js
   else
-    mongo $MONGO_HOST:$MONGO_PORT -u $MONGO_USER -p $MONGO_PASS --authenticationDatabase $MONGO_AUTHDB < ./clean_mirrorgate_db.js
+    mongo $MONGO_HOST:$MONGO_PORT -u $MONGO_USER -p $MONGO_PASS --authenticationDatabase $MONGO_AUTHDB ./clean_mirrorgate_db.js
 fi
 if [[ $? -ne 0 ]]; then echo "Clean up database error ($MONGO_HOST:$MONGO_PORT)."; exit 1; fi
 echo "Done."
