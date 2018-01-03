@@ -1,9 +1,10 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import java.time.temporal.ChronoUnit;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "historicUserMetrics")
+@Document(collection = "historic_user_metrics")
 public class HistoricUserMetric extends BaseModel{
 
     @Indexed
@@ -27,6 +28,9 @@ public class HistoricUserMetric extends BaseModel{
 
     /* Associated collector ID */
     private String collectorId;
+
+    @Indexed
+    private ChronoUnit historicType;
 
     public String getIdentifier() {
         return identifier;
@@ -98,5 +102,13 @@ public class HistoricUserMetric extends BaseModel{
 
     public void setCollectorId(String collectorId) {
         this.collectorId = collectorId;
+    }
+
+    public ChronoUnit getHistoricType() {
+        return historicType;
+    }
+
+    public void setHistoricType(ChronoUnit historicType) {
+        this.historicType = historicType;
     }
 }
