@@ -16,11 +16,13 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class CommitDTO {
 
     private String hash;
+    private String repository;
     private Integer timestamp;
     private String message;
     private String authorName;
@@ -28,9 +30,7 @@ public class CommitDTO {
     private String committerName;
     private String committerEmail;
     private LinkedList<String> parentsIds;
-
-    private String branchName;
-    private String repository;
+    private HashMap<String,Integer> branches;
 
     public String getHash() {
         return hash;
@@ -38,6 +38,15 @@ public class CommitDTO {
 
     public CommitDTO setHash(String hash) {
         this.hash = hash;
+        return this;
+    }
+
+    public String getRepository() {
+        return repository;
+    }
+
+    public CommitDTO setRepository(String repository) {
+        this.repository = repository;
         return this;
     }
 
@@ -104,21 +113,12 @@ public class CommitDTO {
         return this;
     }
 
-    public String getBranchName() {
-        return branchName;
+    public HashMap<String, Integer> getBranches() {
+        return branches;
     }
 
-    public CommitDTO setBranchName(String branchName) {
-        this.branchName = branchName;
-        return this;
-    }
-
-    public String getRepository() {
-        return repository;
-    }
-
-    public CommitDTO setRepository(String repository) {
-        this.repository = repository;
+    public CommitDTO setBranches(HashMap<String, Integer> branches) {
+        this.branches = branches;
         return this;
     }
 }

@@ -68,7 +68,7 @@ public class Dashboard extends BaseModel {
 
     private Integer marketsStatsDays = 7;
 
-    private List<String> bitbucketRepos;
+    private List<String> gitRepos;
 
 
     public String getName() {
@@ -356,12 +356,12 @@ public class Dashboard extends BaseModel {
         return this;
     }
 
-    public List<String> getBitbucketRepos() {
-        return bitbucketRepos;
+    public List<String> getGitRepos() {
+        return gitRepos;
     }
 
-    public Dashboard setBitbucketRepos(List<String> bitbucketRepos) {
-        this.bitbucketRepos = bitbucketRepos;
+    public Dashboard setGitRepos(List<String> gitRepos) {
+        this.gitRepos = gitRepos;
         return this;
     }
 }

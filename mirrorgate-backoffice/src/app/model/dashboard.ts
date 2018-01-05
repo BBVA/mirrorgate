@@ -23,6 +23,7 @@ export class Dashboard {
   applications: string[] = [];
   codeRepos: string[] = [];
   teamMembers: string[] = [];
+  gitRepos: string[] = [];
   boards: string[] = [];
   adminUsers: string[] = [];
   analyticViews: string[] = [];

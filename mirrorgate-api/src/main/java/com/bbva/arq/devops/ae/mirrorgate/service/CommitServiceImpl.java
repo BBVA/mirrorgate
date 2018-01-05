@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -56,13 +57,11 @@ public class CommitServiceImpl implements CommitService{
     }
 
     @Override
-    public String getLastCommitOfBranch(String repo, String branch) {
-        Commit commit = repository.findOneByRepositoryAndBranchNameOrderByTimestampDesc(repo, branch);
-        if (null != commit){
-            return commit.getHash();
-        }else{
-            return null;
-        }
+    public List<String> getListOfCommits(String repo) {
+        return repository.findAllByRepositoryOrderByTimestampDesc(repo)
+            .stream()
+            .map(c -> c.getHash())
+            .collect(Collectors.toList());
     }
 
 }

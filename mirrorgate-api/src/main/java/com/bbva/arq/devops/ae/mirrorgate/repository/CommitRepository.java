@@ -20,11 +20,13 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * Commits repository.
  */
 public interface CommitRepository extends CrudRepository<Commit, ObjectId> {
 
-    Commit findOneByRepositoryAndBranchNameOrderByTimestampDesc(String repository, String branchName);
+    List<Commit> findAllByRepositoryOrderByTimestampDesc(String repository);
 
 }

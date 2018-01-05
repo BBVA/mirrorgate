@@ -67,7 +67,7 @@ public class DashboardDTO {
 
     private Integer marketsStatsDays = 7;
 
-    private List<String> bitbucketRepos;
+    private List<String> gitRepos;
 
     public String getName() {
         return name;
@@ -342,12 +342,12 @@ public class DashboardDTO {
         return this;
     }
 
-    public List<String> getBitbucketRepos() {
-        return bitbucketRepos;
+    public List<String> getGitRepos() {
+        return gitRepos;
     }
 
-    public DashboardDTO setBitbucketRepos(List<String> bitbucketRepos) {
-        this.bitbucketRepos = bitbucketRepos;
+    public DashboardDTO setGitRepos(List<String> gitRepos) {
+        this.gitRepos = gitRepos;
         return this;
     }
 }

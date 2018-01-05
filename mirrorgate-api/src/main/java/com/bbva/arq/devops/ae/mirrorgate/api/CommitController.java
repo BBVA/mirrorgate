@@ -53,9 +53,9 @@ public class CommitController {
     public List<String> getRepositories() {
         return dashboardService.getActiveDashboards()
             .stream()
-            .filter(d -> d.getBitbucketRepos() != null)
-            .filter(d -> !d.getBitbucketRepos().isEmpty())
-            .flatMap(d -> d.getBitbucketRepos().stream()
+            .filter(d -> d.getGitRepos() != null)
+            .filter(d -> !d.getGitRepos().isEmpty())
+            .flatMap(d -> d.getGitRepos().stream()
                 .filter(r -> r != null)
                 .filter(r -> !r.isEmpty()))
             .distinct()
@@ -69,13 +69,12 @@ public class CommitController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commitService.saveCommits(request));
     }
 
-    @RequestMapping(value = "/api/commits/lastcommit", method = GET,
+    @RequestMapping(value = "/api/commits", method = GET,
         produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getLastCommitOfBranch(
-        @RequestParam(value = "repo", required = true) String repo,
-        @RequestParam(value = "branch", required = true) String branch
+    public ResponseEntity<?> getListOfCommits(
+        @RequestParam(value = "repo", required = true) String repo
         ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(commitService.getLastCommitOfBranch(repo, branch));
+        return ResponseEntity.status(HttpStatus.CREATED).body(commitService.getListOfCommits(repo));
     }
 
 }
