@@ -36,79 +36,89 @@ public class HistoricUserMetric extends BaseModel{
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
+    public HistoricUserMetric setIdentifier(String identifier) {
         this.identifier = identifier;
+        return this;
     }
 
     public String getViewId() {
         return viewId;
     }
 
-    public void setViewId(String viewId) {
+    public HistoricUserMetric setViewId(String viewId) {
         this.viewId = viewId;
+        return this;
     }
 
     public String getAppVersion() {
         return appVersion;
     }
 
-    public void setAppVersion(String appVersion) {
+    public HistoricUserMetric setAppVersion(String appVersion) {
         this.appVersion = appVersion;
+        return this;
     }
 
     public String getPlatform() {
         return platform;
     }
 
-    public void setPlatform(String platform) {
+    public HistoricUserMetric setPlatform(String platform) {
         this.platform = platform;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public HistoricUserMetric setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Double getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public HistoricUserMetric setValue(Double value) {
         this.value = value;
+        return this;
     }
 
     public Double getSampleSize() {
         return sampleSize;
     }
 
-    public void setSampleSize(Double sampleSize) {
+    public HistoricUserMetric setSampleSize(Double sampleSize) {
         this.sampleSize = sampleSize;
+        return this;
     }
 
     public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public HistoricUserMetric setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 
     public String getCollectorId() {
         return collectorId;
     }
 
-    public void setCollectorId(String collectorId) {
+    public HistoricUserMetric setCollectorId(String collectorId) {
         this.collectorId = collectorId;
+        return this;
     }
 
     public ChronoUnit getHistoricType() {
         return historicType;
     }
 
-    public void setHistoricType(ChronoUnit historicType) {
+    public HistoricUserMetric setHistoricType(ChronoUnit historicType) {
         this.historicType = historicType;
+        return this;
     }
 }
