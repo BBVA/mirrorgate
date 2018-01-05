@@ -60,16 +60,4 @@ public class UserMetricMapper {
                 .setCollectorId(source.getCollectorId());
     }
 
-    public static UserMetricDTO map(HistoricUserMetric source) {
-        return new UserMetricDTO()
-                .setViewId(source.getViewId())
-                .setAppVersion(source.getAppVersion())
-                .setPlatform(source.getPlatform())
-                .setName(source.getName())
-                .setValue(source.getValue())
-                .setSampleSize(source.getSampleSize())
-                .setTimestamp(source.getTimestamp())
-                .setCollectorId(source.getCollectorId());
-    }
-
 }
