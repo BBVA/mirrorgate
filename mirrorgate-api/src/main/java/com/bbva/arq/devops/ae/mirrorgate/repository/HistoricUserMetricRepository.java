@@ -15,4 +15,5 @@ public interface HistoricUserMetricRepository extends CrudRepository<HistoricUse
 
     List<HistoricUserMetric> findAllByViewIdInAndValueGreaterThanAndNameAndHistoricTypeOrderByTimestampAsc(Pageable page, List<String> ids, double value, String name, ChronoUnit historicType);
 
+    List<HistoricUserMetric> findAllByViewIdInAndHistoricTypeAndTimestampGreaterThanEqual(List<String> ids, ChronoUnit unit, long timestamp);
 }

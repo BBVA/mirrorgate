@@ -19,10 +19,12 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricUserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
+import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
+import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,13 +39,15 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     private final DashboardService dashboardService;
     private final UserMetricsRepository userMetricsRepository;
     private final HistoricUserMetricService historicUserMetricService;
+    private final HistoricUserMetricRepository historicUserMetricRepository;
+
 
     @Autowired
-    public UserMetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository
-                                , HistoricUserMetricService historicUserMetricService){
+    public UserMetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository, HistoricUserMetricService historicUserMetricService, HistoricUserMetricRepository historicUserMetricRepository) {
         this.dashboardService = dashboardService;
         this.userMetricsRepository = userMetricsRepository;
         this.historicUserMetricService = historicUserMetricService;
+        this.historicUserMetricRepository = historicUserMetricRepository;
     }
 
     @Override
@@ -84,19 +88,18 @@ public class UserMetricsServiceImpl implements UserMetricsService {
             return new ArrayList<>();
         }
 
-        return userMetricsRepository.findAllByViewIdInWithNon0Values(views)
-                    .stream()
-                    .map(UserMetricMapper::map)
-                    .map(u ->  {
+        return historicUserMetricRepository.findAllByViewIdInAndHistoricTypeAndTimestampGreaterThanEqual(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNMinutesAgo(10, ChronoUnit.MINUTES))
+                .stream()
+                .map(UserMetricMapper::map)
+                .map(u -> {
 
-                        HistoricTendenciesDTO historicTendencies =
-                            historicUserMetricService.getHistoricMetricsForDashboard(dashboard,u.getName());
+                    HistoricTendenciesDTO historicTendencies
+                            = historicUserMetricService.getHistoricMetricsForDashboard(dashboard, u.getName());
 
-                        u.setShortTermTendency(historicTendencies.getShortTermTendency());
-                        u.setLongTermTendency(historicTendencies.getLongTermTendency());
+                    u.setShortTermTendency(historicTendencies.getShortTermTendency());
+                    u.setLongTermTendency(historicTendencies.getLongTermTendency());
 
-                        return u;
-
-                    }).collect(Collectors.toList());
+                    return u;
+                }).collect(Collectors.toList());
     }
 }
