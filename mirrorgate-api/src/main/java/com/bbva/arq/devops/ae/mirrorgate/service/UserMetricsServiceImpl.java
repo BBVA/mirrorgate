@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
@@ -41,7 +39,6 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     private final HistoricUserMetricService historicUserMetricService;
     private final HistoricUserMetricRepository historicUserMetricRepository;
 
-
     @Autowired
     public UserMetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository, HistoricUserMetricService historicUserMetricService, HistoricUserMetricRepository historicUserMetricRepository) {
         this.dashboardService = dashboardService;
@@ -53,9 +50,9 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     @Override
     public List<String> getAnalyticViewIds() {
         return dashboardService.getActiveDashboards().stream()
-                .flatMap((d) -> d.getAnalyticViews() == null ?
-                        Stream.empty() :
-                        d.getAnalyticViews().stream()
+                .flatMap((d) -> d.getAnalyticViews() == null
+                        ? Stream.empty()
+                        : d.getAnalyticViews().stream()
                 )
                 .distinct()
                 .collect(Collectors.toList());
@@ -93,11 +90,12 @@ public class UserMetricsServiceImpl implements UserMetricsService {
                 .map(UserMetricMapper::map)
                 .map(u -> {
 
-                    HistoricTendenciesDTO historicTendencies
-                            = historicUserMetricService.getHistoricMetricsForDashboard(dashboard, u.getName());
-
-                    u.setShortTermTendency(historicTendencies.getShortTermTendency());
-                    u.setLongTermTendency(historicTendencies.getLongTermTendency());
+            //TODO: Calculate metrics
+//                    HistoricTendenciesDTO historicTendencies
+//                            = historicUserMetricService.getHistoricMetricsForDashboard(dashboard, u.getName());
+//
+//                    u.setShortTermTendency(historicTendencies.getShortTermTendency());
+//                    u.setLongTermTendency(historicTendencies.getLongTermTendency());
 
                     return u;
                 }).collect(Collectors.toList());
