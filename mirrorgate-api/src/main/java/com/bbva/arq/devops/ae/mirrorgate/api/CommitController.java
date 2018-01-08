@@ -78,4 +78,13 @@ public class CommitController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commitService.getLastCommitOfBranch(repo, branch));
     }
 
+    @RequestMapping(value = "/api/commits/lastcommit", method = GET,
+        produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getTimeToMaster(
+        @RequestParam(value = "repo", required = true) String repo,
+        @RequestParam(value = "branch", required = true) String branch
+        ) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(commitService.getTimeToMaster(repo, branch));
+    }
+
 }

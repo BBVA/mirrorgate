@@ -65,4 +65,9 @@ public class CommitServiceImpl implements CommitService{
         }
     }
 
+    @Override
+    public int getTimeToMaster(String repo, String branch) {
+        return Commit commit = repository.findOneByRepositoryAndBranchNameOrderByTimestampDesc(repo, branch);
+    }
+
 }

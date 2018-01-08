@@ -26,6 +26,7 @@
 <link rel="import" href="../../tiles/markets/reviews-component.html">
 <link rel="import" href="../../tiles/programIncrement/component.html">
 <link rel="import" href="../../tiles/bugs/component.html" >
+<link rel="import" href="../../tiles/scm-metrics/component.html" >
 <link rel="import" href="../../tiles/notifications/component.html" >
 <link rel="import" href="../../tiles/dashboard-notifications/component.html" >
 <link rel="import" href="../../tiles/alerts/component.html" >
@@ -59,6 +60,13 @@
     <header-component class="header" rv-config="config"></header-component>
     <div class="dashboard adaptable" rv-class-with-footer="layout.withFooter">
       <board-column>
+
+        <board-row>
+          <tile-container class="tile--secondary">
+            <scm-metrics-tile rv-config="config" class="tile component"></scm-metrics-tile>
+          </tile-container>
+        </board-row>
+
         <board-row class="row--primary">
           <tile-container class="tile--primary">
             <current-sprint-tile rv-config="config" class="tile component tile--primary"></current-sprint-tile>

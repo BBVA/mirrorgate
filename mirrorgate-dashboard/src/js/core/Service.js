@@ -124,6 +124,7 @@ var Service = (function() {
       programincrement: new ServiceType(Timer.eventually, 'programincrement', 'FeatureType'),
       notifications: new ServiceType(Timer.never, 'notifications'),
       userMetrics: new ServiceType(Timer.eventually, 'user-metrics'),
+      scmMetrics: new ServiceType(Timer.eventually, 'scm-metrics'),
     },
     get: function(type, dashboardId) {
       return (

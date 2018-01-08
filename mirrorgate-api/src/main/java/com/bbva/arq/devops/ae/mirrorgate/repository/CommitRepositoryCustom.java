@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
+package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import java.util.List;
+import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
+import org.bson.types.ObjectId;
+import org.springframework.data.repository.CrudRepository;
 
-public interface CommitService {
+/**
+ * Commits repository.
+ */
+public interface CommitRepositoryCustom {
 
-    List<CommitDTO> saveCommits(Iterable<CommitDTO> commits);
-
-    String getLastCommitOfBranch(String repo, String branch);
-
-    int getTimeToMaster(String repo, String branch);
+    Integer getTimeToMaster(String repository);
 
 }
