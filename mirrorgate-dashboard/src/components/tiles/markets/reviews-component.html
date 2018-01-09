@@ -79,13 +79,13 @@
       var width = contents.offsetWidth;
 
       var xSize = Math.max(1,Math.min(Math.floor(width / 320),4));
-      var ySize = Math.max(1,Math.min(Math.floor(height / 200),2));
+      var ySize = Math.max(1,Math.min(Math.floor(height / 300),2));
       if(ySize < 2) {
         //We don't want to render 4 comments in a single row
         xSize = Math.min(xSize, 3);
       }
 
-      if(window.innerWidth < 992) {
+      /*if(window.innerWidth < 992) {
         xSize = 1;
         ySize = 1;
         this._sheet.innerText = "";
@@ -93,7 +93,7 @@
         this._sheet.innerText =
           ".review {height: " + Math.floor((height  - 15 * (ySize-1)) / ySize) +"px ;}"
           ;
-      }
+      }*/
 
       var model = this.getModel();
       model.layout = xSize + 'x' + ySize;

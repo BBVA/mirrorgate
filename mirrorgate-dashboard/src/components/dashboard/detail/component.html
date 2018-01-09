@@ -60,13 +60,13 @@
     <header-component class="header" rv-config="config"></header-component>
     <div class="dashboard adaptable" rv-class-with-footer="layout.withFooter">
       <board-column>
-
+        
         <board-row>
           <tile-container class="tile--secondary">
             <scm-metrics-tile rv-config="config" class="tile component"></scm-metrics-tile>
           </tile-container>
         </board-row>
-
+        
         <board-row class="row--primary">
           <tile-container class="tile--primary">
             <current-sprint-tile rv-config="config" class="tile component tile--primary"></current-sprint-tile>
@@ -74,7 +74,7 @@
           <tile-container class="tile--primary">
             <program-increment-tile rv-config="config" class="tile component tile--primary"></program-increment-tile>
           </tile-container>
-
+          
         </board-row>
 
         <board-row>
@@ -88,29 +88,44 @@
       </board-column>
 
       <board-column>
-        <tile-container class="tile--primary">
-          <builds-tile rv-config="config" class="tile component tile--primary"></builds-tile>
-        </tile-container>
+        <board-row class="row--primary">
+          <tile-container class="tile--primary">
+            <builds-tile rv-config="config" class="tile component tile--primary"></builds-tile>
+          </tile-container>
+        </board-row>
 
-        <tile-container class="tile--secondary">
-          <buildsstats-tile rv-config="config" class="tile component"></buildsstats-tile>
-        </tile-container>
+        <board-row>
+          <tile-container class="tile--secondary">
+            <buildsstats-tile rv-config="config" class="tile component"></buildsstats-tile>
+          </tile-container>
+        </board-row>
 
       </board-column>
 
       <board-column>
-        <tile-container class="tile">
-          <markets-tile rv-config="config" class="markets component keep-height"></markets-tile>
-        </tile-container>
-        <tile-container class="tile full-height--tile">
-          <reviews-tile rv-config="config" class="markets component"></reviews-tile>
-        </tile-container>
-        <tile-container class="tile user-metrics tile--secondary">
-          <user-metrics-tile rv-config="config" class="component keep-height"></user-metrics-tile>
-        </tile-container>
-        <tile-container class="tile tile--secondary">
-          <operations-metrics-tile rv-config="config" class="component keep-height"></operations-metrics-tile>
-        </tile-container>
+        <board-row class="equal-grow">
+          <tile-container class="tile--secondary">
+            <markets-tile rv-config="config" class="tile component"></markets-tile>
+          </tile-container>
+        </board-row>
+
+        <board-row class="equal-grow row--primary">
+          <tile-container class="tile--primary">
+            <reviews-tile rv-config="config" class="tile component"></reviews-tile>
+          </tile-container>
+        </board-row>
+
+        <board-row class="equal-grow">
+          <tile-container class="tile--secondary user-metrics">
+            <user-metrics-tile rv-config="config" class="tile component"></user-metrics-tile>
+          </tile-container>
+        </board-row>
+
+        <board-row class="equal-grow">
+          <tile-container class="tile--secondary">
+            <operations-metrics-tile rv-config="config" class="tile component"></operations-metrics-tile>
+          </tile-container>
+        </board-row>
       </board-column>
 
       <board-column class="alerts-column">

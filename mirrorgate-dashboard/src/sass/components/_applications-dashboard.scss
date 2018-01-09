@@ -235,10 +235,12 @@
 
     .reviews-list {
         font-size: $level-4 - 0.1;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: stretch;
+        // display: flex;
+        // flex-direction: row;
+        // flex-wrap: wrap;
+        // align-items: stretch;
+        // height: 100%;
+        display: grid;
         height: 100%;
 
         .review-contents {
@@ -288,20 +290,24 @@
           max-width: 9vw;
         }
 
-        &.layout-1x1 .review, &.layout-1x2 .review {
-          flex-basis: 100%;
+        &.layout-1x1, &.layout-1x2 {
+            grid-template-columns: 1fr;
         }
 
-        &.layout-2x1 .review, &.layout-2x2 .review {
-          flex-basis: 50%;
+        &.layout-2x1, &.layout-2x2 {
+            grid-template-columns: 1fr 1fr;
         }
 
-        &.layout-3x1 .review, &.layout-3x2 .review{
-          flex-basis: 33.33%;
+        &.layout-3x1, &.layout-3x2{
+            grid-template-columns: 1fr 1fr 1fr;
         }
 
-        &.layout-4x1 .review, &.layout-4x2 .review{
-          flex-basis: 25%;
+        &.layout-3x2{
+            grid-template-rows: 1fr 1fr;
+        }
+
+        &.layout-4x1, &.layout-4x2{
+            grid-template-columns: 1fr 1fr 1fr 1fr;
         }
 
         .review:nth-last-child(n+3),

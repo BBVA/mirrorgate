@@ -116,12 +116,13 @@ tile-container{
     }
 
     .dashboard {
-        flex-grow: 2;
+        // flex-grow: 2;
         display: flex;
 
         //need to interpolate the $header-footer-height in order to have it print out the px there
         height: calc(100vh - #{$header-height});
         padding: 5px;
+
 
         &.with-footer {
           height: calc(100vh - #{$header-footer-height});
@@ -133,7 +134,8 @@ tile-container{
         display: flex;
         flex-direction: column;
 
-        &[data-count-x="2"][data-count="4"]{
+        &[data-count-x="2"][data-count="4"],
+        &[data-count-x="2"][data-count="5"]{
             width: 200%;
         }
     }
@@ -149,22 +151,22 @@ tile-container{
     board-row {
         display: flex;
         flex-basis: auto;
-        flex-grow: 1;
-        flex-shrink: 1;
+        // flex-grow: 1;
+        // flex-shrink: 1;
         width: 100%;
 
         &.row--primary {
-            flex-basis: 100%;
+            flex-grow: 1;
         }
     }
 
     //TILES
 
     tile-container{
-        flex-grow: 0;
-        flex-shrink: 2;
-        flex-basis: unset;
-        display: flex;
+        flex-grow: 1;
+        // flex-shrink: 2;
+        // flex-basis: unset;
+        // display: flex;
         margin: 0;
         padding: 5px;
         width: 100%;
@@ -173,18 +175,20 @@ tile-container{
     }
 
     .tile--primary{
-        flex-grow: 1;
+        flex-grow: 2;
+        // height: 100%;
+    }
+
+    .tile {
         height: 100%
     }
 
-    .full-height--tile {
-        flex-basis: 100%;
-        flex-shrink: 1;
-    }
+    .equal-grow {
+        flex-grow: 1;
 
-    .full-height--tile ~ tile-container {
-        flex-basis: 100%;
-        flex-shrink: 2;
+        &.row--primary {
+            flex-grow: 99;
+        }
     }
 
     tile-container.alerts {
