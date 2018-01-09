@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -63,8 +64,16 @@ public class CommitServiceImpl implements CommitService{
     }
 
     @Override
-    public int getTimeToMaster(String repo, String branch) {
-        return Commit commit = repository.findOneByRepositoryAndBranchNameOrderByTimestampDesc(repo, branch);
+    public Double getTimeToMaster(List<String> repo) {
+        OptionalDouble timeToMaster = repo.stream()
+            .mapToDouble(r -> repository.getTimeToMaster(r, 30))
+            .average();
+
+        if (timeToMaster.isPresent()){
+            return timeToMaster.getAsDouble();
+        }else{
+            return null;
+        }
     }
 
 }

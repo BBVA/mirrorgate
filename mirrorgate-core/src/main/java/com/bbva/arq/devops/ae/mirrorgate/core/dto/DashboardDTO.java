@@ -46,6 +46,7 @@ public class DashboardDTO {
     private Float responseTimeAlertingLevelError;
     private Float errorsRateAlertingLevelWarning;
     private Float errorsRateAlertingLevelError;
+    private Double timeToMaster;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String slackToken;
@@ -348,6 +349,15 @@ public class DashboardDTO {
 
     public DashboardDTO setGitRepos(List<String> gitRepos) {
         this.gitRepos = gitRepos;
+        return this;
+    }
+
+    public Double getTimeToMaster() {
+        return timeToMaster;
+    }
+
+    public DashboardDTO setTimeToMaster(Double timeToMaster) {
+        this.timeToMaster = timeToMaster;
         return this;
     }
 }

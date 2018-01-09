@@ -16,7 +16,10 @@
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ScmDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.CommitService;
+import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +28,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -77,13 +82,18 @@ public class CommitController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commitService.getLastCommit(repo));
     }
 
-    @RequestMapping(value = "/api/commits/lastcommit", method = GET,
-        produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getTimeToMaster(
-        @RequestParam(value = "repo", required = true) String repo,
-        @RequestParam(value = "branch", required = true) String branch
-        ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(commitService.getTimeToMaster(repo, branch));
-    }
+    @RequestMapping(value = "/dashboards/{name}/scm_metrics", method = GET,
+            produces = APPLICATION_JSON_VALUE)
+    public ScmDTO getTimeToMasterByBoardName(@PathVariable("name") String name) {
 
+        DashboardDTO dashboard = dashboardService.getDashboard(name);
+        if (dashboard == null || dashboard.getGitRepos() == null
+                || dashboard.getGitRepos().isEmpty()) {
+            return null;
+        }
+
+        ScmDTO stats = new ScmDTO().setTimeToMaster(commitService.getTimeToMaster(dashboard.getGitRepos()));
+
+        return stats;
+    }
 }

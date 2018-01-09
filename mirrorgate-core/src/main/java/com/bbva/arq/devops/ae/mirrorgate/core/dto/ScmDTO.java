@@ -13,18 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
+package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
-import java.util.List;
+public class ScmDTO {
 
-public interface CommitService {
+    private Double timeToMaster;
 
-    List<CommitDTO> saveCommits(Iterable<CommitDTO> commits);
+    public double getTimeToMaster() {
+        return timeToMaster;
+    }
 
-    String getLastCommit(String repo);
-
-    Double getTimeToMaster(List <String> repo);
+    public ScmDTO setTimeToMaster(double timeToMaster) {
+        this.timeToMaster = timeToMaster;
+        return this;
+    }
 
 }

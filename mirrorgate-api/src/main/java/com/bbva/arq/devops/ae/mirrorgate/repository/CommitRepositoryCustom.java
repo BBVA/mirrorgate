@@ -25,6 +25,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface CommitRepositoryCustom {
 
-    Integer getTimeToMaster(String repository);
+    Double getTimeToMaster(String repository, int daysBefore);
 
 }

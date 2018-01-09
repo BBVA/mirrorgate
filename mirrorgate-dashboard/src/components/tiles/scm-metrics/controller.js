@@ -29,13 +29,11 @@ var SCMMetricsController = (function(dashboardId) {
     if(response) {
       response = JSON.parse(response);
       model = {
-        timeToMaster: 0,
-        numberOfCommits: 0,
-        totalTimeToMaster: 0
+        timeToMaster: 0
       };
 
       response.forEach(function(metric) {
-          model.timeToMaster ++
+          model.timeToMaster
         }, this);
 
     }
