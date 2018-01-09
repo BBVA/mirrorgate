@@ -69,12 +69,12 @@ public class CommitController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commitService.saveCommits(request));
     }
 
-    @RequestMapping(value = "/api/commits", method = GET,
+    @RequestMapping(value = "/api/commits/lastcommit", method = GET,
         produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getListOfCommits(
+    public ResponseEntity<?> getLastCommit(
         @RequestParam(value = "repo", required = true) String repo
         ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(commitService.getListOfCommits(repo));
+        return ResponseEntity.status(HttpStatus.CREATED).body(commitService.getLastCommit(repo));
     }
 
 }
