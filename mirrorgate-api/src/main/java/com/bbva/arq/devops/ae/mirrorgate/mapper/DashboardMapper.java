@@ -65,7 +65,7 @@ public class DashboardMapper {
                 .setSkin(source.getSkin())
                 .setCategory(source.getCategory())
                 .setMarketsStatsDays(source.getMarketsStatsDays())
-                .setBitbucketRepos(source.getBitbucketRepos());
+                .setGitRepos(source.getGitRepos());
     }
 
     public static Dashboard map(DashboardDTO source, Dashboard target) {
@@ -101,7 +101,7 @@ public class DashboardMapper {
                 .setSkin(source.getSkin())
                 .setCategory(source.getCategory())
                 .setMarketsStatsDays(source.getMarketsStatsDays())
-                .setBitbucketRepos(source.getBitbucketRepos());
+                .setGitRepos(source.getGitRepos());
     }
 
 }

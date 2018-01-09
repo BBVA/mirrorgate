@@ -28,6 +28,7 @@ public class CommitMapper {
     public static CommitDTO map(Commit source, CommitDTO target) {
         return target
                 .setHash(source.getHash())
+                .setRepository(source.getRepository())
                 .setTimestamp(source.getTimestamp())
                 .setMessage(source.getMessage())
                 .setAuthorName(source.getAuthorName())
@@ -35,8 +36,7 @@ public class CommitMapper {
                 .setCommitterName(source.getCommitterName())
                 .setCommitterEmail(source.getCommitterEmail())
                 .setParentsIds(source.getParentsIds())
-                .setBranchName(source.getBranchName())
-                .setRepository(source.getRepository());
+                .setBranches(source.getBranches());
     }
 
     public static Commit map(CommitDTO source) {
@@ -46,9 +46,10 @@ public class CommitMapper {
     public static Commit map(CommitDTO source, Commit target) {
         return target
                 .setId(source.getHash()
-                     + source.getBranchName()
+                     + source.getRepository()
                 )
                 .setHash(source.getHash())
+                .setRepository(source.getRepository())
                 .setTimestamp(source.getTimestamp())
                 .setMessage(source.getMessage())
                 .setAuthorName(source.getAuthorName())
@@ -56,8 +57,7 @@ public class CommitMapper {
                 .setCommitterName(source.getCommitterName())
                 .setCommitterEmail(source.getCommitterEmail())
                 .setParentsIds(source.getParentsIds())
-                .setBranchName(source.getBranchName())
-                .setRepository(source.getRepository());
+                .setBranches(source.getBranches());
     }
 
 }

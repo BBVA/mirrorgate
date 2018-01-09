@@ -3,6 +3,7 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 @Document(collection = "commits")
@@ -13,10 +14,10 @@ public class Commit {
     @Indexed
     private String hash;
 
-    private Integer timestamp;
-
     @Indexed
-    private String branchName;
+    private String repository;
+
+    private Integer timestamp;
 
     private String message;
     private String authorName;
@@ -24,9 +25,7 @@ public class Commit {
     private String committerName;
     private String committerEmail;
     private LinkedList<String> parentsIds;
-
-    @Indexed
-    private String repository;
+    private HashMap<String,Integer> branches;
 
     public String getId() {
         return _id;
@@ -109,21 +108,21 @@ public class Commit {
         return this;
     }
 
-    public String getBranchName() {
-        return branchName;
-    }
-
-    public Commit setBranchName(String branchName) {
-        this.branchName = branchName;
-        return this;
-    }
-
     public String getRepository() {
         return repository;
     }
 
     public Commit setRepository(String repository) {
         this.repository = repository;
+        return this;
+    }
+
+    public HashMap<String, Integer> getBranches() {
+        return branches;
+    }
+
+    public Commit setBranches(HashMap<String, Integer> branches) {
+        this.branches = branches;
         return this;
     }
 }

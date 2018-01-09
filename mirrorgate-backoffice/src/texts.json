@@ -33,6 +33,11 @@
       "aggregated_dashboards_text": "Dashboards list",
       "aggregated_dashboards_help": "Enter a list of the ids of the dashboards you want to aggregate."
     },
+    "ttm_block": {
+      "title": "Time-to-master",
+      "repos_input": "Code repositories",
+      "ttm_repos_help": "<p>Add a comma separated list with the URL of your git repositories.</p><div class=\"alert alert-warning\" role=\"alert\">Note that URLs must include the scheme <kbd>ssh://</kbd> if ssh is configured for the repo.</div><p>An example could be: <code>git@github.com:BBVA/mirrorgate.git</code></p>"
+    },
     "planning_block": {
       "title": "Planning data",
       "boards_input": "Story keywords",

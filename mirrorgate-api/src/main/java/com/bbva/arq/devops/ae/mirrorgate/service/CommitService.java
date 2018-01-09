@@ -23,7 +23,7 @@ public interface CommitService {
 
     List<CommitDTO> saveCommits(Iterable<CommitDTO> commits);
 
-    String getLastCommitOfBranch(String repo, String branch);
+    String getLastCommit(String repo);
 
     int getTimeToMaster(String repo, String branch);
 
