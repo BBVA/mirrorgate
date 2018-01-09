@@ -35,7 +35,7 @@ var SCMMetricsController = (function(dashboardId) {
       };
 
       response.forEach(function(metric) {
-          model.timeToMaster += parseInt(metric.timeToMaster);
+          model.timeToMaster ++
         }, this);
 
     }

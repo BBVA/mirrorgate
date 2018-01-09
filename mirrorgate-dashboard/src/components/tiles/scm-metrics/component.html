@@ -29,11 +29,13 @@
       <h2 class="title">Time to Master</h2>
       <h3 class="title-desc">
         <span rv-show="metrics.timeToMaster">Last 30 days average</span>
-        <span rv-hide="metrics.timeToMaster">No time to Master data available</span>
+        <span rv-hide="metrics.timeToMaster">No time to Master data</span>
       </h3>
     </div>
-    <div class="component__body">
-      <div>{metrics.timeToMaster} active users</div>
+    <div class="indicator" rv-if="metrics.timeToMaster">
+      <div class="component__body">
+        <div>{metrics.timeToMaster} days</div>
+      </div>
     </div>
   </div>
 </template>
