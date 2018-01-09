@@ -67,6 +67,8 @@ public class DashboardDTO {
 
     private Integer marketsStatsDays = 7;
 
+    private List<String> gitRepos;
+
     public String getName() {
         return name;
     }
@@ -337,6 +339,15 @@ public class DashboardDTO {
     }
     public DashboardDTO setMarketsStatsDays(Integer marketsStatsDays) {
         this.marketsStatsDays = marketsStatsDays;
+        return this;
+    }
+
+    public List<String> getGitRepos() {
+        return gitRepos;
+    }
+
+    public DashboardDTO setGitRepos(List<String> gitRepos) {
+        this.gitRepos = gitRepos;
         return this;
     }
 }

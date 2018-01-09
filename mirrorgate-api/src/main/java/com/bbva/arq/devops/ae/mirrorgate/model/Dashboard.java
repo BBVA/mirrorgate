@@ -68,6 +68,8 @@ public class Dashboard extends BaseModel {
 
     private Integer marketsStatsDays = 7;
 
+    private List<String> gitRepos;
+
 
     public String getName() {
         return name;
@@ -351,6 +353,15 @@ public class Dashboard extends BaseModel {
     }
     public Dashboard setMarketsStatsDays(Integer marketsStatsDays) {
         this.marketsStatsDays = marketsStatsDays;
+        return this;
+    }
+
+    public List<String> getGitRepos() {
+        return gitRepos;
+    }
+
+    public Dashboard setGitRepos(List<String> gitRepos) {
+        this.gitRepos = gitRepos;
         return this;
     }
 }

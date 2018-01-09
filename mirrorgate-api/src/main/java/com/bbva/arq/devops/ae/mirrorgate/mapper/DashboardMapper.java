@@ -64,7 +64,8 @@ public class DashboardMapper {
                 .setAggregatedDashboards(source.getAggregatedDashboards())
                 .setSkin(source.getSkin())
                 .setCategory(source.getCategory())
-                .setMarketsStatsDays(source.getMarketsStatsDays());
+                .setMarketsStatsDays(source.getMarketsStatsDays())
+                .setGitRepos(source.getGitRepos());
     }
 
     public static Dashboard map(DashboardDTO source, Dashboard target) {
@@ -99,7 +100,8 @@ public class DashboardMapper {
                 .setAggregatedDashboards(source.getAggregatedDashboards())
                 .setSkin(source.getSkin())
                 .setCategory(source.getCategory())
-                .setMarketsStatsDays(source.getMarketsStatsDays());
+                .setMarketsStatsDays(source.getMarketsStatsDays())
+                .setGitRepos(source.getGitRepos());
     }
 
 }

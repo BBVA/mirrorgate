@@ -238,6 +238,27 @@
 
       <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
         <div class="panel-heading">
+          <h3 class="panel-title">{{texts.form.ttm_block.title}}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="ttmRepos">{{texts.form.ttm_block.repos_input}}</label>
+            <div class="collapse" id="ttm-repos-help">
+              <div class="well" innerHTML="{{texts.form.ttm_block.ttm_repos_help}}"></div>
+            </div>
+            <div class="input-group">
+              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#ttm-repos-help" aria-expanded="false" aria-controls="ttm-repos-help">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </a>
+              <input type="text" class="form-control" id="gitRepos" [(ngModel)]="temp.gitRepos" (ngModelChange)="mirrorTempValues()" name="gitRepos">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
+        <div class="panel-heading">
           <h3 class="panel-title">{{texts.form.markets_block.title}}</h3>
         </div>
         <div class="panel-body">
