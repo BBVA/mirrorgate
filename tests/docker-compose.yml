@@ -47,23 +47,20 @@ services:
       - "5005:5005"
   selenium-chrome:
     image: "selenium/standalone-chrome:latest"
-    links: 
-      - app
     volumes:
       - /dev/shm:/dev/shm
   selenium-firefox:
     image: "selenium/standalone-firefox:latest"
-    links: 
-      - app
     volumes:
-      - /dev/shm:/dev/shm      
+      - /dev/shm:/dev/shm
   e2e-tests:
-    image: "node:7"
-    volumes: 
+    image: "node:7-slim"
+    volumes:
       - ".:/temp/"
     working_dir: "/temp"
-    links:
+    depends_on:
       - mongo-populate-test
+      - app
       - selenium-chrome
       - selenium-firefox
     environment:
