@@ -1,5 +1,6 @@
 temp
 node_modules
+package-lock.json
 reports/eyebot/*/report
 reports/eyebot/*/screenshots/diff
 reports/eyebot/*/screenshots/20*
