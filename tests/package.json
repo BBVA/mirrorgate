@@ -10,6 +10,6 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "protractor": "^5.2.0",
-    "protractor-testability-plugin": "^1.2.0"
+    "protractor-testability-plugin": "git+https://github.com/alfonso-presa/protractor-testability-plugin.git"
   }
 }

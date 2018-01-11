@@ -2,7 +2,7 @@
 
 const request = require('request');
 
-const MIRRORGATE_ENDPOINT = 'http://' + (process.env.DOCKER ? 'app':'localhost') + ':8080/mirrorgate';
+const MIRRORGATE_ENDPOINT = 'http://' + (process.env.APP_HOST || 'localhost') + ':8080/mirrorgate';
 
 function lockUntilCompletion() {
     if(typeof(browser) !== 'undefined') {
@@ -40,7 +40,7 @@ function send(endpoint, data, params) {
             reject(err);
             return;
           }
-    
+
           if(res.statusCode >= 400) {
             reject({
                 statusCode: res.statusCode,
