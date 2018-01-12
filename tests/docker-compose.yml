@@ -2,11 +2,11 @@ version: '2'
 
 services:
   mongo:
-    image: "mongo"
+    image: "mongo:3.4"
     ports:
       - "27017:27017"
   mongo-populate-test:
-    image: "mongo"
+    image: "mongo:3.4"
     volumes:
       - ".:/temp"
     working_dir: "/temp"
@@ -16,7 +16,7 @@ services:
     links:
       - mongo
   mongo-populate-dump:
-    image: "mongo"
+    image: "mongo:3.4"
     volumes:
       - "/tmp/latest_mongo_dump:/temp"
     working_dir: "/temp"
@@ -46,30 +46,31 @@ services:
       - "8080:8080"
       - "5005:5005"
   selenium-chrome:
-    image: "selenium/standalone-chrome:latest"
-    links: 
+    image: "selenium/standalone-chrome:2.53.1"
+    links:
       - app
     volumes:
       - /dev/shm:/dev/shm
   selenium-firefox:
     image: "selenium/standalone-firefox:latest"
-    links: 
+    links:
       - app
     volumes:
-      - /dev/shm:/dev/shm      
+      - /dev/shm:/dev/shm
   e2e-tests:
     image: "node:7"
-    volumes: 
+    volumes:
       - ".:/temp/"
     working_dir: "/temp"
     links:
       - mongo-populate-test
       - selenium-chrome
       - selenium-firefox
-    environment:
-      - DOCKER=true
-    entrypoint: "sh -c '\
-        until curl http://app:8080/mirrorgate/dashboards/mirrorgate/details; do >&2 echo Dashboard is unavailable - sleeping & sleep 1; done && \
-        npm install && \
-        ./node_modules/.bin/protractor ./e2e/protractor.conf.js && \
-        BROWSER=firefox ./node_modules/.bin/protractor ./e2e/protractor.conf.js'"
+    command:
+      - /bin/sh
+      - -c
+      - |
+        until curl http://app:8080/mirrorgate/dashboards/mirrorgate/details; do >&2 echo Dashboard is unavailable - sleeping & sleep 1; done
+        npm install
+        SELENIUM_HOST=selenium-chrome APP_HOST=app ./node_modules/.bin/protractor ./e2e/protractor.conf.js
+        BROWSER=firefox SELENIUM_HOST=selenium-firefox APP_HOST=app ./node_modules/.bin/protractor ./e2e/protractor.conf.js
