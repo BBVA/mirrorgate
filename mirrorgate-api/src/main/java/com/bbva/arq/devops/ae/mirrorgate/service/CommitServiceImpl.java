@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ScmDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.CommitMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 import com.bbva.arq.devops.ae.mirrorgate.repository.CommitRepository;
@@ -24,9 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -64,16 +63,13 @@ public class CommitServiceImpl implements CommitService{
     }
 
     @Override
-    public Double getTimeToMaster(List<String> repo) {
-        OptionalDouble timeToMaster = repo.stream()
-            .mapToDouble(r -> repository.getTimeToMaster(r, 30))
-            .average();
+    public ScmDTO getScmStats(List<String> repos) {
+        Double secondsToMaster = repository.getSecondsToMaster(repos, 30);
+        Double commitsPerDay = repository.getCommitsPerDay(repos, 30);
 
-        if (timeToMaster.isPresent()){
-            return timeToMaster.getAsDouble();
-        }else{
-            return null;
-        }
+        return new ScmDTO()
+            .setSecondsToMaster(secondsToMaster)
+            .setCommitsPerDay(commitsPerDay);
     }
 
 }

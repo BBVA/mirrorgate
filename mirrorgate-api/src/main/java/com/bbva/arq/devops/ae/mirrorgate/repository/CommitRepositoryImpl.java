@@ -25,6 +25,7 @@ import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Cei
 import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Subtract;
 import org.springframework.data.mongodb.core.query.Criteria;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
@@ -35,14 +36,15 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
     MongoTemplate mongoTemplate;
 
     @Override
-    public Double getTimeToMaster(String repository, int daysBefore) {
+    public Double getSecondsToMaster(List<String> repositories, int daysBefore) {
 
         long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         long before = now - (daysBefore * 60 * 60 * 24);
 
         Aggregation agg = newAggregation(
             match(Criteria
-                .where("timestamp").gte(before)
+                .where("repository").in(repositories)
+                .and("timestamp").gte(before)
             ),
             group()
                 .avg(
@@ -54,11 +56,35 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
                 .andExclude("_id")
         );
 
-        AggregationResults<DoubleValue> timetomaster
+        AggregationResults<DoubleValue> secondsToMaster
                 = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
-        DoubleValue val = timetomaster.getUniqueMappedResult();
+        DoubleValue val = secondsToMaster.getUniqueMappedResult();
 
-        return val == null || val.value == null ? 0 : val.value;
+        return val == null || val.value == null ? null : val.value;
+    }
+
+    @Override
+    public Double getCommitsPerDay(List<String> repositories, int daysBefore) {
+
+        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        long before = now - (daysBefore * 60 * 60 * 24);
+
+        Aggregation agg = newAggregation(
+            match(Criteria
+                .where("repository").in(repositories)
+                .and("timestamp").gte(before)
+            ),
+            group()
+                .count().as("value"),
+            project("value")
+                .andExclude("_id").and("value").divide(daysBefore)
+        );
+
+        AggregationResults<DoubleValue> commitsPerDay
+            = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
+        DoubleValue val = commitsPerDay.getUniqueMappedResult();
+
+        return val == null ? null : val.value;
     }
 
 }

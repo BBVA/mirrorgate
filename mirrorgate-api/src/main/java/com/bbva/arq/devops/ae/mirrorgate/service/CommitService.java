@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.ScmDTO;
 
 import java.util.List;
 
@@ -25,6 +26,6 @@ public interface CommitService {
 
     String getLastCommit(String repo);
 
-    Double getTimeToMaster(List <String> repo);
+    ScmDTO getScmStats(List <String> repos);
 
 }

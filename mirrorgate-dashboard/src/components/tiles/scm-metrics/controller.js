@@ -28,14 +28,14 @@ var SCMMetricsController = (function(dashboardId) {
 
     if(response) {
       response = JSON.parse(response);
+
+      let daysToMaster = Math.ceil(response.secondsToMaster / (60 * 60 * 24));
+      let commitsPerDay = Math.ceil(response.commitsPerDay);
+
       model = {
-        timeToMaster: 0
+        timeToMaster: daysToMaster,
+        commitsPerDay: commitsPerDay
       };
-
-      response.forEach(function(metric) {
-          model.timeToMaster
-        }, this);
-
     }
 
     observable.notify(model);
@@ -47,11 +47,10 @@ var SCMMetricsController = (function(dashboardId) {
     service.removeListener(getSCMMetrics);
   };
   this.init = function(config) {
-    if(config.boards && config.boards.length) {
-      service.addListener(getSCMMetrics);
-    } else {
+    if(!config.gitRepos || !config.gitRepos.length) {
       return Promise.reject();
     }
+    service.addListener(getSCMMetrics);
   };
 
 });

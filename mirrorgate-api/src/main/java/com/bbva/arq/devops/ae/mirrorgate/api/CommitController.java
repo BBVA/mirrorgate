@@ -19,7 +19,6 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.ScmDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.CommitService;
-import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -84,7 +81,7 @@ public class CommitController {
 
     @RequestMapping(value = "/dashboards/{name}/scm_metrics", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ScmDTO getTimeToMasterByBoardName(@PathVariable("name") String name) {
+    public ScmDTO getScmMetricsByBoardName(@PathVariable("name") String name) {
 
         DashboardDTO dashboard = dashboardService.getDashboard(name);
         if (dashboard == null || dashboard.getGitRepos() == null
@@ -92,8 +89,8 @@ public class CommitController {
             return null;
         }
 
-        ScmDTO stats = new ScmDTO().setTimeToMaster(commitService.getTimeToMaster(dashboard.getGitRepos()));
+        List<String> repos = dashboard.getGitRepos();
 
-        return stats;
+        return commitService.getScmStats(repos);
     }
 }

@@ -16,15 +16,15 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
-import org.bson.types.ObjectId;
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
 /**
  * Commits repository.
  */
 public interface CommitRepositoryCustom {
 
-    Double getTimeToMaster(String repository, int daysBefore);
+    Double getSecondsToMaster(List<String> repositories, int daysBefore);
+
+    Double getCommitsPerDay(List<String> repositories, int daysBefore);
 
 }

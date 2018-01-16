@@ -18,15 +18,24 @@ package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 public class ScmDTO {
 
-    private Double timeToMaster;
+    private Double secondsToMaster;
+    private Double commitsPerDay;
 
-    public double getTimeToMaster() {
-        return timeToMaster;
+    public Double getSecondsToMaster() {
+        return secondsToMaster;
     }
 
-    public ScmDTO setTimeToMaster(double timeToMaster) {
-        this.timeToMaster = timeToMaster;
+    public ScmDTO setSecondsToMaster(Double secondsToMaster) {
+        this.secondsToMaster = secondsToMaster;
         return this;
     }
 
+    public Double getCommitsPerDay() {
+        return commitsPerDay;
+    }
+
+    public ScmDTO setCommitsPerDay(Double commitsPerDay) {
+        this.commitsPerDay = commitsPerDay;
+        return this;
+    }
 }

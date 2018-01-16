@@ -29,12 +29,15 @@
       <h2 class="title">Time to Master</h2>
       <h3 class="title-desc">
         <span rv-show="metrics.timeToMaster">Last 30 days average</span>
-        <span rv-hide="metrics.timeToMaster">No time to Master data</span>
+        <span rv-hide="metrics.timeToMaster">No time to master data</span>
       </h3>
     </div>
-    <div class="indicator" rv-if="metrics.timeToMaster">
-      <div class="component__body">
-        <div>{metrics.timeToMaster} days</div>
+    <div class="component__body">
+      <div class="indicator__bar">
+        <div class="indicator" rv-if="metrics.commitsPerDay">
+          <div class="stats">{metrics.commitsPerDay}</div>
+          <div class="stat-desc">commits/day</div>
+        </div>
       </div>
     </div>
   </div>
