@@ -17,7 +17,9 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
+import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
@@ -25,11 +27,13 @@ import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 @Component
 public class UserMetricsServiceImpl implements UserMetricsService {
@@ -81,23 +85,27 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     @Override
     public List<UserMetricDTO> getMetricsForDashboard(DashboardDTO dashboard) {
         List<String> views = dashboard.getAnalyticViews();
+
         if (views == null || views.isEmpty()) {
             return new ArrayList<>();
         }
 
-        return historicUserMetricRepository.findAllByViewIdInAndHistoricTypeAndTimestampGreaterThanEqual(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNMinutesAgo(10, ChronoUnit.MINUTES))
-                .stream()
-                .map(UserMetricMapper::map)
+        List<UserMetricDTO> userMetrics = historicUserMetricRepository.findAllByViewIdInAndHistoricTypeAndTimestampGreaterThanEqual(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNMinutesAgo(10, ChronoUnit.MINUTES))
+            .stream()
+            .map(UserMetricMapper::map)
+            .collect(Collectors.toList());
+
+        List<String> metricNames = userMetrics.stream().map(UserMetricDTO::getName).collect(Collectors.toList());
+
+        Map<String, HistoricTendenciesDTO> historicUserMetrics = historicUserMetricService.getHistoricMetricsForDashboard(dashboard, metricNames);
+
+        return userMetrics.stream()
                 .map(u -> {
+                        u.setLongTermTendency(historicUserMetrics.get(u.getName()).getLongTermTendency());
+                        u.setShortTermTendency(historicUserMetrics.get(u.getName()).getShortTermTendency());
 
-            //TODO: Calculate metrics
-//                    HistoricTendenciesDTO historicTendencies
-//                            = historicUserMetricService.getHistoricMetricsForDashboard(dashboard, u.getName());
-//
-//                    u.setShortTermTendency(historicTendencies.getShortTermTendency());
-//                    u.setLongTermTendency(historicTendencies.getLongTermTendency());
-
-                    return u;
-                }).collect(Collectors.toList());
+                        return u;
+                    }
+                ).collect(Collectors.toList());
     }
 }

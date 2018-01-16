@@ -6,6 +6,10 @@ public class HistoricTendenciesDTO {
 
     private double shortTermTendency;
 
+    public HistoricTendenciesDTO(double longTermTendency, double shortTermTendency) {
+        this.longTermTendency = longTermTendency;
+        this.shortTermTendency = shortTermTendency;
+    }
 
     public double getLongTermTendency() {
         return longTermTendency;

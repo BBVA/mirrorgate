@@ -7,13 +7,16 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
+import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricStats;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
@@ -59,19 +62,19 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     }
 
     @Override
-    public HistoricTendenciesDTO getHistoricMetricsForDashboard(DashboardDTO dashboard, String metricName) {
+    public Map<String, HistoricTendenciesDTO> getHistoricMetricsForDashboard(DashboardDTO dashboard, List<String> metricNames) {
+
         List<String> views = dashboard.getAnalyticViews();
 
-        HistoricTendenciesDTO tendencies = new HistoricTendenciesDTO();
-
         if (views == null || views.isEmpty()) {
-            return tendencies;
+            return null;
         }
 
-        tendencies.setLongTermTendency(calculateLongTermTendency(views, metricName));
-        tendencies.setShortTermTendency(calculateShortTermTendency());
+        Map<String, Double> longTermTendency = calculateLongTermTendency(views, metricNames);
+        Map<String, Double> shortTermTendency = calculateLongTermTendency(views, metricNames);
 
-        return tendencies;
+        return longTermTendency.keySet().stream()
+                .collect(Collectors.toMap(s -> s, s -> new HistoricTendenciesDTO(longTermTendency.get(s), shortTermTendency.get(s))));
     }
 
     @Override
@@ -142,41 +145,26 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return historicUserMetric;
     }
 
-    private double calculateLongTermTendency(List<String> views, String metricName){
+    private Map<String, Double> calculateLongTermTendency(List<String> views, List<String> metricNames){
 
-        double fourDaysAverage = 0;
-        double thirtyDaysAverage = 0;
-        double percentualDifference = 0;
+        List<HistoricUserMetricStats> longPeriodHistoricUserMetrics =
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNHoursAgo(LONG_TERM_TENDENCY_LONG_PERIOD, ChronoUnit.HOURS));
 
-        List<HistoricUserMetric> historicUserMetrics =
-            historicUserMetricRepository.findAllByViewIdInAndValueGreaterThanAndNameAndHistoricTypeOrderByTimestampAsc
-                (new PageRequest(0, LONG_TERM_TENDENCY_LONG_PERIOD), views, 0d, metricName, ChronoUnit.HOURS);
+        List<HistoricUserMetricStats> shortPeriodHistoricUserMetrics =
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNHoursAgo(LONG_TERM_TENDENCY_SHORT_PERIOD, ChronoUnit.HOURS));
 
+        Map<String, Double> longPeriodMap = longPeriodHistoricUserMetrics.stream().collect(
+            Collectors.toMap(HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
 
-        if(historicUserMetrics.size() != 0){
-            if(historicUserMetrics.size() < LONG_TERM_TENDENCY_SHORT_PERIOD) {
-                fourDaysAverage = getAverageValue(historicUserMetrics.subList(0, historicUserMetrics.size()));
-            } else {
-                fourDaysAverage = getAverageValue(historicUserMetrics.subList(0, LONG_TERM_TENDENCY_SHORT_PERIOD));
-            }
+        Map<String, Double> shortPeriodMap = shortPeriodHistoricUserMetrics.stream().collect(
+            Collectors.toMap(HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
 
-            thirtyDaysAverage = getAverageValue(historicUserMetrics);
-            getAverageValue(historicUserMetrics);
-            percentualDifference = getPercentualDifference(thirtyDaysAverage, fourDaysAverage);
-        }
-
-        return percentualDifference;
+        return longPeriodMap.keySet().stream().collect(Collectors.toMap(s -> s, s ->  getPercentualDifference(longPeriodMap.get(s), shortPeriodMap.get(s))));
     }
 
     //TODO
-    private long calculateShortTermTendency(){
-        return 0L;
-    }
-
-    private double getAverageValue(List<HistoricUserMetric> historicUserMetrics){
-        return historicUserMetrics.stream()
-            .mapToDouble(HistoricUserMetric::getValue)
-            .sum()/historicUserMetrics.size();
+    private Map<String, Double> calculateShortTermTendency(){
+        return new HashMap<>();
     }
 
     private double getPercentualDifference(double longPeriod, double shortPeriod){
