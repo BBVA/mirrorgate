@@ -61,11 +61,11 @@ public class HistoricUserMetricServiceImplTest {
         service.addToCurrentPeriod(userMetrics);
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS), "AWSRequestNumber", ChronoUnit.HOURS);
+        HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS), "AWSRequestNumber", ChronoUnit.DAYS);
 
         assertTrue(result.getIdentifier().equals("AWSRequestNumber"));
-        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS));
-        assertTrue(result.getValue() == 24);
+        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
+        assertTrue(result.getValue() == 48);
     }
 
     @Test
@@ -73,11 +73,11 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS), "AWSRequestNumber", ChronoUnit.HOURS);
+        HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS), "AWSRequestNumber", ChronoUnit.DAYS);
 
         assertTrue(result.getIdentifier().equals("AWSRequestNumber"));
-        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS));
-        assertTrue(result.getValue() == 12);
+        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
+        assertTrue(result.getValue() == 24);
     }
 
 
@@ -86,11 +86,11 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        assertTrue(repository.count() == 7);
-
-        service.removeExtraPeriodsForMetricAndIdentifier("requestsNumber","AWSRequestNumber", ChronoUnit.HOURS, LocalDateTimeHelper.getTimestampForNHoursAgo(2, ChronoUnit.HOURS));
-
         assertTrue(repository.count() == 6);
+
+        service.removeExtraPeriodsForMetricAndIdentifier("requestsNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNHoursAgo(2, ChronoUnit.DAYS));
+
+        assertTrue(repository.count() == 5);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class HistoricUserMetricServiceImplTest {
 
         assertTrue(repository.count() == 0);
 
-        service.removeExtraPeriodsForMetricAndIdentifier("requestsNumber","AWSRequestNumber", ChronoUnit.HOURS, LocalDateTimeHelper.getTimestampForNHoursAgo(2, ChronoUnit.HOURS));
+        service.removeExtraPeriodsForMetricAndIdentifier("requestsNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNHoursAgo(2, ChronoUnit.DAYS));
 
         assertTrue(repository.count() == 0);
     }
@@ -108,21 +108,21 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        assertTrue(repository.count() == 7);
+        assertTrue(repository.count() == 6);
 
-        service.removeExtraPeriodsForMetricAndIdentifier( "requestNumber","AWSRequestNumber", ChronoUnit.HOURS, LocalDateTimeHelper.getTimestampForNHoursAgo(30, ChronoUnit.HOURS));
+        service.removeExtraPeriodsForMetricAndIdentifier( "requestNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNHoursAgo(30, ChronoUnit.DAYS));
 
-        assertTrue(repository.count() == 7);
+        assertTrue(repository.count() == 6);
     }
 
     @Test
     public void testAddWithSampleSize(){
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS), "AWSResponseTime", ChronoUnit.HOURS);
+        HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS), "AWSResponseTime", ChronoUnit.DAYS);
 
         assertTrue(result.getIdentifier().equals("AWSResponseTime"));
-        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS));
+        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
         assertTrue(result.getSampleSize() == 250d);
         assertTrue(result.getValue() == 12d);
     }
