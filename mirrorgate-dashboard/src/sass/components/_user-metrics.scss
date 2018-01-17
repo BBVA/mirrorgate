@@ -23,7 +23,7 @@
 
     ol {
       list-style: none;
-      margin-bottom: 0;
+      margin: 0;
       padding: 0;
     }
 
@@ -34,11 +34,9 @@
         flex: 1 1 90%;
 
         .progress-bar {
-          float: left;
         }
 
         .version-legend {
-          padding-left: 10px;
         }
 
         .progress__bar {
