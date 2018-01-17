@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -35,10 +37,6 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
     @Autowired
     private MongoTemplate mongoTemplate;
-
-    private static class DoubleValue {
-        Double value;
-    }
 
     @Override
     public Double getBacklogEstimateByKeywords(List<String> boards) {

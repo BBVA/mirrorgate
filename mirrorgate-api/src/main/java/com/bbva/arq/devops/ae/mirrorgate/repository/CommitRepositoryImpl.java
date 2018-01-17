@@ -26,7 +26,6 @@ import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Sub
 import org.springframework.data.mongodb.core.query.Criteria;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
@@ -55,9 +54,8 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
 
         AggregationResults<DoubleValue> secondsToMaster
                 = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
-        DoubleValue val = secondsToMaster.getUniqueMappedResult();
 
-        return val.value;
+        return secondsToMaster.getUniqueMappedResult().value;
     }
 
     @Override
@@ -76,9 +74,8 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
 
         AggregationResults<DoubleValue> commitsPerDay
             = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
-        DoubleValue val = commitsPerDay.getUniqueMappedResult();
 
-        return val.value;
+        return commitsPerDay.getUniqueMappedResult().value;
     }
 
 }
