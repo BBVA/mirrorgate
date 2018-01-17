@@ -26,8 +26,8 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
     private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 90;
     private static final int MAX_NUMBER_OF_MINUTES_TO_STORE = 150;
-    private static final int LONG_TERM_TENDENCY_LONG_PERIOD = 720; //30 days in hours
-    private static final int LONG_TERM_TENDENCY_SHORT_PERIOD = 96; //4 days in hours
+    private static final int LONG_TERM_TENDENCY_LONG_PERIOD = 60; //30 days in half days
+    private static final int LONG_TERM_TENDENCY_SHORT_PERIOD = 96; //4 days in half days
 
     private final HistoricUserMetricRepository historicUserMetricRepository;
 
@@ -71,7 +71,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         }
 
         Map<String, Double> longTermTendency = calculateLongTermTendency(views, metricNames);
-        Map<String, Double> shortTermTendency = calculateLongTermTendency(views, metricNames);
+        Map<String, Double> shortTermTendency = calculateShortTermTendency();
 
         return longTermTendency.keySet().stream()
                 .collect(Collectors.toMap(s -> s, s -> new HistoricTendenciesDTO(longTermTendency.get(s), shortTermTendency.get(s))));
@@ -91,10 +91,10 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     }
 
     private void addToLongTermTendency(UserMetric userMetric){
-        HistoricUserMetric metric = addToTendency(userMetric, ChronoUnit.HOURS);
+        HistoricUserMetric metric = addToTendency(userMetric, ChronoUnit.HALF_DAYS);
 
         removeExtraPeriodsForMetricAndIdentifier( metric.getName(), metric.getIdentifier(),
-            ChronoUnit.HOURS, LocalDateTimeHelper.getTimestampForNDaysAgo(MAX_NUMBER_OF_DAYS_TO_STORE, ChronoUnit.HOURS));
+            ChronoUnit.HALF_DAYS, LocalDateTimeHelper.getTimestampForNDaysAgo(MAX_NUMBER_OF_DAYS_TO_STORE, ChronoUnit.HALF_DAYS));
     }
 
 
@@ -148,10 +148,10 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private Map<String, Double> calculateLongTermTendency(List<String> views, List<String> metricNames){
 
         List<HistoricUserMetricStats> longPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNHoursAgo(LONG_TERM_TENDENCY_LONG_PERIOD, ChronoUnit.HOURS));
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNHoursAgo(LONG_TERM_TENDENCY_LONG_PERIOD, ChronoUnit.HALF_DAYS));
 
         List<HistoricUserMetricStats> shortPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNHoursAgo(LONG_TERM_TENDENCY_SHORT_PERIOD, ChronoUnit.HOURS));
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNHoursAgo(LONG_TERM_TENDENCY_SHORT_PERIOD, ChronoUnit.HALF_DAYS));
 
         Map<String, Double> longPeriodMap = longPeriodHistoricUserMetrics.stream().collect(
             Collectors.toMap(HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));

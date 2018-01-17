@@ -95,7 +95,7 @@ public class UserMetricsServiceImpl implements UserMetricsService {
             .map(UserMetricMapper::map)
             .collect(Collectors.toList());
 
-        List<String> metricNames = userMetrics.stream().map(UserMetricDTO::getName).collect(Collectors.toList());
+        List<String> metricNames = userMetrics.stream().map(UserMetricDTO::getName).distinct().collect(Collectors.toList());
 
         Map<String, HistoricTendenciesDTO> historicUserMetrics = historicUserMetricService.getHistoricMetricsForDashboard(dashboard, metricNames);
 
