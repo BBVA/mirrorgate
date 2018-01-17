@@ -57,13 +57,10 @@
     },
 
     render: function (data) {
-
       this.processAlerts(data);
-
-      var model = this.getModel();
-
-      this.metrics = data.metrics;
-      this.getModel().metrics = data;
+      if (data) {
+        this.getModel().metrics = data;
+      }
     }
   });
 

@@ -13,5 +13,9 @@
   "urlAlerts": "dashboards/mirrorgate/alerts",
   "analyticViews": ["123412"],
   "skin": "classic",
-  "lastVersion": "^(\\d*)"
+  "lastVersion": "^(\\d*)",
+  "gitRepos": [
+    "ssh://git@fake.com:fake/repo1.git",
+    "ssh://git@fake.com:fake/repo2.git"
+  ]
 }
