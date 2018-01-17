@@ -36,15 +36,12 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
     MongoTemplate mongoTemplate;
 
     @Override
-    public Double getSecondsToMaster(List<String> repositories, int daysBefore) {
-
-        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-        long before = now - (daysBefore * 60 * 60 * 24);
+    public Double getSecondsToMaster(List<String> repositories, long timestamp) {
 
         Aggregation agg = newAggregation(
             match(Criteria
                 .where("repository").in(repositories)
-                .and("timestamp").gte(before)
+                .and("timestamp").gte(timestamp)
             ),
             group()
                 .avg(
@@ -60,19 +57,16 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
                 = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
         DoubleValue val = secondsToMaster.getUniqueMappedResult();
 
-        return val == null || val.value == null ? null : val.value;
+        return val.value;
     }
 
     @Override
-    public Double getCommitsPerDay(List<String> repositories, int daysBefore) {
-
-        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-        long before = now - (daysBefore * 60 * 60 * 24);
+    public Double getCommitsPerDay(List<String> repositories, long timestamp, int daysBefore) {
 
         Aggregation agg = newAggregation(
             match(Criteria
                 .where("repository").in(repositories)
-                .and("timestamp").gte(before)
+                .and("timestamp").gte(timestamp)
             ),
             group()
                 .count().as("value"),
@@ -84,7 +78,7 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
             = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
         DoubleValue val = commitsPerDay.getUniqueMappedResult();
 
-        return val == null ? null : val.value;
+        return val.value;
     }
 
 }

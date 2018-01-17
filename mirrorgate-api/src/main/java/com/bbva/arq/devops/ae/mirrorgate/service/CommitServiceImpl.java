@@ -16,7 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ScmDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ScmDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.CommitMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 import com.bbva.arq.devops.ae.mirrorgate.repository.CommitRepository;
@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -64,8 +65,12 @@ public class CommitServiceImpl implements CommitService{
 
     @Override
     public ScmDTO getScmStats(List<String> repos) {
-        Double secondsToMaster = repository.getSecondsToMaster(repos, 30);
-        Double commitsPerDay = repository.getCommitsPerDay(repos, 30);
+        int daysBefore = 30;
+        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        long before = now - (daysBefore * 60 * 60 * 24);
+
+        Double secondsToMaster = repository.getSecondsToMaster(repos, before);
+        Double commitsPerDay = repository.getCommitsPerDay(repos, before, daysBefore);
 
         return new ScmDTO()
             .setSecondsToMaster(secondsToMaster)

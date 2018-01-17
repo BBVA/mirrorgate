@@ -17,7 +17,6 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ScmDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.CommitService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,12 +75,12 @@ public class CommitController {
     public ResponseEntity<?> getLastCommit(
         @RequestParam(value = "repo", required = true) String repo
         ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(commitService.getLastCommit(repo));
+        return ResponseEntity.status(HttpStatus.OK).body(commitService.getLastCommit(repo));
     }
 
     @RequestMapping(value = "/dashboards/{name}/scm_metrics", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public ScmDTO getScmMetricsByBoardName(@PathVariable("name") String name) {
+    public ResponseEntity<?> getScmMetricsByBoardName(@PathVariable("name") String name) {
 
         DashboardDTO dashboard = dashboardService.getDashboard(name);
         if (dashboard == null || dashboard.getGitRepos() == null
@@ -89,8 +88,6 @@ public class CommitController {
             return null;
         }
 
-        List<String> repos = dashboard.getGitRepos();
-
-        return commitService.getScmStats(repos);
+        return ResponseEntity.status(HttpStatus.OK).body(commitService.getScmStats(dashboard.getGitRepos()));
     }
 }

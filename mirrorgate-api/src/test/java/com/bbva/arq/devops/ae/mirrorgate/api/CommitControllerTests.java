@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.*;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ScmDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.CommitService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;

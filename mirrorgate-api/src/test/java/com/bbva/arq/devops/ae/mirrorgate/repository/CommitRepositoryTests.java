@@ -43,10 +43,6 @@ public class CommitRepositoryTests {
     @Autowired
     private CommitRepository repository;
 
-    @Before
-    public void before() {
-    }
-
     @Test
     public void getSecondsToMasterByRepoListTest() {
         List<String> repos = Arrays.asList(GIT_REPO_URLS);
@@ -72,8 +68,11 @@ public class CommitRepositoryTests {
         repository.save(commit1);
         repository.save(commit2);
 
-        Double seconds1 = repository.getSecondsToMaster(Arrays.asList(repos.get(0)), 30);
-        Double seconds2 = repository.getSecondsToMaster(repos, 30);
+        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
+
+        Double seconds1 = repository.getSecondsToMaster(Arrays.asList(repos.get(0)), thirtyDaysAgo);
+        Double seconds2 = repository.getSecondsToMaster(repos, thirtyDaysAgo);
 
         assertThat(seconds1).isEqualTo(oneDayAgo - timestamp1);
         assertThat(seconds2).isEqualTo(((oneDayAgo - timestamp1) + (oneDayAgo - timestamp2)) / 2);
@@ -99,10 +98,14 @@ public class CommitRepositoryTests {
         repository.save(commit5);
         repository.save(commit6);
 
-        Double commits1 = repository.getCommitsPerDay(Arrays.asList(repos.get(0)), 30);
-        Double commits2 = repository.getCommitsPerDay(Arrays.asList(repos.get(1)), 30);
-        Double commits3 = repository.getCommitsPerDay(repos, 30);
-        Double commits4 = repository.getCommitsPerDay(repos, 3);
+        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        long threeDaysAgo = now - (3 * 60 * 60 * 24);
+        long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
+
+        Double commits1 = repository.getCommitsPerDay(Arrays.asList(repos.get(0)), thirtyDaysAgo, 30);
+        Double commits2 = repository.getCommitsPerDay(Arrays.asList(repos.get(1)), thirtyDaysAgo, 30);
+        Double commits3 = repository.getCommitsPerDay(repos, thirtyDaysAgo, 30);
+        Double commits4 = repository.getCommitsPerDay(repos, threeDaysAgo, 3);
 
         assertThat(commits1).isEqualTo(2D / 30D);
         assertThat(commits2).isEqualTo(4D / 30D);

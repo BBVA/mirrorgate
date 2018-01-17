@@ -15,7 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ScmDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ScmDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 import com.bbva.arq.devops.ae.mirrorgate.repository.CommitRepository;
 import org.junit.Test;
@@ -25,6 +25,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -65,9 +66,12 @@ public class CommitServiceTests {
             .setSecondsToMaster(259200D)
             .setCommitsPerDay(25D);
 
-        when(commitRepository.getSecondsToMaster(Arrays.asList(GIT_REPO_URLS), 30))
+        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
+
+        when(commitRepository.getSecondsToMaster(Arrays.asList(GIT_REPO_URLS), thirtyDaysAgo))
             .thenReturn(scmDTO.getSecondsToMaster());
-        when(commitRepository.getCommitsPerDay(Arrays.asList(GIT_REPO_URLS), 30))
+        when(commitRepository.getCommitsPerDay(Arrays.asList(GIT_REPO_URLS), thirtyDaysAgo, 30))
             .thenReturn(scmDTO.getCommitsPerDay());
 
         ScmDTO scmStats = commitService.getScmStats(Arrays.asList(GIT_REPO_URLS));

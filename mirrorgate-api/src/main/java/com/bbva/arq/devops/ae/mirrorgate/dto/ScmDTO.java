@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bbva.arq.devops.ae.mirrorgate.core.dto;
+package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 public class ScmDTO {
 
@@ -38,4 +38,5 @@ public class ScmDTO {
         this.commitsPerDay = commitsPerDay;
         return this;
     }
+
 }

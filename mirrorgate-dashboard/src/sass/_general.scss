@@ -116,7 +116,6 @@ tile-container{
     }
 
     .dashboard {
-        // flex-grow: 2;
         display: flex;
 
         //need to interpolate the $header-footer-height in order to have it print out the px there
@@ -151,8 +150,6 @@ tile-container{
     board-row {
         display: flex;
         flex-basis: auto;
-        // flex-grow: 1;
-        // flex-shrink: 1;
         width: 100%;
 
         &.row--primary {
@@ -164,9 +161,6 @@ tile-container{
 
     tile-container{
         flex-grow: 1;
-        // flex-shrink: 2;
-        // flex-basis: unset;
-        // display: flex;
         margin: 0;
         padding: 5px;
         width: 100%;
@@ -176,7 +170,6 @@ tile-container{
 
     .tile--primary{
         flex-grow: 2;
-        // height: 100%;
     }
 
     .tile {
