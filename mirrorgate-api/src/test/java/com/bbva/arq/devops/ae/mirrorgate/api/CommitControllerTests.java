@@ -79,7 +79,7 @@ public class CommitControllerTests {
         when(commitService.getScmStats(dashboard.getGitRepos()))
             .thenReturn(scmDTO);
 
-        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/scm_metrics"))
+        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/scm-metrics"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.secondsToMaster", equalTo(259200D)))
             .andExpect(jsonPath("$.commitsPerDay", equalTo(25D)));
@@ -99,7 +99,7 @@ public class CommitControllerTests {
         when(commitService.getScmStats(dashboard.getGitRepos()))
             .thenReturn(scmDTO);
 
-        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/scm_metrics"))
+        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/scm-metrics"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.secondsToMaster", equalTo(null)))
             .andExpect(jsonPath("$.commitsPerDay", equalTo(null)));

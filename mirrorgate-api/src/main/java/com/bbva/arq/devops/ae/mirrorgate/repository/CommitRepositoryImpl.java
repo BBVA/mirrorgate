@@ -54,8 +54,9 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
 
         AggregationResults<DoubleValue> secondsToMaster
                 = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
+        DoubleValue seconds = secondsToMaster.getUniqueMappedResult();
 
-        return secondsToMaster.getUniqueMappedResult().value;
+        return seconds != null ? seconds.value : null;
     }
 
     @Override
@@ -74,8 +75,9 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
 
         AggregationResults<DoubleValue> commitsPerDay
             = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
+        DoubleValue commits = commitsPerDay.getUniqueMappedResult();
 
-        return commitsPerDay.getUniqueMappedResult().value;
+        return commits != null ? commits.value : null;
     }
 
 }

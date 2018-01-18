@@ -78,7 +78,7 @@ public class CommitController {
         return ResponseEntity.status(HttpStatus.OK).body(commitService.getLastCommit(repo));
     }
 
-    @RequestMapping(value = "/dashboards/{name}/scm_metrics", method = GET,
+    @RequestMapping(value = "/dashboards/{name}/scm-metrics", method = GET,
             produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getScmMetricsByBoardName(@PathVariable("name") String name) {
 

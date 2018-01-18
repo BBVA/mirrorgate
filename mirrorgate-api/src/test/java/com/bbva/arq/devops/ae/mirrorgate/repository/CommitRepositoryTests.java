@@ -37,7 +37,8 @@ public class CommitRepositoryTests {
 
     private static final String[] GIT_REPO_URLS = new String[]{
         "ssh://repo1.git",
-        "ssh://repo2.git"
+        "ssh://repo2.git",
+        "ssh://repo3.git"
     };
 
     @Autowired
@@ -73,9 +74,11 @@ public class CommitRepositoryTests {
 
         Double seconds1 = repository.getSecondsToMaster(Arrays.asList(repos.get(0)), thirtyDaysAgo);
         Double seconds2 = repository.getSecondsToMaster(repos, thirtyDaysAgo);
+        Double seconds3 = repository.getSecondsToMaster(Arrays.asList(repos.get(2)), thirtyDaysAgo);
 
         assertThat(seconds1).isEqualTo(oneDayAgo - timestamp1);
         assertThat(seconds2).isEqualTo(((oneDayAgo - timestamp1) + (oneDayAgo - timestamp2)) / 2);
+        assertThat(seconds3).isEqualTo(null);
     }
 
     @Test
@@ -106,11 +109,13 @@ public class CommitRepositoryTests {
         Double commits2 = repository.getCommitsPerDay(Arrays.asList(repos.get(1)), thirtyDaysAgo, 30);
         Double commits3 = repository.getCommitsPerDay(repos, thirtyDaysAgo, 30);
         Double commits4 = repository.getCommitsPerDay(repos, threeDaysAgo, 3);
+        Double commits5 = repository.getCommitsPerDay(Arrays.asList(repos.get(2)), thirtyDaysAgo, 30);
 
         assertThat(commits1).isEqualTo(2D / 30D);
         assertThat(commits2).isEqualTo(4D / 30D);
         assertThat(commits3).isEqualTo(6D / 30D);
         assertThat(commits4).isEqualTo(5D / 3D);
+        assertThat(commits5).isEqualTo(null);
     }
 
     @After
