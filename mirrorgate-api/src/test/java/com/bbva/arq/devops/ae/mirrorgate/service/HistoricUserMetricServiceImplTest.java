@@ -1,6 +1,8 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.THREE_HOURS_AGO;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.TODAY;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.YESTERDAY;
 import static org.junit.Assert.assertTrue;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
@@ -34,23 +36,26 @@ public class HistoricUserMetricServiceImplTest {
     public static void init(){
 
         UserMetric userMetric1 = new UserMetric()
+            .setViewId("viewId1")
             .setName("requestsNumber")
             .setValue(12d)
             .setId("AWSRequestNumber")
                 .setTimestamp(TODAY);
         UserMetric userMetric2 = new UserMetric()
+            .setViewId("viewId1")
             .setName("requestsNumber")
             .setValue(12d)
             .setId("AWSRequestNumber")
                 .setTimestamp(YESTERDAY);
         UserMetric userMetric3 = new UserMetric()
+            .setViewId("viewId1")
             .setName("requestsNumber")
             .setValue(12d)
             .setId("AWSRequestNumber")
                 .setTimestamp(THREE_HOURS_AGO);
 
-        UserMetric userMetric4 = new UserMetric().setName("responseTime").setId("AWSResponseTime").setValue(15d).setSampleSize(100d).setTimestamp(TODAY);
-        UserMetric userMetric5 = new UserMetric().setName("responseTime").setId("AWSResponseTime").setValue(10d).setSampleSize(150d).setTimestamp(TODAY);
+        UserMetric userMetric4 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(15d).setSampleSize(100d).setTimestamp(TODAY);
+        UserMetric userMetric5 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(10d).setSampleSize(150d).setTimestamp(TODAY);
 
         userMetrics = Arrays.asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5);
     }

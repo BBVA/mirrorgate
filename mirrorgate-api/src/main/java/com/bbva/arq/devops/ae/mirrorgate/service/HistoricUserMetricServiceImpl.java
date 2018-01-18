@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 public class HistoricUserMetricServiceImpl implements HistoricUserMetricService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
+
     private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 90;
     private static final int MAX_NUMBER_OF_HOURS_TO_STORE = 168;
     private static final int MAX_NUMBER_OF_MINUTES_TO_STORE = 150;
@@ -76,7 +77,8 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         Map<String, Double> shortTermTendency = calculateShortTermTendency();
 
         return longTermTendency.keySet().stream()
-                .collect(Collectors.toMap(s -> s, s -> new HistoricTendenciesDTO(longTermTendency.get(s), shortTermTendency.get(s))));
+                .collect(Collectors.toMap(s -> s, s -> new HistoricTendenciesDTO(longTermTendency.get(s) == null ? 0 : longTermTendency.get(s)
+                                                                                , shortTermTendency.get(s) == null ? 0 : shortTermTendency.get(s))));
     }
 
     @Override
