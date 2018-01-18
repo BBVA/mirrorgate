@@ -7,6 +7,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 
 public interface HistoricUserMetricService {
 
@@ -16,5 +17,5 @@ public interface HistoricUserMetricService {
 
     HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier, ChronoUnit type);
 
-    HistoricTendenciesDTO getHistoricMetricsForDashboard(DashboardDTO dashboard, String metricName);
+    Map<String, HistoricTendenciesDTO> getHistoricMetricsForDashboard(DashboardDTO dashboard, List<String> metricNames);
 }

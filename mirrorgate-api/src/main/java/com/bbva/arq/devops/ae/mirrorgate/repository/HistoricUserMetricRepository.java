@@ -7,13 +7,11 @@ import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
-public interface HistoricUserMetricRepository extends CrudRepository<HistoricUserMetric, ObjectId> {
+public interface HistoricUserMetricRepository extends CrudRepository<HistoricUserMetric, ObjectId>, HistoricUserMetricRepositoryCustom {
 
     HistoricUserMetric findByTimestampAndIdentifierAndHistoricType(Long timestamp, String identifier, ChronoUnit unit);
 
     List<HistoricUserMetric> findByNameAndIdentifierAndHistoricTypeAndTimestampLessThan(String name, String identifier, ChronoUnit unit, long timestamp);
-
-    List<HistoricUserMetric> findAllByViewIdInAndValueGreaterThanAndNameAndHistoricTypeOrderByTimestampAsc(Pageable page, List<String> ids, double value, String name, ChronoUnit historicType);
 
     List<HistoricUserMetric> findAllByViewIdInAndHistoricTypeAndTimestampGreaterThanEqual(List<String> ids, ChronoUnit unit, long timestamp);
 }
