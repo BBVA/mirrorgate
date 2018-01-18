@@ -40,8 +40,11 @@ export class FormComponent {
   slack: {clientId?: string, clientSecret?: string} = {};
   edit: boolean = false;
   temp: {
+    displayName?: string,
+    logoUrl?: string,
     applications?: string,
     boards?: string,
+    programIncrement?: string,
     codeRepos?: string,
     adminUsers?: {
       display?: string,
@@ -57,6 +60,10 @@ export class FormComponent {
       display?: string,
       value?: string
     }[],
+    lastVersion?: string,
+    slackTeam?: string,
+    urlAlerts?: string,
+    urlAlertsAuthorization?: string,
   } = {};
   errorMessage: string;
   url: string;
@@ -115,8 +122,14 @@ export class FormComponent {
     }
 
     this.dashboard = dashboard;
+    this.temp.displayName =
+        this.dashboard.displayName ? this.dashboard.displayName : '';
+    this.temp.logoUrl =
+        this.dashboard.logoUrl ? this.dashboard.logoUrl : '';
     this.temp.boards =
         this.dashboard.boards ? this.dashboard.boards.join(',') : '';
+    this.temp.programIncrement =
+        this.dashboard.programIncrement ? this.dashboard.programIncrement : '';
     this.temp.applications = this.dashboard.applications ?
         this.dashboard.applications.join(',') :
         '';
@@ -127,7 +140,7 @@ export class FormComponent {
           return { display: e, value: e }
         }) : [];
     this.temp.gitRepos =
-            this.dashboard.gitRepos ? this.dashboard.gitRepos.join(',') : '';
+        this.dashboard.gitRepos ? this.dashboard.gitRepos.join(',') : '';
     this.temp.aggregatedDashboards = this.dashboard.aggregatedDashboards ?
         this.dashboard.aggregatedDashboards.map((e) => {
           return { display: e, value: e }
@@ -139,13 +152,27 @@ export class FormComponent {
         this.dashboard.teamMembers.map((e) => {
           return { display: e, value: e }
         }) : [];
+    this.temp.lastVersion =
+        this.dashboard.lastVersion ? this.dashboard.lastVersion : '';
+    this.temp.slackTeam =
+        this.dashboard.slackTeam ? this.dashboard.slackTeam : '';
+    this.temp.urlAlerts =
+        this.dashboard.urlAlerts ? this.dashboard.urlAlerts : '';
+    this.temp.urlAlertsAuthorization =
+        this.dashboard.urlAlertsAuthorization ? this.dashboard.urlAlertsAuthorization : '';
     this.updateSlackChannels();
   }
 
   mirrorTempValues() {
+    this.dashboard.displayName = this.temp.displayName.length ?
+        this.temp.displayName.trim() : undefined;
+    this.dashboard.logoUrl = this.temp.logoUrl.length ?
+        this.temp.logoUrl.trim() : undefined;
     this.dashboard.boards = this.temp.boards.length ?
         this.temp.boards.split(',').map((e) => e.trim()) :
         undefined;
+    this.dashboard.programIncrement = this.temp.programIncrement.length ?
+        this.temp.programIncrement.trim() : undefined;
     this.dashboard.applications = this.temp.applications.length ?
         this.temp.applications.split(',').map((e) => e.trim()) :
         undefined;
@@ -156,8 +183,8 @@ export class FormComponent {
         this.temp.adminUsers.map((e) => e.value.split('@')[0].trim()) :
         undefined;
     this.dashboard.gitRepos = this.temp.gitRepos.length ?
-            this.temp.gitRepos.split(',').map((e) => e.trim()) :
-            undefined;
+        this.temp.gitRepos.split(',').map((e) => e.trim()) :
+        undefined;
     this.dashboard.aggregatedDashboards = this.temp.aggregatedDashboards.length ?
         this.temp.aggregatedDashboards.map((e) => e.value.trim()) :
         undefined;
@@ -167,6 +194,14 @@ export class FormComponent {
     this.dashboard.teamMembers = this.temp.teamMembers.length ?
         this.temp.teamMembers.map((e) => e.value.split('@')[0].trim()) :
         undefined;
+    this.dashboard.lastVersion = this.temp.lastVersion.length ?
+        this.temp.lastVersion.trim() : undefined;
+    this.dashboard.slackTeam = this.temp.slackTeam.length ?
+        this.temp.slackTeam.trim() : undefined;
+    this.dashboard.urlAlerts = this.temp.urlAlerts.length ?
+        this.temp.urlAlerts.trim() : undefined;
+    this.dashboard.urlAlertsAuthorization = this.temp.urlAlertsAuthorization.length ?
+        this.temp.urlAlertsAuthorization.trim() : undefined;
     if (!this.edit) {
       this.dashboard.name = kebabCase(this.dashboard.displayName);
     }
