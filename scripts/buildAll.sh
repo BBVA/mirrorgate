@@ -23,7 +23,7 @@ popd
 
 pushd ../mirrorgate-docs
 
-npm install
+npm install && ./node_modules/.bin/bower install --allow-root
 npm run build
 
 popd
