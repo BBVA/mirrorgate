@@ -33,7 +33,7 @@
           <div class="form-group row">
             <div [ngClass]="{'col-sm-6':categories, 'col-sm-12':!categories}">
               <label for="displayName">{{texts.form.general_block.display_name_input}} (*)</label>
-              <input type="text" class="form-control" id="displayName" [(ngModel)]="dashboard.displayName" (ngModelChange)="mirrorTempValues()" name="displayName" #name="ngModel" required>
+              <input type="text" class="form-control" id="displayName" [(ngModel)]="temp.displayName" (ngModelChange)="mirrorTempValues()" name="displayName" #name="ngModel" required>
             </div>
             <div class="col-sm-6" *ngIf="categories">
               <div class="form-group">
@@ -62,9 +62,9 @@
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#icon-url-help" aria-expanded="false" aria-controls="icon-url-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <input *ngIf="dashboard.logoUrl != '#UPLOADED#'" type="text" class="form-control" id="logoURL" [(ngModel)]="dashboard.logoUrl" name="logoURL">
+                <input *ngIf="dashboard.logoUrl != '#UPLOADED#'" type="text" class="form-control" id="logoURL" [(ngModel)]="temp.logoUrl" (ngModelChange)="mirrorTempValues()" name="logoURL">
                 <input *ngIf="dashboard.logoUrl == '#UPLOADED#'" type="text" readonly="true" class="form-control" value="Uploaded picture">
-                <a *ngIf="edit && dashboard.logoUrl == '#UPLOADED#'" type="button" (click)="dashboard.logoUrl = undefined" class="input-group-addon">
+                <a *ngIf="edit && dashboard.logoUrl == '#UPLOADED#'" type="button" (click)="dashboard.logoUrl = undefined; temp.logoUrl = undefined" class="input-group-addon">
                   <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                 </a>
                 <a *ngIf="edit" type="button" (click)="icon = {}" class="input-group-addon" data-toggle="modal" data-target="#iconModal">
@@ -196,7 +196,7 @@
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <input type="text" class="form-control" id="programIncrement" [(ngModel)]="dashboard.programIncrement" name="programIncrement">
+                <input type="text" class="form-control" id="programIncrement" [(ngModel)]="temp.programIncrement" (ngModelChange)="mirrorTempValues()" name="programIncrement">
               </div>
             </div>
           </div>
@@ -416,7 +416,7 @@
               <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#last-version-help" aria-expanded="false" aria-controls="code-repos-help">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
               </a>
-              <input type="text" class="form-control" id="lastVersion" [(ngModel)]="dashboard.lastVersion" name="lastVersion">
+              <input type="text" class="form-control" id="lastVersion" [(ngModel)]="temp.lastVersion" (ngModelChange)="mirrorTempValues()" name="lastVersion">
             </div>
           </div>
         </div>
@@ -439,7 +439,7 @@
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_team-help" aria-expanded="false" aria-controls="slack_team-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <input type="text" class="form-control" id="slack_team" [(ngModel)]="dashboard.slackTeam" name="slack_team" #name="ngModel" placeholder="{{texts.form.alerts_block.slack_placeholder}}">
+                <input type="text" class="form-control" id="slack_team" [(ngModel)]="temp.slackTeam" (ngModelChange)="mirrorTempValues()" name="slack_team" #name="ngModel" placeholder="{{texts.form.alerts_block.slack_placeholder}}">
                 <select *ngIf="slackChannels.keys" class="form-control" [(ngModel)]="dashboard.slackChannel" name="slack_channel">
                   <option></option>
                   <option *ngFor="let id of slackChannels.keys" [value]="id">{{slackChannels.values[id]}}</option>
@@ -503,8 +503,8 @@
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#urlAlerts-help" aria-expanded="false" aria-controls="urlAlerts-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="dashboard.urlAlerts" name="urlAlerts" placeholder="{{texts.form.alerts_block.alerts_url_placeholder}}">
-                <input type="text" class="form-control" id="urlAlertsAuthorization" [(ngModel)]="dashboard.urlAlertsAuthorization" name="urlAlertsAuthorization" placeholder="{{texts.form.alerts_block.alerts_auth_header_placeholder}}">
+                <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="temp.urlAlerts" (ngModelChange)="mirrorTempValues()" name="urlAlerts" placeholder="{{texts.form.alerts_block.alerts_url_placeholder}}">
+                <input type="text" class="form-control" id="urlAlertsAuthorization" [(ngModel)]="temp.urlAlertsAuthorization" (ngModelChange)="mirrorTempValues()" name="urlAlertsAuthorization" placeholder="{{texts.form.alerts_block.alerts_auth_header_placeholder}}">
               </div>
             </div>
           </div>
