@@ -6,37 +6,28 @@ import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 
 public class HistoricUserMetricMapper {
 
-    public static HistoricUserMetric mapToHistoric(UserMetric origin){
-
-        HistoricUserMetric historicUserMetric = new HistoricUserMetric();
-
-        historicUserMetric.setSampleSize(origin.getSampleSize());
-        historicUserMetric.setAppVersion(origin.getAppVersion());
-        historicUserMetric.setCollectorId(origin.getCollectorId());
-        historicUserMetric.setIdentifier(origin.getId());
-        historicUserMetric.setName(origin.getName());
-        historicUserMetric.setPlatform(origin.getPlatform());
-        historicUserMetric.setValue(origin.getValue());
-        historicUserMetric.setViewId(origin.getViewId());
-        historicUserMetric.setTimestamp(origin.getTimestamp());
-
-        return historicUserMetric;
+    public static HistoricUserMetric mapToHistoric(UserMetric origin) {
+        return new HistoricUserMetric()
+                .setSampleSize(origin.getSampleSize())
+                .setAppVersion(origin.getAppVersion())
+                .setCollectorId(origin.getCollectorId())
+                .setIdentifier(origin.getId())
+                .setName(origin.getName())
+                .setPlatform(origin.getPlatform())
+                .setValue(origin.getValue())
+                .setViewId(origin.getViewId())
+                .setTimestamp(origin.getTimestamp());
     }
 
-    public static HistoricUserMetricDTO map(HistoricUserMetric source){
-
-        HistoricUserMetricDTO historicUserMetricDTO = new HistoricUserMetricDTO();
-
-        historicUserMetricDTO.setSampleSize(source.getSampleSize());
-        historicUserMetricDTO.setAppVersion(source.getAppVersion());
-        historicUserMetricDTO.setCollectorId(source.getCollectorId());
-        historicUserMetricDTO.setName(source.getName());
-        historicUserMetricDTO.setPlatform(source.getPlatform());
-        historicUserMetricDTO.setValue(source.getValue());
-        historicUserMetricDTO.setViewId(source.getViewId());
-        historicUserMetricDTO.setTimestamp(source.getTimestamp());
-
-        return historicUserMetricDTO;
-
+    public static HistoricUserMetricDTO map(HistoricUserMetric source) {
+        return new HistoricUserMetricDTO()
+                .setSampleSize(source.getSampleSize())
+                .setAppVersion(source.getAppVersion())
+                .setCollectorId(source.getCollectorId())
+                .setName(source.getName())
+                .setPlatform(source.getPlatform())
+                .setValue(source.getValue())
+                .setViewId(source.getViewId())
+                .setTimestamp(source.getTimestamp());
     }
 }

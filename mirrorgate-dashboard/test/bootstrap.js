@@ -57,6 +57,10 @@ var userMetricsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTest
 
 var scmMetricsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/scm-metrics');
 
+userMetricsForTesting.forEach( function(metric) {
+  metric.timestamp = Date.now();
+});
+
 //Placeholder to avoid Server Sent Events error
 var EventSource = function (){
   this.addEventListener = function () {};

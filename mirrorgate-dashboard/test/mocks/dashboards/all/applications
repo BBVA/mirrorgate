@@ -1,53 +1,53 @@
 [
   {
-    "appname": "moods",
+    "appname": "fakeApp",
     "votesTotal": 24,
     "ratingTotal": 100,
-    "votes7Days": 3,
-    "rating7Days": 8,
-    "votesMonth": 12,
-    "ratingMonth": 40,
+    "votesShortTerm": 3,
+    "ratingShortTerm": 8,
+    "votesLongTerm": 12,
+    "ratingLongTerm": 40,
     "platform": "IOS",
     "url":"http://ios.es.fake",
     "reviews": [
       {
         "author": "Carlos",
         "rate": 1.0,
-        "timestamp": 1498814350000,
+        "timestamp": 1515502873000,
         "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         "url":"http://ios.es.fake/#comment1"
       }
     ]
   },
   {
-    "appname": "moods",
-    "votesTotal": 24,
+    "appname": "fakeApp",
+    "votesTotal": 48,
     "ratingTotal": 80,
-    "votes7Days": 3,
-    "rating7Days": 14,
-    "votesMonth": 12,
-    "ratingMonth": 25,
+    "votesShortTerm": 3,
+    "ratingShortTerm": 14,
+    "votesLongTerm": 12,
+    "ratingLongTerm": 25,
     "platform": "Android",
     "url":"http://android.es.fake",
     "reviews": [
       {
         "author": "kike",
         "rate": 3.0,
-        "timestamp": 1498804350000,
+        "timestamp": 1515502873000,
         "comment": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
         "url":"http://android.es.fake/#comment1"
       },
       {
         "author": "Ana",
         "rate": 3.5,
-        "timestamp": 1488961673755,
+        "timestamp": 1515502873000,
         "comment": "Hola",
         "url":"http://android.es.fake/#comment2"
       },
       {
         "author": "Alfonso",
         "rate": 5,
-        "timestamp": 1498814350000,
+        "timestamp": 1515502873000,
         "comment": "Adios",
         "url":"http://android.es.fake/#comment3"
       }

@@ -43,7 +43,7 @@ public class BugServiceImpl implements BugService {
     @Override
     public List<BugDTO> getActiveBugsByBoards(List<String> boards) {
 
-        List<Feature> issues = repository.findBySProjectNameInAndSTypeNameAndSStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
+        List<Feature> issues = repository.findByKeywordsInAndSTypeNameAndSStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
 
         return issues.stream()
                 .map((issue) -> new BugDTO()

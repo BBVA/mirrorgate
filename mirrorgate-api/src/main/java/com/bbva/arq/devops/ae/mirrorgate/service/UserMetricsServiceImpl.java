@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricUserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
+import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
+import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,21 +37,22 @@ public class UserMetricsServiceImpl implements UserMetricsService {
     private final DashboardService dashboardService;
     private final UserMetricsRepository userMetricsRepository;
     private final HistoricUserMetricService historicUserMetricService;
+    private final HistoricUserMetricRepository historicUserMetricRepository;
 
     @Autowired
-    public UserMetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository
-                                , HistoricUserMetricService historicUserMetricService){
+    public UserMetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository, HistoricUserMetricService historicUserMetricService, HistoricUserMetricRepository historicUserMetricRepository) {
         this.dashboardService = dashboardService;
         this.userMetricsRepository = userMetricsRepository;
         this.historicUserMetricService = historicUserMetricService;
+        this.historicUserMetricRepository = historicUserMetricRepository;
     }
 
     @Override
     public List<String> getAnalyticViewIds() {
         return dashboardService.getActiveDashboards().stream()
-                .flatMap((d) -> d.getAnalyticViews() == null ?
-                        Stream.empty() :
-                        d.getAnalyticViews().stream()
+                .flatMap((d) -> d.getAnalyticViews() == null
+                        ? Stream.empty()
+                        : d.getAnalyticViews().stream()
                 )
                 .distinct()
                 .collect(Collectors.toList());
@@ -83,26 +85,19 @@ public class UserMetricsServiceImpl implements UserMetricsService {
             return new ArrayList<>();
         }
 
-        return userMetricsRepository.findAllByViewIdInWithNon0Values(views)
-                    .stream()
-                    .map(UserMetricMapper::map)
-                    .map(u ->  {
-                        List<HistoricUserMetricDTO> historicUserMetrics =
-                            historicUserMetricService.getHistoricMetricsForDashboard(dashboard,u.getName(),24);
+        return historicUserMetricRepository.findAllByViewIdInAndHistoricTypeAndTimestampGreaterThanEqual(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNMinutesAgo(10, ChronoUnit.MINUTES))
+                .stream()
+                .map(UserMetricMapper::map)
+                .map(u -> {
 
-                        if(!historicUserMetrics.isEmpty()){
-                            u.setLongTermTendency(getAverageValue(historicUserMetrics));
-                            u.setShortTermTendency(getAverageValue(historicUserMetrics.subList(0, 3)));
-                        }
+            //TODO: Calculate metrics
+//                    HistoricTendenciesDTO historicTendencies
+//                            = historicUserMetricService.getHistoricMetricsForDashboard(dashboard, u.getName());
+//
+//                    u.setShortTermTendency(historicTendencies.getShortTermTendency());
+//                    u.setLongTermTendency(historicTendencies.getLongTermTendency());
 
-                        return u;
-                    }).collect(Collectors.toList());
+                    return u;
+                }).collect(Collectors.toList());
     }
-
-    private double getAverageValue(List<HistoricUserMetricDTO> historicUserMetrics){
-        return historicUserMetrics.stream()
-                    .mapToDouble(HistoricUserMetricDTO::getValue)
-                    .sum()/historicUserMetrics.size();
-    }
-
 }

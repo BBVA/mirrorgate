@@ -23,6 +23,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 public class IssueMapper {
@@ -47,7 +48,8 @@ public class IssueMapper {
             .setsParentKey(source.getParentKey())
             .setsPiNames(source.getPiNames())
             .setCollectorId(source.getCollectorId())
-            .setUrl(source.getUrl());
+            .setUrl(source.getUrl())
+            .setTimestamp(source.getUpdatedDate() == null ? null : source.getUpdatedDate().getTime());
 
         SprintDTO sprint = source.getSprint();
         if(sprint != null) {
@@ -103,6 +105,7 @@ public class IssueMapper {
             .setPiNames(source.getsPiNames())
             .setCollectorId(source.getCollectorId())
             .setPriority(source.getPriority() == null ? null : IssuePriority.fromName(source.getPriority()))
-            .setUrl(source.getUrl());
+            .setUrl(source.getUrl())
+            .setUpdatedDate(source.getTimestamp() == null ? null : new Date(source.getTimestamp()));
     }
 }

@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
-load('./remove_old_not_latest_builds.js');
-load('./remove_old_events.js');
-load('./remove_old_issues.js');
+var conn = new Mongo();
+var db = conn.getDB('dashboarddb');
+
+var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 3));
+
+'Removing old issues until: ' + purgeDate;
+
+db.getCollection('feature').find({
+  timestamp: {'$lt' : purgeDate.getTime()},
+  sTypeName: { $nin : [ "Bug", "Epic", "Feature"]},
+  sStatus: "Done",
+  sSprintAssetState: { $ne : 'ACTIVE'}
+});

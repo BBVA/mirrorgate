@@ -3,10 +3,10 @@
     "appname": "moods",
     "votesTotal": 24,
     "ratingTotal": 100,
-    "votes7Days": 3,
-    "rating7Days": 8,
-    "votesMonth": 12,
-    "ratingMonth": 40,
+    "votesShortTerm": 3,
+    "ratingShortTerm": 8,
+    "votesLongTerm": 12,
+    "ratingLongTerm": 40,
     "platform": "IOS",
     "reviews": [
       {
@@ -21,10 +21,10 @@
     "appname": "moods",
     "votesTotal": 24,
     "ratingTotal": 80,
-    "votes7Days": 3,
-    "rating7Days": 14,
-    "votesMonth": 12,
-    "ratingMonth": 25,
+    "votesShortTerm": 3,
+    "ratingShortTerm": 14,
+    "votesLongTerm": 12,
+    "ratingLongTerm": 25,
     "platform": "Android",
     "reviews": [
       {
