@@ -25,6 +25,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
     private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 90;
+    private static final int MAX_NUMBER_OF_HOURS_TO_STORE = 168;
     private static final int MAX_NUMBER_OF_MINUTES_TO_STORE = 150;
     private static final int LONG_TERM_TENDENCY_LONG_PERIOD = 30;
     private static final int LONG_TERM_TENDENCY_SHORT_PERIOD = 4;
@@ -44,6 +45,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         saved.forEach( s -> {
             try {
                addToShortTermTendency(s);
+               addToMidTermTendency(s);
                addToLongTermTendency(s);
             } catch (Exception e) {
                 LOGGER.error("Error while processing metric : {}", s.getName(), e);
@@ -95,6 +97,13 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         removeExtraPeriodsForMetricAndIdentifier( metric.getName(), metric.getIdentifier(),
             ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNDaysAgo(MAX_NUMBER_OF_DAYS_TO_STORE, ChronoUnit.DAYS));
+    }
+
+    private void addToMidTermTendency(UserMetric userMetric){
+        HistoricUserMetric metric = addToTendency(userMetric, ChronoUnit.HOURS);
+
+        removeExtraPeriodsForMetricAndIdentifier( metric.getName(), metric.getIdentifier(),
+            ChronoUnit.HOURS, LocalDateTimeHelper.getTimestampForNDaysAgo(MAX_NUMBER_OF_HOURS_TO_STORE, ChronoUnit.HOURS));
     }
 
 

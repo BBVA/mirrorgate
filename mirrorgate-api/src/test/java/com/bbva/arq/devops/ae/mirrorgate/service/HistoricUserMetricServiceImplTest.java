@@ -86,11 +86,11 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        assertTrue(repository.count() == 6);
+        assertTrue(repository.count() == 10);
 
         service.removeExtraPeriodsForMetricAndIdentifier("requestsNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNHoursAgo(2, ChronoUnit.DAYS));
 
-        assertTrue(repository.count() == 5);
+        assertTrue(repository.count() == 9);
     }
 
     @Test
@@ -108,11 +108,11 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        assertTrue(repository.count() == 6);
+        assertTrue(repository.count() == 10);
 
         service.removeExtraPeriodsForMetricAndIdentifier( "requestNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNHoursAgo(30, ChronoUnit.DAYS));
 
-        assertTrue(repository.count() == 6);
+        assertTrue(repository.count() == 10);
     }
 
     @Test
