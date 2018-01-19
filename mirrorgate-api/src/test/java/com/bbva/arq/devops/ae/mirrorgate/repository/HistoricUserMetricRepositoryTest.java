@@ -77,7 +77,7 @@ public class HistoricUserMetricRepositoryTest {
         List<HistoricUserMetricStats> result =
             repository.getUserMetricAverageTendencyForPeriod(Arrays.asList("ga:155019618"),
                 Arrays.asList("responseTime", "requestsNumber", "nonExistent"),
-                LocalDateTimeHelper.getTimestampForNHoursAgo(720, ChronoUnit.HOURS));
+                LocalDateTimeHelper.getTimestampForNUnitsAgo(720, ChronoUnit.HOURS));
 
         assertTrue(result.size() == 2);
     }

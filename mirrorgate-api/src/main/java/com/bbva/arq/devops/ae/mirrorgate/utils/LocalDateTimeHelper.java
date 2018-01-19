@@ -22,36 +22,10 @@ public class LocalDateTimeHelper {
         return metricTimestamp.toInstant(ZoneOffset.UTC).toEpochMilli();
     }
 
-    public static long getTimestampPeriod(long timestamp, ChronoUnit chronoUnit, long minusDays) {
-
-        Instant instant = Instant.ofEpochMilli(timestamp);
-
-        LocalDateTime metricTimestamp = LocalDateTime.ofInstant(instant,
-            TimeZone.getTimeZone("UTC").toZoneId()).truncatedTo(chronoUnit).minusDays(minusDays);
-
-        return metricTimestamp.toInstant(ZoneOffset.UTC).toEpochMilli();
-    }
-
-    public static long getTimestampForNDaysAgo(int days, ChronoUnit chronoUnit) {
+    public static long getTimestampForNUnitsAgo(int numberOfUnits, ChronoUnit chronoUnit) {
 
         LocalDateTime daysAgo = LocalDateTime.now(
-                ZoneId.of("UTC")).minusDays(days).truncatedTo(chronoUnit);
-
-        return daysAgo.toInstant(ZoneOffset.UTC).toEpochMilli();
-    }
-
-    public static long getTimestampForNHoursAgo(int hours, ChronoUnit chronoUnit) {
-
-        LocalDateTime daysAgo = LocalDateTime.now(
-            ZoneId.of("UTC")).minusHours(hours).truncatedTo(chronoUnit);
-
-        return daysAgo.toInstant(ZoneOffset.UTC).toEpochMilli();
-    }
-
-    public static long getTimestampForNMinutesAgo(int minutes, ChronoUnit chronoUnit) {
-
-        LocalDateTime daysAgo = LocalDateTime.now(
-            ZoneId.of("UTC")).minusMinutes(minutes).truncatedTo(chronoUnit);
+            ZoneId.of("UTC")).minusDays(numberOfUnits).truncatedTo(chronoUnit);
 
         return daysAgo.toInstant(ZoneOffset.UTC).toEpochMilli();
     }

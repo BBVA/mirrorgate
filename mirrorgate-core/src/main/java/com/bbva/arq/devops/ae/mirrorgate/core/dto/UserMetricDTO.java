@@ -37,6 +37,8 @@ public class UserMetricDTO {
 
     private double longTermTendency;
 
+    private double midTermTendency;
+
     private double shortTermTendency;
 
     public String getViewId() {
@@ -126,6 +128,15 @@ public class UserMetricDTO {
 
     public UserMetricDTO setShortTermTendency(double shortTermTendency) {
         this.shortTermTendency = shortTermTendency;
+        return this;
+    }
+
+    public double getMidTermTendency() {
+        return midTermTendency;
+    }
+
+    public UserMetricDTO setMidTermTendency(double midTermTendency) {
+        this.midTermTendency = midTermTendency;
         return this;
     }
 }

@@ -25,11 +25,10 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
 
-    private static final int MAX_NUMBER_OF_DAYS_TO_STORE = 90;
-    private static final int MAX_NUMBER_OF_HOURS_TO_STORE = 168;
-    private static final int MAX_NUMBER_OF_MINUTES_TO_STORE = 150;
     private static final int LONG_TERM_TENDENCY_LONG_PERIOD = 30;
     private static final int LONG_TERM_TENDENCY_SHORT_PERIOD = 4;
+    private static final int MID_TERM_TENDENCY_LONG_PERIOD = 24;
+    private static final int MID_TERM_TENDENCY_SHORT_PERIOD = 2;
 
     private final HistoricUserMetricRepository historicUserMetricRepository;
 
@@ -45,9 +44,9 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         saved.forEach( s -> {
             try {
-               addToShortTermTendency(s);
-               addToMidTermTendency(s);
-               addToLongTermTendency(s);
+                addToTendency(s, ChronoUnit.MINUTES);
+                addToTendency(s, ChronoUnit.HOURS);
+                addToTendency(s, ChronoUnit.DAYS);
             } catch (Exception e) {
                 LOGGER.error("Error while processing metric : {}", s.getName(), e);
             }
@@ -73,11 +72,13 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
             return null;
         }
 
-        Map<String, Double> longTermTendency = calculateLongTermTendency(views, metricNames);
+        Map<String, Double> longTermTendency = calculateTendency(views, metricNames, ChronoUnit.DAYS, LONG_TERM_TENDENCY_LONG_PERIOD, LONG_TERM_TENDENCY_SHORT_PERIOD);
+        Map<String, Double> midTermTendency = calculateTendency(views, metricNames, ChronoUnit.HOURS, MID_TERM_TENDENCY_LONG_PERIOD, MID_TERM_TENDENCY_SHORT_PERIOD);
         Map<String, Double> shortTermTendency = calculateShortTermTendency();
 
         return longTermTendency.keySet().stream()
                 .collect(Collectors.toMap(s -> s, s -> new HistoricTendenciesDTO(longTermTendency.get(s) == null ? 0 : longTermTendency.get(s)
+                                                                                , midTermTendency.get(s) == null ? 0 : midTermTendency.get(s)
                                                                                 , shortTermTendency.get(s) == null ? 0 : shortTermTendency.get(s))));
     }
 
@@ -86,28 +87,6 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         return historicUserMetricRepository.findByTimestampAndIdentifierAndHistoricType(periodTimestamp, identifier, type);
     }
-
-    private void addToShortTermTendency(UserMetric userMetric){
-        HistoricUserMetric metric = addToTendency(userMetric, ChronoUnit.MINUTES);
-
-        removeExtraPeriodsForMetricAndIdentifier( metric.getName(), metric.getIdentifier(),
-            ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNMinutesAgo(MAX_NUMBER_OF_MINUTES_TO_STORE, ChronoUnit.MINUTES));
-    }
-
-    private void addToLongTermTendency(UserMetric userMetric){
-        HistoricUserMetric metric = addToTendency(userMetric, ChronoUnit.DAYS);
-
-        removeExtraPeriodsForMetricAndIdentifier( metric.getName(), metric.getIdentifier(),
-            ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNDaysAgo(MAX_NUMBER_OF_DAYS_TO_STORE, ChronoUnit.DAYS));
-    }
-
-    private void addToMidTermTendency(UserMetric userMetric){
-        HistoricUserMetric metric = addToTendency(userMetric, ChronoUnit.HOURS);
-
-        removeExtraPeriodsForMetricAndIdentifier( metric.getName(), metric.getIdentifier(),
-            ChronoUnit.HOURS, LocalDateTimeHelper.getTimestampForNDaysAgo(MAX_NUMBER_OF_HOURS_TO_STORE, ChronoUnit.HOURS));
-    }
-
 
     private HistoricUserMetric addToTendency(UserMetric userMetric, ChronoUnit unit){
 
@@ -141,7 +120,6 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return response;
     }
 
-
     private HistoricUserMetric createNextPeriod(UserMetric userMetric, ChronoUnit unit) {
 
         LOGGER.debug("creating new Historic Metric Period");
@@ -156,13 +134,13 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return historicUserMetric;
     }
 
-    private Map<String, Double> calculateLongTermTendency(List<String> views, List<String> metricNames){
+    private Map<String, Double> calculateTendency(List<String> views, List<String> metricNames, ChronoUnit unit, int longPeriod, int shortPeriod){
 
         List<HistoricUserMetricStats> longPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNDaysAgo(LONG_TERM_TENDENCY_LONG_PERIOD, ChronoUnit.DAYS));
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(longPeriod, unit));
 
         List<HistoricUserMetricStats> shortPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNDaysAgo(LONG_TERM_TENDENCY_SHORT_PERIOD, ChronoUnit.DAYS));
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(shortPeriod, unit));
 
         Map<String, Double> longPeriodMap = longPeriodHistoricUserMetrics.stream().collect(
             Collectors.toMap(HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
