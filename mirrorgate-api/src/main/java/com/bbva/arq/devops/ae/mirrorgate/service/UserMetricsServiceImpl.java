@@ -90,7 +90,7 @@ public class UserMetricsServiceImpl implements UserMetricsService {
             return new ArrayList<>();
         }
 
-        List<UserMetricDTO> userMetrics = historicUserMetricRepository.findAllByViewIdInAndHistoricTypeAndTimestampGreaterThanEqual(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNMinutesAgo(10, ChronoUnit.MINUTES))
+        List<UserMetricDTO> userMetrics = historicUserMetricRepository.findAllByViewIdInAndHistoricTypeAndTimestampGreaterThanEqual(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES))
             .stream()
             .map(UserMetricMapper::map)
             .collect(Collectors.toList());
@@ -102,6 +102,7 @@ public class UserMetricsServiceImpl implements UserMetricsService {
         return userMetrics.stream()
                 .map(u -> {
                         u.setLongTermTendency(historicUserMetrics.get(u.getName()).getLongTermTendency());
+                        u.setMidTermTendency(historicUserMetrics.get(u.getName()).getMidTermTendency());
                         u.setShortTermTendency(historicUserMetrics.get(u.getName()).getShortTermTendency());
 
                         return u;

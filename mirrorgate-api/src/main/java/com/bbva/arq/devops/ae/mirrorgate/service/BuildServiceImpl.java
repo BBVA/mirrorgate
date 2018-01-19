@@ -126,13 +126,13 @@ public class BuildServiceImpl implements BuildService {
             statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
         } else {
             statsSevenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
-                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(7, ChronoUnit.DAYS))
+                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNUnitsAgo(7, ChronoUnit.DAYS))
                     .stream()
                     .map(BuildSummaryMapper::map)
                     .toArray(BuildStats[]::new)
             );
             statsFifteenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
-                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNDaysAgo(15, ChronoUnit.DAYS))
+                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNUnitsAgo(15, ChronoUnit.DAYS))
                     .stream()
                     .map(BuildSummaryMapper::map)
                     .toArray(BuildStats[]::new)

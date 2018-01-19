@@ -85,25 +85,12 @@ public class HistoricUserMetricServiceImplTest {
         assertTrue(result.getValue() == 24);
     }
 
-
-    @Test
-    public void testRemoveExtraPeriods(){
-
-        service.addToCurrentPeriod(userMetrics);
-
-        assertTrue(repository.count() == 10);
-
-        service.removeExtraPeriodsForMetricAndIdentifier("requestsNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNHoursAgo(2, ChronoUnit.DAYS));
-
-        assertTrue(repository.count() == 9);
-    }
-
     @Test
     public void testRemoveExtraPeriodsNoPeriodsAvailable(){
 
         assertTrue(repository.count() == 0);
 
-        service.removeExtraPeriodsForMetricAndIdentifier("requestsNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNHoursAgo(2, ChronoUnit.DAYS));
+        service.removeExtraPeriodsForMetricAndIdentifier("requestsNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNUnitsAgo(2, ChronoUnit.DAYS));
 
         assertTrue(repository.count() == 0);
     }
@@ -113,11 +100,11 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        assertTrue(repository.count() == 10);
+        assertTrue(repository.count() == 11);
 
-        service.removeExtraPeriodsForMetricAndIdentifier( "requestNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNHoursAgo(30, ChronoUnit.DAYS));
+        service.removeExtraPeriodsForMetricAndIdentifier( "requestNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNUnitsAgo(30, ChronoUnit.DAYS));
 
-        assertTrue(repository.count() == 10);
+        assertTrue(repository.count() == 11);
     }
 
     @Test
