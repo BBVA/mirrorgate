@@ -15,9 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.*;
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
@@ -130,6 +128,7 @@ public class DashboardServiceImpl implements DashboardService {
             if (auth != null && null != auth.getPrincipal()) {
                 dashboard.setAuthor(auth.getPrincipal().toString());
                 dashboard.setLastUserEdit(auth.getPrincipal().toString());
+                dashboard.setAdminUsers(Arrays.asList(auth.getPrincipal().toString()));
             }
         }
 
