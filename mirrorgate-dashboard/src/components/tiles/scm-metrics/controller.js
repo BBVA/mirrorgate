@@ -30,7 +30,7 @@ var SCMMetricsController = (function(dashboardId) {
       response = JSON.parse(response);
 
       let daysToMaster = Math.ceil(response.secondsToMaster / (60 * 60 * 24));
-      let commitsPerDay = Math.ceil(response.commitsPerDay);
+      let commitsPerDay = response.commitsPerDay ? response.commitsPerDay.toFixed(2) : undefined;
 
       model = {
         timeToMaster: daysToMaster,
