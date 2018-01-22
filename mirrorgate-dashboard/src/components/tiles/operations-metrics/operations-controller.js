@@ -37,12 +37,13 @@ var OperationsController = (function(dashboardId) {
         let responseTime = 0;
         let responseTimeSampleSize = 0;
         let requestsNumberTendency;
+        let availabilityRateTendency;
 
         response.forEach(function(metric) {
           if(metric.name === 'requestsNumber') {
             requestsNumber += parseInt(metric.value);
-            let tendencyChange = metric.longTermTendency;
-            requestsNumberTendency = this.tendencyChange < -10 ? 'onedown' : this.tendencyChange < -5 ? 'twodown' : this.tendencyChange < -1 ? 'onedown' : this.tendencyChange > 10 ? 'threeup' : this.tendencyChange > 5 ? 'twoup' : this.tendencyChange > 1 ? 'oneup' : 'eq';
+            let requestNumberTendencyChange = parseInt(metric.longTermTendency);
+            requestsNumberTendency = requestNumberTendencyChange < -10 ? 'threedown' : requestNumberTendencyChange < -5 ? 'twodown' : requestNumberTendencyChange < -1 ? 'onedown' : requestNumberTendencyChange > 10 ? 'threeup' : requestNumberTendencyChange > 5 ? 'twoup' : requestNumberTendencyChange > 1 ? 'oneup' : 'eq';
             return;
           }
           if(metric.name === 'errorsNumber') {
@@ -51,6 +52,8 @@ var OperationsController = (function(dashboardId) {
           }
           if(metric.name === 'availabilityRate') {
             availabilityRate = availabilityRate ? Math.min(availabilityRate, metric.value) : metric.value;
+            let availabilityRateTendencyChange = parseInt(metric.midTermTendency);
+            availabilityRateTendency = availabilityRateTendencyChange < -10 ? 'threedown' : availabilityRateTendencyChange < -5 ? 'twodown' : availabilityRateTendencyChange < -1 ? 'onedown' : availabilityRateTendencyChange > 10 ? 'threeup' : availabilityRateTendencyChange > 5 ? 'twoup' : availabilityRateTendencyChange > 1 ? 'oneup' : 'eq';
             return;
           }
           if(metric.name === 'responseTime') {
@@ -72,6 +75,7 @@ var OperationsController = (function(dashboardId) {
           responseTime: parseFloat(responseTime.toFixed(2)),
           requestsNumber: requestsNumber,
           requestsNumberTendency: requestsNumberTendency,
+          availabilityRateTendency: availabilityRateTendency,
         };
 
         model.responseTimeAlertingLevels = {

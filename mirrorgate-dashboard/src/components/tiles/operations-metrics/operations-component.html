@@ -40,7 +40,7 @@
           <div class="stat-desc">of errors</div>
         </div>
         <div class="indicator" rv-show="metrics.availabilityRate | >= 0">
-          <div class="stats">{metrics.availabilityRate}% </div>
+          <div class="stats">{metrics.availabilityRate}% <span class="tendency" rv-pclass-tendency="metrics.availabilityRateTendency"></span></div>
           <div class="stat-desc">of availability</div>
         </div>
         <div class="indicator" rv-show="metrics.responseTime | >= 0">
