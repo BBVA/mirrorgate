@@ -44,7 +44,6 @@ var OperationsController = (function(dashboardId) {
         response.forEach(function(metric) {
           var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
           metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
-          metric.timestamp;
           if(metric.name === 'requestsNumber') {
             requestsNumber += parseInt(metric.value);
             let requestNumberTendencyChange = parseInt(metric.longTermTendency);

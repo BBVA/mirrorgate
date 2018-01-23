@@ -45,7 +45,6 @@ var UserMetricsController = (function(dashboardId) {
         response.forEach(function(metric) {
           var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
           metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
-          metric.timestamp;
           if(metric.name === 'activeUsers' && metric.timestamp === metricsMap[metricId]) {
             model.metrics.rtActiveUsers += parseInt(metric.value);
             if(metric.appVersion && metric.appVersion.match(_lastVersion)) {
