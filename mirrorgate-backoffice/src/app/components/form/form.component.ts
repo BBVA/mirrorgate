@@ -52,6 +52,7 @@ export class FormComponent {
     }[],
     gitRepos?: string,
     analyticViews?: string,
+    infraCost?: boolean,
     aggregatedDashboards?: {
       display?: string,
       value?: string
@@ -148,6 +149,7 @@ export class FormComponent {
     this.temp.analyticViews = this.dashboard.analyticViews ?
         this.dashboard.analyticViews.join(',') :
         '';
+    this.temp.infraCost = this.dashboard.infraCost || false;
     this.temp.teamMembers = this.dashboard.teamMembers ?
         this.dashboard.teamMembers.map((e) => {
           return { display: e, value: e }
@@ -191,6 +193,7 @@ export class FormComponent {
     this.dashboard.analyticViews = this.temp.analyticViews.length ?
         this.temp.analyticViews.split(',').map((e) => e.trim()) :
         undefined;
+    this.dashboard.infraCost = this.temp.infraCost || false;
     this.dashboard.teamMembers = this.temp.teamMembers.length ?
         this.temp.teamMembers.map((e) => e.value.split('@')[0].trim()) :
         undefined;

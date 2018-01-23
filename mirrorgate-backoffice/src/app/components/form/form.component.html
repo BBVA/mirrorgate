@@ -301,12 +301,12 @@
           <div class="form-group row">
 
             <div class="col-sm-6">
-              <label for="lastVersion">{{texts.form.analytics_block.last_version_input}}</label>
+              <label for="lastVersion">{{texts.form.markets_block.last_version_input}}</label>
               <div class="collapse" id="last-version-help">
-                <div class="well" innerHTML="{{texts.form.analytics_block.last_version_help}}"></div>
+                <div class="well" innerHTML="{{texts.form.markets_block.last_version_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#last-version-help" aria-expanded="false" aria-controls="code-repos-help">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#last-version-help" aria-expanded="false" aria-controls="infra-cost-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
                 <input type="text" class="form-control" id="lastVersion" [(ngModel)]="temp.lastVersion" (ngModelChange)="mirrorTempValues()" name="lastVersion">
@@ -323,20 +323,24 @@
           <h3 class="panel-title">{{texts.form.analytics_block.title}}</h3>
         </div>
         <div class="panel-body">
-          <div class="col-sm-6">
-            <label for="viewIds">{{texts.form.analytics_block.analytics_input}}</label>
-            <div class="collapse" id="view-ids-help">
-              <div class="well" innerHTML="{{texts.form.analytics_block.analytics_help}}"></div>
-            </div>
-            <div class="input-group">
-              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#view-ids-help" aria-expanded="false"
-                aria-controls="view-ids-help">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-              </a>
-              <input type="text" class="form-control" id="viewIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()" name="viewIds">
-              <a type="button" (click)="icon = {}" class="input-group-addon" data-toggle="modal" data-target="#alertingLevelsModal">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
+
+          <div class="form-group row">
+
+            <div class="col-sm-6">
+              <label for="viewIds">{{texts.form.analytics_block.analytics_input}}</label>
+              <div class="collapse" id="view-ids-help">
+                <div class="well" innerHTML="{{texts.form.analytics_block.analytics_help}}"></div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#view-ids-help" aria-expanded="false"
+                  aria-controls="view-ids-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <input type="text" class="form-control" id="viewIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()" name="viewIds">
+                <a type="button" (click)="icon = {}" class="input-group-addon" data-toggle="modal" data-target="#alertingLevelsModal">
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                </a>
+              </div>
             </div>
 
             <!-- Alerting levels Modal -->
@@ -426,6 +430,19 @@
               </div>
             </div>
             <!-- /Modal -->
+
+            <div class="col-sm-6">
+              <label for="infraCost">{{texts.form.analytics_block.infra_cost_input}}</label>
+              <div class="collapse" id="infra-cost-help">
+                <div class="well" innerHTML="{{texts.form.analytics_block.infra_cost_help}}"></div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#infra-cost-help" aria-expanded="false" aria-controls="infra-cost-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <input type="checkbox" class="checkbox" id="infraCost" [(ngModel)]="temp.infraCost" (ngModelChange)="mirrorTempValues()" name="infraCost">
+              </div>
+            </div>
 
           </div>
         </div>

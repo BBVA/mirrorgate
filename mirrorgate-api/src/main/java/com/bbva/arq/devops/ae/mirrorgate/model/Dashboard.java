@@ -42,6 +42,7 @@ public class Dashboard extends BaseModel {
     private String sProductName; //Team product name
     private List<String> applications;
     private List<String> analyticViews;
+    private Boolean infraCost;
     private String lastVersion;
     private Float responseTimeAlertingLevelWarning;
     private Float responseTimeAlertingLevelError;
@@ -244,6 +245,15 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
+    }
+
+    public Boolean getInfraCost() {
+        return infraCost;
+    }
+
+    public Dashboard setInfraCost(Boolean infraCost) {
+        this.infraCost = infraCost;
         return this;
     }
 

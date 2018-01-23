@@ -38,6 +38,7 @@ var OperationsController = (function(dashboardId) {
         let responseTimeSampleSize = 0;
         let requestsNumberTendency;
         let availabilityRateTendency;
+        let infraCost = 0;
 
         response.forEach(function(metric) {
           if(metric.name === 'requestsNumber') {
@@ -64,6 +65,10 @@ var OperationsController = (function(dashboardId) {
             }
             return;
           }
+          if(metric.name === 'infrastructureCost') {
+            infraCost += parseFloat(metric.value);
+            return;
+          }
 
         }, this);
 
@@ -76,6 +81,7 @@ var OperationsController = (function(dashboardId) {
           requestsNumber: requestsNumber,
           requestsNumberTendency: requestsNumberTendency,
           availabilityRateTendency: availabilityRateTendency,
+          infraCost: parseFloat(infraCost.toFixed(2))
         };
 
         model.responseTimeAlertingLevels = {

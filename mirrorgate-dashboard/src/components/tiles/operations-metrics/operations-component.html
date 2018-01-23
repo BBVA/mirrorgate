@@ -48,6 +48,12 @@
           <div class="stat-desc"> response time</div>
         </div>
       </div>
+      <div class="indicator__bar" rv-if="infraCost">
+        <div class="indicator" rv-show="metrics.infraCost | > 0">
+          <div class="stats">{metrics.infraCost}$</div>
+          <div class="stat-desc">infrastructure cost</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -147,9 +153,11 @@
 
       // Fires when an instance of the element is created
       render: function (data) {
+
         if (data) {
           var model = this.getModel();
           model.metrics = data.metrics;
+          model.infraCost = this.getConfig().infraCost;
           this.setAttribute('enabled', model.metrics !== undefined);
         }
 

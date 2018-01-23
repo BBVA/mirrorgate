@@ -59,14 +59,14 @@
       "apps_input": "Applications",
       "apps_help": "<p>Add a comma separated list with your market applications.</p><p>Please specify them using the following convention</p><ul><li><kbd>Android/[appid]</kbd>: for Android applications</li><li><kbd>IOS/[bundleId]/[country]</kbd>: for iOS applications. Use the two letter code for the country (i.e. <code>ES</code> for Spain, <code>US</code> for United Stated and so on)</li><li><kbd>Mirrorgate/[appid]</kbd>: for comments sent via feedback form</li></ul>",
       "stats_days": "Days of statistics",
-      "stats_days_help": "Select the number of days used for statistics. The tendencies are compared with three times the number of days selected."
+      "stats_days_help": "Select the number of days used for statistics. The tendencies are compared with three times the number of days selected.",
+      "last_version_input": "Application Version Expression",
+      "last_version_help": "<p>Add a regular expression matching your application possible versions if you want to display the rate of active users using the last version of you applications.</p><p>Only groups defined between <kbd>()</kbd> will be compare. An example of this regexp could be:</p><p><kbd>^(\\d{1,2})\\.(\\d+)\\.?(\\d+)?$</kbd></p><p>This regexp with following versions <code>6.1, 9999.0.0, 6.0.4, 6.5.3v</code> will match <code>6.1</code> as last version.</p><div class=\"alert alert-warning\" role=\"alert\">Note that if you want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>"
     },
     "analytics_block": {
       "title": "Analytics",
       "analytics_input": "Analytics Metrics Sources Ids",
       "analytics_help": "<p>Add a comma separated list with your analytics metrics sources Ids. For example, in case of using Google Analytics as source of metrics: <kbd>ga:123456789,ga:987654321</kbd></p>",
-      "last_version_input": "Application Version Expresion",
-      "last_version_help": "<p>Add a regular expression matching your application possible versions if you want to display the rate of active users using the last version of you applications.</p><p>Only groups defined between <kbd>()</kbd> will be compare. An example of this regexp could be:</p><p><kbd>^(\\d{1,2})\\.(\\d+)\\.?(\\d+)?$</kbd></p><p>This regexp with following versions <code>6.1, 9999.0.0, 6.0.4, 6.5.3v</code> will match <code>6.1</code> as last version.</p><div class=\"alert alert-warning\" role=\"alert\">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>",
       "alerting_levels": "Alerting levels",
       "alerting_levels_help": "<p>Here you can set limit values for alerting levels. If the value of response time or errors rate is greater than one of these limits, the component will appear in yellow (warning) or red (error) depending on the limit value that has been exceeded.</p><div class=\"alert alert-warning\" role=\"alert\">Note that error limit should be greater than warning limit.</div>",
       "errors_rate_alerting_levels": "Errors rate",
@@ -74,7 +74,9 @@
       "errors_rate_alerting_level_error_input": "Error",
       "response_time_alerting_levels": "Response time",
       "response_time_alerting_level_warning_input": "Warning",
-      "response_time_alerting_level_error_input": "Error"
+      "response_time_alerting_level_error_input": "Error",
+      "infra_cost_input": "Check for getting infrastructure cost",
+      "infra_cost_help": "<p>Only available for Amazon AWS</p>"
     },
     "alerts_block": {
       "title": "Notification and alerts",

@@ -16,24 +16,16 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
 import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import java.lang.reflect.InvocationTargetException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import java.lang.reflect.InvocationTargetException;
-
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-
-/**
- * Created by alfonso on 25/09/17.
- */
 
 @RunWith(JUnit4.class)
 public class DashboardMapperTests {
@@ -43,7 +35,8 @@ public class DashboardMapperTests {
         Dashboard dashboard = new Dashboard()
                 .setStatus(DashboardStatus.ACTIVE)
                 .setType(DashboardType.Detail.name())
-                .setFilters(new Filters());
+                .setFilters(new Filters())
+                .setInfraCost(false);
 
         MapperTestingSupport.initializeTypicalSetters(dashboard);
         MapperTestingSupport.assertBeanValues(dashboard, map(map(dashboard)));
