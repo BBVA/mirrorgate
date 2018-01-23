@@ -40,9 +40,13 @@ var UserMetricsController = (function(dashboardId) {
 
         var versions = [];
         var versionsMap = {};
+        var metricsMap = {};
 
         response.forEach(function(metric) {
-          if(metric.name === 'activeUsers' && metric.timestamp > Date.now() - 60000) {
+          var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
+          metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
+          metric.timestamp;
+          if(metric.name === 'activeUsers' && metric.timestamp === metricsMap[metricId]) {
             model.metrics.rtActiveUsers += parseInt(metric.value);
             if(metric.appVersion && metric.appVersion.match(_lastVersion)) {
               var value = parseInt(metric.value);
@@ -61,7 +65,7 @@ var UserMetricsController = (function(dashboardId) {
               versionData.versions[metric.appVersion] = metric.appVersion;
               versionData.value += value;
             }
-          } else if(metric.name === '7dayUsers' && metric.timestamp > Date.now() - 60000) {
+          } else if(metric.name === '7dayUsers' && metric.timestamp === metricsMap[metricId]) {
             model.metrics.sevenDayUsers += parseInt(metric.value);
           }
         }, this);

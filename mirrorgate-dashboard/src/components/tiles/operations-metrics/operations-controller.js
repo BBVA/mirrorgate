@@ -39,8 +39,12 @@ var OperationsController = (function(dashboardId) {
         let requestsNumberTendency;
         let availabilityRateTendency;
         let infraCost = 0;
+        let metricsMap = {};
 
         response.forEach(function(metric) {
+          var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
+          metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
+          metric.timestamp;
           if(metric.name === 'requestsNumber') {
             requestsNumber += parseInt(metric.value);
             let requestNumberTendencyChange = parseInt(metric.longTermTendency);
@@ -65,7 +69,7 @@ var OperationsController = (function(dashboardId) {
             }
             return;
           }
-          if(metric.name === 'infrastructureCost') {
+          if(metric.name === 'infrastructureCost' && metric.timestamp === metricsMap[metricId]) {
             infraCost += parseFloat(metric.value);
             return;
           }
