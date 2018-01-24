@@ -9,6 +9,7 @@
       "empty",
       "empty_dashboard",
       "feedback",
-      "errors"
+      "errors",
+      "does-not-exist"
   ]
 }
