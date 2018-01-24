@@ -13,5 +13,5 @@ public interface HistoricUserMetricRepository extends CrudRepository<HistoricUse
 
     List<HistoricUserMetric> findByNameAndIdentifierAndHistoricTypeAndTimestampLessThan(String name, String identifier, ChronoUnit unit, long timestamp);
 
-    List<HistoricUserMetric> findAllByViewIdInAndHistoricTypeAndTimestampGreaterThanEqual(List<String> ids, ChronoUnit unit, long timestamp);
+    List<HistoricUserMetric> findAllByViewIdInAndHistoricTypeAndNameInAndTimestampGreaterThanEqual(List<String> ids, ChronoUnit unit, List<String> names, long timestamp);
 }
