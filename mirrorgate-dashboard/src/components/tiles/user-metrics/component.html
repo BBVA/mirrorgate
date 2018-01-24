@@ -72,7 +72,7 @@
 
     render: function (data) {
       this.processAlerts(data);
-      if (data) {
+      if (data && data.metrics) {
         var total = 0;
         if(data.metrics.versions) {
           var max = data.metrics.versions.reduce(function (accum, version) {

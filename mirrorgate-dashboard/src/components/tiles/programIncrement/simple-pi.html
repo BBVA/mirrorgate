@@ -90,36 +90,41 @@
           let format = "MMMM Do";
 
           model.programIncrement = data;
-          model.daysLeft = data.getDaysLeft();
+
+          if(data.endDate) {
+            model.daysLeft = data.getDaysLeft();
+          }
 
           if (data.startDate){
             model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
           }
 
-          model.items = [];
-          var remain = 100;
+          if(data.report) {
 
+            model.items = [];
+            var remain = 100;
 
-          for(var i in order) {
-            var width = 100 * data.report.perStatus[i] / data.report.totalEstimate;
-            if(width) {
-              remain -= width;
-              if(!model.items[i]) {
-                model.items.push({
-                  status: i,
-                  width: width
-                });
-              } else {
-                model.items[i].width += width;
+            for(var i in order) {
+              var width = 100 * data.report.perStatus[i] / data.report.totalEstimate;
+              if(width) {
+                remain -= width;
+                if(!model.items[i]) {
+                  model.items.push({
+                    status: i,
+                    width: width
+                  });
+                } else {
+                  model.items[i].width += width;
+                }
               }
             }
-          }
 
-          if(remain && remain > 0.01) {
-            model.items.push({
-              status: 'remain',
-              width: remain
-            });
+            if(remain && remain > 0.01) {
+              model.items.push({
+                status: 'remain',
+                width: remain
+              });
+            }
           }
         }
       }
