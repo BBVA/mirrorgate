@@ -7,6 +7,7 @@
   "boards": [
    "error"
   ],
+  "programIncrement": "error",
   "applications": ["error"],
   "slackTeam":"error",
   "urlAlerts": "error",
