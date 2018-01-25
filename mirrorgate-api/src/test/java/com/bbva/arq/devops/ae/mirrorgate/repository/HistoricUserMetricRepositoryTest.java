@@ -1,3 +1,4 @@
+//TODO add license
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.THREE_HOURS_AGO;
@@ -6,7 +7,7 @@ import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.YESTERD
 import static org.junit.Assert.assertTrue;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
-import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricStats;
+import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricWeightedAverage;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
@@ -66,18 +67,62 @@ public class HistoricUserMetricRepositoryTest {
             .setSampleSize(150d)
             .setTimestamp(TODAY);
 
-        Iterable<HistoricUserMetric> userMetrics = Arrays
+        Iterable<HistoricUserMetric> hourlyUserMetrics = Arrays
             .asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5);
 
-        repository.save(userMetrics);
+        repository.save(hourlyUserMetrics);
+
+        HistoricUserMetric userMetric6 = new HistoricUserMetric()
+            .setViewId("ga:155019618")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("requestsNumber")
+            .setValue(12d)
+            .setIdentifier("AWSRequestNumber")
+            .setTimestamp(TODAY);
+        HistoricUserMetric userMetric7 = new HistoricUserMetric()
+            .setViewId("ga:155019618")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("requestsNumber")
+            .setValue(16d)
+            .setIdentifier("AWSRequestNumber")
+            .setTimestamp(TODAY);
+        HistoricUserMetric userMetric8 = new HistoricUserMetric()
+            .setViewId("ga:155019618")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("requestsNumber")
+            .setValue(12d)
+            .setIdentifier("AWSRequestNumber")
+            .setTimestamp(TODAY);
+        HistoricUserMetric userMetric9 = new HistoricUserMetric()
+            .setViewId("ga:155019618")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("responseTime")
+            .setIdentifier("AWSResponseTime")
+            .setValue(15d)
+            .setSampleSize(100d)
+            .setTimestamp(TODAY);
+        HistoricUserMetric userMetric10 = new HistoricUserMetric()
+            .setViewId("ga:155019618")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("responseTime")
+            .setIdentifier("AWSResponseTime")
+            .setValue(10d)
+            .setSampleSize(150d)
+            .setTimestamp(TODAY);
+
+        Iterable<HistoricUserMetric> minuteUserMetrics = Arrays
+            .asList(userMetric6, userMetric7, userMetric8, userMetric9, userMetric10);
+
+        repository.save(minuteUserMetrics);
     }
 
     @Test
-    public void testAverages(){
-        List<HistoricUserMetricStats> result =
+    public void testOperationMetricsAverages(){
+        List<HistoricUserMetricWeightedAverage> result =
             repository.getUserMetricAverageTendencyForPeriod(Arrays.asList("ga:155019618"),
-                Arrays.asList("responseTime", "requestsNumber", "nonExistent"),
-                LocalDateTimeHelper.getTimestampForNUnitsAgo(720, ChronoUnit.HOURS));
+                ChronoUnit.MINUTES,
+                Arrays.asList("responseTime", "requestsNumber"),
+                LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES));
 
         assertTrue(result.size() == 2);
     }

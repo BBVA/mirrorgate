@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper.mapToHistoric;
@@ -7,7 +23,7 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
-import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricStats;
+import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricWeightedAverage;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -136,17 +152,17 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private Map<String, Double> calculateTendency(List<String> views, List<String> metricNames, ChronoUnit unit, int longPeriod, int shortPeriod){
 
-        List<HistoricUserMetricStats> longPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(longPeriod, unit));
+        List<HistoricUserMetricWeightedAverage> longPeriodHistoricUserMetrics =
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, unit, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(longPeriod, unit));
 
-        List<HistoricUserMetricStats> shortPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(shortPeriod, unit));
+        List<HistoricUserMetricWeightedAverage> shortPeriodHistoricUserMetrics =
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, unit, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(shortPeriod, unit));
 
         Map<String, Double> longPeriodMap = longPeriodHistoricUserMetrics.stream().collect(
-            Collectors.toMap(HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
+            Collectors.toMap(HistoricUserMetricWeightedAverage::getName, HistoricUserMetricWeightedAverage::getValue));
 
         Map<String, Double> shortPeriodMap = shortPeriodHistoricUserMetrics.stream().collect(
-            Collectors.toMap(HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
+            Collectors.toMap(HistoricUserMetricWeightedAverage::getName, HistoricUserMetricWeightedAverage::getValue));
 
         return longPeriodMap.keySet().stream().collect(Collectors.toMap(s -> s, s ->  getPercentualDifference(longPeriodMap.get(s)
                                                                                     , shortPeriodMap.get(s) == null ? 0 : shortPeriodMap.get(s))));

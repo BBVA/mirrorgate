@@ -97,7 +97,7 @@ public class MetricsServiceImpl implements MetricsService {
             .collect(Collectors.toList());
 
         List<UserMetricDTO> operationMetrics =
-            historicUserMetricRepository.findAllByViewIdInAndHistoricTypeAndNameInAndTimestampGreaterThanEqual(views, ChronoUnit.MINUTES,
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, ChronoUnit.MINUTES,
                 MetricType.OPERATION_METRICS.getMetricNames(), LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES))
             .stream()
             .map(UserMetricMapper::map)
