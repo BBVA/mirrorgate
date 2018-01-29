@@ -164,8 +164,9 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         Map<String, Double> shortPeriodMap = shortPeriodHistoricUserMetrics.stream().collect(
             Collectors.toMap(HistoricUserMetricWeightedAverage::getName, HistoricUserMetricWeightedAverage::getValue));
 
-        return longPeriodMap.keySet().stream().collect(Collectors.toMap(s -> s, s ->  getPercentualDifference(longPeriodMap.get(s)
-                                                                                    , shortPeriodMap.get(s) == null ? 0 : shortPeriodMap.get(s))));
+        return longPeriodMap.keySet()
+            .stream()
+            .collect(Collectors.toMap(s -> s, s -> getPercentualDifference(longPeriodMap.get(s), shortPeriodMap.get(s) == null ? 0 : shortPeriodMap.get(s))));
     }
 
     //TODO
@@ -175,6 +176,6 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private double getPercentualDifference(double longPeriod, double shortPeriod){
 
-        return ((shortPeriod - longPeriod)/longPeriod) * 100;
+        return longPeriod != 0 ? ((shortPeriod - longPeriod)/longPeriod) * 100 : 0;
     }
 }

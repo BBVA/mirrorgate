@@ -5,12 +5,15 @@ import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.TODAY;
 import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.YESTERDAY;
 import static org.junit.Assert.assertTrue;
 
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Map;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -118,6 +121,27 @@ public class HistoricUserMetricServiceImplTest {
         assertTrue(result.getSampleSize() == 250d);
         assertTrue(result.getValue() == 12d);
     }
+
+    @Test
+    public void testGetHistoricMetricsForDashboardZeroValues(){
+        HistoricUserMetric historicUserMetric = new HistoricUserMetric()
+            .setAppVersion("version")
+            .setValue(0d)
+            .setSampleSize(0d)
+            .setHistoricType(ChronoUnit.DAYS)
+            .setName("errorsNumber")
+            .setViewId("AWS/850951215438")
+            .setTimestamp(TODAY);
+
+        DashboardDTO dashboardDTO = new DashboardDTO().setAnalyticViews(Arrays.asList("AWS/850951215438"));
+
+        repository.save(historicUserMetric);
+
+        Map<String, HistoricTendenciesDTO> map = service.getHistoricMetricsForDashboard(dashboardDTO, Arrays.asList("errorsNumber"));
+
+        assertTrue(map.get("errorsNumber").getLongTermTendency() == 0);
+    }
+
 
     @After
     public void cleanCollection(){

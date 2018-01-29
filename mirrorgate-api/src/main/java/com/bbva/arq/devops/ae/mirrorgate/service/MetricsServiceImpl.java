@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -110,7 +111,7 @@ public class MetricsServiceImpl implements MetricsService {
 
         Map<String, HistoricTendenciesDTO> historicUserMetrics = historicUserMetricService.getHistoricMetricsForDashboard(dashboard, metricNames);
 
-        return metrics.stream()
+        return historicUserMetrics != null ? metrics.stream()
                 .map(u -> {
                         u.setLongTermTendency(historicUserMetrics.get(u.getName()).getLongTermTendency());
                         u.setMidTermTendency(historicUserMetrics.get(u.getName()).getMidTermTendency());
@@ -118,7 +119,7 @@ public class MetricsServiceImpl implements MetricsService {
 
                         return u;
                     }
-                ).collect(Collectors.toList());
+                ).collect(Collectors.toList()) : metrics;
     }
 
 }
