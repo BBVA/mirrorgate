@@ -1,16 +1,16 @@
 #!/bin/bash
 
 IM_SECONDARY=`mongo --quiet --eval 'rs.isMaster().secondary'`
-if [[ $? -ne 0 ]]; then echo "Error al comprobar nodo de mongodb."; exit 1; fi
+if [[ $? -ne 0 ]]; then echo "Error checking MongoDB node.."; exit 1; fi
 
 if [ $IM_SECONDARY == "false" ];
 then
-    echo "El backup no se ejecuta en este nodo (no es secundario)."
+    echo "Backup can not be executed in this node (it is not a secondary node)."
     exit 0
 fi
 
 OPTIONS=$(getopt --options "s:b:" --longoptions "secrets-file:,bucket:" -- "$@")
-if [[ $? -ne 0 ]]; then echo "Error al obtener los argumentos."; exit 1; fi
+if [[ $? -ne 0 ]]; then echo "Error getting args."; exit 1; fi
 eval set -- "$OPTIONS"
 
 while [[ $# -gt 0 ]];
@@ -45,7 +45,7 @@ if [ -z ${MONGO_PORT} ]; then export MONGO_PORT="27017"; fi
 # Load the file with database secrets
 echo "Loading database credentials..."
 eval $(aws s3 cp ${SECRETS_FILE} - | sed 's/^/ /')
-if [[ $? -ne 0 ]]; then echo "Error al cargar credenciales desde el bucket $SECRETS_FILE."; exit 1; fi
+if [[ $? -ne 0 ]]; then echo "Error loading credentials from $SECRETS_FILE."; exit 1; fi
 echo "Done."
 
 # Dump the database
@@ -56,13 +56,13 @@ if [ -z $MONGO_USER ]
   else
     mongodump -h $MONGO_HOST:$MONGO_PORT -u $MONGO_USER -p $MONGO_PASS --authenticationDatabase $MONGO_AUTHDB --out $BACKUP_NAME --oplog
 fi
-if [[ $? -ne 0 ]]; then echo "Error al hacer dump de la base de datos ($MONGO_HOST:$MONGO_PORT)."; exit 1; fi
+if [[ $? -ne 0 ]]; then echo "Error making backup of database ($MONGO_HOST:$MONGO_PORT)."; exit 1; fi
 echo "Done."
 
 # Archive and compress data
 echo "Archiving and compressing data..."
 tar -czvf $BACKUP_NAME.tgz $BACKUP_NAME
-if [[ $? -ne 0 ]]; then echo "Error al crear el tgz."; rm -fr $BACKUP_NAME; exit 1; fi
+if [[ $? -ne 0 ]]; then echo "Error creating tgz file."; rm -fr $BACKUP_NAME; exit 1; fi
 echo "Done."
 
 # Upload backup to s3 bucket
@@ -70,7 +70,7 @@ if [ -n $BUCKET ]
     then
         echo "Uploading backup to s3..."
         aws s3 cp $BACKUP_NAME.tgz $BUCKET/mongodb/$BACKUP_NAME.tgz
-        if [[ $? -ne 0 ]]; then echo "Error al subir $BACKUP_NAME.tgz a $BUCKET/mongodb/$BACKUP_NAME.tgz."; rm -fr $BACKUP_NAME; rm -fr $BACKUP_NAME.tgz; exit 1; fi
+        if [[ $? -ne 0 ]]; then echo "Error uploading $BACKUP_NAME.tgz to $BUCKET/mongodb/$BACKUP_NAME.tgz."; rm -fr $BACKUP_NAME; rm -fr $BACKUP_NAME.tgz; exit 1; fi
         echo "Done."
 fi
 
@@ -84,7 +84,7 @@ echo "Done."
 # Clean directory
 echo "Cleaning directory..."
 rm -fr $BACKUP_NAME
-if [[ $? -ne 0 ]]; then echo "Error al borrar el directorio $BACKUP_NAME."; exit 1; fi
+if [[ $? -ne 0 ]]; then echo "Error deleting $BACKUP_NAME."; exit 1; fi
 rm -fr $BACKUP_NAME.tgz
-if [[ $? -ne 0 ]]; then echo "Error al borrar $BACKUP_NAME.tgz."; exit 1; fi
+if [[ $? -ne 0 ]]; then echo "Error deleting $BACKUP_NAME.tgz."; exit 1; fi
 echo "Done."
