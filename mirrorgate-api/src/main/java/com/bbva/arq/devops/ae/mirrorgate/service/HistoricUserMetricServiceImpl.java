@@ -92,7 +92,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         Map<String, Double> midTermTendency = calculateTendency(views, metricNames, ChronoUnit.HOURS, MID_TERM_TENDENCY_LONG_PERIOD, MID_TERM_TENDENCY_SHORT_PERIOD);
         Map<String, Double> shortTermTendency = calculateShortTermTendency();
 
-        return longTermTendency.keySet().stream()
+        return metricNames.stream()
                 .collect(Collectors.toMap(s -> s, s -> new HistoricTendenciesDTO(longTermTendency.get(s) == null ? 0 : longTermTendency.get(s)
                                                                                 , midTermTendency.get(s) == null ? 0 : midTermTendency.get(s)
                                                                                 , shortTermTendency.get(s) == null ? 0 : shortTermTendency.get(s))));

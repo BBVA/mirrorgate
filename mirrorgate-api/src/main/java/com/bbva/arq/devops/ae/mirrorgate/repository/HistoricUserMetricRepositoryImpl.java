@@ -34,7 +34,6 @@ import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Mul
 import org.springframework.data.mongodb.core.aggregation.ConditionalOperators;
 import org.springframework.data.mongodb.core.aggregation.ConditionalOperators.Cond;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.query.Criteria;
 
 public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepositoryCustom {
@@ -62,7 +61,9 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
             project("viewId", "name", "value", "historicType", "sampleSize", "collectorId", "appVersion", "identifier")
                 .and(ConditionalOperators.ifNull("sampleSize").then(1l)).as("sampleSize"),
             project("viewId", "name", "value", "historicType", "sampleSize", "collectorId", "appVersion", "identifier")
-                .and(Multiply.valueOf("value").multiplyBy(sampleSizeCondition)).as("numerator"),
+                .and(sampleSizeCondition).as("sampleSize"),
+            project("viewId", "name", "value", "historicType", "sampleSize", "collectorId", "appVersion", "identifier")
+                .and(Multiply.valueOf("value").multiplyBy("sampleSize")).as("numerator"),
             group("name")
                 .sum("sampleSize").as("denominator")
                 .sum("numerator").as("numerator")

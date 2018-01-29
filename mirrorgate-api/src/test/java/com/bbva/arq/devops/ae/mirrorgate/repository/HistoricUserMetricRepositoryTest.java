@@ -27,6 +27,7 @@ import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -37,7 +38,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest
-@Ignore
 public class HistoricUserMetricRepositoryTest {
 
 
@@ -94,6 +94,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(12d)
+            .setSampleSize(0d)
             .setIdentifier("AWSRequestNumber")
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric7 = new HistoricUserMetric()
@@ -101,6 +102,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(16d)
+            .setSampleSize(0d)
             .setIdentifier("AWSRequestNumber")
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric8 = new HistoricUserMetric()
@@ -108,6 +110,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(12d)
+            .setSampleSize(0d)
             .setIdentifier("AWSRequestNumber")
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric9 = new HistoricUserMetric()
@@ -141,7 +144,13 @@ public class HistoricUserMetricRepositoryTest {
                 Arrays.asList("responseTime", "requestsNumber"),
                 LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES));
 
+        List<HistoricUserMetricWeightedAverage> responseTimeResult = result.stream()
+                                                                        .filter(h -> h.getName().equalsIgnoreCase("responseTime"))
+                                                                        .collect(Collectors.toList());
+
         assertTrue(result.size() == 2);
+        assertTrue(responseTimeResult.size() == 1);
+        assertTrue(responseTimeResult.get(0).getValue() == 12);
     }
 
 }
