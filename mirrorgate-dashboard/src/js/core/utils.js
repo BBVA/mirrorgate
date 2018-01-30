@@ -50,14 +50,16 @@ var Utils = (function() {
     if(event && event.detail) {
       var icon = document.querySelector('link[rel*="icon"]');
 
-      icon.href = 'img/favicon-' + (colorMapping[event.detail.color] || 'blue') + '.png';
-      if(breakFavIconTimeout) {
-        clearTimeout(breakFavIconTimeout);
+      if(icon) {
+        icon.href = 'img/favicon-' + (colorMapping[event.detail.color] || 'blue') + '.png';
+        if(breakFavIconTimeout) {
+          clearTimeout(breakFavIconTimeout);
+        }
+        breakFavIconTimeout = setTimeout(function() {
+          icon.href = 'img/favicon.png';
+          breakFavIconTimeout = undefined;
+        }, 60000);
       }
-      breakFavIconTimeout = setTimeout(function() {
-        icon.href = 'img/favicon.png';
-        breakFavIconTimeout = undefined;
-      }, 60000);
     }
   }
 
