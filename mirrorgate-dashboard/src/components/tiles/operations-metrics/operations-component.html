@@ -44,7 +44,7 @@
           <div class="stat-desc">of availability</div>
         </div>
         <div class="indicator" rv-show="metrics.responseTime | >= 0">
-          <div class="stats">{metrics.responseTime}s </div>
+          <div class="stats">{metrics.responseTime}s <span class="tendency" rv-pclass-tendency="metrics.responseTimeTendency"></span></div>
           <div class="stat-desc"> response time</div>
         </div>
       </div>
