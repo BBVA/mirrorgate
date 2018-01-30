@@ -70,8 +70,10 @@
       Error: 2
     };
 
+    var lastEvent;
+
     function sendEvent(metricName, description, color){
-      document.dispatchEvent(new CustomEvent('HeadsUp', {
+      var event =  {
         detail: {
           title: metricName,
           description: description,
@@ -79,9 +81,17 @@
           url: '',
           color: color
         }
-      }));
+      }
 
-      firstTime = false;
+      if(!lastEvent || lastEvent.title !== event.detail.title || lastEvent.description !== event.detail.description || lastEvent.color !== event.detail.color) {
+        lastEvent = {
+          title: event.detail.title,
+          description: event.detail.description,
+          color: event.detail.color
+        }
+        document.dispatchEvent(new CustomEvent('HeadsUp', event));
+        firstTime = false;
+      }
     }
 
     function checkOperationMetricsToSendEvent(responseTimeState, errorsRateState, responseTimeAlertingLevels, errorsRateAlertingLevels){
