@@ -70,16 +70,6 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     }
 
     @Override
-    public void removeExtraPeriodsForMetricAndIdentifier(String metricName, String identifier, ChronoUnit unit, long timestamp) {
-
-        LOGGER.debug("removing extra periods for: {}, {}, {}", metricName, identifier, timestamp);
-
-        List<HistoricUserMetric> oldPeriods = historicUserMetricRepository.findByNameAndIdentifierAndHistoricTypeAndTimestampLessThan(metricName, identifier, unit, timestamp);
-
-        historicUserMetricRepository.delete(oldPeriods);
-    }
-
-    @Override
     public Map<String, HistoricTendenciesDTO> getHistoricMetricsForDashboard(DashboardDTO dashboard, List<String> metricNames) {
 
         List<String> views = dashboard.getAnalyticViews();
@@ -104,7 +94,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return historicUserMetricRepository.findByTimestampAndIdentifierAndHistoricType(periodTimestamp, identifier, type);
     }
 
-    private HistoricUserMetric addToTendency(UserMetric userMetric, ChronoUnit unit){
+    private HistoricUserMetric addToTendency(UserMetric userMetric, ChronoUnit unit) {
 
         HistoricUserMetric metric = getHistoricMetricForPeriod(
             LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit),
@@ -129,8 +119,15 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
             response.setValue(value);
             response.setSampleSize(response.getSampleSize()+saved.getSampleSize());
         } else {
-            if(saved.getValue() != null)
-                response.setValue(response.getValue() + saved.getValue());
+            if(saved.getValue() != null) {
+                if(saved.getName().equalsIgnoreCase("availabilityRate")) {
+                    double value = (historic.getValue()*historic.getSampleSize()+saved.getValue()*1)/(historic.getSampleSize()+1);
+                    response.setValue(value);
+                } else {
+                    response.setValue(response.getValue() + saved.getValue());
+                }
+                response.setSampleSize(response.getSampleSize()+1);
+            }
         }
 
         return response;

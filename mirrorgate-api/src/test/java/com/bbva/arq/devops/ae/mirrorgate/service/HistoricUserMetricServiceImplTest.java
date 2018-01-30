@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.THREE_HOURS_AGO;
@@ -60,7 +76,10 @@ public class HistoricUserMetricServiceImplTest {
         UserMetric userMetric4 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(15d).setSampleSize(100d).setTimestamp(TODAY);
         UserMetric userMetric5 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(10d).setSampleSize(150d).setTimestamp(TODAY);
 
-        userMetrics = Arrays.asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5);
+        UserMetric userMetric6 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setId("AWSAvailabilityRate").setValue(100d).setTimestamp(TODAY);
+        UserMetric userMetric7 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setId("AWSAvailabilityRate").setValue(75d).setTimestamp(TODAY);
+
+        userMetrics = Arrays.asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5, userMetric6, userMetric7);
     }
 
     @Test
@@ -86,28 +105,6 @@ public class HistoricUserMetricServiceImplTest {
         assertTrue(result.getIdentifier().equals("AWSRequestNumber"));
         assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
         assertTrue(result.getValue() == 24);
-    }
-
-    @Test
-    public void testRemoveExtraPeriodsNoPeriodsAvailable(){
-
-        assertTrue(repository.count() == 0);
-
-        service.removeExtraPeriodsForMetricAndIdentifier("requestsNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNUnitsAgo(2, ChronoUnit.DAYS));
-
-        assertTrue(repository.count() == 0);
-    }
-
-    @Test
-    public void testRemoveExtraPeriodsNoNeedToDelete(){
-
-        service.addToCurrentPeriod(userMetrics);
-
-        assertTrue(repository.count() == 11);
-
-        service.removeExtraPeriodsForMetricAndIdentifier( "requestNumber","AWSRequestNumber", ChronoUnit.DAYS, LocalDateTimeHelper.getTimestampForNUnitsAgo(30, ChronoUnit.DAYS));
-
-        assertTrue(repository.count() == 11);
     }
 
     @Test
@@ -142,6 +139,16 @@ public class HistoricUserMetricServiceImplTest {
         assertTrue(map.get("errorsNumber").getLongTermTendency() == 0);
     }
 
+    @Test
+    public void testAvailabilityRate(){
+        service.addToCurrentPeriod(userMetrics);
+
+        HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS), "AWSAvailabilityRate", ChronoUnit.HOURS);
+        assertTrue(result.getIdentifier().equals("AWSAvailabilityRate"));
+        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS));
+        assertTrue(result.getSampleSize() == 2);
+        assertTrue(result.getValue() == 87.5);
+    }
 
     @After
     public void cleanCollection(){

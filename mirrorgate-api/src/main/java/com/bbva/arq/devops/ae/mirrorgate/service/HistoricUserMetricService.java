@@ -11,8 +11,6 @@ import java.util.Map;
 
 public interface HistoricUserMetricService {
 
-    void removeExtraPeriodsForMetricAndIdentifier(String metricName, String identifier, ChronoUnit unit, long timestamp);
-
     void addToCurrentPeriod(Iterable<UserMetric> saved);
 
     HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier, ChronoUnit type);
