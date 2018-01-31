@@ -41,6 +41,7 @@ var UserMetricsController = (function(dashboardId) {
         var versions = [];
         var versionsMap = {};
         var metricsMap = {};
+        let sevenDayUsersTendency;
 
         response.forEach(function(metric) {
           var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
