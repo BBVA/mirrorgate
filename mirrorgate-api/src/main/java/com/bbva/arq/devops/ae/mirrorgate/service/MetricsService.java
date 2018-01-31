@@ -20,7 +20,7 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import java.util.List;
 
-public interface UserMetricsService {
+public interface MetricsService {
 
     List<String> getAnalyticViewIds();
 

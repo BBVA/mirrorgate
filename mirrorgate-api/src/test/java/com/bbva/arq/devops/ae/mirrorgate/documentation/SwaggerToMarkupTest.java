@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.github.robwin.markup.builder.MarkupLanguage;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @SpringBootTest
+@Ignore
 public class SwaggerToMarkupTest {
 
     @Autowired

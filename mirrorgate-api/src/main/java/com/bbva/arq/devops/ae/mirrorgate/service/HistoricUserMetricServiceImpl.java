@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper.mapToHistoric;
@@ -5,9 +21,9 @@ import static com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper.
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
+import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
-import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricStats;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -54,16 +70,6 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     }
 
     @Override
-    public void removeExtraPeriodsForMetricAndIdentifier(String metricName, String identifier, ChronoUnit unit, long timestamp) {
-
-        LOGGER.debug("removing extra periods for: {}, {}, {}", metricName, identifier, timestamp);
-
-        List<HistoricUserMetric> oldPeriods = historicUserMetricRepository.findByNameAndIdentifierAndHistoricTypeAndTimestampLessThan(metricName, identifier, unit, timestamp);
-
-        historicUserMetricRepository.delete(oldPeriods);
-    }
-
-    @Override
     public Map<String, HistoricTendenciesDTO> getHistoricMetricsForDashboard(DashboardDTO dashboard, List<String> metricNames) {
 
         List<String> views = dashboard.getAnalyticViews();
@@ -76,7 +82,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         Map<String, Double> midTermTendency = calculateTendency(views, metricNames, ChronoUnit.HOURS, MID_TERM_TENDENCY_LONG_PERIOD, MID_TERM_TENDENCY_SHORT_PERIOD);
         Map<String, Double> shortTermTendency = calculateShortTermTendency();
 
-        return longTermTendency.keySet().stream()
+        return metricNames.stream()
                 .collect(Collectors.toMap(s -> s, s -> new HistoricTendenciesDTO(longTermTendency.get(s) == null ? 0 : longTermTendency.get(s)
                                                                                 , midTermTendency.get(s) == null ? 0 : midTermTendency.get(s)
                                                                                 , shortTermTendency.get(s) == null ? 0 : shortTermTendency.get(s))));
@@ -88,7 +94,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return historicUserMetricRepository.findByTimestampAndIdentifierAndHistoricType(periodTimestamp, identifier, type);
     }
 
-    private HistoricUserMetric addToTendency(UserMetric userMetric, ChronoUnit unit){
+    private HistoricUserMetric addToTendency(UserMetric userMetric, ChronoUnit unit) {
 
         HistoricUserMetric metric = getHistoricMetricForPeriod(
             LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit),
@@ -107,14 +113,15 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private HistoricUserMetric addMetrics (final HistoricUserMetric historic, final UserMetric saved){
 
         HistoricUserMetric response =  historic;
+        double metricSampleSize = 1;
 
-        if(saved.getSampleSize() != null && saved.getSampleSize() != 0){
-            double value = (historic.getValue()*historic.getSampleSize()+saved.getValue()*saved.getSampleSize())/(historic.getSampleSize()+saved.getSampleSize());
-            response.setValue(value);
-            response.setSampleSize(response.getSampleSize()+saved.getSampleSize());
-        } else {
-            if(saved.getValue() != null)
-                response.setValue(response.getValue() + saved.getValue());
+        if(saved.getValue() != null) {
+            if(saved.getSampleSize() != null && saved.getSampleSize() > 0){
+                metricSampleSize = saved.getSampleSize();
+            }
+
+            response.setValue(historic.getValue() + (saved.getValue() * metricSampleSize));
+            response.setSampleSize(historic.getSampleSize() + metricSampleSize);
         }
 
         return response;
@@ -137,19 +144,22 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private Map<String, Double> calculateTendency(List<String> views, List<String> metricNames, ChronoUnit unit, int longPeriod, int shortPeriod){
 
         List<HistoricUserMetricStats> longPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(longPeriod, unit));
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, unit, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(longPeriod, unit));
 
         List<HistoricUserMetricStats> shortPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(shortPeriod, unit));
+            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, unit, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(shortPeriod, unit));
 
         Map<String, Double> longPeriodMap = longPeriodHistoricUserMetrics.stream().collect(
-            Collectors.toMap(HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
+            Collectors.toMap(
+                HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
 
         Map<String, Double> shortPeriodMap = shortPeriodHistoricUserMetrics.stream().collect(
-            Collectors.toMap(HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
+            Collectors.toMap(
+                HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
 
-        return longPeriodMap.keySet().stream().collect(Collectors.toMap(s -> s, s ->  getPercentualDifference(longPeriodMap.get(s)
-                                                                                    , shortPeriodMap.get(s) == null ? 0 : shortPeriodMap.get(s))));
+        return longPeriodMap.keySet()
+            .stream()
+            .collect(Collectors.toMap(s -> s, s -> getPercentualDifference(longPeriodMap.get(s), shortPeriodMap.get(s) == null ? 0 : shortPeriodMap.get(s))));
     }
 
     //TODO
@@ -159,6 +169,6 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private double getPercentualDifference(double longPeriod, double shortPeriod){
 
-        return ((shortPeriod - longPeriod)/longPeriod) * 100;
+        return longPeriod != 0 ? ((shortPeriod - longPeriod)/longPeriod) * 100 : 0;
     }
 }
