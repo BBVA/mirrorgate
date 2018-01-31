@@ -59,29 +59,20 @@
   <div>
     <header-component class="header" rv-config="config"></header-component>
     <div class="dashboard adaptable" rv-class-with-footer="layout.withFooter">
-
       <board-column rv-each-column="columns">
-
         <tile-container rv-each-tile="column">
           
-          <current-sprint-tile rv-if="tile | = 'current-sprint' " rv-config="config" class="tile component component--xl"></current-sprint-tile>
-          <program-increment-tile rv-if="tile | = 'program-increment' " rv-config="config" class="tile component component--xl"></program-increment-tile>
+          <current-sprint-tile rv-if="tile | = 'current-sprint' " rv-config="config" class="tile component tile--l"></current-sprint-tile>
+          <program-increment-tile rv-if="tile | = 'program-increment' " rv-config="config" class="tile component tile--l"></program-increment-tile>
 
-          <scm-metrics-tile rv-if="tile | = 'scm-metrics' " rv-config="config" class="tile component component--m"></scm-metrics-tile>
-          <markets-tile rv-if="tile | = 'markets' " rv-config="config" class="tile component component--m"></markets-tile>
-          <bugs-tile rv-if="tile | = 'bugs' " rv-config="config" class="tile component component--s"></bugs-tile>
+          <scm-metrics-tile rv-if="tile | = 'scm-metrics' " rv-config="config" class="tile component tile--m"></scm-metrics-tile>
+          <markets-tile rv-if="tile | = 'markets' " rv-config="config" class="tile component tile--m"></markets-tile>
+          <bugs-tile rv-if="tile | = 'bugs' " rv-config="config" class="tile component tile--s"></bugs-tile>
 
         <tile-container>
-
       </board-column>
-      <!--
-        <scm-metrics-tile rv-config="config" class="tile component"></scm-metrics-tile>
-      -->
-
     </div>
-      <!-- / .dashboard -->
-
-    <!-- .bottom -->
+    
     <board-row class="bottom" rv-enabled="layout.withFooter">
       <board-column>
         <notifications-tile rv-config="config" class="tile"></notifications-tile>
@@ -90,7 +81,6 @@
         <dashboard-notifications rv-config="config" class="tile"></dashboard-notifications>
       </board-column>
     </board-row>
-    <!-- / .bottom -->
   </div>
 </template>
 
@@ -106,10 +96,6 @@
       this.getModel().layout.withFooter =
           config.slackTeam || (config.codeRepos && config.codeRepos.length) ? true: false;
       this.getModel().columns = config.columns;
-      console.log(this.getModel().columns);
-      // const componentConstruction = `
-      //   ${config.columns.map(column => `<${tilename}-tile rv-config="config" class="tile component"></${tilename}-tile>`;
-      
     }
   });
 

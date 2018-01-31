@@ -1,0 +1,16 @@
+custom-dashboard {
+    board-column {
+        flex-direction: row;
+        flex-wrap: wrap;
+    } 
+
+    tile-container {
+        display: flex;
+        height: auto;
+
+        .tile--l {
+            flex-basis: 100%;
+            height: auto;
+        }
+    }
+}
