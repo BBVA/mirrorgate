@@ -24,6 +24,13 @@ db.getCollection('dashboards').insertMany([
             "jira-collector",
             "design"
         ],
+        "columns": [
+            ["scm-metrics","current-sprint","bugs"],
+            ["program-increment","next-sprint"],
+            ["builds","buildsstats"],
+            ["markets","reviews","user-metrics","operations-metrics"],
+            ["alerts"]
+        ],
         "applications":['moods'],
         "boards":[
             "MirrorGate"

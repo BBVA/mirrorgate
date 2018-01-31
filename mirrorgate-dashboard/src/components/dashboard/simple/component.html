@@ -30,25 +30,19 @@
   <div rv-show="layout.ready">
     <header-component class="header" rv-config="config"></header-component>
     <div class="dashboard">
-      <board-column>
-        <tile-container class="tile tile--primary">
-          <current-sprint-tile rv-config="config" class="tile component "></current-sprint-tile>
-        </tile-container>
-      </board-column>
-      <board-column>
-        <tile-container class="tile tile--primary">
-          <builds-tile rv-config="config" class="tile component"></builds-tile>
-        </tile-container>
-      </board-column>
 
-      <board-column>
-        <tile-container class="tile tile--primary">
-          <markets-tile rv-config="config" class="tile component keep-height"></markets-tile>
+      <board-column rv-each-column="columns">
+
+        <tile-container rv-each-tile="column">
+
+          <current-sprint-tile rv-if="tile | = 'current-sprint'" rv-config="config" class="tile component component--xl"></current-sprint-tile>
+          <builds-tile rv-if="tile | = 'builds'" rv-config="config" class="tile component tile--primary"></builds-tile>
+          <markets-tile rv-if="tile | = 'markets'" rv-config="config" class="tile component component--m"></markets-tile>
+          <reviews-tile rv-if="tile | = 'reviews'" rv-config="config" class="tile component"></reviews-tile>
+
         </tile-container>
-        <tile-container class="tile full-height--tile">
-          <reviews-tile rv-config="config" class="tile component"></reviews-tile>
-        </tile-container>
-      </board-column>
+
+     </board-column>
 
     </div>
   </div>
@@ -62,8 +56,16 @@
     onCreated: function () {
       this.getModel().layout = {};
     },
-    render: function () {
+    render: function (config) {
       this.getModel().layout.ready = true;
+      var columns = config.columns;
+      if(!columns){
+        columns = new Array(5);
+        columns[0] = new Array("current-sprint");
+        columns[2] = new Array("builds");
+        columns[3] = new Array("markets","reviews");
+      }
+      this.getModel().columns = columns;
     }
   });
 </script>
