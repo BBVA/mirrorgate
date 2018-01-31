@@ -27,6 +27,7 @@ export class Dashboard {
   boards: string[] = [];
   adminUsers: string[] = [];
   analyticViews: string[] = [];
+  infraCost: boolean;
   lastVersion: string;
   responseTimeAlertingLevelWarning: number;
   responseTimeAlertingLevelError: number;

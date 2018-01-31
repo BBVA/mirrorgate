@@ -6,6 +6,7 @@
   "boards": [
     "empty"
   ],
+  "programIncrement": "empty",
   "applications": ["empty"],
   "slackTeam": "empty",
   "urlAlerts": "dashboards/empty/alerts",

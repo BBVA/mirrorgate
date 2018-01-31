@@ -22,11 +22,12 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.matc
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 
+
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
+import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Divide;
@@ -47,7 +48,7 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
 
 
     @Override
-    public List<HistoricUserMetricWeightedAverage> getUserMetricAverageTendencyForPeriod(List<String> views, ChronoUnit unit, List<String> metricNames, long timestamp){
+    public List<HistoricUserMetricStats> getUserMetricAverageTendencyForPeriod(List<String> views, ChronoUnit unit, List<String> metricNames, long timestamp){
 
         Cond sampleSizeCondition = ConditionalOperators.when(Criteria.where("sampleSize").gt(0))
             .thenValueOf("$sampleSize").otherwise(1l);
@@ -62,11 +63,9 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
                 .and(ConditionalOperators.ifNull("sampleSize").then(1l)).as("sampleSize"),
             project("viewId", "name", "value", "historicType", "sampleSize", "collectorId", "appVersion", "identifier")
                 .and(sampleSizeCondition).as("sampleSize"),
-            project("viewId", "name", "value", "historicType", "sampleSize", "collectorId", "appVersion", "identifier")
-                .and(Multiply.valueOf("value").multiplyBy("sampleSize")).as("numerator"),
             group("name")
                 .sum("sampleSize").as("denominator")
-                .sum("numerator").as("numerator")
+                .sum("value").as("numerator")
                 .first("viewId").as("viewId")
                 .first("value").as("value")
                 .first("historicType").as("historicType")
@@ -76,93 +75,10 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
             project("name", "denominator", "numerator", "viewId", "value", "historicType", "collectorId", "identifier")
                 .and(Divide.valueOf("numerator").divideBy("denominator")).as("value"));
 
-        AggregationResults<HistoricUserMetricWeightedAverage> groupResults =
-            mongoTemplate.aggregate(aggregation,"historic_user_metrics", HistoricUserMetricWeightedAverage.class);
+        AggregationResults<HistoricUserMetricStats> groupResults =
+            mongoTemplate.aggregate(aggregation,"historic_user_metrics", HistoricUserMetricStats.class);
 
         return groupResults.getMappedResults();
-    }
-
-    public static class HistoricUserMetricWeightedAverage {
-        @Id
-        private String name;
-
-        private String viewId;
-
-        private String appVersion;
-
-        private String platform;
-
-        private Double value;
-
-        private Double sampleSize;
-
-        private String collectorId;
-
-        private ChronoUnit historicType;
-
-        public String getViewId() {
-            return viewId;
-        }
-
-        public void setViewId(String viewId) {
-            this.viewId = viewId;
-        }
-
-        public String getAppVersion() {
-            return appVersion;
-        }
-
-        public void setAppVersion(String appVersion) {
-            this.appVersion = appVersion;
-        }
-
-        public String getPlatform() {
-            return platform;
-        }
-
-        public void setPlatform(String platform) {
-            this.platform = platform;
-        }
-
-        public Double getValue() {
-            return value;
-        }
-
-        public void setValue(Double value) {
-            this.value = value;
-        }
-
-        public Double getSampleSize() {
-            return sampleSize;
-        }
-
-        public void setSampleSize(Double sampleSize) {
-            this.sampleSize = sampleSize;
-        }
-
-        public String getCollectorId() {
-            return collectorId;
-        }
-
-        public void setCollectorId(String collectorId) {
-            this.collectorId = collectorId;
-        }
-
-        public ChronoUnit getHistoricType() {
-            return historicType;
-        }
-
-        public void setHistoricType(ChronoUnit historicType) {
-            this.historicType = historicType;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
     }
 
 }

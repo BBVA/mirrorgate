@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 
-var conn = new Mongo();
-var db = conn.getDB('dashboarddb');
+var db;
+
+if(typeof mongo_user == "undefined"){
+    var conn = new Mongo();
+    db = conn.getDB(mongo_authdb);
+} else {
+    db = connect(mongo_host + ":" + mongo_port + "/" + mongo_authdb);
+    db.auth(mongo_user,mongo_pass);
+    db = db.getSiblingDB(mongo_authdb);
+}
 
 var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 3));
 

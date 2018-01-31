@@ -32,12 +32,14 @@ var AggregateDashboardController = (function(dashboardId) {
         detail: null,
         id: dashboardId
       };
-      boards.push(data);
 
       Service.get(Service.types.dashboard, dashboardId)
         .addListener(function(details) {
-          data.detail = details;
-          observable.notify(boards);
+          if(details) {
+            data.detail = details;
+            boards.push(data);
+            observable.notify(boards);
+          }
         });
 
     }, this);

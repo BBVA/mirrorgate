@@ -16,20 +16,18 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.THREE_HOURS_AGO;
 import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.TODAY;
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.YESTERDAY;
 import static org.junit.Assert.assertTrue;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
-import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricWeightedAverage;
+import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,49 +44,6 @@ public class HistoricUserMetricRepositoryTest {
 
     @Before
     public void init(){
-        HistoricUserMetric userMetric1 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
-            .setHistoricType(ChronoUnit.HOURS)
-            .setName("requestsNumber")
-            .setValue(12d)
-            .setIdentifier("AWSRequestNumber")
-            .setTimestamp(TODAY);
-        HistoricUserMetric userMetric2 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
-            .setHistoricType(ChronoUnit.HOURS)
-            .setName("requestsNumber")
-            .setValue(16d)
-            .setIdentifier("AWSRequestNumber")
-            .setTimestamp(YESTERDAY);
-        HistoricUserMetric userMetric3 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
-            .setHistoricType(ChronoUnit.HOURS)
-            .setName("requestsNumber")
-            .setValue(12d)
-            .setIdentifier("AWSRequestNumber")
-            .setTimestamp(THREE_HOURS_AGO);
-        HistoricUserMetric userMetric4 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
-            .setHistoricType(ChronoUnit.HOURS)
-            .setName("responseTime")
-            .setIdentifier("AWSResponseTime")
-            .setValue(15d)
-            .setSampleSize(100d)
-            .setTimestamp(TODAY);
-        HistoricUserMetric userMetric5 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
-            .setHistoricType(ChronoUnit.HOURS)
-            .setName("responseTime")
-            .setIdentifier("AWSResponseTime")
-            .setValue(10d)
-            .setSampleSize(150d)
-            .setTimestamp(TODAY);
-
-        Iterable<HistoricUserMetric> hourlyUserMetrics = Arrays
-            .asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5);
-
-        repository.save(hourlyUserMetrics);
-
         HistoricUserMetric userMetric6 = new HistoricUserMetric()
             .setViewId("ga:155019618")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -109,7 +64,7 @@ public class HistoricUserMetricRepositoryTest {
             .setViewId("ga:155019618")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
-            .setValue(12d)
+            .setValue(14d)
             .setSampleSize(0d)
             .setIdentifier("AWSRequestNumber")
             .setTimestamp(TODAY);
@@ -118,7 +73,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
             .setIdentifier("AWSResponseTime")
-            .setValue(15d)
+            .setValue(1500d)
             .setSampleSize(100d)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric10 = new HistoricUserMetric()
@@ -126,7 +81,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
             .setIdentifier("AWSResponseTime")
-            .setValue(10d)
+            .setValue(1500d)
             .setSampleSize(150d)
             .setTimestamp(TODAY);
 
@@ -138,19 +93,24 @@ public class HistoricUserMetricRepositoryTest {
 
     @Test
     public void testOperationMetricsAverages(){
-        List<HistoricUserMetricWeightedAverage> result =
+        List<HistoricUserMetricStats> result =
             repository.getUserMetricAverageTendencyForPeriod(Arrays.asList("ga:155019618"),
                 ChronoUnit.MINUTES,
                 Arrays.asList("responseTime", "requestsNumber"),
                 LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES));
 
-        List<HistoricUserMetricWeightedAverage> responseTimeResult = result.stream()
+        List<HistoricUserMetricStats> responseTimeResult = result.stream()
                                                                         .filter(h -> h.getName().equalsIgnoreCase("responseTime"))
                                                                         .collect(Collectors.toList());
 
         assertTrue(result.size() == 2);
         assertTrue(responseTimeResult.size() == 1);
         assertTrue(responseTimeResult.get(0).getValue() == 12);
+    }
+
+    @After
+    public void clean(){
+        repository.deleteAll();
     }
 
 }

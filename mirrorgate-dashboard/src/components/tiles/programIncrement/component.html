@@ -198,7 +198,7 @@
           }
 
 
-          model.programIncrement.products.forEach(function(product) {
+          model.programIncrement.products && model.programIncrement.products.forEach(function(product) {
             //All product should take the same space, so we take a count of
             //per product totals to use them as factor
             let productStories = 0;

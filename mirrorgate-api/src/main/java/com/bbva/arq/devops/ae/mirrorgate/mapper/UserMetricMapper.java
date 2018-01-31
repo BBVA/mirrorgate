@@ -19,7 +19,7 @@ package com.bbva.arq.devops.ae.mirrorgate.mapper;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
-import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricWeightedAverage;
+import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
 
 public class UserMetricMapper {
 
@@ -73,7 +73,7 @@ public class UserMetricMapper {
                 .setCollectorId(source.getCollectorId());
     }
 
-    public static UserMetricDTO map(HistoricUserMetricWeightedAverage source) {
+    public static UserMetricDTO map(HistoricUserMetricStats source) {
         return new UserMetricDTO()
             .setViewId(source.getViewId())
             .setAppVersion(source.getAppVersion())

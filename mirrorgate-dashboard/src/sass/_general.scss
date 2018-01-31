@@ -133,8 +133,8 @@ tile-container{
         display: flex;
         flex-direction: column;
 
-        &[data-count-x="2"][data-count="4"],
-        &[data-count-x="2"][data-count="5"]{
+        &[data-count="4"][data-count-x="2"][data-count-y="2"],
+        &[data-count="5"][data-count-x="2"][data-count-y="3"]{
             width: 200%;
         }
     }

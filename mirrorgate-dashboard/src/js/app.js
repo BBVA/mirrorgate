@@ -26,4 +26,11 @@
       window.document.location.reload();
     }
   });
+
+  if (!("Notification" in window)) {
+    console.warn("This browser does not support desktop notification");
+  }  else if (Notification.permission !== "denied") {
+    Notification.requestPermission();
+  }
+
 })();
