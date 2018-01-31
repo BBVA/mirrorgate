@@ -49,6 +49,8 @@ var OperationsController = (function(dashboardId) {
           }
           if(metric.name === 'errorsNumber') {
             errorsNumber += parseInt(metric.value);
+            let errorsRateTendencyChange = parseInt(metric.midTermTendency);
+            errorsRateTendency = errorsRateTendencyChange < -10 ? 'threedown' : errorsRateTendencyChange < -5 ? 'twodown' : errorsRateTendencyChange < -1 ? 'onedown' : errorsRateTendencyChange > 10 ? 'threeup' : errorsRateTendencyChange > 5 ? 'twoup' : errorsRateTendencyChange > 1 ? 'oneup' : 'eq';
             return;
           }
           if(metric.name === 'availabilityRate') {
@@ -81,6 +83,7 @@ var OperationsController = (function(dashboardId) {
           requestsNumberTendency: requestsNumberTendency,
           availabilityRateTendency: availabilityRateTendency,
           responseTimeTendency: responseTimeTendency,
+          errorsRateTendency: errorsRateTendency,
         };
 
         model.responseTimeAlertingLevels = {
