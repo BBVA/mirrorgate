@@ -63,6 +63,8 @@ var UserMetricsController = (function(dashboardId) {
             }
           } else if(metric.name === '7dayUsers' && metric.timestamp > Date.now() - 60000) {
             model.metrics.sevenDayUsers += parseInt(metric.value);
+            let sevenDaysUsersTendencyChange = parseInt(metric.longTermTendency);
+            sevenDayUsersTendency = sevenDaysUsersTendencyChange < -10 ? 'threedown' : sevenDaysUsersTendencyChange < -5 ? 'twodown' : sevenDaysUsersTendencyChange < -1 ? 'onedown' : sevenDaysUsersTendencyChange > 10 ? 'threeup' : sevenDaysUsersTendencyChange > 5 ? 'twoup' : sevenDaysUsersTendencyChange > 1 ? 'oneup' : 'eq';
           }
         }, this);
 
@@ -72,6 +74,7 @@ var UserMetricsController = (function(dashboardId) {
 
         model.metrics.lastVersionActiveUsersRate = versions.length > 0 ? parseFloat((100 * versions[0].value / model.metrics.rtActiveUsers).toFixed(2)) : undefined;
         model.metrics.versions = versions.length && versions;
+        model.metrics.sevenDayUsersTendency = sevenDayUsersTendency;
       }
     }
 
