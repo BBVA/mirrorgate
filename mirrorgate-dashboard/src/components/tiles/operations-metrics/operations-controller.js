@@ -38,6 +38,7 @@ var OperationsController = (function(dashboardId) {
         let responseTimeSampleSize = 0;
         let requestsNumberTendency;
         let availabilityRateTendency;
+        let responseTimeTendency;
         let infraCost = 0;
         let metricsMap = {};
 
@@ -52,6 +53,8 @@ var OperationsController = (function(dashboardId) {
           }
           if(metric.name === 'errorsNumber') {
             errorsNumber += parseInt(metric.value);
+            let errorsRateTendencyChange = parseInt(metric.midTermTendency);
+            errorsRateTendency = errorsRateTendencyChange < -10 ? 'threedown' : errorsRateTendencyChange < -5 ? 'twodown' : errorsRateTendencyChange < -1 ? 'onedown' : errorsRateTendencyChange > 10 ? 'threeup' : errorsRateTendencyChange > 5 ? 'twoup' : errorsRateTendencyChange > 1 ? 'oneup' : 'eq';
             return;
           }
           if(metric.name === 'availabilityRate') {
@@ -65,6 +68,9 @@ var OperationsController = (function(dashboardId) {
               responseTime = responseTime * responseTimeSampleSize + metric.value * metric.sampleSize;
               responseTimeSampleSize += metric.sampleSize;
               responseTime = responseTime / responseTimeSampleSize;
+
+              let responseTimeTendencyChange = parseInt(metric.midTermTendency);
+              responseTimeTendency = responseTimeTendencyChange < -10 ? 'threedown' : responseTimeTendencyChange < -5 ? 'twodown' : responseTimeTendencyChange < -1 ? 'onedown' : responseTimeTendencyChange > 10 ? 'threeup' : responseTimeTendencyChange > 5 ? 'twoup' : responseTimeTendencyChange > 1 ? 'oneup' : 'eq';
             }
             return;
           }
@@ -84,6 +90,8 @@ var OperationsController = (function(dashboardId) {
           requestsNumber: requestsNumber,
           requestsNumberTendency: requestsNumberTendency,
           availabilityRateTendency: availabilityRateTendency,
+          responseTimeTendency: responseTimeTendency,
+          errorsRateTendency: errorsRateTendency,
           infraCost: parseFloat(infraCost.toFixed(2))
         };
 

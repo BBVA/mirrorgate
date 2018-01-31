@@ -38,7 +38,7 @@
           <div class="stat-desc">active users</div>
         </div>
         <div class="indicator" rv-if="metrics.sevenDayUsers">
-          <div class="stats">{metrics.sevenDayUsers}</div>
+          <div class="stats">{metrics.sevenDayUsers}<span class="tendency" rv-pclass-tendency="metrics.sevenDayUsersTendency"></span></div>
           <div class="stat-desc">weekly users</div>
         </div>
       </div>

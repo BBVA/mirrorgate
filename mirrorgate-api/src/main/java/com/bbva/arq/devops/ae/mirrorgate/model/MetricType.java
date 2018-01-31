@@ -12,7 +12,7 @@ public enum MetricType {
 
     static{
         OPERATION_METRICS.metricNames = Arrays.asList("availabilityRate","errorsNumber", "infrastructureCost", "requestsNumber", "responseTime");
-        USER_METRICS.metricNames = Arrays.asList("7daysUsers","activeUsers");
+        USER_METRICS.metricNames = Arrays.asList("7dayUsers","activeUsers");
     }
 
     public List<String> getMetricNames(){
