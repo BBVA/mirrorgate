@@ -65,6 +65,7 @@ public class DashboardDTO {
     private List<String> aggregatedDashboards;
 
     private DashboardType type = DashboardType.Detail;
+    private List<List <String>> columns;
 
     private Integer marketsStatsDays = 7;
 
@@ -332,6 +333,15 @@ public class DashboardDTO {
 
     public DashboardDTO setType(DashboardType type) {
         this.type = type;
+        return this;
+    }
+
+    public List<List<String>> getColumns() {
+        return columns;
+    }
+
+    public DashboardDTO setColumns(List<List<String>> columns) {
+        this.columns = columns;
         return this;
     }
 

@@ -16,6 +16,7 @@
   -->
 
 <link rel="import" href="./aggregate/component.html" >
+<link rel="import" href="./custom/component.html" >
 <link rel="import" href="./detail/component.html" >
 <link rel="import" href="./simple/component.html" >
 <link rel="import" href="./message/component.html" >
@@ -31,6 +32,7 @@
     ></message-dashboard>
     <div rv-if="details" id="dashboard-container">
       <aggregate-dashboard rv-if="aggregated" rv-config="config" class="page-component"></aggregate-dashboard>
+      <custom-dashboard rv-if="custom" rv-config="config" class="page-component"></custom-dashboard>
       <div rv-if="simple">
         <simple-dashboard rv-unless="aggregated" rv-config="config" class="page-component"></simple-dashboard>
       </div>
@@ -77,6 +79,7 @@
             if(config) {
               model.details = JSON.parse(config);
               model.aggregated = model.details.type === "Aggregate";
+              model.custom = model.details.type === "Custom";
               model.details.simple = model.simple || false;
               model.config = JSON.stringify(model.details);
             }

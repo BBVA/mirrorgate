@@ -34,6 +34,7 @@ public class Dashboard extends BaseModel {
     private String displayName;
     private String logoUrl;
     private String type;
+    private List<List <String>> columns;
 
     @Indexed
     private List<String> codeRepos;
@@ -347,6 +348,15 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setType(String type) {
         this.type = type;
+        return this;
+    }
+
+    public List<List<String>> getColumns() {
+        return columns;
+    }
+
+    public Dashboard setColumns(List<List<String>> columns) {
+        this.columns = columns;
         return this;
     }
 

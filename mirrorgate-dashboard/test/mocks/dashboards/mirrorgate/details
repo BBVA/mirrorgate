@@ -1,6 +1,11 @@
 {
   "name": "mirrorgate",
   "logoUrl": "img/logo.png",
+  "type" : "Custom",
+  "columns":[
+    [ "program-increment", "markets"],
+    ["current-sprint", "bugs"]
+  ],
   "codeRepos": [
     "mirrorgate"
   ],

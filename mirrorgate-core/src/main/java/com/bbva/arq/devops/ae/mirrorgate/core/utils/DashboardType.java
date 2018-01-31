@@ -20,5 +20,5 @@ package com.bbva.arq.devops.ae.mirrorgate.core.utils;
  * Created by alfonso on 25/09/17.
  */
 public enum DashboardType {
-    Aggregate, Detail
+    Aggregate, Custom, Detail
 }
