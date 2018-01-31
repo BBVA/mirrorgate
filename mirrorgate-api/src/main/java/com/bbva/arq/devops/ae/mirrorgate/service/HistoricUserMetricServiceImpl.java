@@ -21,9 +21,9 @@ import static com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper.
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
+import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
-import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricWeightedAverage;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -113,21 +113,15 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private HistoricUserMetric addMetrics (final HistoricUserMetric historic, final UserMetric saved){
 
         HistoricUserMetric response =  historic;
+        double metricSampleSize = 1;
 
-        if(saved.getSampleSize() != null && saved.getSampleSize() != 0){
-            double value = (historic.getValue()*historic.getSampleSize()+saved.getValue()*saved.getSampleSize())/(historic.getSampleSize()+saved.getSampleSize());
-            response.setValue(value);
-            response.setSampleSize(response.getSampleSize()+saved.getSampleSize());
-        } else {
-            if(saved.getValue() != null) {
-                if(saved.getName().equalsIgnoreCase("availabilityRate")) {
-                    double value = (historic.getValue()*historic.getSampleSize()+saved.getValue()*1)/(historic.getSampleSize()+1);
-                    response.setValue(value);
-                } else {
-                    response.setValue(response.getValue() + saved.getValue());
-                }
-                response.setSampleSize(response.getSampleSize()+1);
+        if(saved.getValue() != null) {
+            if(saved.getSampleSize() != null && saved.getSampleSize() > 0){
+                metricSampleSize = saved.getSampleSize();
             }
+
+            response.setValue(historic.getValue() + (saved.getValue() * metricSampleSize));
+            response.setSampleSize(historic.getSampleSize() + metricSampleSize);
         }
 
         return response;
@@ -149,17 +143,19 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private Map<String, Double> calculateTendency(List<String> views, List<String> metricNames, ChronoUnit unit, int longPeriod, int shortPeriod){
 
-        List<HistoricUserMetricWeightedAverage> longPeriodHistoricUserMetrics =
+        List<HistoricUserMetricStats> longPeriodHistoricUserMetrics =
             historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, unit, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(longPeriod, unit));
 
-        List<HistoricUserMetricWeightedAverage> shortPeriodHistoricUserMetrics =
+        List<HistoricUserMetricStats> shortPeriodHistoricUserMetrics =
             historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, unit, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(shortPeriod, unit));
 
         Map<String, Double> longPeriodMap = longPeriodHistoricUserMetrics.stream().collect(
-            Collectors.toMap(HistoricUserMetricWeightedAverage::getName, HistoricUserMetricWeightedAverage::getValue));
+            Collectors.toMap(
+                HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
 
         Map<String, Double> shortPeriodMap = shortPeriodHistoricUserMetrics.stream().collect(
-            Collectors.toMap(HistoricUserMetricWeightedAverage::getName, HistoricUserMetricWeightedAverage::getValue));
+            Collectors.toMap(
+                HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
 
         return longPeriodMap.keySet()
             .stream()

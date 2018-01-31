@@ -16,11 +16,11 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepositoryImpl.HistoricUserMetricWeightedAverage;
+import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public interface HistoricUserMetricRepositoryCustom {
 
-    List<HistoricUserMetricWeightedAverage> getUserMetricAverageTendencyForPeriod(List<String> ids, ChronoUnit unit, List<String> names, long timestamp);
+    List<HistoricUserMetricStats> getUserMetricAverageTendencyForPeriod(List<String> ids, ChronoUnit unit, List<String> names, long timestamp);
 }

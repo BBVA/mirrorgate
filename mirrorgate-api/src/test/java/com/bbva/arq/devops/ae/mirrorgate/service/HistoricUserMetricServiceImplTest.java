@@ -116,7 +116,7 @@ public class HistoricUserMetricServiceImplTest {
         assertTrue(result.getIdentifier().equals("AWSResponseTime"));
         assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
         assertTrue(result.getSampleSize() == 250d);
-        assertTrue(result.getValue() == 12d);
+        assertTrue(result.getValue() == 3000d);
     }
 
     @Test
@@ -147,7 +147,7 @@ public class HistoricUserMetricServiceImplTest {
         assertTrue(result.getIdentifier().equals("AWSAvailabilityRate"));
         assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS));
         assertTrue(result.getSampleSize() == 2);
-        assertTrue(result.getValue() == 87.5);
+        assertTrue(result.getValue() == 175);
     }
 
     @After
