@@ -44,6 +44,46 @@ public class HistoricUserMetricRepositoryTest {
 
     @Before
     public void init(){
+        HistoricUserMetric userMetric1 = new HistoricUserMetric()
+            .setViewId("AWS/Mirrorgate")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("requestsNumber")
+            .setValue(12d)
+            .setSampleSize(0d)
+            .setIdentifier("AWSRequestNumber")
+            .setTimestamp(TODAY);
+        HistoricUserMetric userMetric2 = new HistoricUserMetric()
+            .setViewId("AWS/Mirrorgate")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("requestsNumber")
+            .setValue(16d)
+            .setSampleSize(0d)
+            .setIdentifier("AWSRequestNumber")
+            .setTimestamp(TODAY);
+        HistoricUserMetric userMetric3 = new HistoricUserMetric()
+            .setViewId("AWS/Mirrorgate")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("requestsNumber")
+            .setValue(14d)
+            .setSampleSize(0d)
+            .setIdentifier("AWSRequestNumber")
+            .setTimestamp(TODAY);
+        HistoricUserMetric userMetric4 = new HistoricUserMetric()
+            .setViewId("AWS/Mirrorgate")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("responseTime")
+            .setIdentifier("AWSResponseTime")
+            .setValue(3000d)
+            .setSampleSize(100d)
+            .setTimestamp(TODAY);
+        HistoricUserMetric userMetric5 = new HistoricUserMetric()
+            .setViewId("AWS/Mirrorgate")
+            .setHistoricType(ChronoUnit.MINUTES)
+            .setName("responseTime")
+            .setIdentifier("AWSResponseTime")
+            .setValue(2000d)
+            .setSampleSize(150d)
+            .setTimestamp(TODAY);
         HistoricUserMetric userMetric6 = new HistoricUserMetric()
             .setViewId("ga:155019618")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -86,7 +126,7 @@ public class HistoricUserMetricRepositoryTest {
             .setTimestamp(TODAY);
 
         Iterable<HistoricUserMetric> minuteUserMetrics = Arrays
-            .asList(userMetric6, userMetric7, userMetric8, userMetric9, userMetric10);
+            .asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5, userMetric6, userMetric7, userMetric8, userMetric9, userMetric10);
 
         repository.save(minuteUserMetrics);
     }
@@ -94,7 +134,7 @@ public class HistoricUserMetricRepositoryTest {
     @Test
     public void testOperationMetricsAverages(){
         List<HistoricUserMetricStats> result =
-            repository.getUserMetricAverageTendencyForPeriod(Arrays.asList("ga:155019618"),
+            repository.getUserMetricAverageTendencyForPeriod(Arrays.asList("ga:155019618", "AWS/Mirrorgate"),
                 ChronoUnit.MINUTES,
                 Arrays.asList("responseTime", "requestsNumber"),
                 LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES));
@@ -105,8 +145,27 @@ public class HistoricUserMetricRepositoryTest {
 
         assertTrue(result.size() == 2);
         assertTrue(responseTimeResult.size() == 1);
-        assertTrue(responseTimeResult.get(0).getValue() == 12);
+        assertTrue(responseTimeResult.get(0).getValue() == 16);
     }
+
+    @Test
+    public void testOperationMetricsSum(){
+        List<HistoricUserMetricStats> result =
+            repository.getUserMetricSumTotalForPeriod(Arrays.asList("ga:155019618", "AWS/Mirrorgate"),
+                ChronoUnit.MINUTES,
+                Arrays.asList("responseTime", "requestsNumber"),
+                LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES));
+
+        List<HistoricUserMetricStats> requestsNumberResult = result.stream()
+            .filter(h -> h.getName().equalsIgnoreCase("requestsNumber"))
+            .collect(Collectors.toList());
+
+        assertTrue(result.size() == 2);
+        assertTrue(requestsNumberResult.size() == 1);
+        assertTrue(requestsNumberResult.get(0).getValue() == 84);
+        assertTrue(requestsNumberResult.get(0).getSampleSize() == 6);
+    }
+
 
     @After
     public void clean(){

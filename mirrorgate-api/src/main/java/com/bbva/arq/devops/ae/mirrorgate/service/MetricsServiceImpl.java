@@ -90,15 +90,15 @@ public class MetricsServiceImpl implements MetricsService {
             return new ArrayList<>();
         }
 
-        List<UserMetricDTO> userMetrics = userMetricsRepository.findAllByViewIdInWithNon0ValuesAndNameIn(views, MetricType.USER_METRICS
+        List<UserMetricDTO> userMetrics = userMetricsRepository.findAllByViewIdInWithNon0ValuesAndNameIn(views, MetricType.SNAPSHOT_METRICS
             .getMetricNames())
             .stream()
             .map(UserMetricMapper::map)
             .collect(Collectors.toList());
 
         List<UserMetricDTO> operationMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, ChronoUnit.MINUTES,
-                MetricType.OPERATION_METRICS.getMetricNames(), LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES))
+            historicUserMetricRepository.getUserMetricSumTotalForPeriod(views, ChronoUnit.MINUTES,
+                MetricType.OVER_TIME.getMetricNames(), LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES))
             .stream()
             .map(UserMetricMapper::map)
             .collect(Collectors.toList());

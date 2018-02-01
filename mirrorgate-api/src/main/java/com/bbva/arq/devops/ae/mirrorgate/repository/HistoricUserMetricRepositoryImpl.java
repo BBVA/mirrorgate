@@ -64,16 +64,46 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
             project("viewId", "name", "value", "historicType", "sampleSize", "collectorId", "appVersion", "identifier")
                 .and(sampleSizeCondition).as("sampleSize"),
             group("name")
-                .sum("sampleSize").as("denominator")
-                .sum("value").as("numerator")
+                .sum("sampleSize").as("sampleSize")
+                .sum("value").as("value")
                 .first("viewId").as("viewId")
-                .first("value").as("value")
                 .first("historicType").as("historicType")
                 .first("collectorId").as("collectorId")
                 .first("identifier").as("identifier")
                 .first("appVersion").as("appVersion"),
-            project("name", "denominator", "numerator", "viewId", "value", "historicType", "collectorId", "identifier")
-                .and(Divide.valueOf("numerator").divideBy("denominator")).as("value"));
+            project("name", "sampleSize", "viewId", "value", "historicType", "collectorId", "identifier")
+                .and(Divide.valueOf("value").divideBy("sampleSize")).as("value"));
+
+        AggregationResults<HistoricUserMetricStats> groupResults =
+            mongoTemplate.aggregate(aggregation,"historic_user_metrics", HistoricUserMetricStats.class);
+
+        return groupResults.getMappedResults();
+    }
+
+    @Override
+    public List<HistoricUserMetricStats> getUserMetricSumTotalForPeriod(List<String> views, ChronoUnit unit, List<String> metricNames, long timestamp){
+
+        Cond sampleSizeCondition = ConditionalOperators.when(Criteria.where("sampleSize").gt(0))
+            .thenValueOf("$sampleSize").otherwise(1l);
+
+        TypedAggregation<HistoricUserMetric> aggregation = newAggregation(HistoricUserMetric.class,
+            match(Criteria.where("viewId").in(views)
+                .and("name").in(metricNames)
+                .and("value").gte(0d)
+                .and("historicType").is(unit)
+                .and("timestamp").gte(timestamp)),
+            project("viewId", "name", "value", "historicType", "sampleSize", "collectorId", "appVersion", "identifier")
+                .and(ConditionalOperators.ifNull("sampleSize").then(1l)).as("sampleSize"),
+            project("viewId", "name", "value", "historicType", "sampleSize", "collectorId", "appVersion", "identifier")
+                .and(sampleSizeCondition).as("sampleSize"),
+            group("name")
+                .sum("sampleSize").as("sampleSize")
+                .sum("value").as("value")
+                .first("viewId").as("viewId")
+                .first("historicType").as("historicType")
+                .first("collectorId").as("collectorId")
+                .first("identifier").as("identifier")
+                .first("appVersion").as("appVersion"));
 
         AggregationResults<HistoricUserMetricStats> groupResults =
             mongoTemplate.aggregate(aggregation,"historic_user_metrics", HistoricUserMetricStats.class);
