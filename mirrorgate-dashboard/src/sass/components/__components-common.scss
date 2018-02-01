@@ -45,6 +45,7 @@
         margin: 0 auto;
         height: 100%;
         width: 100%;
+        max-width: 38vw;
     }
 }
 
@@ -189,7 +190,7 @@
 //Modules states backgrounds
 $border-width: -5px;
 
-.component {
+.tile {
     &.module-ok {
         box-shadow: inset 0 $border-width 0 $darker-grey;
     }
@@ -295,7 +296,7 @@ tile-container.module-data-error {
 
 // RESPONIVE
 @media all and (min-width: $l) {
-    .component{
+    .tile{
         margin: 0 auto;
         max-width: 100%;
     }
@@ -322,7 +323,7 @@ tile-container.module-data-error {
 }
 
 @media all and (min-width: $xxl) {
-    .component{
+    .tile{
         margin: 0 auto;
     }
 

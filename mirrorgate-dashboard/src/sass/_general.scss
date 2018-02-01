@@ -150,7 +150,12 @@ tile-container{
     }
 
     board-row {
+        display: flex;
         width: 100%;
+
+        board-column {
+            width: 100%;
+        }
     }
 
     //TILES
@@ -180,6 +185,7 @@ tile-container{
         &[data-size="fixed-right"] {
             background: $alerts-background;
             border-left: 2px solid lighten($alerts-background, 5);
+            flex-basis: 100%;
         }
     }
 
