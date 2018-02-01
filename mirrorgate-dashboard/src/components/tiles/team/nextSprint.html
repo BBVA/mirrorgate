@@ -83,16 +83,22 @@
       }
     }
 
+    function getComponentState(stats){
+        var percentage = (stats.backlogEstimate * 100) / stats.velocity;
+        return percentage < 70 ? 'error' : percentage < 90 ? 'warn' : 'unknown';
+    }
 
     MGComponent({
       name: 'next-sprint-tile',
       controllerClass: TeamController,
       parent: Tile,
-      render: function (sprintData) {
+      processAlerts: function (sprintData) {
         Utils.raiseEvent(this, {
-          status: sprintData ? 'unknown' : 'server-error'
+          status: sprintData ? (sprintData.stats ? getComponentState(sprintData.stats) : 'unknown') : 'server-error'
         });
+      },
 
+      render: function (sprintData) {
         if (sprintData) {
           var model = this.getModel();
           model.stats = sprintData.stats || {};
@@ -104,8 +110,9 @@
 
             model.stats.backlogFillRate = 70 * model.stats.backlogEstimate / model.stats.velocity;
           }
-
         }
+
+        this.processAlerts(sprintData);
       }
     });
 
