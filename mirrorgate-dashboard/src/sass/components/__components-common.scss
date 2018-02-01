@@ -14,27 +14,10 @@
  * limitations under the License.
  */
 
-.page-component {
-  width: 100%;
-}
-
-@include host('.keep-height') {
-  .component__body {
-    height: auto;
-    min-height: auto;
-    flex-basis: unset;
-  }
-}
-
-.component {
+.tile {
     background-color: $component-background-color;
     display: flex;
-    width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    //display: block;
-
-    max-height: 100%;
+    height: 100%;
 
     &.component-wrapper, &.component-host {
       background:transparent;
@@ -219,17 +202,17 @@ $border-width: -5px;
         box-shadow: inset 0 $border-width 0 $red;
     }
 
-    &.module-warning--level-2, &.module-warning.tile--primary {
+    &.module-warning--level-2, &.module-warning[data-size="l"] {
         @extend .module-warning;
         background: $module-warning-background !important;
     }
 
-    &.module-error--level-2, &.module-error.tile--primary{
+    &.module-error--level-2, &.module-error[data-size="l"]{
         @extend .module-error;
         background: $module-error-background !important;
     }
 
-    &.module-ok--level-2, &.module-ok.tile--primary {
+    &.module-ok--level-2, &.module-ok[data-size="l"] {
         @extend .module-ok;
         background: $module-ok-background !important;
     }

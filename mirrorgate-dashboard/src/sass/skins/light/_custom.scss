@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-.component {
+.tile {
   border-radius: 2px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
@@ -31,7 +31,7 @@ h2 {
   color: inherit;
 }
 
-@include host('.tile--primary.module-error') {
+@include host('[data-size="l"].module-error') {
   color: white;
 }
 

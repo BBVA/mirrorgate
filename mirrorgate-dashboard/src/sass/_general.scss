@@ -77,7 +77,8 @@ a{
     flex: 0 0 auto;
     width: 100%;
 
-    .component, .notification {
+    .tile, .notification {
+        background-color: transparent;
         width: 100%;
         overflow: visible;
     }
@@ -117,7 +118,6 @@ tile-container{
 
     .dashboard {
         display: flex;
-
         //need to interpolate the $header-footer-height in order to have it print out the px there
         height: calc(100vh - #{$header-height});
         padding: 5px;
@@ -126,68 +126,63 @@ tile-container{
         &.with-footer {
           height: calc(100vh - #{$header-footer-height});
         }
+
+        &[data-count-columns="1"] board-column { width: 100% }
+        &[data-count-columns="2"] board-column { width: 50% }
+        &[data-count-columns="3"] board-column { width: 33.3% }
+        &[data-count-columns="4"] board-column { width: 25% }
+        &[data-count-columns="5"] board-column { width: 20% }
     }
 
     board-column {
-        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
 
-        &[data-count="4"][data-count-x="2"][data-count-y="2"],
-        &[data-count="5"][data-count-x="2"][data-count-y="3"]{
-            width: 200%;
+        // Alerts column
+        &[data-size="fixed-right"]{
+            max-width: $alerts-column-width;
+            margin: -5px 0;
+            position: relative;
+            right: -5px;
+            overflow: hidden;
         }
-    }
-
-    board-column.alerts-column {
-        max-width: $alerts-column-width;
-        margin: -5px 0;
-        position: relative;
-        right: -5px;
-        overflow: hidden;
     }
 
     board-row {
-        display: flex;
-        flex-basis: auto;
         width: 100%;
-
-        &.row--primary {
-            flex-grow: 1;
-        }
     }
 
     //TILES
 
     tile-container{
-        flex-grow: 1;
         margin: 0;
         padding: 5px;
         width: 100%;
-        min-height: 0;
-        min-width: 0;
-    }
+        
+        &[data-size="l"] {
+            flex-basis: 100%;
+            flex-grow: 10;
+        }
 
-    .tile--primary{
-        flex-grow: 2;
-    }
+        &[data-size="m"] {
+            flex-basis: 100%;
+            flex-grow: 0;
+            flex-shrink: 10;
+        }
 
-    .tile {
-        height: 100%
-    }
+        &[data-size="s"] {
+            flex-basis: 100%;
+            flex-grow: 0;
+            flex-shrink: 10;
+        }
 
-    .equal-grow {
-        flex-grow: 1;
-
-        &.row--primary {
-            flex-grow: 99;
+        &[data-size="fixed-right"] {
+            background: $alerts-background;
+            border-left: 2px solid lighten($alerts-background, 5);
         }
     }
 
-    tile-container.alerts {
-        background: $alerts-background;
-        border-left: 2px solid lighten($alerts-background, 5);
-    }
 
     .bottom{
         flex: 0 0 auto;
@@ -218,7 +213,8 @@ tile-container{
         padding: 10px;
     }
 
-    board-column.alerts-column {
+    // Alerts
+    board-column[data-size="fixed-right"] {
         margin: -10px 0;
         right: -10px;
         max-width: 300px;

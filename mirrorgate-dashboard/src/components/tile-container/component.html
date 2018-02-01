@@ -32,14 +32,17 @@
 
     updateVisibility: function () {
       var disabled = true;
+      var size = "";
       for (var i in this.children) {
         var child = this.children[i];
         if (child.getAttribute) {
           disabled = disabled && child.getAttribute('enabled') !== 'true';
+          size = child.getAttribute('data-size');
         }
       }
 
       this.setAttribute('enabled', !disabled || this.forceEnabled);
+      this.setAttribute('data-size', size);
 
       if (disabled && !this.forceEnabled) {
         this.style.display = 'none';
