@@ -58,31 +58,29 @@
   </style>
   <div>
     <header-component class="header" rv-config="config"></header-component>
+
+    <!-- .dashboard -->
     <div class="dashboard adaptable" rv-class-with-footer="layout.withFooter">
-
       <board-column rv-each-column="columns">
-
         <tile-container rv-each-tile="column">
 
-          <scm-metrics-tile rv-if="tile | = 'scm-metrics'" rv-config="config" class="tile component"></scm-metrics-tile>
+          <scm-metrics-tile rv-if="tile | = 'scm-metrics'" rv-config="config" class="tile component component--m"></scm-metrics-tile>
           <current-sprint-tile rv-if="tile | = 'current-sprint'" rv-config="config" class="tile component component--xl"></current-sprint-tile>
           <program-increment-tile rv-if="tile | = 'program-increment' " rv-config="config" class="tile component component--xl"></program-increment-tile>
           <bugs-tile rv-if="tile | = 'bugs' " rv-config="config" class="tile component component--s"></bugs-tile>
-          <next-sprint-tile rv-if="tile | = 'next-sprint'" rv-config="config" class="tile component"></next-sprint-tile>
-          <builds-tile rv-if="tile | = 'builds'" rv-config="config" class="tile component tile--primary"></builds-tile>
-          <buildsstats-tile rv-if="tile | = 'buildsstats'" rv-config="config" class="tile component"></buildsstats-tile>
-          <markets-tile rv-if="tile | = 'markets' " rv-config="config" class="tile component component--m"></markets-tile>
-          <reviews-tile rv-if="tile | = 'reviews'" rv-config="config" class="tile component"></reviews-tile>
-          <user-metrics-tile rv-if="tile | = 'user-metrics'" rv-config="config" class="tile component"></user-metrics-tile>
-          <operations-metrics-tile rv-if="tile | = 'operations-metrics'" rv-config="config" class="tile component"></operations-metrics-tile>
+          <next-sprint-tile rv-if="tile | = 'next-sprint'" rv-config="config" class="tile component component--s"></next-sprint-tile>
+          <builds-tile rv-if="tile | = 'builds'" rv-config="config" class="tile component component--xl"></builds-tile>
+          <buildsstats-tile rv-if="tile | = 'buildsstats'" rv-config="config" class="tile component component--m"></buildsstats-tile>
+          <markets-tile rv-if="tile | = 'markets'" rv-config="config" class="tile component component--m"></markets-tile>
+          <reviews-tile rv-if="tile | = 'reviews'" rv-config="config" class="tile component component--m"></reviews-tile>
+          <user-metrics-tile rv-if="tile | = 'user-metrics'" rv-config="config" class="tile component component--m"></user-metrics-tile>
+          <operations-metrics-tile rv-if="tile | = 'operations-metrics'" rv-config="config" class="tile component component--m"></operations-metrics-tile>
           <alerts-tile rv-if="tile | = 'alerts'" rv-config="config" ></alerts-tile>
 
         </tile-container>
-
       </board-column>
-
     </div>
-      <!-- / .dashboard -->
+    <!-- / .dashboard -->
 
     <!-- .bottom -->
     <board-row class="bottom" rv-enabled="layout.withFooter">
@@ -94,6 +92,7 @@
       </board-column>
     </board-row>
     <!-- / .bottom -->
+
   </div>
 </template>
 
@@ -108,9 +107,11 @@
     render: function (config) {
       this.getModel().layout.withFooter =
           config.slackTeam || (config.codeRepos && config.codeRepos.length) ? true: false;
-      var columns = config.columns;
-      if(!columns){
-        columns = new Array(5);
+
+      if(config.type === "Custom"){
+        var columns = config.columns;
+      }else{
+        var columns = new Array(5);
         columns[0] = new Array("scm-metrics","current-sprint","bugs");
         columns[1] = new Array("program-increment","next-sprint");
         columns[2] = new Array("builds","buildsstats");
