@@ -61,6 +61,7 @@
 </template>
 
 <script>
+
   MGComponent({
     name: 'dashboard-component',
     parent: DashboardComponent,
@@ -90,6 +91,8 @@
             this.addEventListener('dashboard-updated', function () {
               setTimeout(function () {
                 var enabledItems = this.querySelectorAll('#dashboard-container tile-container[enabled=true]').length;
+                var enabledColumns = this.querySelectorAll(".dashboard > board-column[enabled=true]").length;
+                this.querySelector(".dashboard").setAttribute("data-count-columns", enabledColumns);
                 model.empty = !enabledItems;
               }.bind(this));
             }.bind(this));
