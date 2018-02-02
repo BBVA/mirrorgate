@@ -84,8 +84,8 @@
     }
 
     function getComponentState(stats){
-        var percentage = (stats.backlogEstimate * 100) / stats.velocity;
-        return percentage < 70 ? 'error' : percentage < 90 ? 'warn' : 'unknown';
+      var percentage = (stats.backlogEstimate * 100) / stats.velocity;
+      return percentage < 70 ? 'error' : percentage < 90 ? 'warn' : 'unknown';
     }
 
     MGComponent({
@@ -94,7 +94,7 @@
       parent: Tile,
       processAlerts: function (sprintData) {
         Utils.raiseEvent(this, {
-          status: sprintData ? (sprintData.stats ? getComponentState(sprintData.stats) : 'unknown') : 'server-error'
+          status: sprintData ? (sprintData.stats && sprintData.stats.velocity ? getComponentState(sprintData.stats) : 'unknown') : 'server-error'
         });
       },
 
@@ -105,10 +105,10 @@
 
           if (model.stats.sprintStats) {
             var sprintDays = (sprintData.currentSprint && sprintData.currentSprint.getTotalDays()) || model.stats.sprintStats.daysDurationAvg;
-            model.stats.velocity = Math.floor(sprintDays *
-              model.stats.sprintStats.estimateAvg / model.stats.sprintStats.daysDurationAvg);
+            model.stats.velocity = model.stats.sprintStats.daysDurationAvg != 0 ? (Math.floor(sprintDays *
+              model.stats.sprintStats.estimateAvg / model.stats.sprintStats.daysDurationAvg)) : 0;
 
-            model.stats.backlogFillRate = 70 * model.stats.backlogEstimate / model.stats.velocity;
+            model.stats.backlogFillRate = model.stats.velocity != 0 ? (70 * model.stats.backlogEstimate / model.stats.velocity) : 0;
           }
         }
 
