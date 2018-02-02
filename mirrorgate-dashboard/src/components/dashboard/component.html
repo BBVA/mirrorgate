@@ -88,7 +88,7 @@
 
                 // Alerts special column
                 var alertColumns = this.querySelector("alerts-tile");
-                if (alertColumns !== undefined) { alertColumns.parentElement.parentElement.setAttribute("data-alerts", "true");}
+                if (alertColumns !== null) { alertColumns.parentElement.parentElement.setAttribute("data-alerts", "true");}
 
                 model.empty = !enabledItems;
               }.bind(this));

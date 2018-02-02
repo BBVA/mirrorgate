@@ -162,7 +162,7 @@
   width: 100%;
   box-sizing: border-box;
   background-color: transparent;
-  height: 2.5rem;
+  height: 2.2rem;
   box-shadow: none;
   padding-right: 5px;
   display: block;
@@ -207,17 +207,17 @@ $border-width: -5px;
         box-shadow: inset 0 $border-width 0 $red;
     }
 
-    &.module-warning--level-2, &.module-warning[data-size="l"] {
+    &.module-warning--level-2, &.module-warning[data-size="l"], &.module-warning.tile--primary{
         @extend .module-warning;
         background: $module-warning-background !important;
     }
 
-    &.module-error--level-2, &.module-error[data-size="l"]{
+    &.module-error--level-2, &.module-error[data-size="l"], &.module-error.tile--primary{
         @extend .module-error;
         background: $module-error-background !important;
     }
 
-    &.module-ok--level-2, &.module-ok[data-size="l"] {
+    &.module-ok--level-2, &.module-ok[data-size="l"], &.module-ok.tile--primary {
         @extend .module-ok;
         background: $module-ok-background !important;
     }
