@@ -18,6 +18,10 @@ alerts-tile {
   display: block;
   padding: 5px 0;
   width: 100%;
+
+  &.tile.module-ok {
+    box-shadow: none;
+  }
 }
 
 .alerts__content {
