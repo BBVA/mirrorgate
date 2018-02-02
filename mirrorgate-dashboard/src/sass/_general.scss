@@ -126,18 +126,13 @@ tile-container{
         &.with-footer {
           height: calc(100vh - #{$header-footer-height});
         }
-
-        &[data-count-columns="1"] board-column { width: 100% }
-        &[data-count-columns="2"] board-column { width: 50% }
-        &[data-count-columns="3"] board-column { width: 33.3% }
-        &[data-count-columns="4"] board-column { width: 25% }
-        &[data-count-columns="5"] board-column { width: 20% }
     }
 
     board-column {
         height: 100%;
         display: flex;
         flex-direction: column;
+        width: 100%;
 
         // Alerts column
         &[data-size="fixed-right"]{
@@ -152,6 +147,19 @@ tile-container{
             tile-container {
                 max-height: 25%;
                 min-height: 20%;
+            }
+        }
+
+        &[data-alerts] {
+            height: calc(100% + 10px);
+            max-width: 320px;
+            position: relative;
+            top: -5px;
+            right: -5px;
+            overflow: hidden;
+
+            tile-container {
+                padding: 0;
             }
         }
     }
