@@ -112,6 +112,12 @@
         }).then(function () {
           this.addEventListener('component-ready', function () {
             this.getRootElement().querySelector('#main-container').style.visibility='visible';
+            setTimeout(function() { // need nested setTimeOut -> Fires when rivets ends its setTimeout
+              setTimeout(function(){
+                window.dispatchEvent(
+                    new CustomEvent('layout-ready', {bubbles: true, detail: {} }));
+              });
+            }, 0);
           }.bind(this));
         }.bind(this));
       } else {

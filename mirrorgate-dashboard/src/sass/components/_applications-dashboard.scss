@@ -27,7 +27,7 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-between;
 
       .platform-rate:last-child {
           margin-bottom: 0;
@@ -35,10 +35,7 @@
     }
 
     .platform-rate {
-        flex: 1 1 20%;
         margin: 0 auto 20px auto;
-        min-width: 70vw;
-        max-width: 350px;
 
         .rate__os {
             -webkit-text-stroke-color: #b3b3b3;
@@ -196,7 +193,6 @@
         }
         .platform-rate{
             font-size: $level-3 + 0.2;
-            min-width: 15vw;
 
             .rate__total {
                 .fa {
