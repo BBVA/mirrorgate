@@ -64,7 +64,6 @@
     onCreated: function () {
       this.addEventListener('component-resized', this._setSize.bind(this));
       window.addEventListener("layout-ready", function(){
-        debugger;
         this._setSize();
       }.bind(this));
 
