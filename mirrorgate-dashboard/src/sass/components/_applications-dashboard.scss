@@ -111,6 +111,8 @@
 
     .review {
         cursor: pointer;
+        margin-bottom: 15px;
+
         &:hover .review-contents{
             background-color: lighten($color: $review-background-color, $amount: 1) ;
         }
@@ -277,7 +279,6 @@
         .review {
           flex: 1 1 50%;
           overflow: hidden;
-          margin-bottom: 15px;
           min-width: 15vw;
         }
 
@@ -287,6 +288,10 @@
 
         &.layout-1x1, &.layout-1x2 {
             grid-template-columns: 1fr;
+
+            .review {
+                margin-bottom: 0;
+            }
         }
 
         &.layout-2x1, &.layout-2x2 {

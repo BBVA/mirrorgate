@@ -45,7 +45,7 @@
         margin: 0 auto;
         height: 100%;
         width: 100%;
-        max-width: 38vw;
+        max-width: 35vw;
     }
 }
 
@@ -85,10 +85,15 @@
 
 
 .indicator__bar {
-  padding: 0;
   display: flex;
   clear: both;
+  padding: 0;
+  padding-bottom: 15px;
   width: 100%;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
 
   .indicator {
     line-height: 1em;

@@ -72,28 +72,20 @@
     },
 
     _setSize: function (e) {
-
+      
       var contents = this.getRootElement().querySelector('.reviews-list');
 
       var height = contents.offsetHeight;
       var width = contents.offsetWidth;
+      console.log("y:" + height);
+      console.log("x:" + width);
 
       var xSize = Math.max(1,Math.min(Math.floor(width / 320),4));
-      var ySize = Math.max(1,Math.min(Math.floor(height / 300),2));
+      var ySize = Math.max(1,Math.min(Math.floor(height / 320),2));
       if(ySize < 2) {
         //We don't want to render 4 comments in a single row
         xSize = Math.min(xSize, 3);
       }
-
-      /*if(window.innerWidth < 992) {
-        xSize = 1;
-        ySize = 1;
-        this._sheet.innerText = "";
-      } else {
-        this._sheet.innerText =
-          ".review {height: " + Math.floor((height  - 15 * (ySize-1)) / ySize) +"px ;}"
-          ;
-      }*/
 
       var model = this.getModel();
       model.layout = xSize + 'x' + ySize;

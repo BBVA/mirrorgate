@@ -147,6 +147,13 @@ tile-container{
             right: -5px;
             overflow: hidden;
         }
+
+        &[data-count-y="4"]{
+            tile-container {
+                max-height: 25%;
+                min-height: 20%;
+            }
+        }
     }
 
     board-row {
@@ -208,15 +215,10 @@ tile-container{
     }
 
     .dashboard {
-        padding: 10px;
 
         &.with-footer {
           height: calc(100vh - #{$header-footer-height-xxl});
         }
-    }
-
-    tile-container {
-        padding: 10px;
     }
 
     // Alerts
