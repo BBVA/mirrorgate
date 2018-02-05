@@ -193,7 +193,7 @@
 
             .rate__total {
                 .fa {
-                    font-size: $level-2 + 0.4;
+                    font-size: $level-2 + 0.2;
                 }
 
             }
@@ -201,10 +201,6 @@
             .rate__tag {
                 font-size: $level-2 - 0.2;
 
-            }
-
-            .tendency:before {
-                font-size: $level-2 - 0.3;
             }
 
             .rate__total-data {
