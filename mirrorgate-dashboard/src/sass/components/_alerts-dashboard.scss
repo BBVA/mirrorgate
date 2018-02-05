@@ -105,8 +105,8 @@ alerts-tile {
 
       span {
         overflow: hidden;
-        font-size: $level-6;
-        line-height: $level-6 + 0.3;
+        font-size: $level-5;
+        line-height: $level-5 + 0.3;
         text-overflow: ellipsis;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -117,7 +117,7 @@ alerts-tile {
     .alert__state  {
       
       .fa {
-        font-size: $level-6;
+        font-size: $level-5;
       }
     }
 

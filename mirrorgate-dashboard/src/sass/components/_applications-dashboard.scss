@@ -239,11 +239,11 @@
         }
 
         .review__rate {
-            margin: 8px 0;
-            line-height: 1em;
+            margin: 5px 0 5px 0;
+            line-height: 0.7em;
 
             .fa{
-                font-size: $level-2 + 0.4;
+                font-size: $level-2 + 0.2;
             }
 
             > .fa {
