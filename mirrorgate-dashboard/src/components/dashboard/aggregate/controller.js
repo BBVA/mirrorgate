@@ -37,7 +37,14 @@ var AggregateDashboardController = (function(dashboardId) {
         .addListener(function(details) {
           if(details) {
             data.detail = details;
-            boards.push(data);
+            var dashboardAdded = false;
+            for(var i = 0; i < boards.length; i++){
+              if(boards[i].id === dashboardId){
+                dashboardAdded = true;
+                break;
+              }
+            }
+            if(!dashboardAdded) boards.push(data);
             observable.notify(boards);
           }
         });
