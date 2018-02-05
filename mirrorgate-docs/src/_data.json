@@ -8,5 +8,11 @@
             "name":"Collect",
             "file":"feedback/collect"
         }]
+    },{
+        "name":"Operations",
+        "menu": [{
+                "name":"AWS Metrics",
+                "file":"operations/aws_metrics"
+            }]
     }]
 }
