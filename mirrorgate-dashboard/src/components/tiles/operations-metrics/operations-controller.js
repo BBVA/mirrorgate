@@ -54,7 +54,7 @@ var OperationsController = (function(dashboardId) {
           if(metric.name === 'errorsNumber') {
             errorsNumber += parseInt(metric.value);
             let errorsRateTendencyChange = parseInt(metric.midTermTendency);
-            errorsRateTendency = errorsRateTendencyChange < -10 ? 'threedown' : errorsRateTendencyChange < -5 ? 'twodown' : errorsRateTendencyChange < -1 ? 'onedown' : errorsRateTendencyChange > 10 ? 'threeup' : errorsRateTendencyChange > 5 ? 'twoup' : errorsRateTendencyChange > 1 ? 'oneup' : 'eq';
+            errorsRateTendency = errorsRateTendencyChange < -10 ? 'threedown-green' : errorsRateTendencyChange < -5 ? 'twodown-green' : errorsRateTendencyChange < -1 ? 'onedown-green' : errorsRateTendencyChange > 10 ? 'threeup-red' : errorsRateTendencyChange > 5 ? 'twoup-red' : errorsRateTendencyChange > 1 ? 'oneup-red' : 'eq';
             return;
           }
           if(metric.name === 'availabilityRate') {
@@ -69,7 +69,7 @@ var OperationsController = (function(dashboardId) {
             if(metric.sampleSize) {
               responseTime = metric.value / metric.sampleSize;
               let responseTimeTendencyChange = parseInt(metric.midTermTendency);
-              responseTimeTendency = responseTimeTendencyChange < -10 ? 'threedown' : responseTimeTendencyChange < -5 ? 'twodown' : responseTimeTendencyChange < -1 ? 'onedown' : responseTimeTendencyChange > 10 ? 'threeup' : responseTimeTendencyChange > 5 ? 'twoup' : responseTimeTendencyChange > 1 ? 'oneup' : 'eq';
+              responseTimeTendency = responseTimeTendencyChange < -10 ? 'threedown-green' : responseTimeTendencyChange < -5 ? 'twodown-green' : responseTimeTendencyChange < -1 ? 'onedown-green' : responseTimeTendencyChange > 10 ? 'threeup-red' : responseTimeTendencyChange > 5 ? 'twoup-red' : responseTimeTendencyChange > 1 ? 'oneup-red' : 'eq';
             }
             return;
           }
