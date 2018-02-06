@@ -1,0 +1,15 @@
+{
+  "name": "mobile",
+  "displayName": "Mobile",
+  "logoUrl": "img/logo.png",
+  "codeRepos": [
+    "mobile"
+  ],
+  "boards": [
+    "mobile"
+  ],
+  "applications": ["mobile"],
+  "slackTeam": "Mobile",
+  "lastVersion": "^(\\d)",
+  "analyticViews": ["123412"]
+}

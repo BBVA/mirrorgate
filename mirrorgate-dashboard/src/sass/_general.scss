@@ -138,39 +138,29 @@ tile-container{
         // Alerts column
         &[data-size="fixed-right"]{
             max-width: $alerts-column-width;
-            margin: -5px 0;
-            position: relative;
-            right: -5px;
             overflow: hidden;
         }
 
         &[data-count-y="4"]{
             tile-container {
-                max-height: 25%;
+                //max-height: 25%;
                 min-height: 20%;
-            }
-        }
-
-        &[data-alerts] {
-            height: calc(100% + 10px);
-            max-width: 240px;
-            position: relative;
-            top: -5px;
-            right: -5px;
-            overflow: hidden;
-
-            tile-container {
-                padding: 0;
             }
         }
     }
 
     board-row {
         display: flex;
+        flex-basis: auto;
         width: 100%;
 
         board-column {
             width: 100%;
+        }
+
+        &[data-size="l"],
+        &[data-size="fixed-right"] {
+            flex-grow: 1;
         }
     }
 
@@ -180,31 +170,7 @@ tile-container{
         margin: 0;
         padding: 5px;
         width: 100%;
-        
-        &[data-size="l"] {
-            flex-basis: 100%;
-            flex-grow: 10;
-        }
-
-        &[data-size="m"] {
-            flex-basis: 100%;
-            flex-grow: 0;
-            flex-shrink: 10;
-        }
-
-        &[data-size="s"] {
-            flex-basis: 100%;
-            flex-grow: 0;
-            flex-shrink: 10;
-        }
-
-        &[data-size="fixed-right"] {
-            background: $alerts-background;
-            border-left: 2px solid lighten($alerts-background, 5);
-            flex-basis: 100%;
-        }
     }
-
 
     .bottom{
         flex: 0 0 auto;
@@ -231,10 +197,8 @@ tile-container{
     }
 
     // Alerts
-    board-column[data-size="fixed-right"] {
-        margin: -10px 0;
-        right: -10px;
-        max-width: 300px;
+    board-column[data-alerts] {
+        max-width: $alerts-column-width-xl;
     }
 }
 

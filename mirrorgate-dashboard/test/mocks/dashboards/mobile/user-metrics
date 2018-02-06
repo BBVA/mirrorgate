@@ -1,0 +1,103 @@
+[
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1.0.0",
+    "platform" : "Unknown",
+    "name" : "activeUsers",
+    "value" : 6,
+    "timestamp" : "1516709298000",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1.0.1",
+    "platform" : "Unknown",
+    "name" : "activeUsers",
+    "value" : 6,
+    "timestamp" : "1516709298000",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1.0.1",
+    "platform" : "Android",
+    "name" : "7dayUsers",
+    "value" : 55,
+    "timestamp" : "1516709298000",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1",
+    "platform" : "Android",
+    "name" : "activeUsers",
+    "value" : 12,
+    "timestamp" : "1516709298000",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "3.0.0",
+    "platform" : "Android",
+    "name" : "7dayUsers",
+    "value" : 12,
+    "timestamp" : "1516709298000",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "2",
+    "platform" : "Android",
+    "name" : "activeUsers",
+    "value" : 12,
+    "timestamp" : "1516709298000",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1.0.2",
+    "platform" : "Android",
+    "name" : "requestsNumber",
+    "value" : 5,
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "14",
+    "platform" : "Android",
+    "name" : "errorsNumber",
+    "value" : 12,
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "2.0.0",
+    "platform" : "Android",
+    "name" : "requestsNumber",
+    "value" : 15,
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "1",
+    "platform" : "Android",
+    "name" : "responseTime",
+    "value" : 0.25,
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1",
+    "sampleSize": 5
+  },
+  {
+    "viewId" : "1234123",
+    "appVersion" : "2.0.2",
+    "platform" : "Android",
+    "name" : "responseTime",
+    "value" : 0.675,
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1",
+    "sampleSize": 15
+  }
+]
