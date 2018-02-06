@@ -557,4 +557,40 @@ svg {
     content: url(../img/down_arrow_triple.svg);
   }
 
+  &.tendency-oneup-red::before {
+    content: url(../img/top_arrow_red.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
+  &.tendency-twoup-red::before {
+    content: url(../img/top_arrow_double_red.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
+  &.tendency-threeup-red::before {
+    content: url(../img/top_arrow_triple_red.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
+  &.tendency-onedown-green::before {
+    content: url(../img/down_arrow_green.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
+  &.tendency-twodown-green::before {
+    content: url(../img/down_arrow_double_green.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
+  &.tendency-threedown-green::before {
+    content: url(../img/down_arrow_triple_green.svg);
+    width: 16px;
+    display: inline-block;
+  }
+
 }

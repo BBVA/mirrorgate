@@ -36,7 +36,7 @@
     <div class="component__body">
       <div class="indicator__bar">
         <div class="indicator" rv-show="metrics.errorsRate | >= 0">
-          <div class="stats">{metrics.errorsRate}% </div>
+          <div class="stats">{metrics.errorsRate}% <span class="tendency" rv-pclass-tendency="metrics.errorsRateTendency"></span></div>
           <div class="stat-desc">of errors</div>
         </div>
         <div class="indicator" rv-show="metrics.availabilityRate | >= 0">
@@ -44,7 +44,7 @@
           <div class="stat-desc">of availability</div>
         </div>
         <div class="indicator" rv-show="metrics.responseTime | >= 0">
-          <div class="stats">{metrics.responseTime}s </div>
+          <div class="stats">{metrics.responseTime}s <span class="tendency" rv-pclass-tendency="metrics.responseTimeTendency"></span></div>
           <div class="stat-desc"> response time</div>
         </div>
       </div>
@@ -70,8 +70,10 @@
       Error: 2
     };
 
+    var lastEvent;
+
     function sendEvent(metricName, description, color){
-      document.dispatchEvent(new CustomEvent('HeadsUp', {
+      var event =  {
         detail: {
           title: metricName,
           description: description,
@@ -79,9 +81,17 @@
           url: '',
           color: color
         }
-      }));
+      }
 
-      firstTime = false;
+      if(!lastEvent || lastEvent.title !== event.detail.title || lastEvent.description !== event.detail.description || lastEvent.color !== event.detail.color) {
+        lastEvent = {
+          title: event.detail.title,
+          description: event.detail.description,
+          color: event.detail.color
+        }
+        document.dispatchEvent(new CustomEvent('HeadsUp', event));
+        firstTime = false;
+      }
     }
 
     function checkOperationMetricsToSendEvent(responseTimeState, errorsRateState, responseTimeAlertingLevels, errorsRateAlertingLevels){

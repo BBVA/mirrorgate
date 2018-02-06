@@ -25,20 +25,41 @@ var Utils = (function() {
     'yellow': 'yellow'
   };
 
+  var notification;
+
+  document.addEventListener('Message', checkNotification);
+  document.addEventListener('HeadsUp', checkNotification);
+  document.addEventListener('Message', notifyFavIcon);
+  document.addEventListener('HeadsUp', notifyFavIcon);
+
+  function checkNotification(data) {
+    if (Notification.permission === "granted") {
+      if (data && data.detail) {
+        if(notification) {
+          notification.close();
+        }
+        notification = new Notification('MirrorGate Notification: ' + (data.detail.title || ''), {
+          body: data.detail.description || '',
+          icon: 'img/favicon-' + (colorMapping[data.detail.color] || 'blue') + '.png'
+        });
+      }
+    }
+  }
+
   function notifyFavIcon(event) {
     if(event && event.detail) {
-      console.log(event.detail.color);
-
       var icon = document.querySelector('link[rel*="icon"]');
 
-      icon.href = 'img/favicon-' + (colorMapping[event.detail.color] || 'blue') + '.png';
-      if(breakFavIconTimeout) {
-        clearTimeout(breakFavIconTimeout);
+      if(icon) {
+        icon.href = 'img/favicon-' + (colorMapping[event.detail.color] || 'blue') + '.png';
+        if(breakFavIconTimeout) {
+          clearTimeout(breakFavIconTimeout);
+        }
+        breakFavIconTimeout = setTimeout(function() {
+          icon.href = 'img/favicon.png';
+          breakFavIconTimeout = undefined;
+        }, 60000);
       }
-      breakFavIconTimeout = setTimeout(function() {
-        icon.href = 'img/favicon.png';
-        breakFavIconTimeout = undefined;
-      }, 60000);
     }
   }
 
@@ -76,9 +97,6 @@ var Utils = (function() {
 
     throw new Error('Unable to copy obj! Its type isn\'t supported.');
   }
-
-  document.addEventListener('NotificationEvent', notifyFavIcon);
-  document.addEventListener('SlackEvent', notifyFavIcon);
 
   return {
 
