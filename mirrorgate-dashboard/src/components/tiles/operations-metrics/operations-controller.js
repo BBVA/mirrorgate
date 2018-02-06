@@ -84,14 +84,14 @@ var OperationsController = (function(dashboardId) {
 
         model.metrics = {
           errorsRate: errorsRate,
-          availabilityRate: parseFloat(availabilityRate.toFixed(2)),
-          responseTime: parseFloat(responseTime.toFixed(2)),
+          availabilityRate: availabilityRate && parseFloat(availabilityRate.toFixed(2)),
+          responseTime: responseTime && parseFloat(responseTime.toFixed(2)),
           requestsNumber: requestsNumber,
           requestsNumberTendency: requestsNumberTendency,
           availabilityRateTendency: availabilityRateTendency,
           responseTimeTendency: responseTimeTendency,
           errorsRateTendency: errorsRateTendency,
-          infraCost: parseFloat(infraCost.toFixed(2))
+          infraCost: infraCost && parseFloat(infraCost.toFixed(2))
         };
 
         model.responseTimeAlertingLevels = {
