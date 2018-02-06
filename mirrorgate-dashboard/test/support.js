@@ -51,7 +51,7 @@ function genericTileComponentTest(type, contentProveSelector, focus) {
 
     describe('events', () => {
 
-      it('should raise an event with ok or unknown when it succeds', (done) => {
+      it('should raise an event with ok or unknown when it succeeds', (done) => {
         function handler(e) {
           this.removeEventListener('dashboard-updated', handler);
           expect(e.detail.status).not.toBe('server-error');

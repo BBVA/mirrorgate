@@ -5,14 +5,14 @@ import java.util.List;
 
 public enum MetricType {
 
-    USER_METRICS,
-    OPERATION_METRICS;
+    OVER_TIME,
+    SNAPSHOT_METRICS;
 
     private List<String> metricNames;
 
     static{
-        OPERATION_METRICS.metricNames = Arrays.asList("availabilityRate","errorsNumber", "infrastructureCost", "requestsNumber", "responseTime");
-        USER_METRICS.metricNames = Arrays.asList("7dayUsers","activeUsers");
+        OVER_TIME.metricNames = Arrays.asList("availabilityRate", "errorsNumber", "requestsNumber", "responseTime");
+        SNAPSHOT_METRICS.metricNames = Arrays.asList("7dayUsers", "activeUsers", "infrastructureCost");
     }
 
     public List<String> getMetricNames(){

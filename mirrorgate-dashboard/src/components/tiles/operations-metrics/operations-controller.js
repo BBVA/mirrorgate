@@ -58,17 +58,16 @@ var OperationsController = (function(dashboardId) {
             return;
           }
           if(metric.name === 'availabilityRate') {
-            availabilityRate = availabilityRate ? Math.min(availabilityRate, metric.value) : metric.value;
-            let availabilityRateTendencyChange = parseInt(metric.midTermTendency);
-            availabilityRateTendency = availabilityRateTendencyChange < -10 ? 'threedown' : availabilityRateTendencyChange < -5 ? 'twodown' : availabilityRateTendencyChange < -1 ? 'onedown' : availabilityRateTendencyChange > 10 ? 'threeup' : availabilityRateTendencyChange > 5 ? 'twoup' : availabilityRateTendencyChange > 1 ? 'oneup' : 'eq';
+            if(metric.sampleSize) {
+              availabilityRate =  metric.value / metric.sampleSize;
+              let availabilityRateTendencyChange = parseInt(metric.midTermTendency);
+              availabilityRateTendency = availabilityRateTendencyChange < -10 ? 'threedown' : availabilityRateTendencyChange < -5 ? 'twodown' : availabilityRateTendencyChange < -1 ? 'onedown' : availabilityRateTendencyChange > 10 ? 'threeup' : availabilityRateTendencyChange > 5 ? 'twoup' : availabilityRateTendencyChange > 1 ? 'oneup' : 'eq';
+            }
             return;
           }
           if(metric.name === 'responseTime') {
             if(metric.sampleSize) {
-              responseTime = responseTime * responseTimeSampleSize + metric.value * metric.sampleSize;
-              responseTimeSampleSize += metric.sampleSize;
-              responseTime = responseTime / responseTimeSampleSize;
-
+              responseTime = metric.value / metric.sampleSize;
               let responseTimeTendencyChange = parseInt(metric.midTermTendency);
               responseTimeTendency = responseTimeTendencyChange < -10 ? 'threedown' : responseTimeTendencyChange < -5 ? 'twodown' : responseTimeTendencyChange < -1 ? 'onedown' : responseTimeTendencyChange > 10 ? 'threeup' : responseTimeTendencyChange > 5 ? 'twoup' : responseTimeTendencyChange > 1 ? 'oneup' : 'eq';
             }
@@ -86,13 +85,13 @@ var OperationsController = (function(dashboardId) {
         model.metrics = {
           errorsRate: errorsRate,
           availabilityRate: availabilityRate && parseFloat(availabilityRate.toFixed(2)),
-          responseTime: parseFloat(responseTime.toFixed(2)),
+          responseTime: responseTime && parseFloat(responseTime.toFixed(2)),
           requestsNumber: requestsNumber,
           requestsNumberTendency: requestsNumberTendency,
           availabilityRateTendency: availabilityRateTendency,
           responseTimeTendency: responseTimeTendency,
           errorsRateTendency: errorsRateTendency,
-          infraCost: parseFloat(infraCost.toFixed(2))
+          infraCost: infraCost && parseFloat(infraCost.toFixed(2))
         };
 
         model.responseTimeAlertingLevels = {

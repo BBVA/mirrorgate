@@ -42,6 +42,7 @@ var UserMetricsController = (function(dashboardId) {
         var versionsMap = {};
         var metricsMap = {};
         let sevenDayUsersTendency;
+        let activeUsersTendency;
 
         response.forEach(function(metric) {
           var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
@@ -64,6 +65,8 @@ var UserMetricsController = (function(dashboardId) {
               }
               versionData.versions[metric.appVersion] = metric.appVersion;
               versionData.value += value;
+              let activeUsersTendencyChange = parseInt(metric.shortTermTendency);
+              activeUsersTendency = activeUsersTendencyChange < -10 ? 'threedown' : activeUsersTendencyChange < -5 ? 'twodown' : activeUsersTendencyChange < -1 ? 'onedown' : activeUsersTendencyChange > 10 ? 'threeup' : activeUsersTendencyChange > 5 ? 'twoup' : activeUsersTendencyChange > 1 ? 'oneup' : 'eq';
             }
           } else if(metric.name === '7dayUsers' && metric.timestamp === metricsMap[metricId]) {
             model.metrics.sevenDayUsers += parseInt(metric.value);

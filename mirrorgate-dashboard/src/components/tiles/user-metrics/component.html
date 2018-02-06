@@ -34,7 +34,7 @@
     <div class="component__body">
       <div class="indicator__bar">
         <div class="indicator" rv-if="metrics.rtActiveUsers">
-          <div class="stats stats-metrics">{metrics.rtActiveUsers}</div>
+          <div class="stats stats-metrics">{metrics.rtActiveUsers}<span class="tendency" rv-pclass-tendency="activeUsersTendency"></span></div>
           <div class="stat-desc">active users</div>
         </div>
         <div class="indicator" rv-if="metrics.sevenDayUsers">

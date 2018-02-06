@@ -26,7 +26,6 @@ import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -45,6 +44,8 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private static final int LONG_TERM_TENDENCY_SHORT_PERIOD = 4;
     private static final int MID_TERM_TENDENCY_LONG_PERIOD = 24;
     private static final int MID_TERM_TENDENCY_SHORT_PERIOD = 2;
+    private static final int SHORT_TERM_TENDENCY_LONG_PERIOD = 8;
+    private static final int SHORT_TERM_TENDENCY_SHORT_PERIOD = 1;
 
     private final HistoricUserMetricRepository historicUserMetricRepository;
 
@@ -80,7 +81,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         Map<String, Double> longTermTendency = calculateTendency(views, metricNames, ChronoUnit.DAYS, LONG_TERM_TENDENCY_LONG_PERIOD, LONG_TERM_TENDENCY_SHORT_PERIOD);
         Map<String, Double> midTermTendency = calculateTendency(views, metricNames, ChronoUnit.HOURS, MID_TERM_TENDENCY_LONG_PERIOD, MID_TERM_TENDENCY_SHORT_PERIOD);
-        Map<String, Double> shortTermTendency = calculateShortTermTendency();
+        Map<String, Double> shortTermTendency = calculateTendency(views, metricNames, ChronoUnit.HOURS, SHORT_TERM_TENDENCY_LONG_PERIOD, SHORT_TERM_TENDENCY_SHORT_PERIOD);
 
         return metricNames.stream()
                 .collect(Collectors.toMap(s -> s, s -> new HistoricTendenciesDTO(longTermTendency.get(s) == null ? 0 : longTermTendency.get(s)
@@ -160,11 +161,6 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return longPeriodMap.keySet()
             .stream()
             .collect(Collectors.toMap(s -> s, s -> getPercentualDifference(longPeriodMap.get(s), shortPeriodMap.get(s) == null ? 0 : shortPeriodMap.get(s))));
-    }
-
-    //TODO
-    private Map<String, Double> calculateShortTermTendency(){
-        return new HashMap<>();
     }
 
     private double getPercentualDifference(double longPeriod, double shortPeriod){

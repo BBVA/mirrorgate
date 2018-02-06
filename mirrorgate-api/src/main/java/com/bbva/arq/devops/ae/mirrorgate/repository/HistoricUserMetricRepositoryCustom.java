@@ -23,4 +23,5 @@ import java.util.List;
 public interface HistoricUserMetricRepositoryCustom {
 
     List<HistoricUserMetricStats> getUserMetricAverageTendencyForPeriod(List<String> ids, ChronoUnit unit, List<String> names, long timestamp);
+    List<HistoricUserMetricStats> getUserMetricSumTotalForPeriod(List<String> views, ChronoUnit unit, List<String> metricNames, long timestamp);
 }
