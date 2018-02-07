@@ -21,6 +21,7 @@ import { Http } from '@angular/http';
 import { Headers, RequestOptions, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/filter';
 
 @Injectable()
 export class DashboardsService {
