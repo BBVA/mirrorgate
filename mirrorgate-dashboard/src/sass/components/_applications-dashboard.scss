@@ -35,7 +35,7 @@
     }
 
     .platform-rate {
-        margin: 5px auto 10px auto;
+        margin: 5px auto;
 
         .rate__os {
             -webkit-text-stroke-color: #b3b3b3;
@@ -108,7 +108,6 @@
 
     .review {
         cursor: pointer;
-        margin-bottom: 15px;
 
         &:hover .review-contents{
             background-color: lighten($color: $review-background-color, $amount: 1) ;
@@ -227,6 +226,7 @@
     .reviews-list {
         font-size: $level-4 - 0.1;
         display: grid;
+        grid-row-gap: 10px;
         height: 100%;
 
         .review-contents {
@@ -277,10 +277,6 @@
 
         &.layout-1x1, &.layout-1x2 {
             grid-template-columns: 1fr;
-
-            .review {
-                margin-bottom: 0;
-            }
         }
 
         &.layout-2x1, &.layout-2x2 {
@@ -291,7 +287,8 @@
             grid-template-columns: 1fr 1fr 1fr;
         }
 
-        &.layout-3x2{
+        &.layout-3x2,
+        &.layout-4x2{
             grid-template-rows: 1fr 1fr;
         }
 
