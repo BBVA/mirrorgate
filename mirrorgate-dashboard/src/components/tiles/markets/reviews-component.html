@@ -168,7 +168,7 @@
       this._stopPageCycle();
       this.nextReviewHandle = setInterval(
         this._nextPage.bind(this),
-        20000 * this.getModel().num
+        2000 * this.getModel().num
       );
       this.getModel().ctrl.paused = false;
     },
@@ -183,23 +183,32 @@
       this.getModel().ctrl.paused = true;
     },
 
-    _resumePageCycle: function () {
+    _resumePageCycle: function (event) {
       if(!this._disposed && !this.nextReviewHandle) {
-        this._initPageCycle();
+        if(event.type === "click" || this.previousReviewEvent !== "click"){
+          this._initPageCycle();
+        }
+      }
+      if(event.type === "click"){
+        this.previousReviewEvent = undefined;
+      }else if(this.previousReviewEvent !== "click"){
+        this.previousReviewEvent = event.type;
       }
     },
 
-    _pausePageCycle: function () {
+    _pausePageCycle: function (event) {
       if(this.nextReviewHandle) {
         this._stopPageCycle();
         this._delayedResumeTimeout = setTimeout(this._resumePageCycle.bind(this), 60000);
       }
+      this.previousReviewEvent = this.previousReviewEvent === "click" ? "click" : event.type;
     },
 
     onInit: function () {
       var self = this;
       var list = this.getRootElement().querySelector('.reviews-list')
       list.addEventListener('mousemove', this._pausePageCycle.bind(this));
+      list.addEventListener('mouseout', this._resumePageCycle.bind(this));
 
       this._sheet = document.createElement('style')
       list.parentElement.appendChild(this._sheet);
@@ -209,6 +218,7 @@
         resume: this._resumePageCycle.bind(this),
         paused: false
       };
+      this.previousReviewEvent = undefined;
       this._initPageCycle();
     },
 
