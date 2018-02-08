@@ -131,7 +131,7 @@
               <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#admin-users-help" aria-expanded="false" aria-controls="admin-users-help">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
               </a>
-              <tag-input class="form-control" id="adminUsers" name="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()" placeholder="{{texts.form.general_block.admin_list_placeholder}}" secondaryPlaceholder="{{texts.form.general_block.admin_list_secondary_placeholder}}"></tag-input>
+              <tag-input class="form-control" id="adminUsers" name="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()" placeholder="{{texts.form.general_block.admin_list_placeholder}}" secondaryPlaceholder="{{texts.form.general_block.admin_list_secondary_placeholder}}" separatorKeys="[',',' ']" addOnBlur=true dragZone="adminList"></tag-input>
             </div>
           </div>
 
