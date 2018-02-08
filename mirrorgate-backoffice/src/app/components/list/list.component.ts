@@ -18,6 +18,7 @@ import {Component} from '@angular/core';
 import {DashboardsService} from '../../services/dashboards.service';
 import {Dashboard} from '../../model/dashboard';
 import {ElementRef, OnInit, Renderer, ViewChild} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
 
 import {ConfigService} from '../../services/config.service';
 
@@ -31,25 +32,34 @@ export class ListComponent {
   boards: Dashboard[];
   sourceBoards: Dashboard[];
   recentBoards: Dashboard[];
-  searchText: string = '';
   filterBoards: Dashboard[];
-  pageNumber: number = 0;
   maxPages: number = 0;
   itemsPerPage: number = 20;
+  queryParams: {
+    search: string,
+    page: number
+  };
   @ViewChild('searchInput') searchInputRef: ElementRef;
 
   constructor(
     private dashboardsService: DashboardsService,
     private configService: ConfigService,
-    private renderer: Renderer
+    private renderer: Renderer,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.queryParams = {
+      search: this.route.snapshot.queryParams.search ? this.route.snapshot.queryParams.search : '',
+      page: Number(this.route.snapshot.queryParams.page ? this.route.snapshot.queryParams.page : 0)
+    };
+    this.router.navigate([], { queryParams: this.queryParams });
     this.getDashboards().then((boards) => {
       let recentIds: string[] = JSON.parse(localStorage.getItem('recentDashboards') || '[]');
       this.sourceBoards = boards;
       this.recentBoards = boards.filter((b) => recentIds.indexOf(b.name) >= 0);
-      this.filterBoards = boards.filter((b) => recentIds.indexOf(b.name) < 0);;
+      this.filterBoards = boards.filter((b) => recentIds.indexOf(b.name) < 0);
       this.searchDashboard();
     });
     this.renderer.invokeElementMethod(
@@ -73,16 +83,32 @@ export class ListComponent {
   }
 
   searchDashboard(value?) {
-    this.searchText = value;
-    this.filterBoards = value && value.length ?
-      this.sourceBoards.filter(board => (board.displayName || board.name).toLowerCase().indexOf(value.toLowerCase()) >= 0):
+    this.setQueryParams(value || value === '' ? value : this.queryParams.search, this.queryParams.page);
+    this.filterBoards = this.queryParams.search && this.queryParams.search.length ?
+      this.sourceBoards.filter(board => (board.displayName || board.name).toLowerCase().indexOf(this.queryParams.search.toLowerCase()) >= 0):
       this.sourceBoards;
     this.maxPages = Math.ceil(this.filterBoards.length/this.itemsPerPage);
-    this.pagingDashboard(0);
+    if(value === ''){
+      this.setQueryParams('', 0);
+      this.pagingDashboard(0);
+    }else{
+      this.pagingDashboard(this.queryParams.page >= 0 ? this.queryParams.page : 0);
+    }
+  }
+
+  deleteSearch(){
+    this.setQueryParams('', 0);
+    this.searchDashboard('');
   }
 
   pagingDashboard(pageNumber) {
     this.boards = this.filterBoards.slice(pageNumber * this.itemsPerPage, (pageNumber + 1) * this.itemsPerPage);
-    this.pageNumber = pageNumber;
+    this.setQueryParams(this.queryParams.search, pageNumber);
+  }
+
+  setQueryParams(search, page){
+    this.queryParams.search = search;
+    this.queryParams.page = page;
+    this.router.navigate([], { queryParams: this.queryParams });
   }
 }

@@ -20,9 +20,9 @@
   <div class="row form-group">
     <div class="col-sm-3">
       <div class="input-group">
-        <input #searchInput class="form-control" (ngModelChange)="searchDashboard($event)" [ngModel]="searchText" placeholder="Find a Dashboard" type="search">
-        <span class="input-group-btn" *ngIf="searchText">
-          <button class="btn btn-default" (click)="searchDashboard()" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+        <input #searchInput class="form-control" (ngModelChange)="searchDashboard($event)" [ngModel]="queryParams.search" placeholder="Find a Dashboard" type="search">
+        <span class="input-group-btn" *ngIf="queryParams.search">
+          <button class="btn btn-default" (click)="deleteSearch()" type="button"><span class="glyphicon glyphicon-remove"></span></button>
         </span>
       </div>
     </div>
@@ -32,8 +32,8 @@
       </button>
     </div>
   </div>
-  <h3 *ngIf="pageNumber === 0 && !searchText">Last opened dashboards</h3>
-  <ul class="list-group boards-list" *ngIf="pageNumber === 0 && !searchText">
+  <h3 *ngIf="queryParams.page === 0 && !queryParams.search">Last opened dashboards</h3>
+  <ul class="list-group boards-list" *ngIf="queryParams.page === 0 && !queryParams.search">
     <li class="list-group-item boards-list-item" *ngFor="let board of recentBoards">
       <div class="row">
         <div class="col-sm-8">
@@ -59,7 +59,7 @@
     </li>
   </ul>
 
-  <h3 *ngIf="pageNumber === 0 && !searchText">Other dashboards</h3>
+  <h3 *ngIf="queryParams.page === 0 && !queryParams.search">Other dashboards</h3>
   <ul class="list-group boards-list">
     <li class="list-group-item boards-list-item" *ngFor="let board of boards">
       <div class="row">
@@ -87,8 +87,8 @@
   </ul>
   <div class="text-center">
     <div class="btn-group" role="group">
-      <button class="btn btn-default" (click)="pagingDashboard(pageNumber - 1)" [disabled]="pageNumber <= 0" id="prevButton">Prev</button>
-      <button class="btn btn-default"(click)="pagingDashboard(pageNumber + 1)" [disabled]="pageNumber >= maxPages - 1" id="nextButton">Next</button>
+      <button class="btn btn-default" (click)="pagingDashboard(queryParams.page - 1)" [disabled]="queryParams.page <= 0" id="prevButton">Prev</button>
+      <button class="btn btn-default"(click)="pagingDashboard(queryParams.page + 1)" [disabled]="queryParams.page >= maxPages - 1" id="nextButton">Next</button>
     </div>
   </div>
 </div>

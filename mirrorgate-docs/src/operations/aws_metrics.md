@@ -9,7 +9,7 @@ Since this collector is intended to gather information from different AWS Cloudw
 **delegated-cloudwatch-metrics-role**
 
 with the following trust relationship:
-```
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -27,7 +27,7 @@ with the following trust relationship:
 }
 ```
 and a policy that allows that role to access the following resources
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
