@@ -25,7 +25,7 @@ public class LocalDateTimeHelper {
     public static long getTimestampForNUnitsAgo(int numberOfUnits, ChronoUnit chronoUnit) {
 
         LocalDateTime daysAgo = LocalDateTime.now(
-            ZoneId.of("UTC")).minusDays(numberOfUnits).truncatedTo(chronoUnit);
+            ZoneId.of("UTC")).minus(numberOfUnits, chronoUnit).truncatedTo(chronoUnit);
 
         return daysAgo.toInstant(ZoneOffset.UTC).toEpochMilli();
     }
