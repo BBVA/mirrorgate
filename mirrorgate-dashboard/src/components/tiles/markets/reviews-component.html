@@ -185,11 +185,11 @@
 
     _resumePageCycle: function (event) {
       if(!this._disposed && !this.nextReviewHandle) {
-        if(event.type === "click" || this.previousReviewEvent !== "click"){
+        if(!event || event.type === "click" || this.previousReviewEvent !== "click"){
           this._initPageCycle();
         }
       }
-      if(event.type === "click"){
+      if(!event || event.type === "click"){
         this.previousReviewEvent = undefined;
       }else if(this.previousReviewEvent !== "click"){
         this.previousReviewEvent = event.type;
