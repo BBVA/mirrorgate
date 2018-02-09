@@ -42,7 +42,7 @@ var NotificationsController = (function(dashboardId) {
 
         document.dispatchEvent(new CustomEvent('Message', {
           detail: {
-            description: notification.text || (attachment && (attachment.pretext || attachment.fallback)),
+            description: (notification.subtype && notification.subtype === "message_changed" ? notification.message.text + ' (edited)' : notification.text) || (attachment && (attachment.pretext || attachment.fallback)),
             date: new Date(parseFloat(notification.ts) * 1000),
             user: notification.username,
             color: colorMapping[(attachment && attachment.color && attachment.color.toLowerCase())]
