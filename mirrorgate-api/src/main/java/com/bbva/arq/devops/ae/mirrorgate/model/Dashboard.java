@@ -59,6 +59,7 @@ public class Dashboard extends BaseModel {
     private String lastUserEdit;
     @Indexed
     private Long lastModification;
+    private Long lastTimeUsed;
     private String programIncrement;
     private String urlAlerts;
     private String urlAlertsAuthorization;
@@ -156,6 +157,15 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setLastUserEdit(String lastUserEdit) {
         this.lastUserEdit = lastUserEdit;
+        return this;
+    }
+
+    public Long getLastTimeUsed() {
+        return lastTimeUsed;
+    }
+
+    public Dashboard setLastTimeUsed(Long lastTimeUsed) {
+        this.lastTimeUsed = lastTimeUsed;
         return this;
     }
 

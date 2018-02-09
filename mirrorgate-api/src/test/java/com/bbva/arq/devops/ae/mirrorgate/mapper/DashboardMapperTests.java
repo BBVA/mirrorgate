@@ -36,7 +36,8 @@ public class DashboardMapperTests {
                 .setStatus(DashboardStatus.ACTIVE)
                 .setType(DashboardType.Detail.name())
                 .setFilters(new Filters())
-                .setInfraCost(false);
+                .setInfraCost(false)
+                .setLastTimeUsed(1L);
 
         MapperTestingSupport.initializeTypicalSetters(dashboard);
         MapperTestingSupport.assertBeanValues(dashboard, map(map(dashboard)));
