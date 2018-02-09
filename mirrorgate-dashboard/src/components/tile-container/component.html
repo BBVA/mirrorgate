@@ -44,7 +44,7 @@
       this.setAttribute('enabled', !disabled || this.forceEnabled);
       this.setAttribute('data-size', size);
       this.parentElement.setAttribute('data-size', size); // board-row
-      if(size.indexOf("fixed") >= 0) {
+      if(size && size.indexOf("fixed") >= 0) {
         this.parentElement.parentElement.setAttribute('data-size', size); // special size column
       }
 
