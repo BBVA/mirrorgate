@@ -30,7 +30,13 @@
       <h2 class="title">
         <span class="status__indicator" rv-pclass-status__indicator="status"></span>
         <span rv-if="status | = 'error'" class="indicator"><span class="stat-important">{failedMasterBuildsCount}</span> of {masterBuildsCount} master branches failed</span>
-        <span rv-if="status | = 'warn'" class="indicator"><span class="stat-important">{failedDevelopBuildsCount}</span> of {developBuildsCount} develop branches failed</span>
+        <span rv-if="status | = 'warn'" class="indicator">
+          <span rv-if="unstableMasterBuildsCount | > 0" class="stat-important">{unstableMasterBuildsCount} of {masterBuildsCount} master branches are unstable</span>
+          <span rv-if="unstableMasterBuildsCount | = 0" class="stat-important">
+            <span rv-if="failedDevelopBuildsCount | > 0">{failedDevelopBuildsCount} of {developBuildsCount} develop branches failed</span>
+            <span rv-if="failedDevelopBuildsCount | = 0" rv-if="unstableDevelopBuildsCount | > 0">{unstableDevelopBuildsCount} of {developBuildsCount} develop branches are unstable</span>
+          </span>
+        </span>
         <span rv-if="status | = 'ok'" class="indicator">Everything looks fine</span>
         <span rv-hide="status"  class="indicator">No builds in the last 7 days</span>
       </h2>
@@ -55,16 +61,22 @@
 
 <script>
 
+
+
   MGComponent({
     name: 'simple-builds-tile',
     controllerClass: SimpleBuildsController,
     parent: Tile,
+    getStatus: function(data) {
+      return data.failedMasterBuildsCount > 0 ? 'error' :
+        data.unstableMasterBuildsCount > 0 || data.failedDevelopBuildsCount > 0 || data.unstableDevelopBuildsCount > 0? 'warn' :
+        'ok';
+    },
     processAlerts: function (data) {
       Utils.raiseEvent(this, {
         status: !data ? 'server-error' :
           !data.stats || !data.stats.count ? 'empty' :
-          data.failedMasterBuildsCount > 0 ? 'error' :
-          data.failedDevelopBuildsCount > 0 ? 'warn' : 'unknown'
+          this.getStatus(data)
       });
     },
     render: function (data) {
@@ -86,12 +98,11 @@
 
         model.masterBuildsCount = data.masterBuildsCount;
         model.failedMasterBuildsCount = data.failedMasterBuildsCount;
+        model.unstableMasterBuildsCount = data.unstableMasterBuildsCount;
         model.developBuildsCount = data.developBuildsCount;
         model.failedDevelopBuildsCount = data.failedDevelopBuildsCount;
-
-        model.status = data.failedMasterBuildsCount > 0 ? 'error' :
-          data.failedDevelopBuildsCount > 0 ? 'warn' :
-          'ok';
+        model.unstableDevelopBuildsCount = data.unstableDevelopBuildsCount;
+        model.status = this.getStatus(data);
       }
     }
   });

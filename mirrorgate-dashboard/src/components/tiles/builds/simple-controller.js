@@ -35,8 +35,10 @@ var SimpleBuildsController = (function(dashboardId) {
         data.stats.lastBuildTimestamp = 0;
         data.masterBuildsCount = 0;
         data.failedMasterBuildsCount = 0;
+        data.unstableMasterBuildsCount = 0;
         data.developBuildsCount = 0;
         data.failedDevelopBuildsCount = 0;
+        data.unstableDevelopBuildsCount = 0;
 
         for (var index in response.lastBuilds) {
 
@@ -46,12 +48,16 @@ var SimpleBuildsController = (function(dashboardId) {
               data.masterBuildsCount++;
               if(build.buildStatus === 'Failure') {
                 data.failedMasterBuildsCount++;
+              } else if(build.buildStatus === 'Unstable') {
+                data.unstableMasterBuildsCount++;
               }
               break;
             case 'develop':
               data.developBuildsCount++;
               if(build.buildStatus === 'Failure') {
                 data.failedDevelopBuildsCount++;
+              } else if(build.buildStatus === 'Unstable') {
+                data.unstableDevelopBuildsCount++;
               }
               break;
           }
