@@ -15,12 +15,20 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
+import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
+
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,15 +41,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
-
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.ACTIVE;
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.TRANSIENT;
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 public class DashboardServiceTests {
@@ -75,6 +74,7 @@ public class DashboardServiceTests {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
+        when(dashboardRepository.save(any(Dashboard.class))).thenReturn(map(dashboard));
 
         DashboardDTO dashboard2 = dashboardService.getDashboard(dashboard.getName());
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
@@ -88,6 +88,7 @@ public class DashboardServiceTests {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
+        when(dashboardRepository.save(any(Dashboard.class))).thenReturn(map(dashboard));
 
         List<String> codeReposByDashboardName = dashboardService.getReposByDashboardName(dashboard.getName());
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
@@ -126,7 +127,7 @@ public class DashboardServiceTests {
 
         when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
         when(dashboardRepository.save((Dashboard) any())).thenAnswer(d -> d.getArguments()[0]);
-        
+
         DashboardDTO dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
         verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save((Dashboard) any());

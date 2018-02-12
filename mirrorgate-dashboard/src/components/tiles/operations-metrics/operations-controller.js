@@ -31,36 +31,37 @@ var OperationsController = (function(dashboardId) {
       response = JSON.parse(response);
       model = {};
       if(response.length && response.length > 0) {
-        let requestsNumber =  0;
-        let errorsNumber = 0;
-        let availabilityRate;
-        let responseTime = 0;
-        let responseTimeSampleSize = 0;
-        let requestsNumberTendency;
-        let availabilityRateTendency;
-        let responseTimeTendency;
-        let infraCost = 0;
-        let metricsMap = {};
+        var requestsNumber =  0;
+        var errorsNumber = 0;
+        var availabilityRate;
+        var responseTime = 0;
+        var responseTimeSampleSize = 0;
+        var requestsNumberTendency;
+        var errorsRateTendency;
+        var availabilityRateTendency;
+        var responseTimeTendency;
+        var infraCost = 0;
+        var metricsMap = {};
 
         response.forEach(function(metric) {
           var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
           metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
           if(metric.name === 'requestsNumber') {
             requestsNumber += parseInt(metric.value);
-            let requestNumberTendencyChange = parseInt(metric.longTermTendency);
+            var requestNumberTendencyChange = parseInt(metric.longTermTendency);
             requestsNumberTendency = requestNumberTendencyChange < -10 ? 'threedown' : requestNumberTendencyChange < -5 ? 'twodown' : requestNumberTendencyChange < -1 ? 'onedown' : requestNumberTendencyChange > 10 ? 'threeup' : requestNumberTendencyChange > 5 ? 'twoup' : requestNumberTendencyChange > 1 ? 'oneup' : 'eq';
             return;
           }
           if(metric.name === 'errorsNumber') {
             errorsNumber += parseInt(metric.value);
-            let errorsRateTendencyChange = parseInt(metric.midTermTendency);
+            var errorsRateTendencyChange = parseInt(metric.midTermTendency);
             errorsRateTendency = errorsRateTendencyChange < -10 ? 'threedown-green' : errorsRateTendencyChange < -5 ? 'twodown-green' : errorsRateTendencyChange < -1 ? 'onedown-green' : errorsRateTendencyChange > 10 ? 'threeup-red' : errorsRateTendencyChange > 5 ? 'twoup-red' : errorsRateTendencyChange > 1 ? 'oneup-red' : 'eq';
             return;
           }
           if(metric.name === 'availabilityRate') {
             if(metric.sampleSize) {
               availabilityRate =  metric.value / metric.sampleSize;
-              let availabilityRateTendencyChange = parseInt(metric.midTermTendency);
+              var availabilityRateTendencyChange = parseInt(metric.midTermTendency);
               availabilityRateTendency = availabilityRateTendencyChange < -10 ? 'threedown' : availabilityRateTendencyChange < -5 ? 'twodown' : availabilityRateTendencyChange < -1 ? 'onedown' : availabilityRateTendencyChange > 10 ? 'threeup' : availabilityRateTendencyChange > 5 ? 'twoup' : availabilityRateTendencyChange > 1 ? 'oneup' : 'eq';
             }
             return;
@@ -68,7 +69,7 @@ var OperationsController = (function(dashboardId) {
           if(metric.name === 'responseTime') {
             if(metric.sampleSize) {
               responseTime = metric.value / metric.sampleSize;
-              let responseTimeTendencyChange = parseInt(metric.midTermTendency);
+              var responseTimeTendencyChange = parseInt(metric.midTermTendency);
               responseTimeTendency = responseTimeTendencyChange < -10 ? 'threedown-green' : responseTimeTendencyChange < -5 ? 'twodown-green' : responseTimeTendencyChange < -1 ? 'onedown-green' : responseTimeTendencyChange > 10 ? 'threeup-red' : responseTimeTendencyChange > 5 ? 'twoup-red' : responseTimeTendencyChange > 1 ? 'oneup-red' : 'eq';
             }
             return;
@@ -80,7 +81,7 @@ var OperationsController = (function(dashboardId) {
 
         }, this);
 
-        let errorsRate = requestsNumber ? (100 * parseFloat(errorsNumber / requestsNumber).toFixed(2)) : undefined;
+        var errorsRate = requestsNumber ? (100 * parseFloat(errorsNumber / requestsNumber).toFixed(2)) : undefined;
 
         model.metrics = {
           errorsRate: errorsRate,

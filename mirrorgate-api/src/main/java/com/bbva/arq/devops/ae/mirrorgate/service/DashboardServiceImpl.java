@@ -44,7 +44,7 @@ public class DashboardServiceImpl implements DashboardService {
             = new Sort(Sort.Direction.DESC, "lastModification");
 
     private final DashboardRepository dashboardRepository;
-    private EventService eventService;
+    private final EventService eventService;
 
     @Autowired
     public DashboardServiceImpl(DashboardRepository dashboardRepository, EventService eventService){
@@ -55,7 +55,7 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public DashboardDTO getDashboard(String name) {
         Dashboard dashboard = getRepositoryDashboard(name);
-        return map(dashboard);
+        return map(dashboardRepository.save(dashboard.setLastTimeUsed(System.currentTimeMillis())));
     }
 
     private Dashboard getRepositoryDashboard(String name) {
