@@ -32,21 +32,20 @@ var AggregateDashboardController = (function(dashboardId) {
         detail: null,
         id: dashboardId
       };
+      boards.push(data);
 
       Service.get(Service.types.dashboard, dashboardId)
         .addListener(function(details) {
-          if(details) {
-            data.detail = details;
-            var dashboardAdded = false;
-            for(var i = 0; i < boards.length; i++){
-              if(boards[i].id === dashboardId){
-                dashboardAdded = true;
+          if(!details) {
+            for(index = 0; index < boards.length; index++) {
+              if(boards[index].id === dashboardId) {
+                boards.splice(index, 1);
                 break;
               }
             }
-            if(!dashboardAdded) boards.push(data);
-            observable.notify(boards);
           }
+          data.detail = details;
+          observable.notify(boards);
         });
 
     }, this);
