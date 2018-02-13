@@ -36,7 +36,7 @@
     "commits_block": {
       "title": "Commits",
       "repos_input": "Code repositories",
-      "commits_repos_help": "<p>Add a comma separated list with the URL of your git repositories.</p><div class=\"alert alert-warning\" role=\"alert\">Note that URLs must include the scheme <kbd>ssh://</kbd> if ssh is configured for the repo.</div><p>An example could be: <code>git@github.com:BBVA/mirrorgate.git</code></p>"
+      "commits_repos_help": "<p>Add a comma separated list with the name of the git repositories preceded by the owner of each repository.</p><p>An example could be: <code>BBVA/mirrorgate.git</code></p>"
     },
     "planning_block": {
       "title": "Planning data",
