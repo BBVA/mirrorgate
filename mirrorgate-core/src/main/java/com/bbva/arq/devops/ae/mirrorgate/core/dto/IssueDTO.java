@@ -56,6 +56,8 @@ public class IssueDTO implements Serializable {
 
     private String collectorId;
 
+    private String teamName;
+
     public Long getId() {
         return id;
     }
@@ -201,6 +203,15 @@ public class IssueDTO implements Serializable {
 
     public IssueDTO setUrl(String url) {
         this.url = url;
+        return this;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public IssueDTO setTeamName(String teamName) {
+        this.teamName = teamName;
         return this;
     }
 }

@@ -49,7 +49,8 @@ public class IssueMapper {
             .setsPiNames(source.getPiNames())
             .setCollectorId(source.getCollectorId())
             .setUrl(source.getUrl())
-            .setTimestamp(source.getUpdatedDate() == null ? null : source.getUpdatedDate().getTime());
+            .setTimestamp(source.getUpdatedDate() == null ? null : source.getUpdatedDate().getTime())
+            .setTeamName(source.getTeamName());
 
         SprintDTO sprint = source.getSprint();
         if(sprint != null) {
@@ -106,6 +107,7 @@ public class IssueMapper {
             .setCollectorId(source.getCollectorId())
             .setPriority(source.getPriority() == null ? null : IssuePriority.fromName(source.getPriority()))
             .setUrl(source.getUrl())
-            .setUpdatedDate(source.getTimestamp() == null ? null : new Date(source.getTimestamp()));
+            .setUpdatedDate(source.getTimestamp() == null ? null : new Date(source.getTimestamp()))
+            .setTeamName(source.getTeamName());
     }
 }

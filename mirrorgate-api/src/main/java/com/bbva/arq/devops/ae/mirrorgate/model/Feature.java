@@ -68,6 +68,8 @@ public class Feature extends BaseModel{
     @Indexed
     private List<String> keywords;
 
+    private String teamName;
+
     public String getsId() {
         return sId;
     }
@@ -234,4 +236,11 @@ public class Feature extends BaseModel{
         return this;
     }
 
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
 }
