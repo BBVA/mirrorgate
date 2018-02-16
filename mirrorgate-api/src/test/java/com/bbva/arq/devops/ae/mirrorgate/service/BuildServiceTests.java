@@ -131,7 +131,7 @@ public class BuildServiceTests {
         verify(buildSummaryRepository, times(1)).findByRepoNameAndProjectNameAndTimestamp(request.getRepoName(), request.getProjectName(), LocalDateTimeHelper.getTimestampPeriod(request.getTimestamp(), ChronoUnit.DAYS));
         verify(buildSummaryRepository, times(1)).save((BuildSummary) any());
         verify(buildRepository, times(1)).save((Build) any());
-        verify(dashboardService, times(1)).newDashboard((DashboardDTO) any());
+        verify(dashboardService, times(1)).createDashboardForBuildProject((Build) any());
 
         assertThat(b.getBuildUrl()).isEqualTo(build.getBuildUrl());
     }
