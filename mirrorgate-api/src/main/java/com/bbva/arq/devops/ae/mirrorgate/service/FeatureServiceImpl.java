@@ -36,7 +36,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FeatureServiceImpl implements FeatureService{
+public class FeatureServiceImpl implements FeatureService {
 
     private final FeatureRepository repository;
     private final DashboardService dashboardService;
@@ -159,6 +159,7 @@ public class FeatureServiceImpl implements FeatureService{
     private void createTransientDashboardsForTeams(List<Feature> features){
         features.stream()
             .map(Feature::getTeamName)
+            .filter(teamName -> teamName != null && !teamName.isEmpty())
             .distinct()
             .forEach(teamName -> dashboardService.createDashboardForJiraTeam(teamName));
     }

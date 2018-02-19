@@ -38,7 +38,6 @@ import org.mockito.Mock;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.CollectionUtils;
 
 @RunWith(SpringRunner.class)
 public class FeatureServiceTests {
@@ -80,15 +79,27 @@ public class FeatureServiceTests {
     @Test
     public void testTransientDashboardIsCreated(){
 
-        IssueDTO story1 = TestObjectFactory.createIssueDTO(10l, "name1", "collector");
-        IssueDTO story2 = TestObjectFactory.createIssueDTO(11l, "name2", "collector");
+        IssueDTO story1 = TestObjectFactory.createIssueDTO(10l, "name1", "collector", "teamName1");
+        IssueDTO story2 = TestObjectFactory.createIssueDTO(11l, "name2", "collector", "teamName1");
 
-        //when(dashboardService.createDashboardForJiraTeam(anyString())).
         when(featureRepository.save(anyCollectionOf(Feature.class))).thenReturn(
             Collections.EMPTY_LIST);
         featureService.saveOrUpdateStories(Arrays.asList(story1, story2), "collector");
 
         verify(dashboardService, times(1)).createDashboardForJiraTeam(anyString());
+    }
+
+    @Test
+    public void testTransientDashboardIsNotCreated(){
+
+        IssueDTO story1 = TestObjectFactory.createIssueDTO(10l, "name1", "collector");
+        IssueDTO story2 = TestObjectFactory.createIssueDTO(11l, "name2", "collector");
+
+        when(featureRepository.save(anyCollectionOf(Feature.class))).thenReturn(
+            Collections.EMPTY_LIST);
+        featureService.saveOrUpdateStories(Arrays.asList(story1, story2), "collector");
+
+        verify(dashboardService, times(0)).createDashboardForJiraTeam(anyString());
     }
 
 }
