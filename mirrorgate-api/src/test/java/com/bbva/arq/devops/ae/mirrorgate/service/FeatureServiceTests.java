@@ -16,15 +16,20 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.anyCollectionOf;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,8 +42,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public class FeatureServiceTests {
 
-    @Mock private FeatureRepository featureRepository;
-    @InjectMocks private FeatureServiceImpl featureService;
+    @Mock
+    private FeatureRepository featureRepository;
+    @Mock
+    private DashboardService dashboardService;
+    @Mock
+    private EventService eventService;
+
+    @InjectMocks
+    private FeatureServiceImpl featureService;
 
     @Test
     public void getActiveUserStoriesByProjectNameTest() {
@@ -62,6 +74,32 @@ public class FeatureServiceTests {
 
         assertThat(activeStoriesByDashboardName.get(0)).isEqualTo(story1);
         assertThat(activeStoriesByDashboardName.get(1)).isEqualTo(story2);
+    }
+
+    @Test
+    public void testTransientDashboardIsCreated(){
+
+        IssueDTO story1 = TestObjectFactory.createIssueDTO(10l, "name1", "collector", "teamName1");
+        IssueDTO story2 = TestObjectFactory.createIssueDTO(11l, "name2", "collector", "teamName1");
+
+        when(featureRepository.save(anyCollectionOf(Feature.class))).thenReturn(
+            Collections.EMPTY_LIST);
+        featureService.saveOrUpdateStories(Arrays.asList(story1, story2), "collector");
+
+        verify(dashboardService, times(1)).createDashboardForJiraTeam(anyString());
+    }
+
+    @Test
+    public void testTransientDashboardIsNotCreated(){
+
+        IssueDTO story1 = TestObjectFactory.createIssueDTO(10l, "name1", "collector");
+        IssueDTO story2 = TestObjectFactory.createIssueDTO(11l, "name2", "collector");
+
+        when(featureRepository.save(anyCollectionOf(Feature.class))).thenReturn(
+            Collections.EMPTY_LIST);
+        featureService.saveOrUpdateStories(Arrays.asList(story1, story2), "collector");
+
+        verify(dashboardService, times(0)).createDashboardForJiraTeam(anyString());
     }
 
 }

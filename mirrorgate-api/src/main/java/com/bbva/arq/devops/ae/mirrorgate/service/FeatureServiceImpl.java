@@ -24,12 +24,8 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -38,19 +34,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 @Service
-public class FeatureServiceImpl implements FeatureService{
+public class FeatureServiceImpl implements FeatureService {
 
     private final FeatureRepository repository;
+    private final DashboardService dashboardService;
     private final EventService eventService;
 
     @Autowired
-    public FeatureServiceImpl(FeatureRepository repository, EventService eventService){
+    public FeatureServiceImpl(FeatureRepository repository, DashboardService dashboardService, EventService eventService){
         this.repository = repository;
+        this.dashboardService = dashboardService;
         this.eventService = eventService;
     }
+
 
     @Override
     public List<Feature> getActiveUserStoriesByBoards(List<String> boards) {
@@ -128,6 +126,8 @@ public class FeatureServiceImpl implements FeatureService{
             feat.setCollectorId(collectorId);
         }
 
+        createTransientDashboardsForTeams(features);
+
         return StreamSupport.stream(repository.save(features).spliterator(), false)
                 .map((feat) -> {
                            eventService.saveEvent(feat, EventType.FEATURE);
@@ -156,5 +156,12 @@ public class FeatureServiceImpl implements FeatureService{
         return repository.findAllBySNumberInAndSTypeName(keys, "Epic");
     }
 
+    private void createTransientDashboardsForTeams(List<Feature> features){
+        features.stream()
+            .map(Feature::getTeamName)
+            .filter(teamName -> teamName != null && !teamName.isEmpty())
+            .distinct()
+            .forEach(teamName -> dashboardService.createDashboardForJiraTeam(teamName));
+    }
 
 }

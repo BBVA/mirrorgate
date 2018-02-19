@@ -16,7 +16,9 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import java.io.InputStream;
 import java.util.List;
@@ -106,4 +108,7 @@ public interface DashboardService {
     ImageStream getDashboardImage(String name);
 
     List<Dashboard> getDashboardWithNames(List<String> dashboardNames);
+
+    void createDashboardForBuildProject(Build build);
+    void createDashboardForJiraTeam(String teamName);
 }

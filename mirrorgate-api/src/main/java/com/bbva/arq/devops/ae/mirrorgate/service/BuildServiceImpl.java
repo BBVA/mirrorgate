@@ -91,7 +91,7 @@ public class BuildServiceImpl implements BuildService {
 
         eventService.saveEvent(build, EventType.BUILD);
 
-        createDashboardForBuildProject(build);
+        dashboardService.createDashboardForBuildProject(build);
 
         if(shouldUpdateLatest) {
             List<Build> toUpdate =
@@ -151,23 +151,6 @@ public class BuildServiceImpl implements BuildService {
     @Override
     public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, long timestamp) {
         return buildRepository.getBuildStatusStatsAfterTimestamp(repos, teamMembers, timestamp);
-    }
-
-    private void createDashboardForBuildProject(Build build) {
-
-        try {
-            DashboardDTO newDashboard = new DashboardDTO();
-
-            newDashboard.setName(build.getProjectName());
-            newDashboard.setDisplayName(build.getProjectName());
-            newDashboard.setCodeRepos(Arrays.asList(build.getProjectName()));
-            newDashboard.setStatus(DashboardStatus.TRANSIENT);
-
-            dashboardService.newDashboard(newDashboard);
-        } catch(DashboardConflictException e) {
-            LOGGER.warn("Error while creating build based dashboard {}. "
-                    + "Dashboard already exists", build.getProjectName());
-        }
     }
 
     private BuildStats getStatsWithoutFailureTendency(List<String> keywords, List<String> teamMembers, int daysBefore) {

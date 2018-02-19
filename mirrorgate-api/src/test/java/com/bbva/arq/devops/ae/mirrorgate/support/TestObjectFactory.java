@@ -169,12 +169,18 @@ public class TestObjectFactory {
 
     public static IssueDTO createIssueDTO(Long id, String name, String collectorid){
 
+        return createIssueDTO(id, name, collectorid, null);
+    }
+
+    public static IssueDTO createIssueDTO(Long id, String name, String collectorid, String teamName){
+
         IssueDTO issueDTO = new IssueDTO();
 
         issueDTO.setId(id)
             .setCollectorId(collectorid)
             .setName(name)
-        .setStatus(IssueStatus.DONE);
+            .setStatus(IssueStatus.DONE)
+            .setTeamName(teamName);
 
         return issueDTO;
     }
