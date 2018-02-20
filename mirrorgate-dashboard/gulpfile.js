@@ -133,8 +133,8 @@ gulp.task(
                             configFile: __dirname + '/karma.conf.js',
                             reporters: ['progress', 'coverage'],
                             preprocessors: {
-                              'dist/js/**/*.js': ['coverage'],
-                              'dist/components/**/*.js': ['coverage']
+                              'src/js/**/*.js': ['coverage'],
+                              'src/components/**/*.js': ['coverage']
                             },
                             coverageReporter: {type: 'html', dir: 'coverage/'}
                           },
