@@ -19,7 +19,6 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
-import com.bbva.arq.devops.ae.mirrorgate.model.MetricType;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
@@ -90,15 +89,14 @@ public class MetricsServiceImpl implements MetricsService {
             return new ArrayList<>();
         }
 
-        List<UserMetricDTO> userMetrics = userMetricsRepository.findAllByViewIdInWithNon0ValuesAndNameIn(views, MetricType.SNAPSHOT_METRICS
-            .getMetricNames())
+        List<UserMetricDTO> userMetrics = userMetricsRepository
+            .findAllByViewIdInWithNon0Values(views)
             .stream()
             .map(UserMetricMapper::map)
             .collect(Collectors.toList());
 
-        List<UserMetricDTO> operationMetrics =
-            historicUserMetricRepository.getUserMetricSumTotalForPeriod(views, ChronoUnit.MINUTES,
-                MetricType.OVER_TIME.getMetricNames(), LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES))
+        List<UserMetricDTO> operationMetrics = historicUserMetricRepository
+            .getUserMetricSumTotalForPeriod(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES))
             .stream()
             .map(UserMetricMapper::map)
             .collect(Collectors.toList());

@@ -17,10 +17,7 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
@@ -37,7 +34,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 
 public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepositoryCustom {
 
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
     @Autowired
     public HistoricUserMetricRepositoryImpl(MongoTemplate mongoTemplate){
@@ -79,14 +76,13 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
     }
 
     @Override
-    public List<HistoricUserMetricStats> getUserMetricSumTotalForPeriod(List<String> views, ChronoUnit unit, List<String> metricNames, long timestamp){
+    public List<HistoricUserMetricStats> getUserMetricSumTotalForPeriod(List<String> views, ChronoUnit unit, long timestamp) {
 
         Cond sampleSizeCondition = ConditionalOperators.when(Criteria.where("sampleSize").gt(0))
             .thenValueOf("$sampleSize").otherwise(1l);
 
         TypedAggregation<HistoricUserMetric> aggregation = newAggregation(HistoricUserMetric.class,
             match(Criteria.where("viewId").in(views)
-                .and("name").in(metricNames)
                 .and("value").gte(0d)
                 .and("historicType").is(unit)
                 .and("timestamp").gte(timestamp)),

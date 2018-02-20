@@ -153,7 +153,6 @@ public class HistoricUserMetricRepositoryTest {
         List<HistoricUserMetricStats> result =
             repository.getUserMetricSumTotalForPeriod(Arrays.asList("ga:155019618", "AWS/Mirrorgate"),
                 ChronoUnit.MINUTES,
-                Arrays.asList("responseTime", "requestsNumber"),
                 LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES));
 
         List<HistoricUserMetricStats> requestsNumberResult = result.stream()
