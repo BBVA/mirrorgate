@@ -28,15 +28,35 @@
     <div class="component__header">
       <h2 class="title">Commits</h2>
       <h3 class="title-desc">
-        <span rv-show="metrics.commitsPerDay">Last 30 days average</span>
-        <span rv-hide="metrics.commitsPerDay">No commits data</span>
+        <span rv-show="metrics">Last 30 days average</span>
+        <span rv-hide="metrics">No commits data</span>
       </h3>
     </div>
     <div class="component__body">
       <div class="indicator__bar">
+        <div class="indicator" rv-if="metrics">
+          <div class="component__body">
+            <div class="stats">
+              <div rv-if="metrics.timeToMaster.months">
+                <span>{metrics.timeToMaster.months}m {metrics.timeToMaster.days}d</span>
+              </div>
+              <div rv-unless="metrics.timeToMaster.months">
+                <div rv-if="metrics.timeToMaster.days">
+                  <span>{metrics.timeToMaster.days}d {metrics.timeToMaster.hours}h</span>
+                </div>
+                <div rv-unless="metrics.timeToMaster.days">
+                  <div rv-if="metrics.timeToMaster.hours">
+                    <span>{metrics.timeToMaster.hours}h</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="stat-desc">time to master</div>
+          </div>
+        </div>
         <div class="indicator" rv-if="metrics.commitsPerDay">
           <div class="stats">{metrics.commitsPerDay}</div>
-          <div class="stat-desc">commits/day</div>
+          <div class="stat-desc">commits/day in master</div>
         </div>
       </div>
     </div>
@@ -58,8 +78,16 @@
 
     render: function (data) {
       this.processAlerts(data);
-      if (data) {
-        this.getModel().metrics = data;
+      if (data && data.metrics) {
+        var model = this.getModel();
+        model.metrics = {};
+        var timeToMaster = moment.duration(data.metrics.secondsToMaster, 'seconds');
+        model.metrics.timeToMaster = {
+          months: timeToMaster.months(),
+          days: timeToMaster.days(),
+          hours: timeToMaster.hours()
+        }
+        model.metrics.commitsPerDay = data.metrics.commitsPerDay ? data.metrics.commitsPerDay.toFixed(2) : undefined;
       }
     }
   });

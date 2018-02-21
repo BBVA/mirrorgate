@@ -118,6 +118,31 @@ public class CommitRepositoryTests {
         assertThat(commits5).isEqualTo(null);
     }
 
+    @Test
+    public void getCommitsByRepoAndTimestampGreaterThanTest(){
+        String repo = GIT_REPO_URLS[0];
+        int oneDayAgo = (int) TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) - (24 * 60 * 60);
+        int sevenDaysAgo = (int) TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) - (7 * 24 * 60 * 60);
+        int fifteenDaysAgo = (int) TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) - (15 * 24 * 60 * 60);
+        int oneMonthAgo = (int) TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) - (30 * 24 * 60 * 60);
+
+        Commit commit1 = new Commit().setRepository(repo).setHash("1").setTimestamp(sevenDaysAgo);
+        Commit commit2 = new Commit().setRepository(repo).setHash("2").setTimestamp(oneDayAgo);
+        Commit commit3 = new Commit().setRepository(repo).setHash("3").setTimestamp(fifteenDaysAgo);
+        Commit commit4 = new Commit().setRepository(repo).setHash("4").setTimestamp(oneMonthAgo);
+
+        repository.save(commit1);
+        repository.save(commit2);
+        repository.save(commit3);
+        repository.save(commit4);
+
+        List<Commit> lastCommits = repository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(repo, fifteenDaysAgo);
+
+        assertThat(lastCommits.size()).isEqualTo(2);
+        assertThat(lastCommits.get(0)).isEqualToComparingFieldByField(commit2);
+        assertThat(lastCommits.get(1)).isEqualToComparingFieldByField(commit1);
+    }
+
     @After
     public void after() {
         repository.deleteAll();
