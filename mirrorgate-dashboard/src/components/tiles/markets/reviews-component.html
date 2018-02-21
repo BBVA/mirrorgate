@@ -170,7 +170,9 @@
         this._nextPage.bind(this),
         20000 * this.getModel().num
       );
-      this.getModel().ctrl.paused = false;
+      if(this.getModel().ctrl) {
+        this.getModel().ctrl.paused = false;
+      }
     },
 
     _stopPageCycle: function () {
@@ -180,7 +182,9 @@
       this.nextReviewHandle && clearInterval(this.nextReviewHandle);
       this.nextReviewHandle = undefined;
 
-      this.getModel().ctrl.paused = true;
+      if(this.getModel().ctrl) {
+        this.getModel().ctrl.paused = true;
+      }
     },
 
     _resumePageCycle: function (event) {
