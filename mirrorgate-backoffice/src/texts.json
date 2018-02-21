@@ -36,7 +36,7 @@
     "commits_block": {
       "title": "Commits",
       "repos_input": "Code repositories",
-      "commits_repos_help": "<p>Add a comma separated list with the name of the git repositories preceded by the owner of each repository.</p><p>An example could be: <code>BBVA/mirrorgate.git</code></p>"
+      "commits_repos_help": "<p>Add a comma separated list with the name of the git repositories preceded by the owner of each repository.</p><p>An example could be: <code>BBVA/mirrorgate.git</code></p><div class=\"alert alert-warning\" role=\"alert\">Note that if those repositories are secured by SSH, MirroGate must have ready access to them.</div>"
     },
     "planning_block": {
       "title": "Planning data",
