@@ -27,7 +27,6 @@ import com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import java.io.InputStream;
@@ -120,6 +119,11 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public DashboardDTO newDashboard(DashboardDTO dashboard) {
+
+        if (dashboard.getName().isEmpty()) {
+            throw new DashboardConflictException("Dashboard name must not be empty");
+        }
+
         Dashboard oldDashboard = dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
 
         if (oldDashboard != null && oldDashboard.getStatus() != DELETED) {
