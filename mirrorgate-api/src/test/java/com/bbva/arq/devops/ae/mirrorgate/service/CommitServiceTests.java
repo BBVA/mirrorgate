@@ -24,7 +24,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,22 +47,6 @@ public class CommitServiceTests {
     private CommitServiceImpl commitService;
 
     @Test
-    public void getLastCommitByRepoNameTest() {
-        Commit commit = new Commit();
-
-        when(commitRepository.findOneByRepositoryOrderByTimestampDesc(GIT_REPO_URLS[0]))
-            .thenReturn(commit);
-        when(commitRepository.findOneByRepositoryOrderByTimestampDesc(GIT_REPO_URLS[1]))
-            .thenReturn(null);
-
-        String commit1 = commitService.getLastCommit(GIT_REPO_URLS[0]);
-        String commit2 = commitService.getLastCommit(GIT_REPO_URLS[1]);
-
-        assertThat(commit1).isEqualTo(commit.getHash());
-        assertThat(commit2).isEqualTo(null);
-    }
-
-    @Test
     public void getScmStatsByRepoListTest() {
         ScmDTO scmDTO = new ScmDTO()
             .setSecondsToMaster(259200D)
@@ -77,5 +63,21 @@ public class CommitServiceTests {
         ScmDTO scmStats = commitService.getScmStats(Arrays.asList(GIT_REPO_URLS));
 
         assertThat(scmStats).isEqualToComparingFieldByField(scmDTO);
+    }
+
+    @Test
+    public void getLastCommitsByRepoNameTest() {
+        Commit commit = new Commit().setHash("1");
+
+        when(commitRepository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(GIT_REPO_URLS[0], 1))
+            .thenReturn(new ArrayList<>());
+        when(commitRepository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(GIT_REPO_URLS[0], 2))
+            .thenReturn(Arrays.asList(commit));
+
+        List<String> commits1 = commitService.getLastCommits(GIT_REPO_URLS[0], 1);
+        List<String> commits2 = commitService.getLastCommits(GIT_REPO_URLS[0], 2);
+
+        assertThat(commits1).isEqualTo(new ArrayList<String>());
+        assertThat(commits2.get(0)).isEqualTo(commit.getHash());
     }
 }

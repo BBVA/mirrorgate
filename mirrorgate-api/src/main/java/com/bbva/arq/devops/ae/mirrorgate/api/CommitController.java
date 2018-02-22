@@ -70,12 +70,13 @@ public class CommitController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commitService.saveCommits(request));
     }
 
-    @RequestMapping(value = "/api/commits/lastcommit", method = GET,
+    @RequestMapping(value = "/api/commits/lastcommits", method = GET,
         produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getLastCommit(
-        @RequestParam(value = "repo", required = true) String repo
+        @RequestParam(value = "repo", required = true) String repo,
+        @RequestParam(value = "timestamp", required = true) Integer timestamp
         ) {
-        return ResponseEntity.status(HttpStatus.OK).body(commitService.getLastCommit(repo));
+        return ResponseEntity.status(HttpStatus.OK).body(commitService.getLastCommits(repo, timestamp));
     }
 
     @RequestMapping(value = "/dashboards/{name}/scm-metrics", method = GET,

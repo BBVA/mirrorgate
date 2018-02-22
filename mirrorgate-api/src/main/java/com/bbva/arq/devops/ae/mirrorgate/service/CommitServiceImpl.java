@@ -58,12 +58,6 @@ public class CommitServiceImpl implements CommitService{
     }
 
     @Override
-    public String getLastCommit(String repo) {
-        Commit commit = repository.findOneByRepositoryOrderByTimestampDesc(repo);
-        return commit != null ? commit.getHash() : null;
-    }
-
-    @Override
     public ScmDTO getScmStats(List<String> repos) {
         int daysBefore = 30;
         long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
@@ -75,6 +69,13 @@ public class CommitServiceImpl implements CommitService{
         return new ScmDTO()
             .setSecondsToMaster(secondsToMaster)
             .setCommitsPerDay(commitsPerDay);
+    }
+
+    @Override
+    public List<String> getLastCommits(String repo, Integer timestamp) {
+        return repository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(repo, timestamp).stream()
+            .map(commit -> commit.getHash())
+            .collect(Collectors.toList());
     }
 
 }

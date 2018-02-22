@@ -24,8 +24,8 @@ public interface CommitService {
 
     List<CommitDTO> saveCommits(Iterable<CommitDTO> commits);
 
-    String getLastCommit(String repo);
-
     ScmDTO getScmStats(List <String> repos);
+
+    List<String> getLastCommits(String repo, Integer timestamp);
 
 }

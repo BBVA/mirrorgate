@@ -27,6 +27,6 @@ import java.util.List;
  */
 public interface CommitRepository extends CrudRepository<Commit, ObjectId>, CommitRepositoryCustom {
 
-    Commit findOneByRepositoryOrderByTimestampDesc(String repository);
+    List<Commit> findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(String repository, Integer timestamp);
 
 }

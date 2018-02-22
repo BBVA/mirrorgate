@@ -28,14 +28,13 @@ var SCMMetricsController = (function(dashboardId) {
 
     if(response) {
       response = JSON.parse(response);
-
-      let daysToMaster = Math.ceil(response.secondsToMaster / (60 * 60 * 24));
-      let commitsPerDay = response.commitsPerDay ? response.commitsPerDay.toFixed(2) : undefined;
-
-      model = {
-        timeToMaster: daysToMaster,
-        commitsPerDay: commitsPerDay
-      };
+      model = {};
+      if(response.secondsToMaster || response.commitsPerDay){
+        model.metrics = {
+         secondsToMaster: response.secondsToMaster,
+         commitsPerDay: response.commitsPerDay
+        };
+      }
     }
 
     observable.notify(model);
