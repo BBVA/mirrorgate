@@ -60,7 +60,7 @@
 
     processAlerts: function (data) {
       Utils.raiseEvent(this, {
-        status: data ? (data.critical ? 'error' : data.total ? 'ok': 'empty') : 'server-error'
+        status: data ? (data.critical || data.major ? 'error' : data.medium ? 'warn' : data.total ? 'ok': 'empty') : 'server-error'
       });
     },
 
