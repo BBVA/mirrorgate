@@ -31,40 +31,45 @@ public class SlackDTO {
         return ok;
     }
 
-    public void setOk(boolean ok) {
+    public SlackDTO setOk(boolean ok) {
         this.ok = ok;
+        return this;
     }
 
     public String getAccess_token() {
         return access_token;
     }
 
-    public void setAccess_token(String access_token) {
+    public SlackDTO setAccess_token(String access_token) {
         this.access_token = access_token;
+        return this;
     }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
+    public SlackDTO setText(String text) {
         this.text = text;
+        return this;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public SlackDTO setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public String getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public SlackDTO setError(String error) {
         this.error = error;
+        return this;
     }
 
 }
