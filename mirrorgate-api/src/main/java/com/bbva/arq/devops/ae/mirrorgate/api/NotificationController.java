@@ -58,7 +58,7 @@ public class NotificationController {
                 dashboard.getSlackTeam(),
                 dashboard.getSlackToken());
         } catch(ResourceAccessException e) {
-            return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("Error getting slack web socket");
+            return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("Error getting slack web socket: " + e.getMessage());
         }
 
         if (!notification.isOk()) {
