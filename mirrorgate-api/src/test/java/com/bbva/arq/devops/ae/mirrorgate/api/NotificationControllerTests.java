@@ -38,6 +38,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.context.WebApplicationContext;
 
 
@@ -109,4 +110,17 @@ public class NotificationControllerTests {
                 .andExpect(status().is(HttpStatus.CONFLICT.value()));
     }
 
+    @Test
+    public void getWebSocketSlackExceptionTest() throws Exception {
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+
+        when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
+        when(slackService.getWebSocket(
+            dashboard.getSlackTeam(),
+            dashboard.getSlackToken()
+        )).thenThrow(ResourceAccessException.class);
+
+        this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/notifications"))
+            .andExpect(status().is(HttpStatus.FAILED_DEPENDENCY.value()));
+    }
 }

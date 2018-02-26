@@ -28,6 +28,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.ResourceAccessException;
 
 @RestController
 public class NotificationController {
@@ -51,9 +52,14 @@ public class NotificationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Dashboard not found");
         }
 
-        SlackDTO notification = slackService.getWebSocket(
+        SlackDTO notification;
+        try {
+            notification = slackService.getWebSocket(
                 dashboard.getSlackTeam(),
                 dashboard.getSlackToken());
+        } catch(ResourceAccessException e) {
+            return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("Error getting slack web socket: " + e.getMessage());
+        }
 
         if (!notification.isOk()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
