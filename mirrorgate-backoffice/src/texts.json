@@ -11,7 +11,7 @@
   "form": {
     "new_input": "New dashboard",
     "edit_input": "Edit:",
-    "general_help": "<p>Need Help? Contact us through <a target=\"_blank\" href=\"https://github.com/BBVA/mirrorgate/issues/new\">GitHub</p>",
+    "general_help": "<p>Need Help? Contact us through <a target=\"_blank\" href=\"https://github.com/BBVA/mirrorgate/issues/new\">GitHub</a></p>",
     "general_block": {
       "title": "General data",
       "name_input": "Name",
