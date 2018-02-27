@@ -22,8 +22,8 @@
   </h2>
 
   <div class="white-bg">
-
     <form (ngSubmit)="onSave(dashboard)" #dashboardForm="ngForm" *ngIf="dashboard">
+      <div class="general-help" innerHTML="{{texts.form.general_help}}"></div>
 
       <div class="panel panel-default">
         <div class="panel-heading">
