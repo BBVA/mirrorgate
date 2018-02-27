@@ -5,6 +5,7 @@
     "platform" : "Unknown",
     "name" : "activeUsers",
     "value" : 6,
+    "lastValue": 6,
     "timestamp" : "1516709298000",
     "collectorId" : "collector1"
   },
@@ -23,6 +24,7 @@
     "platform" : "Android",
     "name" : "activeUsers",
     "value" : 12,
+    "lastValue": 12,
     "timestamp" : "1516709298000",
     "collectorId" : "collector1"
   },
@@ -41,6 +43,7 @@
     "platform" : "Android",
     "name" : "activeUsers",
     "value" : 12,
+    "lastValue": 12,
     "timestamp" : "1516709298000",
     "collectorId" : "collector1"
   },
