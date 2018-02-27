@@ -2,9 +2,26 @@
   "name": "mirrorgate",
   "logoUrl": "img/logo.png",
   "type" : "Custom",
-  "columns":[
-    [ "program-increment", "markets"],
-    ["current-sprint", "bugs"]
+  "columns" : [
+    [
+      "user-metrics",
+      "current-sprint",
+      "next-sprint"
+    ],
+    [
+      "scm-metrics",
+      "builds",
+      "buildsstats"
+    ],
+    [
+      "markets",
+      "bugs",
+      "reviews",
+      "operations-metrics"
+    ],
+    [
+      "alerts"
+    ]
   ],
   "codeRepos": [
     "mirrorgate"

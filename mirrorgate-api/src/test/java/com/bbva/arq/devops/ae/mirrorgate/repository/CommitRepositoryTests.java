@@ -17,7 +17,6 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +40,10 @@ public class CommitRepositoryTests {
     private static final int ONE_MONTH_AGO = (int) TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) - (30 * 24 * 60 * 60);
 
     private static final String[] GIT_REPO_URLS = new String[]{
-        "ssh://repo1.git",
-        "ssh://repo2.git",
-        "ssh://repo3.git"
+        "ssh://fake.server.com/mirrorgate/repo1.git",
+        "mirrorgate/repo1.git",
+        "ssh://fake.server.com/mirrorgate/repo2.git",
+        "ssh://fake.server.com/mirrorgate/repo3.git"
     };
 
     @Autowired
@@ -85,17 +85,48 @@ public class CommitRepositoryTests {
     }
 
     @Test
-    public void getCommitsPerDayByRepoListTest() {
+    public void getSecondsToMasterByRepoPathListTest() {
+        int timestamp = FIFTEEN_DAYS_AGO - (60 * 60);
+
+        HashMap<String, Integer> branches1 = new HashMap<String, Integer>(){
+            {
+                put("refs/remotes/origin/master", ONE_DAY_AGO);
+            }
+        };
+
+        HashMap<String, Integer> branches2 = new HashMap<String, Integer>(){
+            {
+                put("refs/remotes/origin/master", SEVEN_DAYS_AGO);
+            }
+        };
+
+        Commit commit1 = new Commit().setRepository(Arrays.asList(GIT_REPO_URLS).get(0)).setTimestamp(timestamp).setBranches(branches1);
+        Commit commit2 = new Commit().setRepository(Arrays.asList(GIT_REPO_URLS).get(2)).setTimestamp(timestamp).setBranches(branches2);
+
+        repository.save(Arrays.asList(commit1, commit2));
+
+        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
+
+        Double seconds = repository.getSecondsToMaster(Arrays.asList(GIT_REPO_URLS[1]), thirtyDaysAgo);
+
+        assertThat(seconds).isNotNull();
+        assertThat(seconds).isEqualTo(ONE_DAY_AGO - timestamp);
+    }
+
+    @Test
+    public void getCommitsPerDayByRepoPathListTest() {
         List<String> repos = Arrays.asList(GIT_REPO_URLS);
 
         Commit commit1 = new Commit().setRepository(repos.get(0)).setTimestamp(ONE_DAY_AGO);
         Commit commit2 = new Commit().setRepository(repos.get(0)).setTimestamp(ONE_DAY_AGO);
-        Commit commit3 = new Commit().setRepository(repos.get(1)).setTimestamp(ONE_DAY_AGO);
-        Commit commit4 = new Commit().setRepository(repos.get(1)).setTimestamp(ONE_DAY_AGO);
-        Commit commit5 = new Commit().setRepository(repos.get(1)).setTimestamp(ONE_DAY_AGO);
-        Commit commit6 = new Commit().setRepository(repos.get(1)).setTimestamp(SEVEN_DAYS_AGO);
+        Commit commit3 = new Commit().setRepository(repos.get(0)).setTimestamp(ONE_DAY_AGO);
+        Commit commit4 = new Commit().setRepository(repos.get(2)).setTimestamp(ONE_DAY_AGO);
+        Commit commit5 = new Commit().setRepository(repos.get(2)).setTimestamp(ONE_DAY_AGO);
+        Commit commit6 = new Commit().setRepository(repos.get(2)).setTimestamp(ONE_DAY_AGO);
+        Commit commit7 = new Commit().setRepository(repos.get(2)).setTimestamp(SEVEN_DAYS_AGO);
 
-        repository.save(Arrays.asList(commit1, commit2, commit3, commit4, commit5, commit6));
+        repository.save(Arrays.asList(commit1, commit2, commit3, commit4, commit5, commit6, commit7));
 
         long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         long threeDaysAgo = now - (3 * 60 * 60 * 24);
@@ -103,15 +134,18 @@ public class CommitRepositoryTests {
 
         Double commits1 = repository.getCommitsPerDay(Arrays.asList(repos.get(0)), thirtyDaysAgo, 30);
         Double commits2 = repository.getCommitsPerDay(Arrays.asList(repos.get(1)), thirtyDaysAgo, 30);
-        Double commits3 = repository.getCommitsPerDay(repos, thirtyDaysAgo, 30);
-        Double commits4 = repository.getCommitsPerDay(repos, threeDaysAgo, 3);
-        Double commits5 = repository.getCommitsPerDay(Arrays.asList(repos.get(2)), thirtyDaysAgo, 30);
+        Double commits3 = repository.getCommitsPerDay(Arrays.asList(repos.get(2)), thirtyDaysAgo, 30);
+        Double commits4 = repository.getCommitsPerDay(repos, thirtyDaysAgo, 30);
+        Double commits5 = repository.getCommitsPerDay(repos, threeDaysAgo, 3);
+        Double commits6 = repository.getCommitsPerDay(Arrays.asList(repos.get(3)), thirtyDaysAgo, 30);
 
-        assertThat(commits1).isEqualTo(2D / 30D);
-        assertThat(commits2).isEqualTo(4D / 30D);
-        assertThat(commits3).isEqualTo(6D / 30D);
-        assertThat(commits4).isEqualTo(5D / 3D);
-        assertThat(commits5).isEqualTo(null);
+        assertThat(commits1).isEqualTo(3D / 30D);
+        assertThat(commits2).isEqualTo(3D / 30D);
+        assertThat(commits3).isEqualTo(4D / 30D);
+        assertThat(commits4).isEqualTo(7D / 30D);
+        assertThat(commits5).isEqualTo(6D / 3D);
+        assertThat(commits6).isEqualTo(null);
+
     }
 
     @Test
