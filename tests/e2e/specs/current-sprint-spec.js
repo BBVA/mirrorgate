@@ -48,11 +48,6 @@ describe('mirrorgate', function () {
             expect(element(by.css('current-sprint-tile div[rv-show="sprint.doneRatio"] .rate-completed')).getText()).toContain('17');
         });
 
-        //Excluded because it need control of date
-        it('should alert spring adavance risks', function () {
-            expect(element(by.css('current-sprint-tile.module-ok')).isPresent()).toBeFalsy();
-        });
-
 		it('should change the completion ammount and reflect status change', function (done) {
             expect(element(by.css('current-sprint-tile div[rv-show="sprint.doneRatio"] .rate-completed')).getText()).toContain('17')
                 .then(function () {
