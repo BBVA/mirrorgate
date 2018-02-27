@@ -47,7 +47,7 @@ var UserMetricsController = (function(dashboardId) {
         response.forEach(function(metric) {
           var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
           metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
-          if(metric.name === 'activeUsers' && metric.timestamp === metricsMap[metricId]) {
+          if(metric.name === 'activeUsers' && metric.lastValue && metric.timestamp === metricsMap[metricId]) {
             model.metrics.rtActiveUsers += parseInt(metric.lastValue);
             if(metric.appVersion && metric.appVersion.match(_lastVersion)) {
               var value = parseInt(metric.lastValue);
@@ -68,7 +68,7 @@ var UserMetricsController = (function(dashboardId) {
               let activeUsersTendencyChange = parseInt(metric.shortTermTendency);
               activeUsersTendency = activeUsersTendencyChange < -10 ? 'threedown' : activeUsersTendencyChange < -5 ? 'twodown' : activeUsersTendencyChange < -1 ? 'onedown' : activeUsersTendencyChange > 10 ? 'threeup' : activeUsersTendencyChange > 5 ? 'twoup' : activeUsersTendencyChange > 1 ? 'oneup' : 'eq';
             }
-          } else if(metric.name === '7dayUsers' && metric.timestamp === metricsMap[metricId]) {
+          } else if(metric.name === '7dayUsers' && metric.lastValue && metric.timestamp === metricsMap[metricId]) {
             model.metrics.sevenDayUsers += parseInt(metric.lastValue);
             let sevenDaysUsersTendencyChange = parseInt(metric.longTermTendency);
             sevenDayUsersTendency = sevenDaysUsersTendencyChange < -10 ? 'threedown' : sevenDaysUsersTendencyChange < -5 ? 'twodown' : sevenDaysUsersTendencyChange < -1 ? 'onedown' : sevenDaysUsersTendencyChange > 10 ? 'threeup' : sevenDaysUsersTendencyChange > 5 ? 'twoup' : sevenDaysUsersTendencyChange > 1 ? 'oneup' : 'eq';
