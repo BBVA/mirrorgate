@@ -28,6 +28,8 @@ public class UserMetricDTO {
 
     private Double value;
 
+    private Double lastValue;
+
     private Double sampleSize;
 
     private Long timestamp;
@@ -83,6 +85,15 @@ public class UserMetricDTO {
 
     public UserMetricDTO setValue(Double value) {
         this.value = value;
+        return this;
+    }
+
+    public Double getLastValue() {
+        return lastValue;
+    }
+
+    public UserMetricDTO setLastValue(Double lastValue) {
+        this.lastValue = lastValue;
         return this;
     }
 

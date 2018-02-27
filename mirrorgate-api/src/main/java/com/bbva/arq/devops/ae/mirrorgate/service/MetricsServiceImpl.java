@@ -93,6 +93,7 @@ public class MetricsServiceImpl implements MetricsService {
             .findAllByViewIdInWithNon0Values(views)
             .stream()
             .map(UserMetricMapper::map)
+            .map((metric) -> metric.setLastValue(metric.getValue()))
             .collect(Collectors.toList());
 
         List<UserMetricDTO> operationMetrics = historicUserMetricRepository
