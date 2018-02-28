@@ -36,15 +36,15 @@
     <div class="component__body">
       <div class="indicator__bar">
         <div class="indicator" rv-show="metrics.errorsRate | >= 0">
-          <div class="stats">{metrics.errorsRate}% <span class="tendency" rv-pclass-tendency="metrics.errorsRateTendency"></span></div>
+          <div class="stats">{metrics.errorsRate}%<span class="tendency" rv-pclass-tendency="metrics.errorsRateTendency"></span></div>
           <div class="stat-desc">of errors</div>
         </div>
         <div class="indicator" rv-show="metrics.availabilityRate | >= 0">
-          <div class="stats">{metrics.availabilityRate}% <span class="tendency" rv-pclass-tendency="metrics.availabilityRateTendency"></span></div>
+          <div class="stats">{metrics.availabilityRate}%<span class="tendency" rv-pclass-tendency="metrics.availabilityRateTendency"></span></div>
           <div class="stat-desc">of availability</div>
         </div>
         <div class="indicator" rv-show="metrics.responseTime | >= 0">
-          <div class="stats">{metrics.responseTime}s <span class="tendency" rv-pclass-tendency="metrics.responseTimeTendency"></span></div>
+          <div class="stats">{metrics.responseTime}s<span class="tendency" rv-pclass-tendency="metrics.responseTimeTendency"></span></div>
           <div class="stat-desc"> response time</div>
         </div>
       </div>
