@@ -60,19 +60,31 @@
 
 <script>
 
-  (function (window, document, undefined) {
+  var stateMapping = {
+    Ok: 0,
+    Warn: 1,
+    Error: 2
+  };
 
-    var firstTime = true;
+  function getMetricState(metric, metricRateAlertingLevels){
+    return metric === undefined || metric <= metricRateAlertingLevels.warning ? stateMapping['Ok']
+            : metric <= metricRateAlertingLevels.error ? stateMapping['Warn']
+            : stateMapping['Error'];
+  }
 
-    var stateMapping = {
-      Ok: 0,
-      Warn: 1,
-      Error: 2
-    };
+  function getComponentState(metrics, responseTimeAlertingLevels, errorsRateAlertingLevels){
+    return Math.max(getMetricState(metrics.responseTime, responseTimeAlertingLevels), getMetricState(metrics.errorsRate, errorsRateAlertingLevels));
+  }
 
-    var lastEvent;
+  MGComponent({
+    name: 'operations-metrics-tile',
+    controllerClass: OperationsController,
+    parent: Tile,
 
-    function sendEvent(metricName, description, color){
+    firstTime: true,
+    lastEvent: undefined,
+
+    sendEvent: function(metricName, description, color){
       var event =  {
         detail: {
           title: metricName,
@@ -90,91 +102,79 @@
           color: event.detail.color
         }
         document.dispatchEvent(new CustomEvent('HeadsUp', event));
-        firstTime = false;
+        this.firstTime = false;
       }
-    }
+    },
 
-    function checkOperationMetricsToSendEvent(responseTimeState, errorsRateState, responseTimeAlertingLevels, errorsRateAlertingLevels){
-        var metricName = '';
-        var thresholds = '';
-        var description = '';
-        var state;
-        var color;
+    checkOperationMetricsToSendEvent : function(data){
+      var metricName = '';
+      var thresholds = '';
+      var description = '';
+      var state;
+      var color;
 
-        if(errorsRateState == stateMapping['Ok'] && responseTimeState == stateMapping['Ok']){
+      var responseTime = data.metrics.responseTime;
+      var responseTimeAlertingLevels = data.responseTimeAlertingLevels;
+      var errorsRate = data.metrics.errorsRate;
+      var errorsRateAlertingLevels = data.errorsRateAlertingLevels;
+      var responseTimeState = getMetricState(responseTime, responseTimeAlertingLevels);
+      var errorsRateState = getMetricState(errorsRate, errorsRateAlertingLevels);
 
-          if(!firstTime){
-            metricName = 'Errors rate and response time';
-            description = 'Values have returned below the thresholds (' + errorsRateAlertingLevels.warning + ' and ' + responseTimeAlertingLevels.warning + ')';
-            state = Math.max(errorsRateState, responseTimeState);
-            color = state == stateMapping['Error'] ? 'red' : state == stateMapping['Warn'] ? 'yellow' : 'blue';
+      if(errorsRateState == stateMapping['Ok'] && responseTimeState == stateMapping['Ok']){
 
-            sendEvent(metricName, description, color);
-          }
-
-        } else {
-
-          if(errorsRateState == stateMapping['Warn'] || errorsRateState == stateMapping['Error']){
-            metricName = 'Errors rate';
-            thresholds = errorsRateState == stateMapping['Warn'] ? errorsRateAlertingLevels.warning : errorsRateAlertingLevels.error;
-          }
-
-          if(responseTimeState == stateMapping['Warn'] || responseTimeState == stateMapping['Error']){
-            metricName = metricName === '' ? 'Response time' : metricName + ' and response time';
-            thresholds = thresholds === '' ? '' : thresholds + ' and ';
-            thresholds = thresholds + (responseTimeState == stateMapping['Warn'] ? responseTimeAlertingLevels.warning : responseTimeAlertingLevels.error);
-          }
-
-          description = 'Greater than the threshold (' + thresholds + ')';
+        if(!this.firstTime){
+          metricName = 'Errors rate and response time';
+          description = 'Values have returned below the thresholds (' + errorsRateAlertingLevels.warning + ' and ' + responseTimeAlertingLevels.warning + ')';
           state = Math.max(errorsRateState, responseTimeState);
           color = state == stateMapping['Error'] ? 'red' : state == stateMapping['Warn'] ? 'yellow' : 'blue';
 
-          sendEvent(metricName, description, color);
-        }
-    };
-
-    function getComponentState(metrics, responseTimeAlertingLevels, errorsRateAlertingLevels){
-        var responseTimeState = metrics.responseTime === undefined || metrics.responseTime  <= responseTimeAlertingLevels.warning ? stateMapping['Ok']
-                : metrics.responseTime <= responseTimeAlertingLevels.error ? stateMapping['Warn']
-                : stateMapping['Error'];
-
-        var errorsRateState = metrics.errorsRate === undefined || metrics.errorsRate <= errorsRateAlertingLevels.warning ? stateMapping['Ok']
-                : metrics.errorsRate <= errorsRateAlertingLevels.error ? stateMapping['Warn']
-                : stateMapping['Error'];
-
-        checkOperationMetricsToSendEvent(responseTimeState, errorsRateState, responseTimeAlertingLevels, errorsRateAlertingLevels);
-
-        return Math.max(responseTimeState, errorsRateState);
-    }
-
-    MGComponent({
-      name: 'operations-metrics-tile',
-      controllerClass: OperationsController,
-      parent: Tile,
-      processAlerts: function (data) {
-        var levelEvent = ['ok', 'warn', 'error', 'server-error'];
-        Utils.raiseEvent(this, {
-          status: data ? (data.metrics ? levelEvent[getComponentState(
-            data.metrics,
-            data.responseTimeAlertingLevels,
-            data.errorsRateAlertingLevels)] : 'empty') : levelEvent[3]
-        });
-      },
-
-      // Fires when an instance of the element is created
-      render: function (data) {
-
-        if (data) {
-          var model = this.getModel();
-          model.metrics = data.metrics;
-          model.infraCost = this.getConfig().infraCost;
-          this.setAttribute('enabled', model.metrics !== undefined);
+          this.sendEvent(metricName, description, color);
         }
 
-        this.processAlerts(data);
+      } else {
+
+        if(errorsRateState == stateMapping['Warn'] || errorsRateState == stateMapping['Error']){
+          metricName = 'Errors rate';
+          thresholds = errorsRateState == stateMapping['Warn'] ? errorsRateAlertingLevels.warning : errorsRateAlertingLevels.error;
+        }
+
+        if(responseTimeState == stateMapping['Warn'] || responseTimeState == stateMapping['Error']){
+          metricName = metricName === '' ? 'Response time' : metricName + ' and response time';
+          thresholds = thresholds === '' ? '' : thresholds + ' and ';
+          thresholds = thresholds + (responseTimeState == stateMapping['Warn'] ? responseTimeAlertingLevels.warning : responseTimeAlertingLevels.error);
+        }
+
+        description = 'Greater than the threshold (' + thresholds + ')';
+        state = Math.max(errorsRateState, responseTimeState);
+        color = state == stateMapping['Error'] ? 'red' : state == stateMapping['Warn'] ? 'yellow' : 'blue';
+
+        this.sendEvent(metricName, description, color);
       }
-    });
+    },
 
-  })(window, document);
+    processAlerts: function (data) {
+      var levelEvent = ['ok', 'warn', 'error', 'server-error'];
+      Utils.raiseEvent(this, {
+        status: data ? (data.metrics ? levelEvent[getComponentState(
+          data.metrics,
+          data.responseTimeAlertingLevels,
+          data.errorsRateAlertingLevels)] : 'empty') : levelEvent[3]
+      });
+    },
+
+    // Fires when an instance of the element is created
+    render: function (data) {
+
+      if (data) {
+        var model = this.getModel();
+        model.metrics = data.metrics;
+        model.infraCost = this.getConfig().infraCost;
+        this.setAttribute('enabled', model.metrics !== undefined);
+        data.metrics && this.checkOperationMetricsToSendEvent(data);
+      }
+
+      this.processAlerts(data);
+    }
+  });
 
 </script>
