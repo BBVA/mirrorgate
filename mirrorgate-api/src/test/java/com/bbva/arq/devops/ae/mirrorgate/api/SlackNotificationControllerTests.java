@@ -47,9 +47,9 @@ import org.springframework.web.context.WebApplicationContext;
  * @author enrique
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(NotificationController.class)
+@WebMvcTest(SlackNotificationController.class)
 @WebAppConfiguration
-public class NotificationControllerTests {
+public class SlackNotificationControllerTests {
 
     private MockMvc mockMvc = null;
 

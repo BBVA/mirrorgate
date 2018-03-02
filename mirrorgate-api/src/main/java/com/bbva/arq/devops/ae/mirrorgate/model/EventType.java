@@ -8,7 +8,8 @@ public enum EventType {
     BUILD("BuildType"),
     FEATURE("FeatureType"),
     REVIEW("ReviewType"),
-    PING("PingType");
+    PING("PingType"),
+    NOTIFICATION("NotificationType");
 
     private final String value;
 
@@ -28,6 +29,7 @@ public enum EventType {
         MAPPING.put("ReviewType", REVIEW);
         MAPPING.put("DashboardType", DETAIL);
         MAPPING.put("PingType", PING);
+        MAPPING.put("NotificationType", NOTIFICATION);
     }
 
     public static EventType fromString(String value) {
