@@ -29,16 +29,8 @@
     <div class="component__header">
       <h2 class="title">
         <span class="status__indicator" rv-pclass-status__indicator="status"></span>
-        <span rv-if="status | = 'error'" class="indicator"><span class="stat-important">{failedMasterBuildsCount}</span> of {masterBuildsCount} master branches failed</span>
-        <span rv-if="status | = 'warn'" class="indicator">
-          <span rv-if="unstableMasterBuildsCount | > 0" class="stat-important">{unstableMasterBuildsCount} of {masterBuildsCount} master branches are unstable</span>
-          <span rv-if="unstableMasterBuildsCount | = 0" class="stat-important">
-            <span rv-if="failedDevelopBuildsCount | > 0">{failedDevelopBuildsCount} of {developBuildsCount} develop branches failed</span>
-            <span rv-if="failedDevelopBuildsCount | = 0" rv-if="unstableDevelopBuildsCount | > 0">{unstableDevelopBuildsCount} of {developBuildsCount} develop branches are unstable</span>
-          </span>
-        </span>
-        <span rv-if="status | = 'ok'" class="indicator">Everything looks fine</span>
-        <span rv-hide="status"  class="indicator">No builds in the last 7 days</span>
+        <span rv-show="status" class="indicator stat-important">{description}</span>
+        <span rv-hide="status" class="indicator">No builds in the last 7 days</span>
       </h2>
     </div>
     <div class="component__body" rv-show="stats.count">
@@ -61,17 +53,44 @@
 
 <script>
 
-
-
   MGComponent({
     name: 'simple-builds-tile',
     controllerClass: SimpleBuildsController,
     parent: Tile,
+
+    lastEvent: undefined,
+
     getStatus: function(data) {
       return data.failedMasterBuildsCount > 0 ? 'error' :
         data.unstableMasterBuildsCount > 0 || data.failedDevelopBuildsCount > 0 || data.unstableDevelopBuildsCount > 0? 'warn' :
         'ok';
     },
+
+    checkSendEvent: function(model){
+
+      if(!this.lastEvent && model.status === 'ok') {
+        return;
+      }
+
+      var event =  {
+        detail: {
+          title: 'Builds from dashboard ' + this.getDashboardId(),
+          description: model.description,
+          date: new Date(),
+          color: model.status === 'error' ? 'red' : model.status === 'warn' ? 'yellow' : 'blue'
+        }
+      }
+
+      if(!this.lastEvent || this.lastEvent.title !== event.detail.title || this.lastEvent.description !== event.detail.description || this.lastEvent.color !== event.detail.color) {
+        this.lastEvent = {
+          title: event.detail.title,
+          description: event.detail.description,
+          color: event.detail.color
+        }
+        document.dispatchEvent(new CustomEvent('HeadsUp', event));
+      }
+    },
+
     processAlerts: function (data) {
       Utils.raiseEvent(this, {
         status: !data ? 'server-error' :
@@ -79,6 +98,7 @@
           this.getStatus(data)
       });
     },
+
     render: function (data) {
 
       this.processAlerts(data);
@@ -103,6 +123,13 @@
         model.failedDevelopBuildsCount = data.failedDevelopBuildsCount;
         model.unstableDevelopBuildsCount = data.unstableDevelopBuildsCount;
         model.status = this.getStatus(data);
+        model.description =  model.status === 'error' ? model.failedMasterBuildsCount + ' of ' + model.masterBuildsCount + 'master branches failed'
+          : model.unstableMasterBuildsCount > 0 ? model.unstableMasterBuildsCount + ' of ' + model.masterBuildsCount + ' master branches are unstable'
+          : model.failedDevelopBuildsCount > 0 ? model.failedDevelopBuildsCount + ' of ' + model.developBuildsCount + ' develop branches failed'
+          : model.unstableDevelopBuildsCount > 0 ? model.unstableDevelopBuildsCount + ' of ' + model.developBuildsCount + 'develop branches are unstable'
+          : 'Everything looks fine';
+
+        this.checkSendEvent(model);
       }
     }
   });
