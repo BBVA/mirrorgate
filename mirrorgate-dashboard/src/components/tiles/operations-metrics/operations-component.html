@@ -88,15 +88,15 @@
       var event =  {
         detail: {
           title: metricName,
+          dashboard: this.getDashboardId(),
           description: description,
           date: new Date(),
           url: '',
           color: color
         }
       }
-
-      if(!lastEvent || lastEvent.title !== event.detail.title || lastEvent.description !== event.detail.description || lastEvent.color !== event.detail.color) {
-        lastEvent = {
+      if(!this.lastEvent || this.lastEvent.title !== event.detail.title || this.lastEvent.description !== event.detail.description || this.lastEvent.color !== event.detail.color) {
+        this.lastEvent = {
           title: event.detail.title,
           description: event.detail.description,
           color: event.detail.color
