@@ -15,48 +15,48 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
-import com.bbva.arq.devops.ae.mirrorgate.repository.NotificationRepository;
+import com.bbva.arq.devops.ae.mirrorgate.repository.EventNotificationRepository;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NotificationServiceImpl implements NotificationService {
+public class EventNotificationServiceImpl implements EventNotificationService {
 
-    private final NotificationRepository repository;
+    private final EventNotificationRepository repository;
     private final EventService eventService;
 
     @Autowired
-    public NotificationServiceImpl(NotificationRepository repository, EventService eventService){
+    public EventNotificationServiceImpl(EventNotificationRepository repository, EventService eventService){
 
         this.repository = repository;
         this.eventService = eventService;
     }
 
     @Override
-    public List<Notification> getNotificationsById(List<ObjectId> notificationIds) {
+    public List<EventNotification> getEventNotificationsById(List<ObjectId> notificationIds) {
 
         return repository.findAllByIdIn(notificationIds);
     }
 
     @Override
-    public Notification getNotificationForDashboard(String dashboardId){
+    public EventNotification getEventNotificationForDashboard(String dashboardId){
 
         return repository.findByDashboardsToNotifyOrderByTimestampDesc(dashboardId);
     }
 
     @Override
-    public Notification saveNotification(List<String> dashboardIds, String message){
+    public EventNotification saveEventNotification(List<String> dashboardIds, String message){
 
-        Notification notification = new Notification();
+        EventNotification notification = new EventNotification();
         notification.setDashboardsToNotify(dashboardIds);
         notification.setMessage(message);
         notification.setTimestamp(System.currentTimeMillis());
 
-        Notification result = repository.save(notification);
+        EventNotification result = repository.save(notification);
 
         eventService.saveEvent(notification, EventType.NOTIFICATION);
 

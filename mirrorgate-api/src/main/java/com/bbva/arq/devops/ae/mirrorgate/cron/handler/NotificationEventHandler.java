@@ -17,9 +17,9 @@ package com.bbva.arq.devops.ae.mirrorgate.cron.handler;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
+import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
-import com.bbva.arq.devops.ae.mirrorgate.service.NotificationService;
+import com.bbva.arq.devops.ae.mirrorgate.service.EventNotificationService;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -36,15 +36,15 @@ public class NotificationEventHandler implements EventHandler {
     public static final Logger LOGGER = LoggerFactory.getLogger(FeatureEventHandler.class);
 
     private final ProcessEventsHelper eventsHelper;
-    private final NotificationService notificationService;
+    private final EventNotificationService eventNotificationService;
 
 
     @Autowired
     public NotificationEventHandler(ProcessEventsHelper eventsHelper,
-        NotificationService notificationService){
+        EventNotificationService eventNotificationService){
 
         this.eventsHelper = eventsHelper;
-        this.notificationService = notificationService;
+        this.eventNotificationService = eventNotificationService;
     }
 
 
@@ -55,7 +55,7 @@ public class NotificationEventHandler implements EventHandler {
             .map(Event::getEventTypeCollectionId)
             .collect(Collectors.toList());
 
-        List<Notification> listOfNotifications = notificationService.getNotificationsById(idList);
+        List<EventNotification> listOfNotifications = eventNotificationService.getEventNotificationsById(idList);
 
         List<String> listOfDashboardsToNotify = listOfNotifications.stream().flatMap(n -> n.getDashboardsToNotify().stream()).collect(
             Collectors.toList());

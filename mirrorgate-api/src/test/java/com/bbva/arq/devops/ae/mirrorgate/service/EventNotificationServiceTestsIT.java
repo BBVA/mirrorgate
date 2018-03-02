@@ -3,8 +3,8 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static org.junit.Assert.assertTrue;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
+import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,10 +16,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class NotificationServiceTestsIT {
+public class EventNotificationServiceTestsIT {
 
     @Autowired
-    private NotificationService service;
+    private EventNotificationService service;
 
     @Autowired
     private EventService eventService;
@@ -27,10 +27,10 @@ public class NotificationServiceTestsIT {
     @Test
     public void testSaveNotificationAndEvent(){
 
-        Notification result = service.saveNotification(Arrays.asList("dashboard1", "dashboard2"), "Notification message");
+        EventNotification result = service.saveEventNotification(Arrays.asList("dashboard1", "dashboard2"), "Notification message");
 
         Event savedEvent = eventService.getLastEvent();
-        Notification notification = service.getNotificationForDashboard("dashboard1");
+        EventNotification notification = service.getEventNotificationForDashboard("dashboard1");
 
         assertTrue(savedEvent.getEventType() == EventType.NOTIFICATION);
         assertTrue(notification.getMessage().compareTo("Notification message") == 0);
@@ -40,10 +40,10 @@ public class NotificationServiceTestsIT {
     @Test
     public void testNotificationsById(){
 
-        Notification result = service.saveNotification(Arrays.asList("dashboard1", "dashboard2"), "Notification message");
-        Notification result2 = service.saveNotification(Arrays.asList("dashboard1"), "Another notification message");
+        EventNotification result = service.saveEventNotification(Arrays.asList("dashboard1", "dashboard2"), "Notification message");
+        EventNotification result2 = service.saveEventNotification(Arrays.asList("dashboard1"), "Another notification message");
 
-        List<Notification> notificationsById = service.getNotificationsById(Arrays.asList(result.getId(), result2.getId()));
+        List<EventNotification> notificationsById = service.getEventNotificationsById(Arrays.asList(result.getId(), result2.getId()));
         List<String> messages = notificationsById.stream().map(n -> n.getMessage()).collect(Collectors.toList());
 
         assertTrue(notificationsById.size() == 2);

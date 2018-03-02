@@ -19,7 +19,7 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "notification")
-public class Notification extends BaseModel {
+public class EventNotification extends BaseModel {
 
     private String message;
     private List<String> dashboardsToNotify;

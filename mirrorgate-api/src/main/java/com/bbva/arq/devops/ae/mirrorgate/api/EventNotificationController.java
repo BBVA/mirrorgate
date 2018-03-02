@@ -19,8 +19,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
-import com.bbva.arq.devops.ae.mirrorgate.service.NotificationService;
+import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
+import com.bbva.arq.devops.ae.mirrorgate.service.EventNotificationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,24 +29,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class NotificationController {
+public class EventNotificationController {
 
-    private final NotificationService notificationService;
+    private final EventNotificationService eventNotificationService;
 
     @Autowired
-    public NotificationController(NotificationService notificationService){
+    public EventNotificationController(EventNotificationService eventNotificationService){
 
-        this.notificationService = notificationService;
+        this.eventNotificationService = eventNotificationService;
     }
 
 
-    @RequestMapping(method = GET, value = "/dashboards/{name}/", produces = APPLICATION_JSON_VALUE)
-    public Notification getNotificationForDashboard(@PathVariable("name") String dashboardId){
-        return notificationService.getNotificationForDashboard(dashboardId);
+    @RequestMapping(method = GET, value = "/dashboards/{name}/event-notification", produces = APPLICATION_JSON_VALUE)
+    public EventNotification getNotificationForDashboard(@PathVariable("name") String dashboardId){
+        return eventNotificationService.getEventNotificationForDashboard(dashboardId);
     }
 
-    @RequestMapping(method = POST, value = "/api/notification", produces = APPLICATION_JSON_VALUE)
-    public Notification insertNotification(@RequestBody List<String> dashboardIds, @RequestBody String message){
-        return notificationService.saveNotification(dashboardIds, message);
+    @RequestMapping(method = POST, value = "/api/event-notification", produces = APPLICATION_JSON_VALUE)
+    public EventNotification insertNotification(@RequestBody List<String> dashboardIds, @RequestBody String message){
+        return eventNotificationService.saveEventNotification(dashboardIds, message);
     }
 }
