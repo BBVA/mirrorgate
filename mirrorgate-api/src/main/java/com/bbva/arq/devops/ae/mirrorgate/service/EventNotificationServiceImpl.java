@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.dto.EventNotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.EventNotificationRepository;
@@ -49,11 +50,11 @@ public class EventNotificationServiceImpl implements EventNotificationService {
     }
 
     @Override
-    public EventNotification saveEventNotification(List<String> dashboardIds, String message){
+    public EventNotification saveEventNotification(EventNotificationDTO eventNotificationDTO){
 
         EventNotification notification = new EventNotification();
-        notification.setDashboardsToNotify(dashboardIds);
-        notification.setMessage(message);
+        notification.setDashboardsToNotify(eventNotificationDTO.getDashboardIds());
+        notification.setMessage(eventNotificationDTO.getMessage());
         notification.setTimestamp(System.currentTimeMillis());
 
         EventNotification result = repository.save(notification);

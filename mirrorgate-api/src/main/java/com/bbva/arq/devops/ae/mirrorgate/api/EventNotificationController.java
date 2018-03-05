@@ -19,6 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import com.bbva.arq.devops.ae.mirrorgate.dto.EventNotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventNotificationService;
 import java.util.List;
@@ -46,7 +47,7 @@ public class EventNotificationController {
     }
 
     @RequestMapping(method = POST, value = "/api/event-notification", produces = APPLICATION_JSON_VALUE)
-    public EventNotification insertNotification(@RequestBody List<String> dashboardIds, @RequestBody String message){
-        return eventNotificationService.saveEventNotification(dashboardIds, message);
+    public EventNotification insertNotification(@RequestBody EventNotificationDTO eventNotificationDTO){
+        return eventNotificationService.saveEventNotification(eventNotificationDTO);
     }
 }

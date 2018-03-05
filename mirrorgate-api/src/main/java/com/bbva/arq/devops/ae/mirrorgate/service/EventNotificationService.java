@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.dto.EventNotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -23,5 +24,5 @@ public interface EventNotificationService {
 
     List<EventNotification> getEventNotificationsById(List<ObjectId> notificationIds);
     EventNotification getEventNotificationForDashboard(String dashboardId);
-    EventNotification saveEventNotification(List<String> dashboardIds, String message);
+    EventNotification saveEventNotification(EventNotificationDTO eventNotificationDTO);
 }
