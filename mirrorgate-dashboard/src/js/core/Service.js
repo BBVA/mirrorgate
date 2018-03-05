@@ -113,6 +113,21 @@ var Service = (function() {
     };
   }
 
+  function NoTimerServiceType(resource, serverEventType) {
+    this._instances = {};
+    this.serverEventType = serverEventType;
+    this.getUrl = function(dashboardId) {
+      var url = 'dashboards/';
+      if (dashboardId) {
+        url += dashboardId + '/';
+        if (resource) {
+          url += resource;
+        }
+      }
+      return url;
+    };
+  }
+
   var self = {
     types: {
       builds: new ServiceType(Timer.eventually, 'builds','BuildType'),
@@ -125,6 +140,7 @@ var Service = (function() {
       notifications: new ServiceType(Timer.never, 'notifications'),
       userMetrics: new ServiceType(Timer.eventually, 'user-metrics'),
       scmMetrics: new ServiceType(Timer.eventually, 'scm-metrics'),
+      eventNotifications: new NoTimerServiceType('event-notification', 'NotificationType'),
     },
     get: function(type, dashboardId) {
       return (
