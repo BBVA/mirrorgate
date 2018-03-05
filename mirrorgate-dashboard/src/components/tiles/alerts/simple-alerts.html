@@ -41,7 +41,7 @@
       <div class="progress-bar">
         <div rv-each-item="items" rv-show="item.width" class="progress__bar" role="progressbar" rv-pclass-fill="item.status" rv-width="item.width"></div>
       </div>
-      <div class="indicator__bar">
+      <div rv-show="accomplishedAlertsPercentage"class="indicator__bar">
         <div class="indicator alert__accomplished">
           <div class="stats">{accomplishedAlertsPercentage}%<span class="builds-tendency" rv-pclass-tendency="accomplishedAlerts"></span></div>
           <div class="stat-desc">Accomplished</div>
