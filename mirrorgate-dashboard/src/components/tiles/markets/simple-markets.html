@@ -25,41 +25,29 @@
   </style>
 
   <div class="applications simple component__content">
-    <div class="component__header">
-      <h2 class="title">
-        <span rv-hide="app.starsShortTerm">No reviews found</span>
-        <span rv-show="app.starsShortTerm" class="rate__legend">Last {marketsStatsDays} days</span>
-      </h2>
-    </div>
-    <div class="component__body">
-      <div class="platform-rates">
+    <div class="platform-rates">
+      <div class="platform-rate">
+        <div class="rate-short-term-data">
+          <div class="rate-stars" rv-if="app.starsShortTerm">
 
-        <div class="platform-rate">
-          <div class="rate-short-term-data">
-            <div class="rate-stars" rv-if="app.starsShortTerm">
+            <span class="rate__total">
+              <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
 
-              <span class="rate__total">
-                <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
-
-                <span rv-show="app.rateShortTerm">
-                  <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
-                </span>
-                <span class="no-reviews-in-short-term" rv-hide="app.rateShortTerm">
-                  <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa fa-star-o"></i>
-                </span>
+              <span rv-show="app.rateShortTerm">
+                <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
               </span>
-              <span class="sr-only" rv-show="app.rateShortTerm">{app.rateShortTerm}</span>
-
-              <span class="tendency" rv-show="app.rateShortTerm" rv-pclass-tendency="app.tendency"></span>
-
-              <span class="rate__tag" rv-show="app.rateShortTerm">
-                {app.votesShortTerm} votes
+              <span class="no-reviews-in-short-term" rv-hide="app.rateShortTerm">
+                <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa fa-star-o"></i>
               </span>
+            </span>
+            <span class="sr-only" rv-show="app.rateShortTerm">{app.rateShortTerm}</span>
 
-              <span class="rate__tag" rv-hide="app.rateShortTerm">(No votes)</span>
-            </div>
+            <span class="tendency" rv-show="app.rateShortTerm" rv-pclass-tendency="app.tendency"></span>
           </div>
 
+          <div class="rate__tag">
+            <span rv-show="app.rateShortTerm" >{app.votesShortTerm} votes / last {marketsStatsDays} days</span>
+          </div>
         </div>
       </div>
     </div>
@@ -72,17 +60,22 @@
     name: 'simple-markets',
     controllerClass: MarketsController,
     parent: Tile,
-    render: function (data) {
 
-      var totalRate;
-      var totalVotes;
-
+    processAlerts: function (data) {
       Utils.raiseEvent(this, {
         status: data && data.total ?
           data.total.tendencyChange < -5 ? 'error':
             data.total.tendencyChange < -1 ? 'warn': 'ok':
           'server-error'
       });
+    },
+
+    render: function (data) {
+
+      this.processAlerts(data);
+
+      var totalRate;
+      var totalVotes;
 
       if(data && data.total) {
         var app = this.getModel().app = data.total;

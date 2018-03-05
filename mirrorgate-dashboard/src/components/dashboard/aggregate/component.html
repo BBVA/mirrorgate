@@ -26,10 +26,12 @@
 <link rel="import" href="../../tiles/team/simple-sprint.html" >
 <link rel="import" href="../../tiles/programIncrement/simple-pi.html" >
 <link rel="import" href="../../tiles/markets/simple-markets.html" >
+<link rel="import" href="../../tiles/user-metrics/simple-component.html" >
+<link rel="import" href="../../tiles/operations-metrics/simple-operations-component.html" >
 <link rel="import" href="../../tiles/alerts/simple-alerts.html" >
+<link rel="import" href="../../tiles/notifications/simple-component.html" >
 <link rel="import" href="../../header/header.html" >
 <link rel="import" href="../../shards/header-title.html" >
-<link rel="import" href="../../tiles/user-metrics/component.html" >
 
 <template>
   <style>
@@ -40,7 +42,7 @@
     <board-column class="board-container">
       <board-row>
         <tile-container enabled="true" class="title-tile">
-            <!-- placeholder for logos -->
+           <!-- placeholder for logos -->
         </tile-container>
         <tile-container enabled="true" class="for-simple-sprint">
           <header-title title="Current Sprint" class="header-title simple-tile"></header-title>
@@ -51,19 +53,21 @@
         <tile-container enabled="true" class="for-simple-builds-tile">
             <header-title class="header-title simple-tile" title="Builds"></header-title>
         </tile-container>
-        <tile-container enabled="true" class="for-simple-markets small-tile">
+        <tile-container enabled="true" class="mid-tile for-simple-markets for-simple-user-metrics-tile">
             <header-title class="header-title simple-tile" title="Feedback"></header-title>
         </tile-container>
-        <tile-container enabled="true" class="mid-tile for-user-metrics-tile">
-            <header-title class="header-title simple-tile" title="Analytics"></header-title>
+        <tile-container enabled="true" class="mid-tile for-simple-operations-metrics-tile">
+            <header-title class="header-title simple-tile" title="Operations"></header-title>
         </tile-container>
         <tile-container enabled="true" class="for-simple-alerts">
           <header-title class="header-title simple-tile" title="Alerts"></header-title>
         </tile-container>
       </board-row>
+
+      <!-- .bottom -->
       <board-row class="bottom">
         <tile-container enabled="true" class="title-tile">
-            <!-- placeholder for logos -->
+          <!-- placeholder for logos -->
         </tile-container>
         <tile-container enabled="true" class="double-tile for-simple-sprint for-simple-program-increment">
           <div class="legend">
@@ -86,9 +90,9 @@
         </tile-container>
         <tile-container enabled="true" class="for-simple-builds-tile">
         </tile-container>
-        <tile-container enabled="true" class="small-tile for-simple-markets ">
+        <tile-container enabled="true" class="mid-tile for-simple-markets for-simple-user-metrics-tile">
         </tile-container>
-        <tile-container enabled="true" class="for-user-metrics-tile mid-tile">
+        <tile-container enabled="true" class="mid-tile for-simple-operations-metrics-tile">
         </tile-container>
         <tile-container enabled="true" class="for-simple-alerts">
           <div class="legend">
@@ -104,29 +108,36 @@
           </div>
         </tile-container>
       </board-row>
+      <!-- / .bottom -->
+
       <board-row rv-each-board="boards">
         <tile-container enabled="true" class="title-tile">
           <details-tile class="row--primary row-header" link="true" rv-config="board.detail"></details-tile>
         </tile-container>
         <tile-container enabled="true" class="for-simple-sprint">
-            <simple-sprint rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-sprint>
+          <simple-sprint rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-sprint>
         </tile-container>
         <tile-container enabled="true" class="for-simple-program-increment">
-            <simple-program-increment rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-program-increment>
+          <simple-program-increment rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-program-increment>
         </tile-container>
         <tile-container enabled="true" class="for-simple-builds-tile">
-            <simple-builds-tile rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-builds-tile>
+          <simple-builds-tile rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-builds-tile>
         </tile-container>
-        <tile-container enabled="true" class="small-tile for-simple-markets">
-            <simple-markets rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-markets>
+        <tile-container enabled="true" class="mid-tile for-simple-markets for-simple-user-metrics-tile">
+          <div class="tile for-simple-markets for-simple-user-metrics-tile component__content">
+            <simple-user-metrics-tile rv-config="board.detail" class="optional-tile component simple-tile for-simple-user-metrics-tile"></simple-user-metrics-tile>
+            <simple-markets rv-config="board.detail" class="tile optional-tile component simple-tile"></simple-markets>
+          </div>
         </tile-container>
-        <tile-container enabled="true" class="mid-tile for-user-metrics-tile">
-            <user-metrics-tile rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></user-metrics-tile>
+        <tile-container enabled="true" class="mid-tile for-simple-operations-metrics-tile">
+          <simple-operations-metrics-tile rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-operations-metrics-tile>
         </tile-container>
         <tile-container enabled="true" class="for-simple-alerts">
           <simple-alerts rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-alerts>
         </tile-container>
+        <simple-notifications-tile rv-config="board.detail"></simple-notifications-tile>
       </board-row>
+
     </board-column>
   </div>
 </template>

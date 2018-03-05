@@ -24,3 +24,20 @@
     }
   }
 }
+
+.simple-operations {
+  .title {
+    font-size: .95vw !important;
+  }
+  .title-desc {
+    color: white;
+    font-weight: inherit;
+    margin-bottom: 0;
+    text-align: right;
+    text-transform: none;
+    font-size: .95vw !important
+  }
+  .component__body {
+    padding: 10px 15px 5px 15px;
+  }
+}

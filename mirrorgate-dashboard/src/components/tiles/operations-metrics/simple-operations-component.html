@@ -1,0 +1,179 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- build:js operations-component.min.js -->
+<script src="operations-controller.js"></script>
+<!-- endbuild -->
+
+<template>
+  <style>
+    @import "css/{skin}.css";
+  </style>
+
+  <div class="simple-operations component__content">
+    <div class="component__header">
+      <h2 class="title">
+        <div rv-if="metrics.requestsNumber | >= 0">{metrics.requestsNumber | bigNumber}<span rv-show="metrics.requestsNumberTendency" class="tendency" rv-pclass-tendency="metrics.requestsNumberTendency"></span></div>
+        <div rv-if="metrics.requestsNumber | >= 0">requests</div>
+      </h2>
+      <h2 class="title-desc">
+        <span rv-hide="metrics">No metrics collected</span>
+        <div rv-if="metrics.responseTime | >= 0">{metrics.responseTime}s<span class="tendency" rv-pclass-tendency="metrics.responseTimeTendency"></span></div>
+        <div rv-if="metrics.responseTime | >= 0">response time</div>
+      </h2>
+    </div>
+    <div class="component__body">
+      <div class="indicator__bar">
+        <div class="indicator" rv-show="metrics.errorsRate | >= 0">
+          <div class="stats">{metrics.errorsRate}%<span class="tendency" rv-pclass-tendency="metrics.errorsRateTendency"></span></div>
+          <div class="stat-desc">of errors</div>
+        </div>
+        <div class="indicator" rv-show="metrics.availabilityRate | >= 0">
+          <div class="stats">{metrics.availabilityRate}%<span class="tendency" rv-pclass-tendency="metrics.availabilityRateTendency"></span></div>
+          <div class="stat-desc">of availability</div>
+        </div>
+      </div>
+      <div class="indicator__bar" rv-if="infraCost">
+        <div class="indicator" rv-show="metrics.infraCost | > 0">
+          <div class="stats">{metrics.infraCost}$</div>
+          <div class="stat-desc">infrastructure cost</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+  var stateMapping = {
+    Ok: 0,
+    Warn: 1,
+    Error: 2
+  };
+
+  function getMetricState(metric, metricRateAlertingLevels){
+    return metric === undefined || metric <= metricRateAlertingLevels.warning ? stateMapping['Ok']
+            : metric <= metricRateAlertingLevels.error ? stateMapping['Warn']
+            : stateMapping['Error'];
+  }
+
+  function getComponentState(metrics, responseTimeAlertingLevels, errorsRateAlertingLevels){
+    return Math.max(getMetricState(metrics.responseTime, responseTimeAlertingLevels), getMetricState(metrics.errorsRate, errorsRateAlertingLevels));
+  }
+
+  MGComponent({
+    name: 'simple-operations-metrics-tile',
+    controllerClass: OperationsController,
+    parent: Tile,
+
+    firstTime: true,
+    lastEvent: undefined,
+
+    sendEvent: function(metricName, description, color){
+      var event =  {
+        detail: {
+          title: metricName,
+          dashboard: this.getDashboardId(),
+          description: description,
+          date: new Date(),
+          url: '',
+          color: color
+        }
+      }
+      if(!this.lastEvent || this.lastEvent.title !== event.detail.title || this.lastEvent.description !== event.detail.description || this.lastEvent.color !== event.detail.color) {
+        this.lastEvent = {
+          title: event.detail.title,
+          description: event.detail.description,
+          color: event.detail.color
+        }
+        document.dispatchEvent(new CustomEvent('HeadsUp', event));
+        this.firstTime = false;
+      }
+    },
+
+    checkOperationMetricsToSendEvent : function(data){
+      var metricName = '';
+      var thresholds = '';
+      var description = '';
+      var state;
+      var color;
+
+      var responseTime = data.metrics.responseTime;
+      var responseTimeAlertingLevels = data.responseTimeAlertingLevels;
+      var errorsRate = data.metrics.errorsRate;
+      var errorsRateAlertingLevels = data.errorsRateAlertingLevels;
+      var responseTimeState = getMetricState(responseTime, responseTimeAlertingLevels);
+      var errorsRateState = getMetricState(errorsRate, errorsRateAlertingLevels);
+
+      if(errorsRateState == stateMapping['Ok'] && responseTimeState == stateMapping['Ok']){
+
+        if(!this.firstTime){
+          metricName = 'Errors rate and response time';
+          description = 'Values have returned below the thresholds (' + errorsRateAlertingLevels.warning + ' and ' + responseTimeAlertingLevels.warning + ')';
+          state = Math.max(errorsRateState, responseTimeState);
+          color = state == stateMapping['Error'] ? 'red' : state == stateMapping['Warn'] ? 'yellow' : 'blue';
+
+          this.sendEvent(metricName, description, color);
+        }
+
+      } else {
+
+        if(errorsRateState == stateMapping['Warn'] || errorsRateState == stateMapping['Error']){
+          metricName = 'Errors rate';
+          thresholds = errorsRateState == stateMapping['Warn'] ? errorsRateAlertingLevels.warning : errorsRateAlertingLevels.error;
+        }
+
+        if(responseTimeState == stateMapping['Warn'] || responseTimeState == stateMapping['Error']){
+          metricName = metricName === '' ? 'Response time' : metricName + ' and response time';
+          thresholds = thresholds === '' ? '' : thresholds + ' and ';
+          thresholds = thresholds + (responseTimeState == stateMapping['Warn'] ? responseTimeAlertingLevels.warning : responseTimeAlertingLevels.error);
+        }
+
+        description = 'Greater than the threshold (' + thresholds + ')';
+        state = Math.max(errorsRateState, responseTimeState);
+        color = state == stateMapping['Error'] ? 'red' : state == stateMapping['Warn'] ? 'yellow' : 'blue';
+
+        this.sendEvent(metricName, description, color);
+      }
+    },
+
+    processAlerts: function (data) {
+      var levelEvent = ['ok', 'warn', 'error', 'server-error'];
+      Utils.raiseEvent(this, {
+        status: data ? (data.metrics ? levelEvent[getComponentState(
+          data.metrics,
+          data.responseTimeAlertingLevels,
+          data.errorsRateAlertingLevels)] : 'empty') : levelEvent[3]
+      });
+    },
+
+    // Fires when an instance of the element is created
+    render: function (data) {
+
+      if (data) {
+        var model = this.getModel();
+        model.metrics = data.metrics;
+        model.infraCost = this.getConfig().infraCost;
+        this.setAttribute('enabled', model.metrics !== undefined);
+        data.metrics && this.checkOperationMetricsToSendEvent(data);
+      }
+
+      this.processAlerts(data);
+    }
+  });
+
+</script>
