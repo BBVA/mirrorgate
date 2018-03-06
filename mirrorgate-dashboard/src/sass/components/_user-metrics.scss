@@ -44,7 +44,11 @@
         flex: 1 1 10%;
       }
     }
+  }
+}
 
-
+.simple-users {
+  .component__body {
+    padding: 15px 15px 0px 15px;
   }
 }

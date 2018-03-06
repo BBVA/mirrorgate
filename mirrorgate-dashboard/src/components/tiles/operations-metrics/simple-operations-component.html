@@ -24,14 +24,17 @@
     @import "css/{skin}.css";
   </style>
 
-  <div class="operations component__content">
+  <div class="simple-operations component__content">
     <div class="component__header">
-      <h2 class="title">Operations</h2>
-      <h3 class="title-desc">
+      <h2 class="title">
+        <div rv-if="metrics.requestsNumber | >= 0">{metrics.requestsNumber | bigNumber}<span rv-show="metrics.requestsNumberTendency" class="tendency" rv-pclass-tendency="metrics.requestsNumberTendency"></span></div>
+        <div rv-if="metrics.requestsNumber | >= 0">requests</div>
+      </h2>
+      <h2 class="title-desc">
         <span rv-hide="metrics">No metrics collected</span>
-        <span rv-show="metrics.requestsNumber | >= 0">{metrics.requestsNumber | bigNumber} requests</span>
-        <span rv-show="metrics.requestsNumberTendency" class="tendency" rv-pclass-tendency="metrics.requestsNumberTendency"></span>
-      </h3>
+        <div rv-if="metrics.responseTime | >= 0">{metrics.responseTime}s<span class="tendency" rv-pclass-tendency="metrics.responseTimeTendency"></span></div>
+        <div rv-if="metrics.responseTime | >= 0">response time</div>
+      </h2>
     </div>
     <div class="component__body">
       <div class="indicator__bar">
@@ -42,10 +45,6 @@
         <div class="indicator" rv-show="metrics.availabilityRate | >= 0">
           <div class="stats">{metrics.availabilityRate}%<span class="tendency" rv-pclass-tendency="metrics.availabilityRateTendency"></span></div>
           <div class="stat-desc">of availability</div>
-        </div>
-        <div class="indicator" rv-show="metrics.responseTime | >= 0">
-          <div class="stats">{metrics.responseTime}s<span class="tendency" rv-pclass-tendency="metrics.responseTimeTendency"></span></div>
-          <div class="stat-desc"> response time</div>
         </div>
       </div>
       <div class="indicator__bar" rv-if="infraCost">
@@ -77,7 +76,7 @@
   }
 
   MGComponent({
-    name: 'operations-metrics-tile',
+    name: 'simple-operations-metrics-tile',
     controllerClass: OperationsController,
     parent: Tile,
 
