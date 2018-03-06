@@ -23,7 +23,7 @@
       "icon_upload_button": "Icon upload",
       "icon_text": "Icon",
       "icon_help": "Select a PNG file from your file system.",
-      "admin_list": "Adiministrator users",
+      "admin_list": "Administrator users",
       "admin_list_help": "Add the users that will have permission to modify the dashboard. Names must be that which precede the users' e-mail address domain names (i.e. user@bbva.com) and must be separated by commas.",
       "admin_list_placeholder": "Add administrators",
       "admin_list_secondary_placeholder": "Add a new administrator",
@@ -67,7 +67,12 @@
     "analytics_block": {
       "title": "Analytics",
       "analytics_input": "Analytics Metrics Sources Ids",
-      "analytics_help": "<p>Add a comma separated list with your analytics metrics sources Ids.</p><p>For example, in case of using Google Analytics as source of metrics: <kbd>ga:123456789,ga:987654321</kbd></p><div class=\"alert alert-warning\" role=\"alert\">Note that MirrorGate needs to have access to get metrics.</div><p>In order to add AWS metrics use the following patterns as source of metrics:</p><ul><li><kbd>AWS/[AWS_Account]</kbd></li><li><kbd>AWS/[AWS_Account]/[ALB_name]</kbd></li></ul><p>For more information about how to configure AWS metrics you can check this <a href=\"../docs/operations/aws_metrics.html\">link</a>.</p>",
+      "analytics_help": "<p>Add a comma separated list with your analytics metrics sources Ids.</p><p>For example, in case of using Google Analytics as source of metrics: <kbd>ga:123456789,ga:987654321</kbd></p><div class=\"alert alert-warning\" role=\"alert\">Note that MirrorGate needs to have access to get metrics.</div>"
+    },
+    "operations_block": {
+      "title": "Operations",
+      "operations_input": "Operations Metrics Sources Ids",
+      "operations_help": "<p>Add a comma separated list with your operations metrics sources Ids.</p><p>Use the following patterns as source of AWS metrics:</p><ul><li><kbd>AWS/[AWS_Account]</kbd></li><li><kbd>AWS/[AWS_Account]/[ALB_name]</kbd></li></ul><p>For more information about how to configure AWS metrics you can check this <a href=\"../docs/operations/aws_metrics.html\">link</a>.</p>",
       "alerting_levels": "Alerting levels",
       "alerting_levels_help": "<p>Here you can set limit values for alerting levels. If the value of response time or errors rate is greater than one of these limits, the component will appear in yellow (warning) or red (error) depending on the limit value that has been exceeded.</p><div class=\"alert alert-warning\" role=\"alert\">Note that error limit should be greater than warning limit.</div>",
       "errors_rate_alerting_levels": "Errors rate",

@@ -42,6 +42,7 @@ public class DashboardDTO {
     private Long lastModification;
     private Long lastTimeUsed;
     private List<String> analyticViews;
+    private List<String> operationViews;
     private Boolean infraCost;
     private String lastVersion;
     private Float responseTimeAlertingLevelWarning;
@@ -198,6 +199,15 @@ public class DashboardDTO {
 
     public DashboardDTO setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
+    }
+
+    public List<String> getOperationViews() {
+        return operationViews;
+    }
+
+    public DashboardDTO setOperationViews(List<String> operationViews) {
+        this.operationViews = operationViews;
         return this;
     }
 

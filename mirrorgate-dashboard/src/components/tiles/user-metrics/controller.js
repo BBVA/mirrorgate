@@ -45,7 +45,7 @@ var UserMetricsController = (function(dashboardId) {
         let activeUsersTendency;
 
         response.forEach(function(metric) {
-          var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
+          var metricId = metric.viewId + metric.name + metric.platform + metric.appVersion;
           metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
           if(metric.name === 'activeUsers' && metric.lastValue && metric.timestamp === metricsMap[metricId]) {
             model.metrics.rtActiveUsers += parseInt(metric.lastValue);
@@ -94,7 +94,7 @@ var UserMetricsController = (function(dashboardId) {
     service.removeListener(getUserMetrics);
   };
   this.init = function(config) {
-    if(!config.analyticViews || !config.analyticViews.length) {
+    if(!(config.analyticViews && config.analyticViews.length)) {
       return Promise.reject();
     }
     _lastVersion = new RegExp(config.lastVersion);

@@ -117,7 +117,8 @@ var OperationsController = (function(dashboardId) {
   };
   this.init = function(_config) {
     config = _config;
-    if(!config.analyticViews || !config.analyticViews.length) {
+    // TO-DO remove analyticViews check
+    if(!((config.analyticViews && config.analyticViews.length) || (config.operationViews && config.operationViews.length))) {
       return Promise.reject();
     }
     service.addListener(getMetrics);
