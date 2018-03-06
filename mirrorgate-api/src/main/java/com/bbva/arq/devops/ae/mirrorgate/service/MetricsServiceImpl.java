@@ -83,16 +83,13 @@ public class MetricsServiceImpl implements MetricsService {
 
     @Override
     public List<UserMetricDTO> getMetricsForDashboard(DashboardDTO dashboard) {
-        List<String> views = new ArrayList<>();
-        List<String> analyticViews = dashboard.getAnalyticViews();
-        List<String> operationViews = dashboard.getOperationViews();
+        List<String> views = Stream.of(dashboard.getAnalyticViews(), dashboard.getOperationViews())
+            .filter(v -> v != null)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList());
 
-        if(analyticViews != null){
-            views.addAll(analyticViews);
-        }
-
-        if(operationViews != null){
-            views.addAll(operationViews);
+        if(views.isEmpty()){
+            return new ArrayList<>();
         }
 
         List<UserMetricDTO> userMetrics = userMetricsRepository
