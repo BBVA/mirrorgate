@@ -327,16 +327,42 @@
           <div class="form-group row">
 
             <div class="col-sm-6">
-              <label for="viewIds">{{texts.form.analytics_block.analytics_input}}</label>
-              <div class="collapse" id="view-ids-help">
+              <label for="analyticsIds">{{texts.form.analytics_block.analytics_input}}</label>
+              <div class="collapse" id="analytics-ids-help">
                 <div class="well" innerHTML="{{texts.form.analytics_block.analytics_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#view-ids-help" aria-expanded="false"
-                  aria-controls="view-ids-help">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#analytics-ids-help" aria-expanded="false"
+                   aria-controls="analytics-ids-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <input type="text" class="form-control" id="viewIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()" name="viewIds">
+                <input type="text" class="form-control" id="analyticsIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()" name="analyticsIds">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{texts.form.operations_block.title}}</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="form-group row">
+
+            <div class="col-sm-6">
+              <label for="operationsIds">{{texts.form.operations_block.operations_input}}</label>
+              <div class="collapse" id="operations-ids-help">
+                <div class="well" innerHTML="{{texts.form.operations_block.operations_help}}"></div>
+              </div>
+              <div class="input-group">
+                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#operations-ids-help" aria-expanded="false"
+                  aria-controls="operations-ids-help">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+                <input type="text" class="form-control" id="operationsIds" [(ngModel)]="temp.operationViews" (ngModelChange)="mirrorTempValues()" name="operationsIds">
                 <a type="button" (click)="icon = {}" class="input-group-addon" data-toggle="modal" data-target="#alertingLevelsModal">
                   <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                 </a>
@@ -350,7 +376,7 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="alertingLevelsModalLabel">
-                      {{texts.form.analytics_block.alerting_levels}}
+                      {{texts.form.operations_block.alerting_levels}}
                       <a data-toggle="collapse" data-target="#alerting-levels-help" aria-expanded="false" aria-controls="alerting-levels-help">
                       <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                       </a>
@@ -358,12 +384,12 @@
                   </div>
                   <div class="modal-body">
                     <div class="collapse" id="alerting-levels-help">
-                      <div class="well" innerHTML="{{texts.form.analytics_block.alerting_levels_help}}"></div>
+                      <div class="well" innerHTML="{{texts.form.operations_block.alerting_levels_help}}"></div>
                     </div>
 
-                    <h5 for="iconModal">{{texts.form.analytics_block.response_time_alerting_levels}}</h5>
+                    <h5 for="iconModal">{{texts.form.operations_block.response_time_alerting_levels}}</h5>
 
-                    <p><label for="responseTimeAlertingLevelWarningRange">{{texts.form.analytics_block.response_time_alerting_level_warning_input}}:</label></p>
+                    <p><label for="responseTimeAlertingLevelWarningRange">{{texts.form.operations_block.response_time_alerting_level_warning_input}}:</label></p>
                     <div class="form-group row">
                       <div class="col-sm-3">
                         <input type="number" class="form-control" id="responseTimeAlertingLevelWarning" name="responseTimeAlertingLevelWarning" min="0" max="10" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelWarning">
@@ -376,7 +402,7 @@
                       </div>
                     </div>
 
-                    <p><label for="responseTimeAlertingLevelErrorRange">{{texts.form.analytics_block.response_time_alerting_level_error_input}}:</label></p>
+                    <p><label for="responseTimeAlertingLevelErrorRange">{{texts.form.operations_block.response_time_alerting_level_error_input}}:</label></p>
                     <div class="form-group row">
                       <div class="col-sm-3">
                         <input type="number" class="form-control" id="responseTimeAlertingLevelError" name="responseTimeAlertingLevelError" min="0" max="10" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
@@ -389,9 +415,9 @@
                       </div>
                     </div>
 
-                    <h5 for="iconModal">{{texts.form.analytics_block.errors_rate_alerting_levels}}</h5>
+                    <h5 for="iconModal">{{texts.form.operations_block.errors_rate_alerting_levels}}</h5>
 
-                    <p><label for="errorsRateAlertingLevelWarningRange">{{texts.form.analytics_block.errors_rate_alerting_level_warning_input}}:</label></p>
+                    <p><label for="errorsRateAlertingLevelWarningRange">{{texts.form.operations_block.errors_rate_alerting_level_warning_input}}:</label></p>
                     <div class="form-group row">
                       <div class="col-sm-3">
                         <input type="number" class="form-control" id="errorsRateAlertingLevelWarning" name="errorsRateAlertingLevelWarning" min="0" max="10" step="0.1" [(ngModel)]="dashboard.errorsRateAlertingLevelWarning">
@@ -404,7 +430,7 @@
                       </div>
                     </div>
 
-                    <p><label for="errorsRateAlertingLevelErrorRange">{{texts.form.analytics_block.errors_rate_alerting_level_error_input}}:</label></p>
+                    <p><label for="errorsRateAlertingLevelErrorRange">{{texts.form.operations_block.errors_rate_alerting_level_error_input}}:</label></p>
                     <div class="form-group row">
                       <div class="col-sm-3">
                         <input type="number" class="form-control" id="errorsRateAlertingLevelError" name="errorsRateAlertingLevelError" min="0" max="10" step="0.1" [(ngModel)]="dashboard.errorsRateAlertingLevelError">
@@ -432,9 +458,9 @@
             <!-- /Modal -->
 
             <div class="col-sm-6">
-              <label for="infraCost">{{texts.form.analytics_block.infra_cost_input}}</label>
+              <label for="infraCost">{{texts.form.operations_block.infra_cost_input}}</label>
               <div class="collapse" id="infra-cost-help">
-                <div class="well" innerHTML="{{texts.form.analytics_block.infra_cost_help}}"></div>
+                <div class="well" innerHTML="{{texts.form.operations_block.infra_cost_help}}"></div>
               </div>
               <div class="input-group">
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#infra-cost-help" aria-expanded="false" aria-controls="infra-cost-help">

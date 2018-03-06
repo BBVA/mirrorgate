@@ -43,6 +43,7 @@ public class Dashboard extends BaseModel {
     private String sProductName; //Team product name
     private List<String> applications;
     private List<String> analyticViews;
+    private List<String> operationViews;
     private Boolean infraCost;
     private String lastVersion;
     private Float responseTimeAlertingLevelWarning;
@@ -256,6 +257,15 @@ public class Dashboard extends BaseModel {
 
     public Dashboard setAnalyticViews(List<String> analyticViews) {
         this.analyticViews = analyticViews;
+        return this;
+    }
+
+    public List<String> getOperationViews() {
+        return operationViews;
+    }
+
+    public Dashboard setOperationViews(List<String> operationViews) {
+        this.operationViews = operationViews;
         return this;
     }
 
