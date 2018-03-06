@@ -32,6 +32,9 @@ These Scripts aim to help MirrorGate development and deployment helping to conso
 * remove_old_events.js: remove events documents older than 1 day from database.
 * remove_old_issues.js: remove unnecessary issues older than 3 months from database.
 * remove_old_not_latest_builds.js: remove not latest builds documents older than 3 months from database.
+* remove_old_commits.js: remove commits with date of merge to master branch older than 3 months from database.
+* remove_old_user_metrics.js: remove user metrics older than 3 months from database.
+* remove_old_historic_user_metrics.js: remove historic user metrics older than 3 months from database.
 * clean_mirrorgate_db.js: run previous scripts to clean mirrorgate database from old documents.
 
 # Contributing

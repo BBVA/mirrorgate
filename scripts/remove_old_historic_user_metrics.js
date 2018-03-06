@@ -14,9 +14,21 @@
  * limitations under the License.
  */
 
-load('./remove_old_not_latest_builds.js');
-load('./remove_old_events.js');
-load('./remove_old_issues.js');
-load('./remove_old_commits.js');
-load('./remove_old_user_metrics.js');
-load('./remove_old_historic_user_metrics.js');
+var db;
+
+if(typeof mongo_user == "undefined"){
+    var conn = new Mongo();
+    db = conn.getDB(mongo_authdb);
+} else {
+    db = connect(mongo_host + ":" + mongo_port + "/" + mongo_authdb);
+    db.auth(mongo_user,mongo_pass);
+    db = db.getSiblingDB(mongo_authdb);
+}
+
+var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 3));
+
+'Removing old historic user metrics until: ' + purgeDate;
+
+db.getCollection('historic_user_metrics').remove({
+  timestamp: {'$lt' : purgeDate.getTime()},
+});
