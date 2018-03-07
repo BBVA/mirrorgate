@@ -2,6 +2,7 @@
 
 const api = require('../support/backend-api');
 const data = require('../support/fixtures');
+const until = protractor.ExpectedConditions;
 
 describe('mirrorgate', function () {
 
@@ -48,12 +49,18 @@ describe('mirrorgate', function () {
             expect(element(by.css('current-sprint-tile div[rv-show="sprint.doneRatio"] .rate-completed')).getText()).toContain('17');
         });
 
+        it('should alert spring adavance risks', function () {
+            browser.wait(until.presenceOf(element(by.css('current-sprint-tile.module-error'))));
+            expect(element(by.css('current-sprint-tile.module-ok')).isPresent()).toBeFalsy();
+        });
+
 		it('should change the completion ammount and reflect status change', function (done) {
             expect(element(by.css('current-sprint-tile div[rv-show="sprint.doneRatio"] .rate-completed')).getText()).toContain('17')
-                .then(function () {
+                .then(function() {
                     return api.stories.send(data.stories.backlog, {status:'IN_PROGRESS'});
                 })
                 .then(function() {
+                    browser.wait(until.presenceOf(element(by.css('current-sprint-tile.module-ok'))));
                     expect(element(by.css('current-sprint-tile div[rv-show="sprint.doneRatio"] .rate-completed')).getText()).toContain('20');
                     expect(element.all(by.css('current-sprint-tile .outher path.status-in-progress')).count()).toBe(4);
                     expect(element.all(by.css('current-sprint-tile .outher path.status-backlog')).count()).toBe(4);
