@@ -75,7 +75,7 @@ public class DashboardMapper {
     public static Dashboard map(DashboardDTO source, Dashboard target) {
         return target.setAdminUsers(source.getAdminUsers())
             .setApplications(source.getApplications())
-            .setName(source.getName().replace(" ", "_"))
+            .setName(source.getName())
             .setType(source.getType() == null ? null : source.getType().name()).setColumns(source.getColumns())
             .setBoards(source.getBoards())
             .setCodeRepos(source.getCodeRepos())
