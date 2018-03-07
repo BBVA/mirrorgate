@@ -18,13 +18,13 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
+import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -129,12 +129,10 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
                 .where("sPiNames").is(pi)
                 .and("sTypeName").is("Feature")
             ),
-            project("sPiNames")
-                .andExclude("_id"),
+            project("sPiNames").andExclude("_id"),
             unwind("sPiNames"),
-            group()
-                .addToSet("sPiNames")
-                .as("piNames")
+            sort(new Sort(Sort.Direction.ASC, "sPiNames")),
+            group().addToSet("sPiNames").as("piNames")
         );
 
         AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult

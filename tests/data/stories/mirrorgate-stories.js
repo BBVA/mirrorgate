@@ -203,7 +203,7 @@ db.getCollection('feature').insertMany([
     'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
-    'sPiNames': ['MG01','MG02'],
+    'sPiNames': ['MG02','MG01'],
         'keywords': [
               'MirrorGate', 'ProgramIncrement'
             ]
