@@ -4,7 +4,7 @@
   "description": "Module for integration tests. Currently they are based in perceptual testing.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "e2e": "./node_modules/.bin/protractor ./e2e/protractor.conf.js"
   },
   "author": "BBVA",
   "license": "Apache-2.0",
