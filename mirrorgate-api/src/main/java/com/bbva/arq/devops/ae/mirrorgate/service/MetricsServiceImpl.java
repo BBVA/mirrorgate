@@ -53,12 +53,18 @@ public class MetricsServiceImpl implements MetricsService {
     @Override
     public List<String> getAnalyticViewIds() {
         return dashboardService.getActiveDashboards().stream()
-                .flatMap((d) -> d.getAnalyticViews() == null
-                        ? Stream.empty()
-                        : d.getAnalyticViews().stream()
-                )
-                .distinct()
-                .collect(Collectors.toList());
+            .flatMap((d) -> {
+                List<String> analyticsViews = new ArrayList<>();
+                if (d.getAnalyticViews() != null) {
+                    analyticsViews.addAll(d.getAnalyticViews());
+                }
+                if (d.getOperationViews() != null) {
+                    analyticsViews.addAll(d.getOperationViews());
+                }
+                return analyticsViews.stream();
+            })
+            .distinct()
+            .collect(Collectors.toList());
     }
 
     @Override
