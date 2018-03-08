@@ -20,7 +20,12 @@
     @import "css/{skin}.css";
   </style>
   <div class="btn-group" role="group">
+    <div id="search-dashboard" class="dropdown">
+      <input class="typeahead form-control" type="text" placeholder="Find a dashboard...">
+    </div>
+
     <button type="button" onclick="return Utils.openFeedbackForm()" class="dropdown__button btn"><i class="fa fa-commenting-o" aria-hidden="true"></i></button>
+
     <div class="dropdown btn-group">
       <button id="menuBtn" class="dropdown__button btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-bars" aria-hidden="true"></i>
@@ -30,7 +35,7 @@
         <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice()"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
         <li rv-if="config"><a href="backoffice/index.html" onclick="return Utils.openBackOffice(Utils.getDashboardId());"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
         <li class="dropdown-header">Recent dashboards</li>
-        <li rv-each-board="dashboards">
+        <li rv-each-board="recentDashboards">
           <a rv-href="board.url">{board.name}</a>
         </li>
       </ul>
@@ -52,24 +57,26 @@
     },
     onCreated: function () {
       var model = this.getModel();
-      model.dashboards = [];
+      model.dashboardMap = {};
+      model.dashboards = []
+      model.recentDashboards = [];
       var dashboardsService = Service.get(Service.types.dashboards);
       dashboardsService.addListener(function (response) {
         dashboardsService.removeListener(this);
-        model.dashboards = [];
+        model.recentDashboards = [];
         if (response) {
           var dashboards = JSON.parse(response);
           var recent = getRecent();
 
-          var dashboardMap = {};
           for (i in dashboards) {
             dashboard = dashboards[i];
-            dashboardMap[dashboard.name] = dashboard;
+            model.dashboardMap[dashboard.name] = dashboard;
+            model.dashboards.push(dashboard.name);
           }
           for (i of recent) {
-            dashboard = dashboardMap[i];
+            dashboard = model.dashboardMap[i];
             if(dashboard) {
-              model.dashboards.push({
+              model.recentDashboards.push({
                 url: '?board=' + encodeURIComponent(dashboard.name),
                 name: (dashboard.displayName || dashboard.name)
               })
@@ -89,6 +96,54 @@
           }
           localStorage.recentDashboards = JSON.stringify(recent);
           return recent;
+        }
+      });
+
+      var substringMatcher = function(strs) {
+        return function findMatches(q, cb) {
+          var matches, substringRegex;
+
+          // an array that will be populated with substring matches
+          matches = [];
+
+          // regex used to determine if a string contains the substring `q`
+          substrRegex = new RegExp(q, 'i');
+
+          // iterate through the pool of strings and for any string that
+          // contains the substring `q`, add it to the `matches` array
+          $.each(strs, function(i, str) {
+            if (substrRegex.test(str)) {
+              matches.push(str);
+            }
+          });
+
+          cb(matches);
+        };
+      };
+
+      $('#search-dashboard .typeahead').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+      },
+      {
+        name: 'dashboards',
+        source: substringMatcher(model.dashboards),
+        templates: {
+          suggestion: function(dashboard) {
+            let name = model.dashboardMap[dashboard].displayName;
+            let url = '?board=' + encodeURIComponent(dashboard)
+            let logoUrl = model.dashboardMap[dashboard].logoUrl === '#UPLOADED#' ? 'dashboards/' + name + '/image' : model.dashboardMap[dashboard].logoUrl;
+            return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable"><img class="team-logo" onerror="this.parentNode.removeChild(this)" src="' + logoUrl + '">' + name + '</div></a>';
+          }
+        }
+      });
+
+      $('input.typeahead').keypress(function (e) {
+        if (e.which == 13) {
+            var input = $('input.typeahead.tt-input').val();
+            var url = 'backoffice/index.html#/list?search=' + input + '&page=0';
+            location.href = url;
         }
       });
     }

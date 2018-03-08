@@ -30,7 +30,8 @@
     "font-awesome": "fontawesome#^4.7.0",
     "rivets": "^0.9.6",
     "jQuery.dotdotdot": "^2.0.1",
-    "resize-observer-polyfill": "^1.5.0"
+    "resize-observer-polyfill": "^1.5.0",
+    "typeahead.js": "^0.11.1"
   },
   "resolutions": {
     "moment": "^2.17.1"
