@@ -99,27 +99,11 @@
         }
       });
 
-      var substringMatcher = function(strs) {
-        return function findMatches(q, cb) {
-          var matches, substringRegex;
-
-          // an array that will be populated with substring matches
-          matches = [];
-
-          // regex used to determine if a string contains the substring `q`
-          substrRegex = new RegExp(q, 'i');
-
-          // iterate through the pool of strings and for any string that
-          // contains the substring `q`, add it to the `matches` array
-          $.each(strs, function(i, str) {
-            if (substrRegex.test(str)) {
-              matches.push(str);
-            }
-          });
-
-          cb(matches);
-        };
-      };
+      var dashboards = new Bloodhound({
+        local: model.dashboards,
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+      });
 
       $('#search-dashboard .typeahead').typeahead({
         hint: true,
@@ -128,13 +112,26 @@
       },
       {
         name: 'dashboards',
-        source: substringMatcher(model.dashboards),
+        source: dashboards,
+        limit: Number.MAX_VALUE,
         templates: {
           suggestion: function(dashboard) {
-            let name = model.dashboardMap[dashboard].displayName;
+            let name = model.dashboardMap[dashboard].name;
+            let displayName = model.dashboardMap[dashboard].displayName;
             let url = '?board=' + encodeURIComponent(dashboard)
             let logoUrl = model.dashboardMap[dashboard].logoUrl === '#UPLOADED#' ? 'dashboards/' + name + '/image' : model.dashboardMap[dashboard].logoUrl;
-            return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable"><img class="team-logo" onerror="this.parentNode.removeChild(this)" src="' + logoUrl + '">' + name + '</div></a>';
+            if(logoUrl){
+              return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable"><img class="team-logo" onerror="this.parentNode.removeChild(this)" src="' + logoUrl + '">' + displayName + '</div></a>';
+            }else{
+              return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable">' + displayName + '</div></a>';
+            }
+          },
+          footer: function(context){
+            var input = $('input.typeahead.tt-input').val();
+            return '<a href="backoffice/index.html#/list?search=' + input + '&page=0"><div class="tt-suggestion">Browse the <b>' + context.suggestions.length + '</b> results in backoffice</div></a>';
+          },
+          empty: function(context){
+            return '<div class="tt-suggestion">No dashboards found</div>';
           }
         }
       });

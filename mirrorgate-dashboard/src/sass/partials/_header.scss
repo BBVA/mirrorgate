@@ -105,7 +105,9 @@
         background-color: #fff;
         left: auto !important;
         right: 0 !important;
-        width: 350px;
+        width: 380px;
+        max-height: 150px;
+        overflow-y: auto;
     }
 
     .tt-dropdown-menu {
@@ -126,7 +128,7 @@
         padding: 3px 20px;
         color: #000;
         font-size: $level-4;
-
+        text-align: left;
 
         &.tt-cursor {
             background-color: #337ab7;
