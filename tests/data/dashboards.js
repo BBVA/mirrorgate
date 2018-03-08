@@ -19,6 +19,7 @@ db.getCollection('dashboards').insertMany([
         "boards":[
             "MirrorGate"
         ],
+        'programIncrement': 'MG[0-9]{2}',
         "analyticViews": ["1234123"],
         "gitRepos": [
           "ssh://git@fake.com:fake/repo1.git"
