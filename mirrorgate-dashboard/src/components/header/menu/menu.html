@@ -97,15 +97,16 @@
           localStorage.recentDashboards = JSON.stringify(recent);
           return recent;
         }
-      
+
         model.dashboardsBloodhound = new Bloodhound({
           local: model.dashboards,
           datumTokenizer: Bloodhound.tokenizers.whitespace,
           queryTokenizer: Bloodhound.tokenizers.whitespace
         });
-      });
 
-      $('#search-dashboard .typeahead').typeahead({
+        $('.typeahead').typeahead('destroy');
+
+        $('#search-dashboard .typeahead').typeahead({
           hint: true,
           highlight: true,
           minLength: 1
@@ -126,15 +127,18 @@
                 return '<a rv-href="board.url" href="' + url + '"><div>' + displayName + '</div></a>';
               }
             },
-            footer: function(context){
-              var input = $('input.typeahead.tt-input').val();
-              return '<a href="backoffice/index.html#/list?search=' + input + '&page=0" class="tt-suggestion tt-suggestion--backoffice"><div>Browse the <b>' + context.suggestions.length + '</b> results in backoffice</div></a>';
-            },
             empty: function(context){
               return '<div class="tt-suggestion tt-suggestion--empty">No dashboards found</div>';
             }
           }
-        });
+        })
+        .bind('typeahead:selected', function (event, dashboard) {
+          location.href = '?board=' + encodeURIComponent(dashboard);
+        })
+        .bind('typeahead:render', (event, dashboard) => {
+          $('#search-dashboard').find('.tt-selectable:first').addClass('tt-cursor');
+        })
+        .focus();
 
         $('input.typeahead').keypress(function (e) {
           if (e.which == 13) {
@@ -143,6 +147,8 @@
               location.href = url;
           }
         });
+      });
+
     }
   });
 

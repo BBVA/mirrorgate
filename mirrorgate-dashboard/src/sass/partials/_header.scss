@@ -143,6 +143,12 @@
                 background-color: darken(white, 10);
             }
         }
+
+        .team-logo {
+            margin-right: 10px;
+            max-height: $header-height - 5;
+            max-width: $header-height - 5;
+        }
     }
 
     .tt-dropdown-menu {
