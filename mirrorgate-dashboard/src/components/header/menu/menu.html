@@ -57,8 +57,8 @@
     },
     onCreated: function () {
       var model = this.getModel();
-      model.dashboardMap = {};
       model.dashboards = []
+      model.dashboardMap = {};
       model.recentDashboards = [];
       var dashboardsService = Service.get(Service.types.dashboards);
       dashboardsService.addListener(function (response) {
@@ -97,51 +97,51 @@
           localStorage.recentDashboards = JSON.stringify(recent);
           return recent;
         }
-      });
+      
+        var dashboards = new Bloodhound({
+          local: model.dashboards,
+          datumTokenizer: Bloodhound.tokenizers.whitespace,
+          queryTokenizer: Bloodhound.tokenizers.whitespace
+        });
 
-      var dashboards = new Bloodhound({
-        local: model.dashboards,
-        datumTokenizer: Bloodhound.tokenizers.whitespace,
-        queryTokenizer: Bloodhound.tokenizers.whitespace
-      });
-
-      $('#search-dashboard .typeahead').typeahead({
-        hint: true,
-        highlight: true,
-        minLength: 1
-      },
-      {
-        name: 'dashboards',
-        source: dashboards,
-        limit: Number.MAX_VALUE,
-        templates: {
-          suggestion: function(dashboard) {
-            let name = model.dashboardMap[dashboard].name;
-            let displayName = model.dashboardMap[dashboard].displayName;
-            let url = '?board=' + encodeURIComponent(dashboard)
-            let logoUrl = model.dashboardMap[dashboard].logoUrl === '#UPLOADED#' ? 'dashboards/' + name + '/image' : model.dashboardMap[dashboard].logoUrl;
-            if(logoUrl){
-              return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable"><img class="team-logo" onerror="this.parentNode.removeChild(this)" src="' + logoUrl + '">' + displayName + '</div></a>';
-            }else{
-              return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable">' + displayName + '</div></a>';
+        $('#search-dashboard .typeahead').typeahead({
+          hint: true,
+          highlight: true,
+          minLength: 1
+        },
+        {
+          name: 'dashboards',
+          source: dashboards,
+          limit: Number.MAX_VALUE,
+          templates: {
+            suggestion: function(dashboard) {
+              let name = model.dashboardMap[dashboard].name;
+              let displayName = model.dashboardMap[dashboard].displayName;
+              let url = '?board=' + encodeURIComponent(dashboard)
+              let logoUrl = model.dashboardMap[dashboard].logoUrl === '#UPLOADED#' ? 'dashboards/' + name + '/image' : model.dashboardMap[dashboard].logoUrl;
+              if(logoUrl){
+                return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable"><img class="team-logo" onerror="this.parentNode.removeChild(this)" src="' + logoUrl + '">' + displayName + '</div></a>';
+              }else{
+                return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable">' + displayName + '</div></a>';
+              }
+            },
+            footer: function(context){
+              var input = $('input.typeahead.tt-input').val();
+              return '<a href="backoffice/index.html#/list?search=' + input + '&page=0"><div class="tt-suggestion">Browse the <b>' + context.suggestions.length + '</b> results in backoffice</div></a>';
+            },
+            empty: function(context){
+              return '<div class="tt-suggestion">No dashboards found</div>';
             }
-          },
-          footer: function(context){
-            var input = $('input.typeahead.tt-input').val();
-            return '<a href="backoffice/index.html#/list?search=' + input + '&page=0"><div class="tt-suggestion">Browse the <b>' + context.suggestions.length + '</b> results in backoffice</div></a>';
-          },
-          empty: function(context){
-            return '<div class="tt-suggestion">No dashboards found</div>';
           }
-        }
-      });
+        });
 
-      $('input.typeahead').keypress(function (e) {
-        if (e.which == 13) {
-            var input = $('input.typeahead.tt-input').val();
-            var url = 'backoffice/index.html#/list?search=' + input + '&page=0';
-            location.href = url;
-        }
+        $('input.typeahead').keypress(function (e) {
+          if (e.which == 13) {
+              var input = $('input.typeahead.tt-input').val();
+              var url = 'backoffice/index.html#/list?search=' + input + '&page=0';
+              location.href = url;
+          }
+        });
       });
     }
   });
