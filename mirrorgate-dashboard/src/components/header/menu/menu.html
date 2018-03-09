@@ -98,20 +98,21 @@
           return recent;
         }
       
-        var dashboards = new Bloodhound({
+        model.dashboardsBloodhound = new Bloodhound({
           local: model.dashboards,
           datumTokenizer: Bloodhound.tokenizers.whitespace,
           queryTokenizer: Bloodhound.tokenizers.whitespace
         });
+      });
 
-        $('#search-dashboard .typeahead').typeahead({
+      $('#search-dashboard .typeahead').typeahead({
           hint: true,
           highlight: true,
           minLength: 1
         },
         {
           name: 'dashboards',
-          source: dashboards,
+          source: model.dashboardsBloodhound,
           limit: Number.MAX_VALUE,
           templates: {
             suggestion: function(dashboard) {
@@ -142,7 +143,6 @@
               location.href = url;
           }
         });
-      });
     }
   });
 
