@@ -45,6 +45,12 @@
         flex: 0 1 90px;
         text-align: right;
 
+        .btn-group {
+            display:flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
         button{
             background: none;
             border: none;
@@ -101,13 +107,42 @@
         font-weight: 300;
     }
 
+    .typeahead {
+        border-radius: 0;
+        height: 26px;
+        padding: 0;
+        width: 140px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        box-shadow: none;
+
+        &:focus{
+            border-bottom: 1px solid #666;
+        }
+    }
+
     .tt-menu {
         background-color: #fff;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, .15);
+        font-size: 1.8rem;
         left: auto !important;
-        right: 0 !important;
-        width: 380px;
+        margin: 2px 0 0;
         max-height: 150px;
         overflow-y: auto;
+        right: 0 !important;
+        width: 380px;
+
+        a {
+            font-weight: 300;
+
+            &:hover,
+            &.tt-cursor,
+            &:focus {
+                cursor: pointer;
+                background-color: darken(white, 10);
+            }
+        }
     }
 
     .tt-dropdown-menu {
@@ -130,28 +165,15 @@
         font-size: $level-4;
         text-align: left;
 
-        &.tt-cursor {
-            background-color: #337ab7;
-            color: rgb(0, 208, 245);
-            cursor: pointer;
-        }
-
-        &.tt-selectable {
-            background-color: white;
-        }
-
-        a {
-            color: #fff;
-        }
-
         p {
             margin: 0;
             vertical-align: middle;
         }
-    }
 
-    #search-dashboard {
-        float: left;
+        &.tt-suggestion--backoffice {
+            padding-top: 5px;
+            border-top: 1px solid #eee;
+        }
     }
 }
 
@@ -173,6 +195,7 @@ details-dashboard{
         .menu{
             flex: 0 1 30%;
             text-align: right;
+            min-width: 200px;
         }
 
         details-tile {

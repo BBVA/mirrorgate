@@ -121,17 +121,17 @@
               let url = '?board=' + encodeURIComponent(dashboard)
               let logoUrl = model.dashboardMap[dashboard].logoUrl === '#UPLOADED#' ? 'dashboards/' + name + '/image' : model.dashboardMap[dashboard].logoUrl;
               if(logoUrl){
-                return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable"><img class="team-logo" onerror="this.parentNode.removeChild(this)" src="' + logoUrl + '">' + displayName + '</div></a>';
+                return '<a rv-href="board.url" href="' + url + '"><div><img class="team-logo" onerror="this.parentNode.removeChild(this)" src="' + logoUrl + '">' + displayName + '</div></a>';
               }else{
-                return '<a rv-href="board.url" href="' + url + '"><div class="tt-suggestion tt-selectable">' + displayName + '</div></a>';
+                return '<a rv-href="board.url" href="' + url + '"><div>' + displayName + '</div></a>';
               }
             },
             footer: function(context){
               var input = $('input.typeahead.tt-input').val();
-              return '<a href="backoffice/index.html#/list?search=' + input + '&page=0"><div class="tt-suggestion">Browse the <b>' + context.suggestions.length + '</b> results in backoffice</div></a>';
+              return '<a href="backoffice/index.html#/list?search=' + input + '&page=0" class="tt-suggestion tt-suggestion--backoffice"><div>Browse the <b>' + context.suggestions.length + '</b> results in backoffice</div></a>';
             },
             empty: function(context){
-              return '<div class="tt-suggestion">No dashboards found</div>';
+              return '<div class="tt-suggestion tt-suggestion--empty">No dashboards found</div>';
             }
           }
         });
