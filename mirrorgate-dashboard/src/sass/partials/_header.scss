@@ -129,12 +129,14 @@
         left: auto !important;
         margin: 2px 0 0;
         max-height: 150px;
+        padding: 5px 0;
         overflow-y: auto;
         right: 0 !important;
         width: 380px;
 
         a {
             font-weight: 300;
+            position: relative;
 
             &:hover,
             &.tt-cursor,
@@ -145,9 +147,11 @@
         }
 
         .team-logo {
-            margin-right: 10px;
-            max-height: $header-height - 5;
-            max-width: $header-height - 5;
+            left: 6px;
+            top: 1px;
+            max-height: 22px;
+            max-width: 22px;
+            position: absolute;
         }
     }
 
@@ -166,7 +170,7 @@
 
     .tt-suggestion {
         display: block;
-        padding: 3px 20px;
+        padding: 3px 20px 3px 35px;
         color: #000;
         font-size: $level-4;
         text-align: left;
