@@ -118,7 +118,7 @@
           templates: {
             suggestion: function(dashboard) {
               let name = model.dashboardMap[dashboard].name;
-              let displayName = model.dashboardMap[dashboard].displayName;
+              let displayName = model.dashboardMap[dashboard].displayName ? model.dashboardMap[dashboard].displayName : name;
               let url = '?board=' + encodeURIComponent(dashboard)
               let logoUrl = model.dashboardMap[dashboard].logoUrl === '#UPLOADED#' ? 'dashboards/' + name + '/image' : model.dashboardMap[dashboard].logoUrl;
               if(logoUrl){
