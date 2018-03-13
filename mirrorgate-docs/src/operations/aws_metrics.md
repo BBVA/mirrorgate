@@ -34,6 +34,7 @@ and a policy that allows that role to access the following resources
         {
             "Effect": "Allow",
             "Action": [
+                "apigateway:GET",
                 "cloudwatch:getMetricStatistics",
                 "elasticloadbalancing:DescribeLoadBalancers",
                 "ce:GetCostAndUsage",
