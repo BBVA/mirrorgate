@@ -20,9 +20,8 @@
   var service = Service.get(Service.types.eventNotifications, Utils.getDashboardId());
 
   function showNotification(response){
-
-    var JSONResponse = JSON.parse(response);
-    if (response !== null && JSONResponse.message){
+    if (response){
+      var JSONResponse = JSON.parse(response);
       document.dispatchEvent(new CustomEvent('Message', {
         detail: {
           title: "General Information",
