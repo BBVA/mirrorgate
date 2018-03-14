@@ -81,13 +81,17 @@ var Service = (function() {
         if(serviceType.serverEventType){
           ServerSentEvent.addListener(processServerEvent);
         }
-        timer && timer.attach(callHttpService);
+        if(timer) {
+          timer.attach(callHttpService);
+        }
       } else if (!event.getListeners().length && this._attached) {
         this._attached = false;
         if(serviceType.serverEventType){
           ServerSentEvent.removeListener(processServerEvent);
         }
-        timer && timer.detach(callHttpService);
+        if(timer) {
+          timer.detach(callHttpService);
+        }
       }
     };
 
