@@ -57,12 +57,12 @@
     },
     onCreated: function () {
       var model = this.getModel();
-      model.dashboards = []
-      model.dashboardMap = {};
-      model.recentDashboards = [];
+
       var dashboardsService = Service.get(Service.types.dashboards);
       dashboardsService.addListener(function (response) {
         dashboardsService.removeListener(this);
+        model.dashboards = [];
+        model.dashboardMap = {};
         model.recentDashboards = [];
         if (response) {
           var dashboards = JSON.parse(response);
@@ -98,13 +98,25 @@
           return recent;
         }
 
-        model.dashboardsBloodhound = new Bloodhound({
-          local: model.dashboards,
-          datumTokenizer: Bloodhound.tokenizers.whitespace,
-          queryTokenizer: Bloodhound.tokenizers.whitespace
-        });
-
         $('.typeahead').typeahead('destroy');
+
+        var substringMatcher = function(strs) {
+          return function findMatches(q, cb) {
+            var matches, substringRegex;
+
+            matches = [];
+
+            substrRegex = new RegExp(q, 'i');
+
+            $.each(strs, function(i, str) {
+              if (substrRegex.test(str)) {
+                matches.push(str);
+              }
+            });
+
+            cb(matches);
+          };
+        };
 
         $('#search-dashboard .typeahead').typeahead({
           hint: true,
@@ -113,7 +125,7 @@
         },
         {
           name: 'dashboards',
-          source: model.dashboardsBloodhound,
+          source: substringMatcher(model.dashboards),
           limit: Number.MAX_VALUE,
           templates: {
             suggestion: function(dashboard) {
