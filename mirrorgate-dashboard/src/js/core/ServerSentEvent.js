@@ -30,7 +30,7 @@ var ServerSentEvent = (function(){
       };
 
       serverSentEvent.onclose = function(data){
-        console.log("closing connection");
+        console.debug("closing connection");
       };
 
       serverSentEvent.addEventListener('error', function(e) {

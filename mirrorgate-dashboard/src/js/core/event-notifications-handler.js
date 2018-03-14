@@ -22,7 +22,6 @@
   function showNotification(response){
 
     var JSONResponse = JSON.parse(response);
-    console.log(response);
     if (response !== null && JSONResponse.message){
       document.dispatchEvent(new CustomEvent('Message', {
         detail: {
