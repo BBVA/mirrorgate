@@ -45,6 +45,12 @@
         flex: 0 1 90px;
         text-align: right;
 
+        .btn-group {
+            display:flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
         button{
             background: none;
             border: none;
@@ -79,9 +85,105 @@
             }
         }
     }
+
     img{
         max-height: $header-height - 15;
         max-width: 100%;
+    }
+
+    .twitter-typeahead .tt-query,
+    .twitter-typeahead .tt-hint {
+        margin-bottom: 0;
+    }
+
+    .tt-hint {
+        color: #000;
+        display: block;
+        width: 100%;
+    }
+
+    .tt-input {
+        color: #000;
+        font-weight: 300;
+    }
+
+    .typeahead {
+        border-radius: 0;
+        height: 26px;
+        padding: 0;
+        width: 140px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        box-shadow: none;
+
+        &:focus{
+            border-bottom: 1px solid #666;
+        }
+    }
+
+    .tt-menu {
+        background-color: #fff;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, .15);
+        font-size: 1.8rem;
+        left: auto !important;
+        margin: 2px 0 0;
+        max-height: 150px;
+        padding: 5px 0;
+        overflow-y: auto;
+        right: 0 !important;
+        width: 380px;
+
+        a {
+            font-weight: 300;
+            position: relative;
+
+            &:hover,
+            &.tt-cursor,
+            &:focus {
+                cursor: pointer;
+                background-color: darken(white, 10);
+            }
+        }
+
+        .team-logo {
+            left: 6px;
+            top: 1px;
+            max-height: 22px;
+            max-width: 22px;
+            position: absolute;
+        }
+    }
+
+    .tt-dropdown-menu {
+        @extend .dropdown;
+        @extend .dropdown-menu;
+        background-clip: padding-box;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        margin: 2px 0 0;
+        padding: 5px 0;
+        width: 100%;
+    }
+
+    .tt-suggestion {
+        display: block;
+        padding: 3px 20px 3px 35px;
+        color: #000;
+        font-size: $level-4;
+        text-align: left;
+
+        p {
+            margin: 0;
+            vertical-align: middle;
+        }
+
+        &.tt-suggestion--backoffice {
+            padding-top: 5px;
+            border-top: 1px solid #eee;
+        }
     }
 }
 
@@ -103,6 +205,7 @@ details-dashboard{
         .menu{
             flex: 0 1 30%;
             text-align: right;
+            min-width: 200px;
         }
 
         details-tile {
