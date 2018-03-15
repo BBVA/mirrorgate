@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +58,10 @@ public class NotificationEventHandler implements EventHandler {
 
         List<EventNotification> listOfNotifications = eventNotificationService.getEventNotificationsById(idList);
 
-        List<String> listOfDashboardsToNotify = listOfNotifications.stream().flatMap(n -> n.getDashboardsToNotify().stream()).collect(
-            Collectors.toList());
+        List<String> listOfDashboardsToNotify = listOfNotifications
+            .stream()
+            .flatMap(n -> n.getDashboardsToNotify() == null ? Stream.empty() : n.getDashboardsToNotify().stream())
+            .collect(Collectors.toList());
 
         Predicate<Dashboard> dashboardFilter = d -> listOfDashboardsToNotify.contains(d.getName());
         eventsHelper.processEvents(dashboardIds, dashboardFilter, EventType.NOTIFICATION);
