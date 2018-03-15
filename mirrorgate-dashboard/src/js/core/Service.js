@@ -65,7 +65,9 @@ var Service = (function() {
     this.addListener = function(callback) {
       event.attach(callback);
       this._checkEventRegistration();
-      this.request();
+      if(timer !== undefined){
+        this.request();
+      }
     };
 
     this.removeListener = function(callback) {
