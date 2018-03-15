@@ -21,8 +21,62 @@
 var AlertsController = (function(dashboardId) {
 
   var observable = new Event('AlertsController');
-
   var config;
+  var lastAlerts;
+
+  function flattenArray(array){
+
+    var newArray = [];
+    array.forEach((element) => {
+      if(element.children){
+        newArray = [].concat.apply(newArray, element.children);
+      } else {
+        newArray.push(element);
+      }
+    });
+
+    return newArray;
+  }
+
+  function sendEvent(alerts){
+    var sendNotification = false;
+    var notificationColor;
+
+    flatArray = flattenArray(alerts);
+
+    if(lastAlerts !== undefined){
+      flatArray.forEach((alert) => {
+        if(alert.state == 'red' || alert.state == 'yellow'){
+            lastAlerts.forEach((lastAlert) => {
+              if((alert.title == lastAlert.title) && (alert.state !=  lastAlert.state)){
+                  sendNotification = true;
+                  if(alert.state == 'red' && notificationColor != 'red'){
+                    notificationColor = 'red';
+                  } else {
+                    notificationColor = alert.state;
+                  }
+              }
+            });
+          }
+      });
+    }
+
+    if(sendNotification){
+      var event =  {
+        detail: {
+          title: "Samuel Alert",
+          dashboard: Utils.getDashboardId(),
+          description: "Your alerts have changed",
+          date: new Date(),
+          url: '',
+          color: notificationColor
+        }
+      };
+      document.dispatchEvent(new CustomEvent('Message', event));
+    }
+    lastAlerts = flatArray;
+  }
+
 
   function getAlerts() {
 
@@ -71,6 +125,8 @@ var AlertsController = (function(dashboardId) {
       var failedAlertsCount = 0;
       var unstableAlertsCount = 0;
 
+      var previousdata = {};
+
       //TODO: to improve
       if(data.alerts) {
         if(data.alerts[0].alerts) { //It is a group
@@ -97,6 +153,8 @@ var AlertsController = (function(dashboardId) {
       model.totalAlertsCount = totalAlertsCount;
       model.failedAlertsCount = failedAlertsCount;
       model.unstableAlertsCount = unstableAlertsCount;
+
+      sendEvent(alert_groups);
 
       observable.notify(model);
     },{
