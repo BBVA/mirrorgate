@@ -127,8 +127,6 @@ var AlertsController = (function(dashboardId) {
       var failedAlertsCount = 0;
       var unstableAlertsCount = 0;
 
-      var previousdata = {};
-
       //TODO: to improve
       if(data.alerts) {
         if(data.alerts[0].alerts) { //It is a group
