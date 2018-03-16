@@ -1,6 +1,6 @@
 # AWS metrics
 
-MirrorGate provides an AWS collector that retrieves metrics about the number of requests, the number of healthy checks, 4XX and 5XX errors occurred in an ALB or the infrastructure cost of an Amazon Web Services account.
+MirrorGate provides an AWS collector that retrieves metrics about the number of requests, the number of healthy checks, 4XX and 5XX errors occurred in a Load Balancer (Classic or Application LB) or the infrastructure cost of an Amazon Web Services account.
 
 ## AWS roles and policies needed
 
@@ -59,5 +59,6 @@ The AWS collector will filter the results and will only take the ones that come 
 should follow this patterns:
 ```
 AWS/{AWS_Account}
-AWS/{AWS_Account}/{ALB_name}
+AWS/{AWS_Account}/{LB_name}
 ```
+where `{LB_name}` is the name of a Load Balancer (Classic or Application LB).
