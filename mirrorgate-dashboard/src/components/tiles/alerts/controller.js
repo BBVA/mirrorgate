@@ -41,32 +41,34 @@ var AlertsController = (function(dashboardId) {
   function sendEvent(alerts){
     var sendNotification = false;
     var notificationColor;
+    var notificationTitles = 'You have the following alerts:';
 
     flatArray = flattenArray(alerts);
 
     if(lastAlerts !== undefined){
       flatArray.forEach((alert) => {
         if(alert.state == 'red' || alert.state == 'yellow'){
-            lastAlerts.forEach((lastAlert) => {
-              if((alert.title == lastAlert.title) && (alert.state !=  lastAlert.state)){
-                  sendNotification = true;
-                  if(alert.state == 'red' && notificationColor != 'red'){
-                    notificationColor = 'red';
-                  } else {
-                    notificationColor = alert.state;
-                  }
+          lastAlerts.forEach((lastAlert) => {
+            if((alert.title == lastAlert.title) && (alert.state !=  lastAlert.state)){
+              sendNotification = true;
+              notificationTitles += '\n' + alert.title;
+              if(alert.state == 'red' && notificationColor != 'red'){
+                notificationColor = 'red';
+              } else {
+                notificationColor = alert.state;
               }
-            });
-          }
+            }
+          });
+        }
       });
     }
 
     if(sendNotification){
       var event =  {
         detail: {
-          title: "Samuel Alert",
+          title: "Alerts",
           dashboard: Utils.getDashboardId(),
-          description: "Your alerts have changed",
+          description: notificationTitles,
           date: new Date(),
           url: '',
           color: notificationColor
