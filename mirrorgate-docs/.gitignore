@@ -1,4 +1,5 @@
 src/vendor
+src/changelog.md
 dist
 bower_components
 node_modules
