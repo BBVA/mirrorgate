@@ -1,5 +1,6 @@
 {
-    "menu": [{
+    "menu": [
+    {
         "name":"Introduction",
         "file":"index"
     },{
@@ -14,5 +15,8 @@
                 "name":"AWS Metrics",
                 "file":"operations/aws_metrics"
             }]
+    },{
+        "name":"Changelog",
+        "file":"changelog"
     }]
 }
