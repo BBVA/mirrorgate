@@ -31,6 +31,8 @@ import { FeedbackComponent } from '../feedback/feedback.component';
 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
+import { DragulaModule, DragulaService } from 'ng2-dragula';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,10 +48,36 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     HttpModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: true }),
     TagInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DragulaModule
+  ],
+  providers: [
+    DragulaService
   ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {
 
+  constructor(private dragulaService: DragulaService) {
+    dragulaService.setOptions('columns', {
+      copy: true,
+      copySortSource: false,
+
+      accepts: function(el, target) {
+        return target && target.classList ? !target.classList.contains('filled') : false;
+      },
+    });
+
+    dragulaService.drop.subscribe((value) => {
+      console.log(`drop: ${value[0]}`);
+      this.onDrop(value.slice(1));
+    });
+  }
+  
+  private onDrop(args) {
+    let [e, el] = args;
+    if(el && el.classList){
+      el.classList.add("filled");
+    }
+  }
 }

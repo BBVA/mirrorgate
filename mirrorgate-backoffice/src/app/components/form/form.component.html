@@ -563,6 +563,28 @@
         </div>
       </div>
 
+      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{texts.form.columns_block.title}}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="columns">{{texts.form.columns_block.dashboard}}</label>
+            <div id="mod1" class="dashboard-cols-template" [dragula]='"columns"'></div>
+            <div id="mod2" class="dashboard-cols-template" [dragula]='"columns"'></div>
+            <div id="mod3" class="dashboard-cols-template" [dragula]='"columns"'></div>
+            <div id="mod4" class="dashboard-cols-template" [dragula]='"columns"'></div>
+
+            <label for="columns">{{texts.form.columns_block.modules}}</label>
+            <ul class="dashboard-cols-modules" [dragula]='"columns"'>
+              <li class="dashboard-cols-module">Sprint progress</li>
+              <li class="dashboard-cols-module">PI progress</li>
+              <li class="dashboard-cols-module">Comments</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <div class="row" *ngIf="errorMessage">
         <div class="col-sm-12">
           <div class="alert alert-danger" role="alert">
