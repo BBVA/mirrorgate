@@ -21,8 +21,64 @@
 var AlertsController = (function(dashboardId) {
 
   var observable = new Event('AlertsController');
-
   var config;
+  var lastAlerts;
+
+  function flattenArray(array){
+
+    var newArray = [];
+    array.forEach((element) => {
+      if(element.children){
+        newArray = [].concat.apply(newArray, element.children);
+      } else {
+        newArray.push(element);
+      }
+    });
+
+    return newArray;
+  }
+
+  function sendEvent(alerts){
+    var sendNotification = false;
+    var notificationColor;
+    var notificationTitles = 'You have the following alerts:';
+
+    flatArray = flattenArray(alerts);
+
+    if(lastAlerts !== undefined){
+      flatArray.forEach((alert) => {
+        if(alert.state == 'red' || alert.state == 'yellow'){
+          lastAlerts.forEach((lastAlert) => {
+            if((alert.title == lastAlert.title) && (alert.state !=  lastAlert.state)){
+              sendNotification = true;
+              notificationTitles += '\n' + alert.title;
+              if(alert.state == 'red' && notificationColor != 'red'){
+                notificationColor = 'red';
+              } else {
+                notificationColor = alert.state;
+              }
+            }
+          });
+        }
+      });
+    }
+
+    if(sendNotification){
+      var event =  {
+        detail: {
+          title: "Alerts",
+          dashboard: Utils.getDashboardId(),
+          description: notificationTitles,
+          date: new Date(),
+          url: '',
+          color: notificationColor
+        }
+      };
+      document.dispatchEvent(new CustomEvent('Message', event));
+    }
+    lastAlerts = flatArray;
+  }
+
 
   function getAlerts() {
 
@@ -97,6 +153,8 @@ var AlertsController = (function(dashboardId) {
       model.totalAlertsCount = totalAlertsCount;
       model.failedAlertsCount = failedAlertsCount;
       model.unstableAlertsCount = unstableAlertsCount;
+
+      sendEvent(alert_groups);
 
       observable.notify(model);
     },{
