@@ -74,7 +74,7 @@ var AlertsController = (function(dashboardId) {
           color: notificationColor
         }
       };
-      document.dispatchEvent(new CustomEvent('Message', event));
+      document.dispatchEvent(new CustomEvent('HeadsUp', event));
     }
     lastAlerts = flatArray;
   }
