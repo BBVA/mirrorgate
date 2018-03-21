@@ -21,10 +21,12 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
 import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -42,22 +44,22 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
     public Double getBacklogEstimateByKeywords(List<String> boards) {
 
         Aggregation agg = newAggregation(
-                match(Criteria
-                        .where("keywords").in(boards)
-                        .and("sSprintAssetState").ne("ACTIVE")
-                        .and("sTypeName").in(Arrays.asList("Story","Bug"))
-                        .and("sStatus").nin(Arrays.asList("Accepted", "Done"))
-                ),
-                group()
-                        .sum("dEstimate")
-                        .as("value"),
-                project("value")
-                        .andExclude("_id")
+            match(Criteria
+                .where("keywords").in(boards)
+                .and("sSprintAssetState").ne("ACTIVE")
+                .and("sTypeName").in(Arrays.asList("Story","Bug"))
+                .and("sStatus").nin(Arrays.asList("Accepted", "Done"))
+            ),
+            group()
+                .sum("dEstimate")
+                .as("value"),
+            project("value")
+                .andExclude("_id")
         );
 
 
         AggregationResults<DoubleValue> groupResults
-                = mongoTemplate.aggregate(agg, "feature", DoubleValue.class);
+            = mongoTemplate.aggregate(agg, "feature", DoubleValue.class);
         DoubleValue val = groupResults.getUniqueMappedResult();
 
         return val == null ? 0 : val.value;
@@ -67,32 +69,32 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
     public SprintStats getSprintStatsByKeywords(List<String> boards) {
 
         Aggregation agg = newAggregation(
-                match(Criteria
-                        .where("keywords").in(boards)
-                        .and("sSprintAssetState").is("CLOSED")
-                        .and("sTypeName").in(Arrays.asList("Story","Bug"))
-                        .and("sStatus").in(Arrays.asList("Accepted", "Done"))
-                ),
-                group("sSprintName")
-                        .first("sprintBeginDate").as("start")
-                        .first("sprintEndDate").as("end")
-                        .sum("dEstimate").as("estimate")
-                ,
-                group()
-                        .avg("estimate").as("estimateAvg")
-                        .avg(
-                                Ceil.ceilValueOf(
-                                    Divide.valueOf(
-                                            Subtract.valueOf("end").subtract("start")
-                                    ).divideBy(3600 * 1000 * 24)
-                            )
-                        ).as("daysDurationAvg"),
-                project("daysDurationAvg","estimateAvg")
-                        .andExclude("_id")
+            match(Criteria
+                .where("keywords").in(boards)
+                .and("sSprintAssetState").is("CLOSED")
+                .and("sTypeName").in(Arrays.asList("Story","Bug"))
+                .and("sStatus").in(Arrays.asList("Accepted", "Done"))
+            ),
+            group("sSprintName")
+                .first("sprintBeginDate").as("start")
+                .first("sprintEndDate").as("end")
+                .sum("dEstimate").as("estimate")
+            ,
+            group()
+                .avg("estimate").as("estimateAvg")
+                .avg(
+                    Ceil.ceilValueOf(
+                        Divide.valueOf(
+                            Subtract.valueOf("end").subtract("start")
+                        ).divideBy(3600 * 1000 * 24)
+                    )
+                ).as("daysDurationAvg"),
+            project("daysDurationAvg","estimateAvg")
+                .andExclude("_id")
         );
 
         AggregationResults<SprintStats> groupResults
-                = mongoTemplate.aggregate(agg, "feature", SprintStats.class);
+            = mongoTemplate.aggregate(agg, "feature", SprintStats.class);
         return groupResults.getUniqueMappedResult();
 
     }
@@ -102,11 +104,11 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
         Aggregation agg = newAggregation(
             match(Criteria
-                    .where("sParentKey")
-                        .in(programIncrementFeatures)
-                    .and("keywords")
-                        .in(boards)
-                ),
+                .where("sParentKey")
+                .in(programIncrementFeatures)
+                .and("keywords")
+                .in(boards)
+            ),
             group()
                 .addToSet("sParentKey")
                 .as("features"),
@@ -131,12 +133,20 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
             ),
             project("sPiNames").andExclude("_id"),
             unwind("sPiNames"),
-            sort(new Sort(Sort.Direction.ASC, "sPiNames")),
             group().addToSet("sPiNames").as("piNames")
         );
 
         AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult
             = mongoTemplate.aggregate(agg, "feature", ProgramIncrementNamesAggregationResult.class);
+
+        if(aggregationResult.getUniqueMappedResult() != null){
+            aggregationResult.getUniqueMappedResult().setPiNames(
+                aggregationResult.getUniqueMappedResult().getPiNames()
+                    .stream()
+                    .sorted(Comparator.reverseOrder())
+                    .collect(Collectors.toList())
+            );
+        }
 
         return aggregationResult.getUniqueMappedResult();
     }
@@ -161,8 +171,9 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
             return piNames;
         }
 
-        public void setPiNames(List<String> piNames) {
+        public ProgramIncrementNamesAggregationResult setPiNames(List<String> piNames) {
             this.piNames = piNames;
+            return this;
         }
     }
 
