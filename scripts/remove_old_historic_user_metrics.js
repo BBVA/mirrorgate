@@ -25,10 +25,24 @@ if(typeof mongo_user == "undefined"){
     db = db.getSiblingDB(mongo_authdb);
 }
 
-var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 3));
+var TWO_MONTHS_AGO_DATE = new Date(new Date().setMonth(new Date().getMonth() - 2));
+var TWO_DAYS_AGO_DATE = new Date(new Date().setDate(new Date().getDate() - 2));
+var TWO_HOURS_AGO_DATE = new Date(new Date().setHours(new Date().getHours() - 2));
 
-'Removing old historic user metrics until: ' + purgeDate;
-
+'Removing old historic user metrics of type DAYS until: ' + TWO_MONTHS_AGO_DATE;
 db.getCollection('historic_user_metrics').remove({
-  timestamp: {'$lt' : purgeDate.getTime()},
+  timestamp: {'$lt' : TWO_MONTHS_AGO_DATE.getTime()},
+  historicType: 'DAYS'
+});
+
+'Removing old historic user metrics of type HOURS until: ' + TWO_DAYS_AGO_DATE;
+db.getCollection('historic_user_metrics').remove({
+  timestamp: {'$lt' : TWO_DAYS_AGO_DATE.getTime()},
+  historicType: 'HOURS'
+});
+
+'Removing old historic user metrics of type MINUTES until: ' + TWO_HOURS_AGO_DATE;
+db.getCollection('historic_user_metrics').remove({
+  timestamp: {'$lt' : TWO_HOURS_AGO_DATE.getTime()},
+  historicType: 'MINUTES'
 });
