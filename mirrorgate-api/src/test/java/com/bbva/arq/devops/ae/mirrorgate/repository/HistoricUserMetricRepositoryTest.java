@@ -38,6 +38,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DataMongoTest
 public class HistoricUserMetricRepositoryTest {
 
+    private static final int METRIC_MINUTES_PERIOD = 10;
 
     @Autowired
     private HistoricUserMetricRepository repository;
@@ -137,7 +138,7 @@ public class HistoricUserMetricRepositoryTest {
             repository.getUserMetricAverageTendencyForPeriod(Arrays.asList("ga:155019618", "AWS/Mirrorgate"),
                 ChronoUnit.MINUTES,
                 Arrays.asList("responseTime", "requestsNumber"),
-                LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES));
+                LocalDateTimeHelper.getTimestampForNUnitsAgo(METRIC_MINUTES_PERIOD, ChronoUnit.MINUTES));
 
         List<HistoricUserMetricStats> responseTimeResult = result.stream()
                                                                         .filter(h -> h.getName().equalsIgnoreCase("responseTime"))
@@ -153,7 +154,7 @@ public class HistoricUserMetricRepositoryTest {
         List<HistoricUserMetricStats> result =
             repository.getUserMetricSumTotalForPeriod(Arrays.asList("ga:155019618", "AWS/Mirrorgate"),
                 ChronoUnit.MINUTES,
-                LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES));
+                LocalDateTimeHelper.getTimestampForNUnitsAgo(METRIC_MINUTES_PERIOD, ChronoUnit.MINUTES));
 
         List<HistoricUserMetricStats> requestsNumberResult = result.stream()
             .filter(h -> h.getName().equalsIgnoreCase("requestsNumber"))

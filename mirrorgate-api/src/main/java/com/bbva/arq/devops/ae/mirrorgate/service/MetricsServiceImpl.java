@@ -42,6 +42,8 @@ public class MetricsServiceImpl implements MetricsService {
     private final HistoricUserMetricService historicUserMetricService;
     private final HistoricUserMetricRepository historicUserMetricRepository;
 
+    private static final int METRIC_MINUTES_PERIOD = 10;
+
     @Autowired
     public MetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository, HistoricUserMetricService historicUserMetricService, HistoricUserMetricRepository historicUserMetricRepository) {
         this.dashboardService = dashboardService;
@@ -106,7 +108,7 @@ public class MetricsServiceImpl implements MetricsService {
             .collect(Collectors.toList());
 
         List<UserMetricDTO> operationMetrics = historicUserMetricRepository
-            .getUserMetricSumTotalForPeriod(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNUnitsAgo(10, ChronoUnit.MINUTES))
+            .getUserMetricSumTotalForPeriod(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNUnitsAgo(METRIC_MINUTES_PERIOD, ChronoUnit.MINUTES))
             .stream()
             .map(UserMetricMapper::map)
             .collect(Collectors.toList());

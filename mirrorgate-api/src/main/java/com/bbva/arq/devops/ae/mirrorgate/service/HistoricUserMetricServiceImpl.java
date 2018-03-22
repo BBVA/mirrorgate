@@ -89,8 +89,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
                                                                                 , shortTermTendency.get(s) == null ? 0 : shortTermTendency.get(s))));
     }
 
-    @Override
-    public HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier, ChronoUnit type) {
+    private HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier, ChronoUnit type) {
 
         return historicUserMetricRepository.findByTimestampAndIdentifierAndHistoricType(periodTimestamp, identifier, type);
     }
