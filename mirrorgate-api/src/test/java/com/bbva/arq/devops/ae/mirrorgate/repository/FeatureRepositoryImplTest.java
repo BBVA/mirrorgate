@@ -43,7 +43,7 @@ public class FeatureRepositoryImplTest {
 
     @Before
     public void init(){
-        featureRepository.save(createFeature(Arrays.asList("PI2","PI5","PI3", "PRO-INC1"), "feature1"));
+        featureRepository.save(createFeature(Arrays.asList("PI2","PI5","PI3"), "feature1"));
         featureRepository.save(createFeature(Arrays.asList("PI3","PI4","PI1"), "feature2"));
         featureRepository.save(createActiveStory("mirrorgate", "feature1"));
         featureRepository.save(createActiveStory("not_mirrorgate", "feature1"));
@@ -69,11 +69,11 @@ public class FeatureRepositoryImplTest {
         ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromPiPattern(Pattern.compile("^PI.*$"));
 
         assertEquals(piNames.getPiNames().size(), 5);
-        assertEquals("PI5", piNames.getPiNames().get(0));
-        assertEquals("PI4", piNames.getPiNames().get(1));
-        assertEquals("PI3", piNames.getPiNames().get(2));
-        assertEquals("PI2", piNames.getPiNames().get(3));
-        assertEquals("PI1", piNames.getPiNames().get(4));
+        assertTrue(piNames.getPiNames().contains("PI1"));
+        assertTrue(piNames.getPiNames().contains("PI2"));
+        assertTrue(piNames.getPiNames().contains("PI3"));
+        assertTrue(piNames.getPiNames().contains("PI4"));
+        assertTrue(piNames.getPiNames().contains("PI5"));
     }
 
     @Test

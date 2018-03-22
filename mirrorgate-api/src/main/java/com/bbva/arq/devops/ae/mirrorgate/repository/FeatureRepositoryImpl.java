@@ -21,10 +21,8 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
 import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -139,16 +137,6 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
         AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult
             = mongoTemplate.aggregate(agg, "feature", ProgramIncrementNamesAggregationResult.class);
-
-        // MongoDB does not allow to sort alphanumerical results in the query
-        if(aggregationResult.getUniqueMappedResult() != null){
-            aggregationResult.getUniqueMappedResult().setPiNames(
-                aggregationResult.getUniqueMappedResult().getPiNames()
-                    .stream()
-                    .sorted(Comparator.reverseOrder())
-                    .collect(Collectors.toList())
-            );
-        }
 
         return aggregationResult.getUniqueMappedResult();
     }

@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -71,6 +72,10 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
         }
 
         if(piNames != null) {
+
+            piNames = piNames.stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
 
             for (int i = 0; i < piNames.size(); i++) {
 
