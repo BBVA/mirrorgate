@@ -127,18 +127,20 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
         Aggregation agg = newAggregation(
             match(Criteria
-                //.where("keywords").in(boards)
-                .where("sPiNames").is(pi)
-                .and("sTypeName").is("Feature")
+                    .where("sTypeName").is("Feature")
             ),
             project("sPiNames").andExclude("_id"),
             unwind("sPiNames"),
+            match(Criteria
+                .where("sPiNames").is(pi)
+            ),
             group().addToSet("sPiNames").as("piNames")
         );
 
         AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult
             = mongoTemplate.aggregate(agg, "feature", ProgramIncrementNamesAggregationResult.class);
 
+        // MongoDB does not allow to sort alphanumerical results in the query
         if(aggregationResult.getUniqueMappedResult() != null){
             aggregationResult.getUniqueMappedResult().setPiNames(
                 aggregationResult.getUniqueMappedResult().getPiNames()

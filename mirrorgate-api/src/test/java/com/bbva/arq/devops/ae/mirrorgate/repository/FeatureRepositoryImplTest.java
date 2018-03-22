@@ -43,7 +43,7 @@ public class FeatureRepositoryImplTest {
 
     @Before
     public void init(){
-        featureRepository.save(createFeature(Arrays.asList("PI2","PI5","PI3"), "feature1"));
+        featureRepository.save(createFeature(Arrays.asList("PI2","PI5","PI3", "PRO-INC1"), "feature1"));
         featureRepository.save(createFeature(Arrays.asList("PI3","PI4","PI1"), "feature2"));
         featureRepository.save(createActiveStory("mirrorgate", "feature1"));
         featureRepository.save(createActiveStory("not_mirrorgate", "feature1"));
@@ -60,7 +60,7 @@ public class FeatureRepositoryImplTest {
     public void testFeatureAndPIComeFromTeam(){
         List<String> boardPIFeatures = featureRepository.programIncrementBoardFeatures(Arrays.asList("mirrorgate"), Arrays.asList("feature1", "feature2"));
 
-        assertEquals(boardPIFeatures.size(), 2);
+        assertEquals(2, boardPIFeatures.size());
     }
 
 
@@ -69,17 +69,17 @@ public class FeatureRepositoryImplTest {
         ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromPiPattern(Pattern.compile("^PI.*$"));
 
         assertEquals(piNames.getPiNames().size(), 5);
-        assertEquals(piNames.getPiNames().get(0),"PI5");
-        assertEquals(piNames.getPiNames().get(1),"PI4");
-        assertEquals(piNames.getPiNames().get(2),"PI3");
-        assertEquals(piNames.getPiNames().get(3),"PI2");
-        assertEquals(piNames.getPiNames().get(4),"PI1");
+        assertEquals("PI5", piNames.getPiNames().get(0));
+        assertEquals("PI4", piNames.getPiNames().get(1));
+        assertEquals("PI3", piNames.getPiNames().get(2));
+        assertEquals("PI2", piNames.getPiNames().get(3));
+        assertEquals("PI1", piNames.getPiNames().get(4));
     }
 
     @Test
     public void testAggregationWithoutResults(){
         ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromPiPattern(Pattern.compile("aaa"));
-        assertEquals(piNames, null);
+        assertEquals(null, piNames);
     }
 
     private Feature createFeature(List<String> piNames, String sNumber){
