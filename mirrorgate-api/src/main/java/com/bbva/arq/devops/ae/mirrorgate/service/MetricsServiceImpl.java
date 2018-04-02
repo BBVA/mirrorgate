@@ -101,7 +101,7 @@ public class MetricsServiceImpl implements MetricsService {
         }
 
         List<UserMetricDTO> userMetrics = userMetricsRepository
-            .findAllByViewIdInWithNon0Values(views)
+            .findAllStartingWithViewIdWithNon0Values(views)
             .stream()
             .map(UserMetricMapper::map)
             .map((metric) -> metric.setLastValue(metric.getValue()))
