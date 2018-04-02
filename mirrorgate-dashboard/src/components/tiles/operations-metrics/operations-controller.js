@@ -33,7 +33,8 @@ var OperationsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         var requestsNumber =  0;
         var errorsNumber = 0;
-        var availabilityRate;
+        var availabilityRate = 0;
+        var availabilityRateSampleSize = 0;
         var responseTime = 0;
         var responseTimeSampleSize = 0;
         var requestsNumberTendency;
@@ -59,19 +60,17 @@ var OperationsController = (function(dashboardId) {
             return;
           }
           if(metric.name === 'availabilityRate') {
-            if(metric.sampleSize) {
-              availabilityRate =  metric.value / metric.sampleSize;
-              var availabilityRateTendencyChange = parseInt(metric.midTermTendency);
-              availabilityRateTendency = availabilityRateTendencyChange < -10 ? 'threedown' : availabilityRateTendencyChange < -5 ? 'twodown' : availabilityRateTendencyChange < -1 ? 'onedown' : availabilityRateTendencyChange > 10 ? 'threeup' : availabilityRateTendencyChange > 5 ? 'twoup' : availabilityRateTendencyChange > 1 ? 'oneup' : 'eq';
-            }
+            availabilityRate +=  metric.value * metric.sampleSize || 1;
+            availabilityRateSampleSize += metric.sampleSize || 1;
+            var availabilityRateTendencyChange = parseInt(metric.midTermTendency);
+            availabilityRateTendency = availabilityRateTendencyChange < -10 ? 'threedown' : availabilityRateTendencyChange < -5 ? 'twodown' : availabilityRateTendencyChange < -1 ? 'onedown' : availabilityRateTendencyChange > 10 ? 'threeup' : availabilityRateTendencyChange > 5 ? 'twoup' : availabilityRateTendencyChange > 1 ? 'oneup' : 'eq';
             return;
           }
           if(metric.name === 'responseTime') {
-            if(metric.sampleSize) {
-              responseTime = metric.value / metric.sampleSize;
-              var responseTimeTendencyChange = parseInt(metric.midTermTendency);
-              responseTimeTendency = responseTimeTendencyChange < -10 ? 'threedown-green' : responseTimeTendencyChange < -5 ? 'twodown-green' : responseTimeTendencyChange < -1 ? 'onedown-green' : responseTimeTendencyChange > 10 ? 'threeup-red' : responseTimeTendencyChange > 5 ? 'twoup-red' : responseTimeTendencyChange > 1 ? 'oneup-red' : 'eq';
-            }
+            responseTime += metric.value * metric.sampleSize || 1;
+            responseTimeSampleSize += metric.sampleSize || 1;
+            var responseTimeTendencyChange = parseInt(metric.midTermTendency);
+            responseTimeTendency = responseTimeTendencyChange < -10 ? 'threedown-green' : responseTimeTendencyChange < -5 ? 'twodown-green' : responseTimeTendencyChange < -1 ? 'onedown-green' : responseTimeTendencyChange > 10 ? 'threeup-red' : responseTimeTendencyChange > 5 ? 'twoup-red' : responseTimeTendencyChange > 1 ? 'oneup-red' : 'eq';
             return;
           }
           if(metric.name === 'infrastructureCost' && metric.timestamp === metricsMap[metricId]) {
@@ -85,8 +84,8 @@ var OperationsController = (function(dashboardId) {
 
         model.metrics = {
           errorsRate: errorsRate,
-          availabilityRate: availabilityRate && parseFloat(availabilityRate.toFixed(2)),
-          responseTime: responseTime && parseFloat(responseTime.toFixed(2)),
+          availabilityRate: availabilityRate && parseFloat(availabilityRate / availabilityRateSampleSize).toFixed(2),
+          responseTime: responseTime && parseFloat(responseTime / responseTimeSampleSize).toFixed(2),
           requestsNumber: requestsNumber,
           requestsNumberTendency: requestsNumberTendency,
           availabilityRateTendency: availabilityRateTendency,
