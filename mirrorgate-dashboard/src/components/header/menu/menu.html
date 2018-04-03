@@ -71,6 +71,9 @@
           for (i in dashboards) {
             dashboard = dashboards[i];
             model.dashboardMap[dashboard.name] = dashboard;
+            if(dashboard.displayName){
+              model.dashboardMap[dashboard.displayName] = dashboard;
+            }
             model.dashboards.push(dashboard.name);
           }
           for (i of recent) {
