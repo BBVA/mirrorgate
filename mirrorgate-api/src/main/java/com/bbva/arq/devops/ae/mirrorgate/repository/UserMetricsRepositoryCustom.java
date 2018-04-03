@@ -22,6 +22,6 @@ import java.util.List;
 
 public interface UserMetricsRepositoryCustom {
 
-    List<UserMetric> findAllStartingWithViewIdWithNon0Values(List<String> viewIds);
+    List<UserMetric> findAllStartingWithViewId(List<String> viewIds);
 
 }

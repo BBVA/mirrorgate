@@ -20,15 +20,10 @@ public class UserMetricsRepositoryImpl implements UserMetricsRepositoryCustom {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public List<UserMetric> findAllStartingWithViewIdWithNon0Values(List<String> viewIds) {
+    public List<UserMetric> findAllStartingWithViewId(List<String> viewIds) {
 
         Aggregation agg = newAggregation(
-            match(Criteria
-                .where("value").ne(0)
-                .andOperator(
-                    getCriteriaExpressionsForUserMetrics(viewIds)
-                )
-            )
+            match(getCriteriaExpressionsForUserMetrics(viewIds))
         );
 
         AggregationResults<UserMetric> aggregationResult

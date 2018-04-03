@@ -58,7 +58,7 @@ public class UserMetricsRepositoryImplTest {
     public void findUserMetricsByViewIdsWithoutResultsTest(){
         List<String> viewIds = Arrays.asList("aaa");
 
-        List<UserMetric> userMetrics = userMetricsRepository.findAllStartingWithViewIdWithNon0Values(viewIds);
+        List<UserMetric> userMetrics = userMetricsRepository.findAllStartingWithViewId(viewIds);
 
         assertEquals(new ArrayList(), userMetrics);
     }
@@ -69,9 +69,9 @@ public class UserMetricsRepositoryImplTest {
         List<String> viewIds2 = Arrays.asList("AWS/123456789012/alb");
         List<String> viewIds3 = Arrays.asList("AWS/123456789012/apigateway/restapi");
 
-        List<UserMetric> userMetrics1 = userMetricsRepository.findAllStartingWithViewIdWithNon0Values(viewIds1);
-        List<UserMetric> userMetrics2 = userMetricsRepository.findAllStartingWithViewIdWithNon0Values(viewIds2);
-        List<UserMetric> userMetrics3 = userMetricsRepository.findAllStartingWithViewIdWithNon0Values(viewIds3);
+        List<UserMetric> userMetrics1 = userMetricsRepository.findAllStartingWithViewId(viewIds1);
+        List<UserMetric> userMetrics2 = userMetricsRepository.findAllStartingWithViewId(viewIds2);
+        List<UserMetric> userMetrics3 = userMetricsRepository.findAllStartingWithViewId(viewIds3);
 
         assertEquals(3, userMetrics1.size());
         assertEquals(2, userMetrics2.size());
@@ -91,7 +91,7 @@ public class UserMetricsRepositoryImplTest {
     public void findUserMetricsByMultipleViewIdsTest(){
         List<String> viewIds = Arrays.asList("AWS/111111111111", "AWS/222222222222");
 
-        List<UserMetric> userMetrics = userMetricsRepository.findAllStartingWithViewIdWithNon0Values(viewIds);
+        List<UserMetric> userMetrics = userMetricsRepository.findAllStartingWithViewId(viewIds);
 
         assertEquals(2, userMetrics.size());
 
