@@ -32,3 +32,17 @@ body {
 img {
     max-width: 100% !important;
 }
+
+.dashboard-cols-template{
+    border: dashed 1px #aaa;
+    background-color: #fafafa;
+    padding: 10px;
+    margin: 15px 0px 15px 0px;
+}
+
+.dashboard-cols-module {
+    cursor: move;
+    margin: 6px;
+    height: 80px;
+    background-color: #f0f0f0;
+}
