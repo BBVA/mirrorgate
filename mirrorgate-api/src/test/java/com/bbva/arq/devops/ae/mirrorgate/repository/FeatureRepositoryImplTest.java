@@ -60,7 +60,7 @@ public class FeatureRepositoryImplTest {
     public void testFeatureAndPIComeFromTeam(){
         List<String> boardPIFeatures = featureRepository.programIncrementBoardFeatures(Arrays.asList("mirrorgate"), Arrays.asList("feature1", "feature2"));
 
-        assertEquals(boardPIFeatures.size(), 2);
+        assertEquals(2, boardPIFeatures.size());
     }
 
 
@@ -69,17 +69,17 @@ public class FeatureRepositoryImplTest {
         ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromPiPattern(Pattern.compile("^PI.*$"));
 
         assertEquals(piNames.getPiNames().size(), 5);
-        assertEquals(piNames.getPiNames().get(0),"PI5");
-        assertEquals(piNames.getPiNames().get(1),"PI4");
-        assertEquals(piNames.getPiNames().get(2),"PI3");
-        assertEquals(piNames.getPiNames().get(3),"PI2");
-        assertEquals(piNames.getPiNames().get(4),"PI1");
+        assertTrue(piNames.getPiNames().contains("PI1"));
+        assertTrue(piNames.getPiNames().contains("PI2"));
+        assertTrue(piNames.getPiNames().contains("PI3"));
+        assertTrue(piNames.getPiNames().contains("PI4"));
+        assertTrue(piNames.getPiNames().contains("PI5"));
     }
 
     @Test
     public void testAggregationWithoutResults(){
         ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromPiPattern(Pattern.compile("aaa"));
-        assertEquals(piNames, null);
+        assertEquals(null, piNames);
     }
 
     private Feature createFeature(List<String> piNames, String sNumber){

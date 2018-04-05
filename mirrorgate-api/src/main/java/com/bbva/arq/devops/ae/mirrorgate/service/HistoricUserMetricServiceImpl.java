@@ -79,7 +79,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         }
 
         List<UserMetricDTO> lastValueMetrics = userMetricsRepository
-            .findAllByViewIdIn(views)
+            .findAllStartingWithViewId(views)
             .stream()
             .map(UserMetricMapper::map)
             .collect(Collectors.toList());

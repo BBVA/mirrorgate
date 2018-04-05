@@ -21,10 +21,8 @@ import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
 import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -127,26 +125,18 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
         Aggregation agg = newAggregation(
             match(Criteria
-                //.where("keywords").in(boards)
-                .where("sPiNames").is(pi)
-                .and("sTypeName").is("Feature")
+                    .where("sTypeName").is("Feature")
             ),
             project("sPiNames").andExclude("_id"),
             unwind("sPiNames"),
+            match(Criteria
+                .where("sPiNames").is(pi)
+            ),
             group().addToSet("sPiNames").as("piNames")
         );
 
         AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult
             = mongoTemplate.aggregate(agg, "feature", ProgramIncrementNamesAggregationResult.class);
-
-        if(aggregationResult.getUniqueMappedResult() != null){
-            aggregationResult.getUniqueMappedResult().setPiNames(
-                aggregationResult.getUniqueMappedResult().getPiNames()
-                    .stream()
-                    .sorted(Comparator.reverseOrder())
-                    .collect(Collectors.toList())
-            );
-        }
 
         return aggregationResult.getUniqueMappedResult();
     }

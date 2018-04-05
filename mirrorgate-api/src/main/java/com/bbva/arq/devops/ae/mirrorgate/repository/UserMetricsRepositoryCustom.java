@@ -17,14 +17,11 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
+
 import java.util.List;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
-public interface UserMetricsRepository extends CrudRepository<UserMetric, ObjectId>, UserMetricsRepositoryCustom {
+public interface UserMetricsRepositoryCustom {
 
-    @Query(value = "{ collectorId:?0, value: { $ne:0}}")
-    List<UserMetric> findAllByCollectorId(String collectorId);
+    List<UserMetric> findAllStartingWithViewId(List<String> viewIds);
 
 }
