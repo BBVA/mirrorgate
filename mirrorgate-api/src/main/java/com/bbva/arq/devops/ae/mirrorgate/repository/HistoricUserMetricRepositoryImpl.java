@@ -48,7 +48,6 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
 
         TypedAggregation<HistoricUserMetric> aggregation = newAggregation(HistoricUserMetric.class,
             match(Criteria.where("viewId").in(views)
-                .and("value").gte(0d)
                 .and("historicType").is(unit)
                 .and("timestamp").gte(timestamp)),
             project("identifier", "viewId", "appVersion", "platform", "name", "value", "sampleSize", "collectorId")
