@@ -1,13 +1,11 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import java.time.temporal.ChronoUnit;
-import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "historic_user_metrics")
-@CompoundIndex(name = "average_index", def = "{'viewId' : 1, 'name': 1, 'value': 1, 'historicType': 1, 'timestamp': 1}")
-public class HistoricUserMetric extends BaseModel{
+public class HistoricUserMetric extends BaseModel {
 
     @Indexed
     private String identifier;
@@ -18,12 +16,11 @@ public class HistoricUserMetric extends BaseModel{
 
     private String platform;
 
-    @Indexed
     private String name;
 
     private Double value;
 
-    private Double sampleSize;
+    private Long sampleSize;
 
     @Indexed
     private Long timestamp;
@@ -88,11 +85,11 @@ public class HistoricUserMetric extends BaseModel{
         return this;
     }
 
-    public Double getSampleSize() {
+    public Long getSampleSize() {
         return sampleSize;
     }
 
-    public HistoricUserMetric setSampleSize(Double sampleSize) {
+    public HistoricUserMetric setSampleSize(Long sampleSize) {
         this.sampleSize = sampleSize;
         return this;
     }

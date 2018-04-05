@@ -18,6 +18,8 @@ package com.bbva.arq.devops.ae.mirrorgate.core.dto;
 
 public class UserMetricDTO {
 
+    private String identifier;
+
     private String viewId;
 
     private String appVersion;
@@ -26,22 +28,51 @@ public class UserMetricDTO {
 
     private String name;
 
-    private Double value;
+    private long timestamp;
 
-    private Double lastValue;
+    private double lastValue;
 
-    private Double sampleSize;
+    private long sampleSize;
 
-    private Long timestamp;
+    private Double oneHourValue;
+
+    private Long oneHourSampleSize;
+
+    private Double eightHoursValue;
+
+    private Long eightHoursSampleSize;
+
+    private Double oneDayValue;
+
+    private Long oneDaySampleSize;
+
+    private Double sevenDaysValue;
+
+    private Long sevenDaysSampleSize;
+
+    private Double thirtyDaysValue;
+
+    private Long thirtyDaysSampleSize;
+
+    private Double ninetyDaysValue;
+
+    private Long ninetyDaysSampleSize;
 
     /* Associated collector ID */
     private String collectorId;
 
-    private double longTermTendency;
+    public String getIdentifier() {
+        return identifier != null ? identifier : viewId
+            + platform
+            + appVersion
+            + name
+            + collectorId;
+    }
 
-    private double midTermTendency;
-
-    private double shortTermTendency;
+    public UserMetricDTO setIdentifier(String identifier) {
+        this.identifier = identifier;
+        return this;
+    }
 
     public String getViewId() {
         return viewId;
@@ -79,30 +110,138 @@ public class UserMetricDTO {
         return this;
     }
 
-    public Double getValue() {
-        return value;
-    }
-
-    public UserMetricDTO setValue(Double value) {
-        this.value = value;
-        return this;
-    }
-
-    public Double getLastValue() {
+    public double getLastValue() {
         return lastValue;
     }
 
-    public UserMetricDTO setLastValue(Double lastValue) {
+    public UserMetricDTO setLastValue(double lastValue) {
         this.lastValue = lastValue;
         return this;
     }
 
-    public Long getTimestamp() {
+    public long getSampleSize() {
+        return sampleSize;
+    }
+
+    public UserMetricDTO setSampleSize(long sampleSize) {
+        this.sampleSize = sampleSize;
+        return this;
+    }
+
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public UserMetricDTO setTimestamp(Long timestamp) {
+    public UserMetricDTO setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+        return this;
+    }
+
+    public Double getOneHourValue() {
+        return oneHourValue;
+    }
+
+    public UserMetricDTO setOneHourValue(Double oneHourValue) {
+        this.oneHourValue = oneHourValue;
+        return this;
+    }
+
+    public Long getOneHourSampleSize() {
+        return oneHourSampleSize;
+    }
+
+    public UserMetricDTO setOneHourSampleSize(Long oneHourSampleSize) {
+        this.oneHourSampleSize = oneHourSampleSize;
+        return this;
+    }
+
+    public Double getEightHoursValue() {
+        return eightHoursValue;
+    }
+
+    public UserMetricDTO setEightHoursValue(Double eightHoursValue) {
+        this.eightHoursValue = eightHoursValue;
+        return this;
+    }
+
+    public Long getEightHoursSampleSize() {
+        return eightHoursSampleSize;
+    }
+
+    public UserMetricDTO setEightHoursSampleSize(Long eightHoursSampleSize) {
+        this.eightHoursSampleSize = eightHoursSampleSize;
+        return this;
+    }
+
+    public Double getOneDayValue() {
+        return oneDayValue;
+    }
+
+    public UserMetricDTO setOneDayValue(Double oneDayValue) {
+        this.oneDayValue = oneDayValue;
+        return this;
+    }
+
+    public Long getOneDaySampleSize() {
+        return oneDaySampleSize;
+    }
+
+    public UserMetricDTO setOneDaySampleSize(Long oneDaySampleSize) {
+        this.oneDaySampleSize = oneDaySampleSize;
+        return this;
+    }
+
+    public Double getSevenDaysValue() {
+        return sevenDaysValue;
+    }
+
+    public UserMetricDTO setSevenDaysValue(Double sevenDaysValue) {
+        this.sevenDaysValue = sevenDaysValue;
+        return this;
+    }
+
+    public Long getSevenDaysSampleSize() {
+        return sevenDaysSampleSize;
+    }
+
+    public UserMetricDTO setSevenDaysSampleSize(Long sevenDaysSampleSize) {
+        this.sevenDaysSampleSize = sevenDaysSampleSize;
+        return this;
+    }
+
+    public Double getThirtyDaysValue() {
+        return thirtyDaysValue;
+    }
+
+    public UserMetricDTO setThirtyDaysValue(Double thirtyDaysValue) {
+        this.thirtyDaysValue = thirtyDaysValue;
+        return this;
+    }
+
+    public Long getThirtyDaysSampleSize() {
+        return thirtyDaysSampleSize;
+    }
+
+    public UserMetricDTO setThirtyDaysSampleSize(Long thirtyDaysSampleSize) {
+        this.thirtyDaysSampleSize = thirtyDaysSampleSize;
+        return this;
+    }
+
+    public Double getNinetyDaysValue() {
+        return ninetyDaysValue;
+    }
+
+    public UserMetricDTO setNinetyDaysValue(Double ninetyDaysValue) {
+        this.ninetyDaysValue = ninetyDaysValue;
+        return this;
+    }
+
+    public Long getNinetyDaysSampleSize() {
+        return ninetyDaysSampleSize;
+    }
+
+    public UserMetricDTO setNinetyDaysSampleSize(Long ninetyDaysSampleSize) {
+        this.ninetyDaysSampleSize = ninetyDaysSampleSize;
         return this;
     }
 
@@ -115,39 +254,4 @@ public class UserMetricDTO {
         return this;
     }
 
-    public Double getSampleSize() {
-        return sampleSize;
-    }
-
-    public UserMetricDTO setSampleSize(Double sampleSize) {
-        this.sampleSize = sampleSize;
-        return this;
-    }
-
-    public double getLongTermTendency() {
-        return longTermTendency;
-    }
-
-    public UserMetricDTO setLongTermTendency(double longTermTendency) {
-        this.longTermTendency = longTermTendency;
-        return this;
-    }
-
-    public double getShortTermTendency() {
-        return shortTermTendency;
-    }
-
-    public UserMetricDTO setShortTermTendency(double shortTermTendency) {
-        this.shortTermTendency = shortTermTendency;
-        return this;
-    }
-
-    public double getMidTermTendency() {
-        return midTermTendency;
-    }
-
-    public UserMetricDTO setMidTermTendency(double midTermTendency) {
-        this.midTermTendency = midTermTendency;
-        return this;
-    }
 }

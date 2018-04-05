@@ -17,17 +17,12 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
-import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
-import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -40,16 +35,12 @@ public class MetricsServiceImpl implements MetricsService {
     private final DashboardService dashboardService;
     private final UserMetricsRepository userMetricsRepository;
     private final HistoricUserMetricService historicUserMetricService;
-    private final HistoricUserMetricRepository historicUserMetricRepository;
-
-    private static final int METRIC_MINUTES_PERIOD = 10;
 
     @Autowired
-    public MetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository, HistoricUserMetricService historicUserMetricService, HistoricUserMetricRepository historicUserMetricRepository) {
+    public MetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository, HistoricUserMetricService historicUserMetricService) {
         this.dashboardService = dashboardService;
         this.userMetricsRepository = userMetricsRepository;
         this.historicUserMetricService = historicUserMetricService;
-        this.historicUserMetricRepository = historicUserMetricRepository;
     }
 
     @Override
@@ -100,35 +91,7 @@ public class MetricsServiceImpl implements MetricsService {
             return new ArrayList<>();
         }
 
-        List<UserMetricDTO> userMetrics = userMetricsRepository
-            .findAllByViewIdInWithNon0Values(views)
-            .stream()
-            .map(UserMetricMapper::map)
-            .map((metric) -> metric.setLastValue(metric.getValue()))
-            .collect(Collectors.toList());
-
-        List<UserMetricDTO> operationMetrics = historicUserMetricRepository
-            .getUserMetricSumTotalForPeriod(views, ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNUnitsAgo(METRIC_MINUTES_PERIOD, ChronoUnit.MINUTES))
-            .stream()
-            .map(UserMetricMapper::map)
-            .collect(Collectors.toList());
-
-        List<UserMetricDTO> metrics = Stream.of(userMetrics, operationMetrics).flatMap(Collection::stream)
-            .collect(Collectors.toList());
-
-        List<String> metricNames = metrics.stream().map(UserMetricDTO::getName).distinct().collect(Collectors.toList());
-
-        Map<String, HistoricTendenciesDTO> historicUserMetrics = historicUserMetricService.getHistoricMetricsForDashboard(dashboard, metricNames);
-
-        return historicUserMetrics != null ? metrics.stream()
-                .map(u -> {
-                        u.setLongTermTendency(historicUserMetrics.get(u.getName()).getLongTermTendency());
-                        u.setMidTermTendency(historicUserMetrics.get(u.getName()).getMidTermTendency());
-                        u.setShortTermTendency(historicUserMetrics.get(u.getName()).getShortTermTendency());
-
-                        return u;
-                    }
-                ).collect(Collectors.toList()) : metrics;
+        return historicUserMetricService.getHistoricMetrics(views);
     }
 
 }

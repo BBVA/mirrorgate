@@ -38,7 +38,7 @@ public class UserMetric {
 
     private Double value;
 
-    private Double sampleSize;
+    private Long sampleSize;
 
     private Long timestamp;
 
@@ -135,11 +135,11 @@ public class UserMetric {
         return a.equals(b);
     }
 
-    public Double getSampleSize() {
+    public Long getSampleSize() {
         return sampleSize;
     }
 
-    public UserMetric setSampleSize(Double sampleSize) {
+    public UserMetric setSampleSize(Long sampleSize) {
         this.sampleSize = sampleSize;
         return this;
     }

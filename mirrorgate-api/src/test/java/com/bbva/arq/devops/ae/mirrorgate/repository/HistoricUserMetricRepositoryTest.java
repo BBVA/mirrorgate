@@ -46,84 +46,84 @@ public class HistoricUserMetricRepositoryTest {
     @Before
     public void init(){
         HistoricUserMetric userMetric1 = new HistoricUserMetric()
+            .setIdentifier("requestsNumber1")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(12d)
-            .setSampleSize(0d)
-            .setIdentifier("AWSRequestNumber")
+            .setSampleSize(0l)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric2 = new HistoricUserMetric()
+            .setIdentifier("requestsNumber2")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(16d)
-            .setSampleSize(0d)
-            .setIdentifier("AWSRequestNumber")
+            .setSampleSize(0l)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric3 = new HistoricUserMetric()
+            .setIdentifier("requestsNumber3")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(14d)
-            .setSampleSize(0d)
-            .setIdentifier("AWSRequestNumber")
+            .setSampleSize(0l)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric4 = new HistoricUserMetric()
+            .setIdentifier("responseTime4")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
-            .setIdentifier("AWSResponseTime")
             .setValue(3000d)
-            .setSampleSize(100d)
+            .setSampleSize(100l)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric5 = new HistoricUserMetric()
+            .setIdentifier("responseTime5")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
-            .setIdentifier("AWSResponseTime")
             .setValue(2000d)
-            .setSampleSize(150d)
+            .setSampleSize(150l)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric6 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
+            .setIdentifier("requestsNumber6")
+            .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(12d)
-            .setSampleSize(0d)
-            .setIdentifier("AWSRequestNumber")
+            .setSampleSize(0l)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric7 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
+            .setIdentifier("requestsNumber7")
+            .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(16d)
-            .setSampleSize(0d)
-            .setIdentifier("AWSRequestNumber")
+            .setSampleSize(0l)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric8 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
+            .setIdentifier("requestsNumber8")
+            .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(14d)
-            .setSampleSize(0d)
-            .setIdentifier("AWSRequestNumber")
+            .setSampleSize(0l)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric9 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
+            .setIdentifier("responseTime9")
+            .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
-            .setIdentifier("AWSResponseTime")
             .setValue(1500d)
-            .setSampleSize(100d)
+            .setSampleSize(100l)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric10 = new HistoricUserMetric()
-            .setViewId("ga:155019618")
+            .setIdentifier("responseTime10")
+            .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
-            .setIdentifier("AWSResponseTime")
             .setValue(1500d)
-            .setSampleSize(150d)
+            .setSampleSize(150l)
             .setTimestamp(TODAY);
 
         Iterable<HistoricUserMetric> minuteUserMetrics = Arrays
@@ -134,38 +134,18 @@ public class HistoricUserMetricRepositoryTest {
 
     @Test
     public void testOperationMetricsAverages(){
-        List<HistoricUserMetricStats> result =
-            repository.getUserMetricAverageTendencyForPeriod(Arrays.asList("ga:155019618", "AWS/Mirrorgate"),
-                ChronoUnit.MINUTES,
-                Arrays.asList("responseTime", "requestsNumber"),
-                LocalDateTimeHelper.getTimestampForNUnitsAgo(METRIC_MINUTES_PERIOD, ChronoUnit.MINUTES));
+        List<HistoricUserMetricStats> result = repository
+            .getUserMetricTendencyForPeriod(Arrays.asList("ga:0000", "AWS/Mirrorgate"), ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNUnitsAgo(METRIC_MINUTES_PERIOD, ChronoUnit.MINUTES));
 
-        List<HistoricUserMetricStats> responseTimeResult = result.stream()
-                                                                        .filter(h -> h.getName().equalsIgnoreCase("responseTime"))
-                                                                        .collect(Collectors.toList());
-
-        assertTrue(result.size() == 2);
-        assertTrue(responseTimeResult.size() == 1);
-        assertTrue(responseTimeResult.get(0).getValue() == 16);
-    }
-
-    @Test
-    public void testOperationMetricsSum(){
-        List<HistoricUserMetricStats> result =
-            repository.getUserMetricSumTotalForPeriod(Arrays.asList("ga:155019618", "AWS/Mirrorgate"),
-                ChronoUnit.MINUTES,
-                LocalDateTimeHelper.getTimestampForNUnitsAgo(METRIC_MINUTES_PERIOD, ChronoUnit.MINUTES));
-
-        List<HistoricUserMetricStats> requestsNumberResult = result.stream()
-            .filter(h -> h.getName().equalsIgnoreCase("requestsNumber"))
+        List<HistoricUserMetricStats> responseTimeResult = result
+            .stream()
+            .filter(metric -> metric.getName().contains("responseTime"))
             .collect(Collectors.toList());
 
-        assertTrue(result.size() == 2);
-        assertTrue(requestsNumberResult.size() == 1);
-        assertTrue(requestsNumberResult.get(0).getValue() == 84);
-        assertTrue(requestsNumberResult.get(0).getSampleSize() == 6);
+        assertTrue(result.size() == 10);
+        assertTrue(responseTimeResult.size() == 4);
+        assertTrue(responseTimeResult.get(0).getValue() == 1500.0);
     }
-
 
     @After
     public void clean(){
