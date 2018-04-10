@@ -42,7 +42,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
 
     private static final int ONE_HOUR_PERIOD = 60; // MINUTES
-    private static final int HEIGHT_HOURS_PERIOD = 8; // HOURS
+    private static final int EIGHT_HOURS_PERIOD = 8; // HOURS
     private static final int ONE_DAY_PERIOD = 24; // HOURS
     private static final int SEVEN_DAYS_PERIOD = 7; // DAYS
     private static final int THIRTY_DAYS_PERIOD = 30; // DAYS
@@ -90,7 +90,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
             .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
 
         Map<String, HistoricUserMetricStats> eightHoursPeriodMetrics = historicUserMetricRepository
-            .getUserMetricTendencyForPeriod(views, HOURS, LocalDateTimeHelper.getTimestampForNUnitsAgo(HEIGHT_HOURS_PERIOD, HOURS))
+            .getUserMetricTendencyForPeriod(views, HOURS, LocalDateTimeHelper.getTimestampForNUnitsAgo(EIGHT_HOURS_PERIOD, HOURS))
             .stream()
             .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
 
