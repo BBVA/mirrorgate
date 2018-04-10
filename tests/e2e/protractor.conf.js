@@ -24,6 +24,11 @@ var config = {
     // protractor is called.
     specs: ['specs/**/*.js'],
 
+    // Options to be passed to Jasmine.
+    jasmineNodeOpts: {
+        defaultTimeoutInterval: 30000
+    },
+
     seleniumAddress: 'http://'+seleniumHost+':' + seleniumPort + '/wd/hub',
 
     onPrepare: function(){
