@@ -31,68 +31,46 @@ var OperationsController = (function(dashboardId) {
       response = JSON.parse(response);
       model = {};
       if(response.length && response.length > 0) {
-        var requestsNumber =  0;
-        var errorsNumber = 0;
-        var availabilityRate;
-        var responseTime = 0;
-        var responseTimeSampleSize = 0;
-        var requestsNumberTendency;
-        var errorsRateTendency;
-        var availabilityRateTendency;
-        var responseTimeTendency;
-        var infraCost = 0;
+
         var metricsMap = {};
 
         response.forEach(function(metric) {
-          var metricId = metric.viewId + metric.name + metric.plarform + metric.appVerion;
-          metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
-          if(metric.name === 'requestsNumber') {
-            requestsNumber += parseInt(metric.value);
-            var requestNumberTendencyChange = parseInt(metric.longTermTendency);
-            requestsNumberTendency = requestNumberTendencyChange < -10 ? 'threedown' : requestNumberTendencyChange < -5 ? 'twodown' : requestNumberTendencyChange < -1 ? 'onedown' : requestNumberTendencyChange > 10 ? 'threeup' : requestNumberTendencyChange > 5 ? 'twoup' : requestNumberTendencyChange > 1 ? 'oneup' : 'eq';
-            return;
-          }
-          if(metric.name === 'errorsNumber') {
-            errorsNumber += parseInt(metric.value);
-            var errorsRateTendencyChange = parseInt(metric.midTermTendency);
-            errorsRateTendency = errorsRateTendencyChange < -10 ? 'threedown-green' : errorsRateTendencyChange < -5 ? 'twodown-green' : errorsRateTendencyChange < -1 ? 'onedown-green' : errorsRateTendencyChange > 10 ? 'threeup-red' : errorsRateTendencyChange > 5 ? 'twoup-red' : errorsRateTendencyChange > 1 ? 'oneup-red' : 'eq';
-            return;
-          }
-          if(metric.name === 'availabilityRate') {
-            if(metric.sampleSize) {
-              availabilityRate =  metric.value / metric.sampleSize;
-              var availabilityRateTendencyChange = parseInt(metric.midTermTendency);
-              availabilityRateTendency = availabilityRateTendencyChange < -10 ? 'threedown' : availabilityRateTendencyChange < -5 ? 'twodown' : availabilityRateTendencyChange < -1 ? 'onedown' : availabilityRateTendencyChange > 10 ? 'threeup' : availabilityRateTendencyChange > 5 ? 'twoup' : availabilityRateTendencyChange > 1 ? 'oneup' : 'eq';
-            }
-            return;
-          }
-          if(metric.name === 'responseTime') {
-            if(metric.sampleSize) {
-              responseTime = metric.value / metric.sampleSize;
-              var responseTimeTendencyChange = parseInt(metric.midTermTendency);
-              responseTimeTendency = responseTimeTendencyChange < -10 ? 'threedown-green' : responseTimeTendencyChange < -5 ? 'twodown-green' : responseTimeTendencyChange < -1 ? 'onedown-green' : responseTimeTendencyChange > 10 ? 'threeup-red' : responseTimeTendencyChange > 5 ? 'twoup-red' : responseTimeTendencyChange > 1 ? 'oneup-red' : 'eq';
-            }
-            return;
-          }
-          if(metric.name === 'infrastructureCost' && metric.timestamp === metricsMap[metricId]) {
-            infraCost += parseFloat(metric.value);
-            return;
+          if(metricsMap[metric.name] === undefined) {
+            metricsMap[metric.name] = {
+              oneDayValue: 0,
+              oneDaySampleSize: 0,
+              sevenDaysValue: 0,
+              sevenDaysSampleSize: 0,
+              tendency: undefined
+            };
           }
 
-        }, this);
+          metricsMap[metric.name].oneDayValue += metric.oneDayValue;
+          metricsMap[metric.name].oneDaySampleSize += metric.oneDaySampleSize;
+          metricsMap[metric.name].sevenDaysValue += metric.sevenDaysValue;
+          metricsMap[metric.name].sevenDaysSampleSize += metric.sevenDaysSampleSize;
+        });
 
-        var errorsRate = requestsNumber ? (100 * parseFloat(errorsNumber / requestsNumber).toFixed(2)) : undefined;
+        for (var metric in metricsMap) {
+          var tendencyChange = Utils.getPercentageDifference(metricsMap[metric].sevenDaysValue / metricsMap[metric].sevenDaysSampleSize || 0, metricsMap[metric].oneDayValue / metricsMap[metric].oneDaySampleSize || 0);
+          if(metric === 'errorsNumber' || metric === 'responseTime' || metric === 'infrastructureCost' ) {
+            metricsMap[metric].tendency = tendencyChange < -10 ? 'threedown-green' : tendencyChange < -5 ? 'twodown-green' : tendencyChange < -1 ? 'onedown-green' : tendencyChange > 10 ? 'threeup-red' : tendencyChange > 5 ? 'twoup-red' : tendencyChange > 1 ? 'oneup-red' : 'eq';
+          } else {
+            metricsMap[metric].tendency = tendencyChange < -10 ? 'threedown' : tendencyChange < -5 ? 'twodown' : tendencyChange < -1 ? 'onedown' : tendencyChange > 10 ? 'threeup' : tendencyChange > 5 ? 'twoup' : tendencyChange > 1 ? 'oneup' : 'eq';
+          }
+        }
 
         model.metrics = {
-          errorsRate: errorsRate,
-          availabilityRate: availabilityRate && parseFloat(availabilityRate.toFixed(2)),
-          responseTime: responseTime && parseFloat(responseTime.toFixed(2)),
-          requestsNumber: requestsNumber,
-          requestsNumberTendency: requestsNumberTendency,
-          availabilityRateTendency: availabilityRateTendency,
-          responseTimeTendency: responseTimeTendency,
-          errorsRateTendency: errorsRateTendency,
-          infraCost: infraCost && parseFloat(infraCost.toFixed(2))
+          requestsNumber: metricsMap.requestsNumber && metricsMap.requestsNumber.oneDaySampleSize,
+          requestsNumberTendency: metricsMap.requestsNumber && metricsMap.requestsNumber.tendency,
+          errorsRate: metricsMap.errorsNumber ? parseFloat((100 * metricsMap.errorsNumber.oneDaySampleSize / metricsMap.errorsNumber.oneDayValue).toFixed(2)) : 0,
+          errorsRateTendency: metricsMap.errorsNumber && metricsMap.errorsNumber.tendency,
+          availabilityRate: metricsMap.availabilityRate && parseFloat((metricsMap.availabilityRate.oneDayValue / metricsMap.availabilityRate.oneDaySampleSize).toFixed(2)),
+          availabilityRateTendency: metricsMap.availabilityRate && metricsMap.availabilityRate.tendency,
+          responseTime: metricsMap.responseTime && parseFloat((metricsMap.responseTime.oneDayValue / metricsMap.responseTime.oneDaySampleSize).toFixed(2)),
+          responseTimeTendency: metricsMap.responseTime && metricsMap.responseTime.tendency,
+          infraCost: metricsMap.infrastructureCost && parseFloat(metricsMap.infrastructureCost.oneDayValue.toFixed(2)),
+          infraCostTendency: metricsMap.infrastructureCost && metricsMap.infrastructureCost.tendency
         };
 
         model.responseTimeAlertingLevels = {

@@ -224,6 +224,10 @@ var Utils = (function() {
       r.estimate = r.sigma * z + r.avg;
       return r;
     },
+
+    getPercentageDifference: function (longPeriod, shortPeriod) {
+      return longPeriod ? ((shortPeriod - longPeriod) / longPeriod) * 100 : 0;
+    }
   };
 
 })();
