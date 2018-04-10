@@ -30,7 +30,7 @@
     "@angular/platform-server": "^4.0.0",
     "@angular/router": "^4.0.0",
     "@angular/upgrade": "^4.0.0",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "ie-shim": "^0.1.0",
     "ngx-chips": "^1.5.3",
