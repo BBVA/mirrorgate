@@ -4,22 +4,6 @@ const request = require('request');
 
 const MIRRORGATE_ENDPOINT = 'http://' + (process.env.APP_HOST || 'localhost') + ':8080/mirrorgate';
 
-function lockUntilCompletion() {
-    return new Promise((resolve, reject) => {
-        if(typeof(browser) !== 'undefined') {
-            browser.executeAsyncScript(function (cb) {
-                ServerSentEvent.addListener(function listener(eventType) {
-                    if(eventType !== 'PingType') {
-                        ServerSentEvent.removeListener(listener);
-                        testability.when.ready(cb);
-                    }
-                }, true);
-            });
-        }
-        resolve();
-    });
-}
-
 function send(endpoint, data, params) {
     var qs = '';
 
@@ -72,15 +56,12 @@ var API = {
             var promise = send('issues', [toSend], {
                 collectorId: "mirrorgate-collectors-jira"
             });
-            API.__pendingChanges.push({
+            return API.__pendingChanges.push({
                 restore: function () {
                     return send('issues', [original], {
                         collectorId: "mirrorgate-collectors-jira"
-                    }).then(lockUntilCompletion);
+                    });
                 }
-            });
-            return promise.then(function () {
-                return lockUntilCompletion();
             });
         }
     },
