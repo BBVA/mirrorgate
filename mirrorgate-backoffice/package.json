@@ -54,7 +54,7 @@
     "jquery": "^3.2.1",
     "node-sass": "^4.5.2",
     "raw-loader": "^0.5.1",
-    "resolve": "^1.6.0",
+    "resolve": "1.6.0",
     "resolve-url-loader": "^2.0.2",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.5",
