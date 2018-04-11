@@ -51,14 +51,14 @@ var UserMetricsController = (function(dashboardId) {
         response.forEach(function(metric) {
           var metricId = metric.viewId + metric.name + metric.platform + metric.appVersion;
           metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
-          if(metric.name === 'activeUsers' && metric.lastValue && metric.timestamp === metricsMap[metricId]) {
-            model.metrics.rtActiveUsers += parseInt(metric.lastValue);
+          if(metric.name === 'activeUsers' && metric.value && metric.timestamp === metricsMap[metricId]) {
+            model.metrics.rtActiveUsers += parseInt(metric.value);
             model.metrics.rtActiveUsersSampleSize += parseInt(metric.sampleSize);
             model.metrics.rtActiveUsersOneDayValue += parseInt(metric.oneDayValue);
             model.metrics.rtActiveUsersOneDaySampleSize += parseInt(metric.oneDaySampleSize);
 
             if(metric.appVersion && metric.appVersion.match(_lastVersion)) {
-              var value = parseInt(metric.lastValue);
+              var value = parseInt(metric.value);
               var name = Utils.rephraseVersion(metric.appVersion, _lastVersion);
               var versionData = versionsMap[name];
 
@@ -74,8 +74,8 @@ var UserMetricsController = (function(dashboardId) {
               versionData.versions[metric.appVersion] = metric.appVersion;
               versionData.value += value;
             }
-          } else if(metric.name === '7dayUsers' && metric.lastValue && metric.timestamp === metricsMap[metricId]) {
-            model.metrics.sevenDayUsers += parseInt(metric.lastValue);
+          } else if(metric.name === '7dayUsers' && metric.value && metric.timestamp === metricsMap[metricId]) {
+            model.metrics.sevenDayUsers += parseInt(metric.value);
             model.metrics.sevenDayUsersSampleSize += parseInt(metric.sampleSize);
             model.metrics.sevenDayUsersOneDayValue += parseInt(metric.oneDayValue);
             model.metrics.sevenDayUsersOneDaySampleSize += parseInt(metric.oneDaySampleSize);

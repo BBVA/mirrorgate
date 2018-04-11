@@ -31,7 +31,7 @@ public class UserMetricMapper {
             .setAppVersion(source.getAppVersion())
             .setPlatform(source.getPlatform())
             .setName(source.getName())
-            .setLastValue(source.getValue())
+            .setValue(source.getValue())
             .setSampleSize(source.getSampleSize() == null ? 1 : source.getSampleSize())
             .setTimestamp(source.getTimestamp())
             .setCollectorId(source.getCollectorId());
@@ -48,7 +48,7 @@ public class UserMetricMapper {
             .setAppVersion(source.getAppVersion())
             .setPlatform(source.getPlatform())
             .setName(source.getName())
-            .setValue(source.getLastValue())
+            .setValue(source.getValue())
             .setSampleSize(source.getSampleSize())
             .setTimestamp(source.getTimestamp())
             .setCollectorId(source.getCollectorId());
@@ -61,7 +61,7 @@ public class UserMetricMapper {
             .setAppVersion(source.getAppVersion())
             .setPlatform(source.getPlatform())
             .setName(source.getName())
-            .setLastValue(source.getValue())
+            .setValue(source.getValue())
             .setSampleSize(source.getSampleSize())
             .setTimestamp(source.getTimestamp())
             .setCollectorId(source.getCollectorId());
