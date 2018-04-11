@@ -30,9 +30,9 @@ public class UserMetricDTO {
 
     private long timestamp;
 
-    private double lastValue;
+    private Double lastValue;
 
-    private long sampleSize;
+    private Long sampleSize;
 
     private Double oneHourValue;
 
@@ -110,20 +110,20 @@ public class UserMetricDTO {
         return this;
     }
 
-    public double getLastValue() {
+    public Double getLastValue() {
         return lastValue;
     }
 
-    public UserMetricDTO setLastValue(double lastValue) {
+    public UserMetricDTO setLastValue(Double lastValue) {
         this.lastValue = lastValue;
         return this;
     }
 
-    public long getSampleSize() {
+    public Long getSampleSize() {
         return sampleSize;
     }
 
-    public UserMetricDTO setSampleSize(long sampleSize) {
+    public UserMetricDTO setSampleSize(Long sampleSize) {
         this.sampleSize = sampleSize;
         return this;
     }
