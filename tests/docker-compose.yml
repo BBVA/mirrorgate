@@ -50,7 +50,7 @@ services:
       - "5005:5005"
 
   selenium-chrome:
-    image: "selenium/standalone-chrome:latest"
+    image: "selenium/standalone-chrome:2.53.1"
     volumes:
       - /dev/shm:/dev/shm
 
