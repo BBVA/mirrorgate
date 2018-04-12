@@ -45,10 +45,14 @@ var OperationsController = (function(dashboardId) {
             };
           }
 
-          metricsMap[metric.name].oneDayValue += metric.oneDayValue;
-          metricsMap[metric.name].oneDaySampleSize += metric.oneDaySampleSize;
-          metricsMap[metric.name].sevenDaysValue += metric.sevenDaysValue;
-          metricsMap[metric.name].sevenDaysSampleSize += metric.sevenDaysSampleSize;
+          if(metric.oneDayValue) {
+            metricsMap[metric.name].oneDayValue += metric.oneDayValue;
+            metricsMap[metric.name].oneDaySampleSize += metric.oneDaySampleSize;
+          }
+          if(metric.sevenDaysValue) {
+            metricsMap[metric.name].sevenDaysValue += metric.sevenDaysValue;
+            metricsMap[metric.name].sevenDaysSampleSize += metric.sevenDaysSampleSize;
+          }
         });
 
         for (var metric in metricsMap) {
@@ -61,7 +65,7 @@ var OperationsController = (function(dashboardId) {
         }
 
         model.metrics = {
-          requestsNumber: metricsMap.requestsNumber && metricsMap.requestsNumber.oneDaySampleSize,
+          requestsNumber: metricsMap.requestsNumber && metricsMap.requestsNumber.oneDayValue,
           requestsNumberTendency: metricsMap.requestsNumber && metricsMap.requestsNumber.tendency,
           errorsRate: metricsMap.errorsNumber ? parseFloat((100 * metricsMap.errorsNumber.oneDaySampleSize / metricsMap.errorsNumber.oneDayValue).toFixed(2)) : 0,
           errorsRateTendency: metricsMap.errorsNumber && metricsMap.errorsNumber.tendency,
