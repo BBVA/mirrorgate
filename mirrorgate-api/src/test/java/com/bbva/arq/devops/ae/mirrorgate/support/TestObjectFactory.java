@@ -15,13 +15,9 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.support;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueType.BUG;
+import static com.bbva.arq.devops.ae.mirrorgate.support.IssueType.BUG;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.*;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugPriority;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BugStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
+import com.bbva.arq.devops.ae.mirrorgate.dto.*;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import java.util.ArrayList;
@@ -29,18 +25,12 @@ import java.util.Arrays;
 import java.util.List;
 import org.bson.types.ObjectId;
 
-/**
- *
- * @author enrique
- */
 public class TestObjectFactory {
 
     private static final String DASHBOARD_NAME = "mirrorgate";
     private static final String PROJECT_NAME = "mirrorgate";
     private static final String FEATURE_NAME = "feature";
-    private static final String APP_NAME = "mirrorgate";
     public static final String AUTH_NAME = "ATREYU";
-
 
     private static final String SLACK_TEAM = "SLACK_TEAM";
     private static final String SLACK_TOKEN = "SLACK_TOKEN";

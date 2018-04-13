@@ -16,7 +16,7 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 
 public class ReviewMapper {

@@ -17,14 +17,10 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper.map;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
-import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildSummaryMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
@@ -33,20 +29,21 @@ import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildSummaryRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
+import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BuildServiceImpl implements BuildService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BuildServiceImpl.class);
     private static final long DAY_IN_MS = (long) 1000 * 60 * 60 * 24;
 
     private final BuildRepository buildRepository;

@@ -15,14 +15,9 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
-
+import com.bbva.arq.devops.ae.mirrorgate.dto.SlackDTO;
 import java.util.Map;
 
-/**
- *
- * @author enrique
- */
 public interface SlackService {
 
     /**

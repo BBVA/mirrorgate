@@ -15,7 +15,6 @@
  */
 
 modules = [
-  'mirrorgate-core',
   'mirrorgate-api',
   'mirrorgate-dashboard',
   'mirrorgate-backoffice',

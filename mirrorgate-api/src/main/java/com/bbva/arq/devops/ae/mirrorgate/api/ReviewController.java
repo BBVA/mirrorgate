@@ -19,18 +19,17 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.misc.MirrorGateException;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ReviewDTO;
+import com.bbva.arq.devops.ae.mirrorgate.exception.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
-
 import java.net.URI;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -81,7 +80,7 @@ public class ReviewController {
         @RequestParam(name = "url", required = false) String url
     ) throws MirrorGateException {
         String referer = request.getHeader(HttpHeaders.REFERER);
-        LOG.info("Review -> Referer header value " + referer);
+        LOG.log(Level.INFO, "Review -> Referer header value {0}", referer);
 
         ReviewDTO savedReview = reviewService.saveApplicationReview(appId, review);
 

@@ -16,22 +16,16 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper.map;
+
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.support.IssuePriority;
+import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
+import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
+import java.lang.reflect.InvocationTargetException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import java.lang.reflect.InvocationTargetException;
-
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper.map;
-
-
-/**
- * Created by alfonso on 25/09/17.
- */
 
 @RunWith(JUnit4.class)
 public class IssueMapperTests {

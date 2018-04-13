@@ -17,8 +17,8 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,8 +31,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
-    private DashboardService dashboardRepository;
-    private ReviewRepository reviewRepository;
+    private final DashboardService dashboardRepository;
+    private final ReviewRepository reviewRepository;
 
     @Autowired
     public ApplicationServiceImpl(DashboardService dashboardRepository, ReviewRepository reviewRepository){
@@ -40,6 +40,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         this.reviewRepository = reviewRepository;
     }
 
+    @Override
     public List<ApplicationReviewsDTO> getApplicationsAndReviews(){
 
         List<String> activeApplicationNames = getApplicationNames(dashboardRepository.getActiveDashboards());

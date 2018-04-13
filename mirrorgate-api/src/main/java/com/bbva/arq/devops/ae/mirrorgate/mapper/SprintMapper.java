@@ -16,14 +16,10 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintDTO;
-
+import com.bbva.arq.devops.ae.mirrorgate.dto.SprintDTO;
+import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
 import java.util.stream.Collectors;
 
-/**
- * Created by alfonso on 28/05/17.
- */
 public class SprintMapper {
 
     private SprintMapper(){}
@@ -44,6 +40,5 @@ public class SprintMapper {
                         .collect(Collectors.toList())
                 );
     }
-
 
 }

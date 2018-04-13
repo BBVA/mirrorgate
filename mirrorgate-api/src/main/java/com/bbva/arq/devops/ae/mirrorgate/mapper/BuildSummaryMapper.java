@@ -16,9 +16,9 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
+import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 
 public class BuildSummaryMapper {
 

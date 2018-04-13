@@ -19,8 +19,8 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

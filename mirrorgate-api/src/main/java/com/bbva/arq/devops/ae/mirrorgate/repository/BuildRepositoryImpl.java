@@ -18,9 +18,9 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;

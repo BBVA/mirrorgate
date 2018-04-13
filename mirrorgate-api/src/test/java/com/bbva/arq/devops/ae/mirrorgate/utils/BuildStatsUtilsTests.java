@@ -15,11 +15,11 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.utils;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.*;
+import static com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency.*;
 import static com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils.failureTendency;
 import static org.junit.Assert.assertEquals;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

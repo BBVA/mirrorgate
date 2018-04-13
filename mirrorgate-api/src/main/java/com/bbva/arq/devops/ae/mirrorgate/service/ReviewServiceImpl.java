@@ -15,13 +15,15 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
+
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
+import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -31,8 +33,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
-
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
@@ -41,9 +41,8 @@ public class ReviewServiceImpl implements ReviewService {
     private static final String FB_NAMESPACE = "Mirrorgate/";
     private static final String FB_HISTORY_SUFFIX = "_history";
 
-    private ReviewRepository repository;
-    private EventService eventService;
-
+    private final ReviewRepository repository;
+    private final EventService eventService;
 
     @Autowired
     public ReviewServiceImpl(ReviewRepository repository, EventService eventService){
@@ -200,6 +199,7 @@ public class ReviewServiceImpl implements ReviewService {
         return map(savedReview);
     }
 
+    @Override
     public Iterable<Review> getReviewsByObjectId(List<ObjectId> objectIds){
 
         return repository.findAll(objectIds);

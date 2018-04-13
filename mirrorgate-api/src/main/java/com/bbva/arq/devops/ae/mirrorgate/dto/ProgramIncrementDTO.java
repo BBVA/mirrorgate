@@ -1,6 +1,5 @@
 package com.bbva.arq.devops.ae.mirrorgate.dto;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
 import java.util.Date;
 import java.util.List;
 

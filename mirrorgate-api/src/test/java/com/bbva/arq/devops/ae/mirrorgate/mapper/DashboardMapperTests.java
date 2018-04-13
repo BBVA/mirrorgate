@@ -18,10 +18,10 @@ package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
+import com.bbva.arq.devops.ae.mirrorgate.support.DashboardType;
+import com.bbva.arq.devops.ae.mirrorgate.support.Filters;
 import java.lang.reflect.InvocationTargetException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
