@@ -22,7 +22,9 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -41,13 +43,13 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
     }
 
     @Override
-    public List<HistoricUserMetricStats> getUserMetricTendencyForPeriod(List<String> views, ChronoUnit unit, long timestamp) {
+    public List<HistoricUserMetricStats> getUserMetricTendencyForPeriod(List<String> viewIds, ChronoUnit unit, long timestamp) {
 
         Cond sampleSizeCondition = ConditionalOperators.when(Criteria.where("sampleSize").gt(0))
             .thenValueOf("$sampleSize").otherwise(1l);
 
         TypedAggregation<HistoricUserMetric> aggregation = newAggregation(HistoricUserMetric.class,
-            match(Criteria.where("viewId").in(views)
+            match(getCriteriaExpressionsForUserMetrics(viewIds)
                 .and("historicType").is(unit)
                 .and("timestamp").gte(timestamp)),
             project("identifier", "viewId", "appVersion", "platform", "name", "value", "sampleSize", "collectorId")
@@ -68,5 +70,15 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
             = mongoTemplate.aggregate(aggregation, "historic_user_metrics", HistoricUserMetricStats.class);
 
         return groupResults.getMappedResults();
+    }
+
+    private Criteria getCriteriaExpressionsForUserMetrics(List<String> viewIds) {
+        List<Criteria> regExs = new ArrayList<>();
+        viewIds.forEach((String id) -> {
+            regExs.add(Criteria.where("viewId")
+                .in(Pattern.compile("^" + id + ".*$")));
+        });
+        return new Criteria()
+            .orOperator(regExs.toArray(new Criteria[regExs.size()]));
     }
 }
