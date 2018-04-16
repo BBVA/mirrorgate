@@ -67,12 +67,12 @@ var OperationsController = (function(dashboardId) {
         model.metrics = {
           requestsNumber: metricsMap.requestsNumber && metricsMap.requestsNumber.oneDayValue,
           requestsNumberTendency: metricsMap.requestsNumber && metricsMap.requestsNumber.tendency,
-          errorsRate: metricsMap.errorsNumber ? parseFloat((100 * metricsMap.errorsNumber.oneDaySampleSize / metricsMap.errorsNumber.oneDayValue).toFixed(2)) : 0,
-          errorsRateTendency: metricsMap.errorsNumber && metricsMap.errorsNumber.tendency,
+          errorsRate: metricsMap.errorsNumber && metricsMap.errorsNumber.oneDaySampleSize > 0 ? parseFloat((100 * metricsMap.errorsNumber.oneDayValue / metricsMap.errorsNumber.oneDaySampleSize || 0).toFixed(2)) : undefined,
+          errorsRateTendency: metricsMap.errorsNumber && metricsMap.errorsNumber.oneDaySampleSize > 0 && metricsMap.errorsNumber.tendency,
           availabilityRate: metricsMap.availabilityRate && parseFloat((metricsMap.availabilityRate.oneDayValue / metricsMap.availabilityRate.oneDaySampleSize).toFixed(2)),
           availabilityRateTendency: metricsMap.availabilityRate && metricsMap.availabilityRate.tendency,
-          responseTime: metricsMap.responseTime && parseFloat((metricsMap.responseTime.oneDayValue / metricsMap.responseTime.oneDaySampleSize).toFixed(2)),
-          responseTimeTendency: metricsMap.responseTime && metricsMap.responseTime.tendency,
+          responseTime: metricsMap.responseTime && metricsMap.responseTime.oneDaySampleSize > 0 ? parseFloat((metricsMap.responseTime.oneDayValue / metricsMap.responseTime.oneDaySampleSize).toFixed(2)) : undefined,
+          responseTimeTendency: metricsMap.responseTime && metricsMap.responseTime.oneDaySampleSize > 0 ? metricsMap.responseTime.tendency : undefined,
           infraCost: metricsMap.infrastructureCost && parseFloat(metricsMap.infrastructureCost.oneDayValue.toFixed(2)),
           infraCostTendency: metricsMap.infrastructureCost && metricsMap.infrastructureCost.tendency
         };
