@@ -45,10 +45,10 @@ var OperationsController = (function(dashboardId) {
             };
           }
 
-          metric.oneDayValue && (metricsMap[metric.name].oneDayValue += metric.oneDayValue);
-          metric.oneDaySampleSize && (metricsMap[metric.name].oneDaySampleSize += metric.oneDaySampleSize);
-          metric.sevenDaysValue && (metricsMap[metric.name].sevenDaysValue += metric.sevenDaysValue);
-          metric.sevenDaysSampleSize && (metricsMap[metric.name].sevenDaysSampleSize += metric.sevenDaysSampleSize);
+          metricsMap[metric.name].oneDayValue = metric.oneDayValue ? metricsMap[metric.name].oneDayValue + metric.oneDayValue : metricsMap[metric.name].oneDayValue;
+          metricsMap[metric.name].oneDaySampleSize = metric.oneDaySampleSize ? metricsMap[metric.name].oneDaySampleSize + metric.oneDaySampleSize : metricsMap[metric.name].oneDaySampleSize;
+          metricsMap[metric.name].sevenDaysValue = metric.sevenDaysValue ? metricsMap[metric.name].sevenDaysValue + metric.sevenDaysValue : metricsMap[metric.name].sevenDaysValue;
+          metricsMap[metric.name].sevenDaysSampleSize = metric.sevenDaysSampleSize ? metricsMap[metric.name].sevenDaysSampleSize + metric.sevenDaysSampleSize : metricsMap[metric.name].sevenDaysSampleSize;
         });
 
         for (var metric in metricsMap) {
