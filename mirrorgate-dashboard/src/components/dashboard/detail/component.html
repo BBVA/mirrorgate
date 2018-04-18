@@ -100,7 +100,12 @@
       this.getModel().layout.withFooter =
           config.slackTeam || (config.codeRepos && config.codeRepos.length) ? true: false;
 
-      if(config.type === "Custom"){
+      if(config.type === "Custom" && config.columns
+        && ((config.columns[0] && config.columns[0].length > 0) ||
+            (config.columns[1] && config.columns[1].length > 0) ||
+            (config.columns[2] && config.columns[2].length > 0) ||
+            (config.columns[3] && config.columns[3].length > 0) ||
+            (config.columns[4] && config.columns[4].length > 0))) {
         var columns = config.columns;
       }else{
         var columns = new Array(5);
