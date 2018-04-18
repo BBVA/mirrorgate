@@ -18,7 +18,10 @@
 <link rel="import" href="./aggregate/component.html" >
 <link rel="import" href="./detail/component.html" >
 <link rel="import" href="./message/component.html" >
+<link rel="import" href="../header/header.html" >
+
 <template>
+  <header-component class="header" rv-config="config"></header-component>
   <div id="main-container" style="visibility:hidden">
     <message-dashboard
         message="This dashboard doesn't have any data configured."

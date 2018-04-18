@@ -37,14 +37,6 @@
   <style>
     @import "css/{skin}.css";
 
-    .header {
-      width: 100%;
-    }
-
-    .subheader {
-      flex: 1 1 auto;
-    }
-
     board-column.container {
       max-height: 100%;
       width: 100%;
@@ -57,8 +49,6 @@
 
   </style>
   <div>
-    <header-component class="header" rv-config="config"></header-component>
-
     <!-- .dashboard -->
     <div class="dashboard adaptable" rv-class-with-footer="layout.withFooter">
       <board-column rv-each-column="columns">
