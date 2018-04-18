@@ -125,7 +125,6 @@ export class FormComponent {
 
       copySortSource: false,
       revertOnSpill: false,
-      removeOnSpill: true,
 
       accepts: function(el, target, source) {
 
