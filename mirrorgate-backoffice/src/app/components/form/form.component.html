@@ -160,7 +160,9 @@
                 <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#dashboard-ids-help" aria-expanded="false" aria-controls="dashboard-ids-help">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <tag-input class="form-control" id="aggregatedDashboards" name="aggregatedDashboards" [(ngModel)]="temp.aggregatedDashboards" (ngModelChange)="mirrorTempValues()" placeholder="Add a new dashboard" secondaryPlaceholder="Add a new dashboard" separatorKeys="[',',' ']" addOnBlur=true dragZone="aggregatedList"></tag-input>
+                <tag-input class="form-control" id="aggregatedDashboards" name="aggregatedDashboards" [(ngModel)]="temp.aggregatedDashboards" (ngModelChange)="mirrorTempValues()" placeholder="Add a new dashboard" secondaryPlaceholder="Add a new dashboard" separatorKeys="[',',' ']" addOnBlur=true dragZone="aggregatedList" [onlyFromAutocomplete]="true">
+                  <tag-input-dropdown [autocompleteItems]="dashboardList"></tag-input-dropdown>
+                </tag-input>
               </div>
 
             </div>
