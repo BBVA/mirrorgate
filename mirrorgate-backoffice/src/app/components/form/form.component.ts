@@ -120,6 +120,60 @@ export class FormComponent {
         this.texts.loaded = true;
       })
       .catch((error: any) => { this.errorMessage = <any>error; });
+
+    this.dragulaService.setOptions('columns', {
+
+      copySortSource: false,
+      revertOnSpill: false,
+      removeOnSpill: true,
+
+      accepts: function(el, target, source) {
+
+        var componentWeight = {
+        };
+
+        componentWeight['current-sprint'] = 2;
+        componentWeight['program-increment'] = 2;
+        componentWeight['bugs'] = 1;
+        componentWeight['scm-metrics'] = 1;
+        componentWeight['alerts'] = 2;
+        componentWeight['next-sprint'] = 1;
+        componentWeight['builds'] = 2;
+        componentWeight['buildsstats'] = 1;
+        componentWeight['markets'] = 1;
+        componentWeight['reviews'] = 1;
+        componentWeight['user-metrics'] = 1;
+        componentWeight['operations-metrics'] = 1;
+
+        if(target.classList.contains('dashboard-cols-template')){
+          var elements = target.getElementsByClassName('dashboard-cols-module');
+          var total_weight = 0;
+
+          var i;
+          for(i = 0; i < elements.length; i++){
+            var element=elements[i];
+            var id = elements[i].id;
+
+            var weight = componentWeight[id];
+            total_weight = total_weight + weight;
+
+            if(total_weight > 3){
+              return false;
+            }
+          }
+        }
+
+        return !target.classList.contains('dashboard-cols-group');
+      },
+
+      copy: function (el, source) {
+        return source.classList.contains('dashboard-cols-group');
+      },
+    });
+
+    this.dragulaService.drop.subscribe((value) => {
+      this.onDrop(value.slice(1));
+    });
   }
 
   setDashboard(dashboard: Dashboard) {
@@ -309,6 +363,14 @@ export class FormComponent {
     });
 
     return found;
+  }
+
+  private onDrop(args) {
+    //Calculate max weight allowed
+    let [e, el] = args;
+    if(el && el.classList){
+      // el.classList.add("filled");
+    }
   }
 
 }
