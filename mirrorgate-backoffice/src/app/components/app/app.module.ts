@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { DeleteComponent } from '../delete/delete.component';
-import { DragulaModule, DragulaService } from 'ng2-dragula';
+import { DragulaModule } from 'ng2-dragula';
 import { FeedbackComponent } from '../feedback/feedback.component';
 import { FormComponent } from '../form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

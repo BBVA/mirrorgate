@@ -171,9 +171,6 @@ export class FormComponent {
       },
     });
 
-    this.dragulaService.drop.subscribe((value) => {
-      this.onDrop(value.slice(1));
-    });
   }
 
   setDashboard(dashboard: Dashboard) {
@@ -363,14 +360,6 @@ export class FormComponent {
     });
 
     return found;
-  }
-
-  private onDrop(args) {
-    //Calculate max weight allowed
-    let [e, el] = args;
-    if(el && el.classList){
-      // el.classList.add("filled");
-    }
   }
 
 }
