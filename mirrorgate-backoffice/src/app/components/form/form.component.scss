@@ -53,3 +53,33 @@ tag-input {
 .general-help {
   text-align: right;
 }
+
+
+.dashboard-cols-template{
+  border: dashed 1px #aaa;
+  background-color: #fafafa;
+  padding: 10px;
+  margin: 15px 0px 15px 0px;
+  float: left;
+  width: 20%;
+  height: 280px;
+}
+
+.dashboard-cols-modules {
+
+  min-height: 80px;
+
+  .dashboard-cols-module {
+    cursor: move;
+    margin: 6px;
+    height: 80px;
+    background-color: #f0f0f0;
+    width: 20%;
+    float: left;
+  }
+}
+
+.dashboard-cols-group {
+  float: left;
+  width: 25%;
+}

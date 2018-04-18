@@ -49,4 +49,5 @@ export class Dashboard {
   type: string = 'Detail';
   aggregatedDashboards: string[] = [];
   marketsStatsDays: number;
+  columns: string[][] = [];
 }

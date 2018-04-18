@@ -571,37 +571,49 @@
           <div class="form-group">
             <label for="columns">{{texts.form.columns_block.dashboard}}</label>
             <div>
-                <div id="col1" class="dashboard-cols-template" [dragula]='"columns"'></div>
-                <div id="col2" class="dashboard-cols-template" [dragula]='"columns"'></div>
-                <div id="col3" class="dashboard-cols-template" [dragula]='"columns"'></div>
-                <div id="col4" class="dashboard-cols-template" [dragula]='"columns"'></div>
-                <div id="col5" class="dashboard-cols-template" [dragula]='"columns"'></div>
+              <div id="col1" class="dashboard-cols-template" [dragula]='"columns"'>
+                <ng-container *ngIf="dashboard.columns && dashboard.columns[0]">
+                  <div *ngFor="let component of dashboard.columns[0]" id="{{component}}" class="dashboard-cols-module">{{component}}</div>
+                </ng-container>
+              </div>
+              <div id="col2" class="dashboard-cols-template" [dragula]='"columns"'>
+                <ng-container *ngIf="dashboard.columns && dashboard.columns[1]">
+                  <div *ngFor="let component of dashboard.columns[1]" id="{{component}}" class="dashboard-cols-module">{{component}}</div>
+                </ng-container>
+              </div>
+              <div id="col3" class="dashboard-cols-template" [dragula]='"columns"'>
+                <ng-container *ngIf="dashboard.columns && dashboard.columns[2]">
+                  <div *ngFor="let component of dashboard.columns[2]" id="{{component}}" class="dashboard-cols-module">{{component}}</div>
+                </ng-container>
+              </div>
+              <div id="col4" class="dashboard-cols-template" [dragula]='"columns"'>
+                <ng-container *ngIf="dashboard.columns && dashboard.columns[3]">
+                  <div *ngFor="let component of dashboard.columns[3]" id="{{component}}" class="dashboard-cols-module">{{component}}</div>
+                </ng-container>
+              </div>
+              <div id="col5" class="dashboard-cols-template" [dragula]='"columns"'>
+                <ng-container *ngIf="dashboard.columns && dashboard.columns[4]">
+                  <div *ngFor="let component of dashboard.columns[4]" id="{{component}}" class="dashboard-cols-module">{{component}}</div>
+                </ng-container>
+              </div>
             </div>
 
             <div>
               <label for="columns">{{texts.form.columns_block.modules}}</label>
-              <ul class="dashboard-cols-modules">
-                <div class="dashboard-cols-group" [dragula]='"columns"'>
-                  <li id="current-sprint" class="dashboard-cols-module">Sprint progress</li>
-                  <li id="program-increment" class="dashboard-cols-module">PI progress</li>
-                  <li id="bugs" class="dashboard-cols-module">Bugs</li>
-                </div>
-                <div class="dashboard-cols-group" [dragula]='"columns"'>
-                  <li id="scm-metrics" class="dashboard-cols-module">Time to master</li>
-                  <li id="alerts" class="dashboard-cols-module">Alerts</li>
-                  <li id="next-sprint" class="dashboard-cols-module">Next sprint</li>
-                </div>
-                <div class="dashboard-cols-group" [dragula]='"columns"'>
-                  <li id="builds" class="dashboard-cols-module">Builds</li>
-                  <li id="buildsstats" class="dashboard-cols-module">Build stats</li>
-                  <li id="markets" class="dashboard-cols-module">Markets info</li>
-                </div>
-                <div class="dashboard-cols-group" [dragula]='"columns"'>
-                  <li id="reviews" class="dashboard-cols-module">Reviews</li>
-                  <li id="user-metrics" class="dashboard-cols-module">User metrics</li>
-                  <li id="operations-metrics" class="dashboard-cols-module">Operations metrics</li>
-                </div>
-              </ul>
+              <div class="dashboard-cols-modules" [dragula]='"columns"'>
+                <div *ngIf='!isOnDashboard("current-sprint")' id="current-sprint" class="dashboard-cols-module">Sprint progress</div>
+                <div *ngIf='!isOnDashboard("program-increment")' id="program-increment" class="dashboard-cols-module">PI progress</div>
+                <div *ngIf='!isOnDashboard("bugs")' id="bugs" class="dashboard-cols-module">Bugs</div>
+                <div *ngIf='!isOnDashboard("scm-metrics")' id="scm-metrics" class="dashboard-cols-module">Time to master</div>
+                <div *ngIf='!isOnDashboard("alerts")' id="alerts" class="dashboard-cols-module">Alerts</div>
+                <div *ngIf='!isOnDashboard("next-sprint")' id="next-sprint" class="dashboard-cols-module">Next sprint</div>
+                <div *ngIf='!isOnDashboard("builds")' id="builds" class="dashboard-cols-module">Builds</div>
+                <div *ngIf='!isOnDashboard("buildsstats")' id="buildsstats" class="dashboard-cols-module">Build stats</div>
+                <div *ngIf='!isOnDashboard("markets")' id="markets" class="dashboard-cols-module">Markets info</div>
+                <div *ngIf='!isOnDashboard("reviews")' id="reviews" class="dashboard-cols-module">Reviews</div>
+                <div *ngIf='!isOnDashboard("user-metrics")' id="user-metrics" class="dashboard-cols-module">User metrics</div>
+                <div *ngIf='!isOnDashboard("operations-metrics")' id="operations-metrics" class="dashboard-cols-module">Operations metrics</div>
+              </div>
             </div>
           </div>
         </div>

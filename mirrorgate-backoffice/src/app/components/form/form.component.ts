@@ -26,12 +26,13 @@ import {RequestOptions} from '@angular/http/http';
 
 import {TextsService} from '../../services/texts.service';
 import {ConfigService} from '../../services/config.service';
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'new-and-edit-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  providers: [DashboardsService, SlackService, TextsService, ConfigService]
+  providers: [DashboardsService, SlackService, TextsService, ConfigService, DragulaService]
 })
 export class FormComponent {
   backToDashboard: boolean;
@@ -65,7 +66,7 @@ export class FormComponent {
     lastVersion?: string,
     slackTeam?: string,
     urlAlerts?: string,
-    urlAlertsAuthorization?: string,
+    urlAlertsAuthorization?: string
   } = {};
   errorMessage: string;
   url: string;
@@ -77,13 +78,16 @@ export class FormComponent {
   }[];
   marketsStatsDays: number;
 
+  readonly MAX_COLUMNS = 5;
+
   constructor(
       private dashboardsService: DashboardsService,
       private textsService: TextsService,
       private slackService: SlackService,
       private router: Router,
       private route: ActivatedRoute,
-      private configService: ConfigService) {}
+      private configService: ConfigService,
+      private dragulaService: DragulaService) {}
 
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
@@ -240,6 +244,7 @@ export class FormComponent {
   }
 
   onSave(dashboard: Dashboard): void {
+    this.saveColumns(dashboard);
     this.dashboardsService.saveDashboard(dashboard, this.edit)
         .then(dashboard => {
           if (dashboard) {
@@ -248,6 +253,17 @@ export class FormComponent {
           }
         })
         .catch((error: any) => { this.errorMessage = <any>error; });
+  }
+
+  private saveColumns(dashboard: Dashboard) {
+    dashboard.columns = [];
+
+    for(let i = 0; i < this.MAX_COLUMNS; i++){
+      this.dashboard.columns[i] = []
+      Array.from(document.getElementById(`col${i+1}`).children).forEach(el => {
+        this.dashboard.columns[i][this.dashboard.columns[i].length] = el.id;
+      });
+    };
   }
 
   signSlack(dashboard: Dashboard): void {
@@ -278,4 +294,21 @@ export class FormComponent {
           });
     }
   }
+
+  isOnDashboard(component: string) {
+    if (!this.dashboard.columns) {
+      return false;
+    }
+
+    let found = false;
+    this.dashboard.columns.forEach(column => {
+      if(column.indexOf(component) > -1) {
+        found = true;
+        return;
+      }
+    });
+
+    return found;
+  }
+
 }
