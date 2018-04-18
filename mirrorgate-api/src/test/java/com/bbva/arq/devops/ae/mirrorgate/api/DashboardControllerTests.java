@@ -15,8 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.DELETED;
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -25,11 +24,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
-import com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper;
-import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;

@@ -15,7 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintStats;
+import com.bbva.arq.devops.ae.mirrorgate.dto.SprintStats;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.List;
 import java.util.regex.Pattern;

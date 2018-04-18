@@ -18,12 +18,10 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyCollectionOf;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
@@ -44,10 +42,9 @@ public class FeatureServiceTests {
 
     @Mock
     private FeatureRepository featureRepository;
+
     @Mock
     private DashboardService dashboardService;
-    @Mock
-    private EventService eventService;
 
     @InjectMocks
     private FeatureServiceImpl featureService;

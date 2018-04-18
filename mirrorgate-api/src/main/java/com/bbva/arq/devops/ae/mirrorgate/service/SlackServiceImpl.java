@@ -18,11 +18,9 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import allbegray.slack.SlackClientFactory;
 import allbegray.slack.type.Channel;
 import allbegray.slack.webapi.SlackWebApiClient;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SlackDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.SlackDTO;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,8 +31,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class SlackServiceImpl implements SlackService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SlackServiceImpl.class);
 
     @Autowired
     private RestTemplate restTemplate;

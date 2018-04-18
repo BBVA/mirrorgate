@@ -16,20 +16,15 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
+import com.bbva.arq.devops.ae.mirrorgate.dto.SprintDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.SprintMapper;
 import com.bbva.arq.devops.ae.mirrorgate.repository.SprintRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-/**
- * Created by alfonso on 28/05/17.
- */
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class SprintServiceImpl implements SprintService {

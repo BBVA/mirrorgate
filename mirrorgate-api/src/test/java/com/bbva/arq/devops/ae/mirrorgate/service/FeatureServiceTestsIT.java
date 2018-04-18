@@ -2,7 +2,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static junit.framework.TestCase.assertTrue;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;

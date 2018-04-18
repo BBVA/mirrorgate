@@ -22,10 +22,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserMetricsRepository extends CrudRepository<UserMetric, ObjectId> {
-
-    @Query(value = "{ viewId: {$in: ?0}, value: { $ne:0} }")
-    List<UserMetric> findAllByViewIdInWithNon0Values(List<String> ids);
+public interface UserMetricsRepository extends CrudRepository<UserMetric, ObjectId>, UserMetricsRepositoryCustom {
 
     @Query(value = "{ collectorId:?0, value: { $ne:0}}")
     List<UserMetric> findAllByCollectorId(String collectorId);

@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper.mapToHistoric;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.HOURS;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.HistoricTendenciesDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.UserMetricDTO;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
+import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -34,32 +36,31 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class HistoricUserMetricServiceImpl implements HistoricUserMetricService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HistoricUserMetricServiceImpl.class);
 
-    private static final int LONG_TERM_TENDENCY_LONG_PERIOD = 30;
-    private static final int LONG_TERM_TENDENCY_SHORT_PERIOD = 4;
-    private static final int MID_TERM_TENDENCY_LONG_PERIOD = 24;
-    private static final int MID_TERM_TENDENCY_SHORT_PERIOD = 2;
-    private static final int SHORT_TERM_TENDENCY_LONG_PERIOD = 8;
-    private static final int SHORT_TERM_TENDENCY_SHORT_PERIOD = 1;
+    private static final int ONE_HOUR_PERIOD = 60; // MINUTES
+    private static final int EIGHT_HOURS_PERIOD = 8; // HOURS
+    private static final int ONE_DAY_PERIOD = 24; // HOURS
+    private static final int SEVEN_DAYS_PERIOD = 7; // DAYS
+    private static final int THIRTY_DAYS_PERIOD = 30; // DAYS
+    private static final int NINETY_DAYS_PERIOD = 90; // DAYS
 
+    private final UserMetricsRepository userMetricsRepository;
     private final HistoricUserMetricRepository historicUserMetricRepository;
 
     @Autowired
-    public HistoricUserMetricServiceImpl(HistoricUserMetricRepository historicUserMetricRepository){
-
+    public HistoricUserMetricServiceImpl(UserMetricsRepository userMetricsRepository, HistoricUserMetricRepository historicUserMetricRepository) {
+        this.userMetricsRepository = userMetricsRepository;
         this.historicUserMetricRepository = historicUserMetricRepository;
     }
-
 
     @Override
     public void addToCurrentPeriod(Iterable<UserMetric> saved) {
 
-        saved.forEach( s -> {
+        saved.forEach(s -> {
             try {
                 addToTendency(s, ChronoUnit.MINUTES);
                 addToTendency(s, ChronoUnit.HOURS);
@@ -71,22 +72,65 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
     }
 
     @Override
-    public Map<String, HistoricTendenciesDTO> getHistoricMetricsForDashboard(DashboardDTO dashboard, List<String> metricNames) {
-
-        List<String> views = dashboard.getAnalyticViews();
+    public List<UserMetricDTO> getHistoricMetrics(List<String> views) {
 
         if (views == null || views.isEmpty()) {
             return null;
         }
 
-        Map<String, Double> longTermTendency = calculateTendency(views, metricNames, ChronoUnit.DAYS, LONG_TERM_TENDENCY_LONG_PERIOD, LONG_TERM_TENDENCY_SHORT_PERIOD);
-        Map<String, Double> midTermTendency = calculateTendency(views, metricNames, ChronoUnit.HOURS, MID_TERM_TENDENCY_LONG_PERIOD, MID_TERM_TENDENCY_SHORT_PERIOD);
-        Map<String, Double> shortTermTendency = calculateTendency(views, metricNames, ChronoUnit.HOURS, SHORT_TERM_TENDENCY_LONG_PERIOD, SHORT_TERM_TENDENCY_SHORT_PERIOD);
+        List<UserMetricDTO> lastValueMetrics = userMetricsRepository
+            .findAllStartingWithViewId(views)
+            .stream()
+            .map(UserMetricMapper::map)
+            .collect(Collectors.toList());
 
-        return metricNames.stream()
-                .collect(Collectors.toMap(s -> s, s -> new HistoricTendenciesDTO(longTermTendency.get(s) == null ? 0 : longTermTendency.get(s)
-                                                                                , midTermTendency.get(s) == null ? 0 : midTermTendency.get(s)
-                                                                                , shortTermTendency.get(s) == null ? 0 : shortTermTendency.get(s))));
+        Map<String, HistoricUserMetricStats> oneHourPeriodMetrics = historicUserMetricRepository
+            .getUserMetricTendencyForPeriod(views, HOURS, LocalDateTimeHelper.getTimestampForNUnitsAgo(ONE_HOUR_PERIOD, HOURS))
+            .stream()
+            .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
+
+        Map<String, HistoricUserMetricStats> eightHoursPeriodMetrics = historicUserMetricRepository
+            .getUserMetricTendencyForPeriod(views, HOURS, LocalDateTimeHelper.getTimestampForNUnitsAgo(EIGHT_HOURS_PERIOD, HOURS))
+            .stream()
+            .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
+
+        Map<String, HistoricUserMetricStats> oneDayPeriodMetrics = historicUserMetricRepository
+            .getUserMetricTendencyForPeriod(views, HOURS, LocalDateTimeHelper.getTimestampForNUnitsAgo(ONE_DAY_PERIOD, HOURS))
+            .stream()
+            .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
+
+        Map<String, HistoricUserMetricStats> sevenDaysPeriodMetrics = historicUserMetricRepository
+            .getUserMetricTendencyForPeriod(views, HOURS, LocalDateTimeHelper.getTimestampForNUnitsAgo(SEVEN_DAYS_PERIOD, HOURS))
+            .stream()
+            .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
+
+        Map<String, HistoricUserMetricStats> thirtyDaysPeriodMetrics = historicUserMetricRepository
+            .getUserMetricTendencyForPeriod(views, DAYS, LocalDateTimeHelper.getTimestampForNUnitsAgo(THIRTY_DAYS_PERIOD, DAYS))
+            .stream()
+            .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
+
+        Map<String, HistoricUserMetricStats> ninetyDaysPeriodMetrics = historicUserMetricRepository
+            .getUserMetricTendencyForPeriod(views, DAYS, LocalDateTimeHelper.getTimestampForNUnitsAgo(NINETY_DAYS_PERIOD, DAYS))
+            .stream()
+            .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
+
+        return lastValueMetrics
+            .stream()
+            .map(metric -> metric
+                .setOneHourValue(oneHourPeriodMetrics.get(metric.getIdentifier()) == null ? null : oneHourPeriodMetrics.get(metric.getIdentifier()).getValue())
+                .setOneHourSampleSize(oneHourPeriodMetrics.get(metric.getIdentifier()) == null ? null : oneHourPeriodMetrics.get(metric.getIdentifier()).getSampleSize())
+                .setEightHoursValue(eightHoursPeriodMetrics.get(metric.getIdentifier()) == null ? null : eightHoursPeriodMetrics.get(metric.getIdentifier()).getValue())
+                .setEightHoursSampleSize(eightHoursPeriodMetrics.get(metric.getIdentifier()) == null ? null : eightHoursPeriodMetrics.get(metric.getIdentifier()).getSampleSize())
+                .setOneDayValue(oneDayPeriodMetrics.get(metric.getIdentifier()) == null ? null : oneDayPeriodMetrics.get(metric.getIdentifier()).getValue())
+                .setOneDaySampleSize(oneDayPeriodMetrics.get(metric.getIdentifier()) == null ? null : oneDayPeriodMetrics.get(metric.getIdentifier()).getSampleSize())
+                .setSevenDaysValue(sevenDaysPeriodMetrics.get(metric.getIdentifier()) == null ? null : sevenDaysPeriodMetrics.get(metric.getIdentifier()).getValue())
+                .setSevenDaysSampleSize(sevenDaysPeriodMetrics.get(metric.getIdentifier()) == null ? null : sevenDaysPeriodMetrics.get(metric.getIdentifier()).getSampleSize())
+                .setThirtyDaysValue(thirtyDaysPeriodMetrics.get(metric.getIdentifier()) == null ? null : thirtyDaysPeriodMetrics.get(metric.getIdentifier()).getValue())
+                .setThirtyDaysSampleSize(thirtyDaysPeriodMetrics.get(metric.getIdentifier()) == null ? null : thirtyDaysPeriodMetrics.get(metric.getIdentifier()).getSampleSize())
+                .setNinetyDaysValue(ninetyDaysPeriodMetrics.get(metric.getIdentifier()) == null ? null : ninetyDaysPeriodMetrics.get(metric.getIdentifier()).getValue())
+                .setNinetyDaysSampleSize(ninetyDaysPeriodMetrics.get(metric.getIdentifier()) == null ? null : ninetyDaysPeriodMetrics.get(metric.getIdentifier()).getSampleSize())
+            )
+            .collect(Collectors.toList());
     }
 
     private HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier, ChronoUnit type) {
@@ -110,13 +154,13 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return metric;
     }
 
-    private HistoricUserMetric addMetrics (final HistoricUserMetric historic, final UserMetric saved){
+    private HistoricUserMetric addMetrics(final HistoricUserMetric historic, final UserMetric saved) {
 
-        HistoricUserMetric response =  historic;
-        double metricSampleSize = 1;
+        HistoricUserMetric response = historic;
+        long metricSampleSize = 1;
 
-        if(saved.getValue() != null) {
-            if(saved.getSampleSize() != null && saved.getSampleSize() > 0){
+        if (saved.getValue() != null) {
+            if (saved.getSampleSize() != null && saved.getSampleSize() > 0) {
                 metricSampleSize = saved.getSampleSize();
             }
 
@@ -133,7 +177,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
 
-        historicUserMetric.setSampleSize(0d);
+        historicUserMetric.setSampleSize(0L);
         historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit));
         historicUserMetric.setValue(0d);
         historicUserMetric.setHistoricType(unit);
@@ -141,29 +185,4 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return historicUserMetric;
     }
 
-    private Map<String, Double> calculateTendency(List<String> views, List<String> metricNames, ChronoUnit unit, int longPeriod, int shortPeriod){
-
-        List<HistoricUserMetricStats> longPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, unit, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(longPeriod, unit));
-
-        List<HistoricUserMetricStats> shortPeriodHistoricUserMetrics =
-            historicUserMetricRepository.getUserMetricAverageTendencyForPeriod(views, unit, metricNames, LocalDateTimeHelper.getTimestampForNUnitsAgo(shortPeriod, unit));
-
-        Map<String, Double> longPeriodMap = longPeriodHistoricUserMetrics.stream().collect(
-            Collectors.toMap(
-                HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
-
-        Map<String, Double> shortPeriodMap = shortPeriodHistoricUserMetrics.stream().collect(
-            Collectors.toMap(
-                HistoricUserMetricStats::getName, HistoricUserMetricStats::getValue));
-
-        return longPeriodMap.keySet()
-            .stream()
-            .collect(Collectors.toMap(s -> s, s -> getPercentualDifference(longPeriodMap.get(s), shortPeriodMap.get(s) == null ? 0 : shortPeriodMap.get(s))));
-    }
-
-    private double getPercentualDifference(double longPeriod, double shortPeriod){
-
-        return longPeriod != 0 ? ((shortPeriod - longPeriod)/longPeriod) * 100 : 0;
-    }
 }

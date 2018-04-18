@@ -16,7 +16,7 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.CommitDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 
 public class CommitMapper {

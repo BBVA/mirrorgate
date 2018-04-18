@@ -15,7 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
+import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -133,7 +133,7 @@ public class Review extends BaseModel {
 
     }
 
-    private static final boolean stringEquals(String s1, String s2) {
+    private static boolean stringEquals(String s1, String s2) {
         return (s1 == null && s2 == null) || (s1 != null && s1.equals(s2));
     }
 

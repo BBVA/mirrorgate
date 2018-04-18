@@ -71,7 +71,7 @@
           for (i in dashboards) {
             dashboard = dashboards[i];
             model.dashboardMap[dashboard.name] = dashboard;
-            model.dashboards.push(dashboard.name);
+            model.dashboards.push(dashboard);
           }
           for (i of recent) {
             dashboard = model.dashboardMap[i];
@@ -100,17 +100,14 @@
 
         $('.typeahead').typeahead('destroy');
 
-        var substringMatcher = function(strs) {
-          return function findMatches(q, cb) {
-            var matches, substringRegex;
+        var dashboardMatcher = function(dashboards) {
+          return function findMatches(query, cb) {
+            var matches = [];
+            var substringRegex = new RegExp(query, 'i');
 
-            matches = [];
-
-            substrRegex = new RegExp(q, 'i');
-
-            $.each(strs, function(i, str) {
-              if (substrRegex.test(str)) {
-                matches.push(str);
+            dashboards.forEach(function(dashboard){
+              if (substringRegex.test(dashboard.name) || substringRegex.test(dashboard.displayName)) {
+                matches.push(dashboard.name);
               }
             });
 
@@ -125,7 +122,7 @@
         },
         {
           name: 'dashboards',
-          source: substringMatcher(model.dashboards),
+          source: dashboardMatcher(model.dashboards),
           limit: Number.MAX_VALUE,
           templates: {
             suggestion: function(dashboard) {

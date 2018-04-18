@@ -18,8 +18,8 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.mongodb.BasicDBObject;
 import java.util.List;

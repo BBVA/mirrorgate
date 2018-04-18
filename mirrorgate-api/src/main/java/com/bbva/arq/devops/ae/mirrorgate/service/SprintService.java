@@ -16,14 +16,10 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
-
+import com.bbva.arq.devops.ae.mirrorgate.dto.SprintDTO;
+import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
 import java.util.List;
 
-/**
- * Created by alfonso on 28/05/17.
- */
 public interface SprintService {
     List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses, String collectorId);
 

@@ -15,13 +15,9 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BugDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BugDTO;
 import java.util.List;
 
-/**
- *
- * @author enrique
- */
 public interface BugService {
 
     List<BugDTO> getActiveBugsByBoards(List<String> boards);

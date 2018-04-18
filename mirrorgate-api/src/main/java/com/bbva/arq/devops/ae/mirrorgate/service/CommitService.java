@@ -15,9 +15,8 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.CommitDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.CommitDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ScmDTO;
-
 import java.util.List;
 
 public interface CommitService {

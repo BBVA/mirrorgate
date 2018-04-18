@@ -15,8 +15,8 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.builders;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 import java.util.Arrays;
 import java.util.List;
 import org.bson.types.ObjectId;

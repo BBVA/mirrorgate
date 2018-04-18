@@ -140,7 +140,6 @@ Contains folders for each of the modules:
 - [mirrorgate-dashboard](./mirrorgate-dashboard/readme.md): contains the front-end sources.
 - [mirrorgate-backoffice](./mirrorgate-backoffice/README.md): contains the dashboard administration application.
 - [mirrorgate-api](./mirrorgate-api/Readme.md): contains the API (back-end) sources.
-- [mirrorgate-core](./mirrorgate-core/Readme.md): contains the core library used by the API and the collectors.
 - [docker](./docker/README.md): contains utilities to build a MirrorGate docker image.
 - [tests](./tests/README.md): contains utilities to put all the pieces together and execute them as a whole while developing.
 

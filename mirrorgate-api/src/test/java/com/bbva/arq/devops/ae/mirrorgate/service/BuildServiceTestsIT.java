@@ -18,7 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildSummaryRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;

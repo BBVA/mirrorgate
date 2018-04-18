@@ -15,7 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
+import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 import java.util.Map;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;

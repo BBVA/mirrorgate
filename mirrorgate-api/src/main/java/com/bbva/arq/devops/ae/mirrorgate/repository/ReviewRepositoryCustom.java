@@ -15,8 +15,8 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import java.util.List;
 
 public interface ReviewRepositoryCustom {
@@ -41,6 +41,7 @@ public interface ReviewRepositoryCustom {
      * Get the average of star rating after the specified time of every application form a list of names.
      *
      * @param names A list with the name of the applications
+     * @param timestamp
      * @return the rating average
      */
     List<ApplicationDTO> getAverageRateByAppNamesAfterTimestamp(List<String> names, Long timestamp);

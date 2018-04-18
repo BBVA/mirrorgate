@@ -16,9 +16,9 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.BuildStatus;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 import java.util.List;
 import java.util.Map;
 

@@ -20,10 +20,10 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
+import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

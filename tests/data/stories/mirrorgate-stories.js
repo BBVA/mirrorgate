@@ -1,4 +1,4 @@
-var start = new Date((new Date()).getTime() - (1000 * 60 * 60 * 24 * 3));
+var start = new Date((new Date()).getTime() - (1000 * 60 * 60 * 24 * 7));
 var end = new Date((new Date()).getTime() + (1000 * 60 * 60 * 24 * 11));
 
 db.getCollection('feature').insertMany([
@@ -34,7 +34,11 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': start,
     'sprintEndDate': end,
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'collectorId': "mirrorgate-collectors-jira",
+    keywords: [
+        'MirrorGate',
+    ]
   },
   {
     'sId': '46095',
@@ -49,7 +53,11 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': start,
     'sprintEndDate': end,
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'collectorId': "mirrorgate-collectors-jira",
+    keywords: [
+        'MirrorGate',
+    ]
   },
   {
     'sId': '46094',
@@ -64,7 +72,11 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': start,
     'sprintEndDate': end,
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'collectorId': "mirrorgate-collectors-jira",
+    keywords: [
+        'MirrorGate',
+    ]
   },
   {
     'sId': '49140',
@@ -79,7 +91,11 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': start,
     'sprintEndDate': end,
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'collectorId': "mirrorgate-collectors-jira",
+    keywords: [
+        'MirrorGate',
+    ]
   },
   {
     'sId': '47179',
@@ -94,7 +110,11 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': ISODate('2017-03-21T21:00:50.3050000'),
     'sprintEndDate': ISODate('2017-04-04T20:00:00.0000000'),
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'collectorId': "mirrorgate-collectors-jira",
+    keywords: [
+        'MirrorGate',
+    ]
   },
   {
     'sId': '47719',

@@ -15,9 +15,9 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardType;
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import com.bbva.arq.devops.ae.mirrorgate.support.DashboardType;
 
 public class DashboardMapper {
 

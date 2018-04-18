@@ -15,10 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.utils;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency.*;
+import static com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency.*;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.FailureTendency;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency;
 
 public class BuildStatsUtils {
 

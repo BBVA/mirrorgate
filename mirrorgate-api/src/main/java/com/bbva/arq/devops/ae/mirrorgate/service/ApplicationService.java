@@ -17,8 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
-
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import java.util.List;
 
 public interface ApplicationService {

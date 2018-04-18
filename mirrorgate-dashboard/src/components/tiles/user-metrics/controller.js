@@ -35,22 +35,30 @@ var UserMetricsController = (function(dashboardId) {
       if(response.length && response.length > 0) {
         model.metrics = {
           rtActiveUsers: 0,
-          sevenDayUsers: 0
+          rtActiveUsersSampleSize: 0,
+          rtActiveUsersOneDayValue: 0,
+          rtActiveUsersOneDaySampleSize: 0,
+          sevenDayUsers: 0,
+          sevenDayUsersSampleSize: 0,
+          sevenDayUsersOneDayValue: 0,
+          sevenDayUsersOneDaySampleSize: 0
         };
 
         var versions = [];
         var versionsMap = {};
         var metricsMap = {};
-        let sevenDayUsersTendency;
-        let activeUsersTendency;
 
         response.forEach(function(metric) {
           var metricId = metric.viewId + metric.name + metric.platform + metric.appVersion;
           metricsMap[metricId] = metricsMap[metricId] && metricsMap[metricId] >= metric.timestamp ? metricsMap[metricId] : metric.timestamp;
-          if(metric.name === 'activeUsers' && metric.lastValue && metric.timestamp === metricsMap[metricId]) {
-            model.metrics.rtActiveUsers += parseInt(metric.lastValue);
+          if(metric.name === 'activeUsers' && metric.value && metric.timestamp === metricsMap[metricId]) {
+            model.metrics.rtActiveUsers += parseInt(metric.value);
+            model.metrics.rtActiveUsersSampleSize += parseInt(metric.sampleSize);
+            model.metrics.rtActiveUsersOneDayValue += parseInt(metric.oneDayValue);
+            model.metrics.rtActiveUsersOneDaySampleSize += parseInt(metric.oneDaySampleSize);
+
             if(metric.appVersion && metric.appVersion.match(_lastVersion)) {
-              var value = parseInt(metric.lastValue);
+              var value = parseInt(metric.value);
               var name = Utils.rephraseVersion(metric.appVersion, _lastVersion);
               var versionData = versionsMap[name];
 
@@ -65,13 +73,12 @@ var UserMetricsController = (function(dashboardId) {
               }
               versionData.versions[metric.appVersion] = metric.appVersion;
               versionData.value += value;
-              let activeUsersTendencyChange = parseInt(metric.shortTermTendency);
-              activeUsersTendency = activeUsersTendencyChange < -10 ? 'threedown' : activeUsersTendencyChange < -5 ? 'twodown' : activeUsersTendencyChange < -1 ? 'onedown' : activeUsersTendencyChange > 10 ? 'threeup' : activeUsersTendencyChange > 5 ? 'twoup' : activeUsersTendencyChange > 1 ? 'oneup' : 'eq';
             }
-          } else if(metric.name === '7dayUsers' && metric.lastValue && metric.timestamp === metricsMap[metricId]) {
-            model.metrics.sevenDayUsers += parseInt(metric.lastValue);
-            let sevenDaysUsersTendencyChange = parseInt(metric.longTermTendency);
-            sevenDayUsersTendency = sevenDaysUsersTendencyChange < -10 ? 'threedown' : sevenDaysUsersTendencyChange < -5 ? 'twodown' : sevenDaysUsersTendencyChange < -1 ? 'onedown' : sevenDaysUsersTendencyChange > 10 ? 'threeup' : sevenDaysUsersTendencyChange > 5 ? 'twoup' : sevenDaysUsersTendencyChange > 1 ? 'oneup' : 'eq';
+          } else if(metric.name === '7dayUsers' && metric.value && metric.timestamp === metricsMap[metricId]) {
+            model.metrics.sevenDayUsers += parseInt(metric.value);
+            model.metrics.sevenDayUsersSampleSize += parseInt(metric.sampleSize);
+            model.metrics.sevenDayUsersOneDayValue += parseInt(metric.oneDayValue);
+            model.metrics.sevenDayUsersOneDaySampleSize += parseInt(metric.oneDaySampleSize);
           }
         }, this);
 
@@ -79,8 +86,14 @@ var UserMetricsController = (function(dashboardId) {
           return - Utils.compareVersions(a.cannonical, b.cannonical, _lastVersion);
         });
 
+        var activeUsersTendencyChange = Utils.getPercentageDifference(model.metrics.rtActiveUsersOneDayValue / model.metrics.rtActiveUsersOneDaySampleSize || 0, model.metrics.rtActiveUsers / model.metrics.rtActiveUsersSampleSize || 0);
+        var activeUsersTendency = activeUsersTendencyChange < -10 ? 'threedown' : activeUsersTendencyChange < -5 ? 'twodown' : activeUsersTendencyChange < -1 ? 'onedown' : activeUsersTendencyChange > 10 ? 'threeup' : activeUsersTendencyChange > 5 ? 'twoup' : activeUsersTendencyChange > 1 ? 'oneup' : 'eq';
+        var sevenDayUsersTendencyChange = Utils.getPercentageDifference(model.metrics.sevenDayUsersOneDayValue / model.metrics.sevenDayUsersOneDaySampleSize || 0, model.metrics.sevenDayUsers / model.metrics.sevenDayUsersSampleSize || 0);
+        var sevenDayUsersTendency = sevenDayUsersTendencyChange < -10 ? 'threedown' : sevenDayUsersTendencyChange < -5 ? 'twodown' : sevenDayUsersTendencyChange < -1 ? 'onedown' : sevenDayUsersTendencyChange > 10 ? 'threeup' : sevenDayUsersTendencyChange > 5 ? 'twoup' : sevenDayUsersTendencyChange > 1 ? 'oneup' : 'eq';
+
         model.metrics.lastVersionActiveUsersRate = versions.length > 0 ? parseFloat((100 * versions[0].value / model.metrics.rtActiveUsers).toFixed(2)) : undefined;
         model.metrics.versions = versions.length && versions;
+        model.metrics.activeUsersTendency = activeUsersTendency;
         model.metrics.sevenDayUsersTendency = sevenDayUsersTendency;
       }
     }

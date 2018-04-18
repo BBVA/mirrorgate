@@ -15,8 +15,8 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Filters;
+import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
+import com.bbva.arq.devops.ae.mirrorgate.support.Filters;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.mongodb.core.index.Indexed;

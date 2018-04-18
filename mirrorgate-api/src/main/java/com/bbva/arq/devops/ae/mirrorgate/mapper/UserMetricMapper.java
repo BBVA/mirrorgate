@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.UserMetricDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
-import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
 
 public class UserMetricMapper {
 
@@ -29,14 +27,14 @@ public class UserMetricMapper {
 
     public static UserMetricDTO map(UserMetric source, UserMetricDTO target) {
         return target
-                .setViewId(source.getViewId())
-                .setAppVersion(source.getAppVersion())
-                .setPlatform(source.getPlatform())
-                .setName(source.getName())
-                .setValue(source.getValue())
-                .setSampleSize(source.getSampleSize())
-                .setTimestamp(source.getTimestamp())
-                .setCollectorId(source.getCollectorId());
+            .setViewId(source.getViewId())
+            .setAppVersion(source.getAppVersion())
+            .setPlatform(source.getPlatform())
+            .setName(source.getName())
+            .setValue(source.getValue())
+            .setSampleSize(source.getSampleSize() == null ? 1 : source.getSampleSize())
+            .setTimestamp(source.getTimestamp())
+            .setCollectorId(source.getCollectorId());
     }
 
     public static UserMetric map(UserMetricDTO source) {
@@ -45,42 +43,27 @@ public class UserMetricMapper {
 
     public static UserMetric map(UserMetricDTO source, UserMetric target) {
         return target
-                .setId(source.getViewId()
-                        + source.getPlatform()
-                        + source.getAppVersion()
-                        + source.getName()
-                        + source.getCollectorId()
-                )
-                .setViewId(source.getViewId())
-                .setAppVersion(source.getAppVersion())
-                .setPlatform(source.getPlatform())
-                .setName(source.getName())
-                .setValue(source.getValue())
-                .setSampleSize(source.getSampleSize())
-                .setTimestamp(source.getTimestamp())
-                .setCollectorId(source.getCollectorId());
-    }
-
-    public static UserMetricDTO map(HistoricUserMetric source) {
-        return new UserMetricDTO()
-                .setViewId(source.getViewId())
-                .setAppVersion(source.getAppVersion())
-                .setPlatform(source.getPlatform())
-                .setName(source.getName())
-                .setValue(source.getValue())
-                .setSampleSize(source.getSampleSize())
-                .setTimestamp(source.getTimestamp())
-                .setCollectorId(source.getCollectorId());
-    }
-
-    public static UserMetricDTO map(HistoricUserMetricStats source) {
-        return new UserMetricDTO()
+            .setId(source.getIdentifier())
             .setViewId(source.getViewId())
             .setAppVersion(source.getAppVersion())
             .setPlatform(source.getPlatform())
             .setName(source.getName())
             .setValue(source.getValue())
             .setSampleSize(source.getSampleSize())
+            .setTimestamp(source.getTimestamp())
+            .setCollectorId(source.getCollectorId());
+    }
+
+    public static UserMetricDTO map(HistoricUserMetric source) {
+        return new UserMetricDTO()
+            .setIdentifier(source.getIdentifier())
+            .setViewId(source.getViewId())
+            .setAppVersion(source.getAppVersion())
+            .setPlatform(source.getPlatform())
+            .setName(source.getName())
+            .setValue(source.getValue())
+            .setSampleSize(source.getSampleSize())
+            .setTimestamp(source.getTimestamp())
             .setCollectorId(source.getCollectorId());
     }
 

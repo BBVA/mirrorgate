@@ -16,21 +16,20 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationReviewsDTO;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.ApplicationService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 @RestController
 public class ApplicationController {
 
-    private ApplicationService applicationService;
+    private final ApplicationService applicationService;
 
     @Autowired
     public ApplicationController(ApplicationService applicationService){

@@ -17,14 +17,16 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ApplicationDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ReviewDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.Platform;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
+import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

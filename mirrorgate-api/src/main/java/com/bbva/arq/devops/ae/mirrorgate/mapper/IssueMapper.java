@@ -16,13 +16,13 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.IssueDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.ProjectDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.SprintDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssuePriority;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.IssueStatus;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.SprintStatus;
+import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ProjectDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.SprintDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.support.IssuePriority;
+import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
+import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
 import java.util.Date;
 import java.util.stream.Collectors;
 

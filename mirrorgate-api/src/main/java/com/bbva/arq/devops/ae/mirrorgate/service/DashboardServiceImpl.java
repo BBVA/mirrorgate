@@ -15,11 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus.*;
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.*;
 
-import com.bbva.arq.devops.ae.mirrorgate.core.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.core.utils.DashboardStatus;
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
@@ -29,6 +28,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
+import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
@@ -197,10 +197,10 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardRepository.readFile(dashboardName);
     }
 
+    @Override
     public List<Dashboard> getDashboardWithNames(List<String> dashboardNames){
         return dashboardRepository.findByNameIn(dashboardNames);
     }
-
 
     @Override
     public void createDashboardForBuildProject(Build build) {
