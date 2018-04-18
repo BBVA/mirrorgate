@@ -1,18 +1,3 @@
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { DeleteComponent } from '../delete/delete.component';
-import { DragulaModule, DragulaService } from 'ng2-dragula';
-import { FeedbackComponent } from '../feedback/feedback.component';
-import { FormComponent } from '../form/form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { HttpModule } from '@angular/http';
-import { ListComponent } from '../list/list.component';
-import { NgModule } from '@angular/core';
-import { rootRouterConfig } from './app.routes';
-import { RouterModule } from '@angular/router';
-import { TagInputModule } from 'ngx-chips';
 /*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
@@ -29,9 +14,21 @@ import { TagInputModule } from 'ngx-chips';
  * limitations under the License.
  */
 
-
-
-
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { DeleteComponent } from '../delete/delete.component';
+import { DragulaModule, DragulaService } from 'ng2-dragula';
+import { FeedbackComponent } from '../feedback/feedback.component';
+import { FormComponent } from '../form/form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpModule } from '@angular/http';
+import { ListComponent } from '../list/list.component';
+import { NgModule } from '@angular/core';
+import { rootRouterConfig } from './app.routes';
+import { RouterModule } from '@angular/router';
+import { TagInputModule } from 'ngx-chips';
 
 @NgModule({
   declarations: [
