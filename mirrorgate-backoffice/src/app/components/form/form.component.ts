@@ -76,6 +76,7 @@ export class FormComponent {
     value?: string
   }[];
   marketsStatsDays: number;
+  dashboardList: string[] = [];
 
   readonly MAX_COLUMNS = 5;
 
@@ -118,6 +119,10 @@ export class FormComponent {
         this.texts.loaded = true;
       })
       .catch((error: any) => { this.errorMessage = <any>error; });
+
+    this.dashboardsService.getDashboards().then(dashboards => {
+      this.dashboardList = dashboards.map(dashboard => dashboard.name);
+    });
   }
 
   setDashboard(dashboard: Dashboard) {
@@ -242,7 +247,7 @@ export class FormComponent {
   }
 
   onSave(dashboard: Dashboard): void {
-    this.saveColumns(dashboard);
+    document.getElementById('dynamicDashboardConfiguration') && this.saveColumns(dashboard);
     this.dashboardsService.saveDashboard(dashboard, this.edit)
         .then(dashboard => {
           if (dashboard) {
