@@ -62,20 +62,17 @@ tag-input {
   margin: 15px 0px 15px 0px;
   float: left;
   width: 20%;
-  height: 280px;
+  height: 370px;
 }
 
 .dashboard-cols-modules {
 
+  display: flex;
+  flex-wrap: wrap;
   min-height: 80px;
 
   .dashboard-cols-module {
-    cursor: move;
-    margin: 6px;
-    height: 80px;
-    background-color: #f0f0f0;
     width: 20%;
-    float: left;
   }
 }
 
@@ -84,6 +81,22 @@ tag-input {
   margin: 6px;
   height: 80px;
   background-color: #f0f0f0;
+
+  &.s-module {
+    height: 80px;
+  }
+
+  &.m-module {
+    height: 166px;
+  }
+
+  &.l-module {
+    height: 252px;
+  }
+
+  &.xl-module {
+    height: 338px;
+  }
 }
 
 .dashboard-cols-group {

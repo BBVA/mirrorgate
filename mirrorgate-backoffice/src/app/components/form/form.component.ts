@@ -15,7 +15,7 @@
  */
 
 import {Component} from '@angular/core';
-import {OnInit} from '@angular/core';
+import {OnInit, AfterViewChecked} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {kebabCase} from 'lodash';
 
@@ -40,6 +40,7 @@ export class FormComponent {
   slackChannels: {keys?: string[], values?: Map<string, string>} = {};
   slack: {clientId?: string, clientSecret?: string} = {};
   edit: boolean = false;
+  columnsUpdated: boolean = false;
   temp: {
     displayName?: string,
     logoUrl?: string,
@@ -132,44 +133,18 @@ export class FormComponent {
 
       accepts: function(el, target, source) {
 
-        console.log('AAA');
-
-        var componentWeight = {
-        };
-
-        componentWeight['current-sprint'] = 2;
-        componentWeight['program-increment'] = 2;
-        componentWeight['bugs'] = 1;
-        componentWeight['scm-metrics'] = 1;
-        componentWeight['alerts'] = 2;
-        componentWeight['next-sprint'] = 1;
-        componentWeight['builds'] = 2;
-        componentWeight['buildsstats'] = 1;
-        componentWeight['markets'] = 1;
-        componentWeight['reviews'] = 1;
-        componentWeight['user-metrics'] = 1;
-        componentWeight['operations-metrics'] = 1;
-
         if(target.classList.contains('dashboard-cols-template')){
           var elements = target.getElementsByClassName('dashboard-cols-module');
-          var total_weight = 0;
+          var total_size = 0;
 
-          var i;
-          for(i = 0; i < elements.length; i++){
-            var element=elements[i];
-            var id = elements[i].id;
-
-            var weight = componentWeight[id];
-            total_weight = total_weight + weight;
-
-            if(total_weight > 3){
-              console.log('DDDD');
+          for(var i = 0; i < elements.length; i++){
+            total_size += Number(elements[i].getAttribute('size'));
+            if(total_size > 4){
               return false;
             }
           }
         }
 
-        console.log('EEEE');
         return true;
       },
 
@@ -286,6 +261,23 @@ export class FormComponent {
     }
   }
 
+  private updateColumns() {
+    if (this.columnsUpdated || !this.dashboard || !this.dashboard.columns || !document.getElementById('columns')) {
+      return;
+    }
+
+    this.columnsUpdated = true;
+
+    this.dashboard.columns.forEach((column, index) => {
+      let column_element = document.getElementById(`col${index+1}`);
+      column.forEach(id => {
+        let module_element  = document.getElementById(id)
+        column_element.appendChild(module_element);
+      });
+    });
+
+  }
+
   private updateSlackChannels(): void {
     this.slackService.getChannels(this.dashboard).then((channels) => {
       this.slackChannels.values = channels;
@@ -350,20 +342,8 @@ export class FormComponent {
     }
   }
 
-  isOnDashboard(component: string) {
-    if (!this.dashboard.columns) {
-      return false;
-    }
-
-    let found = false;
-    this.dashboard.columns.forEach(column => {
-      if(column.indexOf(component) > -1) {
-        found = true;
-        return;
-      }
-    });
-
-    return found;
+  ngAfterViewChecked() {
+    this.updateColumns();
   }
 
 }
