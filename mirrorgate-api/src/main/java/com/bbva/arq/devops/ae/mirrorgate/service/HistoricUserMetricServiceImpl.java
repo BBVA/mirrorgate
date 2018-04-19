@@ -100,7 +100,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
             .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
 
         Map<String, HistoricUserMetricStats> sevenDaysPeriodMetrics = historicUserMetricRepository
-            .getUserMetricTendencyForPeriod(views, HOURS, LocalDateTimeHelper.getTimestampForNUnitsAgo(SEVEN_DAYS_PERIOD, HOURS))
+            .getUserMetricTendencyForPeriod(views, DAYS, LocalDateTimeHelper.getTimestampForNUnitsAgo(SEVEN_DAYS_PERIOD, DAYS))
             .stream()
             .collect(Collectors.toMap(HistoricUserMetricStats::getIdentifier, HistoricUserMetricStats::getInstance));
 

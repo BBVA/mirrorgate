@@ -10,6 +10,7 @@ public class HistoricUserMetric extends BaseModel {
     @Indexed
     private String identifier;
 
+    @Indexed
     private String viewId;
 
     private String appVersion;
