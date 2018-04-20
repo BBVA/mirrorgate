@@ -45,8 +45,6 @@
 <script>
   (function (window, document, undefined) {
 
-    var breakTimeout;
-
     MGComponent({
       name: 'notifications-tile',
       controllerClass: NotificationsController,
@@ -70,16 +68,6 @@
 
         if (data && data.detail) {
           model.notification = data.detail;
-          if(model.notification.description.indexOf('MIRRORBREAK!') >= 0) {
-            $('.easter-egg').css('display','block');
-            if(breakTimeout) {
-              clearTimeout(breakTimeout);
-            }
-            breakTimeout = setTimeout(function () {
-              $('.easter-egg').css('display', 'none');
-              breakTimeout = undefined;
-            }, 60000);
-          }
         }
       }
     });

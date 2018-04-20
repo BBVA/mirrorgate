@@ -18,6 +18,8 @@ var Utils = (function() {
   'use strict';
 
   var breakFavIconTimeout;
+  var breakTimeout;
+
   var colorMapping = {
     'daa038' : 'yellow', // Warning status color for Slack
     'd00000': 'red', // Danger status color for Slack
@@ -33,7 +35,16 @@ var Utils = (function() {
   document.addEventListener('HeadsUp', notifyFavIcon);
 
   function checkNotification(data) {
-    if (Notification.permission === "granted") {
+    if(data.detail.description.indexOf('MIRRORBREAK!') >= 0) {
+      $('.easter-egg').css('display','block');
+      if(breakTimeout) {
+        clearTimeout(breakTimeout);
+      }
+      breakTimeout = setTimeout(function () {
+        $('.easter-egg').css('display', 'none');
+        breakTimeout = undefined;
+      }, 60000);
+    } else if (Notification.permission === "granted") {
       if (data && data.detail) {
         if(notification) {
           notification.close();
