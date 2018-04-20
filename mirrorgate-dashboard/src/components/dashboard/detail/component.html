@@ -100,7 +100,7 @@
       this.getModel().layout.withFooter =
           config.slackTeam || (config.codeRepos && config.codeRepos.length) ? true: false;
 
-      if(config.type === "Custom" && config.columns
+      if(config.columns
         && ((config.columns[0] && config.columns[0].length > 0) ||
             (config.columns[1] && config.columns[1].length > 0) ||
             (config.columns[2] && config.columns[2].length > 0) ||
