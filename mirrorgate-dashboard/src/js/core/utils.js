@@ -35,7 +35,7 @@ var Utils = (function() {
   document.addEventListener('HeadsUp', notifyFavIcon);
 
   function checkNotification(data) {
-    if(data.detail.description.indexOf('MIRRORBREAK!') >= 0) {
+    if(data && data.detail && data.detail.description.indexOf('MIRRORBREAK!') >= 0) {
       $('.easter-egg').css('display','block');
       if(breakTimeout) {
         clearTimeout(breakTimeout);
