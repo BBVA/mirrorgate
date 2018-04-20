@@ -104,7 +104,21 @@
     "columns_block": {
       "title": "Columns configuration",
       "dashboard": "Dashboard configuration:",
-      "modules": "Modules:"
+      "modules": "Modules:",
+      "modules_block": {
+        "current_sprint": "Current Sprint",
+        "program_increment": "Program Increment",
+        "bugs": "Bugs",
+        "scm_metrics": "Commits",
+        "alerts": "Alerts",
+        "next_sprint": "Backlog Status",
+        "builds": "Builds",
+        "buildsstats": "Build Stats",
+        "markets": "Markets",
+        "reviews": "Latest Comments",
+        "user_metrics": "Users",
+        "operations_metrics": "Operations"
+      }
     }
   }
 }
