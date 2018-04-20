@@ -164,13 +164,17 @@
         }
 
         Object.keys(names).forEach(function (name) {
-          $('tile-container.for-' + name,this).removeClass('visible');
+          this.querySelectorAll('tile-container.for-' + name).forEach(function(tile) {
+            tile.classList.remove('visible');
+          });
         },this);
 
         //Separate the loop so that legends can be shared
         Object.keys(names).forEach(function (name) {
           if(this.querySelector(name + '[enabled=true]')) {
-            $('tile-container.for-' + name,this).addClass('visible');
+            this.querySelectorAll('tile-container.for-' + name).forEach(function(tile) {
+              tile.classList.add('visible');
+            });
           }
         },this);
       });

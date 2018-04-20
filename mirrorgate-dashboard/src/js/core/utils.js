@@ -36,12 +36,12 @@ var Utils = (function() {
 
   function checkNotification(data) {
     if(data && data.detail && data.detail.description.indexOf('MIRRORBREAK!') >= 0) {
-      $('.easter-egg').css('display','block');
+      document.getElementById('easter-egg').style.display = 'block';
       if(breakTimeout) {
         clearTimeout(breakTimeout);
       }
       breakTimeout = setTimeout(function () {
-        $('.easter-egg').css('display', 'none');
+        document.getElementById('easter-egg').style.display = 'none';
         breakTimeout = undefined;
       }, 60000);
     } else if (Notification.permission === "granted") {
