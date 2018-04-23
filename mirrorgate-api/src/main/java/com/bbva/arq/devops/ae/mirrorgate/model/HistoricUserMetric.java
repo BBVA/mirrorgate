@@ -1,10 +1,12 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import java.time.temporal.ChronoUnit;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "historic_user_metrics")
+@CompoundIndex(name = "tendency", def = "{'viewId' : 1, 'historicType': 1, 'timestamp': 1}")
 public class HistoricUserMetric extends BaseModel {
 
     @Indexed
