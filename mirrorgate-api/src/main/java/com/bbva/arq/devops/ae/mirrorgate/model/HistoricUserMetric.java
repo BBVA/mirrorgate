@@ -22,7 +22,6 @@ public class HistoricUserMetric extends BaseModel {
 
     private Long sampleSize;
 
-    @Indexed
     private Long timestamp;
 
     /* Associated collector ID */
