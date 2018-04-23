@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "historic_user_metrics")
 public class HistoricUserMetric extends BaseModel {
 
+    @Indexed
     private String identifier;
 
     @Indexed
@@ -22,6 +23,7 @@ public class HistoricUserMetric extends BaseModel {
 
     private Long sampleSize;
 
+    @Indexed
     private Long timestamp;
 
     /* Associated collector ID */
