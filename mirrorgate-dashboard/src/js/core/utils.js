@@ -187,6 +187,13 @@ var Utils = (function() {
       return false;
     },
 
+    openReleaseNotes: function () {
+      window.mirrorGateConfig().then(function (config) {
+        document.location.href = config.docsUrl + '/changelog.html';
+      });
+      return false;
+    },
+
     compareVersions: function (version1, version2, regExp) {
 
       var v1parts = regExp.exec(version1) || [];

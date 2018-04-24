@@ -1,3 +1,4 @@
 {
-  "backOfficeUrl":"./backoffice/"
+  "backOfficeUrl":"./backoffice/",
+  "docsUrl":"./docs/"
 }
