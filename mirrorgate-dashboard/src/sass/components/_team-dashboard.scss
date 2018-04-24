@@ -65,6 +65,33 @@
       stroke-opacity: 1;
     }
 
+    .component__header {
+
+      i.fa {
+        margin: 0 0 5px 5px;
+        font-size: 1.2em;
+
+        .tooltip {
+          visibility: hidden;
+          width: 300px;
+          background-color: #0c0c0c;
+          text-align: left;
+          border-radius: 10px;
+          padding: 15px;
+          position: absolute;
+          margin-top: 5px;
+          margin-left: -5px;
+          z-index: 1;
+        }
+
+      }
+
+      i.fa:hover .tooltip {
+        visibility: visible;
+      }
+
+    }
+
 }
 
 @media all and (min-width: $l) {
