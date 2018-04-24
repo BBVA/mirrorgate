@@ -162,6 +162,9 @@
 
         var model = this.getModel();
         model.metrics = data.metrics;
+        if(data.metrics) {
+          model.metrics.availabilityRate = data.metrics.availabilityRate ? Math.floor(data.metrics.availabilityRate) : undefined;
+        }
         this.setAttribute('enabled', model.metrics !== undefined);
         data.metrics && this.checkOperationMetricsToSendEvent(data);
       }
