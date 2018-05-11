@@ -149,7 +149,7 @@ var OperationsUtils = (function() {
       });
 
       for (var viewId in metricsMap) {
-        var stats = OperationsUtils.getStats(metricsMap[viewId], infraCost)
+        var stats = OperationsUtils.getStats(metricsMap[viewId], infraCost);
 
         if(stats) {
           metricsGroup.push(JSON.stringify({
