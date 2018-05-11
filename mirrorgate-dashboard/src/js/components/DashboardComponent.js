@@ -28,13 +28,16 @@ var DashboardComponent = (function() {
 
     return BaseComponent.prototype.connectedCallback.apply(this).then(function () {
       this.addEventListener('dashboard-updated', function(e) {
-        d3.select(this).classed({
-          'module-error': e.detail.status === 'error',
-          'module-warning': e.detail.status === 'warn',
-          'module-ok': e.detail.status === 'ok',
-          'module-empty': e.detail.status === 'empty',
-          'module-data-error': e.detail.status === 'server-error'
-        });
+
+        if(e.detail.status) {
+          d3.select(this).classed({
+            'module-error': e.detail.status === 'error',
+            'module-warning': e.detail.status === 'warn',
+            'module-ok': e.detail.status === 'ok',
+            'module-empty': e.detail.status === 'empty',
+            'module-data-error': e.detail.status === 'server-error'
+          });
+        }
 
         if(this.classList.contains('keep-height')) {
           setTimeout(function () {
@@ -44,7 +47,6 @@ var DashboardComponent = (function() {
 
               this.parentElement.style["min-height"]=height + 'px';
               this.parentElement.style.height='auto';
-              //this.parentElement.style["flex-basis"]='unset';
             }
           }.bind(this));
         }

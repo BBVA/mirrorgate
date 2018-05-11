@@ -117,7 +117,8 @@
         "markets": "Markets",
         "reviews": "Latest Comments",
         "user_metrics": "Users",
-        "operations_metrics": "Operations"
+        "operations_metrics": "Operations",
+        "detail_operations_metrics": "Detail Operations"
       }
     }
   }

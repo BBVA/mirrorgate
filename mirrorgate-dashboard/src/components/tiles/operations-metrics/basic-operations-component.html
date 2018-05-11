@@ -1,0 +1,111 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- build:js basic-operations-component.min.js -->
+<script src="operations-utils.js"></script>
+<!-- endbuild -->
+
+<template>
+  <style>
+    @import "css/{skin}.css";
+  </style>
+  <div class="basic-operations component__content">
+    <div class="component__header">
+      <h3 class="title">
+        <span rv-title="viewTitle">{viewId}</span>
+      </h3>
+      <h3 class="title-desc">
+        <span rv-hide="stats">No metrics collected</span>
+        <span rv-show="stats.requestsNumber | >= 0">{stats.requestsNumber | bigNumber} requests</span>
+        <span rv-if="stats.requestsNumberTendency" class="tendency" rv-pclass-tendency="stats.requestsNumberTendency"></span>
+    </h3>
+    </div>
+    <div class="component__body">
+      <div class="indicator__bar">
+        <div class="indicator" rv-if="stats.errorsRate | >= 0">
+          <div class="stats">{stats.errorsRate}%<span class="tendency" rv-if="stats.errorsRateTendency" rv-pclass-tendency="stats.errorsRateTendency"></span></div>
+          <div class="stat-desc">of errors</div>
+        </div>
+        <div class="indicator" rv-if="stats.availabilityRate | >= 0">
+          <div class="stats">{stats.availabilityRate}%<span class="tendency" rv-if="stats.availabilityRateTendency" rv-pclass-tendency="stats.availabilityRateTendency"></span></div>
+          <div class="stat-desc">of availability</div>
+        </div>
+        <div class="indicator" rv-if="stats.responseTime | >= 0">
+          <div class="stats">{stats.responseTime}s<span class="tendency" rv-if="stats.responseTimeTendency" rv-pclass-tendency="stats.responseTimeTendency"></span></div>
+          <div class="stat-desc"> response time</div>
+        </div>
+        <div class="indicator" rv-if="stats.infraCost | >= 0">
+          <div class="stats">{stats.infraCost}$<span class="tendency" rv-if="stats.infraCostTendency" rv-pclass-tendency="stats.infraCostTendency"></span></div>
+          <div class="stat-desc">infrastructure cost</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+  MGComponent({
+    name: 'basic-operations-metrics-tile',
+    parent: Tile,
+
+    processAlerts: function (data) {
+      Utils.raiseEvent(this, {});
+
+      var levelEvent = ['ok', 'warn', 'error', 'server-error'];
+      var status = data ? (data.stats ? levelEvent[OperationsUtils.getComponentState(
+          data.stats,
+          {
+            warning: this.getConfig().responseTimeAlertingLevelWarning,
+            error: this.getConfig().responseTimeAlertingLevelError
+          },
+          {
+            warning: this.getConfig().errorsRateAlertingLevelWarning,
+            error: this.getConfig().errorsRateAlertingLevelError
+          })] : 'empty') : levelEvent[3];
+
+      d3.select(this).classed({
+        'module-error': status === 'error',
+        'module-warning': status === 'warn',
+        'module-ok': status === 'ok',
+        'module-empty': status === 'empty',
+        'module-data-error': status === 'server-error'
+      });
+    },
+
+    render: function (data) {
+      this.processAlerts(data);
+
+      if (data) {
+        var model = this.getModel();
+
+        var viewId = data.viewId.split('/'); // Avoid large viewId
+        viewId.splice(1, viewId.length-2);
+        model.viewId = viewId.join('/');
+        model.viewTitle = data.viewId
+
+        model.stats = data.stats;
+
+        if(model.stats !== undefined) {
+          this.setAttribute('enabled', model.stats !== undefined);
+          OperationsUtils.checkOperationMetricsToSendEvent(model.viewId, model.stats, this.getConfig());
+        }
+      }
+    }
+  });
+
+</script>
