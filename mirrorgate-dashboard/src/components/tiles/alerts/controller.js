@@ -128,7 +128,7 @@ var AlertsController = (function(dashboardId) {
       var unstableAlertsCount = 0;
 
       //TODO: to improve
-      if(data.alerts) {
+      if(data.alerts && data.alerts.length > 0) {
         if(data.alerts[0].alerts) { //It is a group
 
           for (var i in data.alerts) {
