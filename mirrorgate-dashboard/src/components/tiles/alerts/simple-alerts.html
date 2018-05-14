@@ -26,22 +26,22 @@
   </style>
 
   <div class="component__content alerts__content">
-    <div class="component__header" rv-hide="alerts">
-      <h2 class="title">No alert data</h2>
-    </div>
-    <div class="component__header" rv-show="alerts">
+    <div class="component__header">
       <h2 class="title">
-        <span class="status__indicator" rv-pclass-status__indicator="status"></span>
+        <span rv-if="status" class="status__indicator" rv-pclass-status__indicator="status"></span>
         <span rv-if="status | = 'error'" class="indicator"><span class="stat-important">{failedAlertsCount}</span> of {totalAlertsCount} alerts failed</span>
         <span rv-if="status | = 'warn'" class="indicator"><span class="stat-important">{unstableAlertsCount}</span> of {totalAlertsCount} unstable alerts</span>
         <span rv-if="status | = 'ok'" class="indicator"><span class="stat-important">{accomplishedAlertsCount}</span> alerts ok</span>
       </h2>
+      <h2 class="title-desc">
+        <span rv-hide="alerts">No alert data</span>
+      </h2>
     </div>
-    <div class="component__body" rv-show="alerts">
-      <div class="progress-bar">
+    <div class="component__body">
+      <div rv-show="alerts" class="progress-bar">
         <div rv-each-item="items" rv-show="item.width" class="progress__bar" role="progressbar" rv-pclass-fill="item.status" rv-width="item.width"></div>
       </div>
-      <div rv-show="accomplishedAlertsPercentage"class="indicator__bar">
+      <div rv-if="accomplishedAlertsPercentage"class="indicator__bar">
         <div class="indicator alert__accomplished">
           <div class="stats">{accomplishedAlertsPercentage}%<span class="builds-tendency" rv-pclass-tendency="accomplishedAlerts"></span></div>
           <div class="stat-desc">Accomplished</div>

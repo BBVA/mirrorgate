@@ -16,7 +16,7 @@
 
 alerts-tile {
   overflow: hidden;
-  
+
   &.tile.module-ok {
     box-shadow: none;
   }
@@ -27,6 +27,15 @@ alerts-tile {
 
   .title {
     color: $alerts-header-color;
+  }
+
+  .title-desc {
+    color: white;
+    font-weight: inherit;
+    margin-bottom: 0;
+    text-align: right;
+    text-transform: none;
+    font-size: .95vw !important
   }
 
   .component__body {
@@ -113,7 +122,7 @@ alerts-tile {
     }
 
     .alert__state  {
-      
+
       .fa {
         font-size: $level-5;
       }
