@@ -2,17 +2,19 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import java.time.temporal.ChronoUnit;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "historic_user_metrics")
-@CompoundIndex(name = "tendency", def = "{'viewId' : 1, 'historicType': 1, 'timestamp': 1}")
+@CompoundIndexes({
+    @CompoundIndex(name = "tendency", def = "{'viewId' : 1, 'historicType': 1, 'timestamp': 1}"),
+    @CompoundIndex(name = "compound", def = "{'identifier' : 1, 'historicType': 1, 'timestamp': 1}")
+})
 public class HistoricUserMetric extends BaseModel {
 
-    @Indexed
     private String identifier;
 
-    @Indexed
     private String viewId;
 
     private String appVersion;
@@ -25,13 +27,11 @@ public class HistoricUserMetric extends BaseModel {
 
     private Long sampleSize;
 
-    @Indexed
     private Long timestamp;
 
     /* Associated collector ID */
     private String collectorId;
 
-    @Indexed
     private ChronoUnit historicType;
 
     public String getIdentifier() {
