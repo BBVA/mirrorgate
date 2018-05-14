@@ -84,7 +84,7 @@ var OperationsUtils = (function() {
     },
 
     getComponentState: function(metrics, responseTimeAlertingLevels, errorsRateAlertingLevels){
-      return Math.max(getMetricState(metrics.responseTime, responseTimeAlertingLevels), getMetricState(metrics.errorsRate, errorsRateAlertingLevels));
+      return Math.max(OperationsUtils.getMetricState(metrics.responseTime, responseTimeAlertingLevels), OperationsUtils.getMetricState(metrics.errorsRate, errorsRateAlertingLevels));
     },
 
     getStats: function (metrics, infraCost) {
