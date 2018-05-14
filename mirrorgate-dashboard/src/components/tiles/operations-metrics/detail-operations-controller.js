@@ -15,6 +15,7 @@
  */
 
 var DetailOperationsController = (function(dashboardId) {
+  'use strict';
 
   var observable = new Event('DetailOperationsController');
   var service = Service.get(Service.types.userMetrics, dashboardId);

@@ -32,7 +32,6 @@
 <link rel="import" href="../../tiles/alerts/component.html" >
 <link rel="import" href="../../tiles/user-metrics/component.html" >
 <link rel="import" href="../../tiles/operations-metrics/operations-component.html" >
-<link rel="import" href="../../tiles/operations-metrics/detail-operations-component.html" >
 <link rel="import" href="../../tiles/operations-metrics/basic-operations-component.html" >
 
 <template>
@@ -66,8 +65,7 @@
             <markets-tile rv-if="tile | = 'markets'" rv-config="config" class="tile" data-size="m"></markets-tile>
             <reviews-tile rv-if="tile | = 'reviews'" rv-config="config" class="tile" data-size="l"></reviews-tile>
             <user-metrics-tile rv-if="tile | = 'user-metrics'" rv-config="config" class="tile" data-size="m"></user-metrics-tile>
-            <operations-metrics-tile rv-if="tile | = 'operations-metrics'" rv-config="config" class="tile" data-size="m"></operations-metrics-tile>
-            <detail-operations-metrics-tile rv-if="tile | = 'detail-operations-metrics'" rv-config="config" class="tile" data-size="s"></detail-operations-metrics-tile>
+            <operations-metrics-tile rv-if="tile | = 'operations-metrics'" rv-config="config" class="tile" data-size="l"></operations-metrics-tile>
             <alerts-tile rv-if="tile | = 'alerts'" rv-config="config" class="tile" data-size="fixed-right"></alerts-tile>
           </tile-container>
 

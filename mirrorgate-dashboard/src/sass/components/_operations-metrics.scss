@@ -23,12 +23,17 @@
         font-size: 2.0em;
       }
     }
-
   }
 
-  .metrics {
-    height: calc(100vh - #{$header-footer-height});
-    display: flex !important;
+  .indicator__bar:last-child {
+    padding-bottom: 15px;
+  }
+
+  .tile {
+    margin: 7.5px;
+    background-color: #222;
+    height: 100%;
+    box-sizing: border-box;
   }
 
   .metrics-groups {
@@ -40,7 +45,6 @@
   }
 
   .metrics-stats {
-    padding-bottom: 30px;
     padding-top: 20px;
   }
 }
@@ -63,7 +67,14 @@
 }
 
 .basic-operations {
-  background-color: #222;
+
+  .component__header {
+    padding: 10px;
+  }
+
+  .component__body {
+    padding: 10px;
+  }
 
   .indicator__bar {
     .indicator {
@@ -81,7 +92,4 @@
     margin-top: 0;
   }
 
-  .component__body {
-    padding: 15px 0 0 0
-  }
 }

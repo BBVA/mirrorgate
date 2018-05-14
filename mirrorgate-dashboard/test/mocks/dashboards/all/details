@@ -15,6 +15,7 @@
   "urlAlerts": "dashboards/all/alerts",
   "urlAlertsAuthorization": "a=b&c=d&e=f",
   "analyticViews": ["123412"],
+  "operationViews": ["123412"],
   "infraCost": true,
   "gitRepos": [
     "ssh://git@fake.com:fake/repo1.git",
