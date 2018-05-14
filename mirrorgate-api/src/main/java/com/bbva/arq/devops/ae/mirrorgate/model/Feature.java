@@ -33,6 +33,7 @@ public class Feature extends BaseModel{
     private String sId;
     private String sNumber;
     private String sName;
+    @Indexed
     private String sTypeName;
     private String sStatus;
     private Double dEstimate;
@@ -56,6 +57,7 @@ public class Feature extends BaseModel{
     /* Associated PI properties */
     private List<String> sPiNames;
 
+    @Indexed
     private List<String> sParentKey;
     private List<Long> lParentId;
 
