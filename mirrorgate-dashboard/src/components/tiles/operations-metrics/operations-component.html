@@ -47,9 +47,8 @@
           </board-column>
         </board-row>
       </board-column>
-
       <div class="metrics-stats">
-        <div class="indicator__bar" rv-show="stats.requestsNumber | >= 0">
+        <div class="indicator__bar">
           <div class="indicator" rv-if="stats.errorsRate | >= 0">
             <div class="stats">{stats.errorsRate}%<span class="tendency" rv-if="stats.errorsRateTendency" rv-pclass-tendency="stats.errorsRateTendency"></span></div>
             <div class="stat-desc">of errors</div>
@@ -148,7 +147,6 @@
           this.getConfig().errorsRateAlertingLevelError
         );
         model.stats = OperationsUtils.getStats(data.metrics, this.getConfig().infraCost);
-
         if(model.stats !== undefined) {
           this.setAttribute('enabled', model.stats !== undefined);
           OperationsUtils.checkOperationMetricsToSendEvent('Operations', model.stats, this.getConfig());
