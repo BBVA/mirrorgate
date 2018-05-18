@@ -101,10 +101,10 @@ var OperationsUtils = (function() {
           };
         }
 
-        metricsMap[metric.name].oneDayValue = metric.oneDayValue ? metricsMap[metric.name].oneDayValue + metric.oneDayValue : metricsMap[metric.name].oneDayValue;
-        metricsMap[metric.name].oneDaySampleSize = metric.oneDaySampleSize ? metricsMap[metric.name].oneDaySampleSize + metric.oneDaySampleSize : metricsMap[metric.name].oneDaySampleSize;
-        metricsMap[metric.name].sevenDaysValue = metric.sevenDaysValue ? metricsMap[metric.name].sevenDaysValue + metric.sevenDaysValue : metricsMap[metric.name].sevenDaysValue;
-        metricsMap[metric.name].sevenDaysSampleSize = metric.sevenDaysSampleSize ? metricsMap[metric.name].sevenDaysSampleSize + metric.sevenDaysSampleSize : metricsMap[metric.name].sevenDaysSampleSize;
+        metricsMap[metric.name].oneDayValue = metric.oneDayValue ? metricsMap[metric.name].oneDayValue + parseFloat(metric.oneDayValue) : parseFloat(metricsMap[metric.name].oneDayValue);
+        metricsMap[metric.name].oneDaySampleSize = metric.oneDaySampleSize ? metricsMap[metric.name].oneDaySampleSize + parseInt(metric.oneDaySampleSize) : parseInt(metricsMap[metric.name].oneDaySampleSize);
+        metricsMap[metric.name].sevenDaysValue = metric.sevenDaysValue ? metricsMap[metric.name].sevenDaysValue + parseFloat(metric.sevenDaysValue) : parseFloat(metricsMap[metric.name].sevenDaysValue);
+        metricsMap[metric.name].sevenDaysSampleSize = metric.sevenDaysSampleSize ? metricsMap[metric.name].sevenDaysSampleSize + parseInt(metric.sevenDaysSampleSize) : parseInt(metricsMap[metric.name].sevenDaysSampleSize);
       });
 
       for (var metric in metricsMap) {
