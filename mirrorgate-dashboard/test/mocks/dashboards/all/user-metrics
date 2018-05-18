@@ -4,9 +4,9 @@
     "appVersion" : "1.0.0",
     "platform" : "Unknown",
     "name" : "activeUsers",
-    "value" : 6,
+    "value" : "6",
     "value": 6,
-    "timestamp" : "1516709298000",
+    "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
   {
@@ -14,8 +14,8 @@
     "appVersion" : "1.0.1",
     "platform" : "Android",
     "name" : "7dayUsers",
-    "value" : 55,
-    "timestamp" : "1516709298000",
+    "value" : "55",
+    "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
   {
@@ -23,9 +23,9 @@
     "appVersion" : "1",
     "platform" : "Android",
     "name" : "activeUsers",
-    "value" : 12,
+    "value" : "12",
     "value": 12,
-    "timestamp" : "1516709298000",
+    "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
   {
@@ -33,8 +33,8 @@
     "appVersion" : "1",
     "platform" : "Android",
     "name" : "7dayUsers",
-    "value" : 12,
-    "timestamp" : "1516709298000",
+    "value" : "12",
+    "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
   {
@@ -42,9 +42,9 @@
     "appVersion" : "2",
     "platform" : "Android",
     "name" : "activeUsers",
-    "value" : 12,
+    "value" : "12",
     "value": 12,
-    "timestamp" : "1516709298000",
+    "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
   {
@@ -52,7 +52,7 @@
     "appVersion" : "1",
     "platform" : "Android",
     "name" : "requestsNumber",
-    "value" : 5,
+    "value" : "12",
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
@@ -61,57 +61,81 @@
     "appVersion" : "1",
     "platform" : "Android",
     "name" : "errorsNumber",
-    "value" : 12,
+    "value" : "12",
     "timestamp" : "1505301880665",
-    "collectorId" : "collector1"
+    "collectorId" : "collector1",
+    "oneDaySampleSize": "3654",
+    "oneDayValue": "500",
+    "sevenDaysSampleSize": "138541",
+    "sevenDaysValue": "5000"
   },
   {
     "viewId" : "1234123",
     "appVersion" : "2",
     "platform" : "Android",
     "name" : "requestsNumber",
-    "value" : 15,
-    "timestamp" : "1505301880665",
-    "collectorId" : "collector1"
-  },
-  {
-    "viewId" : "1234123",
-    "appVersion" : "1",
-    "platform" : "Android",
-    "name" : "responseTime",
-    "value" : 0.25,
-    "sampleSize" : 200,
+    "value" : "12",
     "timestamp" : "1505301880665",
     "collectorId" : "collector1",
-    "sampleSize": 5
+    "oneDaySampleSize": "3",
+    "oneDayValue": "3500",
+    "sevenDaysSampleSize": "138541",
+    "sevenDaysValue": "75503.22"
   },
   {
     "viewId" : "1234123",
-    "appVersion" : "2",
-    "platform" : "Android",
-    "name" : "responseTime",
-    "value" : 0.675,
-    "sampleSize" : 300,
-    "timestamp" : "1505301880665",
-    "collectorId" : "collector1",
-    "sampleSize": 15
-  },
-  {
-    "viewId" : "1234123",
+    "identifier": "AWS/1234123/alb",
     "appVersion" : "2",
     "platform" : "Android",
     "name" : "availabilityRate",
-    "value" : 85,
-    "sampleSize" : 215,
+    "value" : "99.99",
     "timestamp" : "1505301880665",
-    "collectorId" : "collector1"
+    "collectorId" : "collector1",
+    "oneDaySampleSize": "3",
+    "oneDayValue": "255",
+    "sevenDaysSampleSize": "138541",
+    "sevenDaysValue": "75503.22"
   },
   {
     "viewId" : "1234123",
+    "identifier": "AWS/1234123",
+    "appVersion" : "2",
     "platform" : "AWS",
-    "name" : "infrastructureCost",
-    "value" : 769.23,
+    "name" : "responseTime",
+    "value" : "1.2",
+    "sampleSize": "369.0",
     "timestamp" : "1505301880665",
-    "collectorId" : "collector1"
+    "collectorId" : "collector1",
+    "oneDaySampleSize": "31099",
+    "oneDayValue": "41997.91",
+    "sevenDaysSampleSize": "138541",
+    "sevenDaysValue": "75503.22"
+  },
+  {
+    "viewId" : "AWS/1234123/alb",
+    "appVersion" : "2",
+    "platform" : "AWS",
+    "name" : "requestsNumber",
+    "value" : "12",
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1",
+    "oneDaySampleSize": "3654",
+    "oneDayValue": "5373788",
+    "sevenDaysSampleSize": "138541",
+    "sevenDaysValue": "75503.22"
+  },
+  {
+    "viewId" : "AWS/1234123/alb2",
+    "identifier": "AWS/1234123/alb2",
+    "appVersion" : "2",
+    "platform" : "Android",
+    "name" : "availabilityRate",
+    "value" : "99.99",
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1",
+    "oneDaySampleSize": "3",
+    "oneDayValue": "150",
+    "sevenDaysSampleSize": "138541",
+    "sevenDaysValue": "75503.22"
   }
 ]

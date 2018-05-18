@@ -34,6 +34,7 @@
   "programIncrement": "MG02",
   "urlAlerts": "dashboards/mirrorgate/alerts",
   "analyticViews": ["123412"],
+  "operationViews": ["123412"],
   "responseTimeAlertingLevelWarning":0.7,
   "responseTimeAlertingLevelError":1.0,
   "errorsRateAlertingLevelWarning":0.1,

@@ -1,48 +1,21 @@
-db.getCollection('user-metrics').insertMany([
+
+var now = new Date();
+var startOfMinute = parseInt((new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())).getTime());
+var startOfHour = parseInt((new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours())).getTime());
+var startOfDay = parseInt((new Date(now.getFullYear(), now.getMonth(), now.getDate())).getTime());
+
+db.getCollection('historic_user_metrics').insertMany([
   {
     "viewId" : "1234123",
-    "appVersion" : "1.0.0",
-    "platform" : "Unknown",
-    "name" : "activeUsers",
-    "value" : 6,
-    "timestamp" : 1505301880665,
-    "collectorId" : "collector1"
-  },
-  {
-    "viewId" : "1234123",
-    "appVersion" : "1.0.1",
-    "platform" : "IOS",
-    "name" : "7dayUsers",
-    "value" : 55,
-    "timestamp" : 1505301880665,
-    "collectorId" : "collector1"
-  },
-  {
-    "viewId" : "1234123",
-    "appVersion" : "1",
-    "platform" : "Android",
-    "name" : "activeUsers",
-    "value" : 12,
-    "timestamp" : 1505301880665,
-    "collectorId" : "collector1"
-  },
-  {
-    "viewId" : "1234123",
-    "appVersion" : "1",
-    "platform" : "Android",
-    "name" : "7dayUsers",
-    "value" : 12,
-    "timestamp" : 1505301880665,
-    "collectorId" : "collector1"
-  },
-  {
-    "viewId" : "1234123",
+    "identifier": "AWS/1234123/alb",
     "appVersion" : "2",
     "platform" : "Android",
-    "name" : "activeUsers",
-    "value" : 12,
-    "timestamp" : 1505301880665,
-    "collectorId" : "collector1"
+    "name" : "availabilityRate",
+    "value" : 99.99,
+    "sampleSize": 1,
+    "timestamp" : startOfMinute,
+    "collectorId" : "collector1",
+    "historicType" : "MINUTES"
   },
   {
     "viewId" : "1234123",
@@ -52,19 +25,9 @@ db.getCollection('user-metrics').insertMany([
     "name" : "availabilityRate",
     "value" : 99.99,
     "sampleSize": 1,
-    "timestamp" : 1505301880665,
+    "timestamp" : startOfHour,
     "collectorId" : "collector1",
-  },
-  {
-    "viewId" : "1234123",
-    "identifier": "AWS/1234123/alb",
-    "appVersion" : "2",
-    "platform" : "Android",
-    "name" : "availabilityRate",
-    "value" : 99.99,
-    "sampleSize": 1,
-    "timestamp" : 1505301880665,
-    "collectorId" : "collector1",
+    "historicType" : "HOURS"
   },
   {
     "viewId" : "AWS/1234123/alb2",
@@ -74,8 +37,9 @@ db.getCollection('user-metrics').insertMany([
     "name" : "availabilityRate",
     "value" : 99.99,
     "sampleSize": 1,
-    "timestamp" : 1505301880665,
+    "timestamp" : startOfDay,
     "collectorId" : "collector1",
+    "historicType" : "DAYS"
   },
   {
     "viewId" : "1234123",
@@ -85,8 +49,9 @@ db.getCollection('user-metrics').insertMany([
     "name" : "responseTime",
     "value" : 1.2,
     "sampleSize": 369.0,
-    "timestamp" : 1505301880665,
+    "timestamp" : startOfMinute,
     "collectorId" : "collector1",
+    "historicType" : "MINUTES"
   },
   {
     "viewId" : "1234123",
@@ -96,8 +61,9 @@ db.getCollection('user-metrics').insertMany([
     "name" : "responseTime",
     "value" : 1.2,
     "sampleSize": 369.0,
-    "timestamp" : 1505301880665,
+    "timestamp" : startOfHour,
     "collectorId" : "collector1",
+    "historicType" : "HOURS"
   },
   {
     "viewId" : "1234123",
@@ -107,8 +73,9 @@ db.getCollection('user-metrics').insertMany([
     "name" : "responseTime",
     "value" : 1.2,
     "sampleSize": 369.0,
-    "timestamp" : 1505301880665,
+    "timestamp" : startOfDay,
     "collectorId" : "collector1",
+    "historicType" : "DAYS"
   },
   {
     "viewId" : "AWS/1234123/alb",
@@ -117,8 +84,9 @@ db.getCollection('user-metrics').insertMany([
     "name" : "requestsNumber",
     "value" : 12,
     "sampleSize": 1,
-    "timestamp" : 1505301880665,
+    "timestamp" : startOfMinute,
     "collectorId" : "collector1",
+    "historicType" : "MINUTES"
   },
   {
     "viewId" : "AWS/1234123/alb",
@@ -127,8 +95,9 @@ db.getCollection('user-metrics').insertMany([
     "name" : "requestsNumber",
     "value" : 12,
     "sampleSize": 1,
-    "timestamp" : 1505301880665,
+    "timestamp" : startOfHour,
     "collectorId" : "collector1",
+    "historicType" : "HOURS"
   },
   {
     "viewId" : "AWS/1234123/alb",
@@ -137,7 +106,8 @@ db.getCollection('user-metrics').insertMany([
     "name" : "requestsNumber",
     "value" : 12,
     "sampleSize": 1,
-    "timestamp" : 1505301880665,
+    "timestamp" : startOfDay,
     "collectorId" : "collector1",
+    "historicType" : "DAYS"
   }
 ]);

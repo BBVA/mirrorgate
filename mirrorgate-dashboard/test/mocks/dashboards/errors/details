@@ -11,5 +11,6 @@
   "applications": ["error"],
   "slackTeam":"error",
   "urlAlerts": "error",
-  "analyticViews": ["error"]
+  "analyticViews": ["error"],
+  "operationViews": ["error"]
 }

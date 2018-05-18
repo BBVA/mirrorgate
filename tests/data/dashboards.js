@@ -7,7 +7,7 @@ db.getCollection('dashboards').insertMany([
           [ "bugs", "current-sprint", "next-sprint" ],
           [ "scm-metrics", "builds", "buildsstats" ],
           [ "program-increment"],
-          [ "markets", "reviews", "user-metrics", "operations" ]
+          [ "markets", "reviews", "user-metrics", "operations-metrics" ]
         ],
         "codeRepos":[
             "mirrorgate-app",
@@ -21,6 +21,7 @@ db.getCollection('dashboards').insertMany([
         ],
         'programIncrement': 'MG[0-9]{2}',
         "analyticViews": ["1234123"],
+        "operationViews": ["1234123"],
         "gitRepos": [
           "ssh://git@fake.com:fake/repo1.git"
         ]
@@ -49,7 +50,8 @@ db.getCollection('dashboards').insertMany([
         'programIncrement': 'MG02',
         "slackTeam": "All",
         "urlAlerts": "alerts",
-        "analyticViews": ["1234123"]
+        "analyticViews": ["1234123"],
+        "operationViews": ["123412"]
     },
     {
         "name":"program-increment",
