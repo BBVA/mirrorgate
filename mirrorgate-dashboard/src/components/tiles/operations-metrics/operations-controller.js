@@ -25,12 +25,9 @@ var OperationsController = (function(dashboardId) {
     var model;
 
     if(response) {
-      response = JSON.parse(response);
-      if(response.length && response.length > 0) {
-        model = {
-          metrics: response
-        };
-      }
+      model = {
+        metrics: JSON.parse(response)
+      };
     }
 
     observable.notify(model);
