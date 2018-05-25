@@ -209,10 +209,9 @@ export class FormComponent {
     this.dashboard.logoUrl = this.temp.logoUrl.length ?
         this.temp.logoUrl.trim() : undefined;
     this.dashboard.boards = this.temp.boards.length ?
-        this.temp.boards.split(',').map((e) => e.trim()) :
-        undefined;
+        this.temp.boards.split(',') : undefined;
     this.dashboard.programIncrement = this.temp.programIncrement.length ?
-        this.temp.programIncrement.trim() : undefined;
+        this.temp.programIncrement : undefined;
     this.dashboard.applications = this.temp.applications.length ?
         this.temp.applications.split(',').map((e) => e.trim()) :
         undefined;
