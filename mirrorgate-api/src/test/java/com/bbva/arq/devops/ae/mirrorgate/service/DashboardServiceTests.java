@@ -19,7 +19,6 @@ import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.ACTIVE;
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
@@ -27,6 +26,7 @@ import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
+import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.List;
 import org.junit.After;
@@ -109,7 +109,21 @@ public class DashboardServiceTests {
         verify(dashboardRepository, times(1)).save((Dashboard) any());
 
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
+    }
+
+    @Test
+    public void newTransientDashboardTest() {
+        DashboardDTO dashboard = TestObjectFactory.createTransientDashboard();
+
+        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
+        when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
+
+        DashboardDTO dashboard2 = dashboardService.newTransientDashboard(dashboard);
+        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).save((Dashboard) any());
+
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
+        assertThat(dashboard2.getStatus()).isEqualTo(DashboardStatus.TRANSIENT);
     }
 
     @Test(expected = DashboardConflictException.class)

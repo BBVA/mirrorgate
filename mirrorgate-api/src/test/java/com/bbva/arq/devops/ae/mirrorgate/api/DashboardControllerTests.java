@@ -16,9 +16,8 @@
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -127,7 +126,20 @@ public class DashboardControllerTests {
     }
 
     @Test
-    public void newPreviusDeletedDashboardTest() throws Exception {
+    public void newTransientDashboardTest() throws Exception {
+        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        dashboard.setStatus(TRANSIENT);
+
+        when(dashboardService.newTransientDashboard(dashboard)).thenReturn(dashboard);
+
+        this.mockMvc.perform(post("/api/dashboards")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(dashboard)))
+            .andExpect(status().is(HttpStatus.CREATED.value()));
+    }
+
+    @Test
+    public void newPreviousDeletedDashboardTest() throws Exception {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setStatus(DELETED);
 
@@ -141,7 +153,7 @@ public class DashboardControllerTests {
     }
 
     @Test
-    public void newPreviusCreatedDashboardTest() throws Exception {
+    public void newPreviousCreatedDashboardTest() throws Exception {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new DashboardConflictException(""))

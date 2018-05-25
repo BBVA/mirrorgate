@@ -30,7 +30,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -52,7 +52,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final EventService eventService;
 
     @Autowired
-    public DashboardServiceImpl(DashboardRepository dashboardRepository, EventService eventService){
+    private DashboardServiceImpl(DashboardRepository dashboardRepository, EventService eventService){
         this.dashboardRepository = dashboardRepository;
         this.eventService = eventService;
     }
@@ -80,12 +80,6 @@ public class DashboardServiceImpl implements DashboardService {
     public List<String> getReposByDashboardName(String name) {
         DashboardDTO dashboard = this.getDashboard(name);
         return dashboard.getCodeRepos();
-    }
-
-    @Override
-    public List<String> getAdminUsersByDashboardName(String name) {
-        DashboardDTO dashboard = this.getDashboard(name);
-        return dashboard.getAdminUsers();
     }
 
     @Override
@@ -138,7 +132,7 @@ public class DashboardServiceImpl implements DashboardService {
             if (auth != null && null != auth.getPrincipal()) {
                 dashboard.setAuthor(auth.getPrincipal().toString());
                 dashboard.setLastUserEdit(auth.getPrincipal().toString());
-                dashboard.setAdminUsers(Arrays.asList(auth.getPrincipal().toString()));
+                dashboard.setAdminUsers(Collections.singletonList(auth.getPrincipal().toString()));
             }
         }
 
@@ -147,6 +141,11 @@ public class DashboardServiceImpl implements DashboardService {
         return map(dashboardRepository.save(map(dashboard)));
     }
 
+    @Override
+    public DashboardDTO newTransientDashboard(DashboardDTO dashboard) {
+        dashboard.setStatus(DashboardStatus.TRANSIENT);
+        return newDashboard(dashboard);
+    }
 
     @Override
     public DashboardDTO updateDashboard(String dashboardName, DashboardDTO updatedDashboard) {
@@ -161,7 +160,7 @@ public class DashboardServiceImpl implements DashboardService {
         }
 
         if (updatedDashboard.getAdminUsers() == null) {
-            updatedDashboard.setAdminUsers(Arrays.asList(authUser));
+            updatedDashboard.setAdminUsers(Collections.singletonList(authUser));
         } else if (!updatedDashboard.getAdminUsers().contains(authUser)) {
             updatedDashboard.getAdminUsers().add(authUser);
         }
@@ -176,7 +175,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public void saveDashboardImage(String dashboardName, InputStream uploadfile) {
+    public void saveDashboardImage(String dashboardName, InputStream uploadFile) {
         Dashboard currentDashboard = this.getRepositoryDashboard(dashboardName);
 
         if(currentDashboard != null) {
@@ -187,7 +186,7 @@ public class DashboardServiceImpl implements DashboardService {
                 canEdit(authUser, currentDashboard);
             }
         }
-        dashboardRepository.saveFile(uploadfile, dashboardName);
+        dashboardRepository.saveFile(uploadFile, dashboardName);
     }
 
     @Override
@@ -206,8 +205,8 @@ public class DashboardServiceImpl implements DashboardService {
     public void createDashboardForBuildProject(Build build) {
 
         DashboardDTO newDashboard = new DashboardDTO();
+        newDashboard.setCodeRepos(Collections.singletonList(build.getProjectName()));
 
-        newDashboard.setCodeRepos(Arrays.asList(build.getProjectName()));
         createTransientDashboard(newDashboard, build.getProjectName());
     }
 
@@ -215,19 +214,18 @@ public class DashboardServiceImpl implements DashboardService {
     public void createDashboardForJiraTeam(String teamName) {
 
         DashboardDTO newDashboard = new DashboardDTO();
+        newDashboard.setBoards(Collections.singletonList(teamName));
 
-        newDashboard.setBoards(Arrays.asList(teamName));
         createTransientDashboard(newDashboard, teamName);
     }
 
-    private void createTransientDashboard(DashboardDTO newDashboard, String identifier){
+    private void createTransientDashboard(DashboardDTO newDashboard, String identifier) {
         try {
             newDashboard.setName(identifier);
             newDashboard.setDisplayName(identifier);
-            newDashboard.setStatus(DashboardStatus.TRANSIENT);
 
-            newDashboard(newDashboard);
-        } catch(DashboardConflictException e) {
+            newTransientDashboard(newDashboard);
+        } catch (DashboardConflictException e) {
             LOGGER.warn("Error while creating transient dashboard {}. "
                 + "Dashboard already exists", identifier);
         }

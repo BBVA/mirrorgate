@@ -44,14 +44,6 @@ public interface DashboardService {
     List<String> getReposByDashboardName(String name);
 
     /**
-     * Get the admin users of a specific Dashboard
-     *
-     * @param name Name of the Dashboard
-     * @return List of admin users
-     */
-    List<String> getAdminUsersByDashboardName(String name);
-
-    /**
      * Get all names of applications related to a Dashboard.
      *
      * @param name Name of the Dashboard
@@ -69,23 +61,31 @@ public interface DashboardService {
     /**
      * Mark a Dashboard as a Delete
      *
-     * @param name
+     * @param name Dashboard's name
      */
     void deleteDashboard(String name);
 
     /**
      * Create a new Dashboard
      *
-     * @param dashboard
+     * @param dashboard Data Transfer Object of the Dashboard
      * @return Dashboard new persisted Dashboard
      */
     DashboardDTO newDashboard(DashboardDTO dashboard);
 
     /**
+     * Create a new Transient Dashboard
+     *
+     * @param dashboard Data Transfer Object of the Dashboard
+     * @return Dashboard new persisted Dashboard
+     */
+    DashboardDTO newTransientDashboard(DashboardDTO dashboard);
+
+    /**
      * Updates a Dashboard
      *
-     * @param dashboard
-     * @param name
+     * @param dashboard Data Transfer Object of the Dashboard
+     * @param name Dashboard's name
      * @return Dashboard persisted Dashboard or null if no existent
      */
     DashboardDTO updateDashboard(String name, DashboardDTO dashboard);
@@ -93,16 +93,16 @@ public interface DashboardService {
     /**
      * Saves an image related to the dashboard with the corresponding name
      *
-     * @param name
-     * @param uploadfile
+     * @param name Dashboard's name
+     * @param uploadFile Dashboard's logo as an InputStream
      */
-    void saveDashboardImage(String name, InputStream uploadfile);
+    void saveDashboardImage(String name, InputStream uploadFile);
 
     /**
      * Gets the image associated with a dashboard
      *
-     * @param name
-     * @return
+     * @param name Dashboard's name
+     * @return A stream of the image
      */
     ImageStream getDashboardImage(String name);
 
@@ -110,4 +110,5 @@ public interface DashboardService {
 
     void createDashboardForBuildProject(Build build);
     void createDashboardForJiraTeam(String teamName);
+
 }

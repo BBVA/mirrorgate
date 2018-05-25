@@ -83,13 +83,19 @@ public class DashboardController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newDashboard(request));
     }
 
+    @RequestMapping(value = "/api/dashboards", method = POST,
+        consumes = APPLICATION_JSON_VALUE,
+        produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<DashboardDTO> newTransientDashboard(@Valid @RequestBody DashboardDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newTransientDashboard(request));
+    }
+
     @RequestMapping(value = "/dashboards/{name}", method = PUT,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<DashboardDTO> updateDashboard(
             @PathVariable("name") String name,
             @Valid @RequestBody DashboardDTO request) {
-
         DashboardDTO updatedDashboard = dashboardService.updateDashboard(name, request);
 
         return ResponseEntity.ok(updatedDashboard);

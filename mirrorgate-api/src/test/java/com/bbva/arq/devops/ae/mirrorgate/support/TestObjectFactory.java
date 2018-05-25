@@ -22,6 +22,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.bson.types.ObjectId;
 
@@ -48,10 +49,14 @@ public class TestObjectFactory {
         codeRepos.add(urlRepo2);
         dashboard.setCodeRepos(codeRepos);
         dashboard.setsProductName(PROJECT_NAME);
-        dashboard.setBoards(Arrays.asList(PROJECT_NAME));
+        dashboard.setBoards(Collections.singletonList(PROJECT_NAME));
         dashboard.setSlackTeam(SLACK_TEAM);
         dashboard.setSlackToken(SLACK_TOKEN);
         return dashboard;
+    }
+
+    public static DashboardDTO createTransientDashboard() {
+       return createDashboard().setStatus(DashboardStatus.TRANSIENT);
     }
 
     public static Feature createBug() {
@@ -103,7 +108,7 @@ public class TestObjectFactory {
         codeRepos.add(urlRepo2);
         dashboard.setCodeRepos(codeRepos);
         dashboard.setsProductName(PROJECT_NAME);
-        dashboard.setBoards(Arrays.asList(PROJECT_NAME));
+        dashboard.setBoards(Collections.singletonList(PROJECT_NAME));
         return dashboard;
     }
 
@@ -150,7 +155,7 @@ public class TestObjectFactory {
                 .setEndTime(8)
                 .setDuration(5)
                 .setBuildStatus("Success")
-                .setCulprits(Arrays.asList("foo"))
+                .setCulprits(Collections.singletonList("foo"))
                 .setProjectName("mirrorgate")
                 .setRepoName("api")
                 .setBranch("test")
