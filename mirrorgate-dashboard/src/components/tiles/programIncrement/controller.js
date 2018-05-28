@@ -161,7 +161,7 @@ var ProgramIncrementController = (
 
     this.getProgramIncrementStatus = function (programIncrement) {
       if(!programIncrement) return;
-
+      if(!programIncrement.getDaysLeft) return 'ok';
       var totalWorkingDays = Utils.getWorkingDays(programIncrement.startDate,programIncrement.endDate);
       var remainingWorkingDays = programIncrement.getDaysLeft();
       var timePassed = (totalWorkingDays - remainingWorkingDays) /totalWorkingDays * 100;
