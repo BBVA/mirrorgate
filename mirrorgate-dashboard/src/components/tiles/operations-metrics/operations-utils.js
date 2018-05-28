@@ -42,15 +42,20 @@ var OperationsUtils = (function() {
         warning: config.errorsRateAlertingLevelWarning,
         error: config.errorsRateAlertingLevelError
       };
+      var availabilityRateAlertingLevels = {
+        warning: config.availabilityRateAlertingLevelWarning,
+        error: config.availabilityRateAlertingLevelError
+      };
       var responseTimeState = OperationsUtils.getMetricState(stats.responseTime, responseTimeAlertingLevels);
       var errorsRateState = OperationsUtils.getMetricState(stats.errorsRate, errorsRateAlertingLevels);
+      var availabilityRateState = OperationsUtils.getMetricStateInverse(stats.errorsRate, errorsRateAlertingLevels, true);
 
-      if(errorsRateState == stateMapping.Ok && responseTimeState == stateMapping.Ok){
+      if(errorsRateState == stateMapping.Ok && responseTimeState == stateMapping.Ok && availabilityRateState == stateMapping.Ok){
 
         if(eventMap[emitter]){
-          metricName = 'Errors rate and response time';
-          description = 'Values have returned below the thresholds (' + errorsRateAlertingLevels.warning + ' and ' + responseTimeAlertingLevels.warning + ')';
-          state = Math.max(errorsRateState, responseTimeState);
+          metricName = 'Errors rate, response time & availability rate';
+          description = 'Values have returned below the thresholds (' + errorsRateAlertingLevels.warning + ', ' + responseTimeAlertingLevels.warning + ', ' + availabilityRateAlertingLevels.warning + ' )';
+          state = Math.max(errorsRateState, responseTimeState, availabilityRateState);
           color = state == stateMapping.Error ? 'red' : state == stateMapping.Warn ? 'yellow' : 'blue';
 
           OperationsUtils.sendEvent(emitter, metricName, description, color);
@@ -58,19 +63,22 @@ var OperationsUtils = (function() {
 
       } else {
 
-        if(errorsRateState == stateMapping.Warn || errorsRateState == stateMapping.Error){
+        if(availabilityRateState == stateMapping.Warn || availabilityRateState == stateMapping.Error){
+          metricName = 'Availability rate';
+          thresholds = availabilityRateState == stateMapping.Warn ? availabilityRateAlertingLevels.warning : availabilityRateAlertingLevels.error;
+          description = 'Less than the threshold (' + thresholds + ')';
+        } else if(errorsRateState == stateMapping.Warn || errorsRateState == stateMapping.Error){
           metricName = 'Errors rate';
           thresholds = errorsRateState == stateMapping.Warn ? errorsRateAlertingLevels.warning : errorsRateAlertingLevels.error;
-        }
-
-        if(responseTimeState == stateMapping.Warn || responseTimeState == stateMapping.Error){
+          description = 'Greater than the threshold (' + thresholds + ')';
+        } else if(responseTimeState == stateMapping.Warn || responseTimeState == stateMapping.Error){
           metricName = metricName === '' ? 'Response time' : metricName + ' and response time';
           thresholds = thresholds === '' ? '' : thresholds + ' and ';
           thresholds = thresholds + (responseTimeState == stateMapping.Warn ? responseTimeAlertingLevels.warning : responseTimeAlertingLevels.error);
+          description = 'Greater than the threshold (' + thresholds + ')';
         }
 
-        description = 'Greater than the threshold (' + thresholds + ')';
-        state = Math.max(errorsRateState, responseTimeState);
+        state = Math.max(errorsRateState, responseTimeState, availabilityRateState);
         color = state == stateMapping.Error ? 'red' : state == stateMapping.Warn ? 'yellow' : 'blue';
 
         OperationsUtils.sendEvent(emitter, metricName, description, color);
@@ -83,8 +91,14 @@ var OperationsUtils = (function() {
               : stateMapping.Error;
     },
 
-    getComponentState: function(metrics, responseTimeAlertingLevels, errorsRateAlertingLevels){
-      return Math.max(OperationsUtils.getMetricState(metrics.responseTime, responseTimeAlertingLevels), OperationsUtils.getMetricState(metrics.errorsRate, errorsRateAlertingLevels));
+    getMetricStateInverse: function(metric, metricRateAlertingLevels){
+      return metric === undefined || metric >= metricRateAlertingLevels.warning ? stateMapping.Ok
+              : metric >= metricRateAlertingLevels.error ? stateMapping.Warn
+              : stateMapping.Error;
+    },
+
+    getComponentState: function(metrics, responseTimeAlertingLevels, errorsRateAlertingLevels, availabilityRateAlertingLevels){
+      return Math.max(OperationsUtils.getMetricState(metrics.responseTime, responseTimeAlertingLevels), OperationsUtils.getMetricState(metrics.errorsRate, errorsRateAlertingLevels), OperationsUtils.getMetricStateInverse(metrics.availabilityRate, availabilityRateAlertingLevels));
     },
 
     getStats: function (metrics, infraCost) {
@@ -136,7 +150,7 @@ var OperationsUtils = (function() {
       }) ? stats : undefined;
     },
 
-    getMetricsGroupByViewId: function(metrics, infraCost, responseTimeAlertingLevelWarning, responseTimeAlertingLevelError, errorsRateAlertingLevelWarning, errorsRateAlertingLevelError) {
+    getMetricsGroupByViewId: function(metrics, config) {
       var metricsMap = {};
       var metricsGroup = [];
 
@@ -149,16 +163,18 @@ var OperationsUtils = (function() {
       });
 
       for (var viewId in metricsMap) {
-        var stats = OperationsUtils.getStats(metricsMap[viewId], infraCost);
+        var stats = OperationsUtils.getStats(metricsMap[viewId], config.infraCost);
 
         if(stats) {
           metricsGroup.push(JSON.stringify({
             stats: stats,
             viewId: viewId,
-            responseTimeAlertingLevelWarning: responseTimeAlertingLevelWarning,
-            responseTimeAlertingLevelError: responseTimeAlertingLevelError,
-            errorsRateAlertingLevelWarning: errorsRateAlertingLevelWarning,
-            errorsRateAlertingLevelError: errorsRateAlertingLevelError
+            responseTimeAlertingLevelWarning: config.responseTimeAlertingLevelWarning,
+            responseTimeAlertingLevelError: config.responseTimeAlertingLevelError,
+            errorsRateAlertingLevelWarning: config.errorsRateAlertingLevelWarning,
+            errorsRateAlertingLevelError: config.errorsRateAlertingLevelError,
+            availabilityRateAlertingLevelWarning: config.availabilityRateAlertingLevelWarning,
+            availabilityRateAlertingLevelError: config.availabilityRateAlertingLevelError
           }));
         }
       }

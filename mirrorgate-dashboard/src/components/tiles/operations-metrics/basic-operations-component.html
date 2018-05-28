@@ -63,19 +63,23 @@
     name: 'basic-operations-metrics-tile',
     parent: Tile,
 
-    processAlerts: function (data) {
+    processAlerts: function (data, config) {
       Utils.raiseEvent(this, {});
 
       var levelEvent = ['ok', 'warn', 'error', 'server-error'];
       var status = data ? (data.stats ? levelEvent[OperationsUtils.getComponentState(
           data.stats,
           {
-            warning: this.getConfig().responseTimeAlertingLevelWarning,
-            error: this.getConfig().responseTimeAlertingLevelError
+            warning: config.responseTimeAlertingLevelWarning,
+            error: config.responseTimeAlertingLevelError
           },
           {
-            warning: this.getConfig().errorsRateAlertingLevelWarning,
-            error: this.getConfig().errorsRateAlertingLevelError
+            warning: config.errorsRateAlertingLevelWarning,
+            error: config.errorsRateAlertingLevelError
+          },
+          {
+            warning: config.availabilityRateAlertingLevelWarning,
+            error: config.availabilityRateAlertingLevelError
           })] : 'empty') : levelEvent[3];
 
       d3.select(this).classed({
@@ -88,10 +92,12 @@
     },
 
     render: function (data) {
-      this.processAlerts(data);
+      var model;
+      var config;
 
       if (data) {
-        var model = this.getModel();
+        model = this.getModel();
+        config = this.getConfig();
 
         var viewId = data.viewId.split('/'); // Avoid large viewId
         viewId.splice(1, viewId.length-2);
@@ -102,9 +108,11 @@
 
         if(model.stats !== undefined) {
           this.setAttribute('enabled', model.stats !== undefined);
-          OperationsUtils.checkOperationMetricsToSendEvent(model.viewId, model.stats, this.getConfig());
+          OperationsUtils.checkOperationMetricsToSendEvent(model.viewId, model.stats, config);
         }
       }
+
+      this.processAlerts(data, config);
     }
   });
 
