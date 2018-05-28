@@ -81,10 +81,9 @@
       if (data && data.metrics) {
         model = this.getModel();
         model.stats = OperationsUtils.getStats(data.metrics, this.getConfig().infraCost);
-
         if(model.stats !== undefined) {
           this.setAttribute('enabled', model.stats !== undefined);
-          OperationsUtils.checkOperationMetricsToSendEvent(data.displayName, model.stats, this.getConfig());
+          OperationsUtils.checkOperationMetricsToSendEvent(this.getConfig().displayName || this.getConfig().name, model.stats, this.getConfig());
         }
       }
 
