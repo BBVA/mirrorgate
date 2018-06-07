@@ -33,6 +33,8 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +88,11 @@ public class DashboardServiceImpl implements DashboardService {
     public List<String> getApplicationsByDashboardName(String name) {
         DashboardDTO dashboard = this.getDashboard(name);
         return dashboard.getApplications();
+    }
+
+    @Override
+    public List<DashboardDTO> getDashboards() {
+        return StreamSupport.stream(dashboardRepository.findAll().spliterator(), false).map(DashboardMapper::map).collect(Collectors.toList());
     }
 
     @Override

@@ -52,6 +52,13 @@ public interface DashboardService {
     List<String> getApplicationsByDashboardName(String name);
 
     /**
+     * Get a list with all Dashboards
+     *
+     * @return A list of DashboardDTO
+     */
+    List<DashboardDTO> getDashboards();
+
+    /**
      * Get a list with all Dashboards with status Active
      *
      * @return A list of DashboardDTO

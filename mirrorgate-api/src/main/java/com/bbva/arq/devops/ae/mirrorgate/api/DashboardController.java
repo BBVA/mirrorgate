@@ -72,8 +72,8 @@ public class DashboardController {
     }
 
     @RequestMapping(value = "/dashboards", method = GET, produces = APPLICATION_JSON_VALUE)
-    public List<DashboardDTO> getActiveDashboards() {
-        return dashboardService.getActiveDashboards();
+    public List<DashboardDTO> getActiveDashboards(@RequestParam(name="transient", required=false, defaultValue="false") boolean alsoTransient) {
+        return !alsoTransient ? dashboardService.getActiveDashboards() : dashboardService.getDashboards();
     }
 
     @RequestMapping(value = "/dashboards", method = POST,
