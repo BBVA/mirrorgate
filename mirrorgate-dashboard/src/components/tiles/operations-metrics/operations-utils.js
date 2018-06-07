@@ -48,7 +48,7 @@ var OperationsUtils = (function() {
       };
       var responseTimeState = OperationsUtils.getMetricState(stats.responseTime, responseTimeAlertingLevels);
       var errorsRateState = OperationsUtils.getMetricState(stats.errorsRate, errorsRateAlertingLevels);
-      var availabilityRateState = OperationsUtils.getMetricStateInverse(stats.errorsRate, errorsRateAlertingLevels, true);
+      var availabilityRateState = OperationsUtils.getMetricStateInverse(stats.availabilityRate, availabilityRateAlertingLevels, true);
 
       if(errorsRateState == stateMapping.Ok && responseTimeState == stateMapping.Ok && availabilityRateState == stateMapping.Ok){
 
