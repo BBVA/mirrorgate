@@ -233,8 +233,7 @@ public class DashboardServiceImpl implements DashboardService {
 
             newTransientDashboard(newDashboard);
         } catch (DashboardConflictException e) {
-            LOGGER.warn("Error while creating transient dashboard {}. "
-                + "Dashboard already exists", identifier);
+            LOGGER.warn("Dashboard with name {} already exists", identifier);
         }
     }
 
