@@ -23,6 +23,8 @@ import java.util.List;
 
 public interface DashboardRepositoryCustom {
 
+    List<Dashboard> getActiveAndTransientDashboards();
+
     List<Dashboard> getActiveDashboards();
 
     void saveFile(InputStream image, String name);

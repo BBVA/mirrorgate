@@ -52,11 +52,11 @@ public interface DashboardService {
     List<String> getApplicationsByDashboardName(String name);
 
     /**
-     * Get a list with all Dashboards
+     * Get a list with all active and transient dashboards
      *
      * @return A list of DashboardDTO
      */
-    List<DashboardDTO> getDashboards();
+    List<DashboardDTO> getActiveAndTransientDashboards();
 
     /**
      * Get a list with all Dashboards with status Active

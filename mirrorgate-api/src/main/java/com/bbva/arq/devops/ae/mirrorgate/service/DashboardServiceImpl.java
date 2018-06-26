@@ -91,8 +91,8 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public List<DashboardDTO> getDashboards() {
-        return StreamSupport.stream(dashboardRepository.findAll().spliterator(), false).map(DashboardMapper::map).collect(Collectors.toList());
+    public List<DashboardDTO> getActiveAndTransientDashboards() {
+        return dashboardRepository.getActiveAndTransientDashboards().stream().map(DashboardMapper::map).collect(Collectors.toList());
     }
 
     @Override

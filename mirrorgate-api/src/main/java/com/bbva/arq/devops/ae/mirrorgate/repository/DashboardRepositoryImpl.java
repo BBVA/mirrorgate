@@ -21,6 +21,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
+import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import com.mongodb.gridfs.GridFSDBFile;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -61,18 +62,27 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
     }
 
     @Override
-    public List<Dashboard> getActiveDashboards() {
+    public List<Dashboard> getActiveAndTransientDashboards() {
+        return getDashboardsNotInStatus(new DashboardStatus[]{DELETED});
+    }
 
+
+    @Override
+    public List<Dashboard> getActiveDashboards() {
+        return getDashboardsNotInStatus(new DashboardStatus[]{DELETED, TRANSIENT});
+    }
+
+    private List<Dashboard> getDashboardsNotInStatus(DashboardStatus[]  status) {
         Aggregation aggregation = newAggregation(
-                sort(new Sort(Sort.Direction.DESC, "lastModification")),
-                firstDashboardFields(group("name")),
-                match(Criteria.where("status").nin(DELETED, TRANSIENT)),
-                project(DASHBOARD_FIELDS.keySet().toArray(new String[]{})).andExclude("_id")
+            sort(new Sort(Sort.Direction.DESC, "lastModification")),
+            firstDashboardFields(group("name")),
+            match(Criteria.where("status").nin(status)),
+            project(DASHBOARD_FIELDS.keySet().toArray(new String[]{})).andExclude("_id")
         );
 
         //Convert the aggregation result into a List
         AggregationResults<Dashboard> groupResults
-                = mongoTemplate.aggregate(aggregation, Dashboard.class, Dashboard.class);
+            = mongoTemplate.aggregate(aggregation, Dashboard.class, Dashboard.class);
         return groupResults.getMappedResults();
     }
 
