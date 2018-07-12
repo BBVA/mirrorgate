@@ -137,7 +137,7 @@ var OperationsUtils = (function() {
         requestsNumberTendency: metricsMap.requestsNumber && metricsMap.requestsNumber.oneDaySampleSize > 0 ? metricsMap.requestsNumber.tendency : undefined,
         errorsRate: metricsMap.errorsNumber && metricsMap.requestsNumber && metricsMap.requestsNumber.oneDayValue > 0 ? parseFloat((100 * metricsMap.errorsNumber.oneDayValue / metricsMap.requestsNumber.oneDayValue || 0).toFixed(2)) : undefined,
         errorsRateTendency: metricsMap.errorsNumber && metricsMap.errorsNumber.oneDaySampleSize > 0 ? metricsMap.errorsNumber.tendency : undefined,
-        availabilityRate: metricsMap.availabilityRate && metricsMap.availabilityRate.oneDayValue > 0 ? parseFloat((metricsMap.availabilityRate.oneDayValue / metricsMap.availabilityRate.oneDaySampleSize).toFixed(2)) : undefined,
+        availabilityRate: metricsMap.availabilityRate && metricsMap.availabilityRate.oneDaySampleSize > 0 ? parseFloat((metricsMap.availabilityRate.oneDayValue / metricsMap.availabilityRate.oneDaySampleSize).toFixed(2)) : undefined,
         availabilityRateTendency: metricsMap.availabilityRate &&  metricsMap.availabilityRate.oneDaySampleSize > 0 ? metricsMap.availabilityRate.tendency : undefined,
         responseTime: metricsMap.responseTime && metricsMap.responseTime.oneDaySampleSize > 0 ? parseFloat((metricsMap.responseTime.oneDayValue / metricsMap.responseTime.oneDaySampleSize).toFixed(2)) : undefined,
         responseTimeTendency: metricsMap.responseTime && metricsMap.responseTime.oneDaySampleSize > 0 ? metricsMap.responseTime.tendency : undefined,
