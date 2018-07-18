@@ -46,17 +46,6 @@ public interface BuildService {
     BuildDTO createOrUpdate(BuildDTO request);
 
     /**
-     * Get a list of builds by repositories with timestamp after specified and
-     * filtered by team members if those exist.
-     *
-     * @param repos
-     * @param teamMembers
-     * @param timestamp
-     * @return
-     */
-    Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, long timestamp);
-
-    /**
      * Get statistics of builds by keywords (repositories names, projects names or builds urls)
      * and filtered by team members if those exist.
      *
@@ -64,6 +53,6 @@ public interface BuildService {
      * @param teamMembers
      * @return
      */
-    BuildStats getStatsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
+    BuildStats getStatsAndTendenciesByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
 
 }

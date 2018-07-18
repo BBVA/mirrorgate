@@ -66,7 +66,7 @@ public class BuildController {
         List<Build> builds = buildService
                 .getLastBuildsByKeywordsAndByTeamMembers(
                         dashboard.getCodeRepos(), dashboard.getTeamMembers());
-        BuildStats stats = buildService.getStatsByKeywordsAndByTeamMembers(
+        BuildStats stats = buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
                 dashboard.getCodeRepos(), dashboard.getTeamMembers());
 
         Map<String, Object> response = new HashMap<>();
@@ -86,7 +86,7 @@ public class BuildController {
             return null;
         }
 
-        return buildService.getStatsByKeywordsAndByTeamMembers(
+        return buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
                 dashboard.getCodeRepos(), dashboard.getTeamMembers());
     }
 

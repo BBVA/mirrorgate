@@ -114,27 +114,12 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public BuildStats getStatsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
-        BuildStats statsSevenDaysBefore;
-        BuildStats statsFifteenDaysBefore;
+    public BuildStats getStatsAndTendenciesByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
 
-        if (teamMembers != null && !teamMembers.isEmpty()) {
-            statsSevenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 7);
-            statsFifteenDaysBefore = getStatsWithoutFailureTendency(keywords, teamMembers, 15);
-        } else {
-            statsSevenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
-                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNUnitsAgo(7, ChronoUnit.DAYS))
-                    .stream()
-                    .map(BuildSummaryMapper::map)
-                    .toArray(BuildStats[]::new)
-            );
-            statsFifteenDaysBefore = BuildStatsUtils.combineBuildStats(buildSummaryRepository
-                    .findAllWithKeywordsAndTimestampAfter(keywords, LocalDateTimeHelper.getTimestampForNUnitsAgo(15, ChronoUnit.DAYS))
-                    .stream()
-                    .map(BuildSummaryMapper::map)
-                    .toArray(BuildStats[]::new)
-            );
-        }
+        BuildStats statsSevenDaysBefore =
+            getStatsByKeywordsAndByTeamMembersAfterTimestamp(keywords, teamMembers, 7);
+        BuildStats statsFifteenDaysBefore =
+            getStatsByKeywordsAndByTeamMembersAfterTimestamp(keywords, teamMembers, 15);
 
         FailureTendency failureTendency = BuildStatsUtils.failureTendency(
                 statsSevenDaysBefore.getFailureRate(),
@@ -145,20 +130,10 @@ public class BuildServiceImpl implements BuildService {
         return statsSevenDaysBefore;
     }
 
-    @Override
-    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, long timestamp) {
-        return buildRepository.getBuildStatusStatsAfterTimestamp(repos, teamMembers, timestamp);
-    }
-
-    private BuildStats getStatsWithoutFailureTendency(List<String> keywords, List<String> teamMembers, int daysBefore) {
-
-        if (keywords == null) {
-            return null;
-        }
-
+    private BuildStats getStatsByKeywordsAndByTeamMembersAfterTimestamp(List<String> keywords, List<String> teamMembers, int daysBefore) {
         Date numberOfDaysBefore
                 = new Date(System.currentTimeMillis() - (daysBefore * DAY_IN_MS));
-        Map<BuildStatus, BuildStats> info = getBuildStatusStatsAfterTimestamp(
+        Map<BuildStatus, BuildStats> info = buildRepository.getBuildStatusStatsAfterTimestamp(
                 keywords, teamMembers, numberOfDaysBefore.getTime());
 
         return BuildStatsUtils.combineBuildStats(
