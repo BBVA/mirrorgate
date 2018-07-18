@@ -53,7 +53,7 @@ public class DashboardController {
     }
 
     @RequestMapping(
-            value = "/dashboards/{name}/details",
+            value = {"/dashboards/{name}/details", "/api/dashboards/{name}/details"},
             method = GET,
             produces = APPLICATION_JSON_VALUE
     )
@@ -62,7 +62,7 @@ public class DashboardController {
     }
 
     @RequestMapping(
-            value = "/dashboards/{name}",
+            value = {"/dashboards/{name}", "/api/dashboards/{name}"},
             method = DELETE,
             produces = APPLICATION_JSON_VALUE
     )
@@ -71,28 +71,38 @@ public class DashboardController {
         return ResponseEntity.status(HttpStatus.OK).body("Dashboard was deleted successfully");
     }
 
-    @RequestMapping(value = "/dashboards", method = GET, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(
+            value = {"/dashboards", "/api/dashboards"},
+            method = GET,
+            produces = APPLICATION_JSON_VALUE
+    )
     public List<DashboardDTO> getActiveDashboards(@RequestParam(name="transient", required=false, defaultValue="false") boolean alsoTransient) {
         return !alsoTransient ? dashboardService.getActiveDashboards() : dashboardService.getActiveAndTransientDashboards();
     }
 
-    @RequestMapping(value = "/dashboards", method = POST,
+    @RequestMapping(
+            value = "/dashboards", method = POST,
             consumes = APPLICATION_JSON_VALUE,
-            produces = APPLICATION_JSON_VALUE)
+            produces = APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<DashboardDTO> newDashboard(@Valid @RequestBody DashboardDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newDashboard(request));
     }
 
-    @RequestMapping(value = "/api/dashboards", method = POST,
-        consumes = APPLICATION_JSON_VALUE,
-        produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(
+            value = "/api/dashboards", method = POST,
+            consumes = APPLICATION_JSON_VALUE,
+            produces = APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<DashboardDTO> newTransientDashboard(@Valid @RequestBody DashboardDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newTransientDashboard(request));
     }
 
-    @RequestMapping(value = "/dashboards/{name}", method = PUT,
+    @RequestMapping(
+            value = {"/dashboards/{name}", "/api/dashboards/{name}"}, method = PUT,
             consumes = APPLICATION_JSON_VALUE,
-            produces = APPLICATION_JSON_VALUE)
+            produces = APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<DashboardDTO> updateDashboard(
             @PathVariable("name") String name,
             @Valid @RequestBody DashboardDTO request) {
