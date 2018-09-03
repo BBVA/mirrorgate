@@ -10,6 +10,7 @@
       "empty_dashboard",
       "feedback",
       "errors",
-      "does-not-exist"
+      "does-not-exist",
+      "operations"
   ]
 }

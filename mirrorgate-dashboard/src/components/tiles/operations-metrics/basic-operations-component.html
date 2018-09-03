@@ -31,25 +31,25 @@
       <h3 class="title-desc">
         <span rv-hide="stats">No metrics collected</span>
         <span rv-show="stats.requestsNumber | >= 0">{stats.requestsNumber | bigNumber} requests</span>
-        <span rv-if="stats.requestsNumberTendency" class="tendency" rv-pclass-tendency="stats.requestsNumberTendency"></span>
+        <span rv-show="stats.requestsNumberTendency" class="tendency" rv-pclass-tendency="stats.requestsNumberTendency"></span>
     </h3>
     </div>
     <div class="component__body">
       <div class="indicator__bar">
-        <div class="indicator" rv-if="stats.errorsRate | >= 0">
-          <div class="stats">{stats.errorsRate}%<span class="tendency" rv-if="stats.errorsRateTendency" rv-pclass-tendency="stats.errorsRateTendency"></span></div>
+        <div class="indicator" rv-show="stats.errorsRate | >= 0">
+          <div class="stats">{stats.errorsRate}%<span class="tendency" rv-show="stats.errorsRateTendency" rv-pclass-tendency="stats.errorsRateTendency"></span></div>
           <div class="stat-desc">of errors</div>
         </div>
-        <div class="indicator" rv-if="stats.availabilityRate | >= 0">
-          <div class="stats">{stats.availabilityRate}%<span class="tendency" rv-if="stats.availabilityRateTendency" rv-pclass-tendency="stats.availabilityRateTendency"></span></div>
+        <div class="indicator" rv-show="stats.availabilityRate | >= 0">
+          <div class="stats">{stats.availabilityRate}%<span class="tendency" rv-show="stats.availabilityRateTendency" rv-pclass-tendency="stats.availabilityRateTendency"></span></div>
           <div class="stat-desc">of availability</div>
         </div>
-        <div class="indicator" rv-if="stats.responseTime | >= 0">
-          <div class="stats">{stats.responseTime}s<span class="tendency" rv-if="stats.responseTimeTendency" rv-pclass-tendency="stats.responseTimeTendency"></span></div>
+        <div class="indicator" rv-show="stats.responseTime | >= 0">
+          <div class="stats">{stats.responseTime}s<span class="tendency" rv-show="stats.responseTimeTendency" rv-pclass-tendency="stats.responseTimeTendency"></span></div>
           <div class="stat-desc"> response time</div>
         </div>
-        <div class="indicator" rv-if="stats.infraCost | >= 0">
-          <div class="stats">{stats.infraCost}$<span class="tendency" rv-if="stats.infraCostTendency" rv-pclass-tendency="stats.infraCostTendency"></span></div>
+        <div class="indicator" rv-show="stats.infraCost | >= 0">
+          <div class="stats">{stats.infraCost}$<span class="tendency" rv-show="stats.infraCostTendency" rv-pclass-tendency="stats.infraCostTendency"></span></div>
           <div class="stat-desc">infrastructure cost</div>
         </div>
       </div>

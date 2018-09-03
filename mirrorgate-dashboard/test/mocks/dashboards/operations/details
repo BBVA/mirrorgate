@@ -1,0 +1,14 @@
+{
+  "name": "operations",
+  "type" : "Custom",
+  "columns" : [
+    [
+      "operations-metrics"
+    ]
+  ],
+  "operationViews": ["123412"],
+  "responseTimeAlertingLevelWarning":0.7,
+  "responseTimeAlertingLevelError":1.0,
+  "errorsRateAlertingLevelWarning":0.1,
+  "errorsRateAlertingLevelError":0.5
+}
