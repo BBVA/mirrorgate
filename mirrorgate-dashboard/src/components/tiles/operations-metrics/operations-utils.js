@@ -166,7 +166,7 @@ var OperationsUtils = (function() {
         var stats = OperationsUtils.getStats(metricsMap[viewId], config.infraCost);
 
         if(stats) {
-          metricsGroup.push(JSON.stringify({
+          metricsGroup.push({
             stats: stats,
             viewId: viewId,
             responseTimeAlertingLevelWarning: config.responseTimeAlertingLevelWarning,
@@ -175,11 +175,25 @@ var OperationsUtils = (function() {
             errorsRateAlertingLevelError: config.errorsRateAlertingLevelError,
             availabilityRateAlertingLevelWarning: config.availabilityRateAlertingLevelWarning,
             availabilityRateAlertingLevelError: config.availabilityRateAlertingLevelError
-          }));
+          });
         }
       }
 
-      return metricsGroup;
+      return metricsGroup
+        .sort(function(m1, m2) {
+          var id1 = m1.viewId.toUpperCase(); // ignore upper and lowercase
+          var id2 = m2.viewId.toUpperCase(); // ignore upper and lowercase
+          if (id1 < id2) {
+            return -1;
+          }
+          if (id1 > id2) {
+            return 1;
+          }
+          return 0;
+        })
+        .map(function(metric) {
+          return JSON.stringify(metric);
+        });
     },
 
     sendEvent: function(emitter, metricName, description, color){
