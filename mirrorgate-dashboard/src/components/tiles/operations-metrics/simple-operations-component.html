@@ -28,23 +28,23 @@
   <div class="simple-operations component__content">
     <div class="component__header">
       <h2 class="title">
-        <div rv-if="stats.requestsNumber | >= 0">{stats.requestsNumber | bigNumber}<span rv-if="stats.requestsNumberTendency" class="tendency" rv-pclass-tendency="stats.requestsNumberTendency"></span></div>
-        <div rv-if="stats.requestsNumber | >= 0">requests</div>
+        <div rv-show="stats.requestsNumber | >= 0">{stats.requestsNumber | bigNumber}<span rv-show="stats.requestsNumberTendency" class="tendency" rv-pclass-tendency="stats.requestsNumberTendency"></span></div>
+        <div rv-show="stats.requestsNumber | >= 0">requests</div>
       </h2>
       <h2 class="title-desc">
         <span rv-hide="stats">No metrics collected</span>
-        <div rv-if="stats.responseTime | >= 0">{stats.responseTime}s<span class="tendency" rv-if="stats.responseTimeTendency" rv-pclass-tendency="stats.responseTimeTendency"></span></div>
-        <div rv-if="stats.responseTime | >= 0">response time</div>
+        <div rv-show="stats.responseTime | >= 0">{stats.responseTime}s<span class="tendency" rv-show="stats.responseTimeTendency" rv-pclass-tendency="stats.responseTimeTendency"></span></div>
+        <div rv-show="stats.responseTime | >= 0">response time</div>
       </h2>
     </div>
     <div class="component__body">
       <div class="indicator__bar">
         <div class="indicator" rv-show="stats.errorsRate | >= 0">
-          <div class="stats">{stats.errorsRate}%<span class="tendency" rv-if="stats.errorsRateTendency" rv-pclass-tendency="stats.errorsRateTendency"></span></div>
+          <div class="stats">{stats.errorsRate}%<span class="tendency" rv-show="stats.errorsRateTendency" rv-pclass-tendency="stats.errorsRateTendency"></span></div>
           <div class="stat-desc">of errors</div>
         </div>
         <div class="indicator" rv-show="stats.availabilityRate | >= 0">
-          <div class="stats">{stats.availabilityRate}%<span class="tendency" rv-if="stats.availabilityRateTendency" rv-pclass-tendency="stats.availabilityRateTendency"></span></div>
+          <div class="stats">{stats.availabilityRate}%<span class="tendency" rv-show="stats.availabilityRateTendency" rv-pclass-tendency="stats.availabilityRateTendency"></span></div>
           <div class="stat-desc">of availability</div>
         </div>
       </div>
