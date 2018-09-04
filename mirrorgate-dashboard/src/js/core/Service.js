@@ -137,6 +137,7 @@ var Service = (function() {
   var self = {
     types: {
       builds: new ServiceType(Timer.eventually, 'builds','BuildType'),
+      builds_stats: new ServiceType(Timer.eventually, 'builds','BuildType'),
       bugs: new ServiceType(Timer.eventually, 'bugs'),
       stories: new ServiceType(Timer.rarely, 'stories', 'FeatureType'),
       apps: new ServiceType(Timer.rarely, 'applications', 'ReviewType'),

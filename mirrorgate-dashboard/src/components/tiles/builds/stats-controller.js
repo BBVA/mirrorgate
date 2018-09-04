@@ -22,7 +22,7 @@
 var BuildsStatsController = (function(dashboardId) {
 
   var observable = new Event('BuildsStatsController');
-  var service = Service.get(Service.types.builds, dashboardId);
+  var service = Service.get(Service.types.builds_stats, dashboardId);
   var config;
 
   function getBuildsStats(response) {
