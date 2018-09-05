@@ -28,23 +28,11 @@ var BuildsStatsController = (function(dashboardId) {
   function getBuildsStats(response) {
     var data;
     if (response) {
-      response = JSON.parse(response);
-
-      if (response.lastBuilds) {
-        data = {stats: response.stats, buildRoot: []};
-        data.stats.lastBuildTimestamp = 0;
-
-        for (var index in response.lastBuilds) {
-          var item = response.lastBuilds[index];
-
-          if(item.timestamp > data.stats.lastBuildTimestamp) {
-            data.stats.lastBuildTimestamp = item.timestamp;
-          }
-        }
-        data.stats.failureRate = data.stats.failureRate >= 0 ? parseFloat(data.stats.failureRate.toFixed(1)) : undefined;
-      }
+      data = {
+        stats: JSON.parse(response)
+      };
+      data.stats.failureRate = data.stats.failureRate >= 0 ? parseFloat(data.stats.failureRate.toFixed(1)) : undefined;
     }
-
     observable.notify(data);
   }
 
