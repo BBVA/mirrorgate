@@ -39,6 +39,8 @@ var dashboardForTesting = 'all';
 
 var buildsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/builds');
 
+var buildsStatsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/builds-stats');
+
 var detailsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/details');
 
 var storiesForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/stories');
@@ -94,6 +96,16 @@ function buildFakeServer() {
       200,
       { "Content-Type": "application/json" },
       JSON.stringify(buildsForTesting)
+    ]
+  );
+
+  server.respondWith(
+    'GET',
+    'dashboards/' + dashboardForTesting + '/builds/rate',
+    [
+      200,
+      { "Content-Type": "application/json" },
+      JSON.stringify(buildsStatsForTesting)
     ]
   );
 

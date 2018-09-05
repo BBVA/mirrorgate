@@ -30,9 +30,9 @@ describe('BuildsStatsController', () => {
     controller.dispose();
   });
 
-  it('should provide the last build timestamp', (done) => {
+  it('should provide the duration of all builds', (done) => {
     controller.observable.attach((response) => {
-      expect(response.stats.lastBuildTimestamp).toBe(1491584773370);
+      expect(response.stats.duration).toBe(251261.80597014926);
       done();
     });
   });
