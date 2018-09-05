@@ -52,7 +52,8 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                         .nin(
                                 BuildStatus.Aborted.toString(),
                                 BuildStatus.NotBuilt.toString(),
-                                BuildStatus.Unknown.toString()
+                                BuildStatus.Unknown.toString(),
+                                BuildStatus.Deleted.toString()
                         )
                         .orOperator(
                                 Criteria.where("timestamp")
@@ -83,8 +84,6 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                         .last("duration").as("duration")
                         .last("projectName").as("projectName")
                         .last("culprits").as("culprits"),
-                match(Criteria.where("buildStatus").ne(
-                        BuildStatus.Deleted.toString())),
                 project("buildStatus", "branch", "projectName", "repoName",
                         "timestamp", "buildUrl", "duration", "startTime",
                         "endTime", "culprits")
@@ -145,13 +144,9 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     }
 
     private Criteria getCriteriaExpressionsForKeywords(List<String> keywords) {
-        List<Criteria> regExs = new ArrayList<>();
-        keywords.forEach((String kw) -> {
-            regExs.add(Criteria.where("keywords")
-                .in(Pattern.compile("^" + kw + "$")));
-        });
-        return new Criteria()
-            .orOperator(regExs.toArray(new Criteria[regExs.size()]));
+        return Criteria
+            .where("keywords")
+            .in(keywords.stream().map(kw -> Pattern.compile("^" + kw + "$")).toArray());
     }
 
     private Criteria getCriteriaExpressionsForTeamMembers(List<String> teamMembers) {
@@ -159,12 +154,8 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
             return new Criteria();
         }
 
-        List<Criteria> regExs = new ArrayList<>();
-        teamMembers.forEach((String member) -> {
-            regExs.add(Criteria.where("culprits")
-                    .is(Pattern.compile("^" + member + "$")));
-        });
-        return new Criteria()
-                .orOperator(regExs.toArray(new Criteria[regExs.size()]));
+        return Criteria
+            .where("culprits")
+            .in(teamMembers);
     }
 }

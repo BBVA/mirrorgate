@@ -62,6 +62,7 @@ public class Feature extends BaseModel{
     private List<Long> lParentId;
 
     /* Associated collector ID */
+    @Indexed
     private String collectorId;
 
     @Indexed
