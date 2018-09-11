@@ -4,8 +4,7 @@
     "appVersion" : "1.0.0",
     "platform" : "Unknown",
     "name" : "activeUsers",
-    "value" : "6",
-    "value": 6,
+    "value" : "66",
     "timestamp" : "1505301880665",
     "collectorId" : "collector1"
   },
