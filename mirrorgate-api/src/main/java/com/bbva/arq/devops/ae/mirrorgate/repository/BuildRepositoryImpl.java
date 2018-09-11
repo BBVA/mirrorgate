@@ -52,8 +52,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                         .nin(
                                 BuildStatus.Aborted.toString(),
                                 BuildStatus.NotBuilt.toString(),
-                                BuildStatus.Unknown.toString(),
-                                BuildStatus.Deleted.toString()
+                                BuildStatus.Unknown.toString()
                         )
                         .orOperator(
                                 Criteria.where("timestamp")
@@ -84,6 +83,8 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                         .last("duration").as("duration")
                         .last("projectName").as("projectName")
                         .last("culprits").as("culprits"),
+                match(Criteria.where("buildStatus").ne(
+                        BuildStatus.Deleted.toString())),
                 project("buildStatus", "branch", "projectName", "repoName",
                         "timestamp", "buildUrl", "duration", "startTime",
                         "endTime", "culprits")
