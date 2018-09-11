@@ -24,13 +24,13 @@
     @import "css/{skin}.css";
   </style>
   <div class="simple-users component__content">
-    <div  rv-if="metrics" class="component__body">
+    <div  rv-show="metrics" class="component__body">
       <div class="indicator__bar">
-        <div class="indicator" rv-if="metrics.rtActiveUsers | >= 0">
+        <div class="indicator" rv-show="metrics.rtActiveUsers | >= 0">
           <div class="stats stats-metrics">{metrics.rtActiveUsers}<span class="tendency" rv-pclass-tendency="activeUsersTendency"></span></div>
           <div class="stat-desc">active users</div>
         </div>
-        <div class="indicator" rv-if="metrics.sevenDayUsers | >= 0">
+        <div class="indicator" rv-show="metrics.sevenDayUsers | >= 0">
           <div class="stats">{metrics.sevenDayUsers}<span class="tendency" rv-pclass-tendency="metrics.sevenDayUsersTendency"></span></div>
           <div class="stat-desc">weekly users</div>
         </div>
