@@ -33,16 +33,16 @@
     </div>
     <div class="component__body">
       <div class="indicator__bar">
-        <div class="indicator" rv-if="metrics.rtActiveUsers | >= 0">
-          <div class="stats stats-metrics">{metrics.rtActiveUsers}<span class="tendency" rv-if="metrics.activeUsersTendency" rv-pclass-tendency="metrics.activeUsersTendency"></span></div>
+        <div class="indicator" rv-show="metrics.rtActiveUsers | >= 0">
+          <div class="stats stats-metrics">{metrics.rtActiveUsers}<span class="tendency" rv-show="metrics.activeUsersTendency" rv-pclass-tendency="metrics.activeUsersTendency"></span></div>
           <div class="stat-desc">active users</div>
         </div>
-        <div class="indicator" rv-if="metrics.sevenDayUsers | >= 0">
-          <div class="stats">{metrics.sevenDayUsers}<span class="tendency" rv-if="metrics.sevenDayUsersTendency" rv-pclass-tendency="metrics.sevenDayUsersTendency"></span></div>
+        <div class="indicator" rv-show="metrics.sevenDayUsers | >= 0">
+          <div class="stats">{metrics.sevenDayUsers}<span class="tendency" rv-show="metrics.sevenDayUsersTendency" rv-pclass-tendency="metrics.sevenDayUsersTendency"></span></div>
           <div class="stat-desc">weekly users</div>
         </div>
       </div>
-      <div class="versions" rv-if="metrics.versions">
+      <div class="versions" rv-show="metrics.versions">
         <ol>
           <li rv-each-version="metrics.versions" rv-show="version.width" >
             <span class="version-name">{version.name}</span>
