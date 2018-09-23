@@ -22,7 +22,7 @@
 }
 
 @import url('https://fonts.googleapis.com/css?family=Libre+Franklin:300,400,600');
-@import "../bower_components/font-awesome/css/font-awesome.min.css";
+@import "../fonts/font-awesome/css/font-awesome.min.css";
 
 $font-header: "Advanced Engineering";
 $font-body: 'Libre Franklin', Tahoma, sans-serif;
@@ -78,4 +78,3 @@ $review-background-color: #fafafa;
 $bottom-background-color: darken($background-color, 20);
 
 $svg-path-fill: #cfcfcf;
-

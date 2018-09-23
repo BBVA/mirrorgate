@@ -10,19 +10,19 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   install:
-      image: "node:7"
+      image: "node:8"
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
-      command: bash -c "npm install && ./node_modules/.bin/bower install --allow-root"
+      command: bash -c "npm install"
   build:
-      image: "node:7"
+      image: "node:8"
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
       command: "./node_modules/.bin/gulp dist"
   test:
-    image: "node:7"
+    image: "node:8"
     links:
       - selenium-chrome
       - selenium-firefox

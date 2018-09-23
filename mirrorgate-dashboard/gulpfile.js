@@ -20,17 +20,14 @@ const clean = require('gulp-clean');
 const rename = require('gulp-rename');
 const browserSync = require('browser-sync').create();
 const gulpSequence = require('gulp-sequence');
-const Server = require('karma').Server;
-const watch = require('gulp-watch');
-const tar = require('gulp-tar');
-const gzip = require('gulp-gzip');
+const server = require('karma').server;
 const selenium = require('selenium-standalone');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
-const useref = require('gulp-useref'), gulpif = require('gulp-if'),
-
-      minifyCss = require('gulp-clean-css'), glob = require('glob');
-
+const useref = require('gulp-useref');
+const gulpif = require('gulp-if');
+const minifyCss = require('gulp-clean-css');
+const glob = require('glob');
 const filter = require('gulp-filter');
 const path = require('path');
 const fs = require('fs');
@@ -38,8 +35,8 @@ const rev = require('gulp-rev');
 const revReplace = require('gulp-rev-replace');
 const revFormat = require('gulp-rev-format');
 
-var uglifyjs = require('uglify-js-harmony');
-var minifier = require('gulp-uglify/minifier');
+var uglifyjs = require('uglify-js');
+var minifier = require('gulp-uglify');
 
 const sassOptions = {
   errLogToConsole: true,
@@ -50,16 +47,24 @@ const paths = {
   src: ['src/**/*', '!src/**/*.spec.*', '!src/sass/**/*'],
   dist: 'dist/',
   target: 'target/',
-  bower: [
-    'bower_components*/**/*.min.*',
-    'bower_components*/webcomponentsjs/webcomponents-hi-sd-ce.js',
-    'bower_components*/**/dist/**/*.js',
+  libs: [
+    'node_modules/bootstrap/dist/js/*.min.*',
+    'node_modules/bootstrap/dist/css/*.min.*',
+    'node_modules/resize-observer-polyfill/dist/ResizeObserver.global.js',
+    'node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce.js',
+    'node_modules/jquery/dist/*.min.*',
+    'node_modules/jquery.dotdotdot/dist/jquery.dotdotdot.js',
+    'node_modules/moment/min/*.min.*',
+    'node_modules/moment-weekday-calc/build/*.min.*',
+    'node_modules/d3/*.min.*',
+    'node_modules/rivets/dist/*.min.*',
+    'node_modules/typeahead.js/dist/*.min.*'
   ],
   fonts: [
-    'bower_components*/roboto-fontface/css/roboto/roboto-fontface.css',
-    'bower_components*/roboto-fontface/fonts/**/*',
-    'bower_components*/font-awesome/css/font-awesome.css',
-    'bower_components*/font-awesome/fonts/**/*'
+    'node_modules/roboto-fontface*/css/roboto/roboto-fontface.css',
+    'node_modules/roboto-fontface*/fonts/**/*',
+    'node_modules/font-awesome*/css/font-awesome.min.css',
+    'node_modules/font-awesome*/fonts/**/*'
   ]
 };
 
@@ -72,16 +77,14 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('fail'));
 });
 
-gulp.task(
-    ':build',
-    (cb) => {
-      gulp.src(paths.src.concat(paths.bower).concat(paths.fonts))
-              .pipe(gulp.dest(paths.dist))
-              .on('end', () =>
-                  fs.writeFile(paths.dist + 'versionTag', getVersionId(), cb)
-              );
-    }
-);
+gulp.task(':build', (cb) => {
+  gulp.src(paths.src).pipe(gulp.dest(paths.dist));
+  gulp.src(paths.libs).pipe(gulp.dest(paths.dist + '/libs/'));
+  gulp.src(paths.fonts).pipe(gulp.dest(paths.dist + '/fonts/'))
+    .on('end', () =>
+      fs.writeFile(paths.dist + 'versionTag', getVersionId(), cb)
+    );
+});
 
 gulp.task('build', gulpSequence('clean', 'lint', ':build', ':build:sass'));
 gulp.task('build:watch', ['build'], () => {
@@ -128,7 +131,7 @@ gulp.task('serve:local', ['build'], () => {
 });
 
 gulp.task(
-    'test', [':build:sass'], (done) => new Server(
+    'test', [':build:sass'], (done) => server.start(
                           {
                             configFile: __dirname + '/karma.conf.js',
                             reporters: ['progress', 'coverage'],
@@ -138,25 +141,21 @@ gulp.task(
                             },
                             coverageReporter: {type: 'html', dir: 'coverage/'}
                           },
-                          done)
-                          .start());
+                          done));
 
 gulp.task(
-    ':test:watch', [':build:sass'], (done) => new Server(
+    ':test:watch', [':build:sass'], (done) => server.start(
                                  {
                                    singleRun: false,
                                    autoWatch: true,
                                    configFile: __dirname + '/karma.conf.js',
                                  },
-                                 done)
-                                 .start());
+                                 done));
 
 var seleniumServer;
 
 gulp.task('test:local', gulpSequence(':startSelenium', 'test', ':endSelenium'));
-gulp.task(
-    'test:watch',
-    gulpSequence(':startSelenium', ':test:watch', ':endSelenium'));
+gulp.task('test:watch', gulpSequence(':startSelenium', ':test:watch', ':endSelenium'));
 
 gulp.task(':startSelenium', (done) => {
   selenium.start((err, child) => {

@@ -6,7 +6,6 @@ Inside the module folder:
 
 ```sh
 npm install
-bower install
 ```
 
 Run project with :

@@ -31,14 +31,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/resize-observer-polyfill/dist/ResizeObserver.global.js',
-      'bower_components/webcomponentsjs/webcomponents-hi-sd-ce.js',
-      'bower_components/d3/d3.min.js',
-      'bower_components/jquery/dist/jquery.slim.min.js',
-      'bower_components/rivets/dist/rivets.bundled.min.js',
-      'bower_components/moment/min/moment.min.js',
-      'bower_components/moment-weekday-calc/build/moment-weekday-calc.min.js',
-      'bower_components/jQuery.dotdotdot/dist/jquery.dotdotdot.js',
+      'node_modules/resize-observer-polyfill/dist/ResizeObserver.global.js',
+      'node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce.js',
+      'node_modules/d3/d3.min.js',
+      'node_modules/jquery/dist/jquery.slim.min.js',
+      'node_modules/rivets/dist/rivets.bundled.min.js',
+      'node_modules/moment/min/moment.min.js',
+      'node_modules/moment-weekday-calc/build/moment-weekday-calc.min.js',
+      'node_modules/jquery.dotdotdot/dist/jquery.dotdotdot.js',
       'node_modules/lodash/lodash.min.js',
       'node_modules/karma-read-json/karma-read-json.js',
       'test/*.js',
@@ -56,9 +56,9 @@ module.exports = function(config) {
       'src/components/**/*.*',
       {pattern: 'test/**/*', included: false},
       {pattern: 'dist/img/**/*.*', included: false, served: true},
-      {pattern: 'dist/bower_components/**/*.css', included: false, served: true},
-      {pattern: 'dist/css/*.css', included: false, served: true},
-      {pattern: 'bower_components/*/fonts/**/*.*', included: false, served: true}
+      {pattern: 'dist/**/*.css', included: false, served: true},
+      {pattern: 'dist/libs/**/*.*', included: false, served: true},
+      {pattern: 'dist/fonts/**/*.*', included: false, served: true}
     ],
 
 
@@ -70,8 +70,9 @@ module.exports = function(config) {
     proxies: {
       '/css/': '/base/dist/css/',
       '/img/': '/base/dist/img/',
+      '/fonts/': '/base/dist/fonts/',
+      '/libs/': '/base/dist/libs/',
       '/node_modules/': '/base/node_modules/',
-      '/bower_components/': '/base/dist/bower_components/',
       '/test/': '/base/test/'
     },
 
