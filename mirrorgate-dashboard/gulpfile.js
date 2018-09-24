@@ -19,8 +19,7 @@ const jshint = require('gulp-jshint');
 const clean = require('gulp-clean');
 const rename = require('gulp-rename');
 const browserSync = require('browser-sync').create();
-const gulpSequence = require('gulp-sequence');
-const server = require('karma').server;
+const Server = require('karma').Server;
 const selenium = require('selenium-standalone');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
@@ -36,7 +35,7 @@ const revReplace = require('gulp-rev-replace');
 const revFormat = require('gulp-rev-format');
 
 var uglifyjs = require('uglify-js');
-var minifier = require('gulp-uglify');
+var minifier = require('gulp-uglify-es').default;
 
 const sassOptions = {
   errLogToConsole: true,
@@ -86,20 +85,8 @@ gulp.task(':build', (cb) => {
     );
 });
 
-gulp.task('build', gulpSequence('clean', 'lint', ':build', ':build:sass'));
-gulp.task('build:watch', ['build'], () => {
-  gulp.watch(['src/**/*'], [':build', ':build:sass']);
-});
-
-gulp.task('build:watch:noclean', [], () => {
-  gulp.watch(['src/**/*'], ['lint', ':build', ':build:sass']);
-});
-
-gulp.task(
-    ':serve:watch', [':build', ':build:sass'], () => browserSync.reload());
-
 /* Sass */
-gulp.task(':build:sass', function() {
+gulp.task(':build:sass', () => {
   return gulp.src('src/sass/**/*')
       .pipe(sourcemaps.init())
       .pipe(sass(sassOptions).on('error', sass.logError))
@@ -108,69 +95,15 @@ gulp.task(':build:sass', function() {
       .pipe(gulp.dest('dist/css'));
 });
 
-/* To be runned against mocks */
-gulp.task('serve', ['build'], () => {
-  browserSync.init({port: 8082, server: {baseDir: ['dist', 'test/mocks']}});
-  gulp.watch(['src/**/*'], [':serve:watch']);
+gulp.task('build', gulp.series('clean', 'lint', ':build', ':build:sass'));
+gulp.task('build:watch', () => {
+  gulp.watch(['src/**/*', 'sass/**/*'], gulp.series('build'));
+});
+gulp.task('build:watch:noclean', () => {
+  gulp.watch(['src/**/*', 'sass/**/*'], gulp.series('lint', ':build', ':build:sass'));
 });
 
-gulp.task('serve:dist', ['dist'], () => {
-  browserSync.init({port: 8082, server: {baseDir: ['dist', 'test/mocks']}});
-  gulp.watch(['src/**/*'], [':serve:watch']);
-});
-
-gulp.task('serve:noclean', [':serve:watch'], () => {
-  browserSync.init({port: 8082, server: {baseDir: ['dist', 'test/mocks']}});
-  gulp.watch(['src/**/*'], [':serve:watch']);
-});
-
-/* To be runned against a local api server */
-gulp.task('serve:local', ['build'], () => {
-  browserSync.init({port: 3000, server: {baseDir: 'dist'}});
-  gulp.watch('src/**/*', [':serve:watch']);
-});
-
-gulp.task(
-    'test', [':build:sass'], (done) => server.start(
-                          {
-                            configFile: __dirname + '/karma.conf.js',
-                            reporters: ['progress', 'coverage'],
-                            preprocessors: {
-                              'src/js/**/*.js': ['coverage'],
-                              'src/components/**/*.js': ['coverage']
-                            },
-                            coverageReporter: {type: 'html', dir: 'coverage/'}
-                          },
-                          done));
-
-gulp.task(
-    ':test:watch', [':build:sass'], (done) => server.start(
-                                 {
-                                   singleRun: false,
-                                   autoWatch: true,
-                                   configFile: __dirname + '/karma.conf.js',
-                                 },
-                                 done));
-
-var seleniumServer;
-
-gulp.task('test:local', gulpSequence(':startSelenium', 'test', ':endSelenium'));
-gulp.task('test:watch', gulpSequence(':startSelenium', ':test:watch', ':endSelenium'));
-
-gulp.task(':startSelenium', (done) => {
-  selenium.start((err, child) => {
-    seleniumServer = child;
-    done(err);
-  });
-});
-
-gulp.task(':endSelenium', (done) => {
-  if (seleniumServer) {
-    seleniumServer.kill();
-  }
-});
-
-gulp.task('html', function() {
+gulp.task('html', () => {
 
   //Useref and rev revReplace for js and css
   return glob.sync('dist/**/*.html').reduce((prev, filePath) =>
@@ -227,8 +160,78 @@ gulp.task('html', function() {
   });
 });
 
-gulp.task('default', gulpSequence('build', 'test:local'));
-gulp.task('dist', gulpSequence('build', 'html'));
+gulp.task('dist', gulp.series('build', 'html'));
+
+function reload(done) {
+  browserSync.reload();
+  done();
+}
+
+function serve(done) {
+  browserSync.init({
+    port: 8082, server: {baseDir: ['dist', 'test/mocks']}
+  });
+  done();
+}
+
+function serveLocal(done) {
+  browserSync.init({
+    port: 3000, server: {baseDir: 'dist'}
+  });
+  done();
+}
+
+gulp.task('watch', () => gulp.watch(['src/**/*', 'sass/**/*'], gulp.series('build', reload)));
+gulp.task('watch:dist', () => gulp.watch(['src/**/*', 'sass/**/*'], gulp.series('dist', reload)));
+gulp.task('watch:noclean', () => gulp.watch(['src/**/*', 'sass/**/*'], gulp.series(':build', ':build:sass', reload)));
+
+gulp.task('serve', gulp.series('build', serve, 'watch'));
+gulp.task('serve:dist', gulp.series('dist', serve, 'watch:dist'));
+gulp.task('serve:local', gulp.series('build', serveLocal, 'watch'));
+gulp.task('serve:noclean', gulp.series(':build', serve, 'watch:noclean'));
+
+gulp.task('test', (done) => {
+  server = new Server({
+    configFile: __dirname + '/karma.conf.js',
+    reporters: ['progress', 'coverage'],
+    preprocessors: {
+      'src/js/**/*.js': ['coverage'],
+      'src/components/**/*.js': ['coverage']
+    },
+    coverageReporter: {type: 'html', dir: 'coverage/'}
+  }, done);
+  server.start();
+});
+
+gulp.task(':test:watch', (done) => {
+  server = new Server({
+    singleRun: false,
+    autoWatch: true,
+    configFile: __dirname + '/karma.conf.js',
+  }, done);
+  server.start();
+});
+
+var seleniumServer;
+
+function startSelenium(done) {
+  selenium.start((err, child) => {
+    seleniumServer = child;
+    done(err);
+  });
+}
+
+function endSelenium(done) {
+  if (seleniumServer) {
+    seleniumServer.kill();
+    done();
+  }
+}
+
+gulp.task('test:local', gulp.series(startSelenium, 'build', 'test', endSelenium));
+gulp.task('test:watch', gulp.series(startSelenium, 'build', ':test:watch', endSelenium));
+
+gulp.task('default', gulp.series('build', 'test:local'));
 
 function getVersionId() {
   let version = new Date().toISOString();
