@@ -49,6 +49,14 @@
             display:flex;
             align-items: center;
             justify-content: flex-end;
+
+            .btn {
+                padding: 6px 12px;
+            }
+
+            .form-control {
+                font-size: 14px;
+            }
         }
 
         button{
@@ -72,6 +80,7 @@
                 font-size: $level-4;
                 left: auto;
                 right: 0;
+                min-width: 160px;
 
                 .dropdown-header {
                     font-size: $level-5;

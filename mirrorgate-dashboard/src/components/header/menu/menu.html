@@ -33,11 +33,11 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="menuBtn">
         <li class="dropdown-header">Manage</li>
-        <li><a href="backoffice/index.html" onclick="return Utils.openBackOffice()"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
-        <li rv-if="config"><a href="backoffice/index.html" onclick="return Utils.openBackOffice(Utils.getDashboardId());"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
+        <li><a class="dropdown-item" href="backoffice/index.html" onclick="return Utils.openBackOffice()"><i class="fa fa-cogs" aria-hidden="true"></i> Admin Console </a></li>
+        <li rv-if="config"><a class="dropdown-item" href="backoffice/index.html" onclick="return Utils.openBackOffice(Utils.getDashboardId());"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this dashboard</a></li>
         <li class="dropdown-header">Recent dashboards</li>
         <li rv-each-board="recentDashboards">
-          <a rv-href="board.url">{board.name}</a>
+          <a class="dropdown-item" rv-href="board.url">{board.name}</a>
         </li>
       </ul>
     </div>
