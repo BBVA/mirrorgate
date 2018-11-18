@@ -25,12 +25,14 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.20.0"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'jacoco'
+apply plugin: "com.github.ben-manes.versions"
 
 jar {
     group group
