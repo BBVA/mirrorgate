@@ -129,7 +129,7 @@ It provides 3 different authorization depending on the value of the `X-Forwarded
 
 You need the following dependencies installed in order to build the project:
 
-- [nodejs >= 6](https://nodejs.org)
+- [nodejs >= 8](https://nodejs.org)
 - [jdk >= 8](http://openjdk.java.net/)
 - [docker](https://www.docker.com/)
 - [docker-compose](https://docs.docker.com/compose/): optional but strongly recommended in order to be able to execute some of the scripts.
