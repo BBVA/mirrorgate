@@ -15,22 +15,17 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ConfigService {
 
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  getConfig(): Promise<any> {
-
-    return this.http.get('config.json')
-              .toPromise()
-              .then(response => response.json());
+  getConfig() {
+    return this.http.get('config.json');
   }
 
 }

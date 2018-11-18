@@ -38,6 +38,15 @@ tag-input {
   height: 100%;
 }
 
+textarea {
+  margin-bottom: 10px;
+}
+
 .stars {
-  font-size: 2em;
+  font-size: 1.8em;
+
+  .fa-star {
+    cursor: pointer;
+  }
+
 }

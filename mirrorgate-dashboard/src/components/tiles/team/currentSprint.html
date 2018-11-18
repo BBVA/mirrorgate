@@ -119,13 +119,13 @@
       'Backlog': 4
     };
 
-    var outherArc = d3.svg.arc()
+    var outherArc = d3.arc()
       .innerRadius(483)
       .padAngle(Math.PI / 150)
       .outerRadius(500)
       .cornerRadius(17);
 
-    var pie = d3.layout.pie()
+    var pie = d3.pie()
       .startAngle(-Math.PI * 3 / 4)
       .endAngle(Math.PI * 3 / 4)
       .padAngle(Math.PI / 45)
@@ -230,7 +230,7 @@
           return order[a.status] < order[b.status] ? -1 : 1;
         });
 
-        var arc = d3.svg.arc()
+        var arc = d3.arc()
           .innerRadius(400)
           .outerRadius(450)
           .cornerRadius(function (d, i) {

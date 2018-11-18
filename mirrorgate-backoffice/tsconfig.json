@@ -14,8 +14,7 @@
     "lib": ["es6", "dom"]
   },
   "exclude": [
-    "node_modules",
-    "./src/main.browser.aot.ts"
+    "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true

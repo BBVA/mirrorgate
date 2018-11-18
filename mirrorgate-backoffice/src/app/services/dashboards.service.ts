@@ -17,80 +17,70 @@
 import { Injectable } from '@angular/core';
 
 import { Dashboard } from '../model/dashboard';
-import { Http } from '@angular/http';
-import { Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { catchError} from 'rxjs/operators';
 
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/filter';
 
 @Injectable()
 export class DashboardsService {
 
   private dashboardsUrl = '../dashboards';
-  private dashboardsAPI = '../api/dashboards';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  getDashboards(): Promise<Dashboard[]> {
-    return this.http.get(this.dashboardsUrl)
-               .toPromise()
-               .then(response => response.json() as Dashboard[])
-               .catch(this.handleError);
+  getDashboards() {
+    return this.http.get<Dashboard[]>(this.dashboardsUrl)
+              .pipe(
+                catchError(this.handleError)
+              );
   }
 
-  getDashboard(id): Promise<Dashboard> {
-    return this.http.get(this.dashboardsUrl + '/' + id + '/details')
-               .toPromise()
-               .then(response => response.json() as Dashboard)
-               .catch(this.handleError);
+  getDashboard(id) {
+    return this.http.get<Dashboard>(this.dashboardsUrl + '/' + id + '/details')
+                .pipe(
+                  catchError(this.handleError)
+                );
+}
+
+  deleteDashboard(dashboard: Dashboard) {
+    return this.http.delete(this.dashboardsUrl + '/' + dashboard.name, { responseType: 'text' })
+                .pipe(
+                  catchError(this.handleError)
+                );
   }
 
-  deleteDashboard(dashboard: Dashboard): Promise<Boolean> {
-    return this.http.delete(this.dashboardsUrl + '/' + dashboard.name)
-               .toPromise()
-               .then(response => response.status === 200)
-               .catch(this.handleError);
-  }
-
-  saveDashboard(dashboard: Dashboard, exists?:boolean): Promise<Dashboard> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
+  saveDashboard(dashboard: Dashboard, exists?:boolean) {
     if(exists) {
-      return this.http.put(this.dashboardsUrl + '/' + dashboard.name, dashboard, options)
-              .toPromise()
-              .then(response => response.json() as Dashboard)
-              .catch(this.handleError);
+      return this.http.put<Dashboard>(this.dashboardsUrl + '/' + dashboard.name, dashboard)
+                .pipe(
+                  catchError(this.handleError)
+                );
     } else {
-      return this.http.post(this.dashboardsUrl, dashboard, options)
-                .toPromise()
-                .then(response => response.json() as Dashboard)
-                .catch(this.handleError);
+      return this.http.post<Dashboard>(this.dashboardsUrl, dashboard)
+                .pipe(
+                  catchError(this.handleError)
+                );
     }
   }
 
-  uploadImage(dashboard: Dashboard, file: File): Promise<any>{
+  uploadImage(dashboard: Dashboard, file: File){
     let formData:FormData = new FormData();
     formData.append('uploadfile', file, file.name);
-    let headers = new Headers();
-    //headers.append('Content-Type', null);
 
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(`${this.dashboardsUrl}/${dashboard.name}/image`, formData, options)
-        .toPromise()
-        .catch(this.handleError);
+    return this.http.post(`${this.dashboardsUrl}/${dashboard.name}/image`, formData, { responseType: 'text' })
+                .pipe(
+                  catchError(this.handleError)
+                );
   }
 
-  private handleError(error: any): Promise<any> {
-
+  private handleError(error: HttpErrorResponse) {
     let errMsg: string;
-    if (error instanceof Response) {
-      errMsg = `${error.status} - ${error.text() }`;
+    if (error.error instanceof ErrorEvent) {
+      errMsg = `${error.status} - ${error.error.message }`;
     } else {
-      errMsg = error.message ? error.message : error;
+      errMsg = error.error.message ? error.error.message : error;
     }
-
-    return Promise.reject(errMsg);
-  }
-
+    return throwError(errMsg);
+  };
 }

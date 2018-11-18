@@ -17,7 +17,6 @@
 import {Component} from '@angular/core';
 import {DashboardsService} from '../../services/dashboards.service';
 import {Dashboard} from '../../model/dashboard';
-import { OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {TextsService} from '../../services/texts.service';
 
@@ -41,13 +40,14 @@ export class DeleteComponent {
 
   ngOnInit(): void {
     let name = this.route.snapshot.params['id'];
-    this.dashboardsService.getDashboard(name).then(dashboard => this.dashboard = dashboard);
-    this.textsService.getTexts()
-      .then((texts) => {
+    this.dashboardsService.getDashboard(name).subscribe(dashboard => this.dashboard = dashboard);
+    this.textsService.getTexts().subscribe(
+      texts => {
         this.texts = texts;
         this.texts.loaded = true;
-      })
-      .catch((error: any) => { this.errorMessage = <any>error; });
+      },
+      error => this.errorMessage = error.error
+    );
   }
 
   back(): void {
@@ -55,10 +55,11 @@ export class DeleteComponent {
   }
 
   delete(): void {
-    this.dashboardsService.deleteDashboard(this.dashboard)
-      .then(() => this.back())
-      .catch((error: any) => {
-        this.errorMessage = <any>error;
-      });
+    this.dashboardsService.deleteDashboard(this.dashboard).subscribe(
+      () =>  this.back(),
+      error => {
+        this.errorMessage = error.error
+      }
+    );
   }
 }

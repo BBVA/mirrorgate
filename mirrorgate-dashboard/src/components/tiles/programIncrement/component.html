@@ -125,16 +125,6 @@
       return count / children.length;
     }
 
-    var partition = d3.layout.partition()
-        .sort(function (a, b) {
-          return order[a.status] === order[b.status] ?
-              completedRate(b) - completedRate(a) :
-              order[b.status] - order[a.status];
-        })
-        .value(function(d) {
-          return d.size;
-        });
-
     var ySizeMap = {
       '0': 0.65,
       '0.25': 0.82,
@@ -145,18 +135,18 @@
       return ySizeMap['' + x] * 530;
     };
 
-    var arc = d3.svg.arc()
-        .startAngle(function(d) { return d.x - 3 * Math.PI/4; })
-        .endAngle(function(d) { return d.x + d.dx  - 3 * Math.PI/4; })
+    var arc = d3.arc()
+        .startAngle(function(d) { return d.x0 - 3 * Math.PI/4; })
+        .endAngle(function(d) { return d.x0 + (d.x1 - d.x0)  - 3 * Math.PI/4; })
         .padAngle(Math.PI/180)
         .cornerRadius(20)
-        .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) - 10; })
-        .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -31; });
+        .innerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0-0.25) - 10; })
+        .outerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0-0.25 + (d.y1-d.y0)) -31; });
 
     function storyClassBuilder(prefix) {
       return function (d) {
-        if(d.status) {
-          return prefix + Utils.toClassName(d.status);
+        if(d.data.status) {
+          return prefix + Utils.toClassName(d.data.status);
         } else {
           return prefix + 'product';
         }
@@ -179,7 +169,7 @@
         var model = this.getModel();
 
         function mouseEnterHandler (d) {
-          model.selected = d;
+          model.selected = d.data;
           svg.classed('dimmed', true);
         }
 
@@ -243,7 +233,6 @@
             arc.padAngle(Math.PI/360).cornerRadius(5)
           }
 
-
           var style = window.getComputedStyle(this.getRootElement().querySelector('.component__body'));
 
           var marginTop = 0;
@@ -252,8 +241,6 @@
             height = parseFloat(style.height.substring(0, style.height.length - 2)),
             radius = Math.min(width, height) / 2;
           width = 2 * radius;
-
-          partition = partition.size([3/2 * Math.PI, 1 - (0.25 * (3-depth))]);
 
           var container = d3.select(this.getRootElement()).select("svg")
             .attr('preserveAspectRatio', 'xMidYMid meet')
@@ -268,10 +255,25 @@
               model.selected = undefined;
             });
 
+          var partition = d3.partition()
+            .size([3/2 * Math.PI, 1 - (0.25 * (3-depth))]);
+
+          var root = d3.hierarchy({
+            children: model.programIncrement.products
+          })
+            .sum(function(d) {
+              return !d.children || d.children.length === 0 ? d.size : 0;
+            })
+            .sort(function (a, b) {
+              return order[a.data.status] === order[b.data.status] ?
+                completedRate(b.data) - completedRate(a.data) :
+                order[b.data.status] - order[a.data.status];
+            });
+
+          partition(root);
+
           var featureData = svg.select('.slices').selectAll('path')
-            .data(partition.nodes({
-              children: model.programIncrement.products
-            }));
+            .data(root.descendants());
 
           featureData
             .attr('d', arc)
@@ -281,7 +283,7 @@
             .append('path')
             .on('mouseenter', mouseEnterHandler)
             .on('click', function (d) {
-              d.url && window.open(d.url, "IssueUrl");
+              d.data.url && window.open(d.data.url, "IssueUrl");
             })
             .attr('d', arc)
             .attr('class', storyClassBuilder('status-'));

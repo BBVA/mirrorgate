@@ -14,86 +14,27 @@
  * limitations under the License.
  */
 
-var webpack = require('webpack');
-var path = require('path');
-var webpackMerge = require('webpack-merge');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const webpackMerge = require('webpack-merge');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 // Webpack Config
 var webpackConfig = {
+
+  mode: process.env.PRODUCTION ? 'production' : 'development',
+
   entry: {
-    'main': './src/main.browser.ts',
+    'polyfills': './src/polyfills.ts',
+    'main': './src/main.ts'
   },
 
   output: {
-    publicPath: '',
-    path: path.resolve(__dirname, './dist'),
-  },
-
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.PRODUCTION': process.env.PRODUCTION || false
-    }),
-    new webpack.ContextReplacementPlugin(
-      // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /\@angular(\\|\/)core(\\|\/)esm5/,
-      path.resolve(__dirname, './src'),
-      {
-        // your Angular Async Route paths relative to this root directory
-      }
-    ),
-    new webpack.ProvidePlugin({
-      jQuery: 'jquery',
-      $: 'jquery',
-      jquery: 'jquery'
-    }),
-    new CopyWebpackPlugin([
-        { from: 'src/assets' },
-        { from: 'src/index.html' },
-        { from: 'src/config.json' },
-        { from: 'src/texts.json' }
-    ])
-  ],
-
-  module: {
-    loaders: [
-      // .ts files for TypeScript
-      {
-        test: /\.ts$/,
-        loaders: [
-          'awesome-typescript-loader',
-          'angular2-template-loader',
-          'angular2-router-loader'
-        ]
-      },
-      { test: /\.css$/, loaders: ['to-string-loader', 'css-loader'] },
-      { test: /\.html$/, loader: 'raw-loader' },
-      {
-        test: /\.scss$/,
-        use: [{
-            loader: "to-string-loader" // creates style nodes from JS strings
-        }, {
-            loader: "css-loader" // translates CSS into CommonJS
-        }, {
-            loader: "sass-loader" // compiles Sass to CSS
-        }]
-      },
-      { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'file-loader?name=fonts/[name].[ext]' },
-      { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports-loader?jQuery=jquery' }
-    ]
-  }
-
-};
-
-
-// Our Webpack Defaults
-var defaultConfig = {
-  devtool: 'source-map',
-
-  output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[chunkhash].js',
     sourceMapFilename: '[name].map',
-    chunkFilename: '[id].chunk.js'
   },
 
   resolve: {
@@ -121,15 +62,80 @@ var defaultConfig = {
     Buffer: false,
     clearImmediate: false,
     setImmediate: false
+  },
+
+  plugins: [
+    new webpack.ContextReplacementPlugin(
+      /\@angular(\\|\/)core(\\|\/)esm5/,
+      path.resolve(__dirname, './src')
+    ),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      Popper: ['popper.js', 'default']
+    }),
+    new CopyWebpackPlugin([
+        { from: 'src/assets' },
+        { from: 'src/index.html' },
+        { from: 'src/config.json' },
+        { from: 'src/texts.json' },
+        { from: 'node_modules/roboto-fontface/fonts/roboto/', to: 'vendor/roboto/fonts/roboto', flatten: true },
+        { from: 'node_modules/roboto-fontface/css/roboto/*.css', to: 'vendor/roboto/css/roboto', flatten: true },
+        { from: 'node_modules/@fortawesome/fontawesome-free/css/all.min.css', to: 'vendor/fontawesome/css', flatten: true },
+        { from: 'node_modules/@fortawesome/fontawesome-free/webfonts', to: 'vendor/fontawesome/webfonts', flatten: true },
+        { from: 'node_modules/bootstrap/dist/css/bootstrap.min.*', to: 'vendor/bootstrap', flatten: true },
+        { from: 'node_modules/dragula/dist/*.min.css', to: 'vendor/dragula', flatten: true }
+    ]),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    }),
+    new HtmlWebpackPlugin({template: 'src/index.html'})
+  ],
+
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: ['awesome-typescript-loader', 'angular2-template-loader', 'angular2-router-loader']
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
+      },
+      { test: /\.html$/, loader: 'html-loader' },
+      {
+        test: /\.scss$/,
+        use: ['to-string-loader', 'css-loader' , 'sass-loader']
+      },
+      { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'file-loader?name=fonts/[name].[ext]' }
+    ]
   }
+
 };
 
-if(process.env.PRODUCTION) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true
-    })
-  );
+
+if (process.env.PRODUCTION) {
+
+  var productionConfig = {
+    devtool: 'source-map',
+
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        minSize: 0
+      },
+      minimizer: [
+        new UglifyJsPlugin({
+          cache: true,
+          parallel: true
+        })
+      ]
+    }
+  };
+
+  webpackConfig = webpackMerge(productionConfig, webpackConfig);
 }
 
-module.exports = webpackMerge(defaultConfig, webpackConfig);
+module.exports = webpackConfig;

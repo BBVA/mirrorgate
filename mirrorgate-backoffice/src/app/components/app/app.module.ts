@@ -22,8 +22,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { FeedbackComponent } from '../feedback/feedback.component';
 import { FormComponent } from '../form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ListComponent } from '../list/list.component';
 import { NgModule } from '@angular/core';
 import { rootRouterConfig } from './app.routes';
@@ -42,11 +41,11 @@ import { TagInputModule } from 'ngx-chips';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: true }),
     TagInputModule,
     BrowserAnimationsModule,
-    DragulaModule
+    DragulaModule.forRoot()
   ],
   bootstrap: [ AppComponent ]
 })

@@ -30,13 +30,12 @@ var DashboardComponent = (function() {
       this.addEventListener('dashboard-updated', function(e) {
 
         if(e.detail.status) {
-          d3.select(this).classed({
-            'module-error': e.detail.status === 'error',
-            'module-warning': e.detail.status === 'warn',
-            'module-ok': e.detail.status === 'ok',
-            'module-empty': e.detail.status === 'empty',
-            'module-data-error': e.detail.status === 'server-error'
-          });
+          d3.select(this)
+            .classed('module-error', e.detail.status === 'error')
+            .classed('module-warning', e.detail.status === 'warn')
+            .classed('module-ok', e.detail.status === 'ok')
+            .classed('module-empty', e.detail.status === 'empty')
+            .classed('module-data-error', e.detail.status === 'server-error');
         }
 
         if(this.classList.contains('keep-height')) {
@@ -64,12 +63,10 @@ var DashboardComponent = (function() {
         height = parseFloat(style.height.substring(0, style.height.length - 2));
     var min = Math.min(width, height);
 
-    var classes = {
-      'tile-s': min < 300,
-      'tile-m': min >= 300 && min <= 600,
-      'tile-l': min > 600
-    };
-    d3.select(this).classed(classes);
+    d3.select(this)
+      .classed('tile-s', min < 300)
+      .classed('tile-m', min >= 300 && min <= 600)
+      .classed('tile-l', min > 600);
 
     if(!isNaN(min) && (this._width !== width || this._height !== height)) {
       this.dispatchEvent(

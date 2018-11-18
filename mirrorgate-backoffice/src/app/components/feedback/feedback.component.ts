@@ -15,7 +15,6 @@
  */
 
 import {Component} from '@angular/core';
-import {OnInit} from '@angular/core';
 
 import {Review} from '../../model/review';
 import {ReviewsService} from '../../services/reviews.service';
@@ -41,21 +40,23 @@ export class FeedbackComponent {
 
   ngOnInit(): void {
     this.review = new Review();
-    this.textsService.getTexts()
-      .then((texts) => {
+    this.textsService.getTexts().subscribe(
+      texts => {
         this.texts = texts;
         this.texts.loaded = true;
-      })
-      .catch((error: any) => { this.errorMessage = <any>error; });
+      },
+      error => this.errorMessage = error.error
+    );
   }
 
   back(): void { window.history.back(); }
 
   onSave(review: Review): void {
-    this.reviewsService.saveReview(review)
-        .then(() => {
-          this.back();
-        })
-        .catch((error: any) => { this.errorMessage = <any>error; });
+    this.reviewsService.saveReview(review).subscribe(
+      () => this.back(),
+      error => {
+        this.errorMessage = error;
+      }
+    );
   }
 }

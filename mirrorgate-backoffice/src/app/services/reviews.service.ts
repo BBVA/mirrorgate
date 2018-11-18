@@ -17,43 +17,37 @@
 import { Injectable } from '@angular/core';
 
 import { Review } from '../model/review';
-import { Http } from '@angular/http';
-import { Headers, RequestOptions, Response } from '@angular/http';
-import { URLSearchParams } from '@angular/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { catchError} from 'rxjs/operators';
 
-import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ReviewsService {
 
   private reviewsUrl = '../reviews/mirrorgate';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  saveReview(review: Review): Promise<Review> {
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
-
-    let data = new URLSearchParams();
+  saveReview(review: Review) {
+    let data = new HttpParams();
     data.append('rate', review.rate.toString());
     data.append('comment', review.comment);
 
-    return this.http.post(this.reviewsUrl, data, options)
-              .toPromise()
-              .then(response => response.json() as Review)
-              .catch(this.handleError);
+    return this.http.post<Review>(this.reviewsUrl, data)
+                .pipe(
+                  catchError(this.handleError)
+                );
   }
 
-  private handleError(error: any): Promise<any> {
-
+  private handleError(error: HttpErrorResponse) {
     let errMsg: string;
-    if (error instanceof Response) {
-      errMsg = `${error.status} - ${error.text() }`;
+    if (error.error instanceof ErrorEvent) {
+      errMsg = `${error.status} - ${error.error.message }`;
     } else {
-      errMsg = error.message ? error.message : error;
+      errMsg = error.error.message ? error.error.message : error;
     }
-
-    return Promise.reject(errMsg);
-  }
+    return throwError(errMsg);
+  };
 
 }

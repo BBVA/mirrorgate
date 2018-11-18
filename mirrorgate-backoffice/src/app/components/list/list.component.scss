@@ -17,7 +17,7 @@
 .list {
   font-family: 'Roboto';
   font-weight: 300;
-  font-size: 1.6rem
+  font-size: 1.2rem
 }
 
 h2 {
@@ -30,15 +30,16 @@ a {
   &.btn {
     color: #fff;
   }
+}
 
-  &.btn-default {
-    color: #555;
-  }
+.btn-outline-secondary {
+  color: #555;
 }
 
 .team-logo {
   height: 30px;
   width: 30px;
+  margin-right: 5px;
 }
 
 //list
@@ -47,6 +48,10 @@ a {
   border: none;
   border-radius: 0;
   margin-bottom: 2px;
+}
+
+.list-head {
+  margin-bottom: 15px;
 }
 
 .head-button {

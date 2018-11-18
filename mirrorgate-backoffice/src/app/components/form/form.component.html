@@ -25,61 +25,59 @@
     <form (ngSubmit)="onSave(dashboard)" #dashboardForm="ngForm" *ngIf="dashboard">
       <div class="general-help" innerHTML="{{texts.form.general_help}}"></div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{texts.form.general_block.title}}</h3>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{texts.form.general_block.title}}</h3>
         </div>
-        <div class="panel-body">
-          <div class="form-group row">
+        <div class="card-body">
+          <div class="row">
             <div [ngClass]="{'col-sm-6':categories, 'col-sm-12':!categories}">
               <label for="displayName">{{texts.form.general_block.display_name_input}} (*)</label>
               <input type="text" class="form-control" id="displayName" [(ngModel)]="temp.displayName" (ngModelChange)="mirrorTempValues()" name="displayName" #name="ngModel" required>
             </div>
             <div class="col-sm-6" *ngIf="categories">
-              <div class="form-group">
+              <div>
                 <label for="category">{{texts.form.general_block.category}} (*)</label>
                 <div class="collapse" id="category-help">
-                  <div class="well" innerHTML="{{texts.form.general_block.category_help}}"></div>
+                  <div class="card card-header" innerHTML="{{texts.form.general_block.category_help}}"></div>
                 </div>
                 <div class="input-group">
-                  <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#category-help" aria-expanded="false" aria-controls="icon-url-help">
-                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                  </a>
+                  <div class="input-group-prepend">
+                    <button class="btn" data-toggle="collapse" data-target="#category-help" aria-expanded="false" aria-controls="icon-url-help">
+                      <span class="fas fa-info-circle" aria-hidden="true"></span>
+                    </button>
+                  </div>
                   <select type="text" class="form-control" id="category" [(ngModel)]="dashboard.category" name="category" required>
                     <option *ngFor="let category of categories" value="{{category.value}}">{{category.display}}</option>
                   </select>
-                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="form-group row">
+          <div class="row">
               <div class="col-sm-6">
               <label for="logoURL">{{texts.form.general_block.logo_url_input}}</label>
               <div class="collapse" id="icon-url-help">
-                <div class="well" innerHTML="{{texts.form.general_block.logo_url_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.general_block.logo_url_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#icon-url-help" aria-expanded="false" aria-controls="icon-url-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#icon-url-help" aria-expanded="false" aria-controls="icon-url-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <input *ngIf="dashboard.logoUrl != '#UPLOADED#'" type="text" class="form-control" id="logoURL" [(ngModel)]="temp.logoUrl" (ngModelChange)="mirrorTempValues()" name="logoURL">
                 <input *ngIf="dashboard.logoUrl == '#UPLOADED#'" type="text" readonly="true" class="form-control" value="Uploaded picture">
-                <a *ngIf="edit && dashboard.logoUrl == '#UPLOADED#'" type="button" (click)="dashboard.logoUrl = undefined; temp.logoUrl = undefined" class="input-group-addon">
-                  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                </a>
-                <a *ngIf="edit" type="button" (click)="icon = {}" class="input-group-addon" data-toggle="modal" data-target="#iconModal">
-                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-append">
+                  <button type="button" class="btn" *ngIf="edit && dashboard.logoUrl == '#UPLOADED#'" (click)="dashboard.logoUrl = undefined; temp.logoUrl = undefined">
+                    <span class="fas fa-times" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" class="btn" *ngIf="edit" (click)="icon = {}" data-toggle="modal" data-target="#iconModal">
+                    <span class="fas fa-cog" aria-hidden="true"></span>
+                  </button>
+                </div>
               </div>
             </div>
-            <!--<div class="col-sm-6">
-              <label for="name">{{texts.form.general_block.name_input}}</label>
-              <input type="text" class="form-control" id="name" required [(ngModel)]="dashboard.name" name="name"
-              readonly="true" #name="ngModel">
-              <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                {{texts.form.general_block.name_required_text}}
-              </div>
-            </div>-->
             <div class="col-sm-6">
                 <label for="skin">{{texts.form.general_block.skin_list}}</label>
                 <select type="text" class="form-control" id="skin" [(ngModel)]="dashboard.skin" name="skin">
@@ -94,18 +92,20 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       <h4 class="modal-title" id="myModalLabel">{{texts.form.general_block.icon_upload}}</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                       <label for="iconModal">{{texts.form.general_block.icon_text}}</label>
                       <div class="collapse" id="iconModal-help">
-                        <div class="well" innerHTML="{{texts.form.general_block.icon_help}}"></div>
+                        <div class="card card-header" innerHTML="{{texts.form.general_block.icon_help}}"></div>
                       </div>
                       <div class="input-group">
-                        <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#iconModal-help" aria-expanded="false" aria-controls="iconModal-help">
-                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
+                        <div class="input-group-prepend">
+                          <button type="button" class="btn" data-toggle="collapse" data-target="#iconModal-help" aria-expanded="false" aria-controls="iconModal-help">
+                            <span class="fas fa-info-circle" aria-hidden="true"></span>
+                          </button>
+                        </div>
                         <input type="file" class="form-control" (change)="uploadImage($event)" placeholder="Upload png file" accept=".png">
                       </div>
                       <div *ngIf="icon.error" class="alert alert-error" role="alert">Error: {{error}}</div>
@@ -114,7 +114,7 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
@@ -122,29 +122,33 @@
           <!-- /Modal -->
 
 
-          <div class="form-group">
+          <div>
             <label for="adminUsers">{{texts.form.general_block.admin_list}}</label>
             <div class="collapse" id="admin-users-help">
-              <div class="well" innerHTML="{{texts.form.general_block.admin_list_help}}"></div>
+              <div class="card card-header" innerHTML="{{texts.form.general_block.admin_list_help}}"></div>
             </div>
             <div class="input-group">
-              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#admin-users-help" aria-expanded="false" aria-controls="admin-users-help">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-              </a>
+              <div class="input-group-prepend">
+                <button type="button" class="btn" data-toggle="collapse" data-target="#admin-users-help" aria-expanded="false" aria-controls="admin-users-help">
+                  <span class="fas fa-info-circle" aria-hidden="true"></span>
+                </button>
+              </div>
               <tag-input class="form-control" id="adminUsers" name="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()" placeholder="{{texts.form.general_block.admin_list_placeholder}}" secondaryPlaceholder="{{texts.form.general_block.admin_list_secondary_placeholder}}" separatorKeys="[',',' ']" addOnBlur=true dragZone="adminList"></tag-input>
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="row">
             <div class="col-sm-6">
               <label for="type">{{texts.form.general_block.board_type_text}}</label>
               <div class="collapse" id="board-type-help">
-                <div class="well" innerHTML="{{texts.form.general_block.board_type_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.general_block.board_type_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#board-type-help" aria-expanded="false" aria-controls="icon-url-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#board-type-help" aria-expanded="false" aria-controls="icon-url-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <select type="text" class="form-control" id="type" [(ngModel)]="dashboard.type" name="type">
                   <option value="Detail">Detail</option>
                   <option value="Aggregate">Aggregate</option>
@@ -154,12 +158,14 @@
             <div *ngIf="dashboard.type=='Aggregate'" class="col-sm-6">
               <label for="aggregatedDashboards">{{texts.form.general_block.aggregated_dashboards_text}}</label>
               <div class="collapse" id="dashboard-ids-help">
-                <div class="well" innerHTML="{{texts.form.general_block.aggregated_dashboards_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.general_block.aggregated_dashboards_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#dashboard-ids-help" aria-expanded="false" aria-controls="dashboard-ids-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#dashboard-ids-help" aria-expanded="false" aria-controls="dashboard-ids-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <tag-input class="form-control" id="aggregatedDashboards" name="aggregatedDashboards" [(ngModel)]="temp.aggregatedDashboards" (ngModelChange)="mirrorTempValues()" placeholder="Add a new dashboard" secondaryPlaceholder="Add a new dashboard" separatorKeys="[',',' ']" addOnBlur=true dragZone="aggregatedList" [onlyFromAutocomplete]="true">
                   <tag-input-dropdown [autocompleteItems]="dashboardList"></tag-input-dropdown>
                 </tag-input>
@@ -171,33 +177,37 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{texts.form.planning_block.title}}</h3>
+      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{texts.form.planning_block.title}}</h3>
         </div>
-        <div class="panel-body">
-          <div class="form-group row">
+        <div class="card-body">
+          <div class="row">
             <div class="col-sm-6">
               <label for="boards">{{texts.form.planning_block.boards_input}}</label>
               <div class="collapse" id="boards-help">
-                <div class="well" innerHTML="{{texts.form.planning_block.boards_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.planning_block.boards_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#boards-help" aria-expanded="false" aria-controls="boards-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#boards-help" aria-expanded="false" aria-controls="boards-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <input type="text" class="form-control" id="boards" [(ngModel)]="temp.boards" (ngModelChange)="mirrorTempValues()" name="boards">
               </div>
             </div>
             <div class="col-sm-6">
               <label for="programIncrement">{{texts.form.planning_block.pi_input}}</label>
               <div class="collapse" id="product-increment-help">
-                <div class="well" innerHTML="{{texts.form.planning_block.pi_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.planning_block.pi_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#product-increment-help" aria-expanded="false" aria-controls="code-repos-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <input type="text" class="form-control" id="programIncrement" [(ngModel)]="temp.programIncrement" (ngModelChange)="mirrorTempValues()" name="programIncrement">
               </div>
             </div>
@@ -205,32 +215,36 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{texts.form.ci_block.title}}</h3>
+      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{texts.form.ci_block.title}}</h3>
         </div>
-        <div class="panel-body">
-          <div class="form-group">
+        <div class="card-body">
+          <div>
             <label for="codeRepos">{{texts.form.ci_block.builds_input}}</label>
             <div class="collapse" id="code-repos-help">
-              <div class="well" innerHTML="{{texts.form.ci_block.builds_help}}"></div>
+              <div class="card card-header" innerHTML="{{texts.form.ci_block.builds_help}}"></div>
             </div>
             <div class="input-group">
-              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#code-repos-help" aria-expanded="false" aria-controls="code-repos-help">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-              </a>
+              <div class="input-group-prepend">
+                <button type="button" class="btn" data-toggle="collapse" data-target="#code-repos-help" aria-expanded="false" aria-controls="code-repos-help">
+                  <span class="fas fa-info-circle" aria-hidden="true"></span>
+                </button>
+              </div>
               <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" (ngModelChange)="mirrorTempValues()" name="codeRepos">
             </div>
           </div>
-          <div class="form-group">
+          <div>
             <label for="teamMembers">{{texts.form.ci_block.team_members_list}}</label>
             <div class="collapse" id="team-members-help">
-              <div class="well" innerHTML="{{texts.form.ci_block.team_members_list_help}}"></div>
+              <div class="card card-header" innerHTML="{{texts.form.ci_block.team_members_list_help}}"></div>
             </div>
             <div class="input-group">
-              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#team-members-help" aria-expanded="false" aria-controls="team-members-help">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-              </a>
+              <div class="input-group-prepend">
+                <button type="button" class="btn" data-toggle="collapse" data-target="#team-members-help" aria-expanded="false" aria-controls="team-members-help">
+                  <span class="fas fa-info-circle" aria-hidden="true"></span>
+                </button>
+              </div>
               <tag-input class="form-control" id="teamMembers" name="teamMembers" [(ngModel)]="temp.teamMembers" (ngModelChange)="mirrorTempValues()" placeholder="{{texts.form.ci_block.team_members_list_placeholder}}" secondaryPlaceholder="{{texts.form.ci_block.team_members_list_secondary_placeholder}}" separatorKeys="[',',' ']" addOnBlur=true dragZone="teamList"></tag-input>
             </div>
           </div>
@@ -238,20 +252,22 @@
       </div>
 
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{texts.form.commits_block.title}}</h3>
+      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{texts.form.commits_block.title}}</h3>
         </div>
-        <div class="panel-body">
-          <div class="form-group">
+        <div class="card-body">
+          <div>
             <label for="commitsRepos">{{texts.form.commits_block.repos_input}}</label>
             <div class="collapse" id="commits-repos-help">
-              <div class="well" innerHTML="{{texts.form.commits_block.commits_repos_help}}"></div>
+              <div class="card card-header" innerHTML="{{texts.form.commits_block.commits_repos_help}}"></div>
             </div>
             <div class="input-group">
-              <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#commits-repos-help" aria-expanded="false" aria-controls="commits-repos-help">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-              </a>
+              <div class="input-group-prepend">
+                <button type="button" class="btn" data-toggle="collapse" data-target="#commits-repos-help" aria-expanded="false" aria-controls="commits-repos-help">
+                  <span class="fas fa-info-circle" aria-hidden="true"></span>
+                </button>
+              </div>
               <input type="text" class="form-control" id="gitRepos" [(ngModel)]="temp.gitRepos" (ngModelChange)="mirrorTempValues()" name="gitRepos">
             </div>
           </div>
@@ -259,23 +275,25 @@
       </div>
 
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{texts.form.markets_block.title}}</h3>
+      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{texts.form.markets_block.title}}</h3>
         </div>
-        <div class="panel-body">
-          <div class="form-group row">
+        <div class="card-body">
+          <div class="row">
 
-            <div class="form-group col-sm-6">
+            <div class="col-sm-6">
               <label for="applications">{{texts.form.markets_block.apps_input}}</label>
               <div class="collapse" id="applications-help">
-                <div class="well" innerHTML="{{texts.form.markets_block.apps_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.markets_block.apps_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#applications-help" aria-expanded="false"
-                  aria-controls="applications-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#applications-help" aria-expanded="false"
+                    aria-controls="applications-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <input type="text" class="form-control" id="applications" [(ngModel)]="temp.applications" (ngModelChange)="mirrorTempValues()"
                   name="applications">
               </div>
@@ -284,13 +302,14 @@
             <div class="col-sm-6">
               <label for="lastVersion">{{texts.form.markets_block.stats_days}}</label>
               <div class="collapse" id="stats-days-help">
-                <div class="well" innerHTML="{{texts.form.markets_block.stats_days_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.markets_block.stats_days_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#stats-days-help" aria-expanded="false"
-                  aria-controls="stats-days-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#stats-days-help" aria-expanded="false" aria-controls="stats-days-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <select type="text" class="form-control" id="stats_days" [(ngModel)]="dashboard.marketsStatsDays" name="statsDays">
                   <option value="7">7 days</option>
                   <option value="15">15 days</option>
@@ -300,17 +319,19 @@
             </div>
 
           </div>
-          <div class="form-group row">
+          <div class="row">
 
             <div class="col-sm-6">
               <label for="lastVersion">{{texts.form.markets_block.last_version_input}}</label>
               <div class="collapse" id="last-version-help">
-                <div class="well" innerHTML="{{texts.form.markets_block.last_version_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.markets_block.last_version_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#last-version-help" aria-expanded="false" aria-controls="infra-cost-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#last-version-help" aria-expanded="false" aria-controls="infra-cost-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <input type="text" class="form-control" id="lastVersion" [(ngModel)]="temp.lastVersion" (ngModelChange)="mirrorTempValues()" name="lastVersion">
               </div>
             </div>
@@ -320,24 +341,25 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{texts.form.analytics_block.title}}</h3>
+      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{texts.form.analytics_block.title}}</h3>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
 
-          <div class="form-group row">
+          <div class="row">
 
             <div class="col-sm-6">
               <label for="analyticsIds">{{texts.form.analytics_block.analytics_input}}</label>
               <div class="collapse" id="analytics-ids-help">
-                <div class="well" innerHTML="{{texts.form.analytics_block.analytics_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.analytics_block.analytics_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#analytics-ids-help" aria-expanded="false"
-                   aria-controls="analytics-ids-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#analytics-ids-help" aria-expanded="false" aria-controls="analytics-ids-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <input type="text" class="form-control" id="analyticsIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()" name="analyticsIds">
               </div>
             </div>
@@ -346,28 +368,31 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{texts.form.operations_block.title}}</h3>
+      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{texts.form.operations_block.title}}</h3>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
 
-          <div class="form-group row">
+          <div class="row">
 
             <div class="col-sm-6">
               <label for="operationsIds">{{texts.form.operations_block.operations_input}}</label>
               <div class="collapse" id="operations-ids-help">
-                <div class="well" innerHTML="{{texts.form.operations_block.operations_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.operations_block.operations_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#operations-ids-help" aria-expanded="false"
-                  aria-controls="operations-ids-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#operations-ids-help" aria-expanded="false" aria-controls="operations-ids-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <input type="text" class="form-control" id="operationsIds" [(ngModel)]="temp.operationViews" (ngModelChange)="mirrorTempValues()" name="operationsIds">
-                <a type="button" (click)="icon = {}" class="input-group-addon" data-toggle="modal" data-target="#alertingLevelsModal">
-                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-append">
+                  <button type="button" class="btn" (click)="icon = {}" data-toggle="modal" data-target="#alertingLevelsModal">
+                    <span class="fas fa-cog" aria-hidden="true"></span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -376,71 +401,71 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="alertingLevelsModalLabel">
                       {{texts.form.operations_block.alerting_levels}}
                       <a data-toggle="collapse" data-target="#alerting-levels-help" aria-expanded="false" aria-controls="alerting-levels-help">
-                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <span class="fas fa-info-circle" aria-hidden="true"></span>
                       </a>
                     </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   </div>
                   <div class="modal-body">
                     <div class="collapse" id="alerting-levels-help">
-                      <div class="well" innerHTML="{{texts.form.operations_block.alerting_levels_help}}"></div>
+                      <div class="card card-header" innerHTML="{{texts.form.operations_block.alerting_levels_help}}"></div>
                     </div>
 
-                    <h5 for="iconModal">{{texts.form.operations_block.response_time_alerting_levels}}</h5>
+                    <h5>{{texts.form.operations_block.response_time_alerting_levels}}</h5>
 
-                    <p><label for="responseTimeAlertingLevelWarningRange">{{texts.form.operations_block.response_time_alerting_level_warning_input}}:</label></p>
-                    <div class="form-group row">
+                    <label for="responseTimeAlertingLevelWarningRange">{{texts.form.operations_block.response_time_alerting_level_warning_input}}:</label>
+                    <div class="row">
                       <div class="col-sm-3">
                         <input type="number" class="form-control" id="responseTimeAlertingLevelWarning" name="responseTimeAlertingLevelWarning" min="0" max="10" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelWarning">
                       </div>
 
                       <div class="col-sm-9">
                         <div data-role="rangeslider">
-                          <input type="range" name="responseTimeAlertingLevelWarningRange" id="responseTimeAlertingLevelWarningRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.responseTimeAlertingLevelWarning">
+                          <input type="range" class="form-control-range"  name="responseTimeAlertingLevelWarningRange" id="responseTimeAlertingLevelWarningRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.responseTimeAlertingLevelWarning">
                         </div>
                       </div>
                     </div>
 
-                    <p><label for="responseTimeAlertingLevelErrorRange">{{texts.form.operations_block.response_time_alerting_level_error_input}}:</label></p>
-                    <div class="form-group row">
+                    <label for="responseTimeAlertingLevelErrorRange">{{texts.form.operations_block.response_time_alerting_level_error_input}}:</label>
+                    <div class="row">
                       <div class="col-sm-3">
                         <input type="number" class="form-control" id="responseTimeAlertingLevelError" name="responseTimeAlertingLevelError" min="0" max="10" step="0.1" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
                       </div>
 
                       <div class="col-sm-9">
                         <div data-role="rangeslider">
-                          <input type="range" name="responseTimeAlertingLevelErrorRange" id="responseTimeAlertingLevelErrorRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
+                          <input type="range" class="form-control-range" name="responseTimeAlertingLevelErrorRange" id="responseTimeAlertingLevelErrorRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.responseTimeAlertingLevelError">
                         </div>
                       </div>
                     </div>
 
-                    <h5 for="iconModal">{{texts.form.operations_block.errors_rate_alerting_levels}}</h5>
+                    <h5>{{texts.form.operations_block.errors_rate_alerting_levels}}</h5>
 
-                    <p><label for="errorsRateAlertingLevelWarningRange">{{texts.form.operations_block.errors_rate_alerting_level_warning_input}}:</label></p>
-                    <div class="form-group row">
+                    <label for="errorsRateAlertingLevelWarningRange">{{texts.form.operations_block.errors_rate_alerting_level_warning_input}}:</label>
+                    <div class="row">
                       <div class="col-sm-3">
                         <input type="number" class="form-control" id="errorsRateAlertingLevelWarning" name="errorsRateAlertingLevelWarning" min="0" max="10" step="0.1" [(ngModel)]="dashboard.errorsRateAlertingLevelWarning">
                       </div>
 
                       <div class="col-sm-9">
                         <div data-role="rangeslider">
-                          <input type="range" name="errorsRateAlertingLevelWarningRange" id="errorsRateAlertingLevelWarningRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.errorsRateAlertingLevelWarning">
+                          <input type="range" class="form-control-range" name="errorsRateAlertingLevelWarningRange" id="errorsRateAlertingLevelWarningRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.errorsRateAlertingLevelWarning">
                         </div>
                       </div>
                     </div>
 
-                    <p><label for="errorsRateAlertingLevelErrorRange">{{texts.form.operations_block.errors_rate_alerting_level_error_input}}:</label></p>
-                    <div class="form-group row">
+                    <label for="errorsRateAlertingLevelErrorRange">{{texts.form.operations_block.errors_rate_alerting_level_error_input}}:</label>
+                    <div class="row">
                       <div class="col-sm-3">
                         <input type="number" class="form-control" id="errorsRateAlertingLevelError" name="errorsRateAlertingLevelError" min="0" max="10" step="0.1" [(ngModel)]="dashboard.errorsRateAlertingLevelError">
                       </div>
 
                       <div class="col-sm-9">
                         <div data-role="rangeslider">
-                          <input type="range" name="errorsRateAlertingLevelErrorRange" id="errorsRateAlertingLevelErrorRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.errorsRateAlertingLevelError">
+                          <input type="range" class="form-control-range" name="errorsRateAlertingLevelErrorRange" id="errorsRateAlertingLevelErrorRange" min="0" max="10" step="0.1" list="tickmarks" [(ngModel)]="dashboard.errorsRateAlertingLevelError">
                         </div>
                       </div>
                     </div>
@@ -452,7 +477,7 @@
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
                   </div>
                 </div>
               </div>
@@ -462,12 +487,14 @@
             <div class="col-sm-6">
               <label for="infraCost">{{texts.form.operations_block.infra_cost_input}}</label>
               <div class="collapse" id="infra-cost-help">
-                <div class="well" innerHTML="{{texts.form.operations_block.infra_cost_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.operations_block.infra_cost_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#infra-cost-help" aria-expanded="false" aria-controls="infra-cost-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend" >
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#infra-cost-help" aria-expanded="false" aria-controls="infra-cost-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <input type="checkbox" class="checkbox" id="infraCost" [(ngModel)]="temp.infraCost" (ngModelChange)="mirrorTempValues()" name="infraCost">
               </div>
             </div>
@@ -476,32 +503,35 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{texts.form.alerts_block.title}}</h3>
+      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{texts.form.alerts_block.title}}</h3>
         </div>
-        <div class="panel-body">
-          <div class="form-group row">
+        <div class="card-body">
+          <div class="row">
 
 
             <div class="col-sm-6">
               <label for="slack">{{texts.form.alerts_block.slack_input}}</label>
               <div class="collapse" id="slack_team-help">
-                <div class="well" innerHTML="{{texts.form.alerts_block.slack_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.alerts_block.slack_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_team-help" aria-expanded="false" aria-controls="slack_team-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-prepend" >
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#slack_team-help" aria-expanded="false" aria-controls="slack_team-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
                 <input type="text" class="form-control" id="slack_team" [(ngModel)]="temp.slackTeam" (ngModelChange)="mirrorTempValues()" name="slack_team" #name="ngModel" placeholder="{{texts.form.alerts_block.slack_placeholder}}">
                 <select *ngIf="slackChannels.keys" class="form-control" [(ngModel)]="dashboard.slackChannel" name="slack_channel">
                   <option></option>
                   <option *ngFor="let id of slackChannels.keys" [value]="id">{{slackChannels.values[id]}}</option>
                 </select>
-
-                <a *ngIf="dashboard.slackTeam" type="button" class="input-group-addon" data-toggle="modal" data-target="#myModal">
-                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                </a>
+                <div class="input-group-append">
+                  <button type="button" class="btn" *ngIf="dashboard.slackTeam" data-toggle="modal" data-target="#myModal">
+                    <span class="fas fa-cog" aria-hidden="true"></span>
+                  </button>
+                </div>
               </div>
               <!-- Button trigger modal -->
 
@@ -511,29 +541,33 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       <h4 class="modal-title" id="myModalLabel">{{texts.form.alerts_block.slack_modal_title}}</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                       <label for="slack">{{texts.form.alerts_block.slack_client_id_input}}</label>
                       <div class="collapse" id="slack_client_id-help">
-                        <div class="well" innerHTML="{{texts.form.alerts_block.slack_client_id_help}}"></div>
+                        <div class="card card-header" innerHTML="{{texts.form.alerts_block.slack_client_id_help}}"></div>
                       </div>
                       <div class="input-group">
-                        <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
-                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
+                        <div class="input-group-prepend">
+                          <button type="button" class="btn" data-toggle="collapse" data-target="#slack_client_id-help" aria-expanded="false" aria-controls="slack_client_id-help">
+                            <span class="fas fa-info-circle" aria-hidden="true"></span>
+                          </button>
+                        </div>
                         <input type="text" class="form-control" id="slack_client_id" [(ngModel)]="slack.clientId" name="slack_client_id" #name="ngModel">
                       </div>
                       <br />
                       <label for="slack">{{texts.form.alerts_block.slack_client_secret_input}}</label>
                       <div class="collapse" id="slack_client_secret-help">
-                        <div class="well" innerHTML="{{texts.form.alerts_block.slack_client_secret_help}}"></div>
+                        <div class="card card-header" innerHTML="{{texts.form.alerts_block.slack_client_secret_help}}"></div>
                       </div>
                       <div class="input-group">
-                        <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#slack_client_secret-help" aria-expanded="false" aria-controls="slack_client_secret-help">
-                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a>
+                        <div class="input-group-prepend">
+                          <button type="button" class="btn" data-toggle="collapse" data-target="#slack_client_secret-help" aria-expanded="false" aria-controls="slack_client_secret-help">
+                            <span class="fas fa-info-circle" aria-hidden="true"></span>
+                          </button>
+                        </div>
                         <input type="password" class="form-control" id="slack_client_secret" [(ngModel)]="slack.clientSecret" name="slack_client_secret" #name="ngModel">
                       </div>
                       <br/>
@@ -541,7 +575,7 @@
                       <div *ngIf="dashboard.slackToken" class="alert alert-success" role="alert">{{texts.form.alerts_block.slack_token_input}} {{dashboard.slackToken}}</div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
@@ -551,26 +585,30 @@
             <div class="col-sm-6">
               <label for="urlAlerts">{{texts.form.alerts_block.alerts_url_input}}</label>
               <div class="collapse" id="urlAlerts-help">
-                <div class="well" innerHTML="{{texts.form.alerts_block.alerts_url_help}}"></div>
+                <div class="card card-header" innerHTML="{{texts.form.alerts_block.alerts_url_help}}"></div>
               </div>
               <div class="input-group">
-                <a type="button" class="input-group-addon" data-toggle="collapse" data-target="#urlAlerts-help" aria-expanded="false" aria-controls="urlAlerts-help">
-                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </a>
-                <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="temp.urlAlerts" (ngModelChange)="mirrorTempValues()" name="urlAlerts" placeholder="{{texts.form.alerts_block.alerts_url_placeholder}}">
-                <input type="text" class="form-control" id="urlAlertsAuthorization" [(ngModel)]="temp.urlAlertsAuthorization" (ngModelChange)="mirrorTempValues()" name="urlAlertsAuthorization" placeholder="{{texts.form.alerts_block.alerts_auth_header_placeholder}}">
+                <div class="input-group-prepend col-1">
+                  <button type="button" class="btn" data-toggle="collapse" data-target="#urlAlerts-help" aria-expanded="false" aria-controls="urlAlerts-help">
+                    <span class="fas fa-info-circle" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="col-11">
+                  <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="temp.urlAlerts" (ngModelChange)="mirrorTempValues()" name="urlAlerts" placeholder="{{texts.form.alerts_block.alerts_url_placeholder}}">
+                  <input type="text" class="form-control" id="urlAlertsAuthorization" [(ngModel)]="temp.urlAlertsAuthorization" (ngModelChange)="mirrorTempValues()" name="urlAlertsAuthorization" placeholder="{{texts.form.alerts_block.alerts_auth_header_placeholder}}">
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="panel panel-default" id="dynamicDashboardConfiguration" >
-        <div class="panel-heading">
-          <h3 class="panel-title">{{texts.form.columns_block.title}}</h3>
+      <div *ngIf="dashboard.type!='Aggregate'" class="card" id="dynamicDashboardConfiguration" >
+        <div class="card-header">
+          <h3 class="card-title">{{texts.form.columns_block.title}}</h3>
         </div>
-        <div class="panel-body">
-          <div class="form-group">
+        <div class="card-body">
+          <div>
             <label for="columns">{{texts.form.columns_block.dashboard}}</label>
             <div id="columns">
               <div id="col1" class="dashboard-cols-template" [dragula]='"columns"'></div>
@@ -618,11 +656,11 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-6">
+        <div class="col-6">
           <button type="button" class="btn btn-danger" (click)="back()">Cancel</button>
-          <button type="button" class="btn btn-default" (click)="dashboardForm.reset()">Reset</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="dashboardForm.reset()">Reset</button>
         </div>
-        <div class="col-xs-6 text-right">
+        <div class="col-6 text-right">
           <button type="submit" class="btn btn-success" [disabled]="!dashboardForm.form.valid">Save</button>
         </div>
       </div>

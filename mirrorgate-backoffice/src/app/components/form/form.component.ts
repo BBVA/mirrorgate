@@ -15,14 +15,12 @@
  */
 
 import {Component} from '@angular/core';
-import {OnInit, AfterViewChecked} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {kebabCase} from 'lodash';
 
 import {Dashboard} from '../../model/dashboard';
 import {DashboardsService} from '../../services/dashboards.service';
 import {SlackService} from '../../services/slack.service';
-import {RequestOptions} from '@angular/http/http';
 
 import {TextsService} from '../../services/texts.service';
 import {ConfigService} from '../../services/config.service';
@@ -104,30 +102,32 @@ export class FormComponent {
     }
     this.url = url;
 
-    this.configService.getConfig().then((config) => {
-      this.categories = config.categories;
+    this.configService.getConfig().subscribe((config) => {
+      this.categories = config['categories'];
     });
 
     if (id) {
       this.edit = true;
-      this.dashboardsService.getDashboard(id).then(
-          dashboard => this.setDashboard(dashboard));
+      this.dashboardsService.getDashboard(id).subscribe(
+        dashboard => this.setDashboard(dashboard)
+      );
     } else {
       this.setDashboard(new Dashboard());
     }
 
-    this.textsService.getTexts()
-      .then((texts) => {
+    this.textsService.getTexts().subscribe(
+      texts => {
         this.texts = texts;
         this.texts.loaded = true;
-      })
-      .catch((error: any) => { this.errorMessage = <any>error; });
+      },
+      error => this.errorMessage = error.error
+    );
 
-    this.dashboardsService.getDashboards().then(dashboards => {
+    this.dashboardsService.getDashboards().subscribe(dashboards => {
       this.dashboardList = dashboards.map(dashboard => dashboard.name);
     });
 
-    this.dragulaService.setOptions('columns', {
+    this.dragulaService.createGroup('columns', {
 
       revertOnSpill: true,
 
@@ -252,8 +252,8 @@ export class FormComponent {
 
   back(): void {
     if(this.backToDashboard) {
-      this.configService.getConfig().then((config) => {
-        document.location.href = config.dashboardUrl + '?board=' + encodeURIComponent(this.dashboard.name);
+      this.configService.getConfig().subscribe((config) => {
+        document.location.href = config['dashboardUrl'] + '?board=' + encodeURIComponent(this.dashboard.name);
       });
     } else {
       this.router.navigate(['/list']);
@@ -291,14 +291,17 @@ export class FormComponent {
 
   onSave(dashboard: Dashboard): void {
     document.getElementById('dynamicDashboardConfiguration') && this.saveColumns(dashboard);
-    this.dashboardsService.saveDashboard(dashboard, this.edit)
-        .then(dashboard => {
-          if (dashboard) {
-            this.dashboard = dashboard;
-            this.back();
-          }
-        })
-        .catch((error: any) => { this.errorMessage = <any>error; });
+    this.dashboardsService.saveDashboard(dashboard, this.edit).subscribe(
+      dashboard => {
+        if (dashboard) {
+          this.dashboard = dashboard;
+          this.back();
+        }
+      },
+      error => {
+        this.errorMessage = error.error
+      }
+    );
   }
 
   private saveColumns(dashboard: Dashboard) {
@@ -328,16 +331,17 @@ export class FormComponent {
 
     if(fileList.length > 0) {
         let file: File = fileList[0];
-        this.dashboardsService.uploadImage(this.dashboard, file)
-          .then(() => {
+        this.dashboardsService.uploadImage(this.dashboard, file).subscribe(
+          () => {
             this.icon.success = true;
             this.icon.error = undefined;
             this.dashboard.logoUrl = '#UPLOADED#';
-          })
-          .catch((err) => {
+          },
+          error => {
             this.icon.success = false;
-            this.icon.error = err;
-          });
+            this.icon.error = error.message;
+          }
+        );
     }
   }
 

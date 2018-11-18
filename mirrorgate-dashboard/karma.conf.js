@@ -33,7 +33,7 @@ module.exports = function(config) {
     files: [
       'node_modules/resize-observer-polyfill/dist/ResizeObserver.global.js',
       'node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce.js',
-      'node_modules/d3/d3.min.js',
+      'node_modules/d3/dist/d3.min.js',
       'node_modules/jquery/dist/jquery.slim.min.js',
       'node_modules/rivets/dist/rivets.bundled.min.js',
       'node_modules/moment/min/moment.min.js',

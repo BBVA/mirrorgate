@@ -55,7 +55,7 @@ const paths = {
     'node_modules/jquery.dotdotdot/dist/jquery.dotdotdot.js',
     'node_modules/moment/min/*.min.*',
     'node_modules/moment-weekday-calc/build/*.min.*',
-    'node_modules/d3/*.min.*',
+    'node_modules/d3/dist/*.min.*',
     'node_modules/rivets/dist/*.min.*',
     'node_modules/typeahead.js/dist/*.min.*'
   ],

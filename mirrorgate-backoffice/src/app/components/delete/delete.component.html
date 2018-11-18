@@ -19,9 +19,8 @@
   <h1>{{texts.delete.header}}'{{dashboard.name}}'</h1>
   <p>{{texts.delete.message}}</p>
   <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
-  <p>
-    <a class="btn btn-danger btn-lg" (click)="delete()" role="button">Delete</a>
-    <a class="btn btn-default btn-lg" (click)="back()" role="button">Cancel</a>
+  <p class="btn-group">
+    <button class="btn btn-danger btn-lg" (click)="delete()" role="button">Delete</button>
+    <button class="btn btn-outline-secondary btn-lg" (click)="back()" role="button">Cancel</button>
   </p>
 </div>
-

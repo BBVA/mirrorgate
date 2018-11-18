@@ -82,13 +82,12 @@
             error: config.availabilityRateAlertingLevelError
           })] : 'empty') : levelEvent[3];
 
-      d3.select(this).classed({
-        'module-error': status === 'error',
-        'module-warning': status === 'warn',
-        'module-ok': status === 'ok',
-        'module-empty': status === 'empty',
-        'module-data-error': status === 'server-error'
-      });
+      d3.select(this)
+        .classed('module-error', status === 'error')
+        .classed('module-warning', status === 'warn')
+        .classed('module-ok', status === 'ok')
+        .classed('module-empty', status === 'empty')
+        .classed('module-data-error', status === 'server-error');
     },
 
     render: function (data) {

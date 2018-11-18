@@ -91,7 +91,7 @@
 
     var formatNumber = d3.format(',d');
 
-    var x = d3.scale.linear().range([0, 2 * Math.PI]);
+    var x = d3.scaleLinear().range([0, 2 * Math.PI]);
 
     var ySizeMap = {
       '0': 0.65,
@@ -103,19 +103,13 @@
       return ySizeMap['' + x] * 530;
     };
 
-    var partition = d3.layout.partition()
-      .value(function (d) { return d.size;})
-      .sort(function (d1, d2) {
-        return d1.name && d1.name.localeCompare(d2.name);
-      });
-
-    var arc = d3.svg.arc()
-      .startAngle(function(d) { return 2 * d.x * Math.PI; })
-      .endAngle(function(d) { return 2 * (d.x + d.dx) * Math.PI; })
+    var arc = d3.arc()
+      .startAngle(function(d) { return 2 * d.x0 * Math.PI; })
+      .endAngle(function(d) { return 2 * (d.x0 + (d.x1-d.x0)) * Math.PI; })
       .padAngle(Math.PI/180)
       .cornerRadius(20)
-      .innerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25) + 20; })
-      .outerRadius(function (d) { return d.y === 0 ? 0 : y(d.y-0.25 + d.dy) -1; });
+      .innerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0-0.25) + 20; })
+      .outerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0-0.25 + (d.y1-d.y0)) -1; });
 
     MGComponent({
       name: 'builds-tile',
@@ -159,12 +153,12 @@
 
       render: function (data) {
         function classBuilder(d) {
-          var classes = 'build-result status-' + Utils.toClassName(d.status);
-          var bdata = (d.data || d.developData);
+          var classes = 'build-result status-' + Utils.toClassName(d.data.status);
+          var bdata = d.data && d.data.data;
           if (bdata && bdata.buildUrl) {
             classes += ' clickable';
           }
-          if (data && data.lastRelevantBuild && data.lastRelevantBuild.name === d.name) {
+          if (data && data.lastRelevantBuild && data.lastRelevantBuild.name === d.data.name) {
             classes += ' selected';
           }
           return classes;
@@ -204,8 +198,6 @@
           },this);
         },this);
 
-        partition = partition.size([1, 1 - (0.25 * (3-depth))]);
-
         buildRoot = buildRoot || [];
 
         var width = parseFloat(style.width.substring(0, style.width.length - 2)),
@@ -231,14 +223,27 @@
           'scale(' + (radius / 530) + ')'
           );
 
+        var partition = d3.partition()
+          .size([1, 1 - (0.25 * (3-depth))]);
+
+        var root = d3.hierarchy(buildRoot)
+          .count(function(d) {
+            return d.size;
+          })
+          .sort(function (d1, d2) {
+            return d1.data.name && d1.data.name.localeCompare(d2.data.name);
+          });
+
+        partition(root)
+
         var buildsData = svg.select('.slices').selectAll('path')
-          .data(partition.nodes(buildRoot));
+          .data(root.descendants());
 
         buildsData
           .attr('d', arc)
           .attr('class', classBuilder)
           .style('fill-opacity', function (d) {
-            var data = (d.data || d.developData);
+            var data = d.data && d.data.data;
             if(!data) return;
             return Math.max(0.3, 1 - Math.pow((new Date().getTime() - (data.timestamp - 10 * 60 * 1000)) / (fadeOutLimitTimeSpan),1/2));
           });
@@ -247,20 +252,20 @@
           .append('path')
           .on('mouseenter', function (d) {
             model.hover = true;
-            model.selectedBuild = d.data;
+            model.selectedBuild = d.data && d.data.data;
 
             container
               .select('.slices')
               .classed('select', false)
           })
           .on('click', function (d) {
-            var data = (d.data || d.developData);
+            var data = d.data && d.data.data;
             data && window.open(data.buildUrl, "JenkinsBuild");
           })
           .attr('d', arc)
           .attr('class', classBuilder)
           .style('fill-opacity', function (d) {
-            var data = (d.data || d.developData);
+            var data = d.data && d.data.data;
             if(!data) return;
             return Math.max(0.3, 1 - Math.pow((new Date().getTime() - (data.timestamp - 10 * 60 * 1000)) / (fadeOutLimitTimeSpan),1/2));
           });

@@ -17,8 +17,10 @@
 import {Component} from '@angular/core';
 import {DashboardsService} from '../../services/dashboards.service';
 import {Dashboard} from '../../model/dashboard';
-import {ElementRef, OnInit, Renderer, ViewChild} from '@angular/core';
+import {ElementRef, Renderer, ViewChild} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {ConfigService} from '../../services/config.service';
 
@@ -55,7 +57,7 @@ export class ListComponent {
       page: Number(this.route.snapshot.queryParams.page ? this.route.snapshot.queryParams.page : 0)
     };
     this.router.navigate([], { queryParams: this.queryParams });
-    this.getDashboards().then((boards) => {
+    this.getDashboards().subscribe((boards) => {
       let recentIds: string[] = JSON.parse(localStorage.getItem('recentDashboards') || '[]');
       this.sourceBoards = boards;
       this.recentBoards = boards.filter((b) => recentIds.indexOf(b.name) >= 0);
@@ -68,17 +70,18 @@ export class ListComponent {
     );
   }
 
-  getDashboards(): Promise<Dashboard[]> {
-    return this.dashboardsService.getDashboards().then(boards => boards.sort((a, b) => {
-      let nameA = (a.displayName || a.name).toUpperCase();
-      let nameB = (b.displayName || b.name).toUpperCase();
-      return nameA > nameB ? 1 : nameA == nameB ? 0 : -1;
-    }));
+  getDashboards(): Observable<Dashboard[]> {
+    return this.dashboardsService.getDashboards()
+      .pipe(map(boards => boards.sort((a, b) => {
+        let nameA = (a.displayName || a.name).toUpperCase();
+        let nameB = (b.displayName || b.name).toUpperCase();
+        return nameA > nameB ? 1 : nameA == nameB ? 0 : -1;
+    })));
   }
 
   openDashboard(dashboard: Dashboard) {
-    this.configService.getConfig().then((config) => {
-      document.location.href = config.dashboardUrl + '?board=' + encodeURIComponent(dashboard.name);
+    this.configService.getConfig().subscribe((config) => {
+      document.location.href = config['dashboardUrl'] + '?board=' + encodeURIComponent(dashboard.name);
     });
   }
 

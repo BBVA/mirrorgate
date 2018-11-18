@@ -17,9 +17,8 @@
 import { Injectable } from '@angular/core';
 
 import { Dashboard } from '../model/dashboard';
-import { Http, Headers, RequestOptions, URLSearchParams, Response } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
-import 'rxjs/add/operator/toPromise';
 
 function getLocation(): any {
     return location;
@@ -28,13 +27,12 @@ function getLocation(): any {
 @Injectable()
 export class SlackService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   signSlack(team:string, clientId:string, clientSecret:string): Promise<string> {
     var dummy: HTMLAnchorElement = document.createElement('a');
     dummy.href = 'utils/slack/code-capturer';
 
-    var redirectUrl = encodeURIComponent(dummy.href);
     return new Promise((resolve, reject) =>  {
       var source = window.open(
         `https://slack.com/oauth/authorize?client_id=${clientId}&scope=client&team=${team}`
@@ -49,46 +47,34 @@ export class SlackService {
     });
   }
 
-  private generateToken(code:string, team:string, clientId:string, clientSecret:string): Promise<any> {
-    let params: URLSearchParams = new URLSearchParams();
+  private generateToken(code:string, team:string, clientId:string, clientSecret:string): Promise<any>{
+    let params: HttpParams = new HttpParams();
     params.set('code', code);
     params.set('team', team);
     params.set('clientId', clientId);
     params.set('clientSecret', clientSecret);
 
     return this.http.get('utils/slack/token-generator', {
-      search: params
+      params: params
     }).toPromise().then((r) => {
-      return r.text();
+      return r['text'];
     });
   }
 
   getChannels(dashboard:Dashboard): Promise<Map<string,string>> {
-    let params: URLSearchParams = new URLSearchParams();
+    let params: HttpParams = new HttpParams();
     params.set('dashboard', dashboard.name);
     params.set('token', dashboard.slackToken);
 
     return this.http.get(`utils/slack/channels`,{
-      search: params
+      params: params
     }).toPromise().then((r) => {
-      if(r.status == 200) {
-        return r.json();
+      if(r['status'] == 200) {
+        return r;
       } else {
         return null;
       }
     }).catch(() => null);
-  }
-
-  private handleError(error: any): Promise<any> {
-
-    let errMsg: string;
-    if (error instanceof Response) {
-      errMsg = `${error.status} - ${error.text() }`;
-    } else {
-      errMsg = error.message ? error.message : error;
-    }
-
-    return Promise.reject(errMsg);
   }
 
 }

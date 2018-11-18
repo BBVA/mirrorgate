@@ -64,13 +64,13 @@
       'Backlog': 4
     };
 
-    var outherArc = d3.svg.arc()
+    var outherArc = d3.arc()
       .innerRadius(483)
       .padAngle(Math.PI / 90)
       .outerRadius(500)
       .cornerRadius(17);
 
-    var pie = d3.layout.pie()
+    var pie = d3.pie()
       .startAngle(-Math.PI * 3 / 4)
       .endAngle(Math.PI * 3 / 4)
       .padAngle(Math.PI / 45)

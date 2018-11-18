@@ -15,21 +15,16 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TextsService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  getTexts(): Promise<any> {
-
-    return this.http.get('texts.json')
-              .toPromise()
-              .then(response => response.json());
+  getTexts(){
+    return this.http.get('texts.json');
   }
 
 }
