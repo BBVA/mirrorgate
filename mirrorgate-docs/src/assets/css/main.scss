@@ -19,11 +19,71 @@
 @import "_prism";
 @import "_navbar-fixed-side";
 
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+
+body {
+  font-size: 14px;
+}
+
 img {
   max-width: 100%;
+}
+
+strong {
+  font-weight: bold;
 }
 
 .navbar-fixed-side {
   background-color: initial;
 }
 
+.navbar-inverse {
+  font-size: 14px;
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  padding: 0;
+
+  .container-fluid{
+    .row {
+      width: 100%;
+
+      .navbar-title h1 {
+        padding-top: 6px;
+      }
+
+      .menu {
+        padding: 0;
+
+        .dropdown-menu {
+          padding-bottom: 0;
+        }
+
+        .dropdown-menu>li>a {
+          display: block;
+          padding: 3px 20px;
+          clear: both;
+          font-weight: 400;
+          line-height: 1.42857143;
+          color: #333;
+          white-space: nowrap;
+        }
+
+        .dropdown__button {
+          cursor: pointer;
+        }
+
+      }
+
+    }
+  }
+
+}
+
+@media (max-width: 768px){
+  .navbar-inverse{
+    margin-bottom: 0;
+  }
+}

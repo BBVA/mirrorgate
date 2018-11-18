@@ -4,13 +4,22 @@
   "description": "Docs module for MirrorGate",
   "scripts": {
     "build": "cp ../CHANGELOG.md src/changelog.md && scripts/vendorize.sh && ./node_modules/.bin/harp compile src dist",
-    "start": "cp ../CHANGELOG.md src/changelog.md && scripts/vendorize.sh && ./node_modules/.bin/harp server src",
-    "postinstall": "$(npm bin)/bower install --allow-root"
+    "start": "cp ../CHANGELOG.md src/changelog.md && scripts/vendorize.sh && ./node_modules/.bin/harp server src"
   },
   "author": "BBVA",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BBVA/mirrorgate.git"
+  },
+  "license": "Apache-2.0",
   "license": "Apache-2.0",
   "devDependencies": {
-    "bower": "^1.8.2",
-    "harp": "^0.24.1"
+    "harp": "^0.29.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.5.0",
+    "bootstrap": "^4.1.3",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.5"
   }
 }
