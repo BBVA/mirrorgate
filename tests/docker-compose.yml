@@ -2,12 +2,12 @@ version: '2'
 
 services:
   mongo:
-    image: "mongo:3.4"
+    image: "mongo:3.6"
     ports:
       - "27017:27017"
 
   mongo-populate-test:
-    image: "mongo:3.4"
+    image: "mongo:3.6"
     volumes:
       - ".:/temp"
     working_dir: "/temp"
@@ -18,7 +18,7 @@ services:
       - mongo
 
   mongo-populate-dump:
-    image: "mongo:3.4"
+    image: "mongo:3.6"
     volumes:
       - "/tmp/latest_mongo_dump:/temp"
     working_dir: "/temp"
