@@ -69,7 +69,7 @@ public class ReviewController {
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createReviews(@Valid @RequestBody Iterable<Review> reviews) throws MirrorGateException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.save(reviews));
+        return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.saveAll(reviews));
     }
 
     @RequestMapping(value = "/reviews/{appid}", method = POST)

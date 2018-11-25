@@ -42,7 +42,7 @@ public interface ReviewService {
      * @param reviews List of reviews to save
      * @return List of Id of new Reviews
      */
-    List<String> save(Iterable<Review> reviews);
+    List<String> saveAll(Iterable<Review> reviews);
 
     ReviewDTO saveApplicationReview(String appId, ReviewDTO review);
 

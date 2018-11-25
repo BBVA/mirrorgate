@@ -60,7 +60,7 @@ public class DashboardRepositoryImplTest {
         deletedDashboard.setName("deletedDashboard");
         deletedDashboard.setStatus(DashboardStatus.DELETED);
 
-        dashboardRepository.save(Arrays.asList(regularDashboard, nullStatusDashboard, transientDashboard, deletedDashboard));
+        dashboardRepository.saveAll(Arrays.asList(regularDashboard, nullStatusDashboard, transientDashboard, deletedDashboard));
     }
 
     @After

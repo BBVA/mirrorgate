@@ -1,20 +1,17 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.BaseModel;
-import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.EventRepository;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StreamUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class EventServiceImpl implements EventService{
@@ -64,7 +61,7 @@ public class EventServiceImpl implements EventService{
                     return platformEvent;
                 }).collect(Collectors.toList());
 
-            eventRepository.save(eventList);
+            eventRepository.saveAll(eventList);
         } catch (Exception e){
             LOGGER.error("Error while saving event", e);
         }

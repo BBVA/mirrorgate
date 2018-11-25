@@ -70,7 +70,7 @@ public class CommitRepositoryTests {
         Commit commit1 = new Commit().setRepository(repos.get(0)).setTimestamp(timestamp1).setBranches(branches1);
         Commit commit2 = new Commit().setRepository(repos.get(1)).setTimestamp(timestamp2).setBranches(branches2);
 
-        repository.save(Arrays.asList(commit1, commit2));
+        repository.saveAll(Arrays.asList(commit1, commit2));
 
         long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
@@ -103,7 +103,7 @@ public class CommitRepositoryTests {
         Commit commit1 = new Commit().setRepository(Arrays.asList(GIT_REPO_URLS).get(0)).setTimestamp(timestamp).setBranches(branches1);
         Commit commit2 = new Commit().setRepository(Arrays.asList(GIT_REPO_URLS).get(2)).setTimestamp(timestamp).setBranches(branches2);
 
-        repository.save(Arrays.asList(commit1, commit2));
+        repository.saveAll(Arrays.asList(commit1, commit2));
 
         long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
@@ -126,7 +126,7 @@ public class CommitRepositoryTests {
         Commit commit6 = new Commit().setRepository(repos.get(2)).setTimestamp(ONE_DAY_AGO);
         Commit commit7 = new Commit().setRepository(repos.get(2)).setTimestamp(SEVEN_DAYS_AGO);
 
-        repository.save(Arrays.asList(commit1, commit2, commit3, commit4, commit5, commit6, commit7));
+        repository.saveAll(Arrays.asList(commit1, commit2, commit3, commit4, commit5, commit6, commit7));
 
         long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         long threeDaysAgo = now - (3 * 60 * 60 * 24);
@@ -157,7 +157,7 @@ public class CommitRepositoryTests {
         Commit commit3 = new Commit().setRepository(repo).setHash("3").setTimestamp(FIFTEEN_DAYS_AGO);
         Commit commit4 = new Commit().setRepository(repo).setHash("4").setTimestamp(ONE_MONTH_AGO);
 
-        repository.save(Arrays.asList(commit1, commit2, commit3, commit4));
+        repository.saveAll(Arrays.asList(commit1, commit2, commit3, commit4));
 
         List<Commit> lastCommits = repository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(repo, FIFTEEN_DAYS_AGO);
 

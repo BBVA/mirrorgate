@@ -72,7 +72,7 @@ public class MetricsServiceImpl implements MetricsService {
                 .map(UserMetricMapper::map)
                 .collect(Collectors.toList());
 
-        Iterable<UserMetric> saved = userMetricsRepository.save(toSave);
+        Iterable<UserMetric> saved = userMetricsRepository.saveAll(toSave);
 
         //send to historic
         historicUserMetricService.addToCurrentPeriod(saved);

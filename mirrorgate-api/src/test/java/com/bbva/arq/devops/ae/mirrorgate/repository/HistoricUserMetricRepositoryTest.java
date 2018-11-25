@@ -129,7 +129,7 @@ public class HistoricUserMetricRepositoryTest {
         Iterable<HistoricUserMetric> minuteUserMetrics = Arrays
             .asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5, userMetric6, userMetric7, userMetric8, userMetric9, userMetric10);
 
-        repository.save(minuteUserMetrics);
+        repository.saveAll(minuteUserMetrics);
     }
 
     @Test

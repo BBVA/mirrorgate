@@ -128,7 +128,7 @@ public class FeatureServiceImpl implements FeatureService {
 
         createTransientDashboardsForTeams(features);
 
-        return StreamSupport.stream(repository.save(features).spliterator(), false)
+        return StreamSupport.stream(repository.saveAll(features).spliterator(), false)
                 .map((feat) -> {
                            eventService.saveEvent(feat, EventType.FEATURE);
                            return new IssueDTO()
@@ -148,7 +148,7 @@ public class FeatureServiceImpl implements FeatureService {
 
     @Override
     public Iterable<Feature> getFeaturesByObjectId(List<ObjectId> ids){
-        return repository.findAll(ids);
+        return repository.findAllById(ids);
     }
 
     @Override

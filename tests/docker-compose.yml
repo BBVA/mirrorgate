@@ -41,7 +41,7 @@ services:
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/dashboarddb
       - SPRING_PROFILES_ACTIVE=embedded
-      - SERVER_CONTEXT_PATH=/mirrorgate
+      - SERVER_SERVLET_CONTEXT_PATH=/mirrorgate
       - SPRING_RESOURCE_CACHE_PERIOD=0
       - SPRING_RESOURCE_STATIC_LOCATIONS=classpath:/public/
     entrypoint: "sh -c 'java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n -jar $$(ls *.jar)'"

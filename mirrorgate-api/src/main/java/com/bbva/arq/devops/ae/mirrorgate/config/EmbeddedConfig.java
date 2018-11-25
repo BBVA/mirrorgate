@@ -15,9 +15,12 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.config;
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
  * Application Configuration with basic http security
@@ -25,6 +28,14 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @Profile("embedded")
 @ComponentScan(basePackages = "com.bbva.arq.devops.ae.mirrorgate")
-public class EmbeddedConfig {
+public class EmbeddedConfig  extends WebSecurityConfigurerAdapter {
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+            .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll() // Disabling actuation security
+        .and()
+            .httpBasic();
+    }
 }

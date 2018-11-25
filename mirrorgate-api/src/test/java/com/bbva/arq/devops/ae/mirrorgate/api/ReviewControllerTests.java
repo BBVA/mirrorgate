@@ -154,7 +154,7 @@ public class ReviewControllerTests {
         ids.add(review1.getId().toString());
         ids.add(review2.getId().toString());
 
-        when(reviewService.save(reviews)).thenReturn(ids);
+        when(reviewService.saveAll(reviews)).thenReturn(ids);
 
         this.mockMvc.perform(post("/api/reviews")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -173,7 +173,7 @@ public class ReviewControllerTests {
 
         Iterable<Review> reviews = list;
 
-        when(reviewService.save(any())).thenThrow(ReviewsConflictException.class);
+        when(reviewService.saveAll(any())).thenThrow(ReviewsConflictException.class);
 
         this.mockMvc.perform(post("/api/reviews")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

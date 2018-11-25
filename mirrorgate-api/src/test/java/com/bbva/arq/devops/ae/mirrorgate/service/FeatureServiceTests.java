@@ -79,7 +79,7 @@ public class FeatureServiceTests {
         IssueDTO story1 = TestObjectFactory.createIssueDTO(10l, "name1", "collector", "teamName1");
         IssueDTO story2 = TestObjectFactory.createIssueDTO(11l, "name2", "collector", "teamName1");
 
-        when(featureRepository.save(anyCollectionOf(Feature.class))).thenReturn(
+        when(featureRepository.saveAll(anyCollectionOf(Feature.class))).thenReturn(
             Collections.EMPTY_LIST);
         featureService.saveOrUpdateStories(Arrays.asList(story1, story2), "collector");
 
@@ -92,7 +92,7 @@ public class FeatureServiceTests {
         IssueDTO story1 = TestObjectFactory.createIssueDTO(10l, "name1", "collector");
         IssueDTO story2 = TestObjectFactory.createIssueDTO(11l, "name2", "collector");
 
-        when(featureRepository.save(anyCollectionOf(Feature.class))).thenReturn(
+        when(featureRepository.saveAll(anyCollectionOf(Feature.class))).thenReturn(
             Collections.EMPTY_LIST);
         featureService.saveOrUpdateStories(Arrays.asList(story1, story2), "collector");
 

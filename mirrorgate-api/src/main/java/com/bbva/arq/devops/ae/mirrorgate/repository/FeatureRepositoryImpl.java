@@ -15,14 +15,8 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.SprintStats;
 import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -31,6 +25,13 @@ import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Cei
 import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Divide;
 import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Subtract;
 import org.springframework.data.mongodb.core.query.Criteria;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
@@ -106,6 +107,7 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
                 .and("keywords")
                 .in(boards)
             ),
+            unwind("sParentKey"),
             group()
                 .addToSet("sParentKey")
                 .as("features"),

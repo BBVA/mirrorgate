@@ -112,7 +112,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<String> save(Iterable<Review> reviews) {
+    public List<String> saveAll(Iterable<Review> reviews) {
 
         List<Review> singleReviews = StreamSupport.stream(reviews.spliterator(), false)
                 .filter((r) -> r.getTimestamp() != null).collect(Collectors.toList());
@@ -137,7 +137,7 @@ public class ReviewServiceImpl implements ReviewService {
                 })
                 .collect(Collectors.toList());
 
-        Iterable<Review> newReviews = repository.save(singleReviews);
+        Iterable<Review> newReviews = repository.saveAll(singleReviews);
         eventService.saveEvents(newReviews, EventType.REVIEW);
 
         if (newReviews == null) {
@@ -164,11 +164,11 @@ public class ReviewServiceImpl implements ReviewService {
                     }
                     return false;
                 }).collect(Collectors.toList());
-                repository.save(dbHistoricalReviews);
+                repository.saveAll(dbHistoricalReviews);
             }
 
             if(historyData.size() > 0) {
-                repository.save(historyData);
+                repository.saveAll(historyData);
             }
         }
 
@@ -202,7 +202,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Iterable<Review> getReviewsByObjectId(List<ObjectId> objectIds){
 
-        return repository.findAll(objectIds);
+        return repository.findAllById(objectIds);
     }
 
     private synchronized void updateHistoryForApplicationReview(Review toSave) {

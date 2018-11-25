@@ -49,7 +49,7 @@ public class CommitServiceImpl implements CommitService{
             .map(CommitMapper::map)
             .collect(Collectors.toList());
 
-        Iterable<Commit> saved = repository.save(toSave);
+        Iterable<Commit> saved = repository.saveAll(toSave);
 
         return StreamSupport.stream(saved.spliterator(), false)
             .map(CommitMapper::map)

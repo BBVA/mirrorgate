@@ -15,20 +15,12 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
-import com.mongodb.gridfs.GridFSDBFile;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.StreamSupport;
+import com.mongodb.client.gridfs.model.GridFSFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -37,9 +29,24 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.StreamSupport;
+
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+
 public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DashboardRepositoryImpl.class);
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -76,7 +83,7 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         Aggregation aggregation = newAggregation(
             sort(new Sort(Sort.Direction.DESC, "lastModification")),
             firstDashboardFields(group("name")),
-            match(Criteria.where("status").nin(status)),
+            match(Criteria.where("status").nin((Object[])status)),
             project(DASHBOARD_FIELDS.keySet().toArray(new String[]{})).andExclude("_id")
         );
 
@@ -93,18 +100,19 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
     @Override
     public ImageStream readFile(String name) {
-        List<GridFSDBFile> files = gridFsTemplate.find(
-                new Query().addCriteria(Criteria.where("filename").is(name))
-        );
+        GridFSFile file = gridFsTemplate.find(new Query().addCriteria(Criteria.where("filename").is(name))).first();
 
-        if(files.size() > 0) {
-            GridFSDBFile file = files.get(files.size() - 1);
-            return new ImageStream()
-                    .setEtag(file.getMD5())
-                    .setImageStream(file.getInputStream());
-        } else {
-            return null;
+        if(file != null) {
+            try {
+                return new ImageStream()
+                        .setEtag(file.getMD5())
+                        .setImageStream(gridFsTemplate.getResource(file).getInputStream());
+            } catch (IOException e) {
+                LOGGER.error("There was an error trying to read a image form DB " + name, e);
+            }
         }
+
+        return null;
     }
 
 }

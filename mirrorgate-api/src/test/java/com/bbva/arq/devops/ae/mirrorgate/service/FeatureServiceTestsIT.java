@@ -46,7 +46,7 @@ public class FeatureServiceTestsIT {
         feature4.setsId("12345");
         feature4.setCollectorId("collectorid");
 
-        repository.save(Arrays.asList(feature1, feature2, feature3, feature4));
+        repository.saveAll(Arrays.asList(feature1, feature2, feature3, feature4));
 
     }
 

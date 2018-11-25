@@ -15,31 +15,31 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper.map;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency;
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper;
-import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildSummaryMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildSummaryRepository;
-import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
+import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper.map;
 
 @Service
 public class BuildServiceImpl implements BuildService {
@@ -99,7 +99,7 @@ public class BuildServiceImpl implements BuildService {
                     );
 
             if(toUpdate != null){
-                buildRepository.save(
+                buildRepository.saveAll(
                         toUpdate.stream()
                         .map( b -> b.setLatest(false))
                         .filter( b -> !b.getId().equals(toSave.getId()))

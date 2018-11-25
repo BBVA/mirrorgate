@@ -53,72 +53,81 @@ public class Review extends BaseModel {
         return commentTitle;
     }
 
-    public void setCommentTitle(String commentTitle) {
+    public Review setCommentTitle(String commentTitle) {
         this.commentTitle = commentTitle;
+        return this;
     }
 
     public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(String commentId) {
+    public Review setCommentId(String commentId) {
         this.commentId = commentId;
+        return this;
     }
 
     public String getAppname() {
         return appname;
     }
 
-    public void setAppname(String appname) {
+    public Review setAppname(String appname) {
         this.appname = appname;
+        return this;
     }
 
     public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public Review setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 
     public String getAuthorName() {
         return authorName;
     }
 
-    public void setAuthorName(String authorName) {
+    public Review setAuthorName(String authorName) {
         this.authorName = authorName;
+        return this;
     }
 
     public double getStarrating() {
         return starrating;
     }
 
-    public void setStarrating(double starrating) {
+    public Review setStarrating(double starrating) {
         this.starrating = starrating;
+        return this;
     }
 
     public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
+    public Review setComment(String comment) {
         this.comment = comment;
+        return this;
     }
 
     public Platform getPlatform() {
         return platform;
     }
 
-    public void setPlatform(Platform platform) {
+    public Review setPlatform(Platform platform) {
         this.platform = platform;
+        return this;
     }
 
     public int getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public Review setAmount(int amount) {
         this.amount = amount;
+        return this;
     }
 
     public boolean equals(Review review) {
@@ -140,7 +149,8 @@ public class Review extends BaseModel {
     public String getUrl() {
         return url;
     }
-    public void setUrl(String url) {
+    public Review setUrl(String url) {
         this.url = url;
+        return this;
     }
 }

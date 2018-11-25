@@ -89,7 +89,7 @@ public class ReviewServiceTests {
                 .setAppname(app1.getAppname())
                 .setPlatform(app1.getPlatform());
 
-            if(invocation.getArgumentAt(1, Long.class) > System.currentTimeMillis() - 8 * DAY_IN_MS) {
+            if((Long) invocation.getArgument(1) > System.currentTimeMillis() - 8 * DAY_IN_MS) {
                 app.setVotesShortTerm(app1.getVotesShortTerm());
                 app.setRatingShortTerm(app1.getRatingShortTerm());
                 stats.add(app);
@@ -113,15 +113,11 @@ public class ReviewServiceTests {
         Review review1 = createReview();
         Review review2 = createReview();
 
-        List<Review> list = new ArrayList<>();
-        list.add(review1);
-        list.add(review2);
+        Iterable<Review> reviews = Arrays.asList(review1, review2);
 
-        Iterable<Review> reviews = list;
+        when(reviewRepository.saveAll(reviews)).thenReturn(null);
 
-        when(reviewRepository.save(reviews)).thenReturn(null);
-
-        reviewService.save(reviews);
+        reviewService.saveAll(reviews);
     }
 
     @Test
@@ -142,24 +138,22 @@ public class ReviewServiceTests {
     private Review createReview() {
         Review review = new Review();
         review.setId(ObjectId.get());
-        review.setAppname("MirrorGateApp");
-        review.setAuthorName("Author");
-        review.setComment("Good App!");
-        review.setPlatform(Platform.Android);
-        review.setStarrating(4);
-
-        return review;
+        return review
+            .setAppname("MirrorGateApp")
+            .setAuthorName("Author")
+            .setComment("Good App!")
+            .setPlatform(Platform.Android)
+            .setStarrating(4)
+            .setTimestamp(1L);
     }
 
     private Review createFeedbackReview() {
         Review review = new Review();
         review.setId(ObjectId.get());
-        review.setAppname("Foobar");
-        review.setAuthorName("Author");
-        review.setComment("Good App!");
-        review.setStarrating(5.0);
-        review.setTimestamp(1L);
-
-        return review;
+        return review.setAppname("Foobar")
+            .setAuthorName("Author")
+            .setComment("Good App!")
+            .setStarrating(5.0)
+            .setTimestamp(1L);
     }
 }

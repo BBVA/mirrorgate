@@ -15,9 +15,6 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
@@ -29,12 +26,6 @@ import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
-import java.io.InputStream;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +33,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.*;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
