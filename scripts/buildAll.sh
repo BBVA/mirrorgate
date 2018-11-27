@@ -9,7 +9,6 @@ cd "$(dirname "$0")"
 pushd ../mirrorgate-dashboard
 
 npm install
-$(npm bin)/bower install
 $(npm bin)/gulp dist
 
 popd
@@ -23,7 +22,7 @@ popd
 
 pushd ../mirrorgate-docs
 
-npm install && ./node_modules/.bin/bower install --allow-root
+npm install
 npm run build
 
 popd
