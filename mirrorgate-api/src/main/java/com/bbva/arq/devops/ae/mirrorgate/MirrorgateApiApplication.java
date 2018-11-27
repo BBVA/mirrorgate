@@ -17,9 +17,11 @@ package com.bbva.arq.devops.ae.mirrorgate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @SpringBootApplication
+@EnableScheduling
 public class MirrorgateApiApplication {
 
     public static void main(String[] args) {
