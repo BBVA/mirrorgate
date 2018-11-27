@@ -33,9 +33,12 @@ public class EmbeddedConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .cors()
+                .and()
+            .csrf()
+                .disable()
             .authorizeRequests()
-            .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll() // Disabling actuation security
-        .and()
-            .httpBasic();
+                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll(); // Disabling actuation security
     }
+
 }
