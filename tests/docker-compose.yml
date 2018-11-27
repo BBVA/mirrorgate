@@ -60,7 +60,7 @@ services:
       - /dev/shm:/dev/shm
 
   e2e-tests:
-    image: "node:7"
+    image: "node:8"
     volumes:
       - ".:/temp/"
     working_dir: "/temp"
