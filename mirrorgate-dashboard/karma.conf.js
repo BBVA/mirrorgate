@@ -32,7 +32,8 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/resize-observer-polyfill/dist/ResizeObserver.global.js',
-      'node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce.js',
+      'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js',
+      'node_modules/@webcomponents/html-imports/html-imports.min.js',
       'node_modules/d3/dist/d3.min.js',
       'node_modules/jquery/dist/jquery.slim.min.js',
       'node_modules/rivets/dist/rivets.bundled.min.js',

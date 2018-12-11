@@ -35,7 +35,7 @@ var ServerSentEvent = (function(){
 
       serverSentEvent.addEventListener('error', function(e) {
         if (e.currentTarget.readyState != EventSource.CONNECTING) {
-          console.error("EventSource error", e.error);
+          console.error("EventSource error", e);
         }
       });
     }
