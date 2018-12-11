@@ -44,6 +44,7 @@ services:
       - SERVER_SERVLET_CONTEXT_PATH=/mirrorgate
       - SPRING_RESOURCE_CACHE_PERIOD=0
       - SPRING_RESOURCE_STATIC_LOCATIONS=classpath:/public/
+      - MANAGEMENT_ENDPOINTS_WEB_BASE_PATH=/
     entrypoint: "sh -c 'java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n -jar $$(ls *.jar)'"
     ports:
       - "8080:8080"
