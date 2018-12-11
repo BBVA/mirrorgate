@@ -16,7 +16,7 @@
 
 buildscript {
     ext {
-        springBootVersion = '2.1.0.RELEASE'
+        springBootVersion = '2.1.1.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -55,7 +55,7 @@ jacocoTestReport {
     reports {
         xml.enabled false
         csv.enabled false
-        html.destination "${buildDir}/reports/coverage"
+        html.destination file("${buildDir}/reports/coverage")
     }
 }
 
@@ -74,5 +74,5 @@ dependencies {
 
     testCompile('io.springfox:springfox-staticdocs:2.6.1')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.1.1')
+    testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0')
 }
