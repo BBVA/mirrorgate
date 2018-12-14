@@ -8,13 +8,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -29,13 +29,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -50,13 +50,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -80,7 +80,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -95,13 +95,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -116,13 +116,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -146,7 +146,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -161,13 +161,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -182,13 +182,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -203,13 +203,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -224,13 +224,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI02"
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -245,13 +245,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -275,7 +275,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-23",
     "lParentId" : NumberLong(40163),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -290,13 +290,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -311,13 +311,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -332,13 +332,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -353,13 +353,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -374,13 +374,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -395,13 +395,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI03"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -416,13 +416,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -446,7 +446,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-27",
     "lParentId" : NumberLong(40176),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -470,7 +470,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-27",
     "lParentId" : NumberLong(40176),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -494,7 +494,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -509,13 +509,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -530,13 +530,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -560,7 +560,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -575,13 +575,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -596,13 +596,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -617,13 +617,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -638,13 +638,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -668,7 +668,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-2",
     "lParentId" : NumberLong(40159),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -683,13 +683,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI02"
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -713,7 +713,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -737,7 +737,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-13",
     "lParentId" : NumberLong(40153),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -761,7 +761,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -785,7 +785,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-2",
     "lParentId" : NumberLong(40159),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -809,7 +809,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -833,7 +833,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-13",
     "lParentId" : NumberLong(40153),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -852,7 +852,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-116",
     "lParentId" : NumberLong(54889),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -876,7 +876,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-24",
     "lParentId" : NumberLong(40168),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -900,7 +900,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -924,7 +924,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-2",
     "lParentId" : NumberLong(40159),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -948,7 +948,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-14",
     "lParentId" : NumberLong(40172),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -970,7 +970,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -994,7 +994,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1018,7 +1018,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1042,7 +1042,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1066,7 +1066,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-37",
     "lParentId" : NumberLong(40177),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1088,7 +1088,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1112,7 +1112,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1127,13 +1127,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-1",
     "lParentId" : NumberLong(38628),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1157,7 +1157,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1176,7 +1176,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1200,7 +1200,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1217,7 +1217,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1241,7 +1241,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1260,7 +1260,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1282,7 +1282,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1306,7 +1306,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-115",
     "lParentId" : NumberLong(54886),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1324,13 +1324,13 @@ db.getCollection('feature').insertMany([
     "sState" : "Done",
     "sEstimate" : "0",
     "sEstimateTime" : 0,
-    "sUrl" : "https://globaldevtools.bbva.com/jira/browse/DOST05-80",
+    "sUrl" : "https://fake.com/jira/browse/DOST05-80",
     "changeDate" : "2017-03-06T11:56:07.0000000",
     "isDeleted" : "False",
     "sOwnersID" : [],
     "sOwnersIsDeleted" : [],
     "sOwnersChangeDate" : [],
-    "sOwnersState" : [ 
+    "sOwnersState" : [
         "Active"
     ],
     "sOwnersUsername" : [],
@@ -1381,7 +1381,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1403,7 +1403,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1421,13 +1421,13 @@ db.getCollection('feature').insertMany([
     "sState" : "Backlog",
     "sEstimate" : "3",
     "sEstimateTime" : 0,
-    "sUrl" : "https://globaldevtools.bbva.com/jira/browse/DOST05-86",
+    "sUrl" : "https://fake.com/jira/browse/DOST05-86",
     "changeDate" : "2017-03-02T14:46:52.0000000",
     "isDeleted" : "False",
     "sOwnersID" : [],
     "sOwnersIsDeleted" : [],
     "sOwnersChangeDate" : [],
-    "sOwnersState" : [ 
+    "sOwnersState" : [
         "Active"
     ],
     "sOwnersUsername" : [],
@@ -1450,7 +1450,7 @@ db.getCollection('feature').insertMany([
     "sEpicEndDate" : "",
     "sEpicBeginDate" : "2017-03-02T14:41:03.0000000",
     "sEpicName" : "Basic Marketplace implementation",
-    "sEpicUrl" : "https://globaldevtools.bbva.com/jira/browse/DOST05-84",
+    "sEpicUrl" : "https://fake.com/jira/browse/DOST05-84",
     "sEpicNumber" : "DOST05-84",
     "sEpicID" : "46087",
     "sProjectPath" : "",
@@ -1484,7 +1484,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1508,7 +1508,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1523,13 +1523,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI01"
     ],
     "sParentKey" : "DOT-82",
     "lParentId" : NumberLong(46083),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1553,7 +1553,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1577,7 +1577,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1601,7 +1601,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-3",
     "lParentId" : NumberLong(40155),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1625,7 +1625,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1644,7 +1644,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1668,7 +1668,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1687,7 +1687,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-2",
     "lParentId" : NumberLong(40159),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1706,7 +1706,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-92",
     "lParentId" : NumberLong(46095),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1725,7 +1725,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-92",
     "lParentId" : NumberLong(46095),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1744,7 +1744,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-92",
     "lParentId" : NumberLong(46095),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1761,7 +1761,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1785,7 +1785,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1809,7 +1809,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-117",
     "lParentId" : NumberLong(54890),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1828,7 +1828,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-119",
     "lParentId" : NumberLong(54893),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1852,7 +1852,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-111",
     "lParentId" : NumberLong(54871),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1876,7 +1876,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1891,13 +1891,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI02"
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1921,7 +1921,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1945,7 +1945,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-125",
     "lParentId" : NumberLong(54910),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1969,7 +1969,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-7",
     "lParentId" : NumberLong(40164),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -1984,13 +1984,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI03"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2014,7 +2014,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-10",
     "lParentId" : NumberLong(40167),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2038,7 +2038,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-1",
     "lParentId" : NumberLong(40166),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2",
         "UX"
     ],
@@ -2054,13 +2054,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-38",
     "lParentId" : NumberLong(40224),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2075,13 +2075,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI02"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2105,7 +2105,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-114",
     "lParentId" : NumberLong(54882),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2129,7 +2129,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2144,13 +2144,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI02"
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2165,13 +2165,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
     "sParentKey" : "DOT-38",
     "lParentId" : NumberLong(40224),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2186,13 +2186,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI03"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2216,7 +2216,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2240,7 +2240,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-111",
     "lParentId" : NumberLong(54871),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2255,13 +2255,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "Backlog_PI"
     ],
     "sParentKey" : "DOT-38",
     "lParentId" : NumberLong(40224),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2285,7 +2285,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-10",
     "lParentId" : NumberLong(40167),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2309,7 +2309,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2324,13 +2324,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI02"
     ],
     "sParentKey" : "DOT-37",
     "lParentId" : NumberLong(40223),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2345,13 +2345,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2366,13 +2366,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI02"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2396,7 +2396,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2411,13 +2411,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI02"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2436,7 +2436,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-1",
     "lParentId" : NumberLong(40166),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2460,7 +2460,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2479,7 +2479,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-126",
     "lParentId" : NumberLong(54911),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2498,7 +2498,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2513,13 +2513,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2543,7 +2543,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-121",
     "lParentId" : NumberLong(54897),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2567,7 +2567,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-124",
     "lParentId" : NumberLong(54908),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2591,7 +2591,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2606,13 +2606,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2629,7 +2629,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2648,7 +2648,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-116",
     "lParentId" : NumberLong(54889),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2663,13 +2663,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI02"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2687,13 +2687,13 @@ db.getCollection('feature').insertMany([
     "sState" : "Done",
     "sEstimate" : "0",
     "sEstimateTime" : 0,
-    "sUrl" : "https://globaldevtools.bbva.com/jira/browse/DOST05-112",
+    "sUrl" : "https://fake.com/jira/browse/DOST05-112",
     "changeDate" : "2017-04-19T08:24:00.0000000",
     "isDeleted" : "False",
     "sOwnersID" : [],
     "sOwnersIsDeleted" : [],
     "sOwnersChangeDate" : [],
-    "sOwnersState" : [ 
+    "sOwnersState" : [
         "Active"
     ],
     "sOwnersUsername" : [],
@@ -2702,7 +2702,7 @@ db.getCollection('feature').insertMany([
     "sTeamIsDeleted" : "False",
     "sTeamAssetState" : "",
     "sTeamChangeDate" : "",
-    "sTeamID" : "{\"self\":\"https:\\/\\/globaldevtools.bbva.com\\/jira\\/rest\\/api\\/2\\/customFieldOption\\/15444\",\"value\":\"Team Fast Feedback\",\"id\":\"15444\"}",
+    "sTeamID" : "{\"self\":\"https:\\/\\/fake.com\\/jira\\/rest\\/api\\/2\\/customFieldOption\\/15444\",\"value\":\"Team Fast Feedback\",\"id\":\"15444\"}",
     "sSprintIsDeleted" : "False",
     "sSprintChangeDate" : "",
     "sSprintAssetState" : "",
@@ -2750,7 +2750,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2775,7 +2775,7 @@ db.getCollection('feature').insertMany([
     "lParentId" : NumberLong(40166),
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -2798,7 +2798,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-115",
     "lParentId" : NumberLong(54886),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2817,7 +2817,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-127",
     "lParentId" : NumberLong(54913),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2836,7 +2836,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-124",
     "lParentId" : NumberLong(54908),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2851,13 +2851,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "In Progress",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2881,7 +2881,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2900,7 +2900,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-118",
     "lParentId" : NumberLong(54891),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2924,7 +2924,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2941,7 +2941,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2965,7 +2965,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -2984,7 +2984,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3008,7 +3008,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3027,7 +3027,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3051,7 +3051,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3075,7 +3075,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3099,7 +3099,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-114",
     "lParentId" : NumberLong(54882),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3123,7 +3123,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-10",
     "lParentId" : NumberLong(40167),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3142,7 +3142,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-115",
     "lParentId" : NumberLong(54886),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3166,7 +3166,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3185,7 +3185,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-116",
     "lParentId" : NumberLong(54889),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3209,7 +3209,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3233,7 +3233,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-126",
     "lParentId" : NumberLong(54911),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3250,7 +3250,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3272,7 +3272,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3294,7 +3294,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3316,7 +3316,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3338,7 +3338,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3357,7 +3357,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-233",
     "lParentId" : NumberLong(69985),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3381,7 +3381,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-82",
     "lParentId" : NumberLong(46085),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3400,7 +3400,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-111",
     "lParentId" : NumberLong(54871),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3417,7 +3417,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3441,7 +3441,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3458,7 +3458,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3482,7 +3482,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-123",
     "lParentId" : NumberLong(54906),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3506,7 +3506,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-83",
     "lParentId" : NumberLong(46086),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3523,7 +3523,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3545,7 +3545,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3567,7 +3567,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3589,7 +3589,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3611,7 +3611,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3628,7 +3628,7 @@ db.getCollection('feature').insertMany([
     "priority" : "High",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3650,7 +3650,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3667,7 +3667,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3689,7 +3689,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3711,7 +3711,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3733,7 +3733,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3755,7 +3755,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3777,7 +3777,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3799,7 +3799,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3821,7 +3821,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3844,7 +3844,7 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -3860,7 +3860,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3882,7 +3882,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3904,7 +3904,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3919,13 +3919,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3940,13 +3940,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "In Progress",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI03"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3961,13 +3961,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI03"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -3982,13 +3982,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI03"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4005,7 +4005,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4029,7 +4029,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-212",
     "lParentId" : NumberLong(66869),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4053,7 +4053,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-233",
     "lParentId" : NumberLong(69985),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4077,7 +4077,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-233",
     "lParentId" : NumberLong(69985),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4101,7 +4101,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4125,7 +4125,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4150,7 +4150,7 @@ db.getCollection('feature').insertMany([
     "lParentId" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -4173,7 +4173,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-212",
     "lParentId" : NumberLong(66869),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4197,7 +4197,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-230",
     "lParentId" : NumberLong(68282),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4222,7 +4222,7 @@ db.getCollection('feature').insertMany([
     "lParentId" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -4245,7 +4245,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-211",
     "lParentId" : NumberLong(66868),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4269,7 +4269,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4293,7 +4293,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4308,13 +4308,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI03"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4339,7 +4339,7 @@ db.getCollection('feature').insertMany([
     "lParentId" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -4362,7 +4362,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-210",
     "lParentId" : NumberLong(66867),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4380,18 +4380,18 @@ db.getCollection('feature').insertMany([
     "sState" : "Done",
     "sEstimate" : "2.0",
     "sEstimateTime" : 0,
-    "sUrl" : "https://globaldevtools.bbva.com/jira/browse/DOST05-247",
+    "sUrl" : "https://fake.com/jira/browse/DOST05-247",
     "dEstimate" : 2.0,
     "changeDate" : "2017-06-14T08:26:26.0000000",
     "isDeleted" : "False",
-    "keywords" : [ 
-        "Team Fast Feedback", 
+    "keywords" : [
+        "Team Fast Feedback",
         "MirrorGate2"
     ],
     "sOwnersID" : [],
     "sOwnersIsDeleted" : [],
     "sOwnersChangeDate" : [],
-    "sOwnersState" : [ 
+    "sOwnersState" : [
         "Active"
     ],
     "sOwnersUsername" : [],
@@ -4415,7 +4415,7 @@ db.getCollection('feature').insertMany([
     "sEpicEndDate" : "",
     "sEpicBeginDate" : "2017-02-04T16:51:58.0000000",
     "sEpicName" : "[USR] Groups and Access management",
-    "sEpicUrl" : "https://globaldevtools.bbva.com/jira/browse/DOST05-1",
+    "sEpicUrl" : "https://fake.com/jira/browse/DOST05-1",
     "sEpicNumber" : "DOST05-1",
     "sEpicID" : "40166",
     "sProjectPath" : "",
@@ -4446,7 +4446,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-113",
     "lParentId" : NumberLong(54880),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4470,7 +4470,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-22",
     "lParentId" : NumberLong(40173),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4494,7 +4494,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-11",
     "lParentId" : NumberLong(40152),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4511,7 +4511,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4533,7 +4533,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4555,7 +4555,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4580,7 +4580,7 @@ db.getCollection('feature').insertMany([
     "lParentId" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -4594,13 +4594,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Done",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "2017_PI03"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4625,7 +4625,7 @@ db.getCollection('feature').insertMany([
     "lParentId" : NumberLong(69985),
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -4641,7 +4641,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4666,7 +4666,7 @@ db.getCollection('feature').insertMany([
     "lParentId" : NumberLong(40166),
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -4682,7 +4682,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4699,7 +4699,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4721,7 +4721,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4738,7 +4738,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4760,7 +4760,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4777,7 +4777,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4799,7 +4799,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4816,7 +4816,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4838,7 +4838,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4855,7 +4855,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4872,7 +4872,7 @@ db.getCollection('feature').insertMany([
     "priority" : "Medium",
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4895,7 +4895,7 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -4917,7 +4917,7 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -4939,7 +4939,7 @@ db.getCollection('feature').insertMany([
     "sProjectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ]
 }
@@ -4960,7 +4960,7 @@ db.getCollection('feature').insertMany([
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
     "sProjectId" : "12508",
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4979,7 +4979,7 @@ db.getCollection('feature').insertMany([
     "sParentKey" : "DOST05-213",
     "lParentId" : NumberLong(67116),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -4994,13 +4994,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -5015,13 +5015,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
     "sParentKey" : "DOT-116",
     "lParentId" : NumberLong(77725),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
@@ -5036,13 +5036,13 @@ db.getCollection('feature').insertMany([
     "sStatus" : "Backlog",
     "priority" : "Medium",
     "sProjectId" : "12508",
-    "sPiNames" : [ 
+    "sPiNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
     "sParentKey" : "DOT-4",
     "lParentId" : NumberLong(38645),
     "sProjectName" : "MirrorGate2",
-    "keywords" : [ 
+    "keywords" : [
         "MirrorGate2"
     ],
     "collectorId" : "mirrorgate-collectors-jira"
