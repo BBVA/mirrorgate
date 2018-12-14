@@ -2,15 +2,15 @@ version: '2'
 
 services:
   mongo:
-    image: "mongo:3.6"
+    image: mongo:3.6
     ports:
-      - "27017:27017"
+      - 27017:27017
 
   mongo-populate-test:
-    image: "mongo:3.6"
+    image: mongo:3.6
     volumes:
-      - ".:/temp"
-    working_dir: "/temp"
+      - .:/temp
+    working_dir: /temp
     entrypoint: "/usr/bin/env bash -c ' \
       until mongo dashboarddb --host mongo --eval \"db.dropDatabase()\"; do >&2 echo Mongo is unavailable - sleeping & sleep 1; done && \
       mongo dashboarddb --host mongo < data/main.js'"
@@ -18,10 +18,10 @@ services:
       - mongo
 
   mongo-populate-dump:
-    image: "mongo:3.6"
+    image: mongo:3.6
     volumes:
-      - "/tmp/latest_mongo_dump:/temp"
-    working_dir: "/temp"
+      - /tmp/latest_mongo_dump:/temp
+    working_dir: /temp
     entrypoint: "/usr/bin/env bash -c ' \
       until mongo dashboarddb --host mongo --eval \"db.dropDatabase()\"; do >&2 echo Mongo is unavailable - sleeping & sleep 1; done && \
       mongorestore --host mongo --db dashboarddb --drop /temp/dump/dashboarddb'"
@@ -29,7 +29,7 @@ services:
       - mongo
 
   app:
-    image: "openjdk:8-jdk"
+    image: openjdk:8-jdk
     volumes:
       - ../mirrorgate-api/build/libs:/temp
       - ../mirrorgate-dashboard/dist:/temp/public
@@ -37,7 +37,7 @@ services:
       - ../mirrorgate-docs/dist:/temp/public/docs
     depends_on:
       - mongo
-    working_dir: "/temp"
+    working_dir: /temp
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/dashboarddb
       - SPRING_PROFILES_ACTIVE=embedded
@@ -47,24 +47,24 @@ services:
       - MANAGEMENT_ENDPOINTS_WEB_BASE_PATH=/
     entrypoint: "sh -c 'java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n -jar $$(ls *.jar)'"
     ports:
-      - "8080:8080"
-      - "5005:5005"
+      - 8080:8080
+      - 5005:5005
 
   selenium-chrome:
-    image: "selenium/standalone-chrome:2.53.1"
+    image: selenium/standalone-chrome:3.13
     volumes:
       - /dev/shm:/dev/shm
 
   selenium-firefox:
-    image: "selenium/standalone-firefox:latest"
+    image: selenium/standalone-firefox:3.13
     volumes:
       - /dev/shm:/dev/shm
 
   e2e-tests:
-    image: "node:8"
+    image: node:8
     volumes:
-      - ".:/temp/"
-    working_dir: "/temp"
+      - .:/temp/
+    working_dir: /temp
     depends_on:
       - mongo-populate-test
       - app
@@ -76,5 +76,5 @@ services:
       - |
         until curl http://app:8080/mirrorgate/dashboards/mirrorgate/details; do >&2 echo Dashboard is unavailable - sleeping & sleep 1; done
         npm install
-        SELENIUM_HOST=selenium-chrome APP_HOST=app npm run e2e-tests
-        # BROWSER=firefox SELENIUM_HOST=selenium-firefox APP_HOST=app npm run e2e-tests
+        SELENIUM_HOST=selenium-chrome APP_HOST=app npm test
+        #BROWSER=firefox SELENIUM_HOST=selenium-firefox APP_HOST=app npm test

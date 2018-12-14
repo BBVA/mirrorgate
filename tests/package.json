@@ -4,7 +4,7 @@
   "description": "Module for integration tests. Currently they are based in perceptual testing.",
   "main": "index.js",
   "scripts": {
-    "e2e-tests": "protractor ./e2e/protractor.conf.js"
+    "test": "protractor ./e2e/protractor.conf.js"
   },
   "author": "BBVA",
   "license": "Apache-2.0",
