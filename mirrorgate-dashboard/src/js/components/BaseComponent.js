@@ -61,12 +61,12 @@ var BaseComponent = (function() {
         this._fakeShadowRoot = container;
         this._wrapper = wrapper;
       } else if(!this.lightDOM && (this.childNodes.length === 0 || !this.innerHTML.trim().length)){
-        if(this.createShadowRoot) {
-          this.createShadowRoot();
-        } else {
+        if(this.attachShadow) {
           this.attachShadow({
             mode: 'open'
           });
+        } else {
+          this.createShadowRoot();
         }
 
         this.shadowRoot.appendChild(rootElement);
