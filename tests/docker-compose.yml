@@ -2,12 +2,12 @@ version: '2'
 
 services:
   mongo:
-    image: mongo:3.6
+    image: mongo:4.0
     ports:
       - 27017:27017
 
   mongo-populate-test:
-    image: mongo:3.6
+    image: mongo:4.0
     volumes:
       - .:/temp
     working_dir: /temp
@@ -18,7 +18,7 @@ services:
       - mongo
 
   mongo-populate-dump:
-    image: mongo:3.6
+    image: mongo:4.0
     volumes:
       - /tmp/latest_mongo_dump:/temp
     working_dir: /temp
@@ -50,12 +50,12 @@ services:
       - 8080:8080
       - 5005:5005
 
-  selenium-chrome:
+  selenium-chrome-3.13:
     image: selenium/standalone-chrome:3.13
     volumes:
       - /dev/shm:/dev/shm
 
-  selenium-firefox:
+  selenium-firefox-3.13:
     image: selenium/standalone-firefox:3.13
     volumes:
       - /dev/shm:/dev/shm
@@ -68,13 +68,15 @@ services:
     depends_on:
       - mongo-populate-test
       - app
-      - selenium-chrome
-      - selenium-firefox
+      - selenium-chrome-3.13
+      - selenium-firefox-3.13
     command:
       - /bin/sh
       - -c
       - |
         until curl http://app:8080/mirrorgate/dashboards/mirrorgate/details; do >&2 echo Dashboard is unavailable - sleeping & sleep 1; done
+        until curl http://selenium-chrome-3.13:4444/wd/hub/status; do >&2 echo Selenium Standalone is unavailable - sleeping & sleep 1; done
+        until curl http://selenium-firefox-3.13:4444/wd/hub/status; do >&2 echo Selenium Standalone is unavailable - sleeping & sleep 1; done
         npm install
-        SELENIUM_HOST=selenium-chrome APP_HOST=app npm test
-        #BROWSER=firefox SELENIUM_HOST=selenium-firefox APP_HOST=app npm test
+        SELENIUM_HOST=selenium-chrome-3.13 APP_HOST=app npm test
+        BROWSER=firefox SELENIUM_HOST=selenium-firefox-3.13 APP_HOST=app npm test
