@@ -79,4 +79,4 @@ services:
         until curl http://selenium-firefox-3.13:4444/wd/hub/status; do >&2 echo Selenium Standalone is unavailable - sleeping & sleep 1; done
         npm install
         SELENIUM_HOST=selenium-chrome-3.13 APP_HOST=app npm test
-        BROWSER=firefox SELENIUM_HOST=selenium-firefox-3.13 APP_HOST=app npm test
+        #BROWSER=firefox SELENIUM_HOST=selenium-firefox-3.13 APP_HOST=app npm test
