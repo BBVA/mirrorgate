@@ -57,9 +57,11 @@ module.exports = function(config) {
       'src/components/**/*.*',
       {pattern: 'test/**/*', included: false},
       {pattern: 'dist/img/**/*.*', included: false, served: true},
-      {pattern: 'dist/**/*.css', included: false, served: true},
+      {pattern: 'dist/**/*.css*', included: false, served: true},
       {pattern: 'dist/libs/**/*.*', included: false, served: true},
-      {pattern: 'dist/fonts/**/*.*', included: false, served: true}
+      {pattern: 'dist/fonts/**/*.*', included: false, served: true},
+      {pattern: 'node_modules/@webcomponents/html-imports/*.map', included: false, served: true},
+      {pattern: 'node_modules/moment-weekday-calc/build/*.map', included: false, served: true}
     ],
 
 
