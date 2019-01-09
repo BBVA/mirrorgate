@@ -65,7 +65,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     private Dashboard getRepositoryDashboard(String name) {
-        Dashboard dashboard = dashboardRepository.findOneByName(name, SORT_BY_LAST_MODIFICATION);
+        Dashboard dashboard = dashboardRepository.findFirstByName(name, SORT_BY_LAST_MODIFICATION);
 
         if (dashboard == null) {
             throw new DashboardNotFoundException("Dashboard not Found");
@@ -124,7 +124,7 @@ public class DashboardServiceImpl implements DashboardService {
             throw new DashboardConflictException("Dashboard name must not be empty");
         }
 
-        Dashboard oldDashboard = dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        Dashboard oldDashboard = dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
 
         if (oldDashboard != null && oldDashboard.getStatus() != DELETED) {
             throw new DashboardConflictException("A Dashboard with name '" + dashboard.getName() + "' already exists");

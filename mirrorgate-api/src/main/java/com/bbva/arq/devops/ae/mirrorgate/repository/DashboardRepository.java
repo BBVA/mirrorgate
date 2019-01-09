@@ -27,7 +27,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface DashboardRepository extends CrudRepository<Dashboard, ObjectId>, DashboardRepositoryCustom {
 
-    Dashboard findOneByName(String name, Sort sort);
+    Dashboard findFirstByName(String name, Sort sort);
 
     @Query(value = "{}", fields = "{codeRepos : 1, _id: 0}")
     List<Dashboard> findCodeRepos();

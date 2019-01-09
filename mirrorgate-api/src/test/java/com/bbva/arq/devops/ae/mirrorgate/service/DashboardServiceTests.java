@@ -73,11 +73,11 @@ public class DashboardServiceTests {
     public void getDashboardByNameTest() {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
         when(dashboardRepository.save(any(Dashboard.class))).thenReturn(map(dashboard));
 
         DashboardDTO dashboard2 = dashboardService.getDashboard(dashboard.getName());
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
 
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
         assertThat(dashboard2.getLogoUrl()).isEqualTo(dashboard.getLogoUrl());
@@ -87,11 +87,11 @@ public class DashboardServiceTests {
     public void getReposByDashboardNameTest() {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
         when(dashboardRepository.save(any(Dashboard.class))).thenReturn(map(dashboard));
 
         List<String> codeReposByDashboardName = dashboardService.getReposByDashboardName(dashboard.getName());
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
 
         assertThat(codeReposByDashboardName.get(0)).isEqualTo(dashboard.getCodeRepos().get(0));
         assertThat(codeReposByDashboardName.get(1)).isEqualTo(dashboard.getCodeRepos().get(1));
@@ -101,11 +101,11 @@ public class DashboardServiceTests {
     public void newDashboardTest() {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
         when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
 
         DashboardDTO dashboard2 = dashboardService.newDashboard(dashboard);
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save((Dashboard) any());
 
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
@@ -115,11 +115,11 @@ public class DashboardServiceTests {
     public void newTransientDashboardTest() {
         DashboardDTO dashboard = TestObjectFactory.createTransientDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
         when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
 
         DashboardDTO dashboard2 = dashboardService.newTransientDashboard(dashboard);
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save((Dashboard) any());
 
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
@@ -130,7 +130,7 @@ public class DashboardServiceTests {
     public void newPreviousCreatedDashboardTest() {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
 
         dashboardService.newDashboard(dashboard);
     }
@@ -139,11 +139,11 @@ public class DashboardServiceTests {
     public void updateDashboardAdminUserTest() {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
         when(dashboardRepository.save((Dashboard) any())).thenAnswer(d -> d.getArguments()[0]);
 
         DashboardDTO dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save((Dashboard) any());
 
         assertThat(dashboard2.getAdminUsers()).contains(TestObjectFactory.AUTH_NAME);
@@ -159,11 +159,11 @@ public class DashboardServiceTests {
         Dashboard rDashboard = map(dashboard);
         rDashboard.setStatus(TRANSIENT);
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(rDashboard);
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(rDashboard);
         when(dashboardRepository.save((Dashboard) any())).thenAnswer(d -> d.getArguments()[0]);
 
         DashboardDTO dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save((Dashboard) any());
         verify(dashboardRepository).save(argument.capture());
 
@@ -175,7 +175,7 @@ public class DashboardServiceTests {
     public void updateWrongDashboardTest() {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
 
         dashboardService.updateDashboard(dashboard.getName(),dashboard);
     }
@@ -184,11 +184,11 @@ public class DashboardServiceTests {
     public void deleteDashboardTest() {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
         when(dashboardRepository.save(map(dashboard))).thenReturn(map(dashboard));
 
         dashboardService.deleteDashboard(dashboard.getName());
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
         verify(dashboardRepository, times(1)).save((Dashboard) any());
     }
 
@@ -196,10 +196,10 @@ public class DashboardServiceTests {
     public void deleteNotFoundDashboardTest() {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        when(dashboardRepository.findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
+        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
 
         dashboardService.deleteDashboard(dashboard.getName());
-        verify(dashboardRepository, times(1)).findOneByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
     }
 
     @After
