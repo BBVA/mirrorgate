@@ -148,15 +148,13 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
             metric = createNextPeriod(userMetric, unit);
         }
 
-        HistoricUserMetric addedMetric = addMetrics(metric, userMetric);
-        historicUserMetricRepository.save(addedMetric);
+        historicUserMetricRepository.save(addMetrics(metric, userMetric));
 
         return metric;
     }
 
     private HistoricUserMetric addMetrics(final HistoricUserMetric historic, final UserMetric saved) {
 
-        HistoricUserMetric response = historic;
         long metricSampleSize = 1;
 
         if (saved.getValue() != null) {
@@ -164,11 +162,11 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
                 metricSampleSize = saved.getSampleSize();
             }
 
-            response.setValue(historic.getValue() + (saved.getValue() * metricSampleSize));
-            response.setSampleSize(historic.getSampleSize() + metricSampleSize);
+            historic.setValue(historic.getValue() + (saved.getValue() * metricSampleSize));
+            historic.setSampleSize(historic.getSampleSize() + metricSampleSize);
         }
 
-        return response;
+        return historic;
     }
 
     private HistoricUserMetric createNextPeriod(UserMetric userMetric, ChronoUnit unit) {
