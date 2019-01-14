@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@webcomponents/html-imports": "^1.2.0",
-    "@webcomponents/webcomponentsjs": "^2.2.0",
+    "@webcomponents/webcomponentsjs": "^2.2.3",
     "bootstrap": "^4.2.1",
     "d3": "^5.7.0",
     "font-awesome": "^4.7.0",
