@@ -15,10 +15,6 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper.mapToHistoric;
-import static java.time.temporal.ChronoUnit.DAYS;
-import static java.time.temporal.ChronoUnit.HOURS;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
@@ -27,14 +23,19 @@ import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper.mapToHistoric;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.HOURS;
 
 @Service
 public class HistoricUserMetricServiceImpl implements HistoricUserMetricService {
@@ -138,35 +139,29 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
         return historicUserMetricRepository.findByTimestampAndIdentifierAndHistoricType(periodTimestamp, identifier, type);
     }
 
-    private HistoricUserMetric addToTendency(UserMetric userMetric, ChronoUnit unit) {
+    private void addToTendency(UserMetric userMetric, ChronoUnit unit) {
 
-        HistoricUserMetric metric = getHistoricMetricForPeriod(
+        HistoricUserMetric historicUserMetric = getHistoricMetricForPeriod(
             LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit),
             userMetric.getId(), unit);
 
-        if (metric == null) {
-            metric = createNextPeriod(userMetric, unit);
+        if (historicUserMetric == null) {
+            historicUserMetric = createNextPeriod(userMetric, unit);
         }
-
-        historicUserMetricRepository.save(addMetrics(metric, userMetric));
-
-        return metric;
-    }
-
-    private HistoricUserMetric addMetrics(final HistoricUserMetric historic, final UserMetric saved) {
 
         long metricSampleSize = 1;
 
-        if (saved.getValue() != null) {
-            if (saved.getSampleSize() != null && saved.getSampleSize() > 0) {
-                metricSampleSize = saved.getSampleSize();
+        if (userMetric.getValue() != null) {
+            if (userMetric.getSampleSize() != null && userMetric.getSampleSize() > 0) {
+                metricSampleSize = userMetric.getSampleSize();
             }
 
-            historic.setValue(historic.getValue() + (saved.getValue() * metricSampleSize));
-            historic.setSampleSize(historic.getSampleSize() + metricSampleSize);
+            historicUserMetric.setValue(historicUserMetric.getValue() + (userMetric.getValue() * metricSampleSize));
+            historicUserMetric.setSampleSize(historicUserMetric.getSampleSize() + metricSampleSize);
         }
 
-        return historic;
+        historicUserMetricRepository.save(historicUserMetric);
+
     }
 
     private HistoricUserMetric createNextPeriod(UserMetric userMetric, ChronoUnit unit) {
