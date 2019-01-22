@@ -73,7 +73,7 @@ public class CommitServiceImpl implements CommitService{
     @Override
     public List<String> getLastCommits(String repo, Integer timestamp) {
         return repository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(repo, timestamp).stream()
-            .map(commit -> commit.getHash())
+            .map(Commit::getHash)
             .collect(Collectors.toList());
     }
 

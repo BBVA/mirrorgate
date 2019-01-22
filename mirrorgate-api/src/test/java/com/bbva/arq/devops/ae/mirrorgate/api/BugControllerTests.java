@@ -25,7 +25,7 @@ import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,7 +71,7 @@ public class BugControllerTests {
         bugs.add(bug2);
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(bugService.getActiveBugsByBoards(Arrays.asList(dashboard.getsProductName())))
+        when(bugService.getActiveBugsByBoards(Collections.singletonList(dashboard.getsProductName())))
                 .thenReturn(bugs);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/bugs"))

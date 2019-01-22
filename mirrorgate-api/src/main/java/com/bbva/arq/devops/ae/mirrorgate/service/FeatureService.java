@@ -40,7 +40,7 @@ public interface FeatureService {
 
     Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues, String collectorId);
 
-    void deleteStory(Long id, String collectorId);
+    IssueDTO deleteStory(Long id, String collectorId);
 
     List<Feature> getFeatureRelatedIssues(List<String> featuresKeys);
 

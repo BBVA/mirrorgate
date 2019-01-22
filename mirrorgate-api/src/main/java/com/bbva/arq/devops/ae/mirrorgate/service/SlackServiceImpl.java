@@ -67,7 +67,7 @@ public class SlackServiceImpl implements SlackService {
     public Map<String, String> getChannelList(String slackToken) {
         SlackWebApiClient webApiClient = SlackClientFactory.createWebApiClient(slackToken);
         List<Channel> channelList = webApiClient.getChannelList();
-        return channelList.stream().collect(Collectors.toMap(c -> c.getId(), c -> c.getName()));
+        return channelList.stream().collect(Collectors.toMap(Channel::getId, Channel::getName));
     }
 
 }

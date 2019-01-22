@@ -143,9 +143,9 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
     }
 
     private static class ProgramIncrementBoardFeatures {
-        private List<String> features;
+        private final List<String> features;
 
-        public ProgramIncrementBoardFeatures(List<String> features){
+        ProgramIncrementBoardFeatures(List<String> features){
             this.features = features;
         }
     }

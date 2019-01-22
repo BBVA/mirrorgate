@@ -25,7 +25,7 @@ public class CommitMapper {
         return map(source, new CommitDTO());
     }
 
-    public static CommitDTO map(Commit source, CommitDTO target) {
+    private static CommitDTO map(Commit source, CommitDTO target) {
         return target
                 .setHash(source.getHash())
                 .setRepository(source.getRepository())
@@ -43,7 +43,7 @@ public class CommitMapper {
         return map(source, new Commit());
     }
 
-    public static Commit map(CommitDTO source, Commit target) {
+    private static Commit map(CommitDTO source, Commit target) {
         return target
                 .setId(source.getHash()
                      + source.getRepository()

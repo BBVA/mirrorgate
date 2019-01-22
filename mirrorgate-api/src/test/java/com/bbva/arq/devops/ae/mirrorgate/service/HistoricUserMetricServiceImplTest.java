@@ -17,7 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
@@ -68,8 +68,8 @@ public class HistoricUserMetricServiceImplTest {
             .setId("AWSRequestNumber")
             .setTimestamp(THREE_HOURS_AGO);
 
-        UserMetric userMetric4 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(15d).setSampleSize(100l).setTimestamp(TODAY);
-        UserMetric userMetric5 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(10d).setSampleSize(150l).setTimestamp(TODAY);
+        UserMetric userMetric4 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(15d).setSampleSize(100L).setTimestamp(TODAY);
+        UserMetric userMetric5 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(10d).setSampleSize(150L).setTimestamp(TODAY);
 
         UserMetric userMetric6 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setId("AWSAvailabilityRate").setValue(100d).setTimestamp(TODAY);
         UserMetric userMetric7 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setId("AWSAvailabilityRate").setValue(75d).setTimestamp(TODAY);
@@ -85,9 +85,9 @@ public class HistoricUserMetricServiceImplTest {
 
         HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS), "AWSRequestNumber", ChronoUnit.DAYS);
 
-        assertTrue(result.getIdentifier().equals("AWSRequestNumber"));
-        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
-        assertTrue(result.getValue() == 48);
+        assertEquals("AWSRequestNumber", result.getIdentifier());
+        assertEquals((long) result.getTimestamp(), LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
+        assertEquals(48, result.getValue(), 0.0);
     }
 
     @Test
@@ -97,9 +97,9 @@ public class HistoricUserMetricServiceImplTest {
 
         HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS), "AWSRequestNumber", ChronoUnit.DAYS);
 
-        assertTrue(result.getIdentifier().equals("AWSRequestNumber"));
-        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
-        assertTrue(result.getValue() == 24);
+        assertEquals("AWSRequestNumber", result.getIdentifier());
+        assertEquals((long) result.getTimestamp(), LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
+        assertEquals(24, result.getValue(), 0.0);
     }
 
     @Test
@@ -108,10 +108,10 @@ public class HistoricUserMetricServiceImplTest {
 
         HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS), "AWSResponseTime", ChronoUnit.DAYS);
 
-        assertTrue(result.getIdentifier().equals("AWSResponseTime"));
-        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
-        assertTrue(result.getSampleSize() == 250d);
-        assertTrue(result.getValue() == 3000d);
+        assertEquals("AWSResponseTime", result.getIdentifier());
+        assertEquals((long) result.getTimestamp(), LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
+        assertEquals(250d, result.getSampleSize(), 0.0);
+        assertEquals(3000d, result.getValue(), 0.0);
     }
 
     @Test
@@ -119,10 +119,10 @@ public class HistoricUserMetricServiceImplTest {
         service.addToCurrentPeriod(userMetrics);
 
         HistoricUserMetric result = repository.findByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS), "AWSAvailabilityRate", ChronoUnit.HOURS);
-        assertTrue(result.getIdentifier().equals("AWSAvailabilityRate"));
-        assertTrue(result.getTimestamp() == LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS));
-        assertTrue(result.getSampleSize() == 2);
-        assertTrue(result.getValue() == 175);
+        assertEquals("AWSAvailabilityRate", result.getIdentifier());
+        assertEquals((long) result.getTimestamp(), LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS));
+        assertEquals(2, (long) result.getSampleSize());
+        assertEquals(175, result.getValue(), 0.0);
     }
 
     @After

@@ -20,11 +20,11 @@ import org.junit.Assert;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class MapperTestingSupport {
+class MapperTestingSupport {
 
     public static void assertBeanValues(Object o1, Object o2) throws IllegalAccessException, InvocationTargetException {
         for (Method method : o1.getClass().getDeclaredMethods()) {
@@ -50,15 +50,15 @@ public class MapperTestingSupport {
                     } else if (argumentType == Integer.class) {
                         method.invoke(o, count++);
                     } else if (argumentType == Long.class) {
-                        method.invoke(o, Long.valueOf(count++));
+                        method.invoke(o, (long) count++);
                     } else if (argumentType == Date.class) {
                         method.invoke(o, new Date());
                     } else if (argumentType == Double.class) {
-                        method.invoke(o, Double.valueOf(count++));
+                        method.invoke(o, (double) count++);
                     } else if (argumentType == Float.class) {
-                        method.invoke(o, Float.valueOf(count++));
+                        method.invoke(o, (float) count++);
                     } else if (argumentType == List.class) {
-                        method.invoke(o, Arrays.asList());
+                        method.invoke(o, Collections.emptyList());
                     }
                 }
             }

@@ -3,7 +3,6 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 import java.time.temporal.ChronoUnit;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "historic_user_metrics")

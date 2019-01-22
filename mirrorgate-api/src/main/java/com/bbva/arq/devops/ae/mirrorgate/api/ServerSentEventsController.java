@@ -16,7 +16,7 @@ public class ServerSentEventsController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerSentEventsController.class);
 
-    private ConnectionHandler handler;
+    private final ConnectionHandler handler;
 
     private static class NotCachedSseEmitter extends SseEmitter {
         @Override

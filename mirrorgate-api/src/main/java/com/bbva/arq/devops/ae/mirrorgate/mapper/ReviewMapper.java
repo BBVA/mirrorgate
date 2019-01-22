@@ -25,7 +25,7 @@ public class ReviewMapper {
         return map(source, new ReviewDTO());
     }
 
-    public static ReviewDTO map(Review source, ReviewDTO target) {
+    private static ReviewDTO map(Review source, ReviewDTO target) {
         return target
                 .setAuthor(source.getAuthorName())
                 .setRate(source.getStarrating())
@@ -38,7 +38,7 @@ public class ReviewMapper {
         return map(source, new Review());
     }
 
-    public static Review map(ReviewDTO source, Review target) {
+    private static Review map(ReviewDTO source, Review target) {
         target.setTimestamp(source.getTimestamp());
         target.setAuthorName(source.getAuthor());
         target.setStarrating(source.getRate());

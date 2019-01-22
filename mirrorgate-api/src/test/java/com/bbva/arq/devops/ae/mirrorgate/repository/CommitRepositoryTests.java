@@ -24,6 +24,7 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -75,12 +76,12 @@ public class CommitRepositoryTests {
         long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
 
-        Double seconds1 = repository.getSecondsToMaster(Arrays.asList(repos.get(0)), thirtyDaysAgo);
+        Double seconds1 = repository.getSecondsToMaster(Collections.singletonList(repos.get(0)), thirtyDaysAgo);
         Double seconds2 = repository.getSecondsToMaster(repos, thirtyDaysAgo);
-        Double seconds3 = repository.getSecondsToMaster(Arrays.asList(repos.get(2)), thirtyDaysAgo);
+        Double seconds3 = repository.getSecondsToMaster(Collections.singletonList(repos.get(2)), thirtyDaysAgo);
 
         assertThat(seconds1).isEqualTo(ONE_DAY_AGO - timestamp1);
-        assertThat(seconds2).isEqualTo(((ONE_DAY_AGO - timestamp1) + (ONE_DAY_AGO - timestamp2)) / 2);
+        assertThat(seconds2).isEqualTo(((ONE_DAY_AGO - timestamp1) + (ONE_DAY_AGO - timestamp2)) / 2.0);
         assertThat(seconds3).isEqualTo(null);
     }
 
@@ -108,7 +109,7 @@ public class CommitRepositoryTests {
         long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
 
-        Double seconds = repository.getSecondsToMaster(Arrays.asList(GIT_REPO_URLS[1]), thirtyDaysAgo);
+        Double seconds = repository.getSecondsToMaster(Collections.singletonList(GIT_REPO_URLS[1]), thirtyDaysAgo);
 
         assertThat(seconds).isNotNull();
         assertThat(seconds).isEqualTo(ONE_DAY_AGO - timestamp);
@@ -132,12 +133,12 @@ public class CommitRepositoryTests {
         long threeDaysAgo = now - (3 * 60 * 60 * 24);
         long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
 
-        Double commits1 = repository.getCommitsPerDay(Arrays.asList(repos.get(0)), thirtyDaysAgo, 30);
-        Double commits2 = repository.getCommitsPerDay(Arrays.asList(repos.get(1)), thirtyDaysAgo, 30);
-        Double commits3 = repository.getCommitsPerDay(Arrays.asList(repos.get(2)), thirtyDaysAgo, 30);
+        Double commits1 = repository.getCommitsPerDay(Collections.singletonList(repos.get(0)), thirtyDaysAgo, 30);
+        Double commits2 = repository.getCommitsPerDay(Collections.singletonList(repos.get(1)), thirtyDaysAgo, 30);
+        Double commits3 = repository.getCommitsPerDay(Collections.singletonList(repos.get(2)), thirtyDaysAgo, 30);
         Double commits4 = repository.getCommitsPerDay(repos, thirtyDaysAgo, 30);
         Double commits5 = repository.getCommitsPerDay(repos, threeDaysAgo, 3);
-        Double commits6 = repository.getCommitsPerDay(Arrays.asList(repos.get(3)), thirtyDaysAgo, 30);
+        Double commits6 = repository.getCommitsPerDay(Collections.singletonList(repos.get(3)), thirtyDaysAgo, 30);
 
         assertThat(commits1).isEqualTo(3D / 30D);
         assertThat(commits2).isEqualTo(3D / 30D);

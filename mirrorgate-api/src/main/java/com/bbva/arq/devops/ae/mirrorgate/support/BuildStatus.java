@@ -44,7 +44,7 @@ public enum BuildStatus {
 
     public static BuildStatus fromString(String value) {
         String key = value.toLowerCase();
-        return MAPPING.containsKey(key) ? MAPPING.get(key): Unknown;
+        return MAPPING.getOrDefault(key, Unknown);
     }
 
 }

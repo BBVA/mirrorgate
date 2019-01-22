@@ -140,12 +140,12 @@ public class DashboardController {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } else {
             response.setHeader(HttpHeaders.CACHE_CONTROL, "max-age=0, must-revalidate");
-            String expectedEtag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
-            if(is.getEtag() != null && is.getEtag().equals(expectedEtag)) {
+            String expectedETag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
+            if(is.getETag() != null && is.getETag().equals(expectedETag)) {
                 response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
             } else {
                 try {
-                    response.setHeader(HttpHeaders.ETAG, is.getEtag());
+                    response.setHeader(HttpHeaders.ETAG, is.getETag());
                     response.setStatus(HttpServletResponse.SC_OK);
                     StreamUtils.copy(is.getImageStream(), response.getOutputStream());
                 } catch (IOException e) {

@@ -30,7 +30,7 @@ public interface ReviewService {
      * Get the average of star rating of every application form a list of names.
      *
      * @param names A list with the name of the applications
-     * @param marketsStatsDays
+     * @param marketsStatsDays Number of days for searching
      * @return Al List of ApplicationDTO objects with name and rate of every
      * application
      */

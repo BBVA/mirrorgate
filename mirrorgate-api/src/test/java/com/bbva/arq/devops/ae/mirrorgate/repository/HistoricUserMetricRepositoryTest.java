@@ -17,7 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.TODAY;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
@@ -51,7 +51,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(12d)
-            .setSampleSize(0l)
+            .setSampleSize(0L)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric2 = new HistoricUserMetric()
             .setIdentifier("requestsNumber2")
@@ -59,7 +59,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(16d)
-            .setSampleSize(0l)
+            .setSampleSize(0L)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric3 = new HistoricUserMetric()
             .setIdentifier("requestsNumber3")
@@ -67,7 +67,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(14d)
-            .setSampleSize(0l)
+            .setSampleSize(0L)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric4 = new HistoricUserMetric()
             .setIdentifier("responseTime4")
@@ -75,7 +75,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
             .setValue(3000d)
-            .setSampleSize(100l)
+            .setSampleSize(100L)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric5 = new HistoricUserMetric()
             .setIdentifier("responseTime5")
@@ -83,7 +83,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
             .setValue(2000d)
-            .setSampleSize(150l)
+            .setSampleSize(150L)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric6 = new HistoricUserMetric()
             .setIdentifier("requestsNumber6")
@@ -91,7 +91,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(12d)
-            .setSampleSize(0l)
+            .setSampleSize(0L)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric7 = new HistoricUserMetric()
             .setIdentifier("requestsNumber7")
@@ -99,7 +99,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(16d)
-            .setSampleSize(0l)
+            .setSampleSize(0L)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric8 = new HistoricUserMetric()
             .setIdentifier("requestsNumber8")
@@ -107,7 +107,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("requestsNumber")
             .setValue(14d)
-            .setSampleSize(0l)
+            .setSampleSize(0L)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric9 = new HistoricUserMetric()
             .setIdentifier("responseTime9")
@@ -115,7 +115,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
             .setValue(1500d)
-            .setSampleSize(100l)
+            .setSampleSize(100L)
             .setTimestamp(TODAY);
         HistoricUserMetric userMetric10 = new HistoricUserMetric()
             .setIdentifier("responseTime10")
@@ -123,7 +123,7 @@ public class HistoricUserMetricRepositoryTest {
             .setHistoricType(ChronoUnit.MINUTES)
             .setName("responseTime")
             .setValue(1500d)
-            .setSampleSize(150l)
+            .setSampleSize(150L)
             .setTimestamp(TODAY);
 
         Iterable<HistoricUserMetric> minuteUserMetrics = Arrays
@@ -142,9 +142,9 @@ public class HistoricUserMetricRepositoryTest {
             .filter(metric -> metric.getName().contains("responseTime"))
             .collect(Collectors.toList());
 
-        assertTrue(result.size() == 10);
-        assertTrue(responseTimeResult.size() == 4);
-        assertTrue(responseTimeResult.get(0).getValue() == 1500.0);
+        assertEquals(10, result.size());
+        assertEquals(4, responseTimeResult.size());
+        assertEquals(1500.0, responseTimeResult.get(0).getValue(), 0.0);
     }
 
     @After

@@ -1,7 +1,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.connection.handler;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import java.util.Map;
+
 import java.util.Set;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 

@@ -87,11 +87,9 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
 
     private Criteria getCriteriaExpressionsForRepositories(List<String> repos) {
         List<Criteria> regExs = new ArrayList<>();
-        repos.forEach((String repo) -> {
-            regExs.add(Criteria.where("repository")
-                .in(Pattern.compile("^.*" + repo + "$")));
-        });
+        repos.forEach((String repo) -> regExs.add(Criteria.where("repository")
+            .in(Pattern.compile("^.*" + repo + "$"))));
         return new Criteria()
-            .orOperator(regExs.toArray(new Criteria[regExs.size()]));
+            .orOperator(regExs.toArray(new Criteria[0]));
     }
 }

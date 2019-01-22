@@ -26,6 +26,7 @@ import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -42,13 +43,13 @@ public class ReviewRepositoryTest {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    Review review1 = TestObjectFactory.createReview(
+    private final Review review1 = TestObjectFactory.createReview(
             Platform.IOS, "mirrorgate", "123456", "comment 1", 1, 3.5, 1);
-    Review review2 = TestObjectFactory.createReview(
+    private final Review review2 = TestObjectFactory.createReview(
             Platform.IOS, "mirrorgate", "123457", "comment 2", 2, 5, 10);
-    Review review3 = TestObjectFactory.createReview(
+    private final Review review3 = TestObjectFactory.createReview(
             Platform.Android, "mirrorgate", "com.mirrorgate", "comment 1", 3, 3.5, 1);
-    Review review4 = TestObjectFactory.createReview(
+    private final Review review4 = TestObjectFactory.createReview(
             Platform.Android, "mirrorgate", "com.mirrorgate", "comment 2", 4, 5, 10);
 
     @Before
@@ -67,7 +68,7 @@ public class ReviewRepositoryTest {
     @Test
     public void testAggregationNoResults(){
 
-        List<String> appNamesList = Arrays.asList("mood");
+        List<String> appNamesList = Collections.singletonList("mood");
         List<ApplicationReviewsDTO> reviews = reviewRepository.getLastReviewPerApplication(appNamesList);
 
         assertTrue(reviews.isEmpty());
@@ -91,7 +92,7 @@ public class ReviewRepositoryTest {
         assertEquals("mirrorgate", reviews.get(0).getAppId());
         assertEquals("mirrorgate", reviews.get(0).getAppName());
         assertEquals("123457", reviews.get(0).getCommentId());
-        assertTrue(reviews.get(0).getPlatform().equals(Platform.IOS));
+        assertEquals(reviews.get(0).getPlatform(), Platform.IOS);
     }
 
 }

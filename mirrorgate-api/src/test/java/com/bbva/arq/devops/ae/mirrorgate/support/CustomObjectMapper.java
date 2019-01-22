@@ -22,7 +22,7 @@ import org.bson.types.ObjectId;
 /**
  * Custom object mapper that knows how to serialize Mongo ObjectIds.
  */
-public class CustomObjectMapper extends ObjectMapper {
+class CustomObjectMapper extends ObjectMapper {
 	private static final long serialVersionUID = 2035695746790240402L;
 
 	public CustomObjectMapper() {

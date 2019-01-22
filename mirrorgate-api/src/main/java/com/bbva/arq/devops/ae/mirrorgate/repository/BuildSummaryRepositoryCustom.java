@@ -19,7 +19,7 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
 import java.util.List;
 
-public interface BuildSummaryRepositoryCustom {
+interface BuildSummaryRepositoryCustom {
 
     List<BuildSummary> findAllWithKeywordsAndTimestampAfter(List<String> keywords, Long timestamp);
 }

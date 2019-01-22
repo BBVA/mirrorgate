@@ -25,7 +25,7 @@ public class UserMetricMapper {
         return map(source, new UserMetricDTO());
     }
 
-    public static UserMetricDTO map(UserMetric source, UserMetricDTO target) {
+    private static UserMetricDTO map(UserMetric source, UserMetricDTO target) {
         return target
             .setViewId(source.getViewId())
             .setAppVersion(source.getAppVersion())
@@ -41,7 +41,7 @@ public class UserMetricMapper {
         return map(source, new UserMetric());
     }
 
-    public static UserMetric map(UserMetricDTO source, UserMetric target) {
+    private static UserMetric map(UserMetricDTO source, UserMetric target) {
         return target
             .setId(source.getIdentifier())
             .setViewId(source.getViewId())

@@ -22,7 +22,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import com.bbva.arq.devops.ae.mirrorgate.dto.EventNotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventNotificationService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

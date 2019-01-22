@@ -46,7 +46,7 @@ public class FeatureController {
     }
 
     @RequestMapping(value = "/dashboards/{name}/stories", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Map<String, Object> getAtiveUserStories(@PathVariable("name") String name) {
+    public Map<String, Object> getActiveUserStories(@PathVariable("name") String name) {
         DashboardDTO dashboard = dashboardService.getDashboard(name);
 
         List<String> boards = dashboard.getBoards();
@@ -73,9 +73,8 @@ public class FeatureController {
     }
 
     @RequestMapping(value = "/api/issues/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public String deleteStory(@PathVariable("id") Long id, @RequestParam("collectorId") String collectorId) {
-        featureService.deleteStory(id, collectorId);
-        return "ok";
+    public IssueDTO deleteStory(@PathVariable("id") Long id, @RequestParam("collectorId") String collectorId) {
+        return featureService.deleteStory(id, collectorId);
     }
 
 }

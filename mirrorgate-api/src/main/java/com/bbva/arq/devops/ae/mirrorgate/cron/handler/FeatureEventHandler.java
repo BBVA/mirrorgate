@@ -23,9 +23,9 @@ public class FeatureEventHandler implements EventHandler {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(FeatureEventHandler.class);
 
-    private ConnectionHandler connectionHandler;
-    private FeatureService featureService;
-    private ProcessEventsHelper eventsHelper;
+    private final ConnectionHandler connectionHandler;
+    private final FeatureService featureService;
+    private final ProcessEventsHelper eventsHelper;
 
 
     @Autowired

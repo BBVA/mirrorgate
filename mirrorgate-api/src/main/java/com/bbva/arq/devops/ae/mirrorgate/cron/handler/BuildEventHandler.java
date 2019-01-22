@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 @Component(value = "BuildType")
 public class BuildEventHandler implements EventHandler {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(BuildEventHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BuildEventHandler.class);
 
     private final ConnectionHandler connectionHandler;
 
     @Autowired
-    public BuildEventHandler(ConnectionHandler connectionHandler){
+    private BuildEventHandler(ConnectionHandler connectionHandler){
 
         this.connectionHandler = connectionHandler;
     }

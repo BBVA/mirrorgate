@@ -18,7 +18,6 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency;
-import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
@@ -60,7 +59,7 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @PostConstruct
-    public void initIt() throws Exception {
+    public void initIt() {
         updateBuildSummaries();
     }
 
@@ -80,11 +79,6 @@ public class BuildServiceImpl implements BuildService {
         }
 
         Build build = buildRepository.save(toSave);
-
-        if (build == null) {
-            throw new BuildConflictException("Failed inserting/updating build "
-                    + "information.");
-        }
 
         eventService.saveEvent(build, EventType.BUILD);
 
@@ -137,7 +131,7 @@ public class BuildServiceImpl implements BuildService {
                 keywords, teamMembers, numberOfDaysBefore.getTime());
 
         return BuildStatsUtils.combineBuildStats(
-                info.values().toArray(new BuildStats[info.values().size()]));
+                info.values().toArray(new BuildStats[0]));
     }
 
 
@@ -185,7 +179,7 @@ public class BuildServiceImpl implements BuildService {
         if (buildSummaryRepository.count() == 0 && buildRepository.count() > 0) {
             buildRepository.findAllByTimestampAfter(LocalDateTimeHelper.getTimestampForOneMonthAgo())
                     .stream()
-                    .filter((build) -> this.shouldUpdateLatest(build))
+                    .filter(this::shouldUpdateLatest)
                     .map(BuildMapper::map)
                     .forEach(this::updateStats);
         }

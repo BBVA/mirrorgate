@@ -34,12 +34,10 @@ public class UserMetricsRepositoryImpl implements UserMetricsRepositoryCustom {
 
     private Criteria getCriteriaExpressionsForUserMetrics(List<String> viewIds) {
         List<Criteria> regExs = new ArrayList<>();
-        viewIds.forEach((String id) -> {
-            regExs.add(Criteria.where("viewId")
-                .in(Pattern.compile("^" + id + ".*$")));
-        });
+        viewIds.forEach((String id) -> regExs.add(Criteria.where("viewId")
+            .in(Pattern.compile("^" + id + ".*$"))));
         return new Criteria()
-            .orOperator(regExs.toArray(new Criteria[regExs.size()]));
+            .orOperator(regExs.toArray(new Criteria[0]));
     }
 
 }

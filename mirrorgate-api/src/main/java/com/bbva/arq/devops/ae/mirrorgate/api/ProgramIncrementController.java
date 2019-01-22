@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProgramIncrementController {
 
-    private ProgramIncrementService programIncrementService;
+    private final ProgramIncrementService programIncrementService;
 
     @Autowired
     public ProgramIncrementController(ProgramIncrementService programIncrementService){
@@ -24,7 +24,7 @@ public class ProgramIncrementController {
 
     @RequestMapping(value = "/dashboards/{name}/programincrement", method = GET, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(value= HttpStatus.OK)
-    public ProgramIncrementDTO getAtiveUserStories(@PathVariable("name") String name) {
+    public ProgramIncrementDTO getActiveUserStories(@PathVariable("name") String name) {
         return programIncrementService.getProgramIncrementFeatures(name);
     }
 

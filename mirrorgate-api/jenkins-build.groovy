@@ -24,5 +24,5 @@ def build() {
 
 }
 
-return this;
+return this
 

@@ -34,7 +34,7 @@ public class DetailsEventHandler implements EventHandler {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(DetailsEventHandler.class);
 
-    private ProcessEventsHelper eventsHelper;
+    private final ProcessEventsHelper eventsHelper;
 
     @Autowired
     public DetailsEventHandler(ProcessEventsHelper eventsHelper){

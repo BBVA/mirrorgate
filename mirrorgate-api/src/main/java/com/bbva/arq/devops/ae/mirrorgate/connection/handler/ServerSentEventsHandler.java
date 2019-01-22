@@ -23,9 +23,9 @@ public class ServerSentEventsHandler implements ConnectionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerSentEventsHandler.class);
 
-    private Map<String, List<SseEmitter>> emittersPerDashboard = new ConcurrentHashMap<>(1000);
+    private final Map<String, List<SseEmitter>> emittersPerDashboard = new ConcurrentHashMap<>(1000);
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
 
     @Autowired
@@ -82,12 +82,7 @@ public class ServerSentEventsHandler implements ConnectionHandler {
 
         LOGGER.debug("Add SseEmitter {} to sessions map", dashboardId);
 
-        List<SseEmitter> dashboardEmitters = emittersPerDashboard.get(dashboardId);
-
-        if(dashboardEmitters == null){
-            dashboardEmitters = new ArrayList<>();
-            emittersPerDashboard.put(dashboardId, dashboardEmitters);
-        }
+        List<SseEmitter> dashboardEmitters = emittersPerDashboard.computeIfAbsent(dashboardId, k -> new ArrayList<>());
 
         dashboardEmitters.add(session);
     }

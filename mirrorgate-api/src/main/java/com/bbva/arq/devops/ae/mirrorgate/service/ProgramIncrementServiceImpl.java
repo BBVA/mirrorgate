@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -77,9 +78,8 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
 
-            for (int i = 0; i < piNames.size(); i++) {
+            for (String piName : piNames) {
 
-                String piName = piNames.get(i);
                 Matcher matcher = piRegex.matcher(piName);
 
                 while (matcher.find()) {
@@ -146,7 +146,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
         parentKeys = piFeatures.stream()
                 .filter(f -> f.getsParentKey() != null)
                 .map(Feature::getsParentKey)
-                .flatMap(l -> l.stream())
+                .flatMap(Collection::stream)
                 .collect(Collectors.toList());
         List<Feature> piEpics = featureService.getEpicsBySNumber(parentKeys);
         List<IssueDTO> boardPIEpics = piEpics.stream()
@@ -161,9 +161,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
     }
 
     private boolean containsDashboardKeyword(DashboardDTO dashboard, Feature f) {
-        return f.getKeywords() != null && f.getKeywords().stream()
-                .filter((k) -> dashboard.getBoards().contains(k))
-                .count() > 0;
+        return f.getKeywords() != null && f.getKeywords().stream().anyMatch((k) -> dashboard.getBoards().contains(k));
     }
 
     private boolean findIfLocalDateIsInRange(String date1, String date2){

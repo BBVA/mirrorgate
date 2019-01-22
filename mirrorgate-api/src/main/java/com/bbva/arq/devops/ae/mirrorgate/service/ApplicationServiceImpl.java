@@ -59,8 +59,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     private Set<String> getApplicationsWithoutReviews(List<String> activeApplicationNames,
         List<ApplicationReviewsDTO> appsWithReview){
 
-        Set<String> applicationWithoutReviewNames = new HashSet<>();
-        applicationWithoutReviewNames.addAll(activeApplicationNames);
+        Set<String> applicationWithoutReviewNames = new HashSet<>(activeApplicationNames);
 
         List<String> applicationsWithReviewNames =
             appsWithReview

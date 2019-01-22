@@ -102,11 +102,11 @@ public class DashboardServiceTests {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
-        when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
+        when(dashboardRepository.save(any())).thenReturn(map(dashboard));
 
         DashboardDTO dashboard2 = dashboardService.newDashboard(dashboard);
         verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save((Dashboard) any());
+        verify(dashboardRepository, times(1)).save(any());
 
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
     }
@@ -116,11 +116,11 @@ public class DashboardServiceTests {
         DashboardDTO dashboard = TestObjectFactory.createTransientDashboard();
 
         when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
-        when(dashboardRepository.save((Dashboard) any())).thenReturn(map(dashboard));
+        when(dashboardRepository.save(any())).thenReturn(map(dashboard));
 
         DashboardDTO dashboard2 = dashboardService.newTransientDashboard(dashboard);
         verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save((Dashboard) any());
+        verify(dashboardRepository, times(1)).save(any());
 
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
         assertThat(dashboard2.getStatus()).isEqualTo(DashboardStatus.TRANSIENT);
@@ -140,11 +140,11 @@ public class DashboardServiceTests {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
-        when(dashboardRepository.save((Dashboard) any())).thenAnswer(d -> d.getArguments()[0]);
+        when(dashboardRepository.save(any())).thenAnswer(d -> d.getArguments()[0]);
 
         DashboardDTO dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
         verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save((Dashboard) any());
+        verify(dashboardRepository, times(1)).save(any());
 
         assertThat(dashboard2.getAdminUsers()).contains(TestObjectFactory.AUTH_NAME);
     }
@@ -160,11 +160,11 @@ public class DashboardServiceTests {
         rDashboard.setStatus(TRANSIENT);
 
         when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(rDashboard);
-        when(dashboardRepository.save((Dashboard) any())).thenAnswer(d -> d.getArguments()[0]);
+        when(dashboardRepository.save(any())).thenAnswer(d -> d.getArguments()[0]);
 
         DashboardDTO dashboard2 = dashboardService.updateDashboard(dashboard.getName(), dashboard);
         verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save((Dashboard) any());
+        verify(dashboardRepository, times(1)).save(any());
         verify(dashboardRepository).save(argument.capture());
 
         assertThat(argument.getValue().getStatus()).isEqualTo(ACTIVE);
@@ -189,7 +189,7 @@ public class DashboardServiceTests {
 
         dashboardService.deleteDashboard(dashboard.getName());
         verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-        verify(dashboardRepository, times(1)).save((Dashboard) any());
+        verify(dashboardRepository, times(1)).save(any());
     }
 
     @Test(expected = DashboardNotFoundException.class)

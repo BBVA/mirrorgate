@@ -24,6 +24,7 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.CommitService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class CommitController {
             .filter(d -> d.getGitRepos() != null)
             .filter(d -> !d.getGitRepos().isEmpty())
             .flatMap(d -> d.getGitRepos().stream()
-                .filter(r -> r != null)
+                .filter(Objects::nonNull)
                 .filter(r -> !r.isEmpty()))
             .distinct()
             .collect(Collectors.toList());

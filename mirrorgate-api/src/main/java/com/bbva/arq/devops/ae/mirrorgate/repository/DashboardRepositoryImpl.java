@@ -29,7 +29,6 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
 import java.io.IOException;
@@ -38,7 +37,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.StreamSupport;
 
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
@@ -63,7 +61,7 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
     private static GroupOperation firstDashboardFields(GroupOperation operation) {
 
-        return StreamSupport.stream(DASHBOARD_FIELDS.keySet().spliterator(),false)
+        return DASHBOARD_FIELDS.keySet().stream()
                 .reduce(operation, (o,s) -> o.first(s).as(s), (old,o) -> o);
 
     }
@@ -105,7 +103,6 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         if(file != null) {
             try {
                 return new ImageStream()
-                        .setEtag(file.getMD5())
                         .setImageStream(gridFsTemplate.getResource(file).getInputStream());
             } catch (IOException e) {
                 LOGGER.error("There was an error trying to read a image form DB " + name, e);

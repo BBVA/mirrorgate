@@ -40,7 +40,7 @@ public class Config {
     }
 
     @Bean
-    public FilterRegistrationBean shallowEtagHeaderFilter() {
+    public FilterRegistrationBean shallowETagHeaderFilter() {
         FilterRegistrationBean frb = new FilterRegistrationBean();
         frb.setFilter(new OneTimeETagGenerationFilter());
         frb.addUrlPatterns(

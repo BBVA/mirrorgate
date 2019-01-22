@@ -35,10 +35,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProcessEventsHelper {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(ProcessEventsHelper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessEventsHelper.class);
 
-    private ConnectionHandler connectionHandler;
-    private DashboardService dashboardService;
+    private final ConnectionHandler connectionHandler;
+    private final DashboardService dashboardService;
 
 
     @Autowired
@@ -50,7 +50,7 @@ public class ProcessEventsHelper {
 
     public void processEvents(Set<String> dashboardIds, Predicate<Dashboard> dashboardFilter, EventType eventType){
 
-        List<Dashboard> dashboards = dashboardService.getDashboardWithNames(new ArrayList(dashboardIds));
+        List<Dashboard> dashboards = dashboardService.getDashboardWithNames(new ArrayList<>(dashboardIds));
 
         Map<String, List<String>> sourceAndTargets = new HashMap<>();
 
@@ -86,12 +86,8 @@ public class ProcessEventsHelper {
     }
 
     private static void accumulateDashboard(Map<String, List<String>> sourceAndTargets, Dashboard d, String ad) {
-        List<String> atarget = sourceAndTargets.get(ad);
-        if(atarget == null) {
-            atarget = new ArrayList<>();
-            sourceAndTargets.put(ad, atarget);
-        }
-        atarget.add(d.getName());
+        List<String> target = sourceAndTargets.computeIfAbsent(ad, k -> new ArrayList<>());
+        target.add(d.getName());
     }
 
 }

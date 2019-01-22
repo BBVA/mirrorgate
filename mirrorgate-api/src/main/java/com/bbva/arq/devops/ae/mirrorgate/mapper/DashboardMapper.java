@@ -32,7 +32,7 @@ public class DashboardMapper {
         return map(source, new Dashboard());
     }
 
-    public static DashboardDTO map(Dashboard source, DashboardDTO target) {
+    private static DashboardDTO map(Dashboard source, DashboardDTO target) {
         return target.setAdminUsers(source.getAdminUsers())
             .setApplications(source.getApplications())
             .setType(source.getType() == null ? null : DashboardType.valueOf(source.getType()))
@@ -72,7 +72,7 @@ public class DashboardMapper {
             .setGitRepos(source.getGitRepos());
     }
 
-    public static Dashboard map(DashboardDTO source, Dashboard target) {
+    private static Dashboard map(DashboardDTO source, Dashboard target) {
         return target.setAdminUsers(source.getAdminUsers())
             .setApplications(source.getApplications())
             .setName(source.getName())

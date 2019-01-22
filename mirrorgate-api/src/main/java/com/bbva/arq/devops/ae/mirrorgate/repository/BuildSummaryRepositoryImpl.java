@@ -47,7 +47,7 @@ public class BuildSummaryRepositoryImpl implements BuildSummaryRepositoryCustom 
                     .in(Pattern.compile("^" + kw + "$")));
         });
         return new Criteria()
-                .orOperator(regExs.toArray(new Criteria[regExs.size()]));
+                .orOperator(regExs.toArray(new Criteria[0]));
     }
 
 }

@@ -52,7 +52,7 @@ public class FeatureServiceImpl implements FeatureService {
 
     @Override
     public List<Feature> getActiveUserStoriesByBoards(List<String> boards) {
-        return repository.findActiveUserStoriesByBoards(boards, new Sort(new Order("sStatus")));
+        return repository.findActiveUserStoriesByBoards(boards, Sort.by(Order.by("sStatus")));
     }
 
     @Override
@@ -112,7 +112,7 @@ public class FeatureServiceImpl implements FeatureService {
                     Feature feat = entryMap.containsKey(key) ?
                             entryMap.get(key).get(0):
                             new Feature();
-                    //Remove extra occurences
+                    //Remove extra occurrences
                     if(entryMap.containsKey(key) && entryMap.get(key).size() > 1){
                         for (int i = 1; i<entryMap.get(key).size();i++){
                             repository.delete(entryMap.get(key).get(i));
@@ -134,16 +134,20 @@ public class FeatureServiceImpl implements FeatureService {
                            return new IssueDTO()
                                 .setId(Long.parseLong(feat.getsId()))
                                 .setName(feat.getsName())
-                                .setEstimate(feat.getdEstimate());
+                                .setEstimate(feat.getDEstimate());
                         }
                 )
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void deleteStory(Long id, String collectorId) {
-        repository.deleteBysIdAndCollectorId(id.toString(), collectorId);
+    public IssueDTO deleteStory(Long id, String collectorId) {
+        Feature feature = repository.deleteBysIdAndCollectorId(id.toString(), collectorId);
         eventService.saveEvent(new Feature(), EventType.FEATURE);
+        return new IssueDTO()
+            .setId(Long.parseLong(feature.getsId()))
+            .setName(feature.getsName())
+            .setEstimate(feature.getDEstimate());
     }
 
     @Override
@@ -161,7 +165,7 @@ public class FeatureServiceImpl implements FeatureService {
             .map(Feature::getTeamName)
             .filter(teamName -> teamName != null && !teamName.isEmpty())
             .distinct()
-            .forEach(teamName -> dashboardService.createDashboardForJiraTeam(teamName));
+            .forEach(dashboardService::createDashboardForJiraTeam);
     }
 
 }

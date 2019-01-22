@@ -28,7 +28,6 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.StreamSupport;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -58,14 +57,14 @@ public class SprintRepositoryImpl implements SprintRepository {
 
     private static GroupOperation firstFeatureFields(GroupOperation operation) {
 
-        return StreamSupport.stream(FEATURE_FIELDS.keySet().spliterator(),false)
+        return FEATURE_FIELDS.keySet().stream()
                 .reduce(operation, (o,s) -> o.first(s).as(s), (old,o) -> o);
 
     }
 
     private static GroupOperation firstSprintFields(GroupOperation operation) {
 
-        return StreamSupport.stream(SPRINT_FIELDS.keySet().spliterator(),false)
+        return SPRINT_FIELDS.keySet().stream()
                 .reduce(operation, (o,s) -> o.first(s).as(SPRINT_FIELDS.get(s)), (old,o) -> o);
 
     }

@@ -1,12 +1,14 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertEquals;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.Arrays;
+import java.util.Collections;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,20 +33,20 @@ public class FeatureServiceTestsIT {
 
         Feature feature1 = TestObjectFactory.createActiveStory();
         feature1.setsId("1234");
-        feature1.setCollectorId("collectorid");
+        feature1.setCollectorId("collectorId");
 
 
         Feature feature2 = TestObjectFactory.createActiveStory();
         feature2.setsId("1234");
-        feature2.setCollectorId("collectorid");
+        feature2.setCollectorId("collectorId");
 
         Feature feature3 = TestObjectFactory.createActiveStory();
         feature3.setsId("12345");
-        feature3.setCollectorId("collectorid");
+        feature3.setCollectorId("collectorId");
 
         Feature feature4 = TestObjectFactory.createActiveStory();
         feature4.setsId("12345");
-        feature4.setCollectorId("collectorid");
+        feature4.setCollectorId("collectorId");
 
         repository.saveAll(Arrays.asList(feature1, feature2, feature3, feature4));
 
@@ -54,34 +56,34 @@ public class FeatureServiceTestsIT {
     @Test
     public void testUpdateDuplicatedFeatures(){
 
-        IssueDTO issueDTO1 = TestObjectFactory.createIssueDTO(1234l, "collectorid", "name");
+        IssueDTO issueDTO1 = TestObjectFactory.createIssueDTO(1234L, "collectorId", "name");
 
-        featureService.saveOrUpdateStories(Arrays.asList(issueDTO1), "collectorid");
+        featureService.saveOrUpdateStories(Collections.singletonList(issueDTO1), "collectorId");
 
-        assertTrue(repository.count() == 3);
+        assertEquals(3, repository.count());
     }
 
     @Test
     public void testUpdateSeveralDuplicatedFeatures(){
 
-        IssueDTO issueDTO1 = TestObjectFactory.createIssueDTO(1234l, "collectorid", "name");
-        IssueDTO issueDTO2 = TestObjectFactory.createIssueDTO(12345l, "collectorid", "name");
+        IssueDTO issueDTO1 = TestObjectFactory.createIssueDTO(1234L, "collectorId", "name");
+        IssueDTO issueDTO2 = TestObjectFactory.createIssueDTO(12345L, "collectorId", "name");
 
-        featureService.saveOrUpdateStories(Arrays.asList(issueDTO1, issueDTO2), "collectorid");
+        featureService.saveOrUpdateStories(Arrays.asList(issueDTO1, issueDTO2), "collectorId");
 
-        assertTrue(repository.count() == 2);
+        assertEquals(2, repository.count());
     }
 
     @Test
     public void testUpdateWithNoFeatures(){
         repository.deleteAll();
 
-        IssueDTO issueDTO1 = TestObjectFactory.createIssueDTO(1234l, "collectorid", "name");
-        IssueDTO issueDTO2 = TestObjectFactory.createIssueDTO(12345l, "collectorid", "name");
+        IssueDTO issueDTO1 = TestObjectFactory.createIssueDTO(1234L, "collectorId", "name");
+        IssueDTO issueDTO2 = TestObjectFactory.createIssueDTO(12345L, "collectorId", "name");
 
-        featureService.saveOrUpdateStories(Arrays.asList(issueDTO1, issueDTO2), "collectorid");
+        featureService.saveOrUpdateStories(Arrays.asList(issueDTO1, issueDTO2), "collectorId");
 
-        assertTrue(repository.count() == 2);
+        assertEquals(2, repository.count());
     }
 
     @After

@@ -16,8 +16,8 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyList;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
@@ -27,6 +27,7 @@ import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,14 +54,14 @@ public class ApplicationServiceTest {
         List<DashboardDTO> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
 
         ApplicationReviewsDTO applicationReviewsDTO1 = TestObjectFactory.createApplicationDTO("mirrorgate", Platform.IOS);
-        List<ApplicationReviewsDTO> applicationReviewsDTOList = Arrays.asList(applicationReviewsDTO1);
+        List<ApplicationReviewsDTO> applicationReviewsDTOList = Collections.singletonList(applicationReviewsDTO1);
 
         when(dashboardService.getActiveDashboards()).thenReturn(listOfDashboards);
         when(reviewRepository.getLastReviewPerApplication(anyList())).thenReturn(applicationReviewsDTOList);
 
         List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
 
-        assertTrue(reviews.size() == 4);
+        assertEquals(4, reviews.size());
     }
 
     @Test
@@ -76,7 +77,7 @@ public class ApplicationServiceTest {
 
         List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
 
-        assertTrue(reviews.size() == 4);
+        assertEquals(4, reviews.size());
     }
 
 }

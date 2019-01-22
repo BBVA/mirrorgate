@@ -57,7 +57,7 @@ public class BuildMapper {
         return map(source, new BuildDTO());
     }
 
-    public static BuildDTO map(Build source, BuildDTO target) {
+    private static BuildDTO map(Build source, BuildDTO target) {
 
         ArrayList<String> keywords = new ArrayList<>();
         keywords.add(source.getBuildUrl());

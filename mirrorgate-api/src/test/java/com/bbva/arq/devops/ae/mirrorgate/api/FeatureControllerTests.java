@@ -27,7 +27,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.Before;
@@ -62,7 +62,7 @@ public class FeatureControllerTests {
     }
 
     @Test
-    public void getAtiveUserStoriesTest() throws Exception {
+    public void getActiveUserStoriesTest() throws Exception {
         String dashboardName = "mirrorgate";
         String sprintProjectName = "mirrorgate";
 
@@ -70,7 +70,7 @@ public class FeatureControllerTests {
         dashboard.setId(ObjectId.get());
         dashboard.setName(dashboardName);
         dashboard.setsProductName(sprintProjectName);
-        dashboard.setBoards(Arrays.asList(sprintProjectName));
+        dashboard.setBoards(Collections.singletonList(sprintProjectName));
 
         Feature story1 = new Feature();
         story1.setId(ObjectId.get());
@@ -89,7 +89,7 @@ public class FeatureControllerTests {
         stories.add(story2);
 
         when(dashboardService.getDashboard(dashboardName)).thenReturn(map(dashboard));
-        when(featureService.getActiveUserStoriesByBoards(Arrays.asList(dashboardName)))
+        when(featureService.getActiveUserStoriesByBoards(Collections.singletonList(dashboardName)))
                 .thenReturn(stories);
 
         this.mockMvc.perform(get("/dashboards/" + dashboardName + "/stories"))

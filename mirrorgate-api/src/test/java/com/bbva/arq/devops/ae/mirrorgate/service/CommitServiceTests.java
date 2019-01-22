@@ -26,6 +26,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -72,7 +73,7 @@ public class CommitServiceTests {
         when(commitRepository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(GIT_REPO_URLS[0], 1))
             .thenReturn(new ArrayList<>());
         when(commitRepository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(GIT_REPO_URLS[0], 2))
-            .thenReturn(Arrays.asList(commit));
+            .thenReturn(Collections.singletonList(commit));
 
         List<String> commits1 = commitService.getLastCommits(GIT_REPO_URLS[0], 1);
         List<String> commits2 = commitService.getLastCommits(GIT_REPO_URLS[0], 2);

@@ -15,7 +15,6 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.security;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import org.slf4j.Logger;
@@ -25,7 +24,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.StringUtils;
 
 
-public class TokenCreator {
+class TokenCreator {
 
     private static final Logger LOG = LoggerFactory.getLogger(TokenCreator.class.getName());
 
@@ -52,7 +51,7 @@ public class TokenCreator {
 
         LOG.info("Role assigned: " + authority.getAuthority());
 
-        return new MirrorgateAuthenticationToken(headerValue, Collections.unmodifiableList(Arrays.asList(authority)));
+        return new MirrorgateAuthenticationToken(headerValue, Collections.unmodifiableList(Collections.singletonList(authority)));
     }
 
 }

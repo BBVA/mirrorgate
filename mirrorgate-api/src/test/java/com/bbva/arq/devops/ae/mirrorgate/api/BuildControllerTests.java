@@ -17,7 +17,8 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,10 +34,10 @@ import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
 import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -159,7 +160,7 @@ public class BuildControllerTests {
     @Test
     public void createBuildTest() throws Exception {
         BuildDTO request = TestObjectFactory.createBuildDTO();
-        when(buildService.createOrUpdate(Matchers.any(BuildDTO.class)))
+        when(buildService.createOrUpdate(any(BuildDTO.class)))
                 .thenReturn(request);
         this.mockMvc.perform(post("/api/builds")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

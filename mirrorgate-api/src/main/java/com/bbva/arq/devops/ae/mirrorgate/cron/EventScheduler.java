@@ -4,8 +4,9 @@ import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
 import com.bbva.arq.devops.ae.mirrorgate.cron.handler.EventHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
-import java.io.IOException;
+
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -27,7 +28,7 @@ public class EventScheduler {
 
     private final ConnectionHandler handler;
 
-    private BeanFactory beanFactory;
+    private final BeanFactory beanFactory;
 
 
     @Autowired
@@ -41,7 +42,7 @@ public class EventScheduler {
 
 
     @Scheduled(fixedDelayString = "${events.scheduler.delay.millis}")
-    public void checkEventUpdates() throws IOException {
+    public void checkEventUpdates() {
 
         LOGGER.debug("Processing events for timestamp {}", schedulerTimestamp);
 
@@ -52,7 +53,7 @@ public class EventScheduler {
         }
 
         //process events
-        if(!dashboardIds.isEmpty()) {
+        if(!Objects.requireNonNull(dashboardIds).isEmpty()) {
             //query DB for last events
             List<Event> unprocessedEvents = eventService.getEventsSinceTimestamp(schedulerTimestamp);
             if (!unprocessedEvents.isEmpty()) {
@@ -60,11 +61,8 @@ public class EventScheduler {
                 //Filter events
                 unprocessedEvents.stream()
                     .collect(Collectors.groupingBy(Event::getEventType))
-                    .entrySet().stream()
-                    .forEach(eventgroup ->
-                        beanFactory.getBean(eventgroup.getKey().getValue(), EventHandler.class)
-                            .processEvents(eventgroup.getValue(), dashboardIds)
-                    );
+                    .forEach((key, value) -> beanFactory.getBean(key.getValue(), EventHandler.class)
+                        .processEvents(value, dashboardIds));
                 //save last event timestamp to local variable
                 schedulerTimestamp = unprocessedEvents.get(unprocessedEvents.size() - 1).getTimestamp();
                 LOGGER.debug("Modified timestamp: {}", schedulerTimestamp);

@@ -4,9 +4,8 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
-import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;

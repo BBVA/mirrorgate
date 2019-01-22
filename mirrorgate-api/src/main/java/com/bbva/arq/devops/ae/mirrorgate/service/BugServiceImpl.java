@@ -24,8 +24,11 @@ import com.bbva.arq.devops.ae.mirrorgate.support.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueType;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,15 +53,12 @@ public class BugServiceImpl implements BugService {
 
     }
 
-    private static final HashMap<String, BugPriority> PRIORITY_MAP;
-
-    static {
-        PRIORITY_MAP = new HashMap();
-        PRIORITY_MAP.put("Highest", CRITICAL);
-        PRIORITY_MAP.put("High", MAJOR);
-        PRIORITY_MAP.put("Medium", MEDIUM);
-        PRIORITY_MAP.put("Low", MINOR);
-        PRIORITY_MAP.put("Lowest", MINOR);
-    }
+    private static final Map<String, BugPriority> PRIORITY_MAP = Collections.unmodifiableMap(new HashMap<String, BugPriority>() {{
+        put("Highest", CRITICAL);
+        put("High", MAJOR);
+        put("Medium", MEDIUM);
+        put("Low", MINOR);
+        put("Lowest", MINOR);
+    }});
 
 }

@@ -20,9 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +39,15 @@ public class BuildRepositoryTests {
     private static final String REPO_NAME = "mirrorgate";
     private static final String[] CULPRITS = {"Atreyu", "Gmork", "Xayide"};
 
-    @Before
-    public void before() {
-    }
-
     @Test
     public void getLastByRepoNameAndByTeamMembers() {
-        List<String> repos = Arrays.asList(REPO_NAME);
+        List<String> repos = Collections.singletonList(REPO_NAME);
         List<String> teamMembers = Arrays.asList(CULPRITS[1], CULPRITS[2]);
 
-        Build build1 = makeBuild(REPO_NAME, "develop", Arrays.asList(CULPRITS[0]));
-        Build build2 = makeBuild(REPO_NAME, "develop", Arrays.asList(CULPRITS[2]));
-        Build build3 = makeBuild(REPO_NAME, "master", Arrays.asList(CULPRITS[2]));
-        Build build4 = makeBuild(REPO_NAME, "master", Arrays.asList(CULPRITS[1]));
+        Build build1 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[0]));
+        Build build2 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[2]));
+        Build build3 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[2]));
+        Build build4 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[1]));
 
         repository.save(build1);
         repository.save(build2);
@@ -70,7 +66,7 @@ public class BuildRepositoryTests {
 
     @Test
     public void getLastByRepoNameAndByTeamMembersWithoutTeamMembers() {
-        List<String> repos = Arrays.asList(REPO_NAME);
+        List<String> repos = Collections.singletonList(REPO_NAME);
 
         Build build1 = makeBuild(REPO_NAME, "develop");
         Build build2 = makeBuild(REPO_NAME, "master");

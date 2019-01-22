@@ -23,6 +23,7 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.UserMetricsRepository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -83,7 +84,7 @@ public class MetricsServiceImpl implements MetricsService {
     @Override
     public List<UserMetricDTO> getMetricsForDashboard(DashboardDTO dashboard) {
         List<String> views = Stream.of(dashboard.getAnalyticViews(), dashboard.getOperationViews())
-            .filter(v -> v != null)
+            .filter(Objects::nonNull)
             .flatMap(Collection::stream)
             .collect(Collectors.toList());
 

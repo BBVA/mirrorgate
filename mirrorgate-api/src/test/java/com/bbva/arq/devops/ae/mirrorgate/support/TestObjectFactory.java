@@ -21,7 +21,6 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.*;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -162,17 +161,17 @@ public class TestObjectFactory {
                 .setTimestamp(5L);
     }
 
-    public static IssueDTO createIssueDTO(Long id, String name, String collectorid){
+    public static IssueDTO createIssueDTO(Long id, String name, String collectorId){
 
-        return createIssueDTO(id, name, collectorid, null);
+        return createIssueDTO(id, name, collectorId, null);
     }
 
-    public static IssueDTO createIssueDTO(Long id, String name, String collectorid, String teamName){
+    public static IssueDTO createIssueDTO(Long id, String name, String collectorId, String teamName){
 
         IssueDTO issueDTO = new IssueDTO();
 
         issueDTO.setId(id)
-            .setCollectorId(collectorid)
+            .setCollectorId(collectorId)
             .setName(name)
             .setStatus(IssueStatus.DONE)
             .setTeamName(teamName);

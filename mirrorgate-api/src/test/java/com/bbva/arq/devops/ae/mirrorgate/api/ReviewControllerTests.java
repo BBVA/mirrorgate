@@ -17,8 +17,8 @@ package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -37,6 +37,7 @@ import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
 import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.Before;
@@ -103,12 +104,12 @@ public class ReviewControllerTests {
                 .setAppname(appName2)
                 .setRatingTotal(1203)
                 .setPlatform(Platform.IOS)
-                .setReviews(Arrays.asList(
-                        new ReviewDTO()
-                                .setAuthor("reviewer2")
-                                .setRate(4.5)
-                                .setTimestamp(2L)
-                                .setComment("comment")
+                .setReviews(Collections.singletonList(
+                    new ReviewDTO()
+                        .setAuthor("reviewer2")
+                        .setRate(4.5)
+                        .setTimestamp(2L)
+                        .setComment("comment")
                 ));
         List<ApplicationDTO> apps = new ArrayList<>();
         apps.add(app1);
@@ -144,15 +145,8 @@ public class ReviewControllerTests {
         Review review1 = createReview();
         Review review2 = createReview();
 
-        List<Review> list = new ArrayList<>();
-        list.add(review1);
-        list.add(review2);
-
-        Iterable<Review> reviews = list;
-
-        List<String> ids = new ArrayList();
-        ids.add(review1.getId().toString());
-        ids.add(review2.getId().toString());
+        List<Review> reviews = Arrays.asList(review1, review2);
+        List<String> ids = Arrays.asList(review1.getId().toString(),review2.getId().toString());
 
         when(reviewService.saveAll(reviews)).thenReturn(ids);
 
@@ -167,11 +161,7 @@ public class ReviewControllerTests {
         Review review1 = createReview();
         Review review2 = createReview();
 
-        List<Review> list = new ArrayList<>();
-        list.add(review1);
-        list.add(review2);
-
-        Iterable<Review> reviews = list;
+        List<Review> reviews = Arrays.asList(review1, review2);
 
         when(reviewService.saveAll(any())).thenThrow(ReviewsConflictException.class);
 

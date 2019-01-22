@@ -28,7 +28,7 @@ import com.bbva.arq.devops.ae.mirrorgate.support.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueType;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,16 +57,16 @@ public class BugServiceTests {
         bugs.add(bug2);
 
         when(featureRepository.findByKeywordsInAndSTypeNameAndSStatusNot(
-                Arrays.asList(dashboard.getName()),
+            Collections.singletonList(dashboard.getName()),
                 IssueType.BUG.getName(),
                 IssueStatus.DONE.getName())
         ).thenReturn(bugs);
 
         List<BugDTO> activeBugsByDashboardName
-                = bugService.getActiveBugsByBoards(Arrays.asList(dashboard.getName()));
+                = bugService.getActiveBugsByBoards(Collections.singletonList(dashboard.getName()));
         verify(featureRepository, times(1))
                 .findByKeywordsInAndSTypeNameAndSStatusNot(
-                        Arrays.asList(dashboard.getName()),
+                    Collections.singletonList(dashboard.getName()),
                         IssueType.BUG.getName(),
                         IssueStatus.DONE.getName()
                 );

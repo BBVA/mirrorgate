@@ -18,7 +18,7 @@ public class EventServiceImpl implements EventService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventServiceImpl.class);
 
-    private EventRepository eventRepository;
+    private final EventRepository eventRepository;
 
 
     @Autowired

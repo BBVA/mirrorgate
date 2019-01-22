@@ -34,19 +34,18 @@ public class SprintServiceImpl implements SprintService {
 
     @Override
     public List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses, String collectorId) {
-        return sprintRepository.getSprintSampleForStatus(Arrays.asList(sprintStatuses).stream()
+        return sprintRepository.getSprintSampleForStatus(Arrays.stream(sprintStatuses)
                 .map(Object::toString)
                 .collect(Collectors.toList())
                 .toArray(new String[]{}),
                 collectorId
         ).stream()
                 .map(SprintMapper::map)
-                .map((s) -> {
+                .peek((s) -> {
                     //We are already returning the sprint... don't loop
                     if(s.getIssues() != null) {
                         s.getIssues().forEach((i) -> i.setSprint(null));
                     }
-                    return s;
                 })
                 .collect(Collectors.toList());
     }

@@ -21,7 +21,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
-import java.util.ArrayList;
+
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;

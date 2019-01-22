@@ -29,7 +29,7 @@ public interface SlackService {
      * @param code Slack client code
      * @return Slack token under a SlackDTO
      */
-    public SlackDTO getToken(String team, String client_id, String client_secret, String code);
+    SlackDTO getToken(String team, String client_id, String client_secret, String code);
 
     /**
      * Get WebSocket URL to connect to Slack
@@ -38,12 +38,12 @@ public interface SlackService {
      * @param token Previous token generated for this application
      * @return WebSocket URL to connect to Slack under a SlackDTO
      */
-    public SlackDTO getWebSocket(String team, String token);
+    SlackDTO getWebSocket(String team, String token);
 
     /**
      * Get channel list for team and token
-     * @param slackToken
-     * @return
+     * @param slackToken Slack token
+     * @return List of channels in the Slack team
      */
     Map<String,String> getChannelList(String slackToken);
 }

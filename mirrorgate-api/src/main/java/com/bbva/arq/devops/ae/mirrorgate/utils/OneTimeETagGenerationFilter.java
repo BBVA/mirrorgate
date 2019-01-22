@@ -34,9 +34,9 @@ import java.util.regex.Pattern;
 public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
     private final Filter filter = new ShallowEtagHeaderFilter();
-    private final Map<String, String> cache = new HashMap();
+    private final Map<String, String> cache = new HashMap<>();
 
-    private static final Map<Pattern, Integer> TIME_FOR_URL = new HashMap(){{
+    private static final Map<Pattern, Integer> TIME_FOR_URL = new HashMap<Pattern, Integer>(){{
         put(Pattern.compile(".*-reved-.*"), 31536000);
         put(Pattern.compile(".*\\.css"), 60 * 60 * 24 * 7);
         put(Pattern.compile(".*\\.png"), 60 * 60 * 24 * 7);
@@ -67,17 +67,17 @@ public class OneTimeETagGenerationFilter extends GenericFilterBean {
 
         String key = httpRequest.getPathTranslated();
         if(cache.containsKey(key)) {
-            String expectedEtag = httpRequest.getHeader(HttpHeaders.IF_NONE_MATCH);
-            String currentEtag = cache.get(key);
-            if(expectedEtag != null && expectedEtag.equals(currentEtag)) {
+            String expectedETag = httpRequest.getHeader(HttpHeaders.IF_NONE_MATCH);
+            String currentETag = cache.get(key);
+            if(expectedETag != null && expectedETag.equals(currentETag)) {
                 httpResponse.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
                 return;
             }
         }
 
         filter.doFilter(request, response, chain);
-        String etag = httpResponse.getHeader(HttpHeaders.ETAG);
-        cache.put(key, etag);
+        String eTag = httpResponse.getHeader(HttpHeaders.ETAG);
+        cache.put(key, eTag);
     }
 
 }

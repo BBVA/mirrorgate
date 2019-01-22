@@ -15,21 +15,22 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static org.springframework.http.MediaType.*;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.SlackService;
-import java.util.Map;
-import java.util.Optional;
+import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
+import static org.springframework.http.MediaType.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping(value = "/backoffice/utils/slack")
@@ -55,36 +56,25 @@ public class BackOfficeSlackUtilsController {
             method = GET,
             produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String,String>> getDashboardChannels(
-            @RequestParam("dashboard") Optional<String> optionalDashboard,
-            @RequestParam("token") Optional<String> optionalToken
+            @RequestParam("dashboard") String dashboardId,
+            @RequestParam("token") String token
     ) {
-        String token;
 
-        if(optionalToken.isPresent()) {
-
-            token = optionalToken.get();
-
-        } else {
-
-            if(!optionalDashboard.isPresent()) {
-                return ResponseEntity.badRequest().build();
-            }
-
-            DashboardDTO dashboard = dashboardService.getDashboard(optionalDashboard.get());
-
-            if (dashboard == null) {
-                return ResponseEntity.badRequest().build();
-            }
-
-            if (dashboard.getSlackToken() == null) {
-                return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
-            }
-
-            token = dashboard.getSlackToken();
-
+        if(StringUtils.isBlank(token)) {
+            return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(slackService.getChannelList(token));
+        DashboardDTO dashboard = dashboardService.getDashboard(dashboardId);
+
+        if (dashboard == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (dashboard.getSlackToken() == null) {
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
+        }
+
+        return ResponseEntity.ok(slackService.getChannelList(dashboard.getSlackToken()));
 
     }
 

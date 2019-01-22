@@ -28,7 +28,7 @@ public class SprintMapper {
         return source == null ? null : map(source, new SprintDTO());
     }
 
-    public static SprintDTO map(com.bbva.arq.devops.ae.mirrorgate.model.Sprint source, SprintDTO target) {
+    private static SprintDTO map(com.bbva.arq.devops.ae.mirrorgate.model.Sprint source, SprintDTO target) {
         return target
                 .setId(source.getId())
                 .setName(source.getName())

@@ -17,12 +17,10 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import org.bson.types.ObjectId;
@@ -33,6 +31,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest
@@ -58,7 +58,7 @@ public class FeatureRepositoryImplTest {
 
     @Test
     public void testFeatureAndPIComeFromTeam(){
-        List<String> boardPIFeatures = featureRepository.programIncrementBoardFeatures(Arrays.asList("mirrorgate"), Arrays.asList("feature1", "feature2"));
+        List<String> boardPIFeatures = featureRepository.programIncrementBoardFeatures(Collections.singletonList("mirrorgate"), Arrays.asList("feature1", "feature2"));
 
         assertEquals(2, boardPIFeatures.size());
     }
@@ -79,7 +79,7 @@ public class FeatureRepositoryImplTest {
     @Test
     public void testAggregationWithoutResults(){
         ProgramIncrementNamesAggregationResult piNames = featureRepository.getProductIncrementFromPiPattern(Pattern.compile("aaa"));
-        assertEquals(null, piNames);
+        assertNull(piNames);
     }
 
     private Feature createFeature(List<String> piNames, String sNumber){
@@ -88,7 +88,7 @@ public class FeatureRepositoryImplTest {
         feature.setsProjectName("mirrorgate");
         feature.setsPiNames(piNames);
         feature.setsTypeName("Feature");
-        feature.setKeywords(Arrays.asList("mirrorgate"));
+        feature.setKeywords(Collections.singletonList("mirrorgate"));
         feature.setsNumber(sNumber);
 
         return feature;
@@ -102,8 +102,8 @@ public class FeatureRepositoryImplTest {
         story.setsSprintAssetState("Active");
         story.setsProjectName(sProjectName);
         story.setsNumber("story_name");
-        story.setsParentKey(Arrays.asList(sParentKey));
-        story.setKeywords(Arrays.asList(sProjectName));
+        story.setsParentKey(Collections.singletonList(sParentKey));
+        story.setKeywords(Collections.singletonList(sProjectName));
 
         return story;
     }

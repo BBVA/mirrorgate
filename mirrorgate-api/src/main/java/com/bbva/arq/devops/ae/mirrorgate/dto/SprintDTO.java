@@ -96,15 +96,14 @@ public class SprintDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(o == null || !(o instanceof SprintDTO)) {
+        if(!(o instanceof SprintDTO)) {
             return false;
         }
         SprintDTO s = (SprintDTO) o;
         return ((s.getId() == null && getId() == null) || s.getId().equals(getId())) &&
-                ((s.getName() == null && getName() == null) || s.getName().equals(getName())) &&
-                ((s.getStatus() == null && getStatus() == null) || s.getStatus().equals(getStatus())) &&
-                ((s.getStartDate() == null && getStartDate() == null) || s.getStartDate().equals(getStartDate())) &&
-                ((s.getEndDate() == null && getEndDate() == null) || s.getEndDate().equals(getEndDate())) &&
-                true;
+            ((s.getName() == null && getName() == null) || s.getName().equals(getName())) &&
+            ((s.getStatus() == null && getStatus() == null) || s.getStatus().equals(getStatus())) &&
+            ((s.getStartDate() == null && getStartDate() == null) || s.getStartDate().equals(getStartDate())) &&
+            ((s.getEndDate() == null && getEndDate() == null) || s.getEndDate().equals(getEndDate()));
     }
 }

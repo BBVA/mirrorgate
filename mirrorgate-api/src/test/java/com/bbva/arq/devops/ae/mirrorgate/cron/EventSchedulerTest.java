@@ -1,7 +1,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.cron;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.mockito.Matchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import ch.qos.logback.classic.Level;
@@ -14,6 +14,7 @@ import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 import org.junit.Before;
@@ -31,7 +32,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class EventSchedulerTest {
 
     @Rule
-    public OutputCapture outputCapture = new OutputCapture();
+    public final OutputCapture outputCapture = new OutputCapture();
 
     @MockBean
     private EventService eventService;
@@ -56,11 +57,11 @@ public class EventSchedulerTest {
     }
 
     @Test
-    public void testSchedulerTimestampIsModified() throws IOException {
+    public void testSchedulerTimestampIsModified() {
 
         when(eventService.getEventsSinceTimestamp(anyLong())).thenReturn(Arrays.asList(createBuildEvent(),createFeatureEvent()));
         when(eventService.getLastEvent()).thenReturn(null);
-        when(eventsHandler.getDashboardsWithSession()).thenReturn(new HashSet<>(Arrays.asList("123")));
+        when(eventsHandler.getDashboardsWithSession()).thenReturn(new HashSet<>(Collections.singletonList("123")));
 
         eventScheduler.checkEventUpdates();
 

@@ -18,9 +18,8 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
-import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
+
 import java.util.List;
-import java.util.Map;
 
 /**
  * Continuous Integration build service.
@@ -31,8 +30,8 @@ public interface BuildService {
      * Get last builds by keywords (repositories names, projects names or builds urls)
      * and filtered by team members if those exist.
      *
-     * @param keywords
-     * @param teamMembers
+     * @param keywords Keywords for searching
+     * @param teamMembers Team Members for searching
      * @return List of builds
      */
     List<Build> getLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
@@ -49,9 +48,9 @@ public interface BuildService {
      * Get statistics of builds by keywords (repositories names, projects names or builds urls)
      * and filtered by team members if those exist.
      *
-     * @param keywords
-     * @param teamMembers
-     * @return
+     * @param keywords Keywords for searching
+     * @param teamMembers Team Members for searching
+     * @return The stats of getting builds
      */
     BuildStats getStatsAndTendenciesByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
 

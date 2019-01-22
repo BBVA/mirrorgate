@@ -19,7 +19,6 @@ import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ReviewDTO;
-import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
@@ -140,10 +139,6 @@ public class ReviewServiceImpl implements ReviewService {
         Iterable<Review> newReviews = repository.saveAll(singleReviews);
         eventService.saveEvents(newReviews, EventType.REVIEW);
 
-        if (newReviews == null) {
-            throw new ReviewsConflictException("Save reviews error");
-        }
-
         List<Review> historyData = StreamSupport.stream(reviews.spliterator(), false)
                 .filter((r) -> r.getTimestamp() == null).collect(Collectors.toList());
 
@@ -180,7 +175,7 @@ public class ReviewServiceImpl implements ReviewService {
         Review toSave = map(review);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Long id = System.currentTimeMillis();
+        long id = System.currentTimeMillis();
 
         if(auth != null) {
             toSave.setAuthorName((String) auth.getPrincipal());
@@ -206,7 +201,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private synchronized void updateHistoryForApplicationReview(Review toSave) {
-        List<Review> historyList = repository.findAllByCommentIdIn(Arrays.asList(toSave.getAppname() + FB_HISTORY_SUFFIX));
+        List<Review> historyList = repository.findAllByCommentIdIn(Collections.singletonList(toSave.getAppname() + FB_HISTORY_SUFFIX));
 
         Review history;
 

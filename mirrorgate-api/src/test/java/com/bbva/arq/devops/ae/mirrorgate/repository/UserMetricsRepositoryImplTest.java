@@ -27,6 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,7 @@ public class UserMetricsRepositoryImplTest {
         userMetricsRepository.save(createUserMetric("AWS/123456789012/alb/alb2", "AWS", "errorsNumber", 50D));
         userMetricsRepository.save(createUserMetric("AWS/123456789012/apigateway/restapi", "AWS", "errorsNumber", 10D));
         userMetricsRepository.save(createUserMetric("AWS/111111111111/elb/elb1", "AWS", "requestsNumber", 10000D));
-        userMetricsRepository.save(createUserMetric("AWS/222222222222/elb/elb1", "AWS", "requestsNumber", 20000D));
+        userMetricsRepository.save(createUserMetric("GCP/222222222222/elb/elb1", "GCP", "requestsNumber", 20000D));
     }
 
     @After
@@ -56,7 +57,7 @@ public class UserMetricsRepositoryImplTest {
 
     @Test
     public void findUserMetricsByViewIdsWithoutResultsTest(){
-        List<String> viewIds = Arrays.asList("aaa");
+        List<String> viewIds = Collections.singletonList("aaa");
 
         List<UserMetric> userMetrics = userMetricsRepository.findAllStartingWithViewId(viewIds);
 
@@ -65,9 +66,9 @@ public class UserMetricsRepositoryImplTest {
 
     @Test
     public void findUserMetricsByViewIdsTest(){
-        List<String> viewIds1 = Arrays.asList("AWS/123456789012");
-        List<String> viewIds2 = Arrays.asList("AWS/123456789012/alb");
-        List<String> viewIds3 = Arrays.asList("AWS/123456789012/apigateway/restapi");
+        List<String> viewIds1 = Collections.singletonList("AWS/123456789012");
+        List<String> viewIds2 = Collections.singletonList("AWS/123456789012/alb");
+        List<String> viewIds3 = Collections.singletonList("AWS/123456789012/apigateway/restapi");
 
         List<UserMetric> userMetrics1 = userMetricsRepository.findAllStartingWithViewId(viewIds1);
         List<UserMetric> userMetrics2 = userMetricsRepository.findAllStartingWithViewId(viewIds2);
@@ -89,14 +90,14 @@ public class UserMetricsRepositoryImplTest {
 
     @Test
     public void findUserMetricsByMultipleViewIdsTest(){
-        List<String> viewIds = Arrays.asList("AWS/111111111111", "AWS/222222222222");
+        List<String> viewIds = Arrays.asList("AWS/111111111111", "GCP/222222222222");
 
         List<UserMetric> userMetrics = userMetricsRepository.findAllStartingWithViewId(viewIds);
 
         assertEquals(2, userMetrics.size());
 
         assertTrue(userMetrics.stream().map(UserMetric::getViewId).collect(Collectors.toList()).contains("AWS/111111111111/elb/elb1"));
-        assertTrue(userMetrics.stream().map(UserMetric::getViewId).collect(Collectors.toList()).contains("AWS/222222222222/elb/elb1"));
+        assertTrue(userMetrics.stream().map(UserMetric::getViewId).collect(Collectors.toList()).contains("GCP/222222222222/elb/elb1"));
     }
 
     private UserMetric createUserMetric(String viewId, String platform, String name, Double value){

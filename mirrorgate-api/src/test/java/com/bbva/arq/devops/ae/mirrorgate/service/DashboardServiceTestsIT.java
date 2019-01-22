@@ -17,7 +17,6 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static junit.framework.TestCase.assertTrue;
 
-import com.bbva.arq.devops.ae.mirrorgate.exception.MirrorGateException;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import java.util.Collections;
@@ -42,7 +41,7 @@ public class DashboardServiceTestsIT {
     private DashboardRepository dashboardRepository;
 
     @Test
-    public void testMongo() throws MirrorGateException {
+    public void testMongo() {
         Dashboard dashboard = new Dashboard()
                 .setName("mirrorgate")
                 .setsProductName("mirrorgate")

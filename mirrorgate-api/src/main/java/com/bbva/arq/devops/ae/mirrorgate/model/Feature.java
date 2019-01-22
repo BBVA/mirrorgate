@@ -167,11 +167,11 @@ public class Feature extends BaseModel{
         return this;
     }
 
-    public Double getdEstimate() {
+    public Double getDEstimate() {
         return dEstimate;
     }
 
-    public Feature setdEstimate(Double dEstimate) {
+    public Feature setDEstimate(Double dEstimate) {
         this.dEstimate = dEstimate;
         return this;
     }
@@ -194,11 +194,11 @@ public class Feature extends BaseModel{
         return this;
     }
 
-    public List<Long> getlParentId() {
+    public List<Long> getLParentId() {
         return lParentId;
     }
 
-    public Feature setlParentId(List<Long> lParentId) {
+    public Feature setLParentId(List<Long> lParentId) {
         this.lParentId = lParentId;
         return this;
     }

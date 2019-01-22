@@ -49,8 +49,8 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
                 .and("historicType").is(unit)
                 .and("timestamp").gte(timestamp)),
             project("identifier", "viewId", "appVersion", "platform", "name", "value", "sampleSize", "collectorId")
-                .and(ConditionalOperators.ifNull("sampleSize").then(1l)).as("sampleSize")
-                .and(ConditionalOperators.when(Criteria.where("sampleSize").gt(0)).thenValueOf("$sampleSize").otherwise(1l)).as("sampleSize"),
+                .and(ConditionalOperators.ifNull("sampleSize").then(1L)).as("sampleSize")
+                .and(ConditionalOperators.when(Criteria.where("sampleSize").gt(0)).thenValueOf("$sampleSize").otherwise(1L)).as("sampleSize"),
             group("identifier")
                 .sum("sampleSize").as("sampleSize")
                 .sum("value").as("value")
