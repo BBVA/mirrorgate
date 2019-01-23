@@ -134,7 +134,7 @@ public class FeatureServiceImpl implements FeatureService {
                            return new IssueDTO()
                                 .setId(Long.parseLong(feat.getsId()))
                                 .setName(feat.getsName())
-                                .setEstimate(feat.getDEstimate());
+                                .setEstimate(feat.getdEstimate());
                         }
                 )
                 .collect(Collectors.toList());
@@ -147,7 +147,7 @@ public class FeatureServiceImpl implements FeatureService {
         return new IssueDTO()
             .setId(Long.parseLong(feature.getsId()))
             .setName(feature.getsName())
-            .setEstimate(feature.getDEstimate());
+            .setEstimate(feature.getdEstimate());
     }
 
     @Override

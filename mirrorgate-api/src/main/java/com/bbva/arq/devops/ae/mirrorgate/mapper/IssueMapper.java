@@ -36,7 +36,7 @@ public class IssueMapper {
 
     public static Feature map(IssueDTO source, Feature target) {
         target
-            .setDEstimate(source.getEstimate())
+            .setdEstimate(source.getEstimate())
             .setsName(source.getName())
             .setsId(source.getId().toString())
             .setsStatus(source.getStatus().getName())
@@ -44,7 +44,7 @@ public class IssueMapper {
             .setKeywords(source.getKeywords())
             .setsTypeName(source.getType())
             .setsNumber(source.getJiraKey())
-            .setLParentId(source.getParentId() == null ? null : source.getParentId().stream().map(Long::parseLong).collect(Collectors.toList()))
+            .setlParentId(source.getParentId() == null ? null : source.getParentId().stream().map(Long::parseLong).collect(Collectors.toList()))
             .setsParentKey(source.getParentKey())
             .setsPiNames(source.getPiNames())
             .setCollectorId(source.getCollectorId())
@@ -85,7 +85,7 @@ public class IssueMapper {
 
     private static IssueDTO map(Feature source, IssueDTO target) {
         return target
-            .setEstimate(source.getDEstimate())
+            .setEstimate(source.getdEstimate())
             .setName(source.getsName())
             .setId(source.getsId() == null ? null : Long.parseLong(source.getsId()))
             .setStatus(IssueStatus.fromName(source.getsStatus()))
@@ -100,7 +100,7 @@ public class IssueMapper {
                     .setId(source.getsProjectId() == null ? null : Long.parseLong(source.getsProjectId()))
                     .setName(source.getsProjectName()))
             .setParentKey(source.getsParentKey())
-            .setParentId(source.getLParentId() == null ? null : source.getLParentId().stream().map(String::valueOf).collect(Collectors.toList()))
+            .setParentId(source.getlParentId() == null ? null : source.getlParentId().stream().map(String::valueOf).collect(Collectors.toList()))
             .setJiraKey(source.getsNumber())
             .setKeywords(source.getKeywords())
             .setPiNames(source.getsPiNames())

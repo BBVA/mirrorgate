@@ -25,19 +25,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 @ControllerAdvice
-class GlobalControllerExceptionHandler {
+public class GlobalControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(DashboardNotFoundException.class)
     @ResponseBody
-    String handleNotFound(Exception ex) {
+    public String handleNotFound(Exception ex) {
         return ex.getMessage();
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(DashboardForbiddenException.class)
     @ResponseBody
-    String handleForbidden(Exception ex) {
+    public String handleForbidden(Exception ex) {
         return ex.getMessage();
     }
 
@@ -48,12 +48,12 @@ class GlobalControllerExceptionHandler {
         ReviewsConflictException.class
     })
     @ResponseBody
-    String handleConflict(Exception ex) {
+    public String handleConflict(Exception ex) {
         return ex.getMessage();
     }
 
     @ExceptionHandler(HttpClientErrorException.class)
-    ResponseEntity<?> handleClientError(HttpClientErrorException ex) {
+    public ResponseEntity<?> handleClientError(HttpClientErrorException ex) {
         return ResponseEntity.status(ex.getStatusCode()).body(ex.getMessage());
     }
 }

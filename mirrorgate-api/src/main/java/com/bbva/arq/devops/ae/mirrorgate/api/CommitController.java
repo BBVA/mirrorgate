@@ -71,8 +71,8 @@ public class CommitController {
     @RequestMapping(value = "/api/commits/lastcommits", method = GET,
         produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getLastCommit(
-        @RequestParam(value = "repo", required = true) String repo,
-        @RequestParam(value = "timestamp", required = true) Integer timestamp
+        @RequestParam(value = "repo") String repo,
+        @RequestParam(value = "timestamp") Integer timestamp
         ) {
         return ResponseEntity.status(HttpStatus.OK).body(commitService.getLastCommits(repo, timestamp));
     }
