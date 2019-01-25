@@ -19,8 +19,10 @@ package com.bbva.arq.devops.ae.mirrorgate.mapper;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class BuildMapper {
 
@@ -59,11 +61,13 @@ public class BuildMapper {
 
     private static BuildDTO map(Build source, BuildDTO target) {
 
-        ArrayList<String> keywords = new ArrayList<>();
-        keywords.add(source.getBuildUrl());
-        keywords.add(source.getProjectName());
-        keywords.add(source.getRepoName());
-        keywords.removeAll(Collections.singleton(null));
+        List<String> keywords = source.getKeywords();
+        if(keywords.isEmpty()) { // To maintein compatibility with Mirrorgate Jenkins Plugin older than v0.0.9
+            keywords.add(source.getBuildUrl());
+            keywords.add(source.getProjectName());
+            keywords.add(source.getRepoName());
+            keywords.removeAll(Collections.singleton(null));
+        }
 
         return target
                 .setBuildUrl(source.getBuildUrl())
