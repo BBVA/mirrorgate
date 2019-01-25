@@ -12,7 +12,7 @@ import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
-import java.io.IOException;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;

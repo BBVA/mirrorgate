@@ -20,25 +20,21 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventNotificationService;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Component(value = "NotificationType")
 public class NotificationEventHandler implements EventHandler {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(FeatureEventHandler.class);
-
     private final ProcessEventsHelper eventsHelper;
     private final EventNotificationService eventNotificationService;
-
 
     @Autowired
     public NotificationEventHandler(ProcessEventsHelper eventsHelper,

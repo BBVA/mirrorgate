@@ -15,22 +15,20 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.security;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import io.micrometer.core.lang.NonNullApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 public class HeaderSecurityFilter extends OncePerRequestFilter {
 
@@ -39,16 +37,16 @@ public class HeaderSecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
 
         List<String> headerNames = new ArrayList<>();
         Enumeration headers = request.getHeaderNames();
 
-        while(headers.hasMoreElements()){
+        while (headers.hasMoreElements()) {
             headerNames.add((String) headers.nextElement());
         }
 
-        LOG.info("Method: {}, URI: {}",request.getMethod(), request.getRequestURI());
+        LOG.info("Method: {}, URI: {}", request.getMethod(), request.getRequestURI());
         LOG.info("Request headers {}", headerNames);
 
         String xForwardedUser = request.getHeader(USER_HEADER);

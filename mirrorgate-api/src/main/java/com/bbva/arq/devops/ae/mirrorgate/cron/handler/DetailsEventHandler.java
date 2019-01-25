@@ -19,25 +19,22 @@ package com.bbva.arq.devops.ae.mirrorgate.cron.handler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Component(value = "DashboardType")
 public class DetailsEventHandler implements EventHandler {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(DetailsEventHandler.class);
-
     private final ProcessEventsHelper eventsHelper;
 
     @Autowired
-    public DetailsEventHandler(ProcessEventsHelper eventsHelper){
+    public DetailsEventHandler(ProcessEventsHelper eventsHelper) {
 
         this.eventsHelper = eventsHelper;
     }
@@ -46,8 +43,8 @@ public class DetailsEventHandler implements EventHandler {
     public void processEvents(List<Event> eventList, Set<String> dashboardIds) {
 
         List<ObjectId> idList = eventList.stream()
-                .map(Event::getEventTypeCollectionId)
-                .collect(Collectors.toList());
+            .map(Event::getEventTypeCollectionId)
+            .collect(Collectors.toList());
 
         Predicate<Dashboard> filterDashboards = d -> idList.contains(d.getId());
 
