@@ -136,7 +136,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier, ChronoUnit type) {
 
-        return historicUserMetricRepository.findByTimestampAndIdentifierAndHistoricType(periodTimestamp, identifier, type);
+        return historicUserMetricRepository.findFirstByTimestampAndIdentifierAndHistoricType(periodTimestamp, identifier, type);
     }
 
     private void addToTendency(UserMetric userMetric, ChronoUnit unit) {

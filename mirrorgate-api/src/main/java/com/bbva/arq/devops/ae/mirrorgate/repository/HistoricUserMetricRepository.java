@@ -23,6 +23,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface HistoricUserMetricRepository extends CrudRepository<HistoricUserMetric, ObjectId>, HistoricUserMetricRepositoryCustom {
 
-    HistoricUserMetric findByTimestampAndIdentifierAndHistoricType(Long timestamp, String identifier, ChronoUnit unit);
+    HistoricUserMetric findFirstByTimestampAndIdentifierAndHistoricType(Long timestamp, String identifier, ChronoUnit unit);
 
 }
