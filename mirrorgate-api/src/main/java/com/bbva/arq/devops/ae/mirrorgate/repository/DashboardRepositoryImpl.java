@@ -19,6 +19,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import com.mongodb.client.gridfs.model.GridFSFile;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
 import java.io.IOException;
@@ -37,6 +39,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
@@ -99,14 +102,13 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
     @Override
     public ImageStream readFile(String name) {
         GridFSFile file = gridFsTemplate.find(new Query().addCriteria(Criteria.where("filename").is(name))).first();
-
-        if(file != null) {
-            try {
-                return new ImageStream()
-                        .setImageStream(gridFsTemplate.getResource(file).getInputStream());
-            } catch (IOException e) {
-                LOGGER.error("There was an error trying to read a image form DB " + name, e);
-            }
+        GridFsResource resource = gridFsTemplate.getResource(Objects.requireNonNull(file));
+        try {
+            return new ImageStream()
+                    .setETag(DigestUtils.md5Hex(resource.getInputStream()))
+                    .setImageStream(resource.getInputStream());
+        } catch (IOException e) {
+            LOGGER.error("There was an error trying to read a image form DB " + name, e);
         }
 
         return null;

@@ -16,8 +16,6 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -34,14 +32,18 @@ public class ImageStream {
         return imageStream;
     }
 
-    public ImageStream setImageStream(InputStream imageStream) throws IOException {
+    public ImageStream setImageStream(InputStream imageStream) {
         this.imageStream = imageStream;
-        this.eTag = DigestUtils.md5Hex(imageStream);
         return this;
     }
 
     public String getETag() {
         return eTag;
+    }
+
+    public ImageStream setETag(String eTag) {
+        this.eTag = eTag;
+        return this;
     }
 
 }
