@@ -104,9 +104,10 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         GridFSFile file = gridFsTemplate.find(new Query().addCriteria(Criteria.where("filename").is(name))).first();
         GridFsResource resource = gridFsTemplate.getResource(Objects.requireNonNull(file));
         try {
+            InputStream inputStream = resource.getInputStream();
             return new ImageStream()
-                    .setETag(DigestUtils.md5Hex(resource.getInputStream()))
-                    .setImageStream(resource.getInputStream());
+                    .setETag(DigestUtils.md5Hex(inputStream))
+                    .setImageStream(inputStream);
         } catch (IOException e) {
             LOGGER.error("There was an error trying to read a image form DB " + name, e);
         }
