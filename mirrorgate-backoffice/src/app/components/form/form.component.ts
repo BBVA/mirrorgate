@@ -339,7 +339,7 @@ export class FormComponent {
           },
           error => {
             this.icon.success = false;
-            this.icon.error = error.message;
+            this.icon.error = error.error;
           }
         );
     }

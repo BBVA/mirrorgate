@@ -108,13 +108,13 @@
                         </div>
                         <input type="file" class="form-control" (change)="uploadImage($event)" placeholder="Upload png file" accept=".png">
                       </div>
-                      <div *ngIf="icon.error" class="alert alert-error" role="alert">Error: {{error}}</div>
+                      <div *ngIf="icon.error" class="alert alert-danger" role="alert">Error: {{icon.error}}</div>
                       <div *ngIf="icon.success" class="alert alert-success" role="alert">Successfully saved:
                         <img class="dashboard-icon" [src]="'../dashboards/' + dashboard.name + '/image'"/>
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
@@ -477,7 +477,7 @@
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </div>
               </div>
@@ -575,7 +575,7 @@
                       <div *ngIf="dashboard.slackToken" class="alert alert-success" role="alert">{{texts.form.alerts_block.slack_token_input}} {{dashboard.slackToken}}</div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
