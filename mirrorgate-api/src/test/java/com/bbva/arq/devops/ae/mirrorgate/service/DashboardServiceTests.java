@@ -15,12 +15,6 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.ACTIVE;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
@@ -28,7 +22,6 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +34,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.ACTIVE;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 public class DashboardServiceTests {
@@ -81,20 +80,6 @@ public class DashboardServiceTests {
 
         assertThat(dashboard2.getName()).isEqualTo(dashboard.getName());
         assertThat(dashboard2.getLogoUrl()).isEqualTo(dashboard.getLogoUrl());
-    }
-
-    @Test
-    public void getReposByDashboardNameTest() {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
-
-        when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(map(dashboard));
-        when(dashboardRepository.save(any(Dashboard.class))).thenReturn(map(dashboard));
-
-        List<String> codeReposByDashboardName = dashboardService.getReposByDashboardName(dashboard.getName());
-        verify(dashboardRepository, times(1)).findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
-
-        assertThat(codeReposByDashboardName.get(0)).isEqualTo(dashboard.getCodeRepos().get(0));
-        assertThat(codeReposByDashboardName.get(1)).isEqualTo(dashboard.getCodeRepos().get(1));
     }
 
     @Test
@@ -153,7 +138,7 @@ public class DashboardServiceTests {
     public void updateTransientDashboard() {
 
         ArgumentCaptor<Dashboard> argument
-                = ArgumentCaptor.forClass(Dashboard.class);
+            = ArgumentCaptor.forClass(Dashboard.class);
 
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
         Dashboard rDashboard = map(dashboard);
@@ -177,7 +162,7 @@ public class DashboardServiceTests {
 
         when(dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION)).thenReturn(null);
 
-        dashboardService.updateDashboard(dashboard.getName(),dashboard);
+        dashboardService.updateDashboard(dashboard.getName(), dashboard);
     }
 
     @Test

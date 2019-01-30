@@ -1,9 +1,3 @@
-package com.bbva.arq.devops.ae.mirrorgate.utils;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-
 /*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A..
  *
@@ -19,6 +13,11 @@ import java.time.ZoneOffset;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.bbva.arq.devops.ae.mirrorgate.utils;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 public class LocalDateTimeUtils {
     public static final long TODAY = LocalDateTime.now(ZoneId.of("UTC")).toInstant(ZoneOffset.UTC).toEpochMilli();

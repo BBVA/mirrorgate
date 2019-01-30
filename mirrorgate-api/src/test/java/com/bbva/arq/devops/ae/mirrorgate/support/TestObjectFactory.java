@@ -15,15 +15,16 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.support;
 
-import static com.bbva.arq.devops.ae.mirrorgate.support.IssueType.BUG;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.*;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
+import org.bson.types.ObjectId;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.bson.types.ObjectId;
+
+import static com.bbva.arq.devops.ae.mirrorgate.support.IssueType.BUG;
 
 public class TestObjectFactory {
 
@@ -38,145 +39,125 @@ public class TestObjectFactory {
     private static final String SLACK_ERROR = "SLACK_ERROR";
 
     public static DashboardDTO createDashboard() {
-        DashboardDTO dashboard = new DashboardDTO();
-        dashboard.setName(DASHBOARD_NAME);
-        dashboard.setAuthor(AUTH_NAME);
         String urlRepo1 = "http.//repo1.git";
         String urlRepo2 = "http.//repo2.git";
         List<String> codeRepos = new ArrayList<>();
         codeRepos.add(urlRepo1);
         codeRepos.add(urlRepo2);
-        dashboard.setCodeRepos(codeRepos);
-        dashboard.setsProductName(PROJECT_NAME);
-        dashboard.setBoards(Collections.singletonList(PROJECT_NAME));
-        dashboard.setSlackTeam(SLACK_TEAM);
-        dashboard.setSlackToken(SLACK_TOKEN);
-        return dashboard;
+
+        return new DashboardDTO()
+            .setName(DASHBOARD_NAME)
+            .setAuthor(AUTH_NAME)
+            .setCodeRepos(codeRepos)
+            .setsProductName(PROJECT_NAME)
+            .setBoards(Collections.singletonList(PROJECT_NAME))
+            .setSlackTeam(SLACK_TEAM)
+            .setSlackToken(SLACK_TOKEN);
     }
 
     public static DashboardDTO createTransientDashboard() {
-       return createDashboard().setStatus(DashboardStatus.TRANSIENT);
+        return createDashboard().setStatus(DashboardStatus.TRANSIENT);
     }
 
     public static Feature createBug() {
-        Feature bug = createActiveStory();
-        bug.setsTypeName(BUG.getName());
-        return bug;
+        return createActiveStory()
+            .setsTypeName(BUG.getName());
     }
 
     public static Feature createActiveStory() {
         Feature story = new Feature();
         story.setId(ObjectId.get());
-        story.setsId(ObjectId.get().toString());
-        story.setsSprintAssetState("Active");
-        story.setsProjectName(PROJECT_NAME);
-        story.setsNumber(FEATURE_NAME);
-        return story;
+        return story.setsId(ObjectId.get().toString())
+            .setsSprintAssetState("Active")
+            .setsProjectName(PROJECT_NAME)
+            .setsNumber(FEATURE_NAME);
     }
 
     public static SlackDTO createSlackDTO() {
-        SlackDTO notification = new SlackDTO();
-        notification.setOk(true);
-        notification.setAccess_token(SLACK_TOKEN);
-        notification.setUrl(SLACK_URL);
-        return notification;
+        return new SlackDTO()
+            .setOk(true)
+            .setAccess_token(SLACK_TOKEN)
+            .setUrl(SLACK_URL);
     }
 
     public static SlackDTO createSlackErrorDTO() {
-        SlackDTO notification = new SlackDTO();
-        notification.setOk(false);
-        notification.setError(SLACK_ERROR);
-        return notification;
+        return new SlackDTO()
+            .setOk(false)
+            .setError(SLACK_ERROR);
     }
 
     public static BugDTO createBugDTO() {
-        BugDTO bug = new BugDTO();
-        bug.setId(FEATURE_NAME);
-        bug.setPriority(BugPriority.MEDIUM);
-        bug.setStatus(BugStatus.IN_PROGRESS);
-        return bug;
+        return new BugDTO()
+            .setId(FEATURE_NAME)
+            .setPriority(BugPriority.MEDIUM)
+            .setStatus(BugStatus.IN_PROGRESS);
     }
 
     public static DashboardDTO createDashboardDTO() {
-        DashboardDTO dashboard = new DashboardDTO();
-        dashboard.setName(DASHBOARD_NAME);
         String urlRepo1 = "http.//repo1.git";
         String urlRepo2 = "http.//repo2.git";
         List<String> codeRepos = new ArrayList<>();
         codeRepos.add(urlRepo1);
         codeRepos.add(urlRepo2);
-        dashboard.setCodeRepos(codeRepos);
-        dashboard.setsProductName(PROJECT_NAME);
-        dashboard.setBoards(Collections.singletonList(PROJECT_NAME));
-        return dashboard;
+
+        return new DashboardDTO()
+            .setName(DASHBOARD_NAME)
+            .setCodeRepos(codeRepos)
+            .setsProductName(PROJECT_NAME)
+            .setBoards(Collections.singletonList(PROJECT_NAME));
     }
 
     public static DashboardDTO createDashboardDTO(String name, List<String> applications) {
-        DashboardDTO dashboard = createDashboardDTO();
-
-        dashboard.setName(name);
-        dashboard.setApplications(applications);
-        return dashboard;
+        return createDashboardDTO()
+            .setName(name)
+            .setApplications(applications);
     }
 
     public static ApplicationReviewsDTO createApplicationDTO(String name, Platform platform) {
-
-        ApplicationReviewsDTO applicationReviewsDTO = new ApplicationReviewsDTO();
-
-        applicationReviewsDTO.setCommentId("12");
-        applicationReviewsDTO.setAppId(name);
-        applicationReviewsDTO.setAppName(name);
-        applicationReviewsDTO.setPlatform(platform);
-
-        return applicationReviewsDTO;
+        return new ApplicationReviewsDTO()
+            .setCommentId("12")
+            .setAppId(name)
+            .setAppName(name)
+            .setPlatform(platform);
     }
 
     public static Review createReview(Platform platform, String appName, String commentId, String comment, long timestamp, double rate, int amount) {
-
-        Review review = new Review();
-
-        review.setTimestamp(timestamp);
-        review.setAppname(appName);
-        review.setComment(comment);
-        review.setPlatform(platform);
-        review.setCommentId(commentId);
-        review.setStarrating(rate);
-        review.setAmount(amount);
-
-        return review;
+        return new Review()
+            .setTimestamp(timestamp)
+            .setAppname(appName)
+            .setComment(comment)
+            .setPlatform(platform)
+            .setCommentId(commentId)
+            .setStarrating(rate)
+            .setAmount(amount);
     }
 
     public static BuildDTO createBuildDTO() {
         return new BuildDTO()
-                .setNumber("1")
-                .setBuildUrl("buildUrl")
-                .setStartTime(3)
-                .setEndTime(8)
-                .setDuration(5)
-                .setBuildStatus("Success")
-                .setCulprits(Collections.singletonList("foo"))
-                .setProjectName("mirrorgate")
-                .setRepoName("api")
-                .setBranch("test")
-                .setTimestamp(5L);
+            .setNumber("1")
+            .setBuildUrl("buildUrl")
+            .setStartTime(3)
+            .setEndTime(8)
+            .setDuration(5)
+            .setBuildStatus("Success")
+            .setCulprits(Collections.singletonList("foo"))
+            .setProjectName("mirrorgate")
+            .setRepoName("api")
+            .setBranch("test")
+            .setTimestamp(5L);
     }
 
-    public static IssueDTO createIssueDTO(Long id, String name, String collectorId){
-
+    public static IssueDTO createIssueDTO(Long id, String name, String collectorId) {
         return createIssueDTO(id, name, collectorId, null);
     }
 
-    public static IssueDTO createIssueDTO(Long id, String name, String collectorId, String teamName){
-
-        IssueDTO issueDTO = new IssueDTO();
-
-        issueDTO.setId(id)
+    public static IssueDTO createIssueDTO(Long id, String name, String collectorId, String teamName) {
+        return new IssueDTO()
+            .setId(id)
             .setCollectorId(collectorId)
             .setName(name)
             .setStatus(IssueStatus.DONE)
             .setTeamName(teamName);
-
-        return issueDTO;
     }
 
 }

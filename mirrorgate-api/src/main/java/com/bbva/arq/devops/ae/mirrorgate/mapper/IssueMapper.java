@@ -23,12 +23,14 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
+
 import java.util.Date;
 import java.util.stream.Collectors;
 
 public class IssueMapper {
 
-    private IssueMapper(){}
+    private IssueMapper() {
+    }
 
     public static Feature map(IssueDTO source) {
         return map(source, new Feature());
@@ -53,27 +55,27 @@ public class IssueMapper {
             .setTeamName(source.getTeamName());
 
         SprintDTO sprint = source.getSprint();
-        if(sprint != null) {
-            target.setsSprintID(sprint.getId());
-            target.setsSprintName(sprint.getName());
-            target.setsSprintAssetState(sprint.getStatus() == null ? null : sprint.getStatus().name());
-            target.setSprintBeginDate(sprint.getStartDate());
-            target.setSprintEndDate(sprint.getEndDate());
+        if (sprint != null) {
+            target.setsSprintID(sprint.getId())
+                .setsSprintName(sprint.getName())
+                .setsSprintAssetState(sprint.getStatus() == null ? null : sprint.getStatus().name())
+                .setSprintBeginDate(sprint.getStartDate())
+                .setSprintEndDate(sprint.getEndDate());
         } else {
-            target.setsSprintID(null);
-            target.setsSprintName(null);
-            target.setsSprintAssetState(null);
-            target.setSprintBeginDate(null);
-            target.setSprintEndDate(null);
+            target.setsSprintID(null)
+                .setsSprintName(null)
+                .setsSprintAssetState(null)
+                .setSprintBeginDate(null)
+                .setSprintEndDate(null);
         }
 
         ProjectDTO project = source.getProject();
-        if(project != null) {
-            target.setsProjectId(project.getId() == null ? null : project.getId().toString());
-            target.setsProjectName(project.getName());
+        if (project != null) {
+            target.setsProjectId(project.getId() == null ? null : project.getId().toString())
+                .setsProjectName(project.getName());
         } else {
-            target.setsProjectId(null);
-            target.setsProjectName(null);
+            target.setsProjectId(null)
+                .setsProjectName(null);
         }
 
         return target;
@@ -91,14 +93,14 @@ public class IssueMapper {
             .setStatus(IssueStatus.fromName(source.getsStatus()))
             .setType(source.getsTypeName())
             .setSprint(new SprintDTO()
-                    .setId(source.getsSprintID())
-                    .setName(source.getsSprintName())
-                    .setStatus(source.getsSprintAssetState() == null ? null : SprintStatus.valueOf(source.getsSprintAssetState()))
-                    .setStartDate(source.getSprintBeginDate())
-                    .setEndDate(source.getSprintEndDate()))
+                .setId(source.getsSprintID())
+                .setName(source.getsSprintName())
+                .setStatus(source.getsSprintAssetState() == null ? null : SprintStatus.valueOf(source.getsSprintAssetState()))
+                .setStartDate(source.getSprintBeginDate())
+                .setEndDate(source.getSprintEndDate()))
             .setProject(new ProjectDTO()
-                    .setId(source.getsProjectId() == null ? null : Long.parseLong(source.getsProjectId()))
-                    .setName(source.getsProjectName()))
+                .setId(source.getsProjectId() == null ? null : Long.parseLong(source.getsProjectId()))
+                .setName(source.getsProjectName()))
             .setParentKey(source.getsParentKey())
             .setParentId(source.getlParentId() == null ? null : source.getlParentId().stream().map(String::valueOf).collect(Collectors.toList()))
             .setJiraKey(source.getsNumber())

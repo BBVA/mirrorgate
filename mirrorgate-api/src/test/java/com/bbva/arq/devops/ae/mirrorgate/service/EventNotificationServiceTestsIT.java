@@ -43,7 +43,7 @@ public class EventNotificationServiceTestsIT {
     @Test
     public void testSaveNotificationAndEvent(){
 
-        EventNotification result = service.saveEventNotification(dto1);
+        service.saveEventNotification(dto1);
 
         Event savedEvent = eventService.getLastEvent();
         EventNotification notification = service.getEventNotificationForDashboard("dashboard1");

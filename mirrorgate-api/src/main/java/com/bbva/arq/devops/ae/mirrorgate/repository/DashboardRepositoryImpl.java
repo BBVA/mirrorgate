@@ -16,12 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
-import com.mongodb.client.gridfs.model.GridFSFile;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -30,10 +25,10 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsCriteria;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -47,16 +42,14 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DashboardRepositoryImpl.class);
-
     @Autowired
     private MongoTemplate mongoTemplate;
 
     @Autowired
     private GridFsTemplate gridFsTemplate;
 
-    private static final Map<String,String> DASHBOARD_FIELDS = new HashMap<String, String>() {{
-        for(Field f : Dashboard.class.getDeclaredFields()) {
+    private static final Map<String, String> DASHBOARD_FIELDS = new HashMap<String, String>() {{
+        for (Field f : Dashboard.class.getDeclaredFields()) {
             put(f.getName(), "$" + f.getName());
         }
         remove("id");
@@ -65,7 +58,7 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
     private static GroupOperation firstDashboardFields(GroupOperation operation) {
 
         return DASHBOARD_FIELDS.keySet().stream()
-                .reduce(operation, (o,s) -> o.first(s).as(s), (old,o) -> o);
+            .reduce(operation, (o, s) -> o.first(s).as(s), (old, o) -> o);
 
     }
 
@@ -80,11 +73,11 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         return getDashboardsNotInStatus(new DashboardStatus[]{DELETED, TRANSIENT});
     }
 
-    private List<Dashboard> getDashboardsNotInStatus(DashboardStatus[]  status) {
+    private List<Dashboard> getDashboardsNotInStatus(DashboardStatus[] status) {
         Aggregation aggregation = newAggregation(
             sort(new Sort(Sort.Direction.DESC, "lastModification")),
             firstDashboardFields(group("name")),
-            match(Criteria.where("status").nin((Object[])status)),
+            match(Criteria.where("status").nin((Object[]) status)),
             project(DASHBOARD_FIELDS.keySet().toArray(new String[]{})).andExclude("_id")
         );
 
@@ -96,23 +89,13 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
     @Override
     public void saveFile(InputStream image, String name) {
+        gridFsTemplate.delete(new Query(GridFsCriteria.whereFilename().is(name)));
         gridFsTemplate.store(image, name);
     }
 
     @Override
-    public ImageStream readFile(String name) {
-        GridFSFile file = gridFsTemplate.find(new Query().addCriteria(Criteria.where("filename").is(name))).first();
-        GridFsResource resource = gridFsTemplate.getResource(Objects.requireNonNull(file));
-        try {
-            InputStream inputStream = resource.getInputStream();
-            return new ImageStream()
-                    .setETag(DigestUtils.md5Hex(inputStream))
-                    .setImageStream(inputStream);
-        } catch (IOException e) {
-            LOGGER.error("There was an error trying to read a image form DB " + name, e);
-        }
-
-        return null;
+    public GridFsResource readFile(String name) {
+        return gridFsTemplate.getResource(Objects.requireNonNull(name));
     }
 
 }

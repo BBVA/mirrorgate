@@ -15,22 +15,23 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ReviewDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -63,9 +64,9 @@ public class ReviewServiceImpl implements ReviewService {
                     .findFirst();
             if(historyReviewOpt.isPresent()) {
                 Review historyReview = historyReviewOpt.get();
-                app.setVotesTotal(historyReview.getAmount());
-                app.setUrl(historyReview.getUrl());
-                app.setRatingTotal((long) (historyReview.getStarrating() * historyReview.getAmount()));
+                app.setVotesTotal(historyReview.getAmount())
+                    .setUrl(historyReview.getUrl())
+                    .setRatingTotal((long) (historyReview.getStarrating() * historyReview.getAmount()));
             }
         });
 
@@ -85,17 +86,13 @@ public class ReviewServiceImpl implements ReviewService {
                     .filter((stat) -> stat.getAppname().equals(app.getAppname()) && stat.getPlatform().equals(app.getPlatform()))
                     .findFirst();
 
-            if(appStatsShortTerm.isPresent()) {
-                app.setRatingShortTerm(appStatsShortTerm.get().getRatingShortTerm());
-                app.setVotesShortTerm(appStatsShortTerm.get().getVotesShortTerm());
-                app.setShortTermLength(daysShortTerm);
-            }
-            if(appStatsLongTerm.isPresent()) {
-                //Ugly hack... we use the shortTerm to return the data even if it's for longTerm :-(
-                app.setRatingLongTerm(appStatsLongTerm.get().getRatingShortTerm());
-                app.setVotesLongTerm(appStatsLongTerm.get().getVotesShortTerm());
-                app.setLongTermLength(daysLongTerm);
-            }
+            appStatsShortTerm.ifPresent(applicationDTO -> app.setRatingShortTerm(applicationDTO.getRatingShortTerm())
+                .setVotesShortTerm(applicationDTO.getVotesShortTerm())
+                .setShortTermLength(daysShortTerm));
+            //Ugly hack... we use the shortTerm to return the data even if it's for longTerm :-(
+            appStatsLongTerm.ifPresent(applicationDTO -> app.setRatingLongTerm(applicationDTO.getRatingShortTerm())
+                .setVotesLongTerm(applicationDTO.getVotesShortTerm())
+                .setLongTermLength(daysLongTerm));
 
         });
 

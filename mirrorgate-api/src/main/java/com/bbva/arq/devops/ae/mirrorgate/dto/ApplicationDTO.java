@@ -139,8 +139,9 @@ public class ApplicationDTO {
         return this;
     }
 
-    public void setUrl(String url) {
+    public ApplicationDTO setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public String getUrl() {

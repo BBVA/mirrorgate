@@ -15,8 +15,8 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
 
 import java.io.InputStream;
 import java.util.List;
@@ -29,5 +29,5 @@ public interface DashboardRepositoryCustom {
 
     void saveFile(InputStream image, String name);
 
-    ImageStream readFile(String name);
+    GridFsResource readFile(String name);
 }

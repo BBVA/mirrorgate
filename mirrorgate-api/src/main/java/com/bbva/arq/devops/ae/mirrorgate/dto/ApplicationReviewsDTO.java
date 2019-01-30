@@ -29,31 +29,35 @@ public class ApplicationReviewsDTO {
         return platform;
     }
 
-    public void setPlatform(Platform platform) {
+    public ApplicationReviewsDTO setPlatform(Platform platform) {
         this.platform = platform;
+        return this;
     }
 
     public String getAppId() {
         return appId;
     }
 
-    public void setAppId(String appId) {
+    public ApplicationReviewsDTO setAppId(String appId) {
         this.appId = appId;
+        return this;
     }
 
     public String getAppName() {
         return appName;
     }
 
-    public void setAppName(String appName) {
+    public ApplicationReviewsDTO setAppName(String appName) {
         this.appName = appName;
+        return this;
     }
 
     public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(String commentId) {
+    public ApplicationReviewsDTO setCommentId(String commentId) {
         this.commentId = commentId;
+        return this;
     }
 }

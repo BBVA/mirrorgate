@@ -18,7 +18,8 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
+
 import java.io.InputStream;
 import java.util.List;
 
@@ -34,14 +35,6 @@ public interface DashboardService {
      * @return Dashboard
      */
     DashboardDTO getDashboard(String name);
-
-    /**
-     * Get the repositories of a specific Dashboard
-     *
-     * @param name Name of the Dashboard
-     * @return List of repositories
-     */
-    List<String> getReposByDashboardName(String name);
 
     /**
      * Get all names of applications related to a Dashboard.
@@ -92,7 +85,7 @@ public interface DashboardService {
      * Updates a Dashboard
      *
      * @param dashboard Data Transfer Object of the Dashboard
-     * @param name Dashboard's name
+     * @param name      Dashboard's name
      * @return Dashboard persisted Dashboard or null if no existent
      */
     DashboardDTO updateDashboard(String name, DashboardDTO dashboard);
@@ -100,7 +93,7 @@ public interface DashboardService {
     /**
      * Saves an image related to the dashboard with the corresponding name
      *
-     * @param name Dashboard's name
+     * @param name       Dashboard's name
      * @param uploadFile Dashboard's logo as an InputStream
      */
     void saveDashboardImage(String name, InputStream uploadFile);
@@ -111,11 +104,12 @@ public interface DashboardService {
      * @param name Dashboard's name
      * @return A stream of the image
      */
-    ImageStream getDashboardImage(String name);
+    GridFsResource getDashboardImage(String name);
 
     List<Dashboard> getDashboardWithNames(List<String> dashboardNames);
 
     void createDashboardForBuildProject(Build build);
+
     void createDashboardForJiraTeam(String teamName);
 
 }
