@@ -18,7 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.core.io.InputStreamResource;
 
 import java.io.InputStream;
 import java.util.List;
@@ -104,7 +104,7 @@ public interface DashboardService {
      * @param name Dashboard's name
      * @return A stream of the image
      */
-    GridFsResource getDashboardImage(String name);
+    InputStreamResource getDashboardImage(String name);
 
     List<Dashboard> getDashboardWithNames(List<String> dashboardNames);
 

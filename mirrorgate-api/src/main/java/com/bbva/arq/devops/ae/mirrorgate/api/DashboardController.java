@@ -23,7 +23,7 @@ import org.apache.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -138,7 +138,7 @@ public class DashboardController {
         HttpServletResponse response,
         @PathVariable("name") String name) {
 
-        GridFsResource resource = dashboardService.getDashboardImage(name);
+        InputStreamResource resource = dashboardService.getDashboardImage(name);
 
         if (resource == null) {
             return ResponseEntity.notFound().build();

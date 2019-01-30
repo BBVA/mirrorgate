@@ -28,8 +28,8 @@ import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -190,7 +190,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public GridFsResource getDashboardImage(String dashboardName) {
+    public InputStreamResource getDashboardImage(String dashboardName) {
         //Used to ensure the dashboard is present and active
         this.getDashboard(dashboardName);
         return dashboardRepository.readFile(dashboardName);
