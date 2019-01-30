@@ -15,27 +15,31 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.ImageStream;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardServiceImpl;
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * Dashboards controller.
@@ -53,18 +57,18 @@ public class DashboardController {
     }
 
     @RequestMapping(
-            value = {"/dashboards/{name}/details", "/api/dashboards/{name}/details"},
-            method = GET,
-            produces = APPLICATION_JSON_VALUE
+        value = {"/dashboards/{name}/details", "/api/dashboards/{name}/details"},
+        method = GET,
+        produces = APPLICATION_JSON_VALUE
     )
     public ResponseEntity<DashboardDTO> getDashboard(@PathVariable("name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(dashboardService.getDashboard(name));
     }
 
     @RequestMapping(
-            value = {"/dashboards/{name}", "/api/dashboards/{name}"},
-            method = DELETE,
-            produces = APPLICATION_JSON_VALUE
+        value = {"/dashboards/{name}", "/api/dashboards/{name}"},
+        method = DELETE,
+        produces = APPLICATION_JSON_VALUE
     )
     public ResponseEntity<String> deleteDashboard(@PathVariable("name") String name) {
         dashboardService.deleteDashboard(name);
@@ -72,40 +76,40 @@ public class DashboardController {
     }
 
     @RequestMapping(
-            value = {"/dashboards", "/api/dashboards"},
-            method = GET,
-            produces = APPLICATION_JSON_VALUE
+        value = {"/dashboards", "/api/dashboards"},
+        method = GET,
+        produces = APPLICATION_JSON_VALUE
     )
-    public List<DashboardDTO> getActiveDashboards(@RequestParam(name="transient", required=false, defaultValue="false") boolean alsoTransient) {
+    public List<DashboardDTO> getActiveDashboards(@RequestParam(name = "transient", required = false, defaultValue = "false") boolean alsoTransient) {
         return !alsoTransient ? dashboardService.getActiveDashboards() : dashboardService.getActiveAndTransientDashboards();
     }
 
     @RequestMapping(
-            value = "/dashboards", method = POST,
-            consumes = APPLICATION_JSON_VALUE,
-            produces = APPLICATION_JSON_VALUE
+        value = "/dashboards", method = POST,
+        consumes = APPLICATION_JSON_VALUE,
+        produces = APPLICATION_JSON_VALUE
     )
     public ResponseEntity<DashboardDTO> newDashboard(@Valid @RequestBody DashboardDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newDashboard(request));
     }
 
     @RequestMapping(
-            value = "/api/dashboards", method = POST,
-            consumes = APPLICATION_JSON_VALUE,
-            produces = APPLICATION_JSON_VALUE
+        value = "/api/dashboards", method = POST,
+        consumes = APPLICATION_JSON_VALUE,
+        produces = APPLICATION_JSON_VALUE
     )
     public ResponseEntity<DashboardDTO> newTransientDashboard(@Valid @RequestBody DashboardDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newTransientDashboard(request));
     }
 
     @RequestMapping(
-            value = {"/dashboards/{name}", "/api/dashboards/{name}"}, method = PUT,
-            consumes = APPLICATION_JSON_VALUE,
-            produces = APPLICATION_JSON_VALUE
+        value = {"/dashboards/{name}", "/api/dashboards/{name}"}, method = PUT,
+        consumes = APPLICATION_JSON_VALUE,
+        produces = APPLICATION_JSON_VALUE
     )
     public ResponseEntity<DashboardDTO> updateDashboard(
-            @PathVariable("name") String name,
-            @Valid @RequestBody DashboardDTO request) {
+        @PathVariable("name") String name,
+        @Valid @RequestBody DashboardDTO request) {
         DashboardDTO updatedDashboard = dashboardService.updateDashboard(name, request);
 
         return ResponseEntity.ok(updatedDashboard);
@@ -115,9 +119,8 @@ public class DashboardController {
     @RequestMapping(value = "/dashboards/{name}/image", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> uploadFile(
-            @PathVariable("name") String name,
-            @RequestParam("uploadfile") MultipartFile uploadfile) {
-
+        @PathVariable("name") String name,
+        @RequestParam("uploadfile") MultipartFile uploadfile) {
         try {
             dashboardService.saveDashboardImage(name, uploadfile.getInputStream());
             return ResponseEntity.ok("Saved successfully");
@@ -129,30 +132,44 @@ public class DashboardController {
     }
 
     @RequestMapping(value = "/dashboards/{name}/image", method = RequestMethod.GET)
-    public void getFile(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            @PathVariable("name") String name) {
+    @ResponseBody
+    public ResponseEntity<?> getFile(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @PathVariable("name") String name) {
 
-        ImageStream is = dashboardService.getDashboardImage(name);
+        GridFsResource resource = dashboardService.getDashboardImage(name);
 
-        if(is == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        } else {
-            response.setHeader(HttpHeaders.CACHE_CONTROL, "max-age=0, must-revalidate");
+        if (resource == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        try {
+
+            byte[] content = StreamUtils.copyToByteArray(resource.getInputStream());
+
+            String eTag = DigestUtils.md5Hex(content);
             String expectedETag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
-            if(is.getETag() != null && is.getETag().equals(expectedETag)) {
-                response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
-            } else {
-                try {
-                    response.setHeader(HttpHeaders.ETAG, is.getETag());
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    StreamUtils.copy(is.getImageStream(), response.getOutputStream());
-                } catch (IOException e) {
-                    LOGGER.error("Error copying streams for dashboard " + name, e);
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                }
+
+            if (eTag.equals(expectedETag)) {
+                return ResponseEntity
+                    .status(HttpServletResponse.SC_NOT_MODIFIED)
+                    .build();
             }
+
+            return ResponseEntity
+                .ok()
+                .contentLength(resource.contentLength())
+                .lastModified(resource.lastModified())
+                .cacheControl(CacheControl.maxAge(0, TimeUnit.MILLISECONDS).mustRevalidate())
+                .eTag(eTag)
+                .body(content);
+        } catch (IOException e) {
+            LOGGER.error("Error copying streams for dashboard " + name, e);
+            return ResponseEntity
+                .status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR)
+                .build();
         }
     }
+
 }
