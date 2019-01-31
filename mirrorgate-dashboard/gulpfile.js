@@ -98,10 +98,10 @@ gulp.task(':build:sass', () => {
 
 gulp.task('build', gulp.series('clean', 'lint', ':build', ':build:sass'));
 gulp.task('build:watch', () => {
-  gulp.watch(['src/**/*', 'sass/**/*'], gulp.series('build'));
+  gulp.watch(['src/**/*'], gulp.series('build'));
 });
 gulp.task('build:watch:noclean', () => {
-  gulp.watch(['src/**/*', 'sass/**/*'], gulp.series('lint', ':build', ':build:sass'));
+  gulp.watch(['src/**/*'], gulp.series('lint', ':build', ':build:sass'));
 });
 
 gulp.task('html', () => {

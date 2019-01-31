@@ -29,10 +29,9 @@
 
 .component__content {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    //padding-bottom: 20px;
-    height: 100%;
 
     svg {
         * {
@@ -62,9 +61,7 @@
 }
 
 .component__body {
-    height: calc(100% - 100px);
-    min-height: 0px;
-    min-width: 0px;
+    min-height: 0; /* min-height to prevent overflowing */
     padding: 5px 15px 15px 15px;
     position: relative;
     flex-basis: 100%;
@@ -299,7 +296,7 @@ tile-container.module-data-error {
     background-color: $yellow;
 }
 
-// RESPONIVE
+// RESPONSIVE
 @media all and (min-width: $l) {
     .tile{
         margin: 0 auto;
@@ -532,7 +529,7 @@ svg {
     position: relative;
     width: 0.9vw;
   }
-  
+
   &.tendency-oneup::before {
     content: url(../img/top_arrow.svg);
   }
