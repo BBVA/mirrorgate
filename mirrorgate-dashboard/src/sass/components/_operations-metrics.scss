@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// USER-METRICS
+// OPERATIONS-METRICS
 .operations {
 
   .indicator__bar {
@@ -30,13 +30,12 @@
   }
 
   .tile {
-    margin: 7.5px;
     background-color: #222;
     height: 100%;
     box-sizing: border-box;
   }
 
-  .metrics-groups {
+  .metrics {
     overflow: auto;
   }
 

@@ -36,17 +36,13 @@
     </div>
     <div class="component__body">
 
-      <board-column class="metrics">
-        <board-row class="metrics-groups">
-          <board-column>
-            <board-row rv-each-row="rows">
-              <tile-container rv-each-metrics="row">
-                <basic-operations-metrics-tile rv-config="metrics" class="tile" data-size="m"></basic-operations-metrics-tile>
-              </tile-container>
-            </board-row>
-          </board-column>
+      <div class="metrics">
+        <board-row rv-each-row="rows">
+          <tile-container rv-each-metrics="row">
+            <basic-operations-metrics-tile rv-config="metrics" class="tile" data-size="m"></basic-operations-metrics-tile>
+          </tile-container>
         </board-row>
-      </board-column>
+      </div>
       <div class="metrics-stats">
         <div class="indicator__bar">
           <div class="indicator" rv-show="stats.errorsRate | >= 0">
