@@ -149,7 +149,7 @@
       var contents = this.getRootElement().querySelector('.review-contents');
       if(contents) {
         var commentDif = this.getRootElement().querySelector('.review__comment');
-        var height = contents.offsetHeight - commentDif.offsetTop;
+        var height = commentDif.offsetHeight;
 
         try {
           $(this.getRootElement()).find('.review__comment')
