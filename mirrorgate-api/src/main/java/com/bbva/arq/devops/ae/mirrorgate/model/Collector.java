@@ -21,14 +21,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-/**
- * Created by alfonso on 28/05/17.
- */
-
 @Document(collection = "collectors")
 public class Collector extends BaseModel {
 
-    @Indexed
+    @Indexed(unique = true)
     private String collectorId;
     private Date lastExecution;
 

@@ -23,12 +23,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-/**
- * Created by alfonso on 28/05/17.
- */
-
 @Component
-public class CollectorServiceImpl implements CollectorService{
+public class CollectorServiceImpl implements CollectorService {
 
     @Autowired
     CollectorsRepository collectorsRepository;
@@ -43,7 +39,7 @@ public class CollectorServiceImpl implements CollectorService{
     public void saveLastExecutionDate(String id, Date executionDate) {
         Collector c = collectorsRepository.findByCollectorId(id);
 
-        if(c == null) {
+        if (c == null) {
             c = new Collector();
             c.setCollectorId(id);
         }

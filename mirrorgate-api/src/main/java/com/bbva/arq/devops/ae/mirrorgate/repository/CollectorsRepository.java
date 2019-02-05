@@ -20,10 +20,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Collector;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 
-/**
- * Created by alfonso on 28/05/17.
- */
-public interface CollectorsRepository extends CrudRepository<Collector, ObjectId>{
+public interface CollectorsRepository extends CrudRepository<Collector, ObjectId> {
 
     Collector findByCollectorId(String id);
 
