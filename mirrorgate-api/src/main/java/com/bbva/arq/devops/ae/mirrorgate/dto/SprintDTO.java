@@ -64,7 +64,7 @@ public class SprintDTO implements Serializable {
     }
 
     public SprintDTO setStartDate(Date startDate) {
-        this.startDate = new Date(startDate.getTime());
+        this.startDate = startDate == null ? null : new Date(startDate.getTime());
         return this;
     }
 
