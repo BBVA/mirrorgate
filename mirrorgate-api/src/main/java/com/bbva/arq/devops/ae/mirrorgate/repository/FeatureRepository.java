@@ -16,7 +16,9 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+
 import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.Query;
@@ -32,13 +34,15 @@ public interface FeatureRepository extends CrudRepository<Feature, ObjectId>, Fe
 
     List<Feature> findAllBySTypeNameAndSPiNames(String type, String piName);
 
+    Feature findBysIdAndCollectorId(String id, String collectorId);
+
     List<Feature> findAllBysIdInAndCollectorId(Iterable<String> ids, String collectorId);
 
     List<Feature> findAllBysParentKeyIn(List<String> keys);
 
     List<Feature> findAllBySNumberInAndSTypeName(List<String> keys, String type);
 
-    Feature deleteBysIdAndCollectorId(String id, String collectorId);
+    void deleteBysIdAndCollectorId(String id, String collectorId);
 
     List<Feature> findByKeywordsInAndSTypeNameAndSStatusNot(List<String> boards, String type, String status);
 }

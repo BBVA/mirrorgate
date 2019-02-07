@@ -17,11 +17,19 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.exception.FeatureNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,11 +37,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.stereotype.Service;
 
 @Service
 public class FeatureServiceImpl implements FeatureService {
@@ -43,7 +46,7 @@ public class FeatureServiceImpl implements FeatureService {
     private final EventService eventService;
 
     @Autowired
-    public FeatureServiceImpl(FeatureRepository repository, DashboardService dashboardService, EventService eventService){
+    public FeatureServiceImpl(FeatureRepository repository, DashboardService dashboardService, EventService eventService) {
         this.repository = repository;
         this.dashboardService = dashboardService;
         this.eventService = eventService;
@@ -61,17 +64,17 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     @Override
-    public List<Feature> getProductIncrementFeatures(String name){
+    public List<Feature> getProductIncrementFeatures(String name) {
         return repository.findAllBySTypeNameAndSPiNames("Feature", name);
     }
 
     @Override
-    public ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(Pattern pi){
+    public ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(Pattern pi) {
         return repository.getProductIncrementFromPiPattern(pi);
     }
 
     @Override
-    public List<String> getProgramIncrementFeaturesByBoard(List<String> boards, List<String> programIncrementFeatures){
+    public List<String> getProgramIncrementFeaturesByBoard(List<String> boards, List<String> programIncrementFeatures) {
         return repository.programIncrementBoardFeatures(boards, programIncrementFeatures);
     }
 
@@ -88,8 +91,8 @@ public class FeatureServiceImpl implements FeatureService {
     public Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues, String collectorId) {
 
         List<String> ids = issues.stream()
-                .map((issue) -> issue.getId().toString())
-                .collect(Collectors.toList());
+            .map((issue) -> issue.getId().toString())
+            .collect(Collectors.toList());
 
         List<Feature> features = repository.findAllBysIdInAndCollectorId(ids, collectorId);
 
@@ -107,42 +110,48 @@ public class FeatureServiceImpl implements FeatureService {
                 }));
 
         features = issues.stream()
-                .map((issue) -> {
-                    String key = issue.getId().toString();
-                    Feature feat = entryMap.containsKey(key) ?
-                            entryMap.get(key).get(0):
-                            new Feature();
-                    //Remove extra occurrences
-                    if(entryMap.containsKey(key) && entryMap.get(key).size() > 1){
-                        for (int i = 1; i<entryMap.get(key).size();i++){
-                            repository.delete(entryMap.get(key).get(i));
-                        }
+            .map((issue) -> {
+                String key = issue.getId().toString();
+                Feature feat = entryMap.containsKey(key) ?
+                    entryMap.get(key).get(0) :
+                    new Feature();
+                //Remove extra occurrences
+                if (entryMap.containsKey(key) && entryMap.get(key).size() > 1) {
+                    for (int i = 1; i < entryMap.get(key).size(); i++) {
+                        repository.delete(entryMap.get(key).get(i));
                     }
-                    return IssueMapper.map(issue, feat);
-                })
-                .collect(Collectors.toList());
+                }
+                return IssueMapper.map(issue, feat);
+            })
+            .collect(Collectors.toList());
 
-        for (Feature feat : features){
+        for (Feature feat : features) {
             feat.setCollectorId(collectorId);
         }
 
         createTransientDashboardsForTeams(features);
 
         return StreamSupport.stream(repository.saveAll(features).spliterator(), false)
-                .map((feat) -> {
-                           eventService.saveEvent(feat, EventType.FEATURE);
-                           return new IssueDTO()
-                                .setId(Long.parseLong(feat.getsId()))
-                                .setName(feat.getsName())
-                                .setEstimate(feat.getdEstimate());
-                        }
-                )
-                .collect(Collectors.toList());
+            .map((feat) -> {
+                    eventService.saveEvent(feat, EventType.FEATURE);
+                    return new IssueDTO()
+                        .setId(Long.parseLong(feat.getsId()))
+                        .setName(feat.getsName())
+                        .setEstimate(feat.getdEstimate());
+                }
+            )
+            .collect(Collectors.toList());
     }
 
     @Override
     public IssueDTO deleteStory(Long id, String collectorId) {
-        Feature feature = repository.deleteBysIdAndCollectorId(id.toString(), collectorId);
+        Feature feature = repository.findBysIdAndCollectorId(id.toString(), collectorId);
+
+        if (feature == null) {
+            throw new FeatureNotFoundException(MessageFormat.format("Story with id {} not found", id.toString()));
+        }
+
+        repository.deleteBysIdAndCollectorId(id.toString(), collectorId);
         eventService.saveEvent(new Feature(), EventType.FEATURE);
         return new IssueDTO()
             .setId(Long.parseLong(feature.getsId()))
@@ -151,7 +160,7 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     @Override
-    public Iterable<Feature> getFeaturesByObjectId(List<ObjectId> ids){
+    public Iterable<Feature> getFeaturesByObjectId(List<ObjectId> ids) {
         return repository.findAllById(ids);
     }
 
@@ -160,7 +169,7 @@ public class FeatureServiceImpl implements FeatureService {
         return repository.findAllBySNumberInAndSTypeName(keys, "Epic");
     }
 
-    private void createTransientDashboardsForTeams(List<Feature> features){
+    private void createTransientDashboardsForTeams(List<Feature> features) {
         features.stream()
             .map(Feature::getTeamName)
             .filter(teamName -> teamName != null && !teamName.isEmpty())

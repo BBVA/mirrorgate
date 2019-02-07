@@ -28,7 +28,10 @@ import org.springframework.web.client.HttpClientErrorException;
 public class GlobalControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(DashboardNotFoundException.class)
+    @ExceptionHandler({
+        DashboardNotFoundException.class,
+        FeatureNotFoundException.class
+    })
     @ResponseBody
     public String handleNotFound(Exception ex) {
         return ex.getMessage();
