@@ -15,20 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
-import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +31,17 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(FeatureController.class)
@@ -78,7 +79,7 @@ public class FeatureControllerTests {
         story1.setsSprintAssetState("Active");
         story1.setsProjectName(dashboardName);
 
-        Feature story2= new Feature();
+        Feature story2 = new Feature();
         story2.setId(ObjectId.get());
         story2.setsId("2");
         story2.setsSprintAssetState("Active");
@@ -90,10 +91,10 @@ public class FeatureControllerTests {
 
         when(dashboardService.getDashboard(dashboardName)).thenReturn(map(dashboard));
         when(featureService.getActiveUserStoriesByBoards(Collections.singletonList(dashboardName)))
-                .thenReturn(stories);
+            .thenReturn(stories);
 
         this.mockMvc.perform(get("/dashboards/" + dashboardName + "/stories"))
-                .andExpect(status().isOk())
+            .andExpect(status().isOk())
             .andExpect(jsonPath("$.currentSprint[0].sId", equalTo(story1.getsId())))
             .andExpect(jsonPath("$.currentSprint[0].sSprintAssetState", equalTo(story1.getsSprintAssetState())))
             .andExpect(jsonPath("$.currentSprint[0].sProjectName", equalTo(story1.getsProjectName())))

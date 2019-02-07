@@ -60,7 +60,7 @@ public class SprintDTO implements Serializable {
     }
 
     public Date getStartDate() {
-        return new Date(startDate.getTime());
+        return startDate == null ? null : new Date(startDate.getTime());
     }
 
     public SprintDTO setStartDate(Date startDate) {
@@ -69,7 +69,7 @@ public class SprintDTO implements Serializable {
     }
 
     public Date getEndDate() {
-        return new Date(endDate.getTime());
+        return endDate == null ? null : new Date(endDate.getTime());
     }
 
     public SprintDTO setEndDate(Date endDate) {
@@ -78,7 +78,7 @@ public class SprintDTO implements Serializable {
     }
 
     public Date getCompleteDate() {
-        return new Date(completeDate.getTime());
+        return completeDate == null ? null : new Date(completeDate.getTime());
     }
 
     public SprintDTO setCompleteDate(Date completeDate) {
@@ -95,16 +95,4 @@ public class SprintDTO implements Serializable {
         return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof SprintDTO)) {
-            return false;
-        }
-        SprintDTO s = (SprintDTO) o;
-        return s.getId().equals(getId()) &&
-            s.getName().equals(getName()) &&
-            s.getStatus().equals(getStatus()) &&
-            s.getStartDate().equals(getStartDate()) &&
-            s.getEndDate().equals(getEndDate());
-    }
 }

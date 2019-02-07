@@ -147,7 +147,7 @@ public class Feature extends BaseModel {
     }
 
     public Date getSprintBeginDate() {
-        return new Date(sprintBeginDate.getTime());
+        return sprintBeginDate == null ? null : new Date(sprintBeginDate.getTime());
     }
 
     public Feature setSprintBeginDate(Date sprintBeginDate) {
@@ -156,7 +156,7 @@ public class Feature extends BaseModel {
     }
 
     public Date getSprintEndDate() {
-        return new Date(sprintEndDate.getTime());
+        return sprintEndDate == null ? null : new Date(sprintEndDate.getTime());
     }
 
     public Feature setSprintEndDate(Date sprintEndDate) {

@@ -182,7 +182,7 @@ public class IssueDTO implements Serializable {
     }
 
     public Date getUpdatedDate() {
-        return new Date(updatedDate.getTime());
+        return updatedDate == null ? null : new Date(updatedDate.getTime());
     }
 
     public IssueDTO setUpdatedDate(Date updatedDate) {
