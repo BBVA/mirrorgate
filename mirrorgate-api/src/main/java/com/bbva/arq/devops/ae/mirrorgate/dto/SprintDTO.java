@@ -73,7 +73,7 @@ public class SprintDTO implements Serializable {
     }
 
     public SprintDTO setEndDate(Date endDate) {
-        this.endDate = new Date(endDate.getTime());
+        this.endDate = endDate == null ? null : new Date(endDate.getTime());
         return this;
     }
 
@@ -82,7 +82,7 @@ public class SprintDTO implements Serializable {
     }
 
     public SprintDTO setCompleteDate(Date completeDate) {
-        this.completeDate = new Date(completeDate.getTime());
+        this.completeDate = completeDate == null ? null : new Date(completeDate.getTime());
         return this;
     }
 

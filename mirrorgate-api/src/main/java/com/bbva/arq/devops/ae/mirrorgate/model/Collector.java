@@ -37,7 +37,7 @@ public class Collector extends BaseModel {
     }
 
     public Date getLastExecution() {
-        return new Date(lastExecution.getTime());
+        return lastExecution == null ? null : new Date(lastExecution.getTime());
     }
 
     public void setLastExecution(Date lastExecution) {
