@@ -75,9 +75,9 @@ public class BuildStatsUtilsTests {
     @Test
     public void itShouldAverageDurations() {
         BuildStats stats = BuildStatsUtils.combineBuildStats(
-                new BuildStats().setCount(1).setDuration(100),
-                new BuildStats().setCount(2).setDuration(200),
-                new BuildStats().setCount(4).setDuration(400)
+                new BuildStats().setCount(1).setDuration(100D),
+                new BuildStats().setCount(2).setDuration(200D),
+                new BuildStats().setCount(4).setDuration(400D)
         );
 
         assertEquals(stats.getDuration(), 300,0);

@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public interface FeatureRepositoryCustom {
 
-    Double getBacklogEstimateByKeywords(List<String> boards);
+    double getBacklogEstimateByKeywords(List<String> boards);
 
     SprintStats getSprintStatsByKeywords(List<String> boards);
 

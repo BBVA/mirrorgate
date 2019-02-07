@@ -18,10 +18,11 @@ package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.validation.constraints.NotNull;
 
 public class IssueDTO implements Serializable {
 
@@ -181,11 +182,11 @@ public class IssueDTO implements Serializable {
     }
 
     public Date getUpdatedDate() {
-        return updatedDate;
+        return new Date(updatedDate.getTime());
     }
 
     public IssueDTO setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
+        this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
         return this;
     }
 

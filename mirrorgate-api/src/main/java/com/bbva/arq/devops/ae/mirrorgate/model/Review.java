@@ -19,13 +19,15 @@ import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Objects;
+
 /**
  * Market reviews model.
- *
+ * <p>
  * Collectors:
- *   Google Play Store, Apple App Store
+ * Google Play Store, Apple App Store
  */
-@Document(collection="reviews")
+@Document(collection = "reviews")
 public class Review extends BaseModel {
 
     @Indexed
@@ -130,15 +132,25 @@ public class Review extends BaseModel {
         return this;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(timestamp, platform, commentId, appname, authorName, starrating, comment, url, commentTitle, amount);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Review && equals((Review) o);
+    }
+
     public boolean equals(Review review) {
 
         return this.getPlatform() == review.getPlatform() &&
-                this.getStarrating() == review.getStarrating() &&
-                stringEquals(this.getCommentId(), review.getCommentId()) &&
-                stringEquals(this.getAppname(), review.getAppname()) &&
-                stringEquals(this.getAuthorName(), review.getAuthorName()) &&
-                stringEquals(this.getCommentTitle(), review.getCommentTitle()) &&
-                stringEquals(this.getComment(), review.getComment());
+            this.getStarrating() == review.getStarrating() &&
+            stringEquals(this.getCommentId(), review.getCommentId()) &&
+            stringEquals(this.getAppname(), review.getAppname()) &&
+            stringEquals(this.getAuthorName(), review.getAuthorName()) &&
+            stringEquals(this.getCommentTitle(), review.getCommentTitle()) &&
+            stringEquals(this.getComment(), review.getComment());
 
     }
 
@@ -149,6 +161,7 @@ public class Review extends BaseModel {
     public String getUrl() {
         return url;
     }
+
     public Review setUrl(String url) {
         this.url = url;
         return this;

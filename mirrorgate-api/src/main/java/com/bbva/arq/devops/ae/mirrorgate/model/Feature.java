@@ -15,19 +15,20 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import java.util.Date;
-import java.util.List;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Team story model.
- *
+ * <p>
  * Collectors:
- *   Jira
+ * Jira
  */
 @Document(collection = "feature")
-public class Feature extends BaseModel{
+public class Feature extends BaseModel {
 
     /* User story properties */
     private String sId;
@@ -76,83 +77,106 @@ public class Feature extends BaseModel{
     public String getsId() {
         return sId;
     }
+
     public Feature setsId(String sId) {
         this.sId = sId;
         return this;
     }
+
     public String getsNumber() {
         return sNumber;
     }
+
     public Feature setsNumber(String sNumber) {
         this.sNumber = sNumber;
         return this;
     }
+
     public String getsName() {
         return sName;
     }
+
     public Feature setsName(String sName) {
         this.sName = sName;
         return this;
     }
+
     public String getsTypeName() {
         return sTypeName;
     }
+
     public Feature setsTypeName(String sTypeName) {
         this.sTypeName = sTypeName;
         return this;
     }
+
     public String getsStatus() {
         return sStatus;
     }
+
     public Feature setsStatus(String sStatus) {
         this.sStatus = sStatus;
         return this;
     }
+
     public String getsSprintID() {
         return sSprintID;
     }
+
     public Feature setsSprintID(String sSprintID) {
         this.sSprintID = sSprintID;
         return this;
     }
+
     public String getsSprintName() {
         return sSprintName;
     }
+
     public Feature setsSprintName(String sSprintName) {
         this.sSprintName = sSprintName;
         return this;
     }
+
     public String getsSprintAssetState() {
         return sSprintAssetState;
     }
+
     public Feature setsSprintAssetState(String sSprintAssetState) {
         this.sSprintAssetState = sSprintAssetState;
         return this;
     }
+
     public Date getSprintBeginDate() {
-        return sprintBeginDate;
+        return new Date(sprintBeginDate.getTime());
     }
+
     public Feature setSprintBeginDate(Date sprintBeginDate) {
-        this.sprintBeginDate = sprintBeginDate;
+        this.sprintBeginDate = sprintBeginDate == null ? null : new Date(sprintBeginDate.getTime());
         return this;
     }
+
     public Date getSprintEndDate() {
-        return sprintEndDate;
+        return new Date(sprintEndDate.getTime());
     }
+
     public Feature setSprintEndDate(Date sprintEndDate) {
-        this.sprintEndDate = sprintEndDate;
+        this.sprintEndDate = sprintEndDate == null ? null : new Date(sprintEndDate.getTime());
         return this;
     }
+
     public String getsProjectId() {
         return sProjectId;
     }
+
     public Feature setsProjectId(String sProjectId) {
         this.sProjectId = sProjectId;
         return this;
     }
+
     public String getsProjectName() {
         return sProjectName;
     }
+
     public Feature setsProjectName(String sProjectName) {
         this.sProjectName = sProjectName;
         return this;

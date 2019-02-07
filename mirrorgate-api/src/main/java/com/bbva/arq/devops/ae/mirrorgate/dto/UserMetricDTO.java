@@ -123,7 +123,7 @@ public class UserMetricDTO {
         return sampleSize;
     }
 
-    public UserMetricDTO setSampleSize(Long sampleSize) {
+    public UserMetricDTO setSampleSize(long sampleSize) {
         this.sampleSize = sampleSize;
         return this;
     }

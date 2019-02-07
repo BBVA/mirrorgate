@@ -51,7 +51,7 @@ public class IssueMapper {
             .setsPiNames(source.getPiNames())
             .setCollectorId(source.getCollectorId())
             .setUrl(source.getUrl())
-            .setTimestamp(source.getUpdatedDate() == null ? null : source.getUpdatedDate().getTime())
+            .setTimestamp(source.getUpdatedDate().getTime())
             .setTeamName(source.getTeamName());
 
         SprintDTO sprint = source.getSprint();

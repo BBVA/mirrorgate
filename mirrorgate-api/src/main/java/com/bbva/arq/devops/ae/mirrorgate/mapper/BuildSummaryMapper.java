@@ -22,7 +22,8 @@ import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 
 class BuildSummaryMapper {
 
-    private BuildSummaryMapper(){}
+    private BuildSummaryMapper() {
+    }
 
     public static BuildStats map(BuildSummary source) {
         return map(source, new BuildStats());
@@ -30,10 +31,10 @@ class BuildSummaryMapper {
 
     private static BuildStats map(BuildSummary source, BuildStats target) {
         return target
-                .setCount(source.getTotalBuilds())
-                .setDuration(source.getTotalDuration() != null && source.getTotalBuilds() != null ? source.getTotalDuration() / source.getTotalBuilds() : null)
-                .setFailureRate(source.getStatusMap().get(BuildStatus.Failure) == null ? 0
-                        : 100 * source.getStatusMap().get(BuildStatus.Failure) / (double) source.getTotalBuilds());
+            .setCount(source.getTotalBuilds())
+            .setDuration(source.getTotalDuration() != null && source.getTotalBuilds() != null ? source.getTotalDuration() : null)
+            .setFailureRate(source.getStatusMap().get(BuildStatus.Failure) == null ? 0
+                : 100 * source.getStatusMap().get(BuildStatus.Failure) / (double) source.getTotalBuilds());
 
     }
 

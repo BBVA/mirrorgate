@@ -49,18 +49,20 @@ public class ProgramIncrementDTO {
     }
 
     public Date getProgramIncrementStartDate() {
-        return startDate;
+        return new Date(startDate.getTime());
     }
 
     public ProgramIncrementDTO setProgramIncrementStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.startDate = startDate == null ? null :new Date(startDate.getTime());
         return this;
     }
 
-    public Date getProgramIncrementEndDate() { return endDate; }
+    public Date getProgramIncrementEndDate() {
+        return new Date(endDate.getTime());
+    }
 
     public ProgramIncrementDTO setProgramIncrementEndDate(Date endDate) {
-        this.endDate = endDate;
+        this.endDate = endDate == null ? null : new Date(endDate.getTime());
         return this;
     }
 

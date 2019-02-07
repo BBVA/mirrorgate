@@ -39,7 +39,7 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
     private MongoTemplate mongoTemplate;
 
     @Override
-    public Double getBacklogEstimateByKeywords(List<String> boards) {
+    public double getBacklogEstimateByKeywords(List<String> boards) {
 
         Aggregation agg = newAggregation(
             match(Criteria

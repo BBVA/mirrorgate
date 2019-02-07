@@ -40,8 +40,8 @@ public class Config {
     }
 
     @Bean
-    public FilterRegistrationBean shallowETagHeaderFilter() {
-        FilterRegistrationBean frb = new FilterRegistrationBean();
+    public FilterRegistrationBean<OneTimeETagGenerationFilter> shallowETagHeaderFilter() {
+        FilterRegistrationBean<OneTimeETagGenerationFilter> frb = new FilterRegistrationBean<>();
         frb.setFilter(new OneTimeETagGenerationFilter());
         frb.addUrlPatterns(
                 "/backoffice/*",

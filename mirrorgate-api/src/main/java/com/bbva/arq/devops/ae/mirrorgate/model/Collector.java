@@ -37,11 +37,11 @@ public class Collector extends BaseModel {
     }
 
     public Date getLastExecution() {
-        return lastExecution;
+        return new Date(lastExecution.getTime());
     }
 
     public void setLastExecution(Date lastExecution) {
-        this.lastExecution = lastExecution;
+        this.lastExecution = new Date(lastExecution.getTime());
     }
 
 }

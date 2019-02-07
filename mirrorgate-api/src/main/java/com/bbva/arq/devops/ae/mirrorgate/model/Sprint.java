@@ -60,29 +60,29 @@ public class Sprint {
     }
 
     public Date getStartDate() {
-        return startDate;
+        return new Date(startDate.getTime());
     }
 
     public Sprint setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.startDate = new Date(startDate.getTime());
         return this;
     }
 
     public Date getEndDate() {
-        return endDate;
+        return new Date(endDate.getTime());
     }
 
     public Sprint setEndDate(Date endDate) {
-        this.endDate = endDate;
+        this.endDate = new Date(endDate.getTime());
         return this;
     }
 
     public Date getCompleteDate() {
-        return completeDate;
+        return new Date(completeDate.getTime());
     }
 
     public Sprint setCompleteDate(Date completeDate) {
-        this.completeDate = completeDate;
+        this.completeDate = new Date(completeDate.getTime());
         return this;
     }
 

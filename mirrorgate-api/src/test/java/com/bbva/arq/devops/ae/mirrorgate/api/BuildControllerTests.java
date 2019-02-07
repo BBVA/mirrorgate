@@ -96,7 +96,7 @@ public class BuildControllerTests {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
         BuildStats buildStats = new BuildStats()
-                .setDuration(0)
+                .setDuration(0D)
                 .setCount(3)
                 .setFailureRate(33)
                 .setFailureTendency(FailureTendency.equal);
@@ -118,7 +118,7 @@ public class BuildControllerTests {
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
         BuildStats buildStats = new BuildStats()
-                .setDuration(0)
+                .setDuration(0D)
                 .setCount(0)
                 .setFailureRate(0)
                 .setFailureTendency(FailureTendency.equal);
@@ -141,7 +141,7 @@ public class BuildControllerTests {
         dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
         BuildStats buildStats = new BuildStats()
                 .setCount(3)
-                .setDuration(0)
+                .setDuration(0D)
                 .setFailureRate(0)
                 .setFailureTendency(FailureTendency.equal);
 

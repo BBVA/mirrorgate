@@ -17,6 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -59,29 +60,29 @@ public class SprintDTO implements Serializable {
     }
 
     public Date getStartDate() {
-        return startDate;
+        return new Date(startDate.getTime());
     }
 
     public SprintDTO setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.startDate = new Date(startDate.getTime());
         return this;
     }
 
     public Date getEndDate() {
-        return endDate;
+        return new Date(endDate.getTime());
     }
 
     public SprintDTO setEndDate(Date endDate) {
-        this.endDate = endDate;
+        this.endDate = new Date(endDate.getTime());
         return this;
     }
 
     public Date getCompleteDate() {
-        return completeDate;
+        return new Date(completeDate.getTime());
     }
 
     public SprintDTO setCompleteDate(Date completeDate) {
-        this.completeDate = completeDate;
+        this.completeDate = new Date(completeDate.getTime());
         return this;
     }
 
@@ -96,14 +97,14 @@ public class SprintDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof SprintDTO)) {
+        if (!(o instanceof SprintDTO)) {
             return false;
         }
         SprintDTO s = (SprintDTO) o;
-        return ((s.getId() == null && getId() == null) || s.getId().equals(getId())) &&
-            ((s.getName() == null && getName() == null) || s.getName().equals(getName())) &&
-            ((s.getStatus() == null && getStatus() == null) || s.getStatus().equals(getStatus())) &&
-            ((s.getStartDate() == null && getStartDate() == null) || s.getStartDate().equals(getStartDate())) &&
-            ((s.getEndDate() == null && getEndDate() == null) || s.getEndDate().equals(getEndDate()));
+        return s.getId().equals(getId()) &&
+            s.getName().equals(getName()) &&
+            s.getStatus().equals(getStatus()) &&
+            s.getStartDate().equals(getStartDate()) &&
+            s.getEndDate().equals(getEndDate());
     }
 }

@@ -18,16 +18,16 @@ package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 public class BuildStats {
 
-    private double duration;
-    private long count;
-    private double failureRate;
+    private Double duration;
+    private Long count;
+    private Double failureRate;
     private FailureTendency failureTendency;
 
     public double getDuration() {
         return duration;
     }
 
-    public BuildStats setDuration(double duration) {
+    public BuildStats setDuration(Double duration) {
         this.duration = duration;
         return this;
     }
