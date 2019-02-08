@@ -4,7 +4,6 @@
   "type" : "Custom",
   "columns" : [
     [
-      "user-metrics",
       "current-sprint",
       "next-sprint"
     ],
@@ -14,16 +13,16 @@
       "buildsstats"
     ],
     [
+      "bugs",
       "program-increment"
     ],
     [
       "markets",
-      "bugs",
       "reviews",
-      "operations-metrics"
+      "user-metrics"
     ],
     [
-      "alerts"
+      "operations-metrics"
     ]
   ],
   "codeRepos": [
@@ -32,7 +31,7 @@
   "boards": [
     "mirrorgate"
   ],
-  "applications": [],
+  "applications": ["all"],
   "slackTeam":"mirrorgate",
   "programIncrement": "MG02",
   "urlAlerts": "dashboards/mirrorgate/alerts",

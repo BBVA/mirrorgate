@@ -1,0 +1,42 @@
+[
+  {
+    "appname": "fakeApp",
+    "votesTotal": 24,
+    "ratingTotal": 100,
+    "votesShortTerm": 3,
+    "ratingShortTerm": 3,
+    "votesLongTerm": 12,
+    "ratingLongTerm": 40,
+    "platform": "IOS",
+    "url":"http://ios.es.fake",
+    "reviews": [
+      {
+        "author": "Carlos",
+        "rate": 1.0,
+        "timestamp": 1515502873000,
+        "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "url":"http://ios.es.fake/#comment1"
+      }
+    ]
+  },
+  {
+    "appname": "fakeApp",
+    "votesTotal": 48,
+    "ratingTotal": 80,
+    "votesShortTerm": 3,
+    "ratingShortTerm": 3,
+    "votesLongTerm": 12,
+    "ratingLongTerm": 25,
+    "platform": "Android",
+    "url":"http://android.es.fake",
+    "reviews": [
+      {
+        "author": "kike",
+        "rate": 3.0,
+        "timestamp": 1515502873000,
+        "comment": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "url":"http://android.es.fake/#comment1"
+      }
+    ]
+  }
+]
