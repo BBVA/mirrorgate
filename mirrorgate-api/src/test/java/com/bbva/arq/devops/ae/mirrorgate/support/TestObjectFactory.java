@@ -21,6 +21,7 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -135,16 +136,17 @@ public class TestObjectFactory {
     public static BuildDTO createBuildDTO() {
         return new BuildDTO()
             .setNumber("1")
-            .setBuildUrl("buildUrl")
+            .setBuildUrl(ObjectId.get().toString()) // To ensure each time is different
             .setStartTime(3)
             .setEndTime(8)
             .setDuration(5)
             .setBuildStatus("Success")
             .setCulprits(Collections.singletonList("foo"))
             .setProjectName("mirrorgate")
-            .setRepoName("api")
+            .setRepoName("develop")
             .setBranch("test")
-            .setTimestamp(5L);
+            .setTimestamp(5L)
+            .setKeywords(Arrays.asList("buildUrl", "mirrorgate", "develop"));
     }
 
     public static IssueDTO createIssueDTO(Long id, String name, String collectorId) {

@@ -15,21 +15,25 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.BuildSummary;
-import com.bbva.arq.devops.ae.mirrorgate.repository.BuildSummaryRepository;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency;
+import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
+import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
-import java.time.temporal.ChronoUnit;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,47 +43,54 @@ public class BuildServiceTestsIT {
     private BuildServiceImpl buildService;
 
     @Autowired
-    private BuildSummaryRepository buildSummaryRepository;
-
-    @Autowired
-    private BuildSummaryRepository buildRepository;
+    private BuildRepository buildRepository;
 
     @Test
     public void createOrUpdateAddBuildsStatsProperly() {
-        BuildDTO request1 = TestObjectFactory
-                .createBuildDTO()
-                .setTimestamp(TODAY);
 
-        BuildDTO request2 = TestObjectFactory
-                .createBuildDTO()
-                .setTimestamp(YESTERDAY);
+        final String projectName = "MirrorGate";
+        final String repositoryName = "mirrorgate";
 
-        BuildDTO request3 = TestObjectFactory
-                .createBuildDTO()
-                .setTimestamp(ONE_WEEK_AGO);
+        final List<String> keywords = Arrays.asList(projectName, repositoryName);
 
-        buildService.createOrUpdate(request1);
-        buildService.createOrUpdate(request1);
-        buildService.createOrUpdate(request1);
+        final BuildDTO build1 = TestObjectFactory.createBuildDTO()
+            .setProjectName(projectName)
+            .setRepoName(repositoryName)
+            .setTimestamp(TODAY);
+        final BuildDTO build2 = TestObjectFactory.createBuildDTO()
+            .setProjectName(projectName)
+            .setRepoName(repositoryName)
+            .setTimestamp(YESTERDAY);
+        final BuildDTO build3 = TestObjectFactory.createBuildDTO()
+            .setProjectName(projectName)
+            .setRepoName(repositoryName)
+            .setTimestamp(ONE_WEEK_AGO);
+        final BuildDTO build4 = TestObjectFactory.createBuildDTO()
+            .setProjectName(projectName)
+            .setRepoName(repositoryName)
+            .setTimestamp(ONE_MONTH_AGO);
 
-        buildService.createOrUpdate(request2);
-        buildService.createOrUpdate(request2);
+        buildService.createOrUpdate(build1.setBuildStatus(BuildStatus.Success.name()));
+        buildService.createOrUpdate(build1.setBuildStatus(BuildStatus.Failure.name()));
+        buildService.createOrUpdate(build1.setBuildStatus(BuildStatus.Success.name()));
 
-        buildService.createOrUpdate(request3);
+        buildService.createOrUpdate(build2.setBuildStatus(BuildStatus.Success.name()));
+        buildService.createOrUpdate(build2.setBuildStatus(BuildStatus.Failure.name()));
 
-        BuildSummary buildSummary1 = buildSummaryRepository.findByRepoNameAndProjectNameAndTimestamp(request1.getRepoName(), request1.getProjectName(), LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
-        BuildSummary buildSummary2 = buildSummaryRepository.findByRepoNameAndProjectNameAndTimestamp(request2.getRepoName(), request2.getProjectName(), LocalDateTimeHelper.getTimestampPeriod(YESTERDAY, ChronoUnit.DAYS));
-        BuildSummary buildSummary3 = buildSummaryRepository.findByRepoNameAndProjectNameAndTimestamp(request3.getRepoName(), request3.getProjectName(), LocalDateTimeHelper.getTimestampPeriod(ONE_WEEK_AGO, ChronoUnit.DAYS));
+        buildService.createOrUpdate(build3.setBuildStatus(BuildStatus.Success.name()));
 
-        assertThat(buildSummary1.getTotalBuilds()).isEqualTo(3);
-        assertThat(buildSummary1.getTotalDuration()).isEqualTo(request1.getDuration() * 3);
-        assertThat(buildSummary2.getTotalBuilds()).isEqualTo(2);
-        assertThat(buildSummary3.getTotalBuilds()).isEqualTo(1);
+        buildService.createOrUpdate(build4.setBuildStatus(BuildStatus.Success.name()));
+
+        final BuildStats buildStats = buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(keywords, Collections.emptyList());
+
+        assertThat(buildStats.getCount()).isEqualTo(2); // By default older than a week are discarted
+        assertThat(buildStats.getDuration()).isEqualTo((build1.getDuration() + build2.getDuration()) / 2.0);
+        assertThat(buildStats.getFailureRate()).isEqualTo(50.0);
+        assertThat(buildStats.getFailureTendency()).isEqualTo(FailureTendency.up);
     }
 
     @After
     public void cleanUp() {
-        buildSummaryRepository.deleteAll();
         buildRepository.deleteAll();
     }
 }

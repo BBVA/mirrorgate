@@ -15,35 +15,30 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
-import com.bbva.arq.devops.ae.mirrorgate.repository.BuildSummaryRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
+
 @RunWith(SpringRunner.class)
 public class BuildServiceTests {
 
     @Mock
     private BuildRepository buildRepository;
-
-    @Mock
-    private BuildSummaryRepository buildSummaryRepository;
 
     @Mock
     private EventService eventService;
@@ -67,19 +62,19 @@ public class BuildServiceTests {
         build2.setBranch("master");
 
         when(buildRepository.findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), null))
-                .thenReturn(Arrays.asList(build1, build2));
+            .thenReturn(Arrays.asList(build1, build2));
 
         List<Build> lastBuilds = buildService
-                .getLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), null);
+            .getLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), null);
         verify(buildRepository, times(1))
-                .findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), null);
+            .findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), null);
 
         assertThat(lastBuilds.get(1).getId())
-                .isEqualTo(build2.getId());
+            .isEqualTo(build2.getId());
         assertThat(lastBuilds.get(1).getTimestamp())
-                .isEqualTo(build2.getTimestamp());
+            .isEqualTo(build2.getTimestamp());
         assertThat(lastBuilds.get(1).getBuildStatus())
-                .isEqualTo(build2.getBuildStatus());
+            .isEqualTo(build2.getBuildStatus());
     }
 
     @Test
@@ -101,19 +96,19 @@ public class BuildServiceTests {
         build3.setBranch("master");
 
         when(buildRepository.findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), Collections.singletonList("Atreyu")))
-                .thenReturn(Collections.singletonList(build2));
+            .thenReturn(Collections.singletonList(build2));
 
         List<Build> lastBuilds = buildService
-                .getLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), Collections.singletonList("Atreyu"));
+            .getLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), Collections.singletonList("Atreyu"));
         verify(buildRepository, times(1))
-                .findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), Collections.singletonList("Atreyu"));
+            .findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), Collections.singletonList("Atreyu"));
 
         assertThat(lastBuilds.get(0).getId())
-                .isEqualTo(build2.getId());
+            .isEqualTo(build2.getId());
         assertThat(lastBuilds.get(0).getTimestamp())
-                .isEqualTo(build2.getTimestamp());
+            .isEqualTo(build2.getTimestamp());
         assertThat(lastBuilds.get(0).getBuildStatus())
-                .isEqualTo(build2.getBuildStatus());
+            .isEqualTo(build2.getBuildStatus());
     }
 
     @Test
@@ -126,8 +121,6 @@ public class BuildServiceTests {
 
         BuildDTO b = buildService.createOrUpdate(request);
 
-        verify(buildSummaryRepository, times(1)).findByRepoNameAndProjectNameAndTimestamp(request.getRepoName(), request.getProjectName(), LocalDateTimeHelper.getTimestampPeriod(request.getTimestamp(), ChronoUnit.DAYS));
-        verify(buildSummaryRepository, times(1)).save(any());
         verify(buildRepository, times(1)).save(any());
         verify(dashboardService, times(1)).createDashboardForBuildProject(any());
 

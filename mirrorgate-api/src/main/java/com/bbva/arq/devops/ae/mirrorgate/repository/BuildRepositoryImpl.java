@@ -16,16 +16,9 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
-
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -33,6 +26,13 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
+
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 public class BuildRepositoryImpl implements BuildRepositoryCustom {
 
@@ -48,52 +48,52 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     @Override
     public List<Build> findLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
         TypedAggregation<Build> agg = newAggregation(Build.class,
-                match(Criteria.where("buildStatus")
-                        .nin(
-                                BuildStatus.Aborted.toString(),
-                                BuildStatus.NotBuilt.toString(),
-                                BuildStatus.Unknown.toString()
-                        )
-                        .orOperator(
-                                Criteria.where("timestamp")
-                                .gt(System.currentTimeMillis() - 24 * 3600 * 1000),
-                                Criteria.where("latest").is(true)
-                                .and("buildStatus").ne(
-                                BuildStatus.Deleted.toString())
-                        )
-                        .andOperator(
-                                getCriteriaExpressionsForKeywords(keywords),
-                                getCriteriaExpressionsForTeamMembers(teamMembers)
-                        )
-                ),
-                //Avoid Mongo to "optimize" the sort operation... Why Mongo, oh why?!
-                project("buildStatus", "branch", "projectName", "repoName",
-                        "timestamp", "buildUrl", "duration", "startTime",
-                        "endTime", "culprits")
+            match(Criteria.where("buildStatus")
+                .nin(
+                    BuildStatus.Aborted.toString(),
+                    BuildStatus.NotBuilt.toString(),
+                    BuildStatus.Unknown.toString()
+                )
+                .orOperator(
+                    Criteria.where("timestamp")
+                        .gt(System.currentTimeMillis() - 24 * 3600 * 1000),
+                    Criteria.where("latest")
+                        .is(true)
+                        .and("buildStatus").ne(BuildStatus.Deleted.toString())
+                )
+                .andOperator(
+                    getCriteriaExpressionsForKeywords(keywords),
+                    getCriteriaExpressionsForTeamMembers(teamMembers)
+                )
+            ),
+            //Avoid Mongo to "optimize" the sort operation... Why Mongo, oh why?!
+            project("buildStatus", "branch", "projectName", "repoName",
+                "timestamp", "buildUrl", "duration", "startTime",
+                "endTime", "culprits")
                 .andExclude("_id"),
-                sort(Sort.Direction.ASC, "timestamp"),
-                group("branch", "repoName", "projectName")
-                        .last("buildStatus").as("buildStatus")
-                        .last("repoName").as("repoName")
-                        .last("timestamp").as("timestamp")
-                        .last("buildUrl").as("buildUrl")
-                        .last("branch").as("branch")
-                        .last("startTime").as("startTime")
-                        .last("endTime").as("endTime")
-                        .last("duration").as("duration")
-                        .last("projectName").as("projectName")
-                        .last("culprits").as("culprits"),
-                match(Criteria.where("buildStatus").ne(
-                        BuildStatus.Deleted.toString())),
-                project("buildStatus", "branch", "projectName", "repoName",
-                        "timestamp", "buildUrl", "duration", "startTime",
-                        "endTime", "culprits")
+            sort(Sort.Direction.ASC, "timestamp"),
+            group("branch", "repoName", "projectName")
+                .last("buildStatus").as("buildStatus")
+                .last("repoName").as("repoName")
+                .last("timestamp").as("timestamp")
+                .last("buildUrl").as("buildUrl")
+                .last("branch").as("branch")
+                .last("startTime").as("startTime")
+                .last("endTime").as("endTime")
+                .last("duration").as("duration")
+                .last("projectName").as("projectName")
+                .last("culprits").as("culprits"),
+            match(Criteria.where("buildStatus").ne(
+                BuildStatus.Deleted.toString())),
+            project("buildStatus", "branch", "projectName", "repoName",
+                "timestamp", "buildUrl", "duration", "startTime",
+                "endTime", "culprits")
                 .andExclude("_id")
         );
 
         //Convert the aggregation result into a List
         AggregationResults<Build> groupResults
-                = mongoTemplate.aggregate(agg, Build.class);
+            = mongoTemplate.aggregate(agg, Build.class);
 
         return groupResults.getMappedResults();
 
@@ -102,43 +102,43 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     @Override
     public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> keywords, List<String> teamMembers, Long timestamp) {
         Aggregation agg = newAggregation(
-                match(Criteria
-                        .where("timestamp").gt(timestamp)
-                        .and("buildStatus")
-                            .nin(BuildStatus.Aborted.toString(),
-                                    BuildStatus.NotBuilt.toString(),
-                                    BuildStatus.Deleted.toString(),
-                                    BuildStatus.Unknown.toString(),
-                                    BuildStatus.InProgress.toString()
-                            )
-                        .andOperator(
-                                getCriteriaExpressionsForKeywords(keywords),
-                                getCriteriaExpressionsForTeamMembers(teamMembers)
-                        )
-                ),
-                group("buildStatus")
-                        .last("buildStatus").as("buildStatus")
-                        .count().as("count")
-                        .avg("duration").as("duration"),
-                project("buildStatus","count","duration")
-                        .andExclude("_id")
+            match(Criteria
+                .where("timestamp").gt(timestamp)
+                .and("buildStatus")
+                .nin(BuildStatus.Aborted.toString(),
+                    BuildStatus.NotBuilt.toString(),
+                    BuildStatus.Deleted.toString(),
+                    BuildStatus.Unknown.toString(),
+                    BuildStatus.InProgress.toString()
+                )
+                .andOperator(
+                    getCriteriaExpressionsForKeywords(keywords),
+                    getCriteriaExpressionsForTeamMembers(teamMembers)
+                )
+            ),
+            group("buildStatus")
+                .last("buildStatus").as("buildStatus")
+                .count().as("count")
+                .avg("duration").as("duration"),
+            project("buildStatus", "count", "duration")
+                .andExclude("_id")
         );
 
         AggregationResults<BuildStatsEntry> groupResults
-                = mongoTemplate.aggregate(agg, "builds", BuildStatsEntry.class);
+            = mongoTemplate.aggregate(agg, "builds", BuildStatsEntry.class);
 
         List<BuildStatsEntry> statEntries = groupResults.getMappedResults();
 
         Map<BuildStatus, BuildStats> result = new EnumMap<>(BuildStatus.class);
 
         statEntries.forEach(
-                stat -> result.put(stat.buildStatus,
-                            new BuildStats()
-                                .setCount(stat.count)
-                                .setDuration(stat.duration)
-                                .setFailureRate(stat.buildStatus
-                                    == BuildStatus.Failure ? 100L : 0)
-                )
+            stat -> result.put(stat.buildStatus,
+                new BuildStats()
+                    .setCount(stat.count)
+                    .setDuration(stat.duration)
+                    .setFailureRate(stat.buildStatus
+                        == BuildStatus.Failure ? 100L : 0)
+            )
         );
 
         return result;
@@ -151,7 +151,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     }
 
     private Criteria getCriteriaExpressionsForTeamMembers(List<String> teamMembers) {
-        if (teamMembers == null) {
+        if (teamMembers == null || teamMembers.isEmpty()) {
             return new Criteria();
         }
 

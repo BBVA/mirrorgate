@@ -19,11 +19,13 @@ package com.bbva.arq.devops.ae.mirrorgate.mapper;
 import com.bbva.arq.devops.ae.mirrorgate.dto.SprintDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Sprint;
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
+
 import java.util.stream.Collectors;
 
 public class SprintMapper {
 
-    private SprintMapper(){}
+    private SprintMapper() {
+    }
 
     public static SprintDTO map(Sprint source) {
         return source == null ? null : map(source, new SprintDTO());
@@ -31,15 +33,15 @@ public class SprintMapper {
 
     private static SprintDTO map(Sprint source, SprintDTO target) {
         return target
-                .setId(source.getId())
-                .setName(source.getName())
-                .setStartDate(source.getStartDate())
-                .setEndDate(source.getEndDate())
-                .setStatus(source.getStatus() == null ? null : SprintStatus.valueOf(source.getStatus()))
-                .setIssues(source.getFeatures() == null ? null : source.getFeatures().stream()
-                        .map(IssueMapper::map)
-                        .collect(Collectors.toList())
-                );
+            .setId(source.getId())
+            .setName(source.getName())
+            .setStartDate(source.getStartDate())
+            .setEndDate(source.getEndDate())
+            .setStatus(source.getStatus() == null ? null : SprintStatus.valueOf(source.getStatus()))
+            .setIssues(source.getFeatures() == null ? null : source.getFeatures().stream()
+                .map(IssueMapper::map)
+                .collect(Collectors.toList())
+            );
     }
 
 }
