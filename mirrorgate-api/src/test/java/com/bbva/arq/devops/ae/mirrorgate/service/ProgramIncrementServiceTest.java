@@ -1,12 +1,16 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -15,13 +19,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProgramIncrementServiceTest {
@@ -38,7 +39,7 @@ public class ProgramIncrementServiceTest {
 
 
     @Test
-    public void testNoCurrentPIName(){
+    public void testNoCurrentPIName() {
 
         when(dashboardService.getDashboard(anyString())).thenReturn(new DashboardDTO());
 
@@ -50,7 +51,7 @@ public class ProgramIncrementServiceTest {
 
 
     @Test
-    public void testProductIncrementNameWithUserDefinedRegex(){
+    public void testProductIncrementNameWithUserDefinedRegex() {
 
         List<String> piNamesList = Arrays.asList("AE_2017_PI03_(2016/12/04-2017/01/28)", "AE_2017_PI04_(2017/01/28-2017/04/14)", "AE_2016_PI02_(2016/11/04-2016/12/03)");
         ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
@@ -62,7 +63,7 @@ public class ProgramIncrementServiceTest {
     }
 
     @Test
-    public void testProductIncrementDatesWithUserDefinedRegex(){
+    public void testProductIncrementDatesWithUserDefinedRegex() {
 
         Date expectedStartDate = new Date();
         Date expectedEndDate = new Date();
@@ -74,7 +75,7 @@ public class ProgramIncrementServiceTest {
         when(featureService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
         ProgramIncrementDTO activePI = piService.getProductIncrementNameAndDatesForExpression("AE.*\\((?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})\\)");
 
-        String [] expectedDates = expectedProductIncrement.split("-");
+        String[] expectedDates = expectedProductIncrement.split("-");
 
         try {
             expectedStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(expectedDates[0]);
@@ -88,7 +89,7 @@ public class ProgramIncrementServiceTest {
     }
 
     @Test
-    public void testProductIncrementEndsToday(){
+    public void testProductIncrementEndsToday() {
 
         String expectedProductIncrement = generateProductIncrementName(-2);
 
@@ -102,7 +103,7 @@ public class ProgramIncrementServiceTest {
     }
 
     @Test
-    public void testProductIncrementStartsToday(){
+    public void testProductIncrementStartsToday() {
 
         String expectedProductIncrement = generateProductIncrementName(2);
 
@@ -115,7 +116,7 @@ public class ProgramIncrementServiceTest {
         assertEquals(expectedProductIncrement, activePI.getProgramIncrementName());
     }
 
-    private String generateProductIncrementName(int months){
+    private String generateProductIncrementName(int months) {
         String pattern = "%1s-%2s";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
@@ -125,7 +126,7 @@ public class ProgramIncrementServiceTest {
         String formattedNow = now.format(formatter);
 
         return months < 0 ?
-            String.format(pattern,formattedChangeMonthDate,formattedNow) :
-            String.format(pattern,formattedNow ,formattedChangeMonthDate);
+            String.format(pattern, formattedChangeMonthDate, formattedNow) :
+            String.format(pattern, formattedNow, formattedChangeMonthDate);
     }
 }

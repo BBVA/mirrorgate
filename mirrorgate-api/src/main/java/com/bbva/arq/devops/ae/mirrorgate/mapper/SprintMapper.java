@@ -17,6 +17,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.SprintDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.Sprint;
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
 import java.util.stream.Collectors;
 
@@ -24,11 +25,11 @@ public class SprintMapper {
 
     private SprintMapper(){}
 
-    public static SprintDTO map(com.bbva.arq.devops.ae.mirrorgate.model.Sprint source) {
+    public static SprintDTO map(Sprint source) {
         return source == null ? null : map(source, new SprintDTO());
     }
 
-    private static SprintDTO map(com.bbva.arq.devops.ae.mirrorgate.model.Sprint source, SprintDTO target) {
+    private static SprintDTO map(Sprint source, SprintDTO target) {
         return target
                 .setId(source.getId())
                 .setName(source.getName())
