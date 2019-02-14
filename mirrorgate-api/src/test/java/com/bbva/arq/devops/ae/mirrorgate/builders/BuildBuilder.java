@@ -46,7 +46,7 @@ public class BuildBuilder {
         return build
                 .setTimestamp(System.currentTimeMillis())
                 .setNumber("1")
-                .setBuildUrl("buildUrl")
+                .setBuildUrl(ObjectId.get().toString())
                 .setStartTime(3)
                 .setEndTime(8)
                 .setDuration(5)
