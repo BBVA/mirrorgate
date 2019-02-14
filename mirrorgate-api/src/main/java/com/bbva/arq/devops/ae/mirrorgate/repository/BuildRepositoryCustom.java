@@ -26,6 +26,6 @@ public interface BuildRepositoryCustom {
 
     List<Build> findLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
 
-    Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> repos, List<String> teamMembers, Long timestamp);
+    Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> keywords, List<String> teamMembers, Long timestamp);
 
 }
