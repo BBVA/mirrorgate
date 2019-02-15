@@ -4,7 +4,7 @@ db.getCollection('builds').insertMany([
   {
     "timestamp": "aaa",
     "number": null,
-    "buildUrl": "http://fake.url",
+    "buildUrl": "http://fake.url/errored/1",
     "startTime": 0,
     "endTime": 0,
     "duration": 0,
@@ -14,7 +14,7 @@ db.getCollection('builds').insertMany([
     "repoName": "errored",
     "branch": "master",
     "keywords": [
-        "http://fake.url",
+        "http://fake.url/errored/2",
         "errored",
         "errored"
     ]

@@ -4,7 +4,7 @@ db.getCollection('builds').insertMany([
   {
     "timestamp": now,
     "number": null,
-    "buildUrl": "http://fake.url",
+    "buildUrl": "http://fake.url/all-ok/1",
     "startTime": 0,
     "endTime": 0,
     "duration": 0,
@@ -14,7 +14,7 @@ db.getCollection('builds').insertMany([
     "repoName": "all-ok",
     "branch": "master",
     "keywords": [
-        "http://fake.url",
+        "http://fake.url/all-ok/1",
         "all-ok",
         "all-ok"
     ]
@@ -22,7 +22,7 @@ db.getCollection('builds').insertMany([
   {
     "timestamp": now,
     "number": null,
-    "buildUrl": "http://fake.url",
+    "buildUrl": "http://fake.url/all-ok/2",
     "startTime": 0,
     "endTime": 0,
     "duration": 0,
@@ -32,7 +32,7 @@ db.getCollection('builds').insertMany([
     "repoName": "all-ok",
     "branch": "develop",
     "keywords": [
-        "http://fake.url",
+        "http://fake.url/all-ok/2",
         "all-ok",
         "all-ok"
     ]

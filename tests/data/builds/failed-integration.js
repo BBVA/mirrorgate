@@ -4,7 +4,7 @@ db.getCollection('builds').insertMany([
   {
     "timestamp": now,
     "number": null,
-    "buildUrl": "http://fake.url",
+    "buildUrl": "http://fake.url/failed-integration/1",
     "startTime": 0,
     "endTime": 0,
     "duration": 0,
@@ -14,7 +14,7 @@ db.getCollection('builds').insertMany([
     "repoName": "failed-integration",
     "branch": "master",
     "keywords": [
-        "http://fake.url",
+        "http://fake.url/failed-integration/1",
         "failed-integration",
         "failed-integration"
     ]
@@ -22,7 +22,7 @@ db.getCollection('builds').insertMany([
   {
     "timestamp": now,
     "number": null,
-    "buildUrl": "http://fake.url",
+    "buildUrl": "http://fake.url/failed-integration/2",
     "startTime": 0,
     "endTime": 0,
     "duration": 0,
@@ -32,7 +32,7 @@ db.getCollection('builds').insertMany([
     "repoName": "failed-integration",
     "branch": "develop",
     "keywords": [
-        "http://fake.url",
+        "http://fake.url/failed-integration/2",
         "failed-integration",
         "failed-integration"
     ]

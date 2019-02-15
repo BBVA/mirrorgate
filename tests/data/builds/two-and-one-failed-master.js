@@ -4,7 +4,7 @@ db.getCollection('builds').insertMany([
   {
     "timestamp": now,
     "number": null,
-    "buildUrl": "http://fake.url",
+    "buildUrl": "http://fake.url/two-and-one-failed-master/1",
     "startTime": 0,
     "endTime": 0,
     "duration": 0,
@@ -14,7 +14,7 @@ db.getCollection('builds').insertMany([
     "repoName": "failed",
     "branch": "master",
     "keywords": [
-        "http://fake.url",
+        "http://fake.url/two-and-one-failed-master/1",
         "two-and-one-failed-master",
         "failed"
     ]
@@ -22,7 +22,7 @@ db.getCollection('builds').insertMany([
   {
     "timestamp": now,
     "number": null,
-    "buildUrl": "http://fake.url",
+    "buildUrl": "http://fake.url/two-and-one-failed-master/2",
     "startTime": 0,
     "endTime": 0,
     "duration": 0,
@@ -32,7 +32,7 @@ db.getCollection('builds').insertMany([
     "repoName": "ok",
     "branch": "master",
     "keywords": [
-        "http://fake.url",
+        "http://fake.url/two-and-one-failed-master/2",
         "two-and-one-failed-master",
         "ok"
     ]

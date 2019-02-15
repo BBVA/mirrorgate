@@ -4,7 +4,7 @@ db.getCollection('builds').insertMany([
   {
     "timestamp": now,
     "number": null,
-    "buildUrl": "http://fake.url",
+    "buildUrl": "http://fake.url/dynamic/1",
     "startTime": 0,
     "endTime": 0,
     "duration": 0,
@@ -14,7 +14,7 @@ db.getCollection('builds').insertMany([
     "repoName": "dynamic",
     "branch": "master",
     "keywords": [
-        "http://fake.url",
+        "http://fake.url/dynamic/1",
         "dynamic",
         "dynamic"
     ]
@@ -22,7 +22,7 @@ db.getCollection('builds').insertMany([
   {
     "timestamp": now,
     "number": null,
-    "buildUrl": "http://fake.url",
+    "buildUrl": "http://fake.url/dynamic/2",
     "startTime": 0,
     "endTime": 0,
     "duration": 0,
@@ -32,7 +32,7 @@ db.getCollection('builds').insertMany([
     "repoName": "dynamic",
     "branch": "develop",
     "keywords": [
-        "http://fake.url",
+        "http://fake.url/dynamic/2",
         "dynamic",
         "dynamic"
     ]
