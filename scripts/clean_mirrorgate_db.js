@@ -15,6 +15,7 @@
  */
 
 load('./remove_old_not_latest_builds.js');
+load('./remove_duplicated_builds.js');
 load('./remove_old_events.js');
 load('./remove_old_issues.js');
 load('./remove_old_commits.js');
