@@ -37,6 +37,7 @@
   "urlAlerts": "dashboards/mirrorgate/alerts",
   "analyticViews": ["123412"],
   "operationViews": ["123412"],
+  "infraCost": true,
   "responseTimeAlertingLevelWarning":0.7,
   "responseTimeAlertingLevelError":1.0,
   "errorsRateAlertingLevelWarning":0.1,
