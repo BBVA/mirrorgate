@@ -123,7 +123,7 @@ public class BuildServiceImpl implements BuildService {
     private Build getBuildToSave(BuildDTO request) {
         Build build = null;
         if (BuildStatus.fromString(request.getBuildStatus()) != BuildStatus.Deleted && request.getBuildUrl() != null) {
-            build = buildRepository.findByBuildUrl(request.getBuildUrl());
+            build = buildRepository.findFirstByBuildUrl(request.getBuildUrl());
         }
         if (build == null) {
             build = new Build();

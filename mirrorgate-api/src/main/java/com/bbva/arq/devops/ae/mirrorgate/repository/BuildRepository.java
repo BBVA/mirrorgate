@@ -27,7 +27,7 @@ import java.util.List;
  */
 public interface BuildRepository extends CrudRepository<Build, ObjectId>, BuildRepositoryCustom {
 
-    Build findByBuildUrl(String buildUrl);
+    Build findFirstByBuildUrl(String buildUrl);
 
     List<Build> findAllByRepoNameAndProjectNameAndBranchAndLatestIsTrue(String repoName, String projectName, String branch);
 

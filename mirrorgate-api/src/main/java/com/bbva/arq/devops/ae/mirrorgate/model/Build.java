@@ -32,7 +32,7 @@ public class Build extends BaseModel {
     @Indexed
     private long timestamp;
     private String number;
-    @Indexed(unique = true)
+    @Indexed
     private String buildUrl;
     private long startTime;
     private long endTime;
