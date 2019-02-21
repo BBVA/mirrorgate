@@ -16,17 +16,15 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user-metrics")
-public class UserMetric {
+public class UserMetric extends BaseModel {
 
-    @Id
+    private String identifier;
+
     @Indexed
-    private String _id;
-
     private String viewId;
 
     private String appVersion;
@@ -44,12 +42,12 @@ public class UserMetric {
     /* Associated collector ID */
     private String collectorId;
 
-    public String getId() {
-        return _id;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public UserMetric setId(String _id) {
-        this._id = _id;
+    public UserMetric setIdentifier(String identifier) {
+        this.identifier = identifier;
         return this;
     }
 

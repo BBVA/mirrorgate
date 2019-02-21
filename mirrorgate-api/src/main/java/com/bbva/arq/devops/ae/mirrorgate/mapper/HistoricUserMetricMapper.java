@@ -7,7 +7,7 @@ public class HistoricUserMetricMapper {
 
     public static HistoricUserMetric mapToHistoric(UserMetric origin) {
         return new HistoricUserMetric()
-            .setIdentifier(origin.getId())
+            .setIdentifier(origin.getIdentifier())
             .setSampleSize(origin.getSampleSize())
             .setAppVersion(origin.getAppVersion())
             .setCollectorId(origin.getCollectorId())

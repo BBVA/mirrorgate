@@ -16,15 +16,10 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
-import static org.junit.Assert.assertEquals;
-
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,6 +27,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
+import static org.junit.Assert.assertEquals;
 
 
 @SpringBootTest
@@ -53,26 +54,26 @@ public class HistoricUserMetricServiceImplTest {
             .setViewId("viewId1")
             .setName("requestsNumber")
             .setValue(12d)
-            .setId("AWSRequestNumber")
+            .setIdentifier("AWSRequestNumber")
             .setTimestamp(TODAY);
         UserMetric userMetric2 = new UserMetric()
             .setViewId("viewId1")
             .setName("requestsNumber")
             .setValue(12d)
-            .setId("AWSRequestNumber")
+            .setIdentifier("AWSRequestNumber")
             .setTimestamp(YESTERDAY);
         UserMetric userMetric3 = new UserMetric()
             .setViewId("viewId1")
             .setName("requestsNumber")
             .setValue(12d)
-            .setId("AWSRequestNumber")
+            .setIdentifier("AWSRequestNumber")
             .setTimestamp(THREE_HOURS_AGO);
 
-        UserMetric userMetric4 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(15d).setSampleSize(100L).setTimestamp(TODAY);
-        UserMetric userMetric5 = new UserMetric().setViewId("viewId1").setName("responseTime").setId("AWSResponseTime").setValue(10d).setSampleSize(150L).setTimestamp(TODAY);
+        UserMetric userMetric4 = new UserMetric().setViewId("viewId1").setName("responseTime").setIdentifier("AWSResponseTime").setValue(15d).setSampleSize(100L).setTimestamp(TODAY);
+        UserMetric userMetric5 = new UserMetric().setViewId("viewId1").setName("responseTime").setIdentifier("AWSResponseTime").setValue(10d).setSampleSize(150L).setTimestamp(TODAY);
 
-        UserMetric userMetric6 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setId("AWSAvailabilityRate").setValue(100d).setTimestamp(TODAY);
-        UserMetric userMetric7 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setId("AWSAvailabilityRate").setValue(75d).setTimestamp(TODAY);
+        UserMetric userMetric6 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setIdentifier("AWSAvailabilityRate").setValue(100d).setTimestamp(TODAY);
+        UserMetric userMetric7 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setIdentifier("AWSAvailabilityRate").setValue(75d).setTimestamp(TODAY);
 
         userMetrics = Arrays.asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5, userMetric6, userMetric7);
     }

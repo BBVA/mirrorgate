@@ -17,20 +17,21 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.ConditionalOperators;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
+
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepositoryCustom {
 
@@ -54,12 +55,14 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
             group("identifier")
                 .sum("sampleSize").as("sampleSize")
                 .sum("value").as("value")
+                .first("identifier").as("identifier")
                 .first("name").as("name")
                 .first("viewId").as("viewId")
                 .first("appVersion").as("appVersion")
                 .first("platform").as("platform")
                 .first("collectorId").as("collectorId"),
-            project("identifier", "viewId", "appVersion", "platform", "name", "value", "sampleSize", "collectorId"));
+            project("identifier", "viewId", "appVersion", "platform", "name", "value", "sampleSize", "collectorId")
+                .andExclude("_id"));
 
         AggregationResults<HistoricUserMetricStats> groupResults
             = mongoTemplate.aggregate(aggregation, "historic_user_metrics", HistoricUserMetricStats.class);

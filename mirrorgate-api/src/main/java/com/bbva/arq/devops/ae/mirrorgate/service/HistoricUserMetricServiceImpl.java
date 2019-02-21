@@ -143,7 +143,7 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         HistoricUserMetric historicUserMetric = getHistoricMetricForPeriod(
             LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit),
-            userMetric.getId(), unit);
+            userMetric.getIdentifier(), unit);
 
         if (historicUserMetric == null) {
             historicUserMetric = createNextPeriod(userMetric, unit);
