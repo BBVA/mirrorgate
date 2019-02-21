@@ -21,7 +21,8 @@ db.getCollection('dashboards').insertMany([
         ],
         'programIncrement': 'MG[0-9]{2}',
         "analyticViews": ["1234123"],
-        "operationViews": ["1234123"],
+        "operationViews": ["AWS/1234123"],
+        "infraCost": true,
         "gitRepos": [
           "ssh://git@fake.com:fake/repo1.git"
         ]
