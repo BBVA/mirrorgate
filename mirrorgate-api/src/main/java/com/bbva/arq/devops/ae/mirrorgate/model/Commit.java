@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 @Document(collection = "commits")
-public class Commit {
-
-    private String _id;
+public class Commit extends BaseModel {
 
     @Indexed
     private String hash;
@@ -26,15 +24,6 @@ public class Commit {
     private String committerEmail;
     private LinkedList<String> parentsIds;
     private HashMap<String,Integer> branches;
-
-    public String getId() {
-        return _id;
-    }
-
-    public Commit setId(String _id) {
-        this._id = _id;
-        return this;
-    }
 
     public String getHash() {
         return hash;

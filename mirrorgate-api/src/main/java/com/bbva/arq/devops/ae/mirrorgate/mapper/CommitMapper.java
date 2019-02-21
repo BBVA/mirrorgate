@@ -45,9 +45,6 @@ public class CommitMapper {
 
     private static Commit map(CommitDTO source, Commit target) {
         return target
-                .setId(source.getHash()
-                     + source.getRepository()
-                )
                 .setHash(source.getHash())
                 .setRepository(source.getRepository())
                 .setTimestamp(source.getTimestamp())
