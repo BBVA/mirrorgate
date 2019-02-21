@@ -145,7 +145,7 @@ public class FeatureServiceImpl implements FeatureService {
 
     @Override
     public IssueDTO deleteStory(Long id, String collectorId) {
-        Feature feature = repository.findBysIdAndCollectorId(id.toString(), collectorId);
+        Feature feature = repository.findFirstBysIdAndCollectorId(id.toString(), collectorId);
 
         if (feature == null) {
             throw new FeatureNotFoundException(MessageFormat.format("Story with id {} not found", id.toString()));
