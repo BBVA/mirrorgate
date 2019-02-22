@@ -19,9 +19,9 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+
 import java.util.List;
 import java.util.regex.Pattern;
-import org.bson.types.ObjectId;
 
 /**
  * Service for Feature model
@@ -50,7 +50,7 @@ public interface FeatureService {
 
     List<String> getProgramIncrementFeaturesByBoard(List<String> boards, List<String> programIncrementFeatures);
 
-    Iterable<Feature> getFeaturesByObjectId(List<ObjectId> ids);
+    Iterable<Feature> getFeaturesById(List<String> ids);
 
     List<Feature> getEpicsBySNumber(List<String> keys);
 

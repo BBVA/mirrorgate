@@ -23,7 +23,6 @@ import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
@@ -160,7 +159,7 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     @Override
-    public Iterable<Feature> getFeaturesByObjectId(List<ObjectId> ids) {
+    public Iterable<Feature> getFeaturesById(List<String> ids) {
         return repository.findAllById(ids);
     }
 

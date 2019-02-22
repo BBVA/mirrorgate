@@ -16,7 +16,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -26,7 +25,7 @@ import java.util.List;
 /**
  * Features repository
  */
-public interface FeatureRepository extends CrudRepository<Feature, ObjectId>, FeatureRepositoryCustom {
+public interface FeatureRepository extends CrudRepository<Feature, String>, FeatureRepositoryCustom {
 
     @Query(value = "{$or:[{sProjectName: {$in: ?0 }},{keywords:{$elemMatch:{$in: ?0 }}}], sSprintAssetState: 'ACTIVE'}")
     List<Feature> findActiveUserStoriesByBoards(List<String> boards, Sort sort);

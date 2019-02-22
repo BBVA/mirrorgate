@@ -3,6 +3,7 @@ var end = new Date((new Date()).getTime() + (1000 * 60 * 60 * 24 * 11));
 
 db.getCollection('feature').insertMany([
   {
+    '_id': '430210mirrorgate-collectors-jira',
     'sId': '430210',
     'sNumber': 'DOST05-47',
     'sName': '[ISW] Build failure rate',
@@ -18,10 +19,11 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-        'MirrorGate',
+      'MirrorGate',
     ]
   },
   {
+    '_id': '46093mirrorgate-collectors-jira',
     'sId': '46093',
     'sNumber': 'DOST05-90',
     'sName': 'SPIKE: Analyze the cost of migrating',
@@ -37,10 +39,11 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-        'MirrorGate',
+      'MirrorGate',
     ]
   },
   {
+    '_id': '46095mirrorgate-collectors-jira',
     'sId': '46095',
     'sNumber': 'DOST05-92',
     'sName': 'Login',
@@ -56,10 +59,11 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-        'MirrorGate',
+      'MirrorGate',
     ]
   },
   {
+    '_id': '46094mirrorgate-collectors-jira',
     'sId': '46094',
     'sNumber': 'DOST05-91',
     'sName': 'Distribute application',
@@ -75,10 +79,11 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-        'MirrorGate',
+      'MirrorGate',
     ]
   },
   {
+    '_id': '49140mirrorgate-collectors-jira',
     'sId': '49140',
     'sNumber': 'DOST05-99',
     'sName': 'Generate iOS application',
@@ -94,10 +99,11 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-        'MirrorGate',
+      'MirrorGate',
     ]
   },
   {
+    '_id': '47179mirrorgate-collectors-jira',
     'sId': '47179',
     'sNumber': 'DOST05-94',
     'sName': 'Build and deploy Jira plugin',
@@ -113,10 +119,11 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-        'MirrorGate',
+      'MirrorGate',
     ]
   },
   {
+    '_id': '47719mirrorgate-collectors-jira',
     'sId': '47719',
     'sNumber': 'DOST05-96',
     'sName': '[ISW] Opened/Closed Sprint status not updated',
@@ -130,9 +137,11 @@ db.getCollection('feature').insertMany([
     'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
-    'priority':'High'
+    'priority': 'High',
+    'collectorId': "mirrorgate-collectors-jira"
   },
   {
+    '_id': '48885mirrorgate-collectors-jira',
     'sId': '48885',
     'sNumber': 'DOST05-98',
     'sName': '[JIRA] Reflect Blocked status',
@@ -146,9 +155,11 @@ db.getCollection('feature').insertMany([
     'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
-    'priority':'High'
+    'priority': 'High',
+    'collectorId': "mirrorgate-collectors-jira"
   },
   {
+    '_id': '41830mirrorgate-collectors-jira',
     'sId': '41830',
     'sNumber': 'DOST05-43',
     'sName': 'Use our own backend as API for Jenkins plugin',
@@ -161,9 +172,11 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': start,
     'sprintEndDate': end,
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'collectorId': "mirrorgate-collectors-jira"
   },
   {
+    '_id': '45374mirrorgate-collectors-jira',
     'sId': '45374',
     'sNumber': 'DOST05-81',
     'sName': '[BUG] Wrong codeRepos collected by Jenkins plugin',
@@ -177,9 +190,11 @@ db.getCollection('feature').insertMany([
     'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
-    'priority':'Lowest'
+    'priority': 'Lowest',
+    'collectorId': "mirrorgate-collectors-jira"
   },
   {
+    '_id': '46419mirrorgate-collectors-jira',
     'sId': '46419',
     'sNumber': 'DOST05-93',
     'sName': 'Chore: Blue-Green Deployment with autoscaling',
@@ -192,9 +207,12 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': ISODate('2017-03-21T21:00:50.3050000'),
     'sprintEndDate': ISODate('2017-04-04T20:00:00.0000000'),
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'collectorId': "mirrorgate-collectors-jira",
+    'sProjectName': 'MirrorGate',
+    'collectorId': "mirrorgate-collectors-jira"
   },
   {
+    '_id': '47181mirrorgate-collectors-jira',
     'sId': '47181',
     'sNumber': 'DOST05-95',
     'sName': 'Store dynamic rate visualization',
@@ -207,9 +225,11 @@ db.getCollection('feature').insertMany([
     'sprintBeginDate': ISODate('2017-03-21T21:00:50.3050000'),
     'sprintEndDate': ISODate('2017-04-04T20:00:00.0000000'),
     'sProjectId': null,
-    'sProjectName': 'MirrorGate'
+    'sProjectName': 'MirrorGate',
+    'collectorId': "mirrorgate-collectors-jira"
   },
   {
+    '_id': '10047mirrorgate-collectors-jira',
     'sId': '10047',
     'sNumber': 'DOST05-100',
     'sName': 'MirrorGate feature 1',
@@ -223,12 +243,14 @@ db.getCollection('feature').insertMany([
     'sprintEndDate': end,
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
-    'sPiNames': ['MG02','MG01'],
-        'keywords': [
-              'MirrorGate', 'ProgramIncrement'
-            ]
+    'sPiNames': ['MG02', 'MG01'],
+    'collectorId': "mirrorgate-collectors-jira",
+    'keywords': [
+      'MirrorGate', 'ProgramIncrement'
+    ]
   },
   {
+    '_id': '10048mirrorgate-collectors-jira',
     'sId': '10048',
     'sNumber': 'DOST05-101',
     'sName': 'MirrorGate feature 2',
@@ -243,11 +265,13 @@ db.getCollection('feature').insertMany([
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
     'sPiNames': ['MG02'],
-        'keywords': [
-              'MirrorGate', 'ProgramIncrement'
-            ]
+    'collectorId': "mirrorgate-collectors-jira",
+    'keywords': [
+      'MirrorGate', 'ProgramIncrement'
+    ]
   },
   {
+    'sId': '10049',
     'sId': '10049',
     'sNumber': 'DOST05-102',
     'sName': 'MirrorGate story in feature',
@@ -262,9 +286,10 @@ db.getCollection('feature').insertMany([
     'sProjectId': null,
     'sProjectName': 'MirrorGate',
     'sParentKey': 'DOST05-101',
+    'collectorId': "mirrorgate-collectors-jira",
     'sPiNames': ['MG02'],
-       'keywords': [
-              'MirrorGate', 'ProgramIncrement'
-            ]
+    'keywords': [
+      'MirrorGate', 'ProgramIncrement'
+    ]
   }
 ]);
