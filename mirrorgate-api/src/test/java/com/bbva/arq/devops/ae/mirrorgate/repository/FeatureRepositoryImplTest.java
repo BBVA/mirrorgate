@@ -19,10 +19,6 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Pattern;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
@@ -31,6 +27,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 
@@ -95,17 +96,13 @@ public class FeatureRepositoryImplTest {
     }
 
     private static Feature createActiveStory(String sProjectName, String sParentKey) {
-        Feature story = new Feature();
-
-        story.setId(ObjectId.get());
-        story.setsId(ObjectId.get().toString());
-        story.setsSprintAssetState("Active");
-        story.setsProjectName(sProjectName);
-        story.setsNumber("story_name");
-        story.setsParentKey(Collections.singletonList(sParentKey));
-        story.setKeywords(Collections.singletonList(sProjectName));
-
-        return story;
+        return new Feature()
+            .setsId(ObjectId.get().toString())
+            .setsSprintAssetState("Active")
+            .setsProjectName(sProjectName)
+            .setsNumber("story_name")
+            .setsParentKey(Collections.singletonList(sParentKey))
+            .setKeywords(Collections.singletonList(sProjectName));
     }
 
 }

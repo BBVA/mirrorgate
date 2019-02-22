@@ -44,10 +44,14 @@ public class BuildRepositoryTests {
         List<String> repos = Collections.singletonList(REPO_NAME);
         List<String> teamMembers = Arrays.asList(CULPRITS[1], CULPRITS[2]);
 
-        Build build1 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[0]));
-        Build build2 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[2]));
-        Build build3 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[2]));
-        Build build4 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[1]));
+        Build build1 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[0]))
+            .setBuildUrl("Build1");
+        Build build2 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[2]))
+            .setBuildUrl("Build1");
+        Build build3 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[2]))
+            .setBuildUrl("Build2");
+        Build build4 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[1]))
+            .setBuildUrl("Build2");
 
         repository.save(build1);
         repository.save(build2);

@@ -23,5 +23,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface EventNotificationRepository extends CrudRepository<EventNotification, ObjectId> {
 
     List<EventNotification> findAllByIdIn(List<ObjectId> ids);
-    EventNotification findByDashboardsToNotifyOrderByTimestampDesc(String DashboardId);
+    EventNotification findFirstByDashboardsToNotifyOrderByTimestampDesc(String DashboardId);
 }

@@ -19,7 +19,6 @@ package com.bbva.arq.devops.ae.mirrorgate.cron.handler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +41,7 @@ public class DetailsEventHandler implements EventHandler {
     @Override
     public void processEvents(List<Event> eventList, Set<String> dashboardIds) {
 
-        List<ObjectId> idList = eventList.stream()
+        List<Object> idList = eventList.stream()
             .map(Event::getEventTypeCollectionId)
             .collect(Collectors.toList());
 

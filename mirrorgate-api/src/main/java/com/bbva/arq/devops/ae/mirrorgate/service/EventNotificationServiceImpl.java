@@ -19,10 +19,11 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.EventNotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.EventNotificationRepository;
-import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EventNotificationServiceImpl implements EventNotificationService {
@@ -46,7 +47,7 @@ public class EventNotificationServiceImpl implements EventNotificationService {
     @Override
     public EventNotification getEventNotificationForDashboard(String dashboardId){
 
-        return repository.findByDashboardsToNotifyOrderByTimestampDesc(dashboardId);
+        return repository.findFirstByDashboardsToNotifyOrderByTimestampDesc(dashboardId);
     }
 
     @Override

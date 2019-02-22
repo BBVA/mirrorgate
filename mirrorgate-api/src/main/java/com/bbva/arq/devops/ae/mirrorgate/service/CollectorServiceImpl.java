@@ -37,15 +37,10 @@ public class CollectorServiceImpl implements CollectorService {
 
     @Override
     public void saveLastExecutionDate(String id, Date executionDate) {
-        Collector c = collectorsRepository.findByCollectorId(id);
-
-        if (c == null) {
-            c = new Collector();
-            c.setCollectorId(id);
-        }
-        c.setLastExecution(executionDate);
-
-        collectorsRepository.save(c);
-
+        collectorsRepository.save(
+            new Collector()
+                .setCollectorId(id)
+                .setLastExecution(executionDate)
+        );
     }
 }

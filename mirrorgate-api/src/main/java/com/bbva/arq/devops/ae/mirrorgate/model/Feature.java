@@ -15,6 +15,7 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -28,7 +29,10 @@ import java.util.List;
  * Jira
  */
 @Document(collection = "feature")
-public class Feature extends BaseModel {
+public class Feature implements BaseModel {
+
+    @Id
+    private String id;
 
     /* User story properties */
     private String sId;
@@ -36,6 +40,7 @@ public class Feature extends BaseModel {
     private String sName;
     @Indexed
     private String sTypeName;
+    @Indexed
     private String sStatus;
     private Double dEstimate;
     private String priority;
@@ -53,9 +58,11 @@ public class Feature extends BaseModel {
     private Date sprintEndDate;
 
     /* Associated project properties */
+    @Indexed
     private String sProjectId;
 
     /* Associated PI properties */
+    @Indexed
     private List<String> sPiNames;
 
     @Indexed
@@ -80,6 +87,7 @@ public class Feature extends BaseModel {
 
     public Feature setsId(String sId) {
         this.sId = sId;
+        this.id = collectorId == null ? sId : sId + collectorId;
         return this;
     }
 
@@ -242,6 +250,7 @@ public class Feature extends BaseModel {
 
     public Feature setCollectorId(String collectorId) {
         this.collectorId = collectorId;
+        this.id = this.sId != null ? this.sId + collectorId : null;
         return this;
     }
 
@@ -267,7 +276,13 @@ public class Feature extends BaseModel {
         return teamName;
     }
 
-    public void setTeamName(String teamName) {
+    public Feature setTeamName(String teamName) {
         this.teamName = teamName;
+        return this;
+    }
+
+    @Override
+    public String getId() {
+        return this.id;
     }
 }

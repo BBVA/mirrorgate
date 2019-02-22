@@ -15,13 +15,16 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import java.util.List;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "notification")
-public class EventNotification extends BaseModel {
+public class EventNotification extends BaseIdModel {
 
     private String message;
+    @Indexed
     private List<String> dashboardsToNotify;
     private long timestamp;
 

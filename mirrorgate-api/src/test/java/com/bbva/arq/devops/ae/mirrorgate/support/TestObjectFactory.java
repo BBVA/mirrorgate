@@ -66,9 +66,8 @@ public class TestObjectFactory {
     }
 
     public static Feature createActiveStory() {
-        Feature story = new Feature();
-        story.setId(ObjectId.get());
-        return story.setsId(ObjectId.get().toString())
+        return new Feature()
+            .setsId(ObjectId.get().toString())
             .setsSprintAssetState("Active")
             .setsProjectName(PROJECT_NAME)
             .setsNumber(FEATURE_NAME);

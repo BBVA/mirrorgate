@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 @Document(collection = "commits")
-public class Commit extends BaseModel {
+public class Commit extends BaseIdModel {
 
     @Indexed
     private String hash;

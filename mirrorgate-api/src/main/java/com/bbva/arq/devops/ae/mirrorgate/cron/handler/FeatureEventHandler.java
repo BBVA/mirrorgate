@@ -36,14 +36,19 @@ public class FeatureEventHandler implements EventHandler {
     @Override
     public void processEvents(List<Event> eventList, Set<String> dashboardIds) {
 
-        List<ObjectId> idList = eventList.stream()
+        List<Object> idList = eventList.stream()
             .map(Event::getEventTypeCollectionId)
             .collect(Collectors.toList());
 
         if (idList.contains(null)) {
             connectionHandler.sendEventUpdateMessageToAll(EventType.FEATURE);
         } else {
-            Iterable<Feature> features = featureService.getFeaturesByObjectId(idList);
+            Iterable<Feature> features = featureService.getFeaturesByObjectId(
+                idList.stream()
+                    .filter(ObjectId.class::isInstance)
+                    .map(ObjectId.class::cast)
+                    .collect(Collectors.toList())
+            );
 
             Predicate<Dashboard> filterDashboards = dashboard ->
                 StreamSupport.stream(features.spliterator(), false)

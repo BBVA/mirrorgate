@@ -19,9 +19,6 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by alfonso on 28/05/17.
- */
 public class Sprint {
 
     private String sid;

@@ -31,7 +31,10 @@ public class ReviewEventHandler implements EventHandler {
     @Override
     public void processEvents(List<Event> eventList, Set<String> dashboardIds) {
         List<ObjectId> idList = eventList.stream()
-            .map(Event::getEventTypeCollectionId).collect(Collectors.toList());
+            .map(Event::getEventTypeCollectionId)
+            .filter(ObjectId.class::isInstance)
+            .map(ObjectId.class::cast)
+            .collect(Collectors.toList());
 
         Iterable<Review> reviews = reviewService.getReviewsByObjectId(idList);
 

@@ -17,16 +17,17 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.Filters;
-import java.util.List;
-import javax.validation.constraints.NotNull;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Dashboard info model
  */
 @Document(collection = "dashboards")
-public class Dashboard extends BaseModel {
+public class Dashboard extends BaseIdModel {
 
     @Indexed
     @NotNull(message = "Dashboard name must not be null")
@@ -36,7 +37,6 @@ public class Dashboard extends BaseModel {
     private String type;
     private List<List <String>> columns;
 
-    @Indexed
     private List<String> codeRepos;
     private List<String> adminUsers;
     private List<String> teamMembers;
@@ -56,9 +56,9 @@ public class Dashboard extends BaseModel {
     private String slackToken;
     private String slackTeam;
     private String slackChannel;
+    @Indexed
     private DashboardStatus status;
     private String lastUserEdit;
-    @Indexed
     private Long lastModification;
     private Long lastTimeUsed;
     private String programIncrement;

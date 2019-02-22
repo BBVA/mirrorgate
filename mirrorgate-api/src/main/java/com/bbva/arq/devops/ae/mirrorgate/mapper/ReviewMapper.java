@@ -27,11 +27,12 @@ public class ReviewMapper {
 
     private static ReviewDTO map(Review source, ReviewDTO target) {
         return target
-                .setAuthor(source.getAuthorName())
-                .setRate(source.getStarrating())
-                .setTimestamp(source.getTimestamp() == null ? 0 : source.getTimestamp())
-                .setUrl(source.getUrl())
-                .setComment(source.getComment());
+            .setAuthor(source.getAuthorName())
+            .setRate(source.getStarrating())
+            .setTimestamp(source.getTimestamp() == null ? 0 : source.getTimestamp())
+            .setUrl(source.getUrl())
+            .setComment(source.getComment())
+            .setCommentTitle(source.getCommentTitle());
     }
 
     public static Review map(ReviewDTO source) {
@@ -43,6 +44,7 @@ public class ReviewMapper {
             .setAuthorName(source.getAuthor())
             .setStarrating(source.getRate())
             .setComment(source.getComment())
+            .setCommentTitle(source.getCommentTitle())
             .setUrl(source.getUrl());
     }
 }

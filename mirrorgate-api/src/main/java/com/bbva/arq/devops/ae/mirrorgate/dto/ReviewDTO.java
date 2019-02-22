@@ -33,6 +33,8 @@ public class ReviewDTO {
     @NotNull @Size(min=1)
     private String comment;
 
+    private String commentTitle;
+
     private String url;
 
     public String getAuthor() {
@@ -78,5 +80,14 @@ public class ReviewDTO {
     public ReviewDTO setUrl(String url) {
         this.url = url;
         return this;
+    }
+
+    public ReviewDTO setCommentTitle(String commentTitle) {
+        this.commentTitle = commentTitle;
+        return this;
+    }
+
+    public String getCommentTitle() {
+        return this.commentTitle;
     }
 }

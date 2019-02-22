@@ -16,15 +16,16 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
 @Document(collection = "collectors")
-public class Collector extends BaseModel {
+public class Collector implements BaseModel {
 
-    @Indexed(unique = true)
+    @Id
+    private String id;
     private String collectorId;
     private Date lastExecution;
 
@@ -32,16 +33,23 @@ public class Collector extends BaseModel {
         return collectorId;
     }
 
-    public void setCollectorId(String collectorId) {
+    public Collector setCollectorId(String collectorId) {
         this.collectorId = collectorId;
+        this.id = collectorId;
+        return this;
     }
 
     public Date getLastExecution() {
         return lastExecution == null ? null : new Date(lastExecution.getTime());
     }
 
-    public void setLastExecution(Date lastExecution) {
+    public Collector setLastExecution(Date lastExecution) {
         this.lastExecution = new Date(lastExecution.getTime());
+        return this;
     }
 
+    @Override
+    public Object getId() {
+        return this.id;
+    }
 }

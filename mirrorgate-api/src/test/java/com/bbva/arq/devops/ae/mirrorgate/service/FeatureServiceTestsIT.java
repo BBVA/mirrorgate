@@ -30,26 +30,23 @@ public class FeatureServiceTestsIT {
 
     @Before
     public void init(){
+        Feature feature1 = TestObjectFactory.createActiveStory()
+            .setsId("1234")
+            .setCollectorId("collectorId");
 
-        Feature feature1 = TestObjectFactory.createActiveStory();
-        feature1.setsId("1234");
-        feature1.setCollectorId("collectorId");
+        Feature feature2 = TestObjectFactory.createActiveStory()
+            .setsId("1234")
+            .setCollectorId("collectorId");
 
+        Feature feature3 = TestObjectFactory.createActiveStory()
+            .setsId("12345")
+            .setCollectorId("collectorId");
 
-        Feature feature2 = TestObjectFactory.createActiveStory();
-        feature2.setsId("1234");
-        feature2.setCollectorId("collectorId");
-
-        Feature feature3 = TestObjectFactory.createActiveStory();
-        feature3.setsId("12345");
-        feature3.setCollectorId("collectorId");
-
-        Feature feature4 = TestObjectFactory.createActiveStory();
-        feature4.setsId("12345");
-        feature4.setCollectorId("collectorId");
+        Feature feature4 = TestObjectFactory.createActiveStory()
+            .setsId("12345")
+            .setCollectorId("collectorId");
 
         repository.saveAll(Arrays.asList(feature1, feature2, feature3, feature4));
-
     }
 
 
@@ -60,7 +57,7 @@ public class FeatureServiceTestsIT {
 
         featureService.saveOrUpdateStories(Collections.singletonList(issueDTO1), "collectorId");
 
-        assertEquals(3, repository.count());
+        assertEquals(2, repository.count());
     }
 
     @Test

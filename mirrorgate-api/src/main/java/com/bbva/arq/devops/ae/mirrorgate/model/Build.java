@@ -17,9 +17,11 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
-import java.util.List;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 /**
  * Continuous Integration build model.
@@ -28,23 +30,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *   Jenkins
  */
 @Document(collection="builds")
-public class Build extends BaseModel {
-    @Indexed
-    private long timestamp;
-    private String number;
-    @Indexed
+public class Build implements BaseModel {
+
+    @Id
+    private String id;
     private String buildUrl;
+
+    private long timestamp;
+
     private long startTime;
     private long endTime;
     private long duration;
+
     @Indexed
     private BuildStatus buildStatus;
+    @Indexed
     private List<String> culprits;
-    @Indexed
+
     private String projectName;
-    @Indexed
     private String repoName;
     private String branch;
+    private String number;
 
     @Indexed
     private Boolean latest;
@@ -76,6 +82,7 @@ public class Build extends BaseModel {
 
     public Build setBuildUrl(String buildUrl) {
         this.buildUrl = buildUrl;
+        this.id = buildUrl;
         return this;
     }
 
@@ -167,5 +174,10 @@ public class Build extends BaseModel {
     public Build setKeywords(List<String> keywords) {
         this.keywords = keywords;
         return this;
+    }
+
+    @Override
+    public Object getId() {
+        return this.id;
     }
 }

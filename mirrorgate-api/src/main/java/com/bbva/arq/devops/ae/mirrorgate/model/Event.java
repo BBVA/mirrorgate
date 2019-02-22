@@ -1,39 +1,39 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "events")
-public class Event extends BaseModel{
+public class Event extends BaseIdModel {
 
-    @Indexed
     private Long timestamp;
-    private ObjectId eventTypeCollectionId;
+    private Object eventTypeCollectionId;
     private EventType eventType;
 
     public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public Event setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 
-    public ObjectId getEventTypeCollectionId() {
+    public Object getEventTypeCollectionId() {
         return eventTypeCollectionId;
     }
 
-    public void setEventTypeCollectionId(ObjectId eventTypeCollectionId) {
+    public Event setEventTypeCollectionId(Object eventTypeCollectionId) {
         this.eventTypeCollectionId = eventTypeCollectionId;
+        return this;
     }
 
     public EventType getEventType() {
         return eventType;
     }
 
-    public void setEventType(EventType eventType) {
+    public Event setEventType(EventType eventType) {
         this.eventType = eventType;
+        return this;
     }
 
 }

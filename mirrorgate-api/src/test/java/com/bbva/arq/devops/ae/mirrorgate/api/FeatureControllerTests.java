@@ -74,13 +74,11 @@ public class FeatureControllerTests {
         dashboard.setBoards(Collections.singletonList(sprintProjectName));
 
         Feature story1 = new Feature();
-        story1.setId(ObjectId.get());
         story1.setsId("1");
         story1.setsSprintAssetState("Active");
         story1.setsProjectName(dashboardName);
 
         Feature story2 = new Feature();
-        story2.setId(ObjectId.get());
         story2.setsId("2");
         story2.setsSprintAssetState("Active");
         story2.setsProjectName(dashboardName);

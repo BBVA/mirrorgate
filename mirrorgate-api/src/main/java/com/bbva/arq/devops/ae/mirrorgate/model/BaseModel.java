@@ -15,24 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-
 /**
- * Base model abstract class.
+ * Base model interface.
  */
-public abstract class BaseModel {
-    @Id
-    @JsonIgnore
-    private ObjectId id;
+public interface BaseModel {
 
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-
+    Object getId();
 }

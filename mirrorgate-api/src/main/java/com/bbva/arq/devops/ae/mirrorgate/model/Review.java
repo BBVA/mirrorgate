@@ -28,15 +28,13 @@ import java.util.Objects;
  * Google Play Store, Apple App Store
  */
 @Document(collection = "reviews")
-public class Review extends BaseModel {
+public class Review extends BaseIdModel {
 
-    @Indexed
     private Long timestamp;
 
     @Indexed
     private Platform platform;
 
-    @Indexed
     private String commentId;
 
     @Indexed

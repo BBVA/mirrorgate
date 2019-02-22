@@ -50,6 +50,8 @@ public class NotificationEventHandler implements EventHandler {
 
         List<ObjectId> idList = eventList.stream()
             .map(Event::getEventTypeCollectionId)
+            .filter(ObjectId.class::isInstance)
+            .map(ObjectId.class::cast)
             .collect(Collectors.toList());
 
         List<EventNotification> listOfNotifications = eventNotificationService.getEventNotificationsById(idList);
