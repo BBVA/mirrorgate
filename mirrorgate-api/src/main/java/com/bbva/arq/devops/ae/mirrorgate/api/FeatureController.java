@@ -73,7 +73,7 @@ public class FeatureController {
     }
 
     @RequestMapping(value = "/api/issues/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public IssueDTO deleteStory(@PathVariable("id") Long id, @RequestParam("collectorId") String collectorId) {
+    public IssueDTO deleteStory(@PathVariable("id") String id, @RequestParam("collectorId") String collectorId) {
         return featureService.deleteStory(id, collectorId);
     }
 
