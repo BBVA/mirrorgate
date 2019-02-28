@@ -147,7 +147,7 @@ public class FeatureServiceImpl implements FeatureService {
         Feature feature = repository.findFirstBysIdAndCollectorId(id, collectorId);
 
         if (feature == null) {
-            throw new FeatureNotFoundException(MessageFormat.format("Story with id {} not found", id));
+            throw new FeatureNotFoundException(MessageFormat.format("Story with id {0} not found", id));
         }
 
         repository.deleteBysIdAndCollectorId(id, collectorId);
