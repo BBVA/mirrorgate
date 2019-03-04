@@ -6,6 +6,7 @@
       "operations-metrics"
     ]
   ],
+  "analyticViews": ["123412"],
   "operationViews": ["123412"],
   "responseTimeAlertingLevelWarning":0.7,
   "responseTimeAlertingLevelError":1.0,

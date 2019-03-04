@@ -305,6 +305,10 @@ rivets.formatters['='] = function (value, arg) {
   return value === arg;
 };
 
+rivets.formatters.or = function(value, args) {
+  return value || args;
+};
+
 rivets.binders['pclass-*'] = function(el, value) {
   var prefix = this.args[0] + '-';
   var $el = $(el);

@@ -27,6 +27,7 @@
 <link rel="import" href="../../tiles/programIncrement/simple-pi.html" >
 <link rel="import" href="../../tiles/markets/simple-markets.html" >
 <link rel="import" href="../../tiles/user-metrics/simple-component.html" >
+<link rel="import" href="../../tiles/feedback/simple-feedback.html" >
 <link rel="import" href="../../tiles/operations-metrics/simple-operations-component.html" >
 <link rel="import" href="../../tiles/alerts/simple-alerts.html" >
 <link rel="import" href="../../tiles/notifications/simple-component.html" >
@@ -52,6 +53,9 @@
             <header-title class="header-title simple-tile" title="Builds"></header-title>
         </tile-container>
         <tile-container enabled="true" class="mid-tile for-simple-markets for-simple-user-metrics-tile">
+            <header-title class="header-title simple-tile" title="Feedback"></header-title>
+        </tile-container>
+        <tile-container enabled="true" class="mid-tile for-simple-feedback-tile">
             <header-title class="header-title simple-tile" title="Feedback"></header-title>
         </tile-container>
         <tile-container enabled="true" class="mid-tile for-simple-operations-metrics-tile">
@@ -90,6 +94,8 @@
         </tile-container>
         <tile-container enabled="true" class="mid-tile for-simple-markets for-simple-user-metrics-tile">
         </tile-container>
+        <tile-container enabled="true" class="mid-tile for-simple-feedback-tile">
+        </tile-container>
         <tile-container enabled="true" class="mid-tile for-simple-operations-metrics-tile">
         </tile-container>
         <tile-container enabled="true" class="for-simple-alerts">
@@ -121,11 +127,8 @@
         <tile-container enabled="true" class="for-simple-builds-tile">
           <simple-builds-tile rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-builds-tile>
         </tile-container>
-        <tile-container enabled="true" class="mid-tile for-simple-markets for-simple-user-metrics-tile">
-          <div class="tile for-simple-markets for-simple-user-metrics-tile component__content">
-            <simple-user-metrics-tile rv-config="board.detail" class="optional-tile component simple-tile for-simple-user-metrics-tile"></simple-user-metrics-tile>
-            <simple-markets rv-config="board.detail" class="tile optional-tile component simple-tile"></simple-markets>
-          </div>
+        <tile-container enabled="true" class="mid-tile for-simple-feedback-tile">
+          <simple-feedback-tile rv-config="board.detail" class="tile optional-tile component simple-tile"></simple-feedback-tile>
         </tile-container>
         <tile-container enabled="true" class="mid-tile for-simple-operations-metrics-tile">
           <simple-operations-metrics-tile rv-config="board.detail" class="tile optional-tile component simple-tile tile--primary"></simple-operations-metrics-tile>

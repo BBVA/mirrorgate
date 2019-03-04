@@ -1,4 +1,5 @@
 {
-    "name":"feedback",
-    "applications":["moods"]
+  "name":"feedback",
+  "applications":["moods"],
+  "analyticViews": ["123412"]
 }

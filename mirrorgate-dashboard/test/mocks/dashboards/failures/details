@@ -7,6 +7,6 @@
   "boards": [
     "mirrorgate"
   ],
-  "applications": [],
+  "applications": ["failure"],
   "urlAlerts": "dashboards/failures/alerts"
 }
