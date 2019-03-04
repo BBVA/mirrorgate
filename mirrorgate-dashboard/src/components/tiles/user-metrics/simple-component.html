@@ -24,7 +24,7 @@
     @import "css/{skin}.css";
   </style>
   <div class="simple-users component__content">
-    <div  rv-show="metrics" class="component__body">
+    <div rv-show="metrics" class="component__body">
       <div class="indicator__bar">
         <div class="indicator" rv-show="metrics.rtActiveUsers | >= 0">
           <div class="stats stats-metrics">{metrics.rtActiveUsers}<span class="tendency" rv-pclass-tendency="activeUsersTendency"></span></div>
@@ -47,7 +47,6 @@
 
     render: function (data) {
       if (data && data.metrics) {
-        var total = 0;
         this.getModel().metrics = data.metrics;
       }
     }

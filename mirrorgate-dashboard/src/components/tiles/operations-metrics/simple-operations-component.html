@@ -25,7 +25,7 @@
     @import "css/{skin}.css";
   </style>
 
-  <div class="simple-operations component__content">
+  <div class="simple-operations simple-component component__content">
     <div class="component__header">
       <h2 class="title">
         <div rv-show="stats.requestsNumber | >= 0">{stats.requestsNumber | bigNumber}<span rv-show="stats.requestsNumberTendency" class="tendency" rv-pclass-tendency="stats.requestsNumberTendency"></span></div>

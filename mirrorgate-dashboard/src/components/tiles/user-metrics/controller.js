@@ -23,7 +23,6 @@ var UserMetricsController = (function(dashboardId) {
 
   var observable = new Event('UserMetricsController');
   var service = Service.get(Service.types.userMetrics, dashboardId);
-  var _config;
   var _lastVersion;
 
   function getUserMetrics(response) {

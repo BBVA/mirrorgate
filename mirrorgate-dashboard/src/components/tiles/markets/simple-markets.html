@@ -71,11 +71,7 @@
     },
 
     render: function (data) {
-
       this.processAlerts(data);
-
-      var totalRate;
-      var totalVotes;
 
       if(data && data.total) {
         var app = this.getModel().app = data.total;
