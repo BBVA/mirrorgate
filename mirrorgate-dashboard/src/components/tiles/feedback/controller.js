@@ -156,8 +156,12 @@ var FeedbackController = (function(dashboardId) {
 
   this.dispose = function() {
     this.observable.reset();
-    metricsService.removeListener(getUserMetrics);
-    marketsService.removeListener(getRates);
+    if(_config.analyticViews && _config.analyticViews.length) {
+      metricsService.removeListener(getUserMetrics);
+    }
+    if(_config.applications && _config.applications.length) {
+      marketsService.removeListener(getRates);
+    }
   };
 
   this.init = function(config) {
@@ -170,8 +174,12 @@ var FeedbackController = (function(dashboardId) {
     _config = config;
     _config.lastVersion = new RegExp(config.lastVersion);
 
-    metricsService.addListener(getUserMetrics);
-    marketsService.addListener(getRates);
+    if(_config.analyticViews && _config.analyticViews.length) {
+      metricsService.addListener(getUserMetrics);
+    }
+    if(_config.applications && _config.applications.length) {
+      marketsService.addListener(getRates);
+    }
   };
 
   this.calculateStars = function (total_rate) {
