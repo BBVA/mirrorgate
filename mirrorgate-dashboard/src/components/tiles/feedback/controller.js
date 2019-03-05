@@ -146,7 +146,10 @@ var FeedbackController = (function(dashboardId) {
       data.marketsStatsDays = _config.marketsStatsDays;
     }
 
-    observable.notify(data);
+    setTimeout(function() {
+      observable.notify(data);
+    });
+
   }
 
   this.observable = observable;

@@ -27,8 +27,8 @@
     @import "css/{skin}.css";
   </style>
   <div class="feedback simple-component component__content">
-    <div rv-hide="metrics | or markets" class="component__header">
-      <h2 class="title-desc">
+    <div rv-hide="metrics | and markets" class="component__header">
+      <h2 rv-hide="metrics | or markets" class="title-desc">
         <span>No feedback collected</span>
       </h2>
     </div>
