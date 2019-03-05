@@ -54,7 +54,7 @@
     "karma-webdriver-launcher": "^1.0.5",
     "lodash": "^4.17.11",
     "selenium-standalone": "^6.15.6",
-    "sinon": "^7.2.6",
+    "sinon": "^7.2.7",
     "uglify-js": "^3.4.9"
   },
   "dependencies": {
