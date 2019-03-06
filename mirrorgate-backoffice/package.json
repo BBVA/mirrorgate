@@ -37,7 +37,7 @@
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.121",
+    "@types/lodash": "^4.14.122",
     "@types/node": "^11.10.4",
     "angular2-router-loader": "^0.3.5",
     "angular2-template-loader": "^0.6.0",
