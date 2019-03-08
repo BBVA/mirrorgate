@@ -38,6 +38,8 @@ db.getCollection('builds').aggregate([
         count: {"$gt": 1}
         }
     }
-]).forEach(function(doc){
+], {
+    allowDiskUse: true
+}).forEach(function(doc){
     db.getCollection('builds').remove({"buildUrl": doc._id.buildUrl, "timestamp": { $ne : doc.last}});
 });

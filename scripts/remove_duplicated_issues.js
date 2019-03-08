@@ -38,6 +38,8 @@ db.getCollection('feature').aggregate([
         count: {"$gt": 1}
         }
     }
-]).forEach(function(doc){
+], {
+    allowDiskUse: true
+}).forEach(function(doc){
     db.getCollection('feature').remove({"sId": doc._id.sId, "timestamp": { $ne : doc.last}});
 });
