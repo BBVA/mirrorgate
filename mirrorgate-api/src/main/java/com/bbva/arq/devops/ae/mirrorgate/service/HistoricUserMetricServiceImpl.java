@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.UserMetricDTO;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.UserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
@@ -134,16 +135,17 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
             .collect(Collectors.toList());
     }
 
-    private HistoricUserMetric getHistoricMetricForPeriod(long periodTimestamp, String identifier, ChronoUnit type) {
-
-        return historicUserMetricRepository.findFirstByTimestampAndIdentifierAndHistoricType(periodTimestamp, identifier, type);
+    private HistoricUserMetric getHistoricMetricForPeriod(String identifier, ChronoUnit type, long periodTimestamp) {
+        return historicUserMetricRepository.findById(HistoricUserMetricMapper.generateId(identifier, type, periodTimestamp));
     }
 
     private void addToTendency(UserMetric userMetric, ChronoUnit unit) {
 
         HistoricUserMetric historicUserMetric = getHistoricMetricForPeriod(
-            LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit),
-            userMetric.getIdentifier(), unit);
+            userMetric.getIdentifier(),
+            unit,
+            LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit)
+        );
 
         if (historicUserMetric == null) {
             historicUserMetric = createNextPeriod(userMetric, unit);
@@ -168,12 +170,14 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
         LOGGER.debug("creating new Historic Metric Period");
 
-        HistoricUserMetric historicUserMetric = mapToHistoric(userMetric);
+        HistoricUserMetric historicUserMetric = mapToHistoric(
+            userMetric,
+            unit,
+            LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit)
+        );
 
         historicUserMetric.setSampleSize(0L);
-        historicUserMetric.setTimestamp(LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit));
         historicUserMetric.setValue(0d);
-        historicUserMetric.setHistoricType(unit);
 
         return historicUserMetric;
     }

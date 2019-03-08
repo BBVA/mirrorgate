@@ -17,12 +17,11 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
-import java.time.temporal.ChronoUnit;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 
 public interface HistoricUserMetricRepository extends CrudRepository<HistoricUserMetric, ObjectId>, HistoricUserMetricRepositoryCustom {
 
-    HistoricUserMetric findFirstByTimestampAndIdentifierAndHistoricType(Long timestamp, String identifier, ChronoUnit unit);
+    HistoricUserMetric findById(String id);
 
 }

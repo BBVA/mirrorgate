@@ -16,6 +16,7 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
@@ -84,11 +85,18 @@ public class HistoricUserMetricServiceImplTest {
         service.addToCurrentPeriod(userMetrics);
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findFirstByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS), "AWSRequestNumber", ChronoUnit.DAYS);
+        HistoricUserMetric result = repository.findById(
+            HistoricUserMetricMapper.generateId(
+                "AWSRequestNumber",
+                ChronoUnit.DAYS,
+                LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS)
+            )
+        );
 
         assertEquals("AWSRequestNumber", result.getIdentifier());
         assertEquals((long) result.getTimestamp(), LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
         assertEquals(48, result.getValue(), 0.0);
+        assertEquals(result.getHistoricType(), ChronoUnit.DAYS);
     }
 
     @Test
@@ -96,34 +104,56 @@ public class HistoricUserMetricServiceImplTest {
 
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findFirstByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS), "AWSRequestNumber", ChronoUnit.DAYS);
+        HistoricUserMetric result = repository.findById(
+            HistoricUserMetricMapper.generateId(
+                "AWSRequestNumber",
+                ChronoUnit.DAYS,
+                LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS)
+            )
+        );
 
         assertEquals("AWSRequestNumber", result.getIdentifier());
         assertEquals((long) result.getTimestamp(), LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
         assertEquals(24, result.getValue(), 0.0);
+        assertEquals(result.getHistoricType(), ChronoUnit.DAYS);
     }
 
     @Test
     public void testAddWithSampleSize(){
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findFirstByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS), "AWSResponseTime", ChronoUnit.DAYS);
+        HistoricUserMetric result = repository.findById(
+            HistoricUserMetricMapper.generateId(
+                "AWSResponseTime",
+                ChronoUnit.DAYS,
+                LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS)
+            )
+        );
 
         assertEquals("AWSResponseTime", result.getIdentifier());
         assertEquals((long) result.getTimestamp(), LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.DAYS));
         assertEquals(250d, result.getSampleSize(), 0.0);
         assertEquals(3000d, result.getValue(), 0.0);
+        assertEquals(result.getHistoricType(), ChronoUnit.DAYS);
     }
 
     @Test
     public void testAvailabilityRate(){
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findFirstByTimestampAndIdentifierAndHistoricType(LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS), "AWSAvailabilityRate", ChronoUnit.HOURS);
+        HistoricUserMetric result = repository.findById(
+            HistoricUserMetricMapper.generateId(
+                "AWSAvailabilityRate",
+                ChronoUnit.HOURS,
+                LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS)
+            )
+        );
+
         assertEquals("AWSAvailabilityRate", result.getIdentifier());
         assertEquals((long) result.getTimestamp(), LocalDateTimeHelper.getTimestampPeriod(TODAY, ChronoUnit.HOURS));
         assertEquals(2, (long) result.getSampleSize());
         assertEquals(175, result.getValue(), 0.0);
+        assertEquals(result.getHistoricType(), ChronoUnit.HOURS);
     }
 
     @After
