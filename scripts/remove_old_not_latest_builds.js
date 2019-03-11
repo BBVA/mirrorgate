@@ -31,5 +31,5 @@ var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 3));
 
 db.getCollection('builds').remove({
   timestamp: {'$lt' : purgeDate.getTime()},
-  latest: false
+  latest: {$ne: true}
 });

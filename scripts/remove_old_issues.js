@@ -25,11 +25,11 @@ if(typeof mongo_user == "undefined"){
     db = db.getSiblingDB(mongo_authdb);
 }
 
-var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 3));
+var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 4));
 
 'Removing old issues until: ' + purgeDate;
 
-db.getCollection('feature').find({
+db.getCollection('feature').remove({
   timestamp: {'$lt' : purgeDate.getTime()},
   sTypeName: { $nin : [ "Bug", "Epic", "Feature"]},
   sStatus: "Done",
