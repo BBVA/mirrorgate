@@ -61,15 +61,10 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     @Override
     public void addToCurrentPeriod(Iterable<UserMetric> saved) {
-
         saved.forEach(s -> {
-            try {
-                addToTendency(s, ChronoUnit.MINUTES);
-                addToTendency(s, ChronoUnit.HOURS);
-                addToTendency(s, ChronoUnit.DAYS);
-            } catch (Exception e) {
-                LOGGER.error("Error while processing metric : {}", s.getName(), e);
-            }
+            addToTendency(s, ChronoUnit.MINUTES);
+            addToTendency(s, ChronoUnit.HOURS);
+            addToTendency(s, ChronoUnit.DAYS);
         });
     }
 
@@ -135,16 +130,14 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
             .collect(Collectors.toList());
     }
 
-    private HistoricUserMetric getHistoricMetricForPeriod(String identifier, ChronoUnit type, long periodTimestamp) {
-        return historicUserMetricRepository.findById(HistoricUserMetricMapper.generateId(identifier, type, periodTimestamp));
-    }
-
     private void addToTendency(UserMetric userMetric, ChronoUnit unit) {
 
-        HistoricUserMetric historicUserMetric = getHistoricMetricForPeriod(
-            userMetric.getIdentifier(),
-            unit,
-            LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit)
+        HistoricUserMetric historicUserMetric = historicUserMetricRepository.findById(
+            HistoricUserMetricMapper.generateId(
+                userMetric.getIdentifier(),
+                unit,
+                LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit)
+            )
         );
 
         if (historicUserMetric == null) {
@@ -158,8 +151,9 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
                 metricSampleSize = userMetric.getSampleSize();
             }
 
-            historicUserMetric.setValue(historicUserMetric.getValue() + (userMetric.getValue() * metricSampleSize));
-            historicUserMetric.setSampleSize(historicUserMetric.getSampleSize() + metricSampleSize);
+            historicUserMetric
+                .setValue(historicUserMetric.getValue() + (userMetric.getValue() * metricSampleSize))
+                .setSampleSize(historicUserMetric.getSampleSize() + metricSampleSize);
         }
 
         historicUserMetricRepository.save(historicUserMetric);
@@ -168,18 +162,11 @@ public class HistoricUserMetricServiceImpl implements HistoricUserMetricService 
 
     private HistoricUserMetric createNextPeriod(UserMetric userMetric, ChronoUnit unit) {
 
-        LOGGER.debug("creating new Historic Metric Period");
+        LOGGER.debug("Creating new Historic Metric Period");
 
-        HistoricUserMetric historicUserMetric = mapToHistoric(
-            userMetric,
-            unit,
-            LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit)
-        );
-
-        historicUserMetric.setSampleSize(0L);
-        historicUserMetric.setValue(0d);
-
-        return historicUserMetric;
+        return mapToHistoric(userMetric, unit, LocalDateTimeHelper.getTimestampPeriod(userMetric.getTimestamp(), unit))
+            .setSampleSize(0L)
+            .setValue(0d);
     }
 
 }
