@@ -37,12 +37,12 @@
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.122",
-    "@types/node": "^11.10.5",
+    "@types/lodash": "^4.14.123",
+    "@types/node": "^11.11.1",
     "angular2-router-loader": "^0.3.5",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^5.2.1",
-    "copy-webpack-plugin": "^5.0.0",
+    "copy-webpack-plugin": "^5.0.1",
     "css-loader": "^2.1.1",
     "file-loader": "^3.0.1",
     "html-loader": "^0.5.5",
