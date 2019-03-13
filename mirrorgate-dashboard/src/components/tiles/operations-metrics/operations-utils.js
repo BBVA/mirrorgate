@@ -107,6 +107,7 @@ var OperationsUtils = (function() {
       metrics.forEach(function(metric) {
         if(metricsMap[metric.name] === undefined) {
           metricsMap[metric.name] = {
+            lastValue: 0,
             oneDayValue: 0,
             oneDaySampleSize: 0,
             sevenDaysValue: 0,
@@ -115,6 +116,7 @@ var OperationsUtils = (function() {
           };
         }
 
+        metricsMap[metric.name].lastValue = metric.value ? metricsMap[metric.name].lastValue + parseFloat(metric.value) : parseFloat(metricsMap[metric.name].lastValue);
         metricsMap[metric.name].oneDayValue = metric.oneDayValue ? metricsMap[metric.name].oneDayValue + parseFloat(metric.oneDayValue) : parseFloat(metricsMap[metric.name].oneDayValue);
         metricsMap[metric.name].oneDaySampleSize = metric.oneDaySampleSize ? metricsMap[metric.name].oneDaySampleSize + parseInt(metric.oneDaySampleSize) : parseInt(metricsMap[metric.name].oneDaySampleSize);
         metricsMap[metric.name].sevenDaysValue = metric.sevenDaysValue ? metricsMap[metric.name].sevenDaysValue + parseFloat(metric.sevenDaysValue) : parseFloat(metricsMap[metric.name].sevenDaysValue);
@@ -141,7 +143,7 @@ var OperationsUtils = (function() {
         availabilityRateTendency: metricsMap.availabilityRate &&  metricsMap.availabilityRate.oneDaySampleSize > 0 ? metricsMap.availabilityRate.tendency : undefined,
         responseTime: metricsMap.responseTime && metricsMap.responseTime.oneDaySampleSize > 0 ? parseFloat((metricsMap.responseTime.oneDayValue / metricsMap.responseTime.oneDaySampleSize).toFixed(2)) : undefined,
         responseTimeTendency: metricsMap.responseTime && metricsMap.responseTime.oneDaySampleSize > 0 ? metricsMap.responseTime.tendency : undefined,
-        infraCost: infraCost && metricsMap.infrastructureCost ? parseFloat(metricsMap.infrastructureCost.oneDayValue.toFixed(2)) : undefined,
+        infraCost: infraCost && metricsMap.infrastructureCost ? parseFloat(metricsMap.infrastructureCost.lastValue.toFixed(2)) : undefined,
         infraCostTendency: infraCost && metricsMap.infrastructureCost ? metricsMap.infrastructureCost.tendency : undefined
       };
 

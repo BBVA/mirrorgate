@@ -114,6 +114,19 @@
     "sevenDaysValue": "75503.22"
   },
   {
+    "viewId" : "AWS/1234123",
+    "identifier": "AWS/1234123",
+    "appVersion" : "2",
+    "platform" : "Android",
+    "name" : "infrastructureCost",
+    "sampleSize": "1",
+    "timestamp" : "1505301880665",
+    "collectorId" : "collector1",
+    "value": "345.99",
+    "oneDaySampleSize": "3",
+    "oneDayValue": "345.99"
+  },
+  {
     "viewId" : "AWS/1234123/alb",
     "appVersion" : "2",
     "platform" : "AWS",
