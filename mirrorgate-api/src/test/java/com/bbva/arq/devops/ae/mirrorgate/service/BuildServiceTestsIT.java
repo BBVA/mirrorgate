@@ -99,7 +99,7 @@ public class BuildServiceTestsIT {
 
         assertTrue(lastBuild.getLatest());
 
-        assertThat(buildStats.getCount()).isEqualTo(2); // By default older than a week are discarted
+        assertThat(buildStats.getCount()).isEqualTo(2); // By default older than a week are discarded
         assertThat(buildStats.getDuration()).isEqualTo((build1.getDuration() + build2.getDuration()) / 2.0);
         assertThat(buildStats.getFailureRate()).isEqualTo(50.0);
         assertThat(buildStats.getFailureTendency()).isEqualTo(FailureTendency.up);

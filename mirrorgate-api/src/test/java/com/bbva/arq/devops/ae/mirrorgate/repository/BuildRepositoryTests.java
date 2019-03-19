@@ -15,20 +15,20 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
-import static junit.framework.Assert.assertTrue;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest
