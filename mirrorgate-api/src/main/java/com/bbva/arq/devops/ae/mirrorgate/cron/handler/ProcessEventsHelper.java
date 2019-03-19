@@ -20,17 +20,14 @@ import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 public class ProcessEventsHelper {
@@ -48,7 +45,7 @@ public class ProcessEventsHelper {
         this.connectionHandler = connectionHandler;
     }
 
-    public void processEvents(Set<String> dashboardIds, Predicate<Dashboard> dashboardFilter, EventType eventType){
+    void processEvents(Set<String> dashboardIds, Predicate<Dashboard> dashboardFilter, EventType eventType) {
 
         List<Dashboard> dashboards = dashboardService.getDashboardWithNames(new ArrayList<>(dashboardIds));
 

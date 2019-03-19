@@ -4,18 +4,18 @@ import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
 import com.bbva.arq.devops.ae.mirrorgate.cron.handler.EventHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class EventScheduler {
@@ -42,7 +42,7 @@ public class EventScheduler {
 
 
     @Scheduled(fixedDelayString = "${events.scheduler.delay.millis}")
-    public void checkEventUpdates() {
+    void checkEventUpdates() {
 
         LOGGER.debug("Processing events for timestamp {}", schedulerTimestamp);
 
