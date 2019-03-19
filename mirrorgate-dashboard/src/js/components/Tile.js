@@ -190,7 +190,7 @@ var Tile = (function() {
   Tile.prototype.refresh = function (data) {
     DashboardComponent.prototype.refresh.call(this, arguments);
     this._prevData = data ? Utils.clone(data): this._prevData;
-    if(this.__pending_refresh) return;
+    if(this.__pending_refresh || !this._prevData) return;
     this.__pending_refresh = setTimeout(function () {
       this.__pending_refresh = undefined;
       this.render(this._prevData && Utils.clone(this._prevData));
