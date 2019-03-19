@@ -29,42 +29,27 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public void saveEvent(BaseModel baseObject, EventType type){
-
         LOGGER.info("Saving event with Id :{}", baseObject.getId());
 
-        try{
-            Event platformEvent = new Event();
-
-            platformEvent.setEventType(type);
-            platformEvent.setEventTypeCollectionId(baseObject.getId());
-            platformEvent.setTimestamp(System.currentTimeMillis());
-
-            eventRepository.save(platformEvent);
-        } catch (Exception e){
-            LOGGER.error("Error while saving event", e);
-        }
+        eventRepository.save(new Event()
+            .setEventType(type)
+            .setEventTypeCollectionId(baseObject.getId())
+            .setTimestamp(System.currentTimeMillis())
+        );
     }
 
     @Override
     public void saveEvents(Iterable<? extends BaseModel> reviews, EventType type) {
         LOGGER.info("Saving list of events");
 
-        try{
-            List<Event> eventList = StreamSupport.stream(reviews.spliterator(), false)
-                .map(review -> {
-                    Event platformEvent = new Event();
+        List<Event> eventList = StreamSupport.stream(reviews.spliterator(), false)
+            .map(review -> new Event()
+                .setEventType(type)
+                .setEventTypeCollectionId(review.getId())
+                .setTimestamp(System.currentTimeMillis())
+            ).collect(Collectors.toList());
 
-                    platformEvent.setEventType(type);
-                    platformEvent.setEventTypeCollectionId(review.getId());
-                    platformEvent.setTimestamp(System.currentTimeMillis());
-
-                    return platformEvent;
-                }).collect(Collectors.toList());
-
-            eventRepository.saveAll(eventList);
-        } catch (Exception e){
-            LOGGER.error("Error while saving event", e);
-        }
+        eventRepository.saveAll(eventList);
     }
 
     @Override

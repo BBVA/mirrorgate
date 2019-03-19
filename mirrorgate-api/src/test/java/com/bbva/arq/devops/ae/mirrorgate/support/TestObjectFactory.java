@@ -20,16 +20,14 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import org.bson.types.ObjectId;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.bbva.arq.devops.ae.mirrorgate.support.IssueType.BUG;
 
 public class TestObjectFactory {
 
     private static final String DASHBOARD_NAME = "mirrorgate";
+    private static final String TEAM_NAME = "mirrorgate";
     private static final String PROJECT_NAME = "mirrorgate";
     private static final String FEATURE_NAME = "feature";
     public static final String AUTH_NAME = "ATREYU";
@@ -70,7 +68,10 @@ public class TestObjectFactory {
             .setsId(ObjectId.get().toString())
             .setsSprintAssetState("Active")
             .setsProjectName(PROJECT_NAME)
-            .setsNumber(FEATURE_NAME);
+            .setsNumber(FEATURE_NAME)
+            .setTeamName(TEAM_NAME)
+            .setSprintBeginDate(new Date())
+            .setSprintEndDate(new Date());
     }
 
     public static SlackDTO createSlackDTO() {
@@ -144,7 +145,7 @@ public class TestObjectFactory {
             .setProjectName("mirrorgate")
             .setRepoName("develop")
             .setBranch("test")
-            .setTimestamp(5L)
+            .setTimestamp(System.currentTimeMillis())
             .setKeywords(Arrays.asList("buildUrl", "mirrorgate", "develop"));
     }
 

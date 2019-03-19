@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
+import static junit.framework.Assert.assertTrue;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;

@@ -17,6 +17,7 @@ package com.bbva.arq.devops.ae.mirrorgate.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 
 public class HeaderSecurityFilter extends OncePerRequestFilter {
 
@@ -36,11 +38,11 @@ public class HeaderSecurityFilter extends OncePerRequestFilter {
     private static final String USER_HEADER = "X-Forwarded-User";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(@Nullable HttpServletRequest request, @Nullable HttpServletResponse response, @Nullable FilterChain filterChain)
         throws ServletException, IOException {
 
         List<String> headerNames = new ArrayList<>();
-        Enumeration headers = request.getHeaderNames();
+        Enumeration headers = Objects.requireNonNull(request).getHeaderNames();
 
         while (headers.hasMoreElements()) {
             headerNames.add((String) headers.nextElement());
@@ -56,6 +58,6 @@ public class HeaderSecurityFilter extends OncePerRequestFilter {
         Authentication auth = TokenCreator.createHeaderBasedToken(xForwardedUser);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        filterChain.doFilter(request, response);
+        Objects.requireNonNull(filterChain).doFilter(request, response);
     }
 }

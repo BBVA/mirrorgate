@@ -61,10 +61,8 @@ public class SlackNotificationController {
             return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("Error getting slack web socket: " + e.getMessage());
         }
 
-        if (!notification.isOk()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
-        }
-
-        return ResponseEntity.ok(notification.getUrl());
+        return notification.isOk() ?
+            ResponseEntity.ok(notification.getUrl()) :
+            ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
     }
 }

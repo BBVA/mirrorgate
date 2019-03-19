@@ -90,11 +90,9 @@ public class BackOfficeSlackUtilsController {
 
         SlackDTO notification = slackService.getToken(team, clientId, clientSecret, code);
 
-        if (!notification.isOk()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
-        }
-
-        return ResponseEntity.ok(notification.getAccess_token());
+        return notification.isOk() ?
+            ResponseEntity.ok(notification.getAccess_token()) :
+            ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
     }
 
 }

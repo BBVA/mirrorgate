@@ -44,18 +44,18 @@ public class BuildMapper {
         }
 
         return target
-                .setBuildUrl(source.getBuildUrl())
-                .setNumber(source.getNumber())
-                .setStartTime(source.getStartTime())
-                .setEndTime(source.getEndTime())
-                .setDuration(source.getDuration())
-                .setCulprits(source.getCulprits())
-                .setBuildStatus(BuildStatus.fromString(source.getBuildStatus()))
-                .setTimestamp(source.getTimestamp() != null ? source.getTimestamp() : System.currentTimeMillis())
-                .setProjectName(source.getProjectName())
-                .setRepoName(source.getRepoName())
-                .setBranch(source.getBranch())
-                .setKeywords(keywords);
+            .setBuildUrl(source.getBuildUrl())
+            .setNumber(source.getNumber())
+            .setStartTime(source.getStartTime())
+            .setEndTime(source.getEndTime())
+            .setDuration(source.getDuration())
+            .setCulprits(source.getCulprits())
+            .setBuildStatus(BuildStatus.fromString(source.getBuildStatus()))
+            .setTimestamp(source.getTimestamp() != null ? source.getTimestamp() : System.currentTimeMillis())
+            .setProjectName(source.getProjectName())
+            .setRepoName(source.getRepoName())
+            .setBranch(source.getBranch())
+            .setKeywords(keywords);
     }
 
     public static BuildDTO map(Build source) {
@@ -65,17 +65,17 @@ public class BuildMapper {
     private static BuildDTO map(Build source, BuildDTO target) {
 
         return target
-                .setBuildUrl(source.getBuildUrl())
-                .setNumber(source.getNumber())
-                .setStartTime(source.getStartTime())
-                .setEndTime(source.getEndTime())
-                .setDuration(source.getDuration())
-                .setCulprits(source.getCulprits())
-                .setBuildStatus(source.getBuildStatus().toString())
-                .setTimestamp(source.getTimestamp())
-                .setProjectName(source.getProjectName())
-                .setRepoName(source.getRepoName())
-                .setBranch(source.getBranch())
+            .setBuildUrl(source.getBuildUrl())
+            .setNumber(source.getNumber())
+            .setStartTime(source.getStartTime())
+            .setEndTime(source.getEndTime())
+            .setDuration(source.getDuration())
+            .setCulprits(source.getCulprits())
+            .setBuildStatus(source.getBuildStatus().toString())
+            .setTimestamp(source.getTimestamp())
+            .setProjectName(source.getProjectName())
+            .setRepoName(source.getRepoName())
+            .setBranch(source.getBranch())
             .setKeywords(source.getKeywords());
     }
 

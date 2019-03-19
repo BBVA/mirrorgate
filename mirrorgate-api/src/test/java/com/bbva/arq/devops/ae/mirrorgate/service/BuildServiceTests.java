@@ -51,75 +51,66 @@ public class BuildServiceTests {
 
     @Test
     public void getAllBranchesLastByRepoName() {
-        String repoName = "mirrorgate-app";
+        final String repoName = "mirrorgate-app";
 
-        Build build1 = makeBuild();
-        build1.setRepoName(repoName);
-        build1.setBranch("develop");
+        final Build build1 = makeBuild()
+            .setRepoName(repoName)
+            .setBranch("develop");
 
-        Build build2 = makeBuild();
-        build2.setRepoName(repoName);
-        build2.setBranch("master");
+        final Build build2 = makeBuild()
+            .setRepoName(repoName)
+            .setBranch("master");
 
-        when(buildRepository.findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), null))
-            .thenReturn(Arrays.asList(build1, build2));
+        when(
+            buildRepository.findLastBuildsByKeywordsAndByTeamMembers(
+                Collections.singletonList(repoName),
+                null
+            )
+        ).thenReturn(Arrays.asList(build1, build2));
 
-        List<Build> lastBuilds = buildService
+        final List<Build> lastBuilds = buildService
             .getLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), null);
         verify(buildRepository, times(1))
             .findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), null);
 
-        assertThat(lastBuilds.get(1).getId())
-            .isEqualTo(build2.getId());
-        assertThat(lastBuilds.get(1).getTimestamp())
-            .isEqualTo(build2.getTimestamp());
-        assertThat(lastBuilds.get(1).getBuildStatus())
-            .isEqualTo(build2.getBuildStatus());
+        assertThat(lastBuilds.get(1).getId()).isEqualTo(build2.getId());
+        assertThat(lastBuilds.get(1).getTimestamp()).isEqualTo(build2.getTimestamp());
+        assertThat(lastBuilds.get(1).getBuildStatus()).isEqualTo(build2.getBuildStatus());
     }
 
     @Test
     public void getLastByRepoNameAndByTeamMembers() {
-        String repoName = "mirrorgate-app";
+        final String repoName = "mirrorgate-app";
 
-        Build build1 = makeBuild();
-        build1.setRepoName(repoName);
-        build1.setBranch("develop");
-        build1.setCulprits(Collections.singletonList("Atreyu"));
+        final Build build = makeBuild()
+            .setRepoName(repoName)
+            .setBranch("master")
+            .setCulprits(Collections.singletonList("Atreyu"));
 
-        Build build2 = makeBuild();
-        build2.setRepoName(repoName);
-        build2.setBranch("master");
-        build1.setCulprits(Collections.singletonList("Atreyu"));
+        when(buildRepository.findLastBuildsByKeywordsAndByTeamMembers(
+            Collections.singletonList(repoName),
+            Collections.singletonList("Atreyu"))
+        ).thenReturn(Collections.singletonList(build));
 
-        Build build3 = makeBuild();
-        build3.setRepoName(repoName);
-        build3.setBranch("master");
+        final List<Build> lastBuilds = buildService.getLastBuildsByKeywordsAndByTeamMembers(
+            Collections.singletonList(repoName), Collections.singletonList("Atreyu"));
+        verify(buildRepository, times(1)).findLastBuildsByKeywordsAndByTeamMembers(
+            Collections.singletonList(repoName), Collections.singletonList("Atreyu"));
 
-        when(buildRepository.findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), Collections.singletonList("Atreyu")))
-            .thenReturn(Collections.singletonList(build2));
-
-        List<Build> lastBuilds = buildService
-            .getLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), Collections.singletonList("Atreyu"));
-        verify(buildRepository, times(1))
-            .findLastBuildsByKeywordsAndByTeamMembers(Collections.singletonList(repoName), Collections.singletonList("Atreyu"));
-
-        assertThat(lastBuilds.get(0).getId())
-            .isEqualTo(build2.getId());
-        assertThat(lastBuilds.get(0).getTimestamp())
-            .isEqualTo(build2.getTimestamp());
-        assertThat(lastBuilds.get(0).getBuildStatus())
-            .isEqualTo(build2.getBuildStatus());
+        assertThat(lastBuilds.get(0).getId()).isEqualTo(build.getId());
+        assertThat(lastBuilds.get(0).getTimestamp()).isEqualTo(build.getTimestamp());
+        assertThat(lastBuilds.get(0).getBuildStatus()).isEqualTo(build.getBuildStatus());
     }
 
     @Test
     public void createBuildTest() {
-        Build build = makeBuild();
-        BuildDTO request = TestObjectFactory.createBuildDTO();
+        final Build build = makeBuild();
+        final BuildDTO request = TestObjectFactory.createBuildDTO();
 
         when(dashboardService.getDashboard(anyString())).thenReturn(new DashboardDTO());
         when(buildRepository.save(any())).thenReturn(build);
 
-        BuildDTO b = buildService.createOrUpdate(request);
+        final BuildDTO b = buildService.createOrUpdate(request);
 
         verify(buildRepository, times(1)).save(any());
         verify(dashboardService, times(1)).createDashboardForBuildProject(any());

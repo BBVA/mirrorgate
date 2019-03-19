@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency;
+import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
@@ -34,6 +35,7 @@ import java.util.List;
 
 import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -56,32 +58,46 @@ public class BuildServiceTestsIT {
         final BuildDTO build1 = TestObjectFactory.createBuildDTO()
             .setProjectName(projectName)
             .setRepoName(repositoryName)
-            .setTimestamp(TODAY);
+            .setTimestamp(ONE_MONTH_AGO);
         final BuildDTO build2 = TestObjectFactory.createBuildDTO()
             .setProjectName(projectName)
             .setRepoName(repositoryName)
-            .setTimestamp(YESTERDAY);
+            .setTimestamp(ONE_WEEK_AGO);
         final BuildDTO build3 = TestObjectFactory.createBuildDTO()
             .setProjectName(projectName)
             .setRepoName(repositoryName)
-            .setTimestamp(ONE_WEEK_AGO);
+            .setTimestamp(YESTERDAY);
         final BuildDTO build4 = TestObjectFactory.createBuildDTO()
             .setProjectName(projectName)
             .setRepoName(repositoryName)
-            .setTimestamp(ONE_MONTH_AGO);
+            .setTimestamp(TODAY);
 
-        buildService.createOrUpdate(build1.setBuildStatus(BuildStatus.Success.name()));
-        buildService.createOrUpdate(build1.setBuildStatus(BuildStatus.Failure.name()));
         buildService.createOrUpdate(build1.setBuildStatus(BuildStatus.Success.name()));
 
         buildService.createOrUpdate(build2.setBuildStatus(BuildStatus.Success.name()));
-        buildService.createOrUpdate(build2.setBuildStatus(BuildStatus.Failure.name()));
 
         buildService.createOrUpdate(build3.setBuildStatus(BuildStatus.Success.name()));
+        buildService.createOrUpdate(build3.setBuildStatus(BuildStatus.Failure.name()));
 
         buildService.createOrUpdate(build4.setBuildStatus(BuildStatus.Success.name()));
+        buildService.createOrUpdate(build4.setBuildStatus(BuildStatus.Failure.name()));
+        buildService.createOrUpdate(build4.setBuildStatus(BuildStatus.Success.name()));
 
-        final BuildStats buildStats = buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(keywords, Collections.emptyList());
+        final List<Build> builds = buildService.getLastBuildsByKeywordsAndByTeamMembers(
+            keywords,
+            Collections.emptyList()
+        );
+
+        final Build lastBuild = buildRepository.findFirstByBuildUrl(builds.get(0).getBuildUrl());
+
+        final BuildStats buildStats = buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
+            keywords,
+            Collections.emptyList()
+        );
+
+        assertThat(builds.size()).isEqualTo(1);
+
+        assertTrue(lastBuild.getLatest());
 
         assertThat(buildStats.getCount()).isEqualTo(2); // By default older than a week are discarted
         assertThat(buildStats.getDuration()).isEqualTo((build1.getDuration() + build2.getDuration()) / 2.0);
