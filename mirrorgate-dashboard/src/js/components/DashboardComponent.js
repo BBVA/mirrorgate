@@ -78,7 +78,9 @@ var DashboardComponent = (function() {
       this._width = width;
       this._height = height;
 
-      this.refresh();
+      if(this._prevData) {
+        this.refresh();
+      }
     }
   };
 
