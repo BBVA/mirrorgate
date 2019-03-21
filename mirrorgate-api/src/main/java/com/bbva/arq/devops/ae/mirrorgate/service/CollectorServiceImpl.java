@@ -31,7 +31,7 @@ public class CollectorServiceImpl implements CollectorService {
 
     @Override
     public Date getLastExecutionDate(String id) {
-        Collector c = collectorsRepository.findByCollectorId(id);
+        Collector c = collectorsRepository.findById(id);
         return c == null ? null : c.getLastExecution();
     }
 

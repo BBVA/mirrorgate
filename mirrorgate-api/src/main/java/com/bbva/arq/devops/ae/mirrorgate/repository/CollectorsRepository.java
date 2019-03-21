@@ -22,6 +22,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CollectorsRepository extends CrudRepository<Collector, ObjectId> {
 
-    Collector findByCollectorId(String id);
+    Collector findById(String id);
 
 }
