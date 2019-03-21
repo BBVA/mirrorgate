@@ -48,22 +48,23 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     @Override
     public List<Build> findLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
         TypedAggregation<Build> agg = newAggregation(Build.class,
-            match(Criteria.where("buildStatus")
-                .nin(
-                    BuildStatus.Aborted.toString(),
-                    BuildStatus.NotBuilt.toString(),
-                    BuildStatus.Unknown.toString()
-                )
-                .orOperator(
-                    Criteria.where("timestamp")
-                        .gt(System.currentTimeMillis() - 24 * 3600 * 1000),
-                    Criteria.where("latest")
-                        .is(true)
-                        .and("buildStatus").ne(BuildStatus.Deleted.toString())
-                )
+            match(new Criteria()
                 .andOperator(
                     getCriteriaExpressionsForKeywords(keywords),
-                    getCriteriaExpressionsForTeamMembers(teamMembers)
+                    getCriteriaExpressionsForTeamMembers(teamMembers),
+                    Criteria.where("buildStatus")
+                        .nin(
+                            BuildStatus.Aborted.toString(),
+                            BuildStatus.NotBuilt.toString(),
+                            BuildStatus.Unknown.toString()
+                        )
+                )
+                .orOperator(
+                    Criteria.where("latest")
+                        .is(true)
+                        .and("buildStatus").ne(BuildStatus.Deleted.toString()),
+                    Criteria.where("timestamp")
+                        .gt(System.currentTimeMillis() - 24 * 3600 * 1000)
                 )
             ),
             //Avoid Mongo to "optimize" the sort operation... Why Mongo, oh why?!
@@ -102,18 +103,18 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     @Override
     public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> keywords, List<String> teamMembers, Long timestamp) {
         Aggregation agg = newAggregation(
-            match(Criteria
-                .where("timestamp").gt(timestamp)
-                .and("buildStatus")
-                .nin(BuildStatus.Aborted.toString(),
-                    BuildStatus.NotBuilt.toString(),
-                    BuildStatus.Deleted.toString(),
-                    BuildStatus.Unknown.toString(),
-                    BuildStatus.InProgress.toString()
-                )
+            match(new Criteria()
                 .andOperator(
                     getCriteriaExpressionsForKeywords(keywords),
-                    getCriteriaExpressionsForTeamMembers(teamMembers)
+                    getCriteriaExpressionsForTeamMembers(teamMembers),
+                    Criteria.where("buildStatus")
+                        .nin(BuildStatus.Aborted.toString(),
+                            BuildStatus.NotBuilt.toString(),
+                            BuildStatus.Deleted.toString(),
+                            BuildStatus.Unknown.toString(),
+                            BuildStatus.InProgress.toString()
+                        ),
+                    Criteria.where("timestamp").gt(timestamp)
                 )
             ),
             group("buildStatus")

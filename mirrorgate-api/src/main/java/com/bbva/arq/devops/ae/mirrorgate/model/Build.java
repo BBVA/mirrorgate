@@ -18,7 +18,8 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -30,6 +31,10 @@ import java.util.List;
  *   Jenkins
  */
 @Document(collection="builds")
+@CompoundIndexes({
+    @CompoundIndex(name = "repositories", def = "{'projectName' : 1, 'repoName': 1, 'branch': 1, 'latest': 1}"),
+    @CompoundIndex(name = "stats", def = "{'keywords': 1, 'teamMembers': 1, 'buildStatus': 1, 'timestamp': 1}")
+})
 public class Build implements BaseModel {
 
     @Id
@@ -42,9 +47,7 @@ public class Build implements BaseModel {
     private long endTime;
     private long duration;
 
-    @Indexed
     private BuildStatus buildStatus;
-    @Indexed
     private List<String> culprits;
 
     private String projectName;
@@ -52,10 +55,8 @@ public class Build implements BaseModel {
     private String branch;
     private String number;
 
-    @Indexed
     private Boolean latest;
 
-    @Indexed
     private List<String> keywords;
 
     public long getTimestamp() {

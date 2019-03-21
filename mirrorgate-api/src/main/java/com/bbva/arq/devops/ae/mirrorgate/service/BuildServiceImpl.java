@@ -72,9 +72,9 @@ public class BuildServiceImpl implements BuildService {
 
         if (shouldUpdateLatest) {
             List<Build> toUpdate =
-                buildRepository.findAllByRepoNameAndProjectNameAndBranchAndLatestIsTrue(
-                    toSave.getRepoName(),
+                buildRepository.findAllByProjectNameAndRepoNameAndBranchAndLatestIsTrue(
                     toSave.getProjectName(),
+                    toSave.getRepoName(),
                     toSave.getBranch()
                 );
 
@@ -123,7 +123,7 @@ public class BuildServiceImpl implements BuildService {
     private Build getBuildToSave(BuildDTO request) {
         Build build = null;
         if (BuildStatus.fromString(request.getBuildStatus()) != BuildStatus.Deleted && request.getBuildUrl() != null) {
-            build = buildRepository.findFirstByBuildUrl(request.getBuildUrl());
+            build = buildRepository.findById(request.getBuildUrl());
         }
         if (build == null) {
             build = new Build();

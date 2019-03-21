@@ -88,7 +88,7 @@ public class BuildServiceTestsIT {
             Collections.emptyList()
         );
 
-        final Build lastBuild = buildRepository.findFirstByBuildUrl(builds.get(0).getBuildUrl());
+        final Build lastBuild = buildRepository.findById(builds.get(0).getBuildUrl());
 
         final BuildStats buildStats = buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
             keywords,

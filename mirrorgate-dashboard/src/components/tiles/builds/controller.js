@@ -65,8 +65,12 @@ var BuildsController = (function(dashboardId) {
 
       if (response.lastBuilds) {
         // We structure the build list in a tree.
-        data = {stats: response.stats, buildRoot: []};
-        data.stats.lastBuildTimestamp = 0;
+        data = {
+          stats: {
+            lastBuildTimestamp : 0
+          },
+          buildRoot: []
+        };
 
         for (var index in response.lastBuilds) {
           var item = response.lastBuilds[index];
