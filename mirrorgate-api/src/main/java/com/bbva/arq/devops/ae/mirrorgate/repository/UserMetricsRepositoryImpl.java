@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -33,11 +32,9 @@ public class UserMetricsRepositoryImpl implements UserMetricsRepositoryCustom {
     }
 
     private Criteria getCriteriaExpressionsForUserMetrics(List<String> viewIds) {
-        List<Criteria> regExs = new ArrayList<>();
-        viewIds.forEach((String id) -> regExs.add(Criteria.where("viewId")
-            .in(Pattern.compile("^" + id + ".*$"))));
-        return new Criteria()
-            .orOperator(regExs.toArray(new Criteria[0]));
+        return Criteria
+            .where("viewId")
+            .in(viewIds.stream().map(id -> Pattern.compile("^" + id + ".*$")).toArray());
     }
 
 }
