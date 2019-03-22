@@ -17,6 +17,7 @@ package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.Filters;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -27,6 +28,7 @@ import java.util.List;
  * Dashboard info model
  */
 @Document(collection = "dashboards")
+@CompoundIndex (name = "lastModificationByStatus", def = "{ 'lastModification': 1, 'status': 1 }")
 public class Dashboard extends BaseIdModel {
 
     @Indexed
@@ -56,7 +58,6 @@ public class Dashboard extends BaseIdModel {
     private String slackToken;
     private String slackTeam;
     private String slackChannel;
-    @Indexed
     private DashboardStatus status;
     private String lastUserEdit;
     private Long lastModification;
