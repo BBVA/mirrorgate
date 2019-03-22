@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +56,7 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds", method = GET,
             produces = APPLICATION_JSON_VALUE)
-    public Map<String, List<Build>> getBuildsByBoardName(@PathVariable("name") String name) {
+    public Map<String, ?> getBuildsByBoardName(@PathVariable("name") String name) {
 
         DashboardDTO dashboard = dashboardService.getDashboard(name);
         if (dashboard == null || dashboard.getCodeRepos() == null
@@ -64,12 +64,18 @@ public class BuildController {
             return null;
         }
 
-        return Collections.singletonMap(
-            "lastBuilds", buildService.getLastBuildsByKeywordsAndByTeamMembers(
-                dashboard.getCodeRepos(),
-                dashboard.getTeamMembers()
-            )
+        List<Build> builds = buildService.getLastBuildsByKeywordsAndByTeamMembers(
+            dashboard.getCodeRepos(), dashboard.getTeamMembers()
         );
+        BuildStats stats = buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
+            dashboard.getCodeRepos(), dashboard.getTeamMembers()
+        );
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("lastBuilds", builds);
+        response.put("stats", stats);
+
+        return response;
     }
 
     @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,

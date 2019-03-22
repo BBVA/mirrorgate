@@ -31,7 +31,7 @@ var SimpleBuildsController = (function(dashboardId) {
 
       if (response.lastBuilds) {
 
-        data = {stats: response.stats, buildRoot: []};
+        data = {stats: response.stats};
         data.stats.lastBuildTimestamp = 0;
         data.masterBuildsCount = 0;
         data.failedMasterBuildsCount = 0;
