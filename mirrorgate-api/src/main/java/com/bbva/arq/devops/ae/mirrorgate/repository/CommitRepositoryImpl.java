@@ -25,7 +25,6 @@ import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Cei
 import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Subtract;
 import org.springframework.data.mongodb.core.query.Criteria;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -39,11 +38,8 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
     @Override
     public Double getSecondsToMaster(List<String> repositories, long timestamp) {
         Aggregation agg = newAggregation(
-            match(Criteria
-                .where("timestamp").gte(timestamp)
-                .andOperator(
-                    getCriteriaExpressionsForRepositories(repositories)
-                )
+            match(getCriteriaExpressionsForRepositories(repositories)
+                .and("timestamp").gte(timestamp)
             ),
             group()
                 .avg(
@@ -66,11 +62,8 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
     public Double getCommitsPerDay(List<String> repositories, long timestamp, int daysBefore) {
 
         Aggregation agg = newAggregation(
-            match(Criteria
-                .where("timestamp").gte(timestamp)
-                .andOperator(
-                    getCriteriaExpressionsForRepositories(repositories)
-                )
+            match(getCriteriaExpressionsForRepositories(repositories)
+                .and("timestamp").gte(timestamp)
             ),
             group()
                 .count().as("value"),
@@ -86,10 +79,7 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
     }
 
     private Criteria getCriteriaExpressionsForRepositories(List<String> repos) {
-        List<Criteria> regExs = new ArrayList<>();
-        repos.forEach((String repo) -> regExs.add(Criteria.where("repository")
-            .in(Pattern.compile("^.*" + repo + "$"))));
-        return new Criteria()
-            .orOperator(regExs.toArray(new Criteria[0]));
+        return Criteria.where("repository")
+            .in(repos.stream().map(repo -> Pattern.compile("^.*" + repo + "$")).toArray());
     }
 }

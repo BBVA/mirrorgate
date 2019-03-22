@@ -1,22 +1,18 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
 @Document(collection = "commits")
+@CompoundIndex(name = "stats", def = "{'repository' :  1, 'timestamp': 1}")
 public class Commit extends BaseIdModel {
 
-    @Indexed
     private String hash;
-
-    @Indexed
     private String repository;
-
     private Integer timestamp;
-
     private String message;
     private String authorName;
     private String authorEmail;
