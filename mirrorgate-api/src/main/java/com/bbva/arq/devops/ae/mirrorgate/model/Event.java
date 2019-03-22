@@ -1,10 +1,12 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "events")
 public class Event extends BaseIdModel {
 
+    @Indexed
     private Long timestamp;
     private Object eventTypeCollectionId;
     private EventType eventType;
