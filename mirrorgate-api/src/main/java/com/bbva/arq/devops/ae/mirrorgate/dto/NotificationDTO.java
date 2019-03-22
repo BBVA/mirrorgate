@@ -2,7 +2,7 @@ package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 import java.util.List;
 
-public class EventNotificationDTO {
+public class NotificationDTO {
 
     private List<String> dashboardIds;
     private String message;

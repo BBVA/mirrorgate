@@ -1,13 +1,9 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.dto.EventNotificationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.NotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
-import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,17 +11,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.junit.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class EventNotificationServiceTestsIT {
+public class NotificationServiceTestsIT {
 
-    private static final EventNotificationDTO dto1 = new EventNotificationDTO();
-    private static final EventNotificationDTO dto2 = new EventNotificationDTO();
+    private static final NotificationDTO dto1 = new NotificationDTO();
+    private static final NotificationDTO dto2 = new NotificationDTO();
 
     @Autowired
-    private EventNotificationService service;
+    private NotificationService service;
 
     @Autowired
     private EventService eventService;
@@ -43,10 +44,10 @@ public class EventNotificationServiceTestsIT {
     @Test
     public void testSaveNotificationAndEvent(){
 
-        service.saveEventNotification(dto1);
+        service.saveNotification(dto1);
 
         Event savedEvent = eventService.getLastEvent();
-        EventNotification notification = service.getEventNotificationForDashboard("dashboard1");
+        Notification notification = service.getNotificationForDashboard("dashboard1");
 
         assertSame(savedEvent.getEventType(), EventType.NOTIFICATION);
         assertEquals(0, notification.getMessage().compareTo("Notification message"));
@@ -56,13 +57,13 @@ public class EventNotificationServiceTestsIT {
     @Test
     public void testNotificationsById(){
 
-        EventNotification result = service.saveEventNotification(dto1);
-        EventNotification result2 = service.saveEventNotification(dto2);
+        Notification result = service.saveNotification(dto1);
+        Notification result2 = service.saveNotification(dto2);
 
-        List<EventNotification> notificationsById =
-            service.getEventNotificationsById(Arrays.asList(result.getId(), result2.getId()));
+        List<Notification> notificationsById =
+            service.getNotificationsById(Arrays.asList(result.getId(), result2.getId()));
         List<String> messages =
-            notificationsById.stream().map(EventNotification::getMessage).collect(Collectors.toList());
+            notificationsById.stream().map(Notification::getMessage).collect(Collectors.toList());
 
         assertEquals(2, notificationsById.size());
         assertTrue(messages.containsAll(Arrays.asList("Notification message", "Another notification message")));

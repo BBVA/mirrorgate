@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bbva.arq.devops.ae.mirrorgate.repository;
+package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
-import java.util.List;
+import com.bbva.arq.devops.ae.mirrorgate.dto.NotificationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
 import org.bson.types.ObjectId;
-import org.springframework.data.repository.CrudRepository;
 
-public interface EventNotificationRepository extends CrudRepository<EventNotification, ObjectId> {
+import java.util.List;
 
-    List<EventNotification> findAllByIdIn(List<ObjectId> ids);
-    EventNotification findFirstByDashboardsToNotifyOrderByTimestampDesc(String DashboardId);
+public interface NotificationService {
+
+    List<Notification> getNotificationsById(List<ObjectId> notificationIds);
+
+    Notification getNotificationForDashboard(String dashboardId);
+
+    Notification saveNotification(NotificationDTO eventNotificationDTO);
 }

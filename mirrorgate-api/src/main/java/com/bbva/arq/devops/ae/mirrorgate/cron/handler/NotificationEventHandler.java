@@ -17,9 +17,9 @@ package com.bbva.arq.devops.ae.mirrorgate.cron.handler;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
-import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import com.bbva.arq.devops.ae.mirrorgate.service.EventNotificationService;
+import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
+import com.bbva.arq.devops.ae.mirrorgate.service.NotificationService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,14 +34,14 @@ import java.util.stream.Stream;
 public class NotificationEventHandler implements EventHandler {
 
     private final ProcessEventsHelper eventsHelper;
-    private final EventNotificationService eventNotificationService;
+    private final NotificationService notificationService;
 
     @Autowired
     public NotificationEventHandler(ProcessEventsHelper eventsHelper,
-        EventNotificationService eventNotificationService){
+                                    NotificationService notificationService) {
 
         this.eventsHelper = eventsHelper;
-        this.eventNotificationService = eventNotificationService;
+        this.notificationService = notificationService;
     }
 
 
@@ -54,7 +54,7 @@ public class NotificationEventHandler implements EventHandler {
             .map(ObjectId.class::cast)
             .collect(Collectors.toList());
 
-        List<EventNotification> listOfNotifications = eventNotificationService.getEventNotificationsById(idList);
+        List<Notification> listOfNotifications = notificationService.getNotificationsById(idList);
 
         List<String> listOfDashboardsToNotify = listOfNotifications
             .stream()

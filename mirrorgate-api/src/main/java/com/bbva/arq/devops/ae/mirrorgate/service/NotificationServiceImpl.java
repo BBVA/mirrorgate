@@ -15,10 +15,10 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.dto.EventNotificationDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.EventNotification;
+import com.bbva.arq.devops.ae.mirrorgate.dto.NotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
-import com.bbva.arq.devops.ae.mirrorgate.repository.EventNotificationRepository;
+import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
+import com.bbva.arq.devops.ae.mirrorgate.repository.NotificationRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,39 +26,39 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EventNotificationServiceImpl implements EventNotificationService {
+public class NotificationServiceImpl implements NotificationService {
 
-    private final EventNotificationRepository repository;
+    private final NotificationRepository repository;
     private final EventService eventService;
 
     @Autowired
-    public EventNotificationServiceImpl(EventNotificationRepository repository, EventService eventService){
+    public NotificationServiceImpl(NotificationRepository repository, EventService eventService) {
 
         this.repository = repository;
         this.eventService = eventService;
     }
 
     @Override
-    public List<EventNotification> getEventNotificationsById(List<ObjectId> notificationIds) {
+    public List<Notification> getNotificationsById(List<ObjectId> notificationIds) {
 
         return repository.findAllByIdIn(notificationIds);
     }
 
     @Override
-    public EventNotification getEventNotificationForDashboard(String dashboardId){
+    public Notification getNotificationForDashboard(String dashboardId) {
 
         return repository.findFirstByDashboardsToNotifyOrderByTimestampDesc(dashboardId);
     }
 
     @Override
-    public EventNotification saveEventNotification(EventNotificationDTO eventNotificationDTO){
+    public Notification saveNotification(NotificationDTO eventNotificationDTO) {
 
-        EventNotification notification = new EventNotification();
+        Notification notification = new Notification();
         notification.setDashboardsToNotify(eventNotificationDTO.getDashboardIds());
         notification.setMessage(eventNotificationDTO.getMessage());
         notification.setTimestamp(System.currentTimeMillis());
 
-        EventNotification result = repository.save(notification);
+        Notification result = repository.save(notification);
 
         eventService.saveEvent(notification, EventType.NOTIFICATION);
 

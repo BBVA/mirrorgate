@@ -15,16 +15,17 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Document(collection = "notification")
-public class EventNotification extends BaseIdModel {
+@CompoundIndex (name = "dashboard_and_timestamp", def = "{ 'dashboardsToNotify': 1, 'timestamp': 1 }")
+public class Notification extends BaseIdModel {
 
     private String message;
-    @Indexed
     private List<String> dashboardsToNotify;
     private long timestamp;
 
