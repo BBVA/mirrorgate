@@ -16,6 +16,7 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -28,16 +29,17 @@ import java.util.Objects;
  * Google Play Store, Apple App Store
  */
 @Document(collection = "reviews")
+@CompoundIndex(name = "appNameAndTimestamp", def = "{'appname': 1, 'timestamp': 1}")
 public class Review extends BaseIdModel {
 
+    @Indexed
     private Long timestamp;
 
-    @Indexed
     private Platform platform;
 
+    @Indexed
     private String commentId;
 
-    @Indexed
     private String appname;
 
     private String authorName;
