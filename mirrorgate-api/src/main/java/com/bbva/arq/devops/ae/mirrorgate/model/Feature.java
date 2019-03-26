@@ -16,11 +16,14 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.List;
+
 
 /**
  * Team story model.
@@ -29,6 +32,15 @@ import java.util.List;
  * Jira
  */
 @Document(collection = "feature")
+@CompoundIndexes({
+    @CompoundIndex(name = "stats", def = "{ 'keywords': 1, 'sTypeName': 1, 'sSprintAssetState': 1, 'sStatus': 1 }"),
+    @CompoundIndex(name = "programIncrement", def = "{ 'sTypeName': 1, 'sPiNames': 1 }"),
+    @CompoundIndex(name = "boards", def="{ 'sProjectName' : 1, 'keywords' : 1, 'sSprintAssetState': 1 }"),
+    @CompoundIndex(name = "idAndCollector", def=" { 'sId': 1, 'collectorId': 1} "),
+    @CompoundIndex(name = "epics", def=" {'sNumber': 1, 'sTypeName': 1} "),
+    @CompoundIndex(name = "sprint", def=" { 'sSprintID': 1, 'collectorId': 1} "),
+    @CompoundIndex(name = "sprintStatus", def=" { 'sSprintAssetState': 1, 'collectorId': 1} ")
+})
 public class Feature implements BaseModel {
 
     @Id
@@ -38,9 +50,7 @@ public class Feature implements BaseModel {
     private String sId;
     private String sNumber;
     private String sName;
-    @Indexed
     private String sTypeName;
-    @Indexed
     private String sStatus;
     private Double dEstimate;
     private String priority;
@@ -48,21 +58,17 @@ public class Feature implements BaseModel {
     private Long timestamp;
 
     /* Associated sprint properties */
-    @Indexed
     private String sSprintID;
     private String sSprintName;
 
-    @Indexed
     private String sSprintAssetState;
     private Date sprintBeginDate;
     private Date sprintEndDate;
 
     /* Associated project properties */
-    @Indexed
     private String sProjectId;
 
     /* Associated PI properties */
-    @Indexed
     private List<String> sPiNames;
 
     @Indexed
@@ -70,13 +76,10 @@ public class Feature implements BaseModel {
     private List<Long> lParentId;
 
     /* Associated collector ID */
-    @Indexed
     private String collectorId;
 
-    @Indexed
     private String sProjectName;
 
-    @Indexed
     private List<String> keywords;
 
     private String teamName;

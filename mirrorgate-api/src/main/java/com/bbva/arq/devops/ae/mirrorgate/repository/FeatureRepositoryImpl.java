@@ -102,10 +102,8 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
         Aggregation agg = newAggregation(
             match(Criteria
-                .where("sParentKey")
-                .in(programIncrementFeatures)
-                .and("keywords")
-                .in(boards)
+                .where("sParentKey").in(programIncrementFeatures)
+                .and("keywords").in(boards)
             ),
             unwind("sParentKey"),
             group()
