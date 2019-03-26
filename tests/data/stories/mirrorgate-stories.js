@@ -19,7 +19,7 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-      'MirrorGate',
+      'MirrorGate'
     ]
   },
   {
@@ -39,7 +39,7 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-      'MirrorGate',
+      'MirrorGate'
     ]
   },
   {
@@ -59,7 +59,7 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-      'MirrorGate',
+      'MirrorGate'
     ]
   },
   {
@@ -79,7 +79,7 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-      'MirrorGate',
+      'MirrorGate'
     ]
   },
   {
@@ -99,7 +99,7 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-      'MirrorGate',
+      'MirrorGate'
     ]
   },
   {
@@ -119,7 +119,7 @@ db.getCollection('feature').insertMany([
     'sProjectName': 'MirrorGate',
     'collectorId': "mirrorgate-collectors-jira",
     keywords: [
-      'MirrorGate',
+      'MirrorGate'
     ]
   },
   {
