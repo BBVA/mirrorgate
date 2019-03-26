@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.123",
-    "@types/node": "^11.11.6",
+    "@types/node": "^11.11.7",
     "angular2-router-loader": "^0.3.5",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^5.2.1",
