@@ -93,7 +93,7 @@
       }
       button.control.play {
         background-color: $text-color;
-        color: $review-background-color;
+        color: $subtile-background-color;
         padding-left: 2px;
       }
 
@@ -111,7 +111,7 @@
         cursor: pointer;
 
         &:hover .review-contents{
-            background-color: lighten($color: $review-background-color, $amount: 1) ;
+            background-color: lighten($color: $subtile-background-color, $amount: 1) ;
         }
     }
 
@@ -156,7 +156,6 @@
       flex-direction: column;
       margin: 0 7.5px;
       padding: 10px;
-      background-color: $review-background-color;
       height: 100%;
       box-sizing: border-box;
 
@@ -247,7 +246,7 @@
             > .fa {
                 -webkit-text-stroke-color: #b3b3b3;
                 -webkit-text-stroke-width: 1px;
-                -webkit-text-fill-color: $review-background-color;
+                -webkit-text-fill-color: $subtile-background-color;
             }
         }
 

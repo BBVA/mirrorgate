@@ -92,6 +92,10 @@ tile-container{
     padding: 5px 10px;
 }
 
+.subtile {
+    background-color: $subtile-background-color;
+}
+
 @media all and (min-width: $l){
     html{
         font-size: $default-size - 0.2;

@@ -63,6 +63,8 @@ $title-transform: uppercase;
 $title-size: 0.95vw;
 $title-weight: 600;
 
+// Tiles
+$subtile-background-color: #fafafa;
 
 $alerts-background: $component-background-color;
 
@@ -73,7 +75,6 @@ $module-ok-background: $component-background-color;
 
 $alerts-header-color: $text-color;
 $alerts-color: lighten($alerts-header-color, 10);
-$review-background-color: #fafafa;
 
 $bottom-background-color: darken($background-color, 20);
 

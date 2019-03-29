@@ -64,12 +64,12 @@ $title-transform: none;
 $title-size: inherit;
 $title-weight: inherit;
 
+// Tiles
+$subtile-background-color: #222;
 
 $module-warning-background: linear-gradient(180deg, rgba(253, 216, 13, 0.05) 30%, rgba(253, 216, 13, 0.22) 100%);
 $module-error-background: linear-gradient(180deg, #191919 0%, #61020e 100%);
 $module-ok-background: $component-background-color;
-
-$review-background-color: #222;
 
 $alerts-header-color: #ffffff;
 $alerts-color: $alerts-header-color;
