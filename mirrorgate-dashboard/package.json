@@ -32,7 +32,7 @@
     "gulp-cachebust": "^0.0.10",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.0.0",
-    "gulp-cli": "^2.0.1",
+    "gulp-cli": "^2.1.0",
     "gulp-filter": "^5.1.0",
     "gulp-if": "^2.0.2",
     "gulp-jshint": "^2.1.0",
@@ -54,7 +54,7 @@
     "karma-webdriver-launcher": "^1.0.5",
     "lodash": "^4.17.11",
     "selenium-standalone": "^6.16.0",
-    "sinon": "^7.3.0",
+    "sinon": "^7.3.1",
     "uglify-js": "^3.5.2"
   },
   "dependencies": {
