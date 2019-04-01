@@ -19,7 +19,7 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-.review .review-contents{
+.subtile {
   border: 1px solid #eaeaea;
 }
 
@@ -34,4 +34,3 @@ h2 {
 @include host('[data-size="l"].module-error') {
   color: white;
 }
-
