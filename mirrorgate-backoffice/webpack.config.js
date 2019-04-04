@@ -29,7 +29,8 @@ var webpackConfig = {
 
   entry: {
     'polyfills': './src/polyfills.ts',
-    'main': './src/main.ts'
+    'main': './src/main.ts',
+    'vendor': './src/vendor.ts'
   },
 
   output: {
@@ -79,13 +80,7 @@ var webpackConfig = {
         { from: 'src/assets' },
         { from: 'src/index.html' },
         { from: 'src/config.json' },
-        { from: 'src/texts.json' },
-        { from: 'node_modules/roboto-fontface/fonts/roboto/', to: 'vendor/roboto/fonts/roboto', flatten: true },
-        { from: 'node_modules/roboto-fontface/css/roboto/*.css', to: 'vendor/roboto/css/roboto', flatten: true },
-        { from: 'node_modules/@fortawesome/fontawesome-free/css/all.min.css', to: 'vendor/fontawesome/css', flatten: true },
-        { from: 'node_modules/@fortawesome/fontawesome-free/webfonts', to: 'vendor/fontawesome/webfonts', flatten: true },
-        { from: 'node_modules/bootstrap/dist/css/bootstrap.min.*', to: 'vendor/bootstrap', flatten: true },
-        { from: 'node_modules/dragula/dist/*.min.css', to: 'vendor/dragula', flatten: true }
+        { from: 'src/texts.json' }
     ]),
     new MiniCssExtractPlugin({
       filename: "[name].css",
