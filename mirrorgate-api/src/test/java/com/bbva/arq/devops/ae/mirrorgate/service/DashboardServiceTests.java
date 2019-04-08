@@ -39,7 +39,10 @@ import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.ACTIVE;
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class DashboardServiceTests {

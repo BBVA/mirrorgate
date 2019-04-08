@@ -49,7 +49,7 @@ public class CommitControllerTests {
         "ssh://repo2.git"
     };
 
-    private MockMvc mockMvc = null;
+    private MockMvc mockMvc;
 
     @Autowired
     private WebApplicationContext wac;

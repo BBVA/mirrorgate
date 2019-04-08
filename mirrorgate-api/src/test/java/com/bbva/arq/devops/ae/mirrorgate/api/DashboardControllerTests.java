@@ -15,22 +15,12 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
-import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,12 +34,30 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(DashboardController.class)
 @WebAppConfiguration
 public class DashboardControllerTests {
 
-    private MockMvc mockMvc = null;
+    private MockMvc mockMvc;
 
     @Autowired private WebApplicationContext wac;
     @MockBean

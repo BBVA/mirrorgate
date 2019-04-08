@@ -15,12 +15,6 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
@@ -40,13 +34,24 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(SlackNotificationController.class)
 @WebAppConfiguration
 public class SlackNotificationControllerTests {
 
-    private MockMvc mockMvc = null;
+    private MockMvc mockMvc;
 
     @Autowired
     private WebApplicationContext wac;

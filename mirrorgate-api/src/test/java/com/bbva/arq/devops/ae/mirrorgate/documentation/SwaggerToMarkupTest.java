@@ -15,9 +15,6 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.documentation;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import io.github.robwin.markup.builder.MarkupLanguage;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -33,6 +30,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @SpringBootTest
@@ -42,7 +42,7 @@ public class SwaggerToMarkupTest {
     @Autowired
     private WebApplicationContext context;
 
-    private MockMvc mockMvc = null;
+    private MockMvc mockMvc;
 
     @Before
     public void setUp() {

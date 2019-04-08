@@ -44,7 +44,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 public class BugControllerTests {
 
-    private MockMvc mockMvc = null;
+    private MockMvc mockMvc;
 
     @Autowired
     private WebApplicationContext wac;

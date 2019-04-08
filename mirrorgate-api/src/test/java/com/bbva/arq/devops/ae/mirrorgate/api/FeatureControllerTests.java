@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class FeatureControllerTests {
 
-    private MockMvc mockMvc = null;
+    private MockMvc mockMvc;
 
     @Autowired
     private WebApplicationContext wac;

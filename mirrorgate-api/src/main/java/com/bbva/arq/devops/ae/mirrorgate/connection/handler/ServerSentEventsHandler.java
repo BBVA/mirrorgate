@@ -2,14 +2,7 @@ package com.bbva.arq.devops.ae.mirrorgate.connection.handler;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +10,14 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class ServerSentEventsHandler implements ConnectionHandler {
@@ -58,9 +59,12 @@ public class ServerSentEventsHandler implements ConnectionHandler {
                 SseEmitter sseEmitter = emitters.get(i-1);
 
                 try {
-                    Map<String, String> message = new HashMap<>();
-                    message.put("type", event.getValue());
-                    String jsonMessage = objectMapper.writeValueAsString(message);
+                    String jsonMessage = objectMapper.writeValueAsString(
+                        ImmutableMap
+                            .<String, String>builder()
+                            .put("type", event.getValue())
+                            .build()
+                    );
                     sseEmitter.send(jsonMessage, MediaType.APPLICATION_JSON);
                 } catch (IOException e) {
                     this.removeFromSessionsMap(sseEmitter, dashboardId);

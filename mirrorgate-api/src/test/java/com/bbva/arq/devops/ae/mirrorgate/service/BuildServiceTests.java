@@ -32,7 +32,11 @@ import java.util.List;
 
 import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class BuildServiceTests {

@@ -33,7 +33,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.ONE_MONTH_AGO;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.ONE_WEEK_AGO;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.TODAY;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.YESTERDAY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 

@@ -65,7 +65,7 @@ public class ProcessEventsHelper {
             .distinct()
             .collect(Collectors.toList());
 
-        if(aggregatedNames.size() > 0) {
+        if(!aggregatedNames.isEmpty()) {
             dashboards.addAll(dashboardService.getDashboardWithNames(aggregatedNames));
         }
 

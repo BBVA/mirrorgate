@@ -38,7 +38,11 @@ import java.util.Objects;
 
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 
 public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
@@ -64,16 +68,16 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
     @Override
     public List<Dashboard> getActiveAndTransientDashboards() {
-        return getDashboardsNotInStatus(new DashboardStatus[]{DELETED});
+        return getDashboardsNotInStatus(DELETED);
     }
 
 
     @Override
     public List<Dashboard> getActiveDashboards() {
-        return getDashboardsNotInStatus(new DashboardStatus[]{DELETED, TRANSIENT});
+        return getDashboardsNotInStatus(DELETED, TRANSIENT);
     }
 
-    private List<Dashboard> getDashboardsNotInStatus(DashboardStatus[] status) {
+    private List<Dashboard> getDashboardsNotInStatus(DashboardStatus... status) {
         Aggregation aggregation = newAggregation(
             sort(new Sort(Sort.Direction.DESC, "lastModification")),
             firstDashboardFields(group("name")),

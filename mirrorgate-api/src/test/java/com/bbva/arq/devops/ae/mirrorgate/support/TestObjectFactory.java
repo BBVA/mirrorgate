@@ -15,12 +15,21 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.support;
 
-import com.bbva.arq.devops.ae.mirrorgate.dto.*;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BugDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import org.bson.types.ObjectId;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 import static com.bbva.arq.devops.ae.mirrorgate.support.IssueType.BUG;
 

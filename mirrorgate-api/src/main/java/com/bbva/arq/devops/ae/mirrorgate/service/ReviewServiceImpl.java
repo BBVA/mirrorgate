@@ -139,10 +139,10 @@ public class ReviewServiceImpl implements ReviewService {
         List<Review> historyData = StreamSupport.stream(reviews.spliterator(), false)
                 .filter((r) -> r.getTimestamp() == null).collect(Collectors.toList());
 
-        if(historyData.size() > 0) {
+        if(!historyData.isEmpty()) {
             List<Review> dbHistoricalReviews = repository.findAllHistorical();
 
-            if(dbHistoricalReviews.size() > 0) {
+            if(!dbHistoricalReviews.isEmpty()) {
                 dbHistoricalReviews = dbHistoricalReviews.stream().filter((review) -> {
                     Optional<Review> newDataOpt = historyData.stream()
                             .filter((h) -> review.getAppname().equals(h.getAppname()))
@@ -159,7 +159,7 @@ public class ReviewServiceImpl implements ReviewService {
                 repository.saveAll(dbHistoricalReviews);
             }
 
-            if(historyData.size() > 0) {
+            if(!historyData.isEmpty()) {
                 repository.saveAll(historyData);
             }
         }
@@ -202,7 +202,7 @@ public class ReviewServiceImpl implements ReviewService {
 
         Review history;
 
-        if(historyList.size() > 0) {
+        if(!historyList.isEmpty()) {
             history = historyList.get(0);
         } else {
             history = new Review();

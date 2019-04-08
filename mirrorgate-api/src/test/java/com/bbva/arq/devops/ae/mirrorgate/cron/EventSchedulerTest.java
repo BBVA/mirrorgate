@@ -1,9 +1,5 @@
 package com.bbva.arq.devops.ae.mirrorgate.cron;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
-
 import ch.qos.logback.classic.Level;
 import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ServerSentEventsHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
@@ -12,11 +8,6 @@ import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.EventService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,6 +17,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.rule.OutputCapture;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

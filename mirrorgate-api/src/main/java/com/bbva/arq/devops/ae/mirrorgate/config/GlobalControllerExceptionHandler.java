@@ -15,7 +15,12 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.config;
 
-import com.bbva.arq.devops.ae.mirrorgate.exception.*;
+import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.FeatureNotFoundException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

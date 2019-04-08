@@ -53,7 +53,7 @@ public class IssueDTO implements Serializable {
     @NotNull
     private Date updatedDate;
 
-    private List<String> keywords = null;
+    private List<String> keywords;
 
     private String collectorId;
 

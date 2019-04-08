@@ -16,8 +16,8 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.dto;
 
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class CommitDTO {
 
@@ -29,8 +29,8 @@ public class CommitDTO {
     private String authorEmail;
     private String committerName;
     private String committerEmail;
-    private LinkedList<String> parentsIds;
-    private HashMap<String,Integer> branches;
+    private List<String> parentsIds;
+    private Map<String, Integer> branches;
 
     public String getHash() {
         return hash;
@@ -104,20 +104,20 @@ public class CommitDTO {
         return this;
     }
 
-    public LinkedList<String> getParentsIds() {
+    public List<String> getParentsIds() {
         return parentsIds;
     }
 
-    public CommitDTO setParentsIds(LinkedList<String> parentsIds) {
+    public CommitDTO setParentsIds(List<String> parentsIds) {
         this.parentsIds = parentsIds;
         return this;
     }
 
-    public HashMap<String, Integer> getBranches() {
+    public Map<String, Integer> getBranches() {
         return branches;
     }
 
-    public CommitDTO setBranches(HashMap<String, Integer> branches) {
+    public CommitDTO setBranches(Map<String, Integer> branches) {
         this.branches = branches;
         return this;
     }

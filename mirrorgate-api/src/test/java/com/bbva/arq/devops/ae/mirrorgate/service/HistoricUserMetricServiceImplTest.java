@@ -32,7 +32,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.*;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.THREE_HOURS_AGO;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.TODAY;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.YESTERDAY;
 import static org.junit.Assert.assertEquals;
 
 

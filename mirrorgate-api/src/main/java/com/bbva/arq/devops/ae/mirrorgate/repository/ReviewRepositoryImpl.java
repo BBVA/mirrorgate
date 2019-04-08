@@ -15,20 +15,25 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import static org.springframework.data.domain.Sort.Direction.DESC;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import com.mongodb.BasicDBObject;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
+
+import java.util.List;
+
+import static org.springframework.data.domain.Sort.Direction.DESC;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 
 /**
  * Reviews Repository

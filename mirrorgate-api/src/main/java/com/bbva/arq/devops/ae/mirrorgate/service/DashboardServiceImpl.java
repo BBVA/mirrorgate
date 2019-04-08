@@ -40,7 +40,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.*;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.ACTIVE;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {

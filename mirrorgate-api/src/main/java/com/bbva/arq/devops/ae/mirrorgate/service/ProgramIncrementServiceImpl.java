@@ -68,6 +68,8 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
         ProgramIncrementNamesAggregationResult result = featureService.getProductIncrementFromPiPattern(piRegex);
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+
         List<String> piNames = null;
         if (result != null) {
             piNames = result.getPiNames();
@@ -90,7 +92,6 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
                         String endDate = matcher.group("endDate");
 
                         if (findIfLocalDateIsInRange(startDate, endDate)) {
-                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
                             Date programIncrementStartDate = null;
                             Date programIncrementEndDate = null;

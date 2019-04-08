@@ -20,13 +20,14 @@ import org.junit.Assert;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 class MapperTestingSupport {
 
-    public static void assertBeanValues(Object o1, Object o2) throws IllegalAccessException, InvocationTargetException {
+    static void assertBeanValues(Object o1, Object o2) throws IllegalAccessException, InvocationTargetException {
         for (Method method : o1.getClass().getDeclaredMethods()) {
             if (method.getName().startsWith("get")) {
                 Object value = method.invoke(o1);
@@ -37,7 +38,7 @@ class MapperTestingSupport {
         }
     }
 
-    public static void initializeTypicalSetters(Object o) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    static void initializeTypicalSetters(Object o) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         int count = 0;
 
         for (Method method : o.getClass().getDeclaredMethods()) {
@@ -46,13 +47,13 @@ class MapperTestingSupport {
                 if(o.getClass().getDeclaredMethod(getter).invoke(o) == null) {
                     Class argumentType = method.getParameterTypes()[0];
                     if (argumentType == String.class) {
-                        method.invoke(o, "" + count++);
+                        method.invoke(o, String.valueOf(count++));
                     } else if (argumentType == Integer.class) {
                         method.invoke(o, count++);
                     } else if (argumentType == Long.class) {
                         method.invoke(o, (long) count++);
                     } else if (argumentType == Date.class) {
-                        method.invoke(o, new Date());
+                        method.invoke(o, Date.from(Instant.now()));
                     } else if (argumentType == Double.class) {
                         method.invoke(o, (double) count++);
                     } else if (argumentType == Float.class) {

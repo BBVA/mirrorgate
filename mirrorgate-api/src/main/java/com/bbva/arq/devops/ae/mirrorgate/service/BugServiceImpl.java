@@ -15,8 +15,6 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import static com.bbva.arq.devops.ae.mirrorgate.support.BugPriority.*;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
 import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
@@ -24,14 +22,19 @@ import com.bbva.arq.devops.ae.mirrorgate.support.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
+import static com.bbva.arq.devops.ae.mirrorgate.support.BugPriority.CRITICAL;
+import static com.bbva.arq.devops.ae.mirrorgate.support.BugPriority.MAJOR;
+import static com.bbva.arq.devops.ae.mirrorgate.support.BugPriority.MEDIUM;
+import static com.bbva.arq.devops.ae.mirrorgate.support.BugPriority.MINOR;
 
 @Service
 public class BugServiceImpl implements BugService {

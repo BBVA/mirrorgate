@@ -15,14 +15,16 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.utils;
 
-import static com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency.*;
-import static com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils.failureTendency;
-import static org.junit.Assert.assertEquals;
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import static com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency.down;
+import static com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency.equal;
+import static com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency.up;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils.failureTendency;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnit4.class)
 public class BuildStatsUtilsTests {

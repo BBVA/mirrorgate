@@ -13,7 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyList;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class FeatureEventHandlerTest {

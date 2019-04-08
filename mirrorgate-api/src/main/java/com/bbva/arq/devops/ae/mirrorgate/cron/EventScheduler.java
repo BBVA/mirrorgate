@@ -73,7 +73,7 @@ public class EventScheduler {
     }
 
     @PostConstruct
-    private void initSchedulerTimestamp(){
+    public void initSchedulerTimestamp(){
 
         Event lastEvent = eventService.getLastEvent();
 
