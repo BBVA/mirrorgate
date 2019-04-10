@@ -55,11 +55,11 @@
     "lodash": "^4.17.11",
     "selenium-standalone": "^6.16.0",
     "sinon": "^7.3.1",
-    "uglify-js": "^3.5.3"
+    "uglify-js": "^3.5.4"
   },
   "dependencies": {
-    "@webcomponents/html-imports": "^1.2.0",
-    "@webcomponents/webcomponentsjs": "^2.2.7",
+    "@webcomponents/html-imports": "^1.2.1",
+    "@webcomponents/webcomponentsjs": "^2.2.8",
     "bootstrap": "^4.3.1",
     "d3": "^5.9.2",
     "font-awesome": "^4.7.0",
