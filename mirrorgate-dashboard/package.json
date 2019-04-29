@@ -55,7 +55,7 @@
     "lodash": "^4.17.11",
     "selenium-standalone": "^6.16.0",
     "sinon": "^7.3.2",
-    "uglify-js": "^3.5.8"
+    "uglify-js": "^3.5.9"
   },
   "dependencies": {
     "@webcomponents/html-imports": "^1.2.1",
