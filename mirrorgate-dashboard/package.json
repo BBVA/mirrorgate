@@ -55,7 +55,7 @@
     "lodash": "^4.17.11",
     "selenium-standalone": "^6.16.0",
     "sinon": "^7.3.2",
-    "uglify-js": "^3.5.9"
+    "uglify-js": "^3.5.10"
   },
   "dependencies": {
     "@webcomponents/html-imports": "^1.2.1",
@@ -63,7 +63,7 @@
     "bootstrap": "^4.3.1",
     "d3": "^5.9.2",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "jquery.dotdotdot": "^3.2.3",
     "moment": "^2.24.0",
     "moment-weekday-calc": "^1.1.4",
