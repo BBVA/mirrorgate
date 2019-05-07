@@ -27,13 +27,13 @@
       "admin_list": "Administrator users",
       "admin_list_help": "Add the users that will have permission to modify the dashboard. Names must be that which precede the users' e-mail address domain names (i.e. user@bbva.com) and must be separated by commas.",
       "admin_list_placeholder": "Add administrators",
-      "admin_list_secondary_placeholder": "Add a new administrator",
       "category": "Category",
       "category_help": "Select a tag to categorize the board.",
       "board_type_text": "Board type",
       "board_type_help": "You can use aggregated dashboards to display in a single view the information of several dashboards.",
       "aggregated_dashboards_text": "Dashboards list",
-      "aggregated_dashboards_help": "Enter a list of the ids of the dashboards you want to aggregate."
+      "aggregated_dashboards_help": "Enter a list of the ids of the dashboards you want to aggregate.",
+      "aggregated_dashboards_list_placeholder": "Add dashboards"
     },
     "commits_block": {
       "title": "Commits",
@@ -53,8 +53,7 @@
       "builds_help": "Add a comma separated list with your builds. You can use regular expressions to match the build name, the project name or the build url. Note that several items will represent an 'Or' match and not an 'And'.<div class=\"alert alert-warning\" role=\"alert\">Note that if you want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>",
       "team_members_list": "Team Members",
       "team_members_list_help": "Builds will be filtered by Team Members if those are included.",
-      "team_members_list_placeholder": "Add a new team member",
-      "team_members_list_secondary_placeholder": "Add team members"
+      "team_members_list_placeholder": "Add team members"
     },
     "markets_block": {
       "title": "Application Markets",

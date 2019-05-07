@@ -43,9 +43,18 @@ label {
   border: 2px solid black;
 }
 
-tag-input {
-  padding: 0;
-  height: 100%;
+.tags {
+    height: 100%;
+    padding: 0;
+
+    .fa {
+      padding-top: 3px;
+    }
+
+    input {
+      border: 0;
+      padding: 6px;
+    }
 }
 
 .checkbox {

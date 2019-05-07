@@ -22,7 +22,7 @@
   </h2>
 
   <div class="white-bg">
-    <form (ngSubmit)="onSave(dashboard)" #dashboardForm="ngForm" *ngIf="dashboard">
+    <form (ngSubmit)="onSave()" #dashboardForm="ngForm" *ngIf="dashboard">
       <div class="general-help" innerHTML="{{texts.form.general_help}}"></div>
 
       <div class="card">
@@ -33,7 +33,7 @@
           <div class="row">
             <div [ngClass]="{'col-sm-6':categories, 'col-sm-12':!categories}">
               <label for="displayName">{{texts.form.general_block.display_name_input}} (*)</label>
-              <input type="text" class="form-control" id="displayName" [(ngModel)]="temp.displayName" (ngModelChange)="mirrorTempValues()" name="displayName" #name="ngModel" required>
+              <input type="text" class="form-control" id="displayName" [(ngModel)]="temp.displayName" name="displayName" #name="ngModel" required>
             </div>
             <div class="col-sm-6" *ngIf="categories">
               <div>
@@ -66,7 +66,7 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <input *ngIf="dashboard.logoUrl != '#UPLOADED#'" type="text" class="form-control" id="logoURL" [(ngModel)]="temp.logoUrl" (ngModelChange)="mirrorTempValues()" name="logoURL">
+                <input *ngIf="dashboard.logoUrl != '#UPLOADED#'" type="text" class="form-control" id="logoURL" [(ngModel)]="temp.logoUrl" name="logoURL">
                 <input *ngIf="dashboard.logoUrl == '#UPLOADED#'" type="text" readonly="true" class="form-control" value="Uploaded picture">
                 <div class="input-group-append">
                   <button type="button" class="btn" *ngIf="edit && dashboard.logoUrl == '#UPLOADED#'" (click)="dashboard.logoUrl = undefined; temp.logoUrl = undefined">
@@ -133,7 +133,19 @@
                   <span class="fas fa-info-circle" aria-hidden="true"></span>
                 </button>
               </div>
-              <tag-input class="form-control" id="adminUsers" name="adminUsers" [(ngModel)]="temp.adminUsers" (ngModelChange)="mirrorTempValues()" placeholder="{{texts.form.general_block.admin_list_placeholder}}" secondaryPlaceholder="{{texts.form.general_block.admin_list_secondary_placeholder}}" separatorKeys="[',',' ']" addOnBlur=true dragZone="adminList"></tag-input>
+              <div class="form-control tags">
+                <mat-chip-list #adminUsers cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="moveTag($event, temp.adminUsers)">
+                  <mat-chip *ngFor="let admin of temp.adminUsers" [selectable]="false" [removable]="true" (removed)="removeTag(admin, temp.adminUsers)" cdkDrag>
+                    {{admin}}
+                    <span matChipRemove class="fa fa-times" aria-hidden="true"></span>
+                  </mat-chip>
+                  <input placeholder="{{texts.form.general_block.admin_list_placeholder}}"
+                          [matChipInputFor]="adminUsers"
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="true"
+                          (matChipInputTokenEnd)="addTag($event, temp.adminUsers)">
+                </mat-chip-list>
+              </div>
             </div>
           </div>
 
@@ -166,9 +178,26 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <tag-input class="form-control" id="aggregatedDashboards" name="aggregatedDashboards" [(ngModel)]="temp.aggregatedDashboards" (ngModelChange)="mirrorTempValues()" placeholder="Add a new dashboard" secondaryPlaceholder="Add a new dashboard" separatorKeys="[',',' ']" addOnBlur=true dragZone="aggregatedList" [onlyFromAutocomplete]="true">
-                  <tag-input-dropdown [autocompleteItems]="dashboardList"></tag-input-dropdown>
-                </tag-input>
+                <div class="form-control tags">
+                  <mat-chip-list #aggregatedDashboards cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="moveTag($event, temp.aggregatedDashboards)">
+                    <mat-chip *ngFor="let dashboard of temp.aggregatedDashboards" [selectable]="false" [removable]="true" (removed)="removeTag(dashboard, temp.aggregatedDashboards)" cdkDrag>
+                      {{dashboard}}
+                      <span matChipRemove class="fa fa-times" aria-hidden="true"></span>
+                    </mat-chip>
+                    <input placeholder="{{texts.form.general_block.aggregated_dashboards_list_placeholder}}"
+                            #aggregatedDashboardsInput
+                            [formControl]="aggregatedDashboardsCtrl"
+                            [matAutocomplete]="auto"
+                            [matChipInputFor]="aggregatedDashboards"
+                            [matChipInputAddOnBlur]="false"
+                            (matChipInputTokenEnd)="addTag($event, temp.aggregatedDashboards, aggregatedDashboardsCtrl, matAutocomplete)">
+                  </mat-chip-list>
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedTag($event, temp.aggregatedDashboards, aggregatedDashboardsInput, aggregatedDashboardsCtrl)">
+                    <mat-option *ngFor="let dashboard of dashboardFilteredList | async" [value]="dashboard">
+                      {{dashboard}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
               </div>
 
             </div>
@@ -194,7 +223,7 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <input type="text" class="form-control" id="boards" [(ngModel)]="temp.boards" (ngModelChange)="mirrorTempValues()" name="boards">
+                <input type="text" class="form-control" id="boards" [(ngModel)]="temp.boards" name="boards">
               </div>
             </div>
             <div class="col-sm-6">
@@ -208,7 +237,7 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <input type="text" class="form-control" id="programIncrement" [(ngModel)]="temp.programIncrement" (ngModelChange)="mirrorTempValues()" name="programIncrement">
+                <input type="text" class="form-control" id="programIncrement" [(ngModel)]="temp.programIncrement" name="programIncrement">
               </div>
             </div>
           </div>
@@ -231,7 +260,7 @@
                   <span class="fas fa-info-circle" aria-hidden="true"></span>
                 </button>
               </div>
-              <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" (ngModelChange)="mirrorTempValues()" name="codeRepos">
+              <input type="text" class="form-control" id="codeRepos" [(ngModel)]="temp.codeRepos" name="codeRepos">
             </div>
           </div>
           <div>
@@ -245,7 +274,19 @@
                   <span class="fas fa-info-circle" aria-hidden="true"></span>
                 </button>
               </div>
-              <tag-input class="form-control" id="teamMembers" name="teamMembers" [(ngModel)]="temp.teamMembers" (ngModelChange)="mirrorTempValues()" placeholder="{{texts.form.ci_block.team_members_list_placeholder}}" secondaryPlaceholder="{{texts.form.ci_block.team_members_list_secondary_placeholder}}" separatorKeys="[',',' ']" addOnBlur=true dragZone="teamList"></tag-input>
+              <div class="form-control tags">
+                <mat-chip-list #teamMembers cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="moveTag($event, temp.teamMembers)">
+                  <mat-chip *ngFor="let member of temp.teamMembers" [selectable]="false" [removable]="true" (removed)="removeTag(member, temp.teamMembers)" cdkDrag>
+                    {{member}}
+                    <span matChipRemove class="fa fa-times" aria-hidden="true"></span>
+                  </mat-chip>
+                  <input placeholder="{{texts.form.general_block.team_members_list_placeholder}}"
+                          [matChipInputFor]="teamMembers"
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="true"
+                          (matChipInputTokenEnd)="addTag($event, temp.teamMembers)">
+                </mat-chip-list>
+              </div>
             </div>
           </div>
         </div>
@@ -268,7 +309,7 @@
                   <span class="fas fa-info-circle" aria-hidden="true"></span>
                 </button>
               </div>
-              <input type="text" class="form-control" id="gitRepos" [(ngModel)]="temp.gitRepos" (ngModelChange)="mirrorTempValues()" name="gitRepos">
+              <input type="text" class="form-control" id="gitRepos" [(ngModel)]="temp.gitRepos" name="gitRepos">
             </div>
           </div>
         </div>
@@ -294,7 +335,7 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <input type="text" class="form-control" id="applications" [(ngModel)]="temp.applications" (ngModelChange)="mirrorTempValues()"
+                <input type="text" class="form-control" id="applications" [(ngModel)]="temp.applications"
                   name="applications">
               </div>
             </div>
@@ -332,7 +373,7 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <input type="text" class="form-control" id="lastVersion" [(ngModel)]="temp.lastVersion" (ngModelChange)="mirrorTempValues()" name="lastVersion">
+                <input type="text" class="form-control" id="lastVersion" [(ngModel)]="temp.lastVersion" name="lastVersion">
               </div>
             </div>
 
@@ -360,7 +401,7 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <input type="text" class="form-control" id="analyticsIds" [(ngModel)]="temp.analyticViews" (ngModelChange)="mirrorTempValues()" name="analyticsIds">
+                <input type="text" class="form-control" id="analyticsIds" [(ngModel)]="temp.analyticViews" name="analyticsIds">
               </div>
             </div>
 
@@ -387,7 +428,7 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <input type="text" class="form-control" id="operationsIds" [(ngModel)]="temp.operationViews" (ngModelChange)="mirrorTempValues()" name="operationsIds">
+                <input type="text" class="form-control" id="operationsIds" [(ngModel)]="temp.operationViews" name="operationsIds">
                 <div class="input-group-append">
                   <button type="button" class="btn btn-secondary" (click)="icon = {}" data-toggle="modal" data-target="#alertingLevelsModal">
                     <span class="fas fa-cog" aria-hidden="true"></span>
@@ -495,7 +536,7 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <input type="checkbox" class="checkbox" id="infraCost" [(ngModel)]="temp.infraCost" (ngModelChange)="mirrorTempValues()" name="infraCost">
+                <input type="checkbox" class="checkbox" id="infraCost" [(ngModel)]="temp.infraCost" name="infraCost">
               </div>
             </div>
 
@@ -522,7 +563,7 @@
                     <span class="fas fa-info-circle" aria-hidden="true"></span>
                   </button>
                 </div>
-                <input type="text" class="form-control" id="slack_team" [(ngModel)]="temp.slackTeam" (ngModelChange)="mirrorTempValues()" name="slack_team" #name="ngModel" placeholder="{{texts.form.alerts_block.slack_placeholder}}">
+                <input type="text" class="form-control" id="slack_team" [(ngModel)]="temp.slackTeam" name="slack_team" #name="ngModel" placeholder="{{texts.form.alerts_block.slack_placeholder}}">
                 <select *ngIf="slackChannels.keys" class="form-control" [(ngModel)]="dashboard.slackChannel" name="slack_channel">
                   <option></option>
                   <option *ngFor="let id of slackChannels.keys" [value]="id">{{slackChannels.values[id]}}</option>
@@ -594,8 +635,8 @@
                   </button>
                 </div>
                 <div class="col-11">
-                  <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="temp.urlAlerts" (ngModelChange)="mirrorTempValues()" name="urlAlerts" placeholder="{{texts.form.alerts_block.alerts_url_placeholder}}">
-                  <input type="text" class="form-control" id="urlAlertsAuthorization" [(ngModel)]="temp.urlAlertsAuthorization" (ngModelChange)="mirrorTempValues()" name="urlAlertsAuthorization" placeholder="{{texts.form.alerts_block.alerts_auth_header_placeholder}}">
+                  <input type="text" class="form-control" id="urlAlerts" [(ngModel)]="temp.urlAlerts" name="urlAlerts" placeholder="{{texts.form.alerts_block.alerts_url_placeholder}}">
+                  <input type="text" class="form-control" id="urlAlertsAuthorization" [(ngModel)]="temp.urlAlertsAuthorization" name="urlAlertsAuthorization" placeholder="{{texts.form.alerts_block.alerts_auth_header_placeholder}}">
                 </div>
               </div>
             </div>

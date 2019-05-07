@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {kebabCase} from 'lodash';
 
@@ -26,6 +26,13 @@ import {TextsService} from '../../services/texts.service';
 import {ConfigService} from '../../services/config.service';
 import {DragulaService} from 'ng2-dragula';
 
+import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
+import {MatChipInputEvent, MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 @Component({
   selector: 'new-and-edit-form',
   templateUrl: './form.component.html',
@@ -46,22 +53,13 @@ export class FormComponent {
     boards?: string,
     programIncrement?: string,
     codeRepos?: string,
-    adminUsers?: {
-      display?: string,
-      value?: string
-    }[],
+    adminUsers?: string[],
     gitRepos?: string,
     analyticViews?: string,
     operationViews?: string,
     infraCost?: boolean,
-    aggregatedDashboards?: {
-      display?: string,
-      value?: string
-    }[],
-    teamMembers?: {
-      display?: string,
-      value?: string
-    }[],
+    aggregatedDashboards?: string[],
+    teamMembers?: string[],
     lastVersion?: string,
     slackTeam?: string,
     urlAlerts?: string,
@@ -77,6 +75,13 @@ export class FormComponent {
   }[];
   marketsStatsDays: number;
   dashboardList: string[] = [];
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
+
+  // Autocomplete Aggregated Dashboard List
+  dashboardFilteredList: Observable<string[]>;
+  aggregatedDashboardsCtrl = new FormControl();
+  @ViewChild('aggregatedDashboardsInput') aggregatedDashboardsInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   readonly MAX_COLUMNS = 5;
 
@@ -152,7 +157,7 @@ export class FormComponent {
 
   }
 
-  setDashboard(dashboard: Dashboard) {
+  private setDashboard(dashboard: Dashboard) {
     if (!dashboard.displayName) {
       dashboard.displayName = dashboard.name;
     }
@@ -172,15 +177,15 @@ export class FormComponent {
     this.temp.codeRepos =
         this.dashboard.codeRepos ? this.dashboard.codeRepos.join(',') : '';
     this.temp.adminUsers = this.dashboard.adminUsers ?
-        this.dashboard.adminUsers.map((e) => {
-          return { display: e, value: e }
-        }) : [];
+        this.dashboard.adminUsers : [];
     this.temp.gitRepos =
         this.dashboard.gitRepos ? this.dashboard.gitRepos.join(',') : '';
     this.temp.aggregatedDashboards = this.dashboard.aggregatedDashboards ?
-        this.dashboard.aggregatedDashboards.map((e) => {
-          return { display: e, value: e }
-        }) : [];
+        this.dashboard.aggregatedDashboards : [];
+    this.dashboardFilteredList = this.aggregatedDashboardsCtrl.valueChanges.pipe(
+      startWith(null),
+      map((dashboard: string | null) => this._filter(dashboard, this.dashboardList, this.temp.aggregatedDashboards))
+    );
     this.temp.analyticViews = this.dashboard.analyticViews ?
         this.dashboard.analyticViews.join(',') :
         '';
@@ -189,9 +194,7 @@ export class FormComponent {
             '';
     this.temp.infraCost = this.dashboard.infraCost || false;
     this.temp.teamMembers = this.dashboard.teamMembers ?
-        this.dashboard.teamMembers.map((e) => {
-          return { display: e, value: e }
-        }) : [];
+        this.dashboard.teamMembers : [];
     this.temp.lastVersion =
         this.dashboard.lastVersion ? this.dashboard.lastVersion : '';
     this.temp.slackTeam =
@@ -203,7 +206,7 @@ export class FormComponent {
     this.updateSlackChannels();
   }
 
-  mirrorTempValues() {
+  private mirrorTempValues() {
     this.dashboard.displayName = this.temp.displayName.length ?
         this.temp.displayName.trim() : undefined;
     this.dashboard.logoUrl = this.temp.logoUrl.length ?
@@ -219,14 +222,13 @@ export class FormComponent {
         this.temp.codeRepos.split(',').map((e) => e.trim()) :
         undefined;
     this.dashboard.adminUsers = this.temp.adminUsers.length ?
-        this.temp.adminUsers.map((e) => e.value.split('@')[0].trim()) :
+        this.temp.adminUsers.map((e) => e.split('@')[0].trim()) :
         undefined;
     this.dashboard.gitRepos = this.temp.gitRepos.length ?
         this.temp.gitRepos.split(',').map((e) => e.trim()) :
         undefined;
     this.dashboard.aggregatedDashboards = this.temp.aggregatedDashboards.length ?
-        this.temp.aggregatedDashboards.map((e) => e.value.trim()) :
-        undefined;
+        this.temp.aggregatedDashboards : undefined;
     this.dashboard.analyticViews = this.temp.analyticViews.length ?
         this.temp.analyticViews.split(',').map((e) => e.trim()) :
         undefined;
@@ -235,7 +237,7 @@ export class FormComponent {
             undefined;
     this.dashboard.infraCost = this.temp.infraCost || false;
     this.dashboard.teamMembers = this.temp.teamMembers.length ?
-        this.temp.teamMembers.map((e) => e.value.split('@')[0].trim()) :
+        this.temp.teamMembers.map((e) => e.split('@')[0].trim()) :
         undefined;
     this.dashboard.lastVersion = this.temp.lastVersion.length ?
         this.temp.lastVersion.trim() : undefined;
@@ -289,9 +291,10 @@ export class FormComponent {
     this.updateSlackChannels();
   }
 
-  onSave(dashboard: Dashboard): void {
-    document.getElementById('dynamicDashboardConfiguration') && this.saveColumns(dashboard);
-    this.dashboardsService.saveDashboard(dashboard, this.edit).subscribe(
+  onSave(): void {
+    this.mirrorTempValues();
+    document.getElementById('dynamicDashboardConfiguration') && this.saveColumns(this.dashboard);
+    this.dashboardsService.saveDashboard(this.dashboard, this.edit).subscribe(
       dashboard => {
         if (dashboard) {
           this.dashboard = dashboard;
@@ -347,6 +350,53 @@ export class FormComponent {
 
   ngAfterViewChecked() {
     this.updateColumns();
+  }
+
+  addTag(event: MatChipInputEvent, array: string[], control: FormControl, matAutocomplete: MatAutocomplete): void {
+    if (!matAutocomplete || matAutocomplete.isOpen) {
+      this._addTag(event.value, array, event.input, control);
+    }
+  }
+
+  removeTag(element: any, array: string []): void {
+    const index = array.indexOf(element);
+
+    if (index >= 0) {
+      array.splice(index, 1);
+    }
+
+  }
+
+  selectedTag(event: MatAutocompleteSelectedEvent, array: string [], input: any, control: FormControl): void {
+    this._addTag(event.option.value, array, input, control)
+  }
+
+  private _addTag(value: string, array: string [], input: any, control: FormControl): void {
+    if (input) {
+      input.value = '';
+    }
+
+    if(control) {
+      control.setValue(null);
+    }
+
+    if (array.indexOf(value) >= 0) {
+      return;
+    }
+
+    if ((value || '').trim()) {
+      array.push(value.trim());
+    }
+
+  }
+
+  private _filter(value: string | null, origin: string[], dest: string[]): string[] {
+    let filteredList = origin.filter(e => dest.indexOf(e.trim()) < 0)
+    return value ? filteredList.filter(e => e.indexOf(value.trim()) === 0) : filteredList;
+  }
+
+  moveTag(event: CdkDragDrop<String[]>, array: string []) {
+    moveItemInArray(array, event.previousIndex, event.currentIndex);
   }
 
 }

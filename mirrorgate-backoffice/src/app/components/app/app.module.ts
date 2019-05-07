@@ -27,8 +27,10 @@ import { ListComponent } from '../list/list.component';
 import { NgModule } from '@angular/core';
 import { rootRouterConfig } from './app.routes';
 import { RouterModule } from '@angular/router';
-import { TagInputModule } from 'ngx-chips';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,9 +45,12 @@ import { TagInputModule } from 'ngx-chips';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: true }),
-    TagInputModule,
     BrowserAnimationsModule,
-    DragulaModule.forRoot()
+    DragulaModule.forRoot(),
+    MatFormFieldModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    DragDropModule
   ],
   bootstrap: [ AppComponent ]
 })
