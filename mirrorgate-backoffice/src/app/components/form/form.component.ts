@@ -80,8 +80,8 @@ export class FormComponent {
   // Autocomplete Aggregated Dashboard List
   dashboardFilteredList: Observable<string[]>;
   aggregatedDashboardsCtrl = new FormControl();
-  @ViewChild('aggregatedDashboardsInput') aggregatedDashboardsInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('aggregatedDashboardsInput', {static: false}) aggregatedDashboardsInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   readonly MAX_COLUMNS = 5;
 

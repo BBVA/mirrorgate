@@ -41,7 +41,7 @@ export class ListComponent {
     search: string,
     page: number
   };
-  @ViewChild('searchInput') searchInputRef: ElementRef;
+  @ViewChild('searchInput', {static: true}) searchInputRef: ElementRef;
 
   constructor(
     private dashboardsService: DashboardsService,
