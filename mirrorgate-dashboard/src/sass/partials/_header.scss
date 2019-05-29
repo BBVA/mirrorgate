@@ -17,17 +17,14 @@
 .header{
     align-items: center;
     background-color: $header-bg;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 15px;
-    width: 100%;
+    display: flex;
+    min-height: $header-height;
 
     &.component-host, &.component-wrapper {
       padding: 0;
-    }
-
-    .logos{
-        flex: 0 1 55px;
     }
 
     .logo--mg{
@@ -37,17 +34,13 @@
         left: 10px;
     }
 
-    .board-title {
-      flex: 0 1 70%;
-    }
-
     .menu{
-        flex: 0 1 90px;
         text-align: right;
 
         .btn-group {
             align-items: center;
             justify-content: flex-end;
+            flex-wrap: wrap;
 
             .btn {
                 padding: 6px 12px;
@@ -200,18 +193,23 @@ details-dashboard{
     max-width: 80%;
 }
 
+@media all and (max-width: $m){
+    .header{
+
+        .logos{
+            min-height: $header-height;
+        }
+    }
+}
+
 @media all and (min-width: $m){
     .header{
-        .logos{
-            flex: 0 1 30%;
-        }
 
         .logo--mg{
             position: static;
         }
 
         .menu{
-            flex: 0 1 30%;
             text-align: right;
             min-width: 200px;
         }
