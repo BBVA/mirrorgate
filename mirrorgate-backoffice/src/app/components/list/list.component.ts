@@ -87,9 +87,9 @@ export class ListComponent {
 
   searchDashboard(value?) {
     this.setQueryParams(value || value === '' ? value : this.queryParams.search, this.queryParams.page);
-    this.filterBoards = this.queryParams.search && this.queryParams.search.length ?
+    this.filterBoards = this.sourceBoards ? this.queryParams.search && this.queryParams.search.length ?
       this.sourceBoards.filter(board => (board.displayName || board.name).toLowerCase().indexOf(this.queryParams.search.toLowerCase()) >= 0):
-      this.sourceBoards;
+      this.sourceBoards : [];
     this.maxPages = Math.ceil(this.filterBoards.length/this.itemsPerPage);
     if(value === ''){
       this.setQueryParams('', 0);
