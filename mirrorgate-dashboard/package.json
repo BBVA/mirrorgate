@@ -26,7 +26,7 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "browser-sync": "^2.26.5",
+    "browser-sync": "^2.26.7",
     "glob": "^7.1.4",
     "gulp": "^4.0.2",
     "gulp-cachebust": "^0.0.10",
@@ -55,7 +55,7 @@
     "lodash": "^4.17.11",
     "selenium-standalone": "^6.16.0",
     "sinon": "^7.3.2",
-    "uglify-js": "^3.5.11"
+    "uglify-js": "^3.6.0"
   },
   "dependencies": {
     "@webcomponents/html-imports": "^1.2.1",
