@@ -54,4 +54,12 @@ public interface BuildService {
      */
     BuildStats getStatsAndTendenciesByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
 
+    /**
+     * Get all builds by Ids.
+     *
+     * @param ids Builds' ids
+     * @return List of builds
+     */
+    List<BuildDTO> getBuildsById(List<String> ids);
+
 }

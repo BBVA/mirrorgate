@@ -42,7 +42,7 @@ public class DetailsEventHandler implements EventHandler {
     public void processEvents(List<Event> eventList, Set<String> dashboardIds) {
 
         List<Object> idList = eventList.stream()
-            .map(Event::getEventTypeCollectionId)
+            .map(Event::getCollectionId)
             .collect(Collectors.toList());
 
         Predicate<Dashboard> filterDashboards = d -> idList.contains(d.getId());

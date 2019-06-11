@@ -28,24 +28,24 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public void saveEvent(BaseModel baseObject, EventType type){
-        LOGGER.info("Saving event with Id :{}", baseObject.getId());
+    public void saveEvent(BaseModel model, EventType type) {
+        LOGGER.info("Saving event with Id :{}", model.getId());
 
         eventRepository.save(new Event()
             .setEventType(type)
-            .setEventTypeCollectionId(baseObject.getId())
+            .setCollectionId(model.getId())
             .setTimestamp(System.currentTimeMillis())
         );
     }
 
     @Override
-    public void saveEvents(Iterable<? extends BaseModel> reviews, EventType type) {
+    public void saveEvents(Iterable<? extends BaseModel> models, EventType type) {
         LOGGER.info("Saving list of events");
 
-        List<Event> eventList = StreamSupport.stream(reviews.spliterator(), false)
-            .map(review -> new Event()
+        List<Event> eventList = StreamSupport.stream(models.spliterator(), false)
+            .map(model -> new Event()
                 .setEventType(type)
-                .setEventTypeCollectionId(review.getId())
+                .setCollectionId(model.getId())
                 .setTimestamp(System.currentTimeMillis())
             ).collect(Collectors.toList());
 

@@ -31,7 +31,7 @@ public class ReviewEventHandler implements EventHandler {
     @Override
     public void processEvents(List<Event> eventList, Set<String> dashboardIds) {
         List<ObjectId> idList = eventList.stream()
-            .map(Event::getEventTypeCollectionId)
+            .map(Event::getCollectionId)
             .filter(ObjectId.class::isInstance)
             .map(ObjectId.class::cast)
             .collect(Collectors.toList());

@@ -8,7 +8,7 @@ public class Event extends BaseIdModel {
 
     @Indexed
     private Long timestamp;
-    private Object eventTypeCollectionId;
+    private Object collectionId;
     private EventType eventType;
 
     public Long getTimestamp() {
@@ -20,12 +20,12 @@ public class Event extends BaseIdModel {
         return this;
     }
 
-    public Object getEventTypeCollectionId() {
-        return eventTypeCollectionId;
+    public Object getCollectionId() {
+        return collectionId;
     }
 
-    public Event setEventTypeCollectionId(Object eventTypeCollectionId) {
-        this.eventTypeCollectionId = eventTypeCollectionId;
+    public Event setCollectionId(Object collectionId) {
+        this.collectionId = collectionId;
         return this;
     }
 

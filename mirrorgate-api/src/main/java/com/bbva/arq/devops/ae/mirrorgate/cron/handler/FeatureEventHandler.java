@@ -36,7 +36,7 @@ public class FeatureEventHandler implements EventHandler {
     public void processEvents(List<Event> eventList, Set<String> dashboardIds) {
 
         List<String> idList = eventList.stream()
-            .map(Event::getEventTypeCollectionId)
+            .map(Event::getCollectionId)
             .map(String.class::cast)
             .collect(Collectors.toList());
 

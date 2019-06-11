@@ -29,6 +29,8 @@ public interface BuildRepository extends CrudRepository<Build, ObjectId>, BuildR
 
     Build findById(String buildUrl);
 
+    List<Build> findAllById(List<String> ids);
+
     List<Build> findAllByProjectNameAndRepoNameAndBranchAndLatestIsTrue(String projectName, String repoName, String branch);
 
 }

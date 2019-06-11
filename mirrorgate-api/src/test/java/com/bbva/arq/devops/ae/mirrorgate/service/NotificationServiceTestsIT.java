@@ -16,7 +16,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -51,7 +53,7 @@ public class NotificationServiceTestsIT {
 
         assertSame(savedEvent.getEventType(), EventType.NOTIFICATION);
         assertEquals(0, notification.getMessage().compareTo("Notification message"));
-        assertEquals(savedEvent.getEventTypeCollectionId(), notification.getId());
+        assertEquals(savedEvent.getCollectionId(), notification.getId());
     }
 
     @Test

@@ -1,9 +1,10 @@
 package com.bbva.arq.devops.ae.mirrorgate.connection.handler;
 
+import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Set;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 public interface ConnectionHandler {
 

@@ -43,7 +43,7 @@ public class EventServiceTest {
         verify(eventRepository).save(captor.capture());
 
         assertEquals(EventType.BUILD, captor.getValue().getEventType());
-        assertEquals(build.getId(), captor.getValue().getEventTypeCollectionId());
+        assertEquals(build.getId(), captor.getValue().getCollectionId());
         assertNotNull(captor.getValue().getTimestamp());
     }
 

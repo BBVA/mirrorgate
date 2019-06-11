@@ -18,6 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency;
+import com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
@@ -107,6 +108,11 @@ public class BuildServiceImpl implements BuildService {
         statsSevenDaysBefore.setFailureTendency(failureTendency);
 
         return statsSevenDaysBefore;
+    }
+
+    @Override
+    public List<BuildDTO> getBuildsById(List<String> ids) {
+        return buildRepository.findAllById(ids).stream().map(BuildMapper::map).collect(Collectors.toList());
     }
 
     private BuildStats getStatsByKeywordsAndByTeamMembersAfterTimestamp(List<String> keywords, List<String> teamMembers, int daysBefore) {
