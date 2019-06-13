@@ -90,6 +90,28 @@ public class BuildRepositoryTests {
         assertThat(builds.get(1).getBranch()).isEqualTo(build1.getBranch());
     }
 
+    @Test
+    public void getBuildsByIds() {
+        final Build build1 = makeBuild(REPO_NAME, "develop");
+        final Build build2 = makeBuild(REPO_NAME, "master");
+        final Build build3 = makeBuild(REPO_NAME, "master");
+
+        repository.save(build1);
+        repository.save(build2);
+        repository.save(build3);
+
+        final List<Build> builds = repository
+            .findAllByIdIn(Arrays.asList(build1.getId().toString(), build2.getId().toString()));
+
+        assertThat(builds.get(0).getId()).isEqualTo(build1.getId());
+        assertThat(builds.get(0).getTimestamp()).isEqualTo(build1.getTimestamp());
+        assertThat(builds.get(0).getBranch()).isEqualTo(build1.getBranch());
+        assertThat(builds.get(1).getId()).isEqualTo(build2.getId());
+        assertThat(builds.get(1).getTimestamp()).isEqualTo(build2.getTimestamp());
+        assertThat(builds.get(1).getBranch()).isEqualTo(build2.getBranch());
+    }
+
+
     @After
     public void after() {
         repository.deleteAll();

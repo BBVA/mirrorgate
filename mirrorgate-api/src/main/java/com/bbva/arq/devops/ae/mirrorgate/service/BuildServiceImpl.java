@@ -111,8 +111,8 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public List<BuildDTO> getBuildsById(List<String> ids) {
-        return buildRepository.findAllById(ids).stream().map(BuildMapper::map).collect(Collectors.toList());
+    public List<BuildDTO> getBuildsByIds(List<String> ids) {
+        return buildRepository.findAllByIdIn(ids).stream().map(BuildMapper::map).collect(Collectors.toList());
     }
 
     private BuildStats getStatsByKeywordsAndByTeamMembersAfterTimestamp(List<String> keywords, List<String> teamMembers, int daysBefore) {

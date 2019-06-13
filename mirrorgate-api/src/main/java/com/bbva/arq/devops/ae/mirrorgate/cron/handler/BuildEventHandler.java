@@ -42,7 +42,7 @@ public class BuildEventHandler implements EventHandler {
         if (ids.contains(null)) {
             connectionHandler.sendEventUpdateMessageToAll(EventType.BUILD);
         } else {
-            Iterable<BuildDTO> builds = buildService.getBuildsById(ids);
+            Iterable<BuildDTO> builds = buildService.getBuildsByIds(ids);
 
             Predicate<Dashboard> filterDashboards = dashboard ->
                 StreamSupport

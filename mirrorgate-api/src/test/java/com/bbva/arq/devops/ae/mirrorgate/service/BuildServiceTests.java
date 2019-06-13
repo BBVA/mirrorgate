@@ -121,4 +121,17 @@ public class BuildServiceTests {
 
         assertThat(b.getBuildUrl()).isEqualTo(build.getBuildUrl());
     }
+
+    @Test
+    public void getBuildsByIds() {
+        final Build build1 = makeBuild();
+        final Build build2 = makeBuild();
+
+        when(buildRepository.findAllByIdIn(any())).thenReturn(Arrays.asList(build1, build2));
+
+        final List<BuildDTO> builds = buildService.getBuildsByIds(Arrays.asList(build1.getId().toString(), build2.getId().toString()));
+
+        assertThat(builds.get(0).getBuildUrl()).isEqualTo(build1.getBuildUrl());
+        assertThat(builds.get(1).getBuildUrl()).isEqualTo(build2.getBuildUrl());
+    }
 }

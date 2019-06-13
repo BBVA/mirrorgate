@@ -62,7 +62,7 @@ public class BuildEventHandlerTest {
         Event event = new Event().setCollectionId(build.getBuildUrl());
         Set<String> dashboardIds = new HashSet<>(Arrays.asList(dashboard1.getName(), dashboard2.getName(), dashboard3.getName()));
 
-        when(buildService.getBuildsById(anyList())).thenReturn(Collections.singletonList(build));
+        when(buildService.getBuildsByIds(anyList())).thenReturn(Collections.singletonList(build));
         when(dashboardService.getDashboardWithNames(anyList())).thenReturn(Arrays.asList(dashboard1, dashboard2, dashboard3));
 
         eventHandler.processEvents(Collections.singletonList(event), dashboardIds);
@@ -90,7 +90,7 @@ public class BuildEventHandlerTest {
         Event event = new Event().setCollectionId(build.getBuildUrl());
         Set<String> dashboardIds = new HashSet<>(Arrays.asList(dashboard1.getName(), dashboard2.getName()));
 
-        when(buildService.getBuildsById(anyList())).thenReturn(Collections.singletonList(build));
+        when(buildService.getBuildsByIds(anyList())).thenReturn(Collections.singletonList(build));
         when(dashboardService.getDashboardWithNames(anyList())).thenReturn(Arrays.asList(dashboard1, dashboard2));
 
         eventHandler.processEvents(Collections.singletonList(event), dashboardIds);

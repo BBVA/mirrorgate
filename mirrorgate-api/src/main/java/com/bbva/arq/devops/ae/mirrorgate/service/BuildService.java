@@ -60,6 +60,6 @@ public interface BuildService {
      * @param ids Builds' ids
      * @return List of builds
      */
-    List<BuildDTO> getBuildsById(List<String> ids);
+    List<BuildDTO> getBuildsByIds(List<String> ids);
 
 }
