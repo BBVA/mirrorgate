@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@Component(value = "BuildType")
+@Component("BuildType")
 public class BuildEventHandler implements EventHandler {
 
     private final ConnectionHandler connectionHandler;
@@ -25,7 +25,7 @@ public class BuildEventHandler implements EventHandler {
     private final ProcessEventsHelper eventsHelper;
 
     @Autowired
-    BuildEventHandler(ConnectionHandler connectionHandler, BuildService buildService, ProcessEventsHelper eventsHelper) {
+    public BuildEventHandler(final ConnectionHandler connectionHandler, final BuildService buildService, final ProcessEventsHelper eventsHelper) {
 
         this.connectionHandler = connectionHandler;
         this.buildService = buildService;
@@ -33,8 +33,8 @@ public class BuildEventHandler implements EventHandler {
     }
 
     @Override
-    public void processEvents(List<Event> eventList, Set<String> dashboardIds) {
-        List<String> ids = eventList.stream()
+    public void processEvents(final List<Event> eventList, final Set<String> dashboardIds) {
+        final List<String> ids = eventList.stream()
             .map(Event::getCollectionId)
             .map(String.class::cast)
             .collect(Collectors.toList());
@@ -42,15 +42,21 @@ public class BuildEventHandler implements EventHandler {
         if (ids.contains(null)) {
             connectionHandler.sendEventUpdateMessageToAll(EventType.BUILD);
         } else {
-            Iterable<BuildDTO> builds = buildService.getBuildsByIds(ids);
+            final Iterable<BuildDTO> builds = buildService.getBuildsByIds(ids);
 
-            Predicate<Dashboard> filterDashboards = dashboard ->
+            final Predicate<Dashboard> filterDashboards = dashboard ->
                 StreamSupport
                     .stream(builds.spliterator(), false)
                     .anyMatch(build -> {
+
+                        if (dashboard.getCodeRepos() == null || dashboard.getCodeRepos().isEmpty()) {
+                            return false;
+                        }
+
                         if (dashboard.getTeamMembers() != null && !dashboard.getTeamMembers().isEmpty() && !CollectionUtils.containsAny(dashboard.getTeamMembers(), build.getCulprits())) {
                             return false;
                         }
+
                         return dashboard.getCodeRepos().stream().anyMatch(repo ->
                             build.getKeywords()
                                 .stream()
