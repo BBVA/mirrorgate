@@ -22,7 +22,6 @@ var SimpleBuildsController = (function(dashboardId) {
 
   var observable = new Event('SimpleBuildsController');
   var service = Service.get(Service.types.builds, dashboardId);
-  var config;
 
   function getBuildsStats(response) {
     var data;

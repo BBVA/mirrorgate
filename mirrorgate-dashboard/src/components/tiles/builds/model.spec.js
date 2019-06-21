@@ -27,7 +27,7 @@ describe('Build', () => {
     expect(build.size).toBe(100);  // 100 as default
   });
 
-  it('checking custome parameters', () => {
+  it('checking custom parameters', () => {
     var status = 'Success';
     var size = 50;
     build = new Build(name, status, size);

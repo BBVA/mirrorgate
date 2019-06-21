@@ -122,8 +122,8 @@ gulp.task('html', () => {
         .pipe(revReplace())
         .pipe(gulp.dest(path.dirname(filePath)))
         .on('end', resolve);
-    }))
-  , Promise.resolve()).then(() => {
+    })),
+    Promise.resolve()).then(() => {
     //Rev and RevReplace for html references... they are relative so lots of work to do :-(
       const f = filter(['dist/components/**/*.html'], {restore: true});
       return gulp.src('dist/**/*.html')
