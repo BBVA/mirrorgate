@@ -105,6 +105,12 @@ var OperationsUtils = (function() {
       var metricsMap = {};
 
       metrics.forEach(function(metric) {
+
+        // TODO: filter errorsNumber by status code
+        if(metric.name === 'errors4XXNumber' || metric.name === 'errors5XXNumber') {
+            metric.name = 'errorsNumber';
+        }
+
         if(metricsMap[metric.name] === undefined) {
           metricsMap[metric.name] = {
             lastValue: 0,
