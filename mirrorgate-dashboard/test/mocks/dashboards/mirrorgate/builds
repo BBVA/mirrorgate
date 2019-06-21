@@ -60,12 +60,13 @@
       "buildUrl": "http://fake.url",
       "startTime": 0,
       "endTime": 0,
-      "duration": 0,
+      "duration": 234353,
       "buildStatus": "Failure",
       "startedBy": null,
       "projectName": "MirrorGate",
       "repoName": "mirrorgate-app",
-      "branch": "br"
+      "branch": "br",
+      "culprits": ["Xayide", "Gmork"]
     },
     {
       "timestamp": 1491291464,

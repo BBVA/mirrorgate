@@ -25,7 +25,8 @@
       "startedBy": null,
       "projectName": "MirrorGate",
       "repoName": "design",
-      "branch": "master"
+      "branch": "master",
+      "culprits": ["Gmork"]
     },
     {
       "timestamp": 1490951397,
