@@ -15,10 +15,10 @@ describe('current-sprint', function () {
     });
 
     it('should display stories by status', function () {
-        expect(element.all(by.css('current-sprint-tile .outher path.status-in-progress')).count()).toBe(3);
-        expect(element.all(by.css('current-sprint-tile .outher path.status-done')).count()).toBe(2);
-        expect(element.all(by.css('current-sprint-tile .outher path.status-impeded')).count()).toBe(2);
-        expect(element.all(by.css('current-sprint-tile .outher path.status-backlog')).count()).toBe(5);
+        expect(element.all(by.css('current-sprint-tile .arc path.status-in-progress')).count()).toBe(3);
+        expect(element.all(by.css('current-sprint-tile .arc path.status-done')).count()).toBe(2);
+        expect(element.all(by.css('current-sprint-tile .arc path.status-impeded')).count()).toBe(2);
+        expect(element.all(by.css('current-sprint-tile .arc path.status-backlog')).count()).toBe(5);
     });
 
     it('should display rate completed', function () {
@@ -34,8 +34,8 @@ describe('current-sprint', function () {
         data.stories.backlog.forEach((story) => api.stories.send(story, {status:'DONE'}));
         browser.wait(until.presenceOf(element(by.css('current-sprint-tile.module-ok'))));
         expect(element(by.css('current-sprint-tile div[rv-show="sprint.doneRatio"] .rate-completed')).getText()).toContain('70');
-        expect(element.all(by.css('current-sprint-tile .outher path.status-in-progress')).count()).toBe(3);
-        expect(element.all(by.css('current-sprint-tile .outher path.status-backlog')).count()).toBe(0);
+        expect(element.all(by.css('current-sprint-tile .arc path.status-in-progress')).count()).toBe(3);
+        expect(element.all(by.css('current-sprint-tile .arc path.status-backlog')).count()).toBe(0);
     });
 
 });
