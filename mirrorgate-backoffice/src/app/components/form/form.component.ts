@@ -199,11 +199,13 @@ export class FormComponent {
         this.dashboard.lastVersion ? this.dashboard.lastVersion : '';
     this.temp.slackTeam =
         this.dashboard.slackTeam ? this.dashboard.slackTeam : '';
+    if (this.temp.slackTeam !== '') {
+      this.updateSlackChannels();
+    }
     this.temp.urlAlerts =
         this.dashboard.urlAlerts ? this.dashboard.urlAlerts : '';
     this.temp.urlAlertsAuthorization =
         this.dashboard.urlAlertsAuthorization ? this.dashboard.urlAlertsAuthorization : '';
-    this.updateSlackChannels();
   }
 
   private mirrorTempValues() {
