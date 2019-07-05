@@ -10,19 +10,19 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   install:
-      image: "node:8"
+      image: "node:12"
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
       command: bash -c "npm install"
   build:
-      image: "node:8"
+      image: "node:12"
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
       command: "./node_modules/.bin/gulp dist"
   test:
-    image: "node:8"
+    image: "node:12"
     links:
       - selenium-chrome
       - selenium-firefox
