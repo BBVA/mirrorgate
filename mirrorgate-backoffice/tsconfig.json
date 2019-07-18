@@ -16,9 +16,6 @@
   "exclude": [
     "node_modules"
   ],
-  "awesomeTypescriptLoaderOptions": {
-    "useWebpackText": true
-  },
   "angularCompilerOptions": {
     "debug": false
   },

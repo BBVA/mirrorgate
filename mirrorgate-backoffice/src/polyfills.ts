@@ -43,3 +43,9 @@ import 'core-js/proposals/reflect-metadata';
 
 import 'zone.js/dist/zone';
 import 'zone.js/dist/long-stack-trace-zone';
+
+(window as any).global = window; // For ng2-dragula
+
+(window as any).process = {
+  env: { DEBUG: undefined },
+}; // For Bootstrap

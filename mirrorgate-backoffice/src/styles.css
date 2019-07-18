@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
+ @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+ @import '@fortawesome/fontawesome-free/css/all.min.css';
+ @import 'roboto-fontface/css/roboto/roboto-fontface.css';
+ @import 'bootstrap/dist/css/bootstrap.min.css';
+ @import 'dragula/dist/dragula.min.css';
+
  /*FONT-FACE*/
-@font-face {
-    font-family: "Advanced Engineering";
-    src: url("../fonts/ADVANCED_ENGINEERING.ttf");
+ @font-face {
+  font-family: "Advanced Engineering";
+  src: url("assets/fonts/ADVANCED_ENGINEERING.ttf");
 }
 
-
 body {
-    background-color: #f2f2f2 !important;
-    font-family: "Roboto" !important;
-    font-weight: 300;
+  background-color: #f2f2f2 !important;
+  font-family: "Roboto" !important;
+  font-weight: 300;
 }
 
 /* GENERAL STYLES */
 img {
-    max-width: 100% !important;
+  max-width: 100% !important;
 }

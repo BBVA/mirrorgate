@@ -13,3 +13,9 @@ services:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
     command: "npm run build"
+  build-pro:
+    image: "node:12"
+    volumes:
+      - .:/tmp/repo
+    working_dir: "/tmp/repo"
+    command: "npm run build:pro"
