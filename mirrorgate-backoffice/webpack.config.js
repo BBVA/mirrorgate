@@ -104,12 +104,16 @@ var webpackConfig = {
         test: /\.scss$/,
         use: ['to-string-loader', 'css-loader' , 'sass-loader']
       },
-      { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'file-loader?name=fonts/[name].[ext]' },
+      { test: /\.(woff2?|ttf|eot)$/, loader: 'file-loader?name=fonts/[name].[ext]' },
       {
         // Mark files inside `@angular/core` as using SystemJS style dynamic imports.
         // Removing this will cause deprecation warnings to appear.
         test: /[\/\\]@angular[\/\\]core[\/\\].+\.js$/,
         parser: { system: true },  // enable SystemJS
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
       }
     ]
   }
