@@ -42,8 +42,7 @@
   "scripts": {
     "ng": "ng",
     "clean": "rimraf dist",
-    "build": "ng build",
-    "build:pro": "PRODUCTION=true ng build --prod",
+    "build": "ng build --prod",
     "watch": "ng build --output-path dist --watch",
     "start": "npm run serve",
     "serve": "ng serve",

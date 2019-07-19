@@ -26,7 +26,7 @@ def build() {
 
       stage('Backoffice - Build app') {
           sh """
-            docker-compose -p \${BUILD_TAG} run build-pro
+            docker-compose -p \${BUILD_TAG} run build
           """
       }
 

@@ -16,17 +16,15 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { AppModule } from './app/components/app/app.module';
+import { environment } from './environments/environment';
 import 'bootstrap';
 
-export const platformRef = platformBrowserDynamic();
-const PRODUCTION = process.env.PRODUCTION || false;
-
 export function main() {
-  if(PRODUCTION) {
+  if(environment.production) {
     enableProdMode();
   }
 
-  return platformRef.bootstrapModule(AppModule)
+  return platformBrowserDynamic().bootstrapModule(AppModule)
     .catch(err => console.error(err));
 }
 
