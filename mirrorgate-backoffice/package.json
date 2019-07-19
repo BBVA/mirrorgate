@@ -24,7 +24,7 @@
     "core-js": "3.1.4",
     "ie-shim": "0.1.0",
     "jquery": "3.4.1",
-    "popper.js": "1.14.7",
+    "popper.js": "^1.15.0",
     "roboto-fontface": "0.10.0",
     "zone.js": "0.9.1"
   },
@@ -34,10 +34,7 @@
     "@angular/compiler-cli": "8.1.2",
     "@types/lodash": "4.14.136",
     "@types/node": "12.6.8",
-    "angular2-router-loader": "0.3.5",
-    "angular2-template-loader": "0.6.0",
     "ng2-dragula": "2.1.1",
-    "node-sass": "4.12.0",
     "rimraf": "2.6.3",
     "rxjs": "6.5.2",
     "typescript": "3.4.5"
