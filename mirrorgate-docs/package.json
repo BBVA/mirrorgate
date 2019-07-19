@@ -13,12 +13,12 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "harp": "^0.30.0"
+    "harp": "0.30.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.9.0",
-    "bootstrap": "^4.3.1",
-    "jquery": "^3.4.1",
-    "popper.js": "^1.15.0"
+    "@fortawesome/fontawesome-free": "5.9.0",
+    "bootstrap": "4.3.1",
+    "jquery": "3.4.1",
+    "popper.js": "1.15.0"
   }
 }
