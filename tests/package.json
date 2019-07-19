@@ -9,10 +9,10 @@
   "author": "BBVA",
   "license": "Apache-2.0",
   "devDependencies": {
-    "protractor": "^5.4.2",
-    "protractor-testability-plugin": "^1.2.0"
+    "protractor": "5.4.2",
+    "protractor-testability-plugin": "1.2.0"
   },
   "dependencies": {
-    "request": "^2.88.0"
+    "request": "2.88.0"
   }
 }
