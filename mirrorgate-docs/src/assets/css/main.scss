@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@import "../../../../mirrorgate-backoffice/src/styles";
+@import "../../../../mirrorgate-backoffice/src/assets/css/general";
 @import "../../../../mirrorgate-backoffice/src/app/components/app/app.component";
 @import "_prism";
 @import "_navbar-fixed-side";
@@ -46,7 +46,7 @@ strong {
   margin-bottom: 20px;
   padding: 0;
 
-  .container-fluid{
+  .container-fluid {
     .row {
       width: 100%;
 
@@ -82,8 +82,8 @@ strong {
 
 }
 
-@media (max-width: 768px){
-  .navbar-inverse{
+@media (max-width: 768px) {
+  .navbar-inverse {
     margin-bottom: 0;
   }
 }
