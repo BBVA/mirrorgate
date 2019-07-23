@@ -59,7 +59,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mirrorgate-backoffice:build"
+            "browserTarget": "mirrorgate-backoffice:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {

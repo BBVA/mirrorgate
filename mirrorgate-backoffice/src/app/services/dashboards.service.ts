@@ -19,67 +19,70 @@ import { Injectable } from '@angular/core';
 import { Dashboard } from '../model/dashboard';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
-import { catchError} from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 
 @Injectable()
 export class DashboardsService {
 
-  private dashboardsUrl = '../dashboards';
+  private dashboardsUrl = environment.mirrorGateUrl + '/dashboards';
 
   constructor(private http: HttpClient) { }
 
   getDashboards() {
     return this.http.get<Dashboard[]>(this.dashboardsUrl)
-              .pipe(
-                catchError(this.handleError)
-              );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   getDashboard(id) {
     return this.http.get<Dashboard>(this.dashboardsUrl + '/' + id + '/details')
-                .pipe(
-                  catchError(this.handleError)
-                );
-}
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   deleteDashboard(dashboard: Dashboard) {
     return this.http.delete(this.dashboardsUrl + '/' + dashboard.name, { responseType: 'text' })
-                .pipe(
-                  catchError(this.handleError)
-                );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  saveDashboard(dashboard: Dashboard, exists?:boolean) {
-    if(exists) {
+  saveDashboard(dashboard: Dashboard, exists?: boolean) {
+    if (exists) {
       return this.http.put<Dashboard>(this.dashboardsUrl + '/' + dashboard.name, dashboard)
-                .pipe(
-                  catchError(this.handleError)
-                );
+        .pipe(
+          catchError(this.handleError)
+        );
     } else {
       return this.http.post<Dashboard>(this.dashboardsUrl, dashboard)
-                .pipe(
-                  catchError(this.handleError)
-                );
+        .pipe(
+          catchError(this.handleError)
+        );
     }
   }
 
-  uploadImage(dashboard: Dashboard, file: File){
-    let formData:FormData = new FormData();
+  uploadImage(dashboard: Dashboard, file: File) {
+    let formData: FormData = new FormData();
     formData.append('uploadfile', file, file.name);
 
     return this.http.post(`${this.dashboardsUrl}/${dashboard.name}/image`, formData, { responseType: 'text' })
-                .pipe(
-                  catchError(this.handleError)
-                );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: HttpErrorResponse) {
     let errMsg: string;
     if (error.error instanceof ErrorEvent) {
-      errMsg = `${error.status} - ${error.error.message }`;
+      errMsg = `${error.status} - ${error.error.message}`;
     } else {
-      errMsg = error.error.message ? error.error.message : error;
+      errMsg = error.error
+        ? error.error.message
+        : error.message ? error.message : error;
     }
     return throwError(errMsg);
   };

@@ -1,6 +1,6 @@
 {
   "name": "mirrorgate",
-  "logoUrl": "/img/logo.png",
+  "logoUrl": "assets/img/logo.png",
   "codeRepos": [
     "mirrorgate-app",
     "jenkins-plugin-collector",

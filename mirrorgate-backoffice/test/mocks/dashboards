@@ -1,7 +1,7 @@
 [
   {
     "name": "mirrorgate",
-    "logoUrl": "/img/logo.svg",
+    "logoUrl": "assets/img/logo.svg",
     "codeRepos": [
       "mirrorgate-app",
       "jenkins-plugin-collector",
@@ -12,23 +12,14 @@
     "applications": []
   },
   {
-      "name":"App",
-      "applications":["App"]
+    "name": "multi-product",
+    "type": "aggregated",
+    "aggregatedDashboards": ["mirrorgate", "empty", "errors"]
   },
   {
-    "name": "empty",
-    "codeRepos": [
-        "aa"
-    ],
-    "sProductName": "aa",
-    "applications": ["aa"]
+    "name": "empty"
   },
   {
-    "name": "errors",
-    "logoUrl": "",
-    "codeRepos": [
-      "mirrorgate-app",
-    ],
-    "applications": ["app"]
+    "name": "errors"
   }
 ]

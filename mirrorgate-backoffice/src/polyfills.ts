@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-// Polyfills
-
-import 'ie-shim'; // Internet Explorer 9 support
+// Internet Explorer 9 support
+import 'ie-shim';
 
 // import 'core-js/es';
 // Added parts of es which are necessary for your project or your browser support requirements.
@@ -41,11 +40,26 @@ import 'core-js/es/promise';
 
 import 'core-js/proposals/reflect-metadata';
 
+/** IE10 and IE11 requires the following for NgClass support on SVG elements */
+import 'classlist.js';  // Run `npm install --save classlist.js`.
+
+/**
+ * Web Animations `@angular/platform-browser/animations`
+ * Only required if AnimationBuilder is used within the application and using IE/Edge or Safari.
+ * Standard animation support in Angular DOES NOT require any polyfills (as of Angular 6.0).
+ **/
+import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+
+/***************************************************************************************************
+ * Zone JS is required by default for Angular itself.
+ */
 import 'zone.js/dist/zone';
 import 'zone.js/dist/long-stack-trace-zone';
 
-(window as any).global = window; // For ng2-dragula
+// For ng2-dragula
+(window as any).global = window;
 
+// For Bootstrap
 (window as any).process = {
   env: { DEBUG: undefined },
-}; // For Bootstrap
+};

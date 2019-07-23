@@ -19,22 +19,9 @@ import { AppModule } from './app/components/app/app.module';
 import { environment } from './environments/environment';
 import 'bootstrap';
 
-export function main() {
-  if(environment.production) {
-    enableProdMode();
-  }
-
-  return platformBrowserDynamic().bootstrapModule(AppModule)
-    .catch(err => console.error(err));
+if (environment.production) {
+  enableProdMode();
 }
 
-// support async tag or hmr
-switch (document.readyState) {
-  case 'interactive':
-  case 'complete':
-    main();
-    break;
-  case 'loading':
-  default:
-    document.addEventListener('DOMContentLoaded', () => main());
-}
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));

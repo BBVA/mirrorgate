@@ -20,12 +20,13 @@ import { Review } from '../model/review';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError} from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 
 @Injectable()
 export class ReviewsService {
 
-  private reviewsUrl = '../reviews/mirrorgate';
+  private reviewsUrl = environment.mirrorGateUrl + '/reviews/mirrorgate';
 
   constructor(private http: HttpClient) { }
 

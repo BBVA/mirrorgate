@@ -21,11 +21,12 @@
     "@angular/router": "8.1.2",
     "@fortawesome/fontawesome-free": "5.9.0",
     "bootstrap": "4.3.1",
-    "core-js": "3.1.4",
+    "classlist.js": "1.1.20150312",
     "ie-shim": "0.1.0",
     "jquery": "3.4.1",
-    "popper.js": "^1.15.0",
+    "popper.js": "1.15.0",
     "roboto-fontface": "0.10.0",
+    "web-animations-js": "2.3.2",
     "zone.js": "0.9.1"
   },
   "devDependencies": {
@@ -34,6 +35,8 @@
     "@angular/compiler-cli": "8.1.2",
     "@types/lodash": "4.14.136",
     "@types/node": "12.6.8",
+    "concurrently": "4.1.1",
+    "http-server": "0.11.1",
     "ng2-dragula": "2.1.1",
     "rimraf": "2.6.3",
     "rxjs": "6.5.2",
@@ -44,8 +47,9 @@
     "clean": "rimraf dist",
     "build": "ng build --prod",
     "watch": "ng build --output-path dist --watch",
-    "start": "npm run serve",
+    "start": "concurrently --kill-others \"npm run serve-mocks\" \"npm run serve\"",
     "serve": "ng serve",
+    "serve-mocks": "http-server test/mocks",
     "test": "echo ToDo",
     "e2e": "echo ToDo"
   }

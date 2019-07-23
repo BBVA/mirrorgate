@@ -1,0 +1,5 @@
+{
+  "name": "multi-product",
+  "type": "Aggregate",
+  "aggregatedDashboards": ["mirrorgate", "empty", "errors"]
+}
