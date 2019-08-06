@@ -34,7 +34,9 @@ var ServerSentEvent = (function(){
       };
 
       serverSentEvent.addEventListener('error', function(e) {
-        if (e.currentTarget.readyState != EventSource.CONNECTING) {
+        if (e.currentTarget.readyState != EventSource.CLOSED) {
+          console.debug("EventSource connection was closed");
+        } else {
           console.error("EventSource error", e);
         }
       });
