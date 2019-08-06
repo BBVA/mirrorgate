@@ -5,3 +5,5 @@ package-lock.json
 .idea
 *.iml
 .vscode
+/out-tsc/
+/coverage/

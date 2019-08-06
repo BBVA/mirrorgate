@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import {Component} from '@angular/core';
-import {DashboardsService} from '../../services/dashboards.service';
-import {Dashboard} from '../../model/dashboard';
+import { Component } from '@angular/core';
+import { DashboardsService } from '../../services/dashboards.service';
+import { Dashboard } from '../../model/dashboard';
 import { Router, ActivatedRoute } from '@angular/router';
-import {TextsService} from '../../services/texts.service';
+import { TextsService } from '../../services/texts.service';
 
 @Component({
   selector: 'delete',
@@ -27,26 +27,31 @@ import {TextsService} from '../../services/texts.service';
   providers: [DashboardsService, TextsService]
 })
 export class DeleteComponent {
-
   dashboard: Dashboard;
   errorMessage: string;
-  texts : {loaded?: boolean} = {loaded: false};
+  texts: { loaded?: boolean } = { loaded: false };
 
-  constructor(private dashboardsService: DashboardsService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private textsService: TextsService
+  constructor(
+    private dashboardsService: DashboardsService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private textsService: TextsService
   ) {}
 
   ngOnInit(): void {
     let name = this.route.snapshot.params['id'];
-    this.dashboardsService.getDashboard(name).subscribe(dashboard => this.dashboard = dashboard);
+    this.dashboardsService
+      .getDashboard(name)
+      .subscribe(
+        dashboard => this.dashboard = dashboard,
+        error => this.errorMessage = error.error || error
+      );
     this.textsService.getTexts().subscribe(
       texts => {
         this.texts = texts;
         this.texts.loaded = true;
       },
-      error => this.errorMessage = error.error
+      error => this.errorMessage = error.error || error
     );
   }
 
@@ -56,10 +61,8 @@ export class DeleteComponent {
 
   delete(): void {
     this.dashboardsService.deleteDashboard(this.dashboard).subscribe(
-      () =>  this.back(),
-      error => {
-        this.errorMessage = error.error
-      }
+      () => this.back(),
+      error => this.errorMessage = error.error || error
     );
   }
 }

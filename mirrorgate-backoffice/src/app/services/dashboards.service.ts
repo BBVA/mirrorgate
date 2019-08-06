@@ -45,7 +45,7 @@ export class DashboardsService {
   }
 
   deleteDashboard(dashboard: Dashboard) {
-    return this.http.delete(this.dashboardsUrl + '/' + dashboard.name, { responseType: 'text' })
+    return this.http.delete(this.dashboardsUrl + '/' + dashboard.name)
       .pipe(
         catchError(this.handleError)
       );

@@ -30,6 +30,11 @@ def build() {
           """
       }
 
+      stage('Backoffice - Test') {
+          sh """
+            docker-compose -p \${BUILD_TAG} run test
+          """
+      }
 
   } finally {
       sh """

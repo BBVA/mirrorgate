@@ -1,15 +1,27 @@
-version: '3.7'
+version: "3.7"
 
 services:
   install:
-    image: "node:12"
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
     command: bash -c "npm install"
   build:
-    image: "node:12"
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
     command: "npm run build"
+  test:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - .:/tmp/repo
+    working_dir: "/tmp/repo"
+    command: "npm test"
