@@ -26,7 +26,6 @@ import { DashboardsService } from '../../services/dashboards.service';
 import { TextsService } from '../../services/texts.service';
 
 import { MockDashboardsService } from '../../../../test/mocks/services/mock.dashboards.service';
-import { MockTextsService } from '../../../../test/mocks/services/mock.texts.service';
 
 import { DeleteComponent } from './delete.component';
 
@@ -59,8 +58,7 @@ describe('DeleteComponent', () => {
       set: {
         providers: [
           { provide: ActivatedRoute, useValue: routeStub },
-          { provide: DashboardsService, useValue: mockDashboardsService },
-          { provide: TextsService, useClass: MockTextsService }
+          { provide: DashboardsService, useValue: mockDashboardsService }
         ]
       }
     });
@@ -72,7 +70,7 @@ describe('DeleteComponent', () => {
 
   }));
 
-  it('should delete dashboard when #deleteButton is click', async(() => {
+  it('should delete dashboard when #delete-button is click', async(() => {
     routeStub.snapshot.params['id'] = fakeDashboard.name;
     fixture.detectChanges();
 
@@ -115,7 +113,7 @@ describe('DeleteComponent', () => {
     });
   }));
 
-  it('should cancel deletion when #cancelButton is click', async(() => {
+  it('should cancel deletion when #cancel-button is click', async(() => {
     routeStub.snapshot.params['id'] = fakeDashboard.name;
     fixture.detectChanges();
 

@@ -44,14 +44,14 @@ export class DeleteComponent {
       .getDashboard(name)
       .subscribe(
         dashboard => this.dashboard = dashboard,
-        error => this.errorMessage = error.error || error
+        error => this.errorMessage = error.message || error.error.message || error.error || error
       );
     this.textsService.getTexts().subscribe(
       texts => {
         this.texts = texts;
         this.texts.loaded = true;
       },
-      error => this.errorMessage = error.error || error
+      error => this.errorMessage = error.message || error.error.message || error.error || error
     );
   }
 
@@ -62,7 +62,7 @@ export class DeleteComponent {
   delete(): void {
     this.dashboardsService.deleteDashboard(this.dashboard).subscribe(
       () => this.back(),
-      error => this.errorMessage = error.error || error
+      error => this.errorMessage = error.message || error.error.message || error.error || error
     );
   }
 }
