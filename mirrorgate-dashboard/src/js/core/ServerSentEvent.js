@@ -14,30 +14,28 @@
  * limitations under the License.
  */
 
-var ServerSentEvent = (function(){
+var ServerSentEvent = (function () {
 
   var event = new Event(this);
   var serverSentEvent;
 
-  function init(){
-    if(!serverSentEvent || serverSentEvent.readyState == EventSource.CLOSED){
+  function init() {
+    if (!serverSentEvent || serverSentEvent.readyState == EventSource.CLOSED) {
 
       serverSentEvent = new EventSource("emitter/" + Utils.getDashboardId());
 
-      serverSentEvent.onmessage = function(data){
+      serverSentEvent.onmessage = function (data) {
         var response = data.data;
         event.notify(response);
       };
 
-      serverSentEvent.onclose = function(data){
-        console.debug("closing connection");
-      };
-
-      serverSentEvent.addEventListener('error', function(e) {
-        if (e.currentTarget.readyState != EventSource.CLOSED) {
+      serverSentEvent.addEventListener('error', function (e) {
+        if (e.currentTarget.readyState === EventSource.CLOSED) {
           console.debug("EventSource connection was closed");
-        } else {
-          console.error("EventSource error", e);
+          return;
+        }
+        if (e.currentTarget.readyState !== EventSource.CONNECTING) {
+            console.error("EventSource error", e);
         }
       });
     }
@@ -54,15 +52,15 @@ var ServerSentEvent = (function(){
   init();
 
   return {
-    addListener: function(callback, ignorePrevious) {
+    addListener: function (callback, ignorePrevious) {
       event.attach(callback, ignorePrevious);
       _checkEventRegistration();
     },
 
-    removeListener: function(callback) {
+    removeListener: function (callback) {
       event.detach(callback);
       _checkEventRegistration();
     }
   };
 
-  })();
+})();
