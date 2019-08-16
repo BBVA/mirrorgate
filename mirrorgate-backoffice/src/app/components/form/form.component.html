@@ -16,16 +16,17 @@
 
 <div class="form" *ngIf="texts.loaded">
   <h2 *ngIf="!edit">{{texts.form.new_input}}</h2>
-  <h2 *ngIf="dashboard && edit">{{texts.form.edit_input}}
-    <span *ngIf="dashboard.displayName">{{dashboard.displayName}}</span>
-    <span *ngIf="!dashboard.displayName">{{dashboard.name}}</span>
+  <h2 id="header" *ngIf="edit">{{texts.form.edit_input}}
+    <span *ngIf="dashboard && dashboard.displayName">{{dashboard.displayName}}</span>
+    <span *ngIf="dashboard && !dashboard.name">{{dashboard.name}}</span>
   </h2>
 
   <div class="white-bg">
-    <form (ngSubmit)="onSave()" #dashboardForm="ngForm" *ngIf="dashboard">
+
+    <form (ngSubmit)="onSave()" #dashboardForm="ngForm">
       <div class="general-help" innerHTML="{{texts.form.general_help}}"></div>
 
-      <div class="card">
+      <div *ngIf="dashboard" class="card">
         <div class="card-header">
           <h3 class="card-title">{{texts.form.general_block.title}}</h3>
         </div>
@@ -206,7 +207,7 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+      <div *ngIf="dashboard && dashboard.type!='Aggregate'" class="card">
         <div class="card-header">
           <h3 class="card-title">{{texts.form.planning_block.title}}</h3>
         </div>
@@ -244,7 +245,7 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+      <div *ngIf="dashboard && dashboard.type!='Aggregate'" class="card">
         <div class="card-header">
           <h3 class="card-title">{{texts.form.ci_block.title}}</h3>
         </div>
@@ -292,8 +293,7 @@
         </div>
       </div>
 
-
-      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+      <div *ngIf="dashboard && dashboard.type!='Aggregate'" class="card">
         <div class="card-header">
           <h3 class="card-title">{{texts.form.commits_block.title}}</h3>
         </div>
@@ -315,8 +315,7 @@
         </div>
       </div>
 
-
-      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+      <div *ngIf="dashboard && dashboard.type!='Aggregate'" class="card">
         <div class="card-header">
           <h3 class="card-title">{{texts.form.markets_block.title}}</h3>
         </div>
@@ -382,7 +381,7 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+      <div *ngIf="dashboard && dashboard.type!='Aggregate'" class="card">
         <div class="card-header">
           <h3 class="card-title">{{texts.form.analytics_block.title}}</h3>
         </div>
@@ -409,7 +408,7 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+      <div *ngIf="dashboard && dashboard.type!='Aggregate'" class="card">
         <div class="card-header">
           <h3 class="card-title">{{texts.form.operations_block.title}}</h3>
         </div>
@@ -544,7 +543,7 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="card">
+      <div *ngIf="dashboard && dashboard.type!='Aggregate'" class="card">
         <div class="card-header">
           <h3 class="card-title">{{texts.form.alerts_block.title}}</h3>
         </div>
@@ -612,7 +611,7 @@
                         <input type="password" class="form-control" id="slack_client_secret" [(ngModel)]="slack.clientSecret" name="slack_client_secret" #name="ngModel">
                       </div>
                       <br/>
-                      <button type="button" class="btn btn-primary" (click)="signSlack(dashboard)">{{texts.form.alerts_block.slack_token_button}}</button>
+                      <button type="button" class="btn btn-primary" (click)="signSlack()">{{texts.form.alerts_block.slack_token_button}}</button>
                       <div *ngIf="dashboard.slackToken" class="alert alert-success" role="alert">{{texts.form.alerts_block.slack_token_input}} {{dashboard.slackToken}}</div>
                     </div>
                     <div class="modal-footer">
@@ -644,7 +643,7 @@
         </div>
       </div>
 
-      <div *ngIf="dashboard.type!='Aggregate'" class="card" id="dynamicDashboardConfiguration" >
+      <div *ngIf="dashboard && dashboard.type!='Aggregate'" class="card" id="dynamicDashboardConfiguration" >
         <div class="card-header">
           <h3 class="card-title">{{texts.form.columns_block.title}}</h3>
         </div>
@@ -698,15 +697,15 @@
 
       <div class="row">
         <div class="col-6">
-          <button type="button" class="btn btn-danger" (click)="back()">Cancel</button>
-          <button type="button" class="btn btn-outline-secondary" (click)="dashboardForm.reset()">Reset</button>
+          <button id="cancel-button" type="button" class="btn btn-danger" (click)="back()">Cancel</button>
+          <button *ngIf="dashboard" id="reset-button" type="button" class="btn btn-outline-secondary" (click)="dashboardForm.reset()">Reset</button>
         </div>
         <div class="col-6 text-right">
-          <button type="submit" class="btn btn-success" [disabled]="!dashboardForm.form.valid">Save</button>
+          <button *ngIf="dashboard" id="save-button" type="submit" class="btn btn-success" [disabled]="!dashboardForm.form.valid">Save</button>
         </div>
       </div>
 
-      <div class="row" *ngIf="dashboard.lastModification">
+      <div class="row" *ngIf="dashboard && dashboard.lastModification">
         <div class="col-sm-12">
           <div class="alert alert-info" role="alert" *ngIf="dashboard.lastModification">
             <span> Last modification {{ dashboard.lastModification | date:'medium' }} </span> <span *ngIf="dashboard.lastUserEdit"> by {{ dashboard.lastUserEdit }} </span>
@@ -715,5 +714,6 @@
       </div>
 
     </form>
+
   </div>
 </div>

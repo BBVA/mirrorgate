@@ -17,51 +17,36 @@
 import { Injectable } from '@angular/core';
 
 import { Dashboard } from '../model/dashboard';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
+import { ConfigService } from './config.service'
 
 @Injectable()
 export class DashboardsService {
 
-  private dashboardsUrl = environment.mirrorGateUrl + '/dashboards';
+  private dashboardsUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) {
+    this.dashboardsUrl = this.configService.getConfig('MIRRORGATE_API_URL') + '/dashboards';
+  }
 
   getDashboards() {
-    return this.http.get<Dashboard[]>(this.dashboardsUrl)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.get<Dashboard[]>(this.dashboardsUrl);
   }
 
   getDashboard(id) {
-    return this.http.get<Dashboard>(this.dashboardsUrl + '/' + id + '/details')
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.get<Dashboard>(this.dashboardsUrl + '/' + id + '/details');
   }
 
   deleteDashboard(dashboard: Dashboard) {
-    return this.http.delete(this.dashboardsUrl + '/' + dashboard.name)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.delete(this.dashboardsUrl + '/' + dashboard.name, { responseType: 'text' });
   }
 
   saveDashboard(dashboard: Dashboard, exists?: boolean) {
     if (exists) {
-      return this.http.put<Dashboard>(this.dashboardsUrl + '/' + dashboard.name, dashboard)
-        .pipe(
-          catchError(this.handleError)
-        );
+      return this.http.put<Dashboard>(this.dashboardsUrl + '/' + dashboard.name, dashboard);
     } else {
-      return this.http.post<Dashboard>(this.dashboardsUrl, dashboard)
-        .pipe(
-          catchError(this.handleError)
-        );
+      return this.http.post<Dashboard>(this.dashboardsUrl, dashboard);
     }
   }
 
@@ -69,21 +54,6 @@ export class DashboardsService {
     let formData: FormData = new FormData();
     formData.append('uploadfile', file, file.name);
 
-    return this.http.post(`${this.dashboardsUrl}/${dashboard.name}/image`, formData, { responseType: 'text' })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post(`${this.dashboardsUrl}/${dashboard.name}/image`, formData, { responseType: 'text' });
   }
-
-  private handleError(error: HttpErrorResponse) {
-    let errMsg: string;
-    if (error.error instanceof ErrorEvent) {
-      errMsg = `${error.status} - ${error.error.message}`;
-    } else {
-      errMsg = error.error
-        ? error.error.message
-        : error.message ? error.message : error;
-    }
-    return throwError(errMsg);
-  };
 }

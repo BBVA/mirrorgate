@@ -15,6 +15,5 @@
  */
 
 export const environment = {
-  production: true,
-  mirrorGateUrl: '..'
+  production: true
 };

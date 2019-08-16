@@ -15,19 +15,20 @@
  */
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-
 import { DashboardsService } from './dashboards.service';
+import { ConfigService } from './config.service';
+
 import { Dashboard } from '../model/dashboard';
+
+import { MockConfigService } from '../../../test/mocks/services/mock.config.service';
 
 describe('DashboardsService', () => {
   let service: DashboardsService;
+  let dashboardsUrl: string;
   let httpMock: HttpTestingController;
-
-  const dashboardsUrl = environment.mirrorGateUrl + '/dashboards';
 
   const fakeDashboard = new Dashboard();
   fakeDashboard.name = 'mirrorgate';
@@ -43,15 +44,18 @@ describe('DashboardsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [DashboardsService]
+      providers: [
+        DashboardsService,
+        { provide: ConfigService, useClass: MockConfigService }
+      ]
     });
 
-    // inject the service
+    dashboardsUrl = TestBed.get(ConfigService).getConfig('MIRRORGATE_API_URL') + '/dashboards';
     service = TestBed.get(DashboardsService);
     httpMock = TestBed.get(HttpTestingController);
   });
 
-  it('should get dashboards successful', () => {
+  it('should get dashboards successfully', () => {
     service.getDashboards().subscribe((data: any) => {
       expect(data.length).toBe(2);
     });
@@ -64,7 +68,7 @@ describe('DashboardsService', () => {
     httpMock.verify();
   });
 
-  it('should get a dashboard successful', () => {
+  it('should get a dashboard successfully', () => {
     service.getDashboard(fakeDashboard.name).subscribe((data: any) => {
       expect(data.name).toBe(fakeDashboard.name);
     });
@@ -77,9 +81,9 @@ describe('DashboardsService', () => {
     httpMock.verify();
   });
 
-  it('should delete a dashboard successful', () => {
+  it('should delete a dashboard successfully', () => {
     service.deleteDashboard(fakeDashboard).subscribe((data: any) => {
-      expect(data.name).toBe(fakeDashboard.name);
+      expect(JSON.parse(data).name).toEqual(fakeDashboard.name);
     });
 
     const req = httpMock.expectOne(dashboardsUrl + '/' + fakeDashboard.name, 'Delete dashboard ' + fakeDashboard.name);
@@ -90,7 +94,7 @@ describe('DashboardsService', () => {
     httpMock.verify();
   });
 
-  it('should save a dashboard successful', () => {
+  it('should save a dashboard successfully', () => {
     service.saveDashboard(fakeDashboard).subscribe((data: any) => {
       expect(data.name).toBe(fakeDashboard.name);
     });
@@ -103,7 +107,7 @@ describe('DashboardsService', () => {
     httpMock.verify();
   });
 
-  it('should update a dashboard successful', () => {
+  it('should update a dashboard successfully', () => {
     service.saveDashboard(fakeDashboard, true).subscribe((data: any) => {
       expect(data.name).toBe(fakeDashboard.name);
     });
@@ -116,8 +120,8 @@ describe('DashboardsService', () => {
     httpMock.verify();
   });
 
-  it('should upload an image of a dashboard successful', () => {
-    const fakeFile = new File([], 'test-file.jpg', {type: 'image/jpeg'});
+  it('should upload an image of a dashboard successfully', () => {
+    const fakeFile = new File([], 'test-file.jpg', { type: 'image/jpeg' });
     const fakeMessage = 'Upload Image';
 
     service.uploadImage(fakeDashboard, fakeFile).subscribe((data: any) => {
@@ -131,7 +135,6 @@ describe('DashboardsService', () => {
 
     httpMock.verify();
   });
-
 
   it('should get an error if dashboard does not exists', () => {
     const fakeName = 'fakeName';
@@ -150,5 +153,4 @@ describe('DashboardsService', () => {
 
     httpMock.verify();
   });
-
 });

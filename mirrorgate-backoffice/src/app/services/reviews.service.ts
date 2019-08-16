@@ -17,38 +17,25 @@
 import { Injectable } from '@angular/core';
 
 import { Review } from '../model/review';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { catchError} from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class ReviewsService {
+  private reviewsUrl: string;
 
-  private reviewsUrl = environment.mirrorGateUrl + '/reviews/mirrorgate';
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) {
+    this.reviewsUrl =
+      this.configService.getConfig('MIRRORGATE_API_URL') +
+      '/reviews/mirrorgate';
+  }
 
   saveReview(review: Review) {
     let data = new HttpParams();
     data.append('rate', review.rate.toString());
     data.append('comment', review.comment);
 
-    return this.http.post<Review>(this.reviewsUrl, data)
-                .pipe(
-                  catchError(this.handleError)
-                );
+    return this.http.post<Review>(this.reviewsUrl, data);
   }
-
-  private handleError(error: HttpErrorResponse) {
-    let errMsg: string;
-    if (error.error instanceof ErrorEvent) {
-      errMsg = `${error.status} - ${error.error.message }`;
-    } else {
-      errMsg = error.error.message ? error.error.message : error;
-    }
-    return throwError(errMsg);
-  };
-
 }

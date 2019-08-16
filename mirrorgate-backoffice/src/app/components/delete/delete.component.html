@@ -14,8 +14,8 @@
   ~ limitations under the License.
   -->
 
-<div class="jumbotron white-bg">
-  <h1><span *ngIf="texts.loaded">{{texts.delete.header}}</span><span *ngIf="dashboard">'{{dashboard.name}}'</span></h1>
+<div class="jumbotron white-bg" *ngIf="texts.loaded">
+  <h1><span >{{texts.delete.header}}</span><span *ngIf="dashboard">'{{dashboard.name}}'</span></h1>
   <p *ngIf="texts.loaded">{{texts.delete.message}}</p>
   <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
     <p class="error">{{errorMessage}}</p>

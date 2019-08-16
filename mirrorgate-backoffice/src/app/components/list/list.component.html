@@ -20,7 +20,7 @@
   <div class="row list-head">
     <div class="col col-sm-4">
       <div class="input-group">
-        <input #searchInput class="form-control" (ngModelChange)="searchDashboard($event)" [ngModel]="queryParams.search" placeholder="Find a Dashboard" type="search">
+        <input id="search-input" #searchInput class="form-control" (ngModelChange)="searchDashboard($event)" [ngModel]="queryParams.search" placeholder="Find a Dashboard" type="search">
         <span class="input-group-append" *ngIf="queryParams.search">
           <button class="btn btn-light" (click)="deleteSearch()" type="button"><span class="fas fa-times"></span></button>
         </span>

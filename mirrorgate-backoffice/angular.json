@@ -34,11 +34,23 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "local": {
               "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+                "replace": "src/config.json",
+                "with": "src/config.local.json"
+              }]
+            },
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/config.json",
+                  "with": "src/config.prod.json"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -63,6 +75,9 @@
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
+            "local": {
+              "browserTarget": "mirrorgate-backoffice:build:local"
+            },
             "production": {
               "browserTarget": "mirrorgate-backoffice:build:production"
             }

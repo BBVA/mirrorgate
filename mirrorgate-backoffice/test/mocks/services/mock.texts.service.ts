@@ -1,14 +1,14 @@
 /*
  * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
  *
- * Licensed under the Apache License, Version 2.0 (the 'License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -16,12 +16,133 @@
 
 import { of } from 'rxjs';
 
-export class MockTextsService  {
-  getTexts() {
-    return of({
-      delete: {
-        header: 'Dashboard: '
+export class MockTextsService {
+  private text = {
+    "form": {
+      "new_input": "New dashboard",
+      "edit_input": "Edit:",
+      "general_help": "<p>Need Help? Contact us through <a target=\"_blank\" href=\"https://github.com/BBVA/mirrorgate/issues/new\">GitHub</a></p>",
+      "general_block": {
+        "title": "General data",
+        "name_input": "Name",
+        "name_required_text": "Name is required",
+        "display_name_input": "Display Name",
+        "skin_list": "Look & Feel",
+        "logo_url_input": "URL Logo",
+        "logo_url_help": "<p>Please specify a public absolute URL pointing to your logo image file.</p><p>Note that once the dashboard is already saved for the first time, you can also upload an image by clicking the configuration button.</p>",
+        "icon_upload": "Icon upload",
+        "icon_upload_button": "Icon upload",
+        "icon_text": "Icon",
+        "icon_help": "Select a PNG file from your file system.",
+        "admin_list": "Administrator users",
+        "admin_list_help": "Add the users that will have permission to modify the dashboard. Names must be that which precede the users' e-mail address domain names (i.e. user@bbva.com) and must be separated by commas.",
+        "admin_list_placeholder": "Add administrators",
+        "category": "Category",
+        "category_help": "Select a tag to categorize the board.",
+        "board_type_text": "Board type",
+        "board_type_help": "You can use aggregated dashboards to display in a single view the information of several dashboards.",
+        "aggregated_dashboards_text": "Dashboards list",
+        "aggregated_dashboards_help": "Enter a list of the ids of the dashboards you want to aggregate.",
+        "aggregated_dashboards_list_placeholder": "Add dashboards"
+      },
+      "commits_block": {
+        "title": "Commits",
+        "repos_input": "Code repositories",
+        "commits_repos_help": "<p>Add a comma separated list with the name of the git repositories preceded by the owner of each repository.</p><p>An example could be: <code>BBVA/mirrorgate.git</code></p><div class=\"alert alert-warning\" role=\"alert\">Note that if those repositories are secured by SSH, MirroGate must have read access to them.</div>"
+      },
+      "planning_block": {
+        "title": "Planning data",
+        "boards_input": "Story keywords",
+        "boards_help": "Add a comma separated list with your jira keywords. You can use the team names, project names or project codes as keywords to match jira issues.",
+        "pi_input": "Program Increment",
+        "pi_help": "<p>Add a regular expression matching your Program Increment name if you want it's data to be displayed on your dashboard.</p> <p> If start and end dates are included in the name in <code>yyyy/MM/dd</code> format, you can capture them in the regexp so they are included in the dashboard and the remaining labour days is displayed.</p><p>An example of this regexp could be:</p><p><kbd>MyPI (?&lt;startDate&gt;\\d+/\\d+/\\d+)-(?&lt;endDate&gt;\\d+/\\d+/\\d+)</kbd></p><p>This regexp will match for example <code>MyPI 2017/05/10-2017/06/20</code></p><div class=\"alert alert-warning\" role=\"alert\">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>"
+      },
+      "ci_block": {
+        "title": "Build information",
+        "builds_input": "Build jobs",
+        "builds_help": "Add a comma separated list with your builds. You can use regular expressions to match the build name, the project name or the build url. Note that several items will represent an 'Or' match and not an 'And'.<div class=\"alert alert-warning\" role=\"alert\">Note that if you want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>",
+        "team_members_list": "Team Members",
+        "team_members_list_help": "Builds will be filtered by Team Members if those are included.",
+        "team_members_list_placeholder": "Add team members"
+      },
+      "markets_block": {
+        "title": "Application Markets",
+        "apps_input": "Applications",
+        "apps_help": "<p>Add a comma separated list with your market applications.</p><p>Please specify them using the following convention</p><ul><li><kbd>Android/[appid]</kbd>: for Android applications</li><li><kbd>IOS/[bundleId]/[country]</kbd>: for iOS applications. Use the two letter code for the country (i.e. <code>ES</code> for Spain, <code>US</code> for United Stated and so on)</li><li><kbd>Mirrorgate/[appid]</kbd>: for comments sent via feedback form</li></ul>",
+        "stats_days": "Days of statistics",
+        "stats_days_help": "Select the number of days used for statistics. The tendencies are compared with three times the number of days selected.",
+        "last_version_input": "Application Version Expression",
+        "last_version_help": "<p>Add a regular expression matching your application possible versions if you want to display the rate of active users using the last version of you applications.</p><p>Only groups defined between <kbd>()</kbd> will be compare. An example of this regexp could be:</p><p><kbd>^(\\d{1,2})\\.(\\d+)\\.?(\\d+)?$</kbd></p><p>This regexp with following versions <code>6.1, 9999.0.0, 6.0.4, 6.5.3v</code> will match <code>6.1</code> as last version.</p><div class=\"alert alert-warning\" role=\"alert\">Note that if you want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>"
+      },
+      "analytics_block": {
+        "title": "Analytics",
+        "analytics_input": "Analytics Metrics Sources Ids",
+        "analytics_help": "<p>Add a comma separated list with your analytics metrics sources Ids.</p><p>For example, in case of using Google Analytics as source of metrics: <kbd>ga:123456789,ga:987654321</kbd></p><div class=\"alert alert-warning\" role=\"alert\">Note that MirrorGate needs to have access to get metrics.</div>"
+      },
+      "operations_block": {
+        "title": "Operations",
+        "operations_input": "Operations Metrics Sources Ids",
+        "operations_help": "<p>Add a comma separated list with your operations metrics sources Ids.</p><p>Use the following patterns as source of AWS metrics:</p><ul><li><kbd>AWS/[AWS_Account_Id]</kbd></li><li><kbd>AWS/[AWS_Account_Id]/elb</kbd></li><li><kbd>AWS/[AWS_Account_Id]/elb/[LB_name]</kbd></li><li><kbd>AWS/[AWS_Account_Id]/alb</kbd></li><li><kbd>AWS/[AWS_Account_Id]/alb/[LB_name]</kbd></li><li><kbd>AWS/[AWS_Account_Id]/apigateway</kbd></li><li><kbd>AWS/[AWS_Account_Id]/apigateway/[ApiGateway_name]</kbd></li></ul><p>where <kbd>[LB_name]</kbd> is the name of a Load Balancer (Classic or Application LB).</p><p>For more information about how to configure AWS metrics you can check this <a href=\"../docs/operations/aws_metrics.html\">link</a>.</p>",
+        "alerting_levels": "Alerting levels",
+        "alerting_levels_help": "<p>Here you can set limit values for alerting levels. If the value of response time or errors rate is greater than one of these limits, the component will appear in yellow (warning) or red (error) depending on the limit value that has been exceeded.</p><div class=\"alert alert-warning\" role=\"alert\">Note that error limit should be greater than warning limit.</div>",
+        "errors_rate_alerting_levels": "Errors rate",
+        "errors_rate_alerting_level_warning_input": "Warning",
+        "errors_rate_alerting_level_error_input": "Error",
+        "response_time_alerting_levels": "Response time",
+        "response_time_alerting_level_warning_input": "Warning",
+        "response_time_alerting_level_error_input": "Error",
+        "infra_cost_input": "Check for getting infrastructure cost",
+        "infra_cost_help": "<p>Only available for Amazon AWS</p>"
+      },
+      "alerts_block": {
+        "title": "Notification and alerts",
+        "slack_input": "Slack",
+        "slack_help": "<p>To configure slack please follow this steps:</p><ol><li>Specify the slack team name</li><li>Register an <a href=\"https://api.slack.com/apps\" target=\"_blank\">slack app</a> with access to your team. Enable the \"Permissions\" feature for it.</li><li>Set the app redirect url to <kbd>{{url}}/backoffice/utils/slack/code-capturer</kbd></li><li>Click the configure icon that will appear</li><li>Fill in the authorization data for the application. That data will not be stored in the DB.</li><li>Authorize mirrorgate to access the application</li><li>If you want to select an specific channel, do so</li></ol>",
+        "slack_placeholder": "Your slack Team name",
+        "slack_modal_title": "Slack app details",
+        "slack_client_id_input": "Client Id",
+        "slack_client_id_help": "Add an application to your Slack Team and put here Client Id's Application to show notifications.",
+        "slack_client_secret_input": "Client Secret",
+        "slack_client_secret_help": "Add an application to your Slack Team and put here Client Secret's Application to show notifications.",
+        "slack_token_button": "Get token",
+        "slack_token_input": "Code generated:",
+        "alerts_url_input": "URL Alerts",
+        "alerts_url_help": "<p>URL to gather Alerts from. See <a href=\"https://github.com/BBVA/mirrorgate/blob/master/mirrorgate-dashboard/test/mocks/dashboards/mirrorgate/alerts\">here</a> an example of the response format.</p><p>You can also specify an Authorization header to be sent in case the endpoint is authenticated.</p><p>In order to send multiple headers you can specify them in the form of <code>HEADER_NAME1=HEADER_VALUE1&HEADER_NAME2=HEADER_VALUE2&...</code></p>",
+        "alerts_url_placeholder": "URL Alerts",
+        "alerts_auth_header_placeholder": "Authorization header"
+      },
+      "columns_block": {
+        "title": "Columns configuration",
+        "dashboard": "Dashboard configuration:",
+        "modules": "Modules:",
+        "modules_block": {
+          "current_sprint": "Current Sprint",
+          "program_increment": "Program Increment",
+          "bugs": "Bugs",
+          "scm_metrics": "Commits",
+          "alerts": "Alerts",
+          "next_sprint": "Backlog Status",
+          "builds": "Builds",
+          "buildsstats": "Build Stats",
+          "markets": "Markets",
+          "reviews": "Latest Comments",
+          "user_metrics": "Users",
+          "operations_metrics": "Operations"
+        }
       }
-    });
+    },
+    "delete": {
+      "header": "You're about to delete the dashboard: ",
+      "message": "This action cannot be undone. Are you sure you want to proceed?"
+    },
+    "feedback": {
+      "title": "Please, let us know your thoughts about the MirrorGate tool... Thanks!",
+      "rate_label": "Rating",
+      "comment_label": "Comment"
+    }
+  };
+
+  getTexts() {
+    return of(this.text);
   }
 }

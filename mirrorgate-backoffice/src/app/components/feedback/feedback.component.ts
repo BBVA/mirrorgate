@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
-import {Review} from '../../model/review';
-import {ReviewsService} from '../../services/reviews.service';
+import { ReviewsService } from '../../services/reviews.service';
+import { TextsService } from '../../services/texts.service';
 
-import {TextsService} from '../../services/texts.service';
-
-
+import { Review } from '../../model/review';
 @Component({
   selector: 'feedback-form',
   templateUrl: './feedback.component.html',
@@ -31,11 +30,12 @@ import {TextsService} from '../../services/texts.service';
 export class FeedbackComponent {
   review: Review;
   errorMessage: string;
-  texts : {loaded?: boolean} = {loaded: false};
+  texts: { loaded?: boolean } = { loaded: false };
 
   constructor(
     private reviewsService: ReviewsService,
-    private textsService: TextsService
+    private textsService: TextsService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -45,18 +45,18 @@ export class FeedbackComponent {
         this.texts = texts;
         this.texts.loaded = true;
       },
-      error => this.errorMessage = error.error
+      error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
     );
   }
 
-  back(): void { window.history.back(); }
+  back(): void {
+    this.location.back();
+  }
 
   onSave(review: Review): void {
     this.reviewsService.saveReview(review).subscribe(
       () => this.back(),
-      error => {
-        this.errorMessage = error;
-      }
+      error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
     );
   }
 }

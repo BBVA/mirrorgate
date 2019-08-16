@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-import {Component} from '@angular/core';
-import {DashboardsService} from '../../services/dashboards.service';
-import {Dashboard} from '../../model/dashboard';
-import {ElementRef, Renderer, ViewChild} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
+import { Component } from '@angular/core';
+import { ElementRef, Renderer, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {ConfigService} from '../../services/config.service';
+import { DashboardsService } from '../../services/dashboards.service';
+import { ConfigService } from '../../services/config.service';
 
+import { Dashboard } from '../../model/dashboard';
 @Component({
   selector: 'list',
   styleUrls: ['./list.component.scss'],
@@ -41,7 +42,7 @@ export class ListComponent {
     search: string,
     page: number
   };
-  @ViewChild('searchInput', {static: true}) searchInputRef: ElementRef;
+  @ViewChild('searchInput', { static: true }) searchInputRef: ElementRef;
 
   constructor(
     private dashboardsService: DashboardsService,
@@ -80,9 +81,7 @@ export class ListComponent {
   }
 
   openDashboard(dashboard: Dashboard) {
-    this.configService.getConfig().subscribe((config) => {
-      document.location.href = config['dashboardUrl'] + '?board=' + encodeURIComponent(dashboard.name);
-    });
+    document.location.href = this.configService.getConfig('MIRRORGATE_API_URL') + '?board=' + encodeURIComponent(dashboard.name);
   }
 
   searchDashboard(value?) {
@@ -99,7 +98,7 @@ export class ListComponent {
     }
   }
 
-  deleteSearch(){
+  deleteSearch() {
     this.setQueryParams('', 0);
     this.searchDashboard('');
   }
@@ -109,7 +108,7 @@ export class ListComponent {
     this.setQueryParams(this.queryParams.search, pageNumber);
   }
 
-  setQueryParams(search, page){
+  setQueryParams(search, page) {
     this.queryParams.search = search;
     this.queryParams.page = page;
     this.router.navigate([], { queryParams: this.queryParams });

@@ -15,10 +15,12 @@
  */
 
 import { Component } from '@angular/core';
-import { DashboardsService } from '../../services/dashboards.service';
-import { Dashboard } from '../../model/dashboard';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { DashboardsService } from '../../services/dashboards.service';
 import { TextsService } from '../../services/texts.service';
+
+import { Dashboard } from '../../model/dashboard';
 
 @Component({
   selector: 'delete',
@@ -33,9 +35,9 @@ export class DeleteComponent {
 
   constructor(
     private dashboardsService: DashboardsService,
+    private textsService: TextsService,
     private router: Router,
     private route: ActivatedRoute,
-    private textsService: TextsService
   ) {}
 
   ngOnInit(): void {
@@ -44,14 +46,14 @@ export class DeleteComponent {
       .getDashboard(name)
       .subscribe(
         dashboard => this.dashboard = dashboard,
-        error => this.errorMessage = error.message || error.error.message || error.error || error
+        error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
       );
     this.textsService.getTexts().subscribe(
       texts => {
         this.texts = texts;
         this.texts.loaded = true;
       },
-      error => this.errorMessage = error.message || error.error.message || error.error || error
+      error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
     );
   }
 
@@ -62,7 +64,7 @@ export class DeleteComponent {
   delete(): void {
     this.dashboardsService.deleteDashboard(this.dashboard).subscribe(
       () => this.back(),
-      error => this.errorMessage = error.message || error.error.message || error.error || error
+      error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
     );
   }
 }

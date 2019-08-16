@@ -19,7 +19,12 @@ import { of, throwError } from 'rxjs';
 import { Dashboard } from '../../../src/app/model/dashboard';
 
 export class MockDashboardsService {
+  dashboards: Dashboard[];
   dashboard: Dashboard;
+
+  getDashboards() {
+    return of(this.dashboards);
+  }
 
   getDashboard(id) {
     if (id === this.dashboard.name) {
@@ -29,14 +34,24 @@ export class MockDashboardsService {
   }
 
   deleteDashboard(dashboard: Dashboard) {
-    debugger;
     if (dashboard && this.dashboard && dashboard.name === this.dashboard.name) {
       return of(true);
     }
     return throwError({ status: 404, error: 'Dashboard Not Found' });
   }
 
+  setFakeDashboards(dashboards: Dashboard[]) {
+    this.dashboards = dashboards;
+  }
+
   setFakeDashboard(dashboard: Dashboard) {
     this.dashboard = dashboard;
+  }
+
+  saveDashboard(dashboard: Dashboard) {
+    if (dashboard && this.dashboard && dashboard.name === this.dashboard.name) {
+      return of(dashboard);
+    }
+    return throwError({ status: 404, error: 'Dashboard Not Found' });
   }
 }

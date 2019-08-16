@@ -17,15 +17,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-
 @Injectable()
 export class ConfigService {
-
+  private static config: Object;
 
   constructor(private http: HttpClient) { }
 
-  getConfig() {
-    return this.http.get('config.json');
+  getConfig(key: string) {
+    return ConfigService.config[key];
   }
 
+  loadConfig() {
+    return new Promise((resolve, reject) => {
+      this.http.get('config.json').subscribe(
+        config => {
+          ConfigService.config = config;
+          resolve(true);
+        },
+        error => {
+          console.error(error);
+          reject(error);
+        }
+      );
+    });
+  }
 }

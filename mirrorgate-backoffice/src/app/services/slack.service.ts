@@ -19,11 +19,6 @@ import { Injectable } from '@angular/core';
 import { Dashboard } from '../model/dashboard';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-
-function getLocation(): any {
-    return location;
-}
-
 @Injectable()
 export class SlackService {
 

@@ -14,23 +14,29 @@
  * limitations under the License.
  */
 
-import { AppComponent } from './app.component';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { DeleteComponent } from '../delete/delete.component';
-import { DragulaModule } from 'ng2-dragula';
-import { FeedbackComponent } from '../feedback/feedback.component';
-import { FormComponent } from '../form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ListComponent } from '../list/list.component';
-import { NgModule } from '@angular/core';
-import { rootRouterConfig } from './app.routes';
-import { RouterModule } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
+import { DragulaModule } from 'ng2-dragula';
+
+import { ConfigService } from '../../services/config.service';
+
+import { rootRouterConfig } from './app.routes';
+
+import { AppComponent } from './app.component';
+import { ListComponent } from '../list/list.component';
+import { FormComponent } from '../form/form.component';
+import { DeleteComponent } from '../delete/delete.component';
+import { FeedbackComponent } from '../feedback/feedback.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,8 +58,16 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatAutocompleteModule,
     DragDropModule
   ],
-  bootstrap: [ AppComponent ]
-})
-export class AppModule {
+  providers: [
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (config: ConfigService) => () => config.loadConfig(),
+      deps: [ConfigService],
+      multi: true
+    }
+  ],
 
-}
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
