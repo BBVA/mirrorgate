@@ -46,7 +46,10 @@ describe('FormComponent', () => {
   let mockDashboardsService: MockDashboardsService;
 
   let routeStub = {
-    snapshot: { params: new Map() }
+    snapshot: {
+      params: new Map(),
+      queryParams: new Map()
+    }
   };
 
   beforeEach(async(() => {

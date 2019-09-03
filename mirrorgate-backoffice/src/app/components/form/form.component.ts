@@ -108,10 +108,11 @@ export class FormComponent {
   ) {}
 
   ngOnInit(): void {
-    let id = this.route.snapshot.params['id'];
-    let url = document.location.href;
-    let pos = url.lastIndexOf('/backoffice/');
+    this.backToDashboard = this.route.snapshot.queryParams.backToDashboard === 'true';
 
+    this.categories = this.configService.getConfig('categories');
+
+    let id = this.route.snapshot.params['id'];
     if (id) {
       this.edit = true;
       this.dashboardsService.getDashboard(id).subscribe(
