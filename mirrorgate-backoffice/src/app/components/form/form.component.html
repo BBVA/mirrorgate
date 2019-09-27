@@ -140,7 +140,7 @@
                     {{admin}}
                     <span matChipRemove class="fa fa-times" aria-hidden="true"></span>
                   </mat-chip>
-                  <input placeholder="{{texts.form.general_block.admin_list_placeholder}}"
+                  <input id="adminUsersInput" placeholder="{{texts.form.general_block.admin_list_placeholder}}"
                           [matChipInputFor]="adminUsers"
                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                           [matChipInputAddOnBlur]="true"
@@ -613,6 +613,7 @@
                       <br/>
                       <button type="button" class="btn btn-primary" (click)="signSlack()">{{texts.form.alerts_block.slack_token_button}}</button>
                       <div *ngIf="dashboard.slackToken" class="alert alert-success" role="alert">{{texts.form.alerts_block.slack_token_input}} {{dashboard.slackToken}}</div>
+                      <div *ngIf="slackError" class="alert alert-danger" role="alert">{{slackError}}</div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

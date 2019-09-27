@@ -38,9 +38,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(BackOfficeSlackUtilsController.class)
+@WebMvcTest(SlackController.class)
 @WebAppConfiguration
-public class BackOfficeSlackUtilsControllerTests {
+public class SlackControllerTests {
 
     private MockMvc mockMvc;
 
@@ -73,7 +73,7 @@ public class BackOfficeSlackUtilsControllerTests {
                 SLACK_DUMMY,
                 SLACK_CODE)).thenReturn(notification);
 
-        this.mockMvc.perform(get("/backoffice/utils/slack/token-generator")
+        this.mockMvc.perform(get("/slack/token-generator")
                 .param("code", SLACK_CODE)
                 .param("clientId", SLACK_DUMMY)
                 .param("clientSecret", SLACK_DUMMY)
@@ -93,7 +93,7 @@ public class BackOfficeSlackUtilsControllerTests {
                 SLACK_DUMMY,
                 SLACK_CODE)).thenReturn(error_notification);
 
-        this.mockMvc.perform(get("/backoffice/utils/slack/token-generator")
+        this.mockMvc.perform(get("/slack/token-generator")
                 .param("code", SLACK_CODE)
                 .param("clientId", SLACK_DUMMY)
                 .param("clientSecret", SLACK_DUMMY)

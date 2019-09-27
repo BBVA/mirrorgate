@@ -16,15 +16,17 @@
 
 import { Injectable } from '@angular/core';
 
-import { Dashboard } from '../model/dashboard';
 import { HttpClient, HttpParams } from '@angular/common/http';
+
+import { ConfigService } from './config.service';
+import { Dashboard } from '../model/dashboard';
 
 @Injectable()
 export class SlackService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
-  signSlack(team:string, clientId:string, clientSecret:string): Promise<string> {
+  signSlack(team:string, clientId:string, clientSecret:string): Promise<any> {
     var dummy: HTMLAnchorElement = document.createElement('a');
     dummy.href = 'utils/slack/code-capturer';
 
@@ -32,44 +34,42 @@ export class SlackService {
       var source = window.open(
         `https://slack.com/oauth/authorize?client_id=${clientId}&scope=client&team=${team}`
       );
+
       var receiver = (msg: MessageEvent) =>  {
         window.removeEventListener("message", receiver, false);
         if(msg.source == source && msg.origin == document.location.origin) {
-          resolve(this.generateToken(msg.data, team, clientId, clientSecret));
+          this.generateToken(msg.data, team, clientId, clientSecret).subscribe(
+            token => resolve(token),
+            error => reject(error)
+          );
+        } else {
+          reject('Slack Token could not be generated');
         }
       };
       window.addEventListener("message", receiver, false);
     });
   }
 
-  private generateToken(code:string, team:string, clientId:string, clientSecret:string): Promise<any>{
+  private generateToken(code:string, team:string, clientId:string, clientSecret:string) {
     let params: HttpParams = new HttpParams();
     params.set('code', code);
     params.set('team', team);
     params.set('clientId', clientId);
     params.set('clientSecret', clientSecret);
 
-    return this.http.get('utils/slack/token-generator', {
+    return this.http.get(`${this.configService.getConfig('MIRRORGATE_API_URL')}/slack/token-generator`, {
       params: params
-    }).toPromise().then((r) => {
-      return r['text'];
     });
   }
 
-  getChannels(dashboard:Dashboard): Promise<Map<string,string>> {
+  getChannels(dashboard:Dashboard) {
     let params: HttpParams = new HttpParams();
     params.set('dashboard', dashboard.name);
     params.set('token', dashboard.slackToken);
 
-    return this.http.get(`utils/slack/channels`,{
+    return this.http.get(`${this.configService.getConfig('MIRRORGATE_API_URL')}/slack/channels`, {
       params: params
-    }).toPromise().then((r) => {
-      if(r['status'] == 200) {
-        return r;
-      } else {
-        return null;
-      }
-    }).catch(() => null);
+    });
   }
 
 }

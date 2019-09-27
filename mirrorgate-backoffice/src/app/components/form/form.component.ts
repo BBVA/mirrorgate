@@ -77,6 +77,7 @@ export class FormComponent {
     urlAlertsAuthorization?: string
   } = {};
   errorMessage: string;
+  slackError: string;
   url: string;
   icon: { error?: string; success?: boolean } = {};
   texts: { loaded?: boolean } = { loaded: false };
@@ -117,7 +118,7 @@ export class FormComponent {
       this.edit = true;
       this.dashboardsService.getDashboard(id).subscribe(
         dashboard => this.setDashboard(dashboard),
-        error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
+        error => this.errorMessage = this._formatError(error)
       );
     } else {
       this.setDashboard(new Dashboard());
@@ -128,7 +129,7 @@ export class FormComponent {
         this.texts = texts;
         this.texts.loaded = true;
       },
-      error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
+      error => this.errorMessage = this._formatError(error)
     );
 
     this.dashboardsService.getDashboards().subscribe(dashboards => {
@@ -213,9 +214,6 @@ export class FormComponent {
     this.temp.slackTeam = this.dashboard.slackTeam
       ? this.dashboard.slackTeam
       : '';
-    if (this.temp.slackTeam !== '') {
-      this.updateSlackChannels();
-    }
     this.temp.urlAlerts = this.dashboard.urlAlerts
       ? this.dashboard.urlAlerts
       : '';
@@ -310,13 +308,14 @@ export class FormComponent {
   }
 
   private updateSlackChannels(): void {
-    this.slackService.getChannels(this.dashboard).then(channels => {
-      this.slackChannels.values = channels;
-      this.slackChannels.keys = channels && Object.keys(channels);
-    });
+    this.slackService.getChannels(this.dashboard).subscribe(
+      channels => this.slackChannels = channels,
+      error => this.errorMessage = this._formatError(error)
+    );
   }
 
   private setSlackToken(token: string): void {
+    this.slackError = undefined;
     this.dashboard.slackToken = token;
     this.updateSlackChannels();
   }
@@ -331,7 +330,7 @@ export class FormComponent {
           this.back();
         }
       },
-      error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
+      error => this.errorMessage = this._formatError(error)
     );
   }
 
@@ -347,16 +346,13 @@ export class FormComponent {
   }
 
   signSlack(): void {
-    this.slackService
-      .signSlack(
-        this.dashboard.slackTeam,
-        this.slack.clientId,
-        this.slack.clientSecret
-      )
-      .then(token => this.setSlackToken(token))
-      .catch(
-        error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
-      );
+    this.slackService.signSlack(
+      this.dashboard.slackTeam,
+      this.slack.clientId,
+      this.slack.clientSecret
+    )
+    .then(token => this.setSlackToken(token))
+    .catch(error => this.slackError = this._formatError(error));
   }
 
   uploadImage(event) {
@@ -384,12 +380,7 @@ export class FormComponent {
     this.updateColumns();
   }
 
-  addTag(
-    event: MatChipInputEvent,
-    array: string[],
-    control: FormControl,
-    matAutocomplete: MatAutocomplete
-  ): void {
+  addTag(event: MatChipInputEvent, array: string[], control: FormControl, matAutocomplete: MatAutocomplete): void {
     if (!matAutocomplete || matAutocomplete.isOpen) {
       this._addTag(event.value, array, event.input, control);
     }
@@ -407,12 +398,7 @@ export class FormComponent {
     this._addTag(event.option.value, array, input, control)
   }
 
-  private _addTag(
-    value: string,
-    array: string[],
-    input: any,
-    control: FormControl
-  ): void {
+  private _addTag(value: string, array: string[], input: any, control: FormControl): void {
     if (input) {
       input.value = '';
     }
@@ -437,5 +423,9 @@ export class FormComponent {
 
   moveTag(event: CdkDragDrop<String[]>, array: string[]) {
     moveItemInArray(array, event.previousIndex, event.currentIndex);
+  }
+
+  private _formatError(error: any) {
+    return error.message || error.error && error.error.message || error.error || error
   }
 }

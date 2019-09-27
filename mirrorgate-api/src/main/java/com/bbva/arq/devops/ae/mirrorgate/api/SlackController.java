@@ -35,14 +35,14 @@ import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping(value = "/backoffice/utils/slack")
-public class BackOfficeSlackUtilsController {
+@RequestMapping(value = "/slack")
+public class SlackController {
 
     private final DashboardService dashboardService;
     private final SlackService slackService;
 
     @Autowired
-    public BackOfficeSlackUtilsController(DashboardService dashboardService, SlackService slackService) {
+    public SlackController(DashboardService dashboardService, SlackService slackService) {
         this.dashboardService = dashboardService;
         this.slackService = slackService;
     }
