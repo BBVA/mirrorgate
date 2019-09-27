@@ -98,6 +98,25 @@ describe('FormComponent', () => {
   }));
 
   it('should allow to save a dashboard', async(() => {
+    routeStub.snapshot.params['id'] = undefined;
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      let displayName = fixture.nativeElement.querySelector('#displayName');
+      let saveButton = fixture.nativeElement.querySelector('#save-button');
+      let component = fixture.componentInstance;
+
+      displayName.value = 'New Dashboard';
+      displayName.dispatchEvent(new Event('input'));
+
+      saveButton.click();
+
+      expect(component.dashboard.displayName).toBe('New Dashboard');
+      expect(router.navigate).toHaveBeenCalledWith(['/list']);
+    });
+  }));
+
+  it('should allow to edit a dashboard', async(() => {
     routeStub.snapshot.params['id'] = fakeDashboard.name;
     fixture.detectChanges();
 
@@ -111,7 +130,7 @@ describe('FormComponent', () => {
 
       saveButton.click();
 
-      expect(component.dashboard.displayName).toBe('New Name')
+      expect(component.dashboard.displayName).toBe('New Name');
       expect(router.navigate).toHaveBeenCalledWith(['/list']);
     });
   }));

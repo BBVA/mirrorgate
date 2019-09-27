@@ -48,7 +48,11 @@ export class MockDashboardsService {
     this.dashboard = dashboard;
   }
 
-  saveDashboard(dashboard: Dashboard) {
+  saveDashboard(dashboard: Dashboard, exists: boolean) {
+    if (dashboard && !exists) {
+      return of(dashboard);
+    }
+
     if (dashboard && this.dashboard && dashboard.name === this.dashboard.name) {
       return of(dashboard);
     }
