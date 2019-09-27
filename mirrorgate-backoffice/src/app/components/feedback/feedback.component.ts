@@ -45,7 +45,7 @@ export class FeedbackComponent {
         this.texts = texts;
         this.texts.loaded = true;
       },
-      error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
+      error => this.errorMessage = this._formatError(error)
     );
   }
 
@@ -56,7 +56,11 @@ export class FeedbackComponent {
   onSave(review: Review): void {
     this.reviewsService.saveReview(review).subscribe(
       () => this.back(),
-      error => this.errorMessage = error.message || error.error && error.error.message || error.error || error
+      error => this.errorMessage = this._formatError(error)
     );
+  }
+
+  private _formatError(error: any) {
+    return error.message || error.error && error.error.message || error.error || error
   }
 }
