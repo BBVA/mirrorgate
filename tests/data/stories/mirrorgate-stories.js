@@ -271,7 +271,7 @@ db.getCollection('feature').insertMany([
     ]
   },
   {
-    'sId': '10049',
+    '_id': '10049mirrorgate-collectors-jira',
     'sId': '10049',
     'sNumber': 'DOST05-102',
     'sName': 'MirrorGate story in feature',
