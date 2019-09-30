@@ -51,11 +51,11 @@ export class SlackService {
   }
 
   private generateToken(code:string, team:string, clientId:string, clientSecret:string) {
-    let params: HttpParams = new HttpParams();
-    params.set('code', code);
-    params.set('team', team);
-    params.set('clientId', clientId);
-    params.set('clientSecret', clientSecret);
+    let params: HttpParams = new HttpParams()
+      .set('code', code)
+      .set('team', team)
+      .set('clientId', clientId)
+      .set('clientSecret', clientSecret);
 
     return this.http.get(`${this.configService.getConfig('MIRRORGATE_API_URL')}/slack/token-generator`, {
       params: params
@@ -63,9 +63,9 @@ export class SlackService {
   }
 
   getChannels(dashboard:Dashboard) {
-    let params: HttpParams = new HttpParams();
-    params.set('dashboard', dashboard.name);
-    params.set('token', dashboard.slackToken);
+    let params: HttpParams = new HttpParams()
+      .set('dashboard', dashboard.name)
+      .set('token', dashboard.slackToken);
 
     return this.http.get(`${this.configService.getConfig('MIRRORGATE_API_URL')}/slack/channels`, {
       params: params

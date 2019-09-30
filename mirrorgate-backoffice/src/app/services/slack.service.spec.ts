@@ -59,8 +59,8 @@ describe('SlackService', () => {
     service = TestBed.get(SlackService);
     httpMock = TestBed.get(HttpTestingController);
     mirrorGateAPI = TestBed.get(ConfigService).getConfig('MIRRORGATE_API_URL');
-    slackTokenGeneratorUrl = `${mirrorGateAPI}/slack/token-generator`;
-    slackGetChannelsUrl  = `${mirrorGateAPI}/slack/channels`;
+    slackTokenGeneratorUrl = `${mirrorGateAPI}/slack/token-generator?code=${fakeToken}&team=${fakeTeam}&clientId=${fakeClientId}&clientSecret=${fakeClientSecret}`;
+    slackGetChannelsUrl  = `${mirrorGateAPI}/slack/channels?dashboard=${fakeDashboard.name}&token=${fakeDashboard.slackToken}`;
 
     spyOn(window, 'open').and.stub();
   });
@@ -78,7 +78,6 @@ describe('SlackService', () => {
     window.dispatchEvent(messageEvent);
 
     expect(window.open).toHaveBeenCalledWith(slackUrl);
-
     let req = httpMock.expectOne(slackTokenGeneratorUrl, 'Get Slack Token');
     expect(req.request.method).toBe('GET');
 
@@ -91,7 +90,6 @@ describe('SlackService', () => {
     service.getChannels(fakeDashboard).subscribe((data) => {
       expect(data).toBe(fakeChannels);
     });
-
     let req = httpMock.expectOne(slackGetChannelsUrl, 'Get Slack Channels');
     expect(req.request.method).toBe('GET');
 

@@ -214,6 +214,9 @@ export class FormComponent {
     this.temp.slackTeam = this.dashboard.slackTeam
       ? this.dashboard.slackTeam
       : '';
+    if (this.temp.slackTeam !== '') {
+      this.updateSlackChannels();
+    }
     this.temp.urlAlerts = this.dashboard.urlAlerts
       ? this.dashboard.urlAlerts
       : '';

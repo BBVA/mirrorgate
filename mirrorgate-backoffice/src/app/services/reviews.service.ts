@@ -32,9 +32,9 @@ export class ReviewsService {
   }
 
   saveReview(review: Review) {
-    let data = new HttpParams();
-    data.append('rate', review.rate.toString());
-    data.append('comment', review.comment);
+    let data = new HttpParams()
+      .set('rate', review.rate.toString())
+      .set('comment', review.comment);
 
     return this.http.post<Review>(this.reviewsUrl, data);
   }
