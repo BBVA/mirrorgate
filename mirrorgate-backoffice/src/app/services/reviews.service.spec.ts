@@ -64,8 +64,6 @@ describe('ReviewsService', () => {
       'Save review with comment: ' + fakeReview.comment
     );
     expect(req.request.method).toBe('POST');
-    expect(req.request.params.get('rate')).toBe(fakeReview.rate.toString());
-    expect(req.request.params.get('comment')).toBe(fakeReview.comment);
 
     req.flush(fakeReview);
 
