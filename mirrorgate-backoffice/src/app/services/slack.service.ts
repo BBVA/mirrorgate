@@ -58,7 +58,8 @@ export class SlackService {
       .set('clientSecret', clientSecret);
 
     return this.http.get(`${this.configService.getConfig('MIRRORGATE_API_URL')}/slack/token-generator`, {
-      params: params
+      params: params,
+      responseType: 'text'
     });
   }
 
