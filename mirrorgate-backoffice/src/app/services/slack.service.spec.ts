@@ -38,14 +38,14 @@ describe('SlackService', () => {
   const fakeTeam = 'MirrorGate';
   const fakeClientId = '1111111';
   const fakeClientSecret = 'AAAAAAA';
-  const fakeToken = 'BBBBBBB';
+  const fakeSlackToken = 'BBBBBBB';
+  const fakeSlackChannels = {"1":"general","2":"mirrorgate","3":"alerts"};
   const slackUrl = `https://slack.com/oauth/authorize?client_id=${fakeClientId}&scope=client&team=${fakeTeam}`;
 
   const fakeDashboard = new Dashboard();
   fakeDashboard.name = 'mirrorgate';
   fakeDashboard.slackTeam = fakeTeam;
-  fakeDashboard.slackToken = fakeToken;
-  const fakeChannels = ['general', 'mirrorgate'];
+  fakeDashboard.slackToken = fakeSlackToken;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -59,7 +59,7 @@ describe('SlackService', () => {
     service = TestBed.get(SlackService);
     httpMock = TestBed.get(HttpTestingController);
     mirrorGateAPI = TestBed.get(ConfigService).getConfig('MIRRORGATE_API_URL');
-    slackTokenGeneratorUrl = `${mirrorGateAPI}/slack/token-generator?code=${fakeToken}&team=${fakeTeam}&clientId=${fakeClientId}&clientSecret=${fakeClientSecret}`;
+    slackTokenGeneratorUrl = `${mirrorGateAPI}/slack/token-generator?code=${fakeSlackToken}&team=${fakeTeam}&clientId=${fakeClientId}&clientSecret=${fakeClientSecret}`;
     slackGetChannelsUrl  = `${mirrorGateAPI}/slack/channels?dashboard=${fakeDashboard.name}&token=${fakeDashboard.slackToken}`;
 
     spyOn(window, 'open').and.stub();
@@ -67,11 +67,11 @@ describe('SlackService', () => {
 
   it('should sign slack successfully', () => {
     service.signSlack(fakeTeam, fakeClientId, fakeClientSecret).then((data: any) => {
-      expect(data).toBe(fakeToken);
+      expect(data).toBe(fakeSlackToken);
     });
 
     let messageEvent = new MessageEvent('message', {
-      data: fakeToken,
+      data: fakeSlackToken,
       origin: document.location.origin
     });
 
@@ -81,19 +81,19 @@ describe('SlackService', () => {
     let req = httpMock.expectOne(slackTokenGeneratorUrl, 'Get Slack Token');
     expect(req.request.method).toBe('GET');
 
-    req.flush(fakeToken);
+    req.flush(fakeSlackToken);
 
     httpMock.verify();
   });
 
   it('should get channels successfully', () => {
     service.getChannels(fakeDashboard).subscribe((data) => {
-      expect(data).toBe(fakeChannels);
+      expect(data).toBe(fakeSlackChannels);
     });
     let req = httpMock.expectOne(slackGetChannelsUrl, 'Get Slack Channels');
     expect(req.request.method).toBe('GET');
 
-    req.flush(fakeChannels);
+    req.flush(fakeSlackChannels);
 
     httpMock.verify();
   });

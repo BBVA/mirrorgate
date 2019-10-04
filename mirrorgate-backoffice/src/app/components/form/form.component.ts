@@ -53,7 +53,7 @@ import { map, startWith } from 'rxjs/operators';
 export class FormComponent {
   backToDashboard: boolean;
   dashboard: Dashboard;
-  slackChannels: { keys?: string[], values?: Map<string, string> } = {};
+  slackChannels: { keys?: string[], values?: any };
   slack: { clientId?: string, clientSecret?: string } = {};
   edit: boolean = false;
   columnsUpdated: boolean = false;
@@ -214,7 +214,8 @@ export class FormComponent {
     this.temp.slackTeam = this.dashboard.slackTeam
       ? this.dashboard.slackTeam
       : '';
-    if (this.temp.slackTeam !== '') {
+    if (this.dashboard.slackTeam  && this.dashboard.slackTeam !== ''
+        && this.dashboard.slackToken && this.dashboard.slackToken !== '' ) {
       this.updateSlackChannels();
     }
     this.temp.urlAlerts = this.dashboard.urlAlerts
@@ -312,7 +313,7 @@ export class FormComponent {
 
   private updateSlackChannels(): void {
     this.slackService.getChannels(this.dashboard).subscribe(
-      channels => this.slackChannels = channels,
+      channels => this.slackChannels = { keys: Object.keys(channels), values: channels },
       error => this.errorMessage = this._formatError(error)
     );
   }

@@ -563,7 +563,7 @@
                   </button>
                 </div>
                 <input type="text" class="form-control" id="slack_team" [(ngModel)]="temp.slackTeam" name="slack_team" #name="ngModel" placeholder="{{texts.form.alerts_block.slack_placeholder}}">
-                <select *ngIf="slackChannels.keys" class="form-control" [(ngModel)]="dashboard.slackChannel" name="slack_channel">
+                <select *ngIf="slackChannels" class="form-control" [(ngModel)]="dashboard.slackChannel" name="slack_channel">
                   <option></option>
                   <option *ngFor="let id of slackChannels.keys" [value]="id">{{slackChannels.values[id]}}</option>
                 </select>

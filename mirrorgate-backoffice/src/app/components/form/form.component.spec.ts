@@ -30,11 +30,12 @@ import { ConfigService } from '../../services/config.service';
 import { MockDashboardsService } from '../../../../test/mocks/services/mock.dashboards.service';
 import { MockTextsService } from '../../../../test/mocks/services/mock.texts.service';
 import { MockConfigService } from '../../../../test/mocks/services/mock.config.service';
-import { SlackService } from '../../services/slack.service';
+import { MockSlackService } from '../../../../test/mocks/services/mock.slack.service';
 
 import { FormComponent } from './form.component';
 import { MatChipsModule, MatAutocompleteModule } from '@angular/material';
 import { DragulaModule } from 'ng2-dragula';
+import { SlackService } from '../../services/slack.service';
 
 describe('FormComponent', () => {
   let fixture: ComponentFixture<FormComponent>;
@@ -45,7 +46,10 @@ describe('FormComponent', () => {
   let fakeDashboards: Dashboard[];
   let mockDashboardsService: MockDashboardsService;
 
-  let routeStub = {
+  const fakeSlackToken = 'BBBBBBB';
+  const fakeSlackChannels = {"1":"general","2":"mirrorgate","3":"alerts"};
+
+  const routeStub = {
     snapshot: {
       params: new Map(),
       queryParams: new Map()
@@ -65,6 +69,7 @@ describe('FormComponent', () => {
     mockDashboardsService.setFakeDashboards(fakeDashboards);
 
     let mockTextsService = new MockTextsService();
+    let mockSlackService = new MockSlackService(fakeSlackToken, fakeSlackChannels);
 
     TestBed.configureTestingModule({
       declarations: [FormComponent],
@@ -86,7 +91,8 @@ describe('FormComponent', () => {
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: DashboardsService, useValue: mockDashboardsService },
           { provide: TextsService, useValue: mockTextsService },
-          { provide: ConfigService, useClass: MockConfigService }
+          { provide: ConfigService, useClass: MockConfigService },
+          { provide: SlackService, useValue: mockSlackService}
         ]
       }
     });
@@ -192,6 +198,24 @@ describe('FormComponent', () => {
       resetButton.click();
 
       expect(displayName.value).toEqual('');
+    });
+  }));
+
+  it('should allow to sing a slack app', async(() => {
+    routeStub.snapshot.params['id'] = fakeDashboard.name;
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      let component = fixture.componentInstance;
+      component.signSlack();
+
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        expect(component.slackChannels.keys).toEqual(Object.keys(fakeSlackChannels));
+        expect(component.slackChannels.values).toEqual(fakeSlackChannels);
+      });
+
     });
   }));
 
