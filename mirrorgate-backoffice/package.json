@@ -38,6 +38,7 @@
     "@types/lodash-es": "4.17.3",
     "@types/node": "12.7.11",
     "concurrently": "4.1.2",
+    "gzip-all": "1.0.0",
     "http-server": "0.11.1",
     "karma": "4.3.0",
     "karma-chrome-launcher": "3.1.0",
@@ -52,7 +53,7 @@
   "scripts": {
     "ng": "ng",
     "clean": "rimraf dist",
-    "build": "ng build --prod",
+    "build": "ng build --prod && gzip-all \"dist/**/*.*\"",
     "watch": "ng build --watch",
     "start": "concurrently --kill-others \"npm run serve-mocks\" \"npm run serve\"",
     "serve": "ng serve -c local",
