@@ -17,7 +17,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { kebabCase } from 'lodash';
+import kebabCase from 'lodash-es/kebabCase';
 
 import { Dashboard } from '../../model/dashboard';
 import { DashboardsService } from '../../services/dashboards.service';
