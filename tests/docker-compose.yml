@@ -29,7 +29,7 @@ services:
       - mongo
 
   app:
-    image: openjdk:12-jdk
+    image: openjdk:13-jdk
     volumes:
       - ../mirrorgate-api/build/libs:/temp
       - ../mirrorgate-dashboard/dist:/temp/public
