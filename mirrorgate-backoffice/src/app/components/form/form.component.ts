@@ -214,8 +214,7 @@ export class FormComponent {
     this.temp.slackTeam = this.dashboard.slackTeam
       ? this.dashboard.slackTeam
       : '';
-    if (this.dashboard.slackTeam  && this.dashboard.slackTeam !== ''
-        && this.dashboard.slackToken && this.dashboard.slackToken !== '' ) {
+    if (this.temp.slackTeam !== '') {
       this.updateSlackChannels();
     }
     this.temp.urlAlerts = this.dashboard.urlAlerts
