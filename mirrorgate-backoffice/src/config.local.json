@@ -1,3 +1,4 @@
 {
+  "MIRRORGATE_DASHBOARD_URL": "../dashboard.html",
   "MIRRORGATE_API_URL": "api"
 }

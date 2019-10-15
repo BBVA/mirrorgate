@@ -283,7 +283,7 @@ export class FormComponent {
 
   back(): void {
     if(this.backToDashboard) {
-      document.location.href = this.configService.getConfig('dashboardUrl') + '?board=' + encodeURIComponent(this.dashboard.name);
+      document.location.href = this.configService.getConfig('MIRRORGATE_DASHBOARD_URL') + '?board=' + encodeURIComponent(this.dashboard.name);
     } else {
       this.router.navigate(['/list']);
     }
