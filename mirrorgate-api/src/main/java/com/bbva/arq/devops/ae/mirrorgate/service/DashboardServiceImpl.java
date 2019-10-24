@@ -49,7 +49,7 @@ public class DashboardServiceImpl implements DashboardService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DashboardServiceImpl.class);
     private static final Sort SORT_BY_LAST_MODIFICATION
-        = new Sort(Sort.Direction.DESC, "lastModification");
+        = Sort.by(Sort.Direction.DESC, "lastModification");
 
     private final DashboardRepository dashboardRepository;
     private final EventService eventService;
@@ -180,13 +180,11 @@ public class DashboardServiceImpl implements DashboardService {
     public void saveDashboardImage(String dashboardName, InputStream uploadFile) {
         Dashboard currentDashboard = this.getRepositoryDashboard(dashboardName);
 
-        if (currentDashboard != null) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-            if (auth != null) {
-                String authUser = (String) auth.getPrincipal();
-                canEdit(authUser, currentDashboard);
-            }
+        if (auth != null) {
+            String authUser = (String) auth.getPrincipal();
+            canEdit(authUser, currentDashboard);
         }
         dashboardRepository.saveFile(uploadFile, dashboardName);
     }

@@ -48,7 +48,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
         Aggregation aggregation = newAggregation(
             match(Criteria.where("appname").in(names).and("timestamp").exists(true)),
-            sort(new Sort(DESC, "timestamp")),
+            sort(Sort.by(DESC, "timestamp")),
             project("appname", "platform", "starrating",
                         "timestamp", "comment", "authorName","url"),
             group("appname", "platform")
@@ -74,7 +74,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
         Aggregation aggregation = newAggregation(
             match(Criteria.where("appname").in(names)),
-            sort(new Sort(DESC, "timestamp")),
+            sort(Sort.by(DESC, "timestamp")),
             group("appname", "platform")
                 .first("platform").as("platform")
                 .first("appname").as("appName")

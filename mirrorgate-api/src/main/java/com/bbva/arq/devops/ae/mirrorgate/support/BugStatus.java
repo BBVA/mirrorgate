@@ -26,9 +26,10 @@ public enum BugStatus {
     private static final Map<String, BugStatus> NAME_MAP = new HashMap<String, BugStatus>() {
         {
             for (BugStatus st : BugStatus.values()) {
-            put(st.getName(), st);
+                put(st.getName(), st);
+            }
         }
-    }};
+    };
 
     private final String name;
 

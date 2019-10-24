@@ -62,7 +62,7 @@ public class DashboardServiceTests {
     @InjectMocks
     private DashboardServiceImpl dashboardService;
 
-    private static final Sort SORT_BY_LAST_MODIFICATION = new Sort(Sort.Direction.DESC, "lastModification");
+    private static final Sort SORT_BY_LAST_MODIFICATION = Sort.by(Sort.Direction.DESC, "lastModification");
 
     @Before
     public void before() {

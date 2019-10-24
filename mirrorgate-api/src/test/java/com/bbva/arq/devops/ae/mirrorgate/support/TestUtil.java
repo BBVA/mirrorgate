@@ -16,20 +16,21 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.support;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.nio.charset.Charset;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+
 public class TestUtil {
 
-    public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(APPLICATION_JSON.getType(), APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
+    public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(APPLICATION_JSON.getType(), APPLICATION_JSON.getSubtype(), StandardCharsets.UTF_8);
 
     public static byte[] convertObjectToJsonBytes(Object object) throws IOException {
         ObjectMapper mapper = new CustomObjectMapper();

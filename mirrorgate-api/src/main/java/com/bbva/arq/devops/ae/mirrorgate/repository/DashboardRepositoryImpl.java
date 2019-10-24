@@ -31,6 +31,7 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,9 +80,9 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
     private List<Dashboard> getDashboardsNotInStatus(DashboardStatus... status) {
         Aggregation aggregation = newAggregation(
-            sort(new Sort(Sort.Direction.DESC, "lastModification")),
+            sort(Sort.by(Sort.Direction.DESC, "lastModification")),
             firstDashboardFields(group("name")),
-            match(Criteria.where("status").nin((Object[]) status)),
+            match(Criteria.where("status").nin(Arrays.asList(status))),
             project(DASHBOARD_FIELDS.keySet().toArray(new String[]{})).andExclude("_id")
         );
 

@@ -27,6 +27,7 @@ import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,9 +37,6 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.matc
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
-/**
- * Created by alfonso on 13/03/17.
- */
 @Component
 public class SprintRepositoryImpl implements SprintRepository {
 
@@ -76,7 +74,7 @@ public class SprintRepositoryImpl implements SprintRepository {
     @Override
     public List<Sprint> getSprintSampleForStatus(String[] status, String collectorId) {
         Aggregation agg = newAggregation(
-                match(where("sSprintAssetState").in((Object[]) status).and("collectorId").is(collectorId)),
+            match(where("sSprintAssetState").in(Arrays.asList(status)).and("collectorId").is(collectorId)),
                 firstFeatureFields(group("sSprintID","sSprintAssetState")),
                 firstSprintFields(group("sSprintID","sSprintAssetState"))
                         .push(new BasicDBObject(FEATURE_FIELDS)).as("features")
