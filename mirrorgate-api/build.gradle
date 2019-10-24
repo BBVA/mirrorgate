@@ -25,7 +25,7 @@ buildscript {
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.25.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.27.0'
     }
 }
 
@@ -36,9 +36,9 @@ apply plugin: 'jacoco'
 apply plugin: "com.github.ben-manes.versions"
 
 jar {
-    group group
-    baseName baseName
-    version version
+    group
+    archiveBaseName
+    archiveVersion
 }
 
 sourceCompatibility = 1.8
@@ -64,7 +64,7 @@ bootRun {
 }
 
 dependencies {
-    compile(
+    implementation (
         'org.springframework.boot:spring-boot-starter-security',
         'org.springframework.boot:spring-boot-starter-web',
         'org.springframework.boot:spring-boot-starter-data-mongodb',
@@ -74,7 +74,7 @@ dependencies {
         'com.github.allbegray:slack-api:1.7.0.RELEASE'
     )
 
-    testCompile(
+    testImplementation  (
         'io.springfox:springfox-staticdocs:2.6.1',
         'org.springframework.boot:spring-boot-starter-test',
         'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0'
