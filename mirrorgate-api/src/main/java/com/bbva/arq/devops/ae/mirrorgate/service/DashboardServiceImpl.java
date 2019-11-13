@@ -226,7 +226,7 @@ public class DashboardServiceImpl implements DashboardService {
 
             newTransientDashboard(newDashboard);
         } catch (DashboardConflictException e) {
-            LOGGER.warn("Dashboard with name {} already exists", identifier);
+            LOGGER.debug("Dashboard with name {} already exists", identifier);
         }
     }
 

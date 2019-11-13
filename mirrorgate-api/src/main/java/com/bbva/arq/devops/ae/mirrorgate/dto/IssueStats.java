@@ -16,7 +16,7 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.dto;
 
-public class FeatureStats {
+public class IssueStats {
 
     private SprintStats sprintStats;
     private double backlogEstimate;
@@ -25,7 +25,7 @@ public class FeatureStats {
         return backlogEstimate;
     }
 
-    public void setBacklogEstimate(double backlogEstimate) {
+    public void setBacklogEstimate(final double backlogEstimate) {
         this.backlogEstimate = backlogEstimate;
     }
 
@@ -33,7 +33,7 @@ public class FeatureStats {
         return sprintStats;
     }
 
-    public void setSprintStats(SprintStats sprintStats) {
+    public void setSprintStats(final SprintStats sprintStats) {
         this.sprintStats = sprintStats;
     }
 }

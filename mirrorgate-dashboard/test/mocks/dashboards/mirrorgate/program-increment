@@ -7,7 +7,7 @@
       "type": "Feature",
       "status": "DONE",
       "jiraKey": "DOST05-115",
-      "parentKey": "DOT-4",
+      "parentsKeys": "DOT-4",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -23,7 +23,7 @@
       "type": "Feature",
       "status": "DONE",
       "jiraKey": "DOST05-125",
-      "parentKey": "DOT-4",
+      "parentsKeys": "DOT-4",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -39,7 +39,7 @@
       "type": "Feature",
       "status": "IN_PROGRESS",
       "jiraKey": "DOST05-211",
-      "parentKey": "DOT-4",
+      "parentsKeys": "DOT-4",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -55,7 +55,7 @@
       "type": "Feature",
       "status": "DONE",
       "jiraKey": "DOST05-212",
-      "parentKey": "DOT-4",
+      "parentsKeys": "DOT-4",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -71,7 +71,7 @@
       "type": "Feature",
       "status": "DONE",
       "jiraKey": "DOST05-210",
-      "parentKey": "DOT-4",
+      "parentsKeys": "DOT-4",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -87,7 +87,7 @@
       "type": "Feature",
       "status": "DONE",
       "jiraKey": "DOST05-230",
-      "parentKey": "DOT-4",
+      "parentsKeys": "DOT-4",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -103,7 +103,7 @@
       "type": "Feature",
       "status": "DONE",
       "jiraKey": "DOST05-233",
-      "parentKey": "DOT-4",
+      "parentsKeys": "DOT-4",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -122,7 +122,7 @@
       "status": "DONE",
       "estimate": 2.0,
       "jiraKey": "DOST05-138",
-      "parentKey": "DOST05-1",
+      "parentsKeys": "DOST05-1",
       "sprint": {
         "id": "1879",
         "name": "MIRRORGATE_PI03_2017_SP2",
@@ -145,7 +145,7 @@
       "status": "DONE",
       "estimate": 0.0,
       "jiraKey": "DOST05-136",
-      "parentKey": "DOST05-1",
+      "parentsKeys": "DOST05-1",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -162,7 +162,7 @@
       "status": "IN_PROGRESS",
       "estimate": 2.0,
       "jiraKey": "DOST05-137",
-      "parentKey": "DOST05-1",
+      "parentsKeys": "DOST05-1",
       "sprint": {
         "id": "1941",
         "name": "MIRRORGATE_PI03_2017_SP3",
@@ -185,7 +185,7 @@
       "status": "DONE",
       "estimate": 2.0,
       "jiraKey": "DOST05-249",
-      "parentKey": "DOST05-1",
+      "parentsKeys": "DOST05-1",
       "sprint": {
         "id": "1941",
         "name": "MIRRORGATE_PI03_2017_SP3",
@@ -208,7 +208,7 @@
       "status": "DONE",
       "estimate": 2.0,
       "jiraKey": "DOST05-76",
-      "parentKey": "DOST05-115",
+      "parentsKeys": "DOST05-115",
       "sprint": {
         "id": "1430",
         "name": "MIRRORGATE_PI02_2017_SP1",
@@ -231,7 +231,7 @@
       "status": "DONE",
       "estimate": 0.5,
       "jiraKey": "DOST05-145",
-      "parentKey": "DOST05-115",
+      "parentsKeys": "DOST05-115",
       "sprint": {
         "id": "1941",
         "name": "MIRRORGATE_PI03_2017_SP3",
@@ -254,7 +254,7 @@
       "status": "BACKLOG",
       "estimate": 1.0,
       "jiraKey": "DOST05-163",
-      "parentKey": "DOST05-115",
+      "parentsKeys": "DOST05-115",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -271,7 +271,7 @@
       "status": "DONE",
       "estimate": 3.0,
       "jiraKey": "DOST05-154",
-      "parentKey": "DOST05-125",
+      "parentsKeys": "DOST05-125",
       "sprint": {
         "id": "1432",
         "name": "MIRRORGATE_PI02_2017_SP3",
@@ -294,7 +294,7 @@
       "status": "DONE",
       "estimate": 0.0,
       "jiraKey": "DOST05-172",
-      "parentKey": "DOST05-210",
+      "parentsKeys": "DOST05-210",
       "sprint": {
         "id": "1824",
         "name": "MIRRORGATE_PI03_2017_SP1",
@@ -317,7 +317,7 @@
       "status": "DONE",
       "estimate": 0.5,
       "jiraKey": "DOST05-219",
-      "parentKey": "DOST05-210",
+      "parentsKeys": "DOST05-210",
       "sprint": {
         "id": "1879",
         "name": "MIRRORGATE_PI03_2017_SP2",
@@ -340,7 +340,7 @@
       "status": "DONE",
       "estimate": 3.0,
       "jiraKey": "DOST05-221",
-      "parentKey": "DOST05-210",
+      "parentsKeys": "DOST05-210",
       "sprint": {
         "id": "1879",
         "name": "MIRRORGATE_PI03_2017_SP2",
@@ -363,7 +363,7 @@
       "status": "DONE",
       "estimate": 2.0,
       "jiraKey": "DOST05-218",
-      "parentKey": "DOST05-210",
+      "parentsKeys": "DOST05-210",
       "sprint": {
         "id": "1824",
         "name": "MIRRORGATE_PI03_2017_SP1",
@@ -386,7 +386,7 @@
       "status": "DONE",
       "estimate": 1.0,
       "jiraKey": "DOST05-220",
-      "parentKey": "DOST05-210",
+      "parentsKeys": "DOST05-210",
       "sprint": {
         "id": "1824",
         "name": "MIRRORGATE_PI03_2017_SP1",
@@ -409,7 +409,7 @@
       "status": "IN_PROGRESS",
       "estimate": 1.0,
       "jiraKey": "DOST05-227",
-      "parentKey": "DOST05-211",
+      "parentsKeys": "DOST05-211",
       "sprint": {
         "id": "1941",
         "name": "MIRRORGATE_PI03_2017_SP3",
@@ -432,7 +432,7 @@
       "status": "BACKLOG",
       "estimate": 2.0,
       "jiraKey": "DOST05-238",
-      "parentKey": "DOST05-211",
+      "parentsKeys": "DOST05-211",
       "sprint": {
         "id": "1941",
         "name": "MIRRORGATE_PI03_2017_SP3",
@@ -455,7 +455,7 @@
       "status": "DONE",
       "estimate": 0.5,
       "jiraKey": "DOST05-222",
-      "parentKey": "DOST05-211",
+      "parentsKeys": "DOST05-211",
       "sprint": {
         "id": "1941",
         "name": "MIRRORGATE_PI03_2017_SP3",
@@ -478,7 +478,7 @@
       "status": "DONE",
       "estimate": 1.0,
       "jiraKey": "DOST05-226",
-      "parentKey": "DOST05-211",
+      "parentsKeys": "DOST05-211",
       "sprint": {
         "id": "1941",
         "name": "MIRRORGATE_PI03_2017_SP3",
@@ -501,7 +501,7 @@
       "status": "IN_PROGRESS",
       "estimate": 3.0,
       "jiraKey": "DOST05-237",
-      "parentKey": "DOST05-211",
+      "parentsKeys": "DOST05-211",
       "sprint": {
         "id": "1941",
         "name": "MIRRORGATE_PI03_2017_SP3",
@@ -524,7 +524,7 @@
       "status": "DONE",
       "estimate": 1.0,
       "jiraKey": "DOST05-216",
-      "parentKey": "DOST05-212",
+      "parentsKeys": "DOST05-212",
       "sprint": {
         "id": "1824",
         "name": "MIRRORGATE_PI03_2017_SP1",
@@ -547,7 +547,7 @@
       "status": "DONE",
       "estimate": 3.0,
       "jiraKey": "DOST05-217",
-      "parentKey": "DOST05-212",
+      "parentsKeys": "DOST05-212",
       "sprint": {
         "id": "1824",
         "name": "MIRRORGATE_PI03_2017_SP1",
@@ -570,7 +570,7 @@
       "status": "DONE",
       "estimate": 2.0,
       "jiraKey": "DOST05-229",
-      "parentKey": "DOST05-230",
+      "parentsKeys": "DOST05-230",
       "sprint": {
         "id": "1824",
         "name": "MIRRORGATE_PI03_2017_SP1",
@@ -593,7 +593,7 @@
       "status": "BACKLOG",
       "estimate": 1.0,
       "jiraKey": "DOST05-179",
-      "parentKey": "DOST05-233",
+      "parentsKeys": "DOST05-233",
       "sprint": {},
       "project": {
         "id": 12508,
@@ -610,7 +610,7 @@
       "status": "DONE",
       "estimate": 2.0,
       "jiraKey": "DOST05-236",
-      "parentKey": "DOST05-233",
+      "parentsKeys": "DOST05-233",
       "sprint": {
         "id": "1879",
         "name": "MIRRORGATE_PI03_2017_SP2",
@@ -633,7 +633,7 @@
       "status": "DONE",
       "estimate": 2.0,
       "jiraKey": "DOST05-234",
-      "parentKey": "DOST05-233",
+      "parentsKeys": "DOST05-233",
       "sprint": {
         "id": "1879",
         "name": "MIRRORGATE_PI03_2017_SP2",
@@ -656,7 +656,7 @@
       "status": "IN_PROGRESS",
       "estimate": 2.0,
       "jiraKey": "DOST05-235",
-      "parentKey": "DOST05-233",
+      "parentsKeys": "DOST05-233",
       "sprint": {
         "id": "1941",
         "name": "MIRRORGATE_PI03_2017_SP3",

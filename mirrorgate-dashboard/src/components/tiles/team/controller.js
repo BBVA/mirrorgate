@@ -32,17 +32,18 @@ var TeamController = (function(dashboardId) {
       var currentSprint = response.currentSprint;
 
       if (currentSprint && currentSprint.length > 0) {
-        var name = currentSprint[0].sSprintName;
+        var name = currentSprint[0].sprintName;
         var startDate = currentSprint[0].sprintBeginDate ;
         var endDate = currentSprint[0].sprintEndDate;
         sprintData.currentSprint = new Sprint(name, startDate, endDate);
 
         for (var index in currentSprint) {
           var story = new Story(
-              currentSprint[index].sName,
-              currentSprint[index].dEstimate || 0,
-              currentSprint[index].sStatus,
-              currentSprint[index].url);
+            currentSprint[index].name,
+            currentSprint[index].estimation || 0,
+            currentSprint[index].status,
+            currentSprint[index].url
+          );
           sprintData.currentSprint.addStory(story);
         }
       } else {

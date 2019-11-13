@@ -21,7 +21,7 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.SlackDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 import org.bson.types.ObjectId;
 
@@ -38,7 +38,7 @@ public class TestObjectFactory {
     private static final String DASHBOARD_NAME = "mirrorgate";
     private static final String TEAM_NAME = "mirrorgate";
     private static final String PROJECT_NAME = "mirrorgate";
-    private static final String FEATURE_NAME = "feature";
+    private static final String ISSUE_NAME = "issue";
     public static final String AUTH_NAME = "ATREYU";
 
     private static final String SLACK_TEAM = "SLACK_TEAM";
@@ -67,17 +67,17 @@ public class TestObjectFactory {
         return createDashboard().setStatus(DashboardStatus.TRANSIENT);
     }
 
-    public static Feature createBug() {
+    public static Issue createBug() {
         return createActiveStory()
-            .setsTypeName(BUG.getName());
+            .setType(BUG.getName());
     }
 
-    public static Feature createActiveStory() {
-        return new Feature()
-            .setsId(ObjectId.get().toString())
-            .setsSprintAssetState("Active")
-            .setsProjectName(PROJECT_NAME)
-            .setsNumber(FEATURE_NAME)
+    public static Issue createActiveStory() {
+        return new Issue()
+            .setIssueId(ObjectId.get().toString())
+            .setSprintAssetState("Active")
+            .setProjectName(PROJECT_NAME)
+            .setNumber(ISSUE_NAME)
             .setTeamName(TEAM_NAME)
             .setSprintBeginDate(new Date())
             .setSprintEndDate(new Date());
@@ -98,7 +98,7 @@ public class TestObjectFactory {
 
     public static BugDTO createBugDTO() {
         return new BugDTO()
-            .setId(FEATURE_NAME)
+            .setId(ISSUE_NAME)
             .setPriority(BugPriority.MEDIUM)
             .setStatus(BugStatus.IN_PROGRESS);
     }

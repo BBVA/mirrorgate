@@ -16,10 +16,10 @@
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.IssueStats;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
+import com.bbva.arq.devops.ae.mirrorgate.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,51 +37,48 @@ import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-/**
- * Defines feature rest methods
- */
 @RestController
-public class FeatureController {
+public class IssueController {
 
     private final DashboardService dashboardService;
-    private final FeatureService featureService;
+    private final IssueService issueService;
 
     @Autowired
-    public FeatureController(DashboardService dashboardService, FeatureService featureService) {
+    public IssueController(final DashboardService dashboardService, final IssueService issueService) {
         this.dashboardService = dashboardService;
-        this.featureService = featureService;
+        this.issueService = issueService;
     }
 
     @RequestMapping(value = "/dashboards/{name}/stories", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Map<String, Object> getActiveUserStories(@PathVariable("name") String name) {
-        DashboardDTO dashboard = dashboardService.getDashboard(name);
+    public Map<String, Object> getActiveUserStories(final @PathVariable("name") String name) {
+        final DashboardDTO dashboard = dashboardService.getDashboard(name);
 
-        List<String> boards = dashboard.getBoards();
+        final List<String> boards = dashboard.getBoards();
 
-        Map<String, Object> response = new HashMap<>();
+        final Map<String, Object> response = new HashMap<>();
 
-        response.put("currentSprint", featureService.getActiveUserStoriesByBoards(boards));
+        response.put("currentSprint", issueService.getActiveUserStoriesByBoards(boards));
         response.put("stats", getStoriesStats(name));
         return response;
     }
 
 
     @RequestMapping(value = "/dashboards/{name}/stories/_stats", method = GET, produces = APPLICATION_JSON_VALUE)
-    public FeatureStats getStoriesStats(@PathVariable("name") String name) {
-        DashboardDTO dashboard = dashboardService.getDashboard(name);
+    public IssueStats getStoriesStats(final @PathVariable("name") String name) {
+        final DashboardDTO dashboard = dashboardService.getDashboard(name);
 
-        List<String> boards = dashboard.getBoards();
-        return featureService.getFeatureStatsByKeywords(boards);
+        final List<String> boards = dashboard.getBoards();
+        return issueService.getIssueStatsByKeywords(boards);
     }
 
     @RequestMapping(value = "/api/issues", method = POST, produces = APPLICATION_JSON_VALUE)
-    public Iterable<IssueDTO> saveOrUpdateIssues(@Valid @RequestBody List<IssueDTO> issues, @RequestParam("collectorId") String collectorId) {
-        return featureService.saveOrUpdateStories(issues, collectorId);
+    public Iterable<IssueDTO> saveOrUpdateIssues(final @Valid @RequestBody List<IssueDTO> issues, final @RequestParam("collectorId") String collectorId) {
+        return issueService.saveOrUpdateStories(issues, collectorId);
     }
 
     @RequestMapping(value = "/api/issues/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public IssueDTO deleteStory(@PathVariable("id") String id, @RequestParam("collectorId") String collectorId) {
-        return featureService.deleteStory(id, collectorId);
+    public IssueDTO deleteStory(final @PathVariable("id") String id, final @RequestParam("collectorId") String collectorId) {
+        return issueService.deleteStory(id, collectorId);
     }
 
 }

@@ -33,12 +33,12 @@ public class SprintMapper {
 
     private static SprintDTO map(Sprint source, SprintDTO target) {
         return target
-            .setId(source.getId())
+            .setId(source.getSprintId())
             .setName(source.getName())
             .setStartDate(source.getStartDate())
             .setEndDate(source.getEndDate())
             .setStatus(source.getStatus() == null ? null : SprintStatus.valueOf(source.getStatus()))
-            .setIssues(source.getFeatures() == null ? null : source.getFeatures().stream()
+            .setIssues(source.getIssues() == null ? null : source.getIssues().stream()
                 .map(IssueMapper::map)
                 .collect(Collectors.toList())
             );

@@ -16,12 +16,12 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.SprintStats;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import java.util.List;
 import java.util.regex.Pattern;
 
 
-public interface FeatureRepositoryCustom {
+public interface IssueRepositoryCustom {
 
     double getBacklogEstimateByKeywords(List<String> boards);
 

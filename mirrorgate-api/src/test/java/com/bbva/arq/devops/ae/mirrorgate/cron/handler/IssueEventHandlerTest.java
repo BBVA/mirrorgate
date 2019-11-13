@@ -4,7 +4,7 @@ import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
+import com.bbva.arq.devops.ae.mirrorgate.service.IssueService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-public class FeatureEventHandlerTest {
+public class IssueEventHandlerTest {
 
     @MockBean
     private ConnectionHandler connectionHandler;
@@ -28,17 +28,17 @@ public class FeatureEventHandlerTest {
     private DashboardService dashboardService;
 
     @MockBean
-    private FeatureService featureService;
+    private IssueService issueService;
 
     @MockBean
     private ProcessEventsHelper eventsHelper;
 
-    private FeatureEventHandler eventHandler;
+    private IssueEventHandler eventHandler;
 
     @Before
     public void init(){
 
-        eventHandler = new FeatureEventHandler(connectionHandler, featureService, eventsHelper);
+        eventHandler = new IssueEventHandler(connectionHandler, issueService, eventsHelper);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class FeatureEventHandlerTest {
 
         eventHandler.processEvents(Collections.singletonList(new Event()), Collections.emptySet());
 
-        verify(connectionHandler, times(1)).sendEventUpdateMessageToAll(EventType.FEATURE);
+        verify(connectionHandler, times(1)).sendEventUpdateMessageToAll(EventType.ISSUE);
     }
 
 }

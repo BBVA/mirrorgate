@@ -4,8 +4,8 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
+import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +28,19 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProgramIncrementServiceImpl.class);
 
-    private final FeatureService featureService;
+    private final IssueService issueService;
     private final DashboardService dashboardService;
 
     @Autowired
-    public ProgramIncrementServiceImpl(FeatureService featureService,
+    public ProgramIncrementServiceImpl(IssueService issueService,
                                        DashboardService dashboardService) {
 
         this.dashboardService = dashboardService;
-        this.featureService = featureService;
+        this.issueService = issueService;
     }
 
     @Override
-    public ProgramIncrementDTO getProgramIncrementFeatures(String dashboardName) {
+    public ProgramIncrementDTO getProgramIncrement(String dashboardName) {
         LOGGER.debug("Getting product increment information for dashboard : {}", dashboardName);
 
         DashboardDTO dashboard = dashboardService.getDashboard(dashboardName);
@@ -66,7 +66,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
         Pattern piRegex = Pattern.compile("^" + productIncrementExpression + "$");
 
-        ProgramIncrementNamesAggregationResult result = featureService.getProductIncrementFromPiPattern(piRegex);
+        ProgramIncrementNamesAggregationResult result = issueService.getProductIncrementFromPiPattern(piRegex);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -121,37 +121,36 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
 
     private ProgramIncrementDTO createResponse(DashboardDTO dashboard, ProgramIncrementDTO piDTO) {
 
-        //Get features belonging to this board and this PI
-        List<Feature> piFeatures = featureService.getProductIncrementFeatures(piDTO.getProgramIncrementName());
-        List<String> piFeaturesKeys = piFeatures
+        // Get features belonging to this board and this PI
+        final List<Issue> piFeatures = issueService.getProductIncrementFeatures(piDTO.getProgramIncrementName());
+        final List<String> piFeaturesKeys = piFeatures
             .stream()
-            .map(Feature::getsNumber)
+            .map(Issue::getNumber)
             .collect(Collectors.toList());
-        List<String> boardPIFeaturesKeys = featureService.getProgramIncrementFeaturesByBoard(dashboard.getBoards(), piFeaturesKeys);
-        List<IssueDTO> boardPIFeatures = piFeatures.stream()
-            .filter(f -> boardPIFeaturesKeys.contains(f.getsNumber()) || containsDashboardKeyword(dashboard, f))
+        final List<String> boardPIFeaturesKeys = issueService.getProgramIncrementFeaturesByBoard(dashboard.getBoards(), piFeaturesKeys);
+        final List<IssueDTO> boardPIFeatures = piFeatures.stream()
+            .filter(f -> boardPIFeaturesKeys.contains(f.getNumber()) || containsDashboardKeyword(dashboard, f))
             .map(IssueMapper::map)
             .collect(Collectors.toList());
 
         //Get stories belonging to this board and this PI
-        List<String> keys = boardPIFeatures.stream()
+        final List<String> keys = boardPIFeatures.stream()
             .map(IssueDTO::getJiraKey)
             .collect(Collectors.toList());
-        List<Feature> piIssues = featureService.getFeatureRelatedIssues(keys);
-        List<IssueDTO> boardPIIssues = piIssues.stream()
+        final List<Issue> piIssues = issueService.getFeatureRelatedIssues(keys);
+        final List<IssueDTO> boardPIIssues = piIssues.stream()
             .filter((f) -> containsDashboardKeyword(dashboard, f))
             .map(IssueMapper::map)
             .collect(Collectors.toList());
 
         //Get epics belonging to this board and this PI
-        List<String> parentKeys;
-        parentKeys = piFeatures.stream()
-            .filter(f -> f.getsParentKey() != null)
-            .map(Feature::getsParentKey)
+        final List<String> parentsKeys = piFeatures.stream()
+            .filter(f -> f.getParentsKeys() != null)
+            .map(Issue::getParentsKeys)
             .flatMap(Collection::stream)
             .collect(Collectors.toList());
-        List<Feature> piEpics = featureService.getEpicsBySNumber(parentKeys);
-        List<IssueDTO> boardPIEpics = piEpics.stream()
+        final List<Issue> piEpics = issueService.getEpicsByNumber(parentsKeys);
+        final List<IssueDTO> boardPIEpics = piEpics.stream()
             .filter((f) -> containsDashboardKeyword(dashboard, f))
             .map(IssueMapper::map)
             .collect(Collectors.toList());
@@ -162,7 +161,7 @@ public class ProgramIncrementServiceImpl implements ProgramIncrementService {
             .setProgramIncrementStories(boardPIIssues);
     }
 
-    private boolean containsDashboardKeyword(DashboardDTO dashboard, Feature f) {
+    private boolean containsDashboardKeyword(DashboardDTO dashboard, Issue f) {
         return f.getKeywords() != null && f.getKeywords().stream().anyMatch((k) -> dashboard.getBoards().contains(k));
     }
 

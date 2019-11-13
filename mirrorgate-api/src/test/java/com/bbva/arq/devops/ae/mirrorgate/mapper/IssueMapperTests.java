@@ -18,7 +18,7 @@ package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import static com.bbva.arq.devops.ae.mirrorgate.mapper.IssueMapper.map;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
@@ -32,14 +32,13 @@ public class IssueMapperTests {
 
     @Test
     public void itShouldMapAllFields() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        Feature feature = new Feature()
-                .setsStatus(IssueStatus.DONE.getName())
-                .setsSprintAssetState(SprintStatus.CLOSED.name())
-                .setPriority(IssuePriority.MEDIUM.getName())
-                ;
+        Issue issue = new Issue()
+                .setStatus(IssueStatus.DONE.getName())
+                .setSprintAssetState(SprintStatus.CLOSED.name())
+                .setPriority(IssuePriority.MEDIUM.getName());
 
-        MapperTestingSupport.initializeTypicalSetters(feature);
-        MapperTestingSupport.assertBeanValues(feature, map(map(feature)));
+        MapperTestingSupport.initializeTypicalSetters(issue);
+        MapperTestingSupport.assertBeanValues(issue, map(map(issue)));
     }
 
 }

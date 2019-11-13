@@ -51,7 +51,7 @@ var lastNotification = readJSON('test/mocks/dashboards/' + dashboardForTesting +
 
 var alertsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/alerts');
 
-var piForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/programincrement');
+var piForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/program-increment');
 
 var userMetricsForTesting = readJSON('test/mocks/dashboards/' + dashboardForTesting + '/user-metrics');
 
@@ -169,7 +169,7 @@ function buildFakeServer() {
 
   server.respondWith(
     'GET',
-    'dashboards/' + dashboardForTesting + '/programincrement',
+    'dashboards/' + dashboardForTesting + '/program-increment',
     [
       200,
       { "Content-Type": "application/json" },

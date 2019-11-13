@@ -16,8 +16,8 @@
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.BugDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
+import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
+import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
@@ -40,20 +40,19 @@ import static com.bbva.arq.devops.ae.mirrorgate.support.BugPriority.MINOR;
 public class BugServiceImpl implements BugService {
 
     @Autowired
-    private FeatureRepository repository;
+    private IssueRepository repository;
 
     @Override
     public List<BugDTO> getActiveBugsByBoards(List<String> boards) {
 
-        List<Feature> issues = repository.findByKeywordsInAndSTypeNameAndSStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
+        final List<Issue> issues = repository.findByKeywordsInAndTypeAndStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
 
         return issues.stream()
             .map((issue) -> new BugDTO()
-                .setId(issue.getsNumber())
+                .setId(issue.getNumber())
                 .setPriority(PRIORITY_MAP.get(issue.getPriority()))
-                .setStatus(BugStatus.fromName(issue.getsStatus()))
+                .setStatus(BugStatus.fromName(issue.getStatus()))
             ).collect(Collectors.toList());
-
     }
 
     private static final Map<String, BugPriority> PRIORITY_MAP = Collections.unmodifiableMap(new HashMap<String, BugPriority>() {{

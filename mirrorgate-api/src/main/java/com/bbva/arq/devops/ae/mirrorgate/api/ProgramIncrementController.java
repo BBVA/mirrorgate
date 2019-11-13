@@ -18,14 +18,14 @@ public class ProgramIncrementController {
     private final ProgramIncrementService programIncrementService;
 
     @Autowired
-    public ProgramIncrementController(ProgramIncrementService programIncrementService){
+    public ProgramIncrementController(final ProgramIncrementService programIncrementService){
         this.programIncrementService = programIncrementService;
     }
 
-    @RequestMapping(value = "/dashboards/{name}/programincrement", method = GET, produces = APPLICATION_JSON_VALUE)
-    @ResponseStatus(value= HttpStatus.OK)
-    public ProgramIncrementDTO getActiveUserStories(@PathVariable("name") String name) {
-        return programIncrementService.getProgramIncrementFeatures(name);
+    @RequestMapping(value = "/dashboards/{name}/program-increment", method = GET, produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ProgramIncrementDTO getProgramIncrement(final @PathVariable("name") String name) {
+        return programIncrementService.getProgramIncrement(name);
     }
 
 }

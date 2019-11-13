@@ -16,10 +16,9 @@
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.service.FeatureService;
-import org.bson.types.ObjectId;
+import com.bbva.arq.devops.ae.mirrorgate.service.IssueService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,16 +43,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(FeatureController.class)
+@WebMvcTest(IssueController.class)
 @WebAppConfiguration
-public class FeatureControllerTests {
+public class IssueControllerTests {
 
     private MockMvc mockMvc;
 
     @Autowired
     private WebApplicationContext wac;
     @MockBean
-    private FeatureService featureService;
+    private IssueService issueService;
     @MockBean
     private DashboardService dashboardService;
 
@@ -67,37 +66,34 @@ public class FeatureControllerTests {
         String dashboardName = "mirrorgate";
         String sprintProjectName = "mirrorgate";
 
-        Dashboard dashboard = new Dashboard();
-        dashboard.setId(ObjectId.get());
-        dashboard.setName(dashboardName);
-        dashboard.setsProductName(sprintProjectName);
-        dashboard.setBoards(Collections.singletonList(sprintProjectName));
+        Dashboard dashboard = new Dashboard()
+            .setName(dashboardName)
+            .setsProductName(sprintProjectName)
+            .setBoards(Collections.singletonList(sprintProjectName));
 
-        Feature story1 = new Feature();
-        story1.setsId("1");
-        story1.setsSprintAssetState("Active");
-        story1.setsProjectName(dashboardName);
+        Issue story1 = new Issue()
+            .setIssueId("1")
+            .setSprintAssetState("Active")
+            .setProjectName(dashboardName);
 
-        Feature story2 = new Feature();
-        story2.setsId("2");
-        story2.setsSprintAssetState("Active");
-        story2.setsProjectName(dashboardName);
+        Issue story2 = new Issue()
+            .setIssueId("2")
+            .setSprintAssetState("Active")
+            .setProjectName(dashboardName);
 
-        List<Feature> stories = new ArrayList<>();
-        stories.add(story1);
-        stories.add(story2);
+        List<Issue> stories = Arrays.asList(story1, story2);
 
         when(dashboardService.getDashboard(dashboardName)).thenReturn(map(dashboard));
-        when(featureService.getActiveUserStoriesByBoards(Collections.singletonList(dashboardName)))
+        when(issueService.getActiveUserStoriesByBoards(Collections.singletonList(dashboardName)))
             .thenReturn(stories);
 
         this.mockMvc.perform(get("/dashboards/" + dashboardName + "/stories"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.currentSprint[0].sId", equalTo(story1.getsId())))
-            .andExpect(jsonPath("$.currentSprint[0].sSprintAssetState", equalTo(story1.getsSprintAssetState())))
-            .andExpect(jsonPath("$.currentSprint[0].sProjectName", equalTo(story1.getsProjectName())))
-            .andExpect(jsonPath("$.currentSprint[1].sId", equalTo(story2.getsId())))
-            .andExpect(jsonPath("$.currentSprint[1].sSprintAssetState", equalTo(story2.getsSprintAssetState())))
-            .andExpect(jsonPath("$.currentSprint[1].sProjectName", equalTo(story2.getsProjectName())));
+            .andExpect(jsonPath("$.currentSprint[0].issueId", equalTo(story1.getIssueId())))
+            .andExpect(jsonPath("$.currentSprint[0].sprintAssetState", equalTo(story1.getSprintAssetState())))
+            .andExpect(jsonPath("$.currentSprint[0].projectName", equalTo(story1.getProjectName())))
+            .andExpect(jsonPath("$.currentSprint[1].issueId", equalTo(story2.getIssueId())))
+            .andExpect(jsonPath("$.currentSprint[1].sprintAssetState", equalTo(story2.getSprintAssetState())))
+            .andExpect(jsonPath("$.currentSprint[1].projectName", equalTo(story2.getProjectName())));
     }
 }

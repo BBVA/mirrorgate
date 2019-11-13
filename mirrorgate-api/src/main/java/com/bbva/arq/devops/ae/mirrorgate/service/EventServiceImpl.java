@@ -22,14 +22,13 @@ public class EventServiceImpl implements EventService{
 
 
     @Autowired
-    public EventServiceImpl(EventRepository eventRepository){
-
+    public EventServiceImpl(final EventRepository eventRepository){
         this.eventRepository = eventRepository;
     }
 
     @Override
-    public void saveEvent(BaseModel model, EventType type) {
-        LOGGER.info("Saving event with Id :{}", model.getId());
+    public void saveEvent(final BaseModel model, final EventType type) {
+        LOGGER.info("Saving event with Id: {}", model.getId());
 
         eventRepository.save(new Event()
             .setEventType(type)
@@ -39,10 +38,10 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public void saveEvents(Iterable<? extends BaseModel> models, EventType type) {
+    public void saveEvents(final Iterable<? extends BaseModel> models, final EventType type) {
         LOGGER.info("Saving list of events");
 
-        List<Event> eventList = StreamSupport.stream(models.spliterator(), false)
+        final List<Event> eventList = StreamSupport.stream(models.spliterator(), false)
             .map(model -> new Event()
                 .setEventType(type)
                 .setCollectionId(model.getId())
@@ -58,7 +57,7 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public List<Event> getEventsSinceTimestamp(Long timestamp){
+    public List<Event> getEventsSinceTimestamp(final Long timestamp){
         return eventRepository.findByTimestampGreaterThanOrderByTimestampAsc(timestamp);
     }
 }

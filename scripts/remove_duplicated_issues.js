@@ -25,9 +25,9 @@ if(typeof mongo_user == "undefined"){
     db = db.getSiblingDB(mongo_authdb);
 }
 
-db.getCollection('feature').aggregate([
+db.getCollection('issue').aggregate([
     {$group: {
-        _id: {sId: "$sId"},
+        _id: {issueId: "$issueId"},
         uniqueIds: {$addToSet: "$_id"},
         timestamp: {$addToSet: "$timestamp"},
         last: { $last: "$timestamp" },
@@ -41,5 +41,5 @@ db.getCollection('feature').aggregate([
 ], {
     allowDiskUse: true
 }).forEach(function(doc){
-    db.getCollection('feature').remove({"sId": doc._id.sId, "timestamp": { $ne : doc.last}});
+    db.getCollection('issue').remove({"issueId": doc._id.issueId, "timestamp": { $ne : doc.last}});
 });

@@ -1,19 +1,19 @@
-db.getCollection('feature').insertMany([
+db.getCollection('issue').insertMany([
   /* 1 */
 {
-    "sId" : "240161",
-    "sNumber" : "DOST05-16",
-    "sName" : "Dummy name DOST05-16",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240161",
+    "number" : "DOST05-16",
+    "name" : "Dummy name DOST05-16",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -22,19 +22,19 @@ db.getCollection('feature').insertMany([
 
 /* 2 */
 ,{
-    "sId" : "240162",
-    "sNumber" : "DOST05-19",
-    "sName" : "Dummy name DOST05-19",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240162",
+    "number" : "DOST05-19",
+    "name" : "Dummy name DOST05-19",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -43,19 +43,19 @@ db.getCollection('feature').insertMany([
 
 /* 3 */
 ,{
-    "sId" : "240157",
-    "sNumber" : "DOST05-20",
-    "sName" : "Dummy name DOST05-20",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240157",
+    "number" : "DOST05-20",
+    "name" : "Dummy name DOST05-20",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -64,22 +64,22 @@ db.getCollection('feature').insertMany([
 
 /* 4 */
 ,{
-    "sId" : "240275",
-    "sNumber" : "DOST05-29",
-    "sName" : "Dummy name DOST05-29",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "240275",
+    "number" : "DOST05-29",
+    "name" : "Dummy name DOST05-29",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-37",
-    "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-37",
+    "parentsIds" : NumberLong(40177),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -88,19 +88,19 @@ db.getCollection('feature').insertMany([
 
 /* 5 */
 ,{
-    "sId" : "240163",
-    "sNumber" : "DOST05-23",
-    "sName" : "Dummy name DOST05-23",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240163",
+    "number" : "DOST05-23",
+    "name" : "Dummy name DOST05-23",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -109,19 +109,19 @@ db.getCollection('feature').insertMany([
 
 /* 6 */
 ,{
-    "sId" : "240169",
-    "sNumber" : "DOST05-18",
-    "sName" : "Dummy name DOST05-18",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240169",
+    "number" : "DOST05-18",
+    "name" : "Dummy name DOST05-18",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -130,22 +130,22 @@ db.getCollection('feature').insertMany([
 
 /* 7 */
 ,{
-    "sId" : "240274",
-    "sNumber" : "DOST05-33",
-    "sName" : "Dummy name DOST05-33",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "240274",
+    "number" : "DOST05-33",
+    "name" : "Dummy name DOST05-33",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-37",
-    "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-37",
+    "parentsIds" : NumberLong(40177),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -154,19 +154,19 @@ db.getCollection('feature').insertMany([
 
 /* 8 */
 ,{
-    "sId" : "240154",
-    "sNumber" : "DOST05-15",
-    "sName" : "Dummy name DOST05-15",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240154",
+    "number" : "DOST05-15",
+    "name" : "Dummy name DOST05-15",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -175,19 +175,19 @@ db.getCollection('feature').insertMany([
 
 /* 9 */
 ,{
-    "sId" : "240175",
-    "sNumber" : "DOST05-21",
-    "sName" : "Dummy name DOST05-21",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240175",
+    "number" : "DOST05-21",
+    "name" : "Dummy name DOST05-21",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -196,19 +196,19 @@ db.getCollection('feature').insertMany([
 
 /* 10 */
 ,{
-    "sId" : "240158",
-    "sNumber" : "DOST05-6",
-    "sName" : "Dummy name DOST05-6",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240158",
+    "number" : "DOST05-6",
+    "name" : "Dummy name DOST05-6",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -217,19 +217,19 @@ db.getCollection('feature').insertMany([
 
 /* 11 */
 ,{
-    "sId" : "240173",
-    "sNumber" : "DOST05-22",
-    "sName" : "Dummy name DOST05-22",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240173",
+    "number" : "DOST05-22",
+    "name" : "Dummy name DOST05-22",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI02"
     ],
-    "sParentKey" : "DOT-37",
-    "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-37",
+    "parentsIds" : NumberLong(40223),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -238,19 +238,19 @@ db.getCollection('feature').insertMany([
 
 /* 12 */
 ,{
-    "sId" : "240152",
-    "sNumber" : "DOST05-11",
-    "sName" : "Dummy name DOST05-11",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240152",
+    "number" : "DOST05-11",
+    "name" : "Dummy name DOST05-11",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -259,22 +259,22 @@ db.getCollection('feature').insertMany([
 
 /* 13 */
 ,{
-    "sId" : "240179",
-    "sNumber" : "DOST05-38",
-    "sName" : "Dummy name DOST05-38",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "240179",
+    "number" : "DOST05-38",
+    "name" : "Dummy name DOST05-38",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-23",
-    "lParentId" : NumberLong(40163),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-23",
+    "parentsIds" : NumberLong(40163),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -283,19 +283,19 @@ db.getCollection('feature').insertMany([
 
 /* 14 */
 ,{
-    "sId" : "240155",
-    "sNumber" : "DOST05-3",
-    "sName" : "Dummy name DOST05-3",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240155",
+    "number" : "DOST05-3",
+    "name" : "Dummy name DOST05-3",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -304,19 +304,19 @@ db.getCollection('feature').insertMany([
 
 /* 15 */
 ,{
-    "sId" : "240159",
-    "sNumber" : "DOST05-2",
-    "sName" : "Dummy name DOST05-2",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240159",
+    "number" : "DOST05-2",
+    "name" : "Dummy name DOST05-2",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -325,19 +325,19 @@ db.getCollection('feature').insertMany([
 
 /* 16 */
 ,{
-    "sId" : "240153",
-    "sNumber" : "DOST05-13",
-    "sName" : "Dummy name DOST05-13",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240153",
+    "number" : "DOST05-13",
+    "name" : "Dummy name DOST05-13",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -346,19 +346,19 @@ db.getCollection('feature').insertMany([
 
 /* 17 */
 ,{
-    "sId" : "240174",
-    "sNumber" : "DOST05-8",
-    "sName" : "Dummy name DOST05-8",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240174",
+    "number" : "DOST05-8",
+    "name" : "Dummy name DOST05-8",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -367,19 +367,19 @@ db.getCollection('feature').insertMany([
 
 /* 18 */
 ,{
-    "sId" : "240156",
-    "sNumber" : "DOST05-12",
-    "sName" : "Dummy name DOST05-12",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240156",
+    "number" : "DOST05-12",
+    "name" : "Dummy name DOST05-12",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -388,19 +388,19 @@ db.getCollection('feature').insertMany([
 
 /* 19 */
 ,{
-    "sId" : "240166",
-    "sNumber" : "DOST05-1",
-    "sName" : "Dummy name DOST05-1",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240166",
+    "number" : "DOST05-1",
+    "name" : "Dummy name DOST05-1",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI03"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -409,19 +409,19 @@ db.getCollection('feature').insertMany([
 
 /* 20 */
 ,{
-    "sId" : "240165",
-    "sNumber" : "DOST05-5",
-    "sName" : "Dummy name DOST05-5",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240165",
+    "number" : "DOST05-5",
+    "name" : "Dummy name DOST05-5",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -430,22 +430,22 @@ db.getCollection('feature').insertMany([
 
 /* 21 */
 ,{
-    "sId" : "240268",
-    "sNumber" : "DOST05-28",
-    "sName" : "Dummy name DOST05-28",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "240268",
+    "number" : "DOST05-28",
+    "name" : "Dummy name DOST05-28",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-27",
-    "lParentId" : NumberLong(40176),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-27",
+    "parentsIds" : NumberLong(40176),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -454,22 +454,22 @@ db.getCollection('feature').insertMany([
 
 /* 22 */
 ,{
-    "sId" : "240269",
-    "sNumber" : "DOST05-26",
-    "sName" : "Dummy name DOST05-26",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "240269",
+    "number" : "DOST05-26",
+    "name" : "Dummy name DOST05-26",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-27",
-    "lParentId" : NumberLong(40176),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-27",
+    "parentsIds" : NumberLong(40176),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -478,22 +478,22 @@ db.getCollection('feature').insertMany([
 
 /* 23 */
 ,{
-    "sId" : "240276",
-    "sNumber" : "DOST05-35",
-    "sName" : "Dummy name DOST05-35",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "240276",
+    "number" : "DOST05-35",
+    "name" : "Dummy name DOST05-35",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-37",
-    "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-37",
+    "parentsIds" : NumberLong(40177),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -502,19 +502,19 @@ db.getCollection('feature').insertMany([
 
 /* 24 */
 ,{
-    "sId" : "240170",
-    "sNumber" : "DOST05-4",
-    "sName" : "Dummy name DOST05-4",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240170",
+    "number" : "DOST05-4",
+    "name" : "Dummy name DOST05-4",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -523,19 +523,19 @@ db.getCollection('feature').insertMany([
 
 /* 25 */
 ,{
-    "sId" : "240160",
-    "sNumber" : "DOST05-9",
-    "sName" : "Dummy name DOST05-9",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240160",
+    "number" : "DOST05-9",
+    "name" : "Dummy name DOST05-9",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -544,22 +544,22 @@ db.getCollection('feature').insertMany([
 
 /* 26 */
 ,{
-    "sId" : "240272",
-    "sNumber" : "DOST05-36",
-    "sName" : "Dummy name DOST05-36",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "240272",
+    "number" : "DOST05-36",
+    "name" : "Dummy name DOST05-36",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-37",
-    "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-37",
+    "parentsIds" : NumberLong(40177),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -568,19 +568,19 @@ db.getCollection('feature').insertMany([
 
 /* 27 */
 ,{
-    "sId" : "240164",
-    "sNumber" : "DOST05-7",
-    "sName" : "Dummy name DOST05-7",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240164",
+    "number" : "DOST05-7",
+    "name" : "Dummy name DOST05-7",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -589,19 +589,19 @@ db.getCollection('feature').insertMany([
 
 /* 28 */
 ,{
-    "sId" : "240168",
-    "sNumber" : "DOST05-24",
-    "sName" : "Dummy name DOST05-24",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240168",
+    "number" : "DOST05-24",
+    "name" : "Dummy name DOST05-24",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -610,19 +610,19 @@ db.getCollection('feature').insertMany([
 
 /* 29 */
 ,{
-    "sId" : "240172",
-    "sNumber" : "DOST05-14",
-    "sName" : "Dummy name DOST05-14",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240172",
+    "number" : "DOST05-14",
+    "name" : "Dummy name DOST05-14",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -631,19 +631,19 @@ db.getCollection('feature').insertMany([
 
 /* 30 */
 ,{
-    "sId" : "240171",
-    "sNumber" : "DOST05-17",
-    "sName" : "Dummy name DOST05-17",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "240171",
+    "number" : "DOST05-17",
+    "name" : "Dummy name DOST05-17",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -652,22 +652,22 @@ db.getCollection('feature').insertMany([
 
 /* 31 */
 ,{
-    "sId" : "240278",
-    "sNumber" : "DOST05-32",
-    "sName" : "Dummy name DOST05-32",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "240278",
+    "number" : "DOST05-32",
+    "name" : "Dummy name DOST05-32",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-2",
-    "lParentId" : NumberLong(40159),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-2",
+    "parentsIds" : NumberLong(40159),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -676,19 +676,19 @@ db.getCollection('feature').insertMany([
 
 /* 32 */
 ,{
-    "sId" : "240167",
-    "sNumber" : "DOST05-10",
-    "sName" : "Dummy name DOST05-10",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "240167",
+    "number" : "DOST05-10",
+    "name" : "Dummy name DOST05-10",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI02"
     ],
-    "sParentKey" : "DOT-37",
-    "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-37",
+    "parentsIds" : NumberLong(40223),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -697,22 +697,22 @@ db.getCollection('feature').insertMany([
 
 /* 33 */
 ,{
-    "sId" : "240176",
-    "sNumber" : "DOST05-27",
-    "sName" : "Dummy name DOST05-27",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "240176",
+    "number" : "DOST05-27",
+    "name" : "Dummy name DOST05-27",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-37",
-    "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-37",
+    "parentsIds" : NumberLong(40177),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -721,22 +721,22 @@ db.getCollection('feature').insertMany([
 
 /* 34 */
 ,{
-    "sId" : "240270",
-    "sNumber" : "DOST05-34",
-    "sName" : "Dummy name DOST05-34",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "240270",
+    "number" : "DOST05-34",
+    "name" : "Dummy name DOST05-34",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-13",
-    "lParentId" : NumberLong(40153),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-13",
+    "parentsIds" : NumberLong(40153),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -745,22 +745,22 @@ db.getCollection('feature').insertMany([
 
 /* 35 */
 ,{
-    "sId" : "240271",
-    "sNumber" : "DOST05-30",
-    "sName" : "Dummy name DOST05-30",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "240271",
+    "number" : "DOST05-30",
+    "name" : "Dummy name DOST05-30",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-3",
-    "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-3",
+    "parentsIds" : NumberLong(40155),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -769,22 +769,22 @@ db.getCollection('feature').insertMany([
 
 /* 36 */
 ,{
-    "sId" : "240277",
-    "sNumber" : "DOST05-25",
-    "sName" : "Dummy name DOST05-25",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "240277",
+    "number" : "DOST05-25",
+    "name" : "Dummy name DOST05-25",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-2",
-    "lParentId" : NumberLong(40159),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-2",
+    "parentsIds" : NumberLong(40159),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -793,22 +793,22 @@ db.getCollection('feature').insertMany([
 
 /* 37 */
 ,{
-    "sId" : "240177",
-    "sNumber" : "DOST05-37",
-    "sName" : "Dummy name DOST05-37",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "240177",
+    "number" : "DOST05-37",
+    "name" : "Dummy name DOST05-37",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-11",
-    "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-11",
+    "parentsIds" : NumberLong(40152),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -817,22 +817,22 @@ db.getCollection('feature').insertMany([
 
 /* 38 */
 ,{
-    "sId" : "243024",
-    "sNumber" : "DOST05-50",
-    "sName" : "Dummy name DOST05-50",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 8.0,
+    "issueId" : "243024",
+    "number" : "DOST05-50",
+    "name" : "Dummy name DOST05-50",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 8.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-13",
-    "lParentId" : NumberLong(40153),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-13",
+    "parentsIds" : NumberLong(40153),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -841,17 +841,17 @@ db.getCollection('feature').insertMany([
 
 /* 39 */
 ,{
-    "sId" : "243025",
-    "sNumber" : "DOST05-51",
-    "sName" : "Dummy name DOST05-51",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "243025",
+    "number" : "DOST05-51",
+    "name" : "Dummy name DOST05-51",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-116",
-    "lParentId" : NumberLong(54889),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-116",
+    "parentsIds" : NumberLong(54889),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -860,22 +860,22 @@ db.getCollection('feature').insertMany([
 
 /* 40 */
 ,{
-    "sId" : "243300",
-    "sNumber" : "DOST05-75",
-    "sName" : "Dummy name DOST05-75",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "243300",
+    "number" : "DOST05-75",
+    "name" : "Dummy name DOST05-75",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-24",
-    "lParentId" : NumberLong(40168),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-24",
+    "parentsIds" : NumberLong(40168),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -884,22 +884,22 @@ db.getCollection('feature').insertMany([
 
 /* 41 */
 ,{
-    "sId" : "243023",
-    "sNumber" : "DOST05-49",
-    "sName" : "Dummy name DOST05-49",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "243023",
+    "number" : "DOST05-49",
+    "name" : "Dummy name DOST05-49",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-11",
-    "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-11",
+    "parentsIds" : NumberLong(40152),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -908,22 +908,22 @@ db.getCollection('feature').insertMany([
 
 /* 42 */
 ,{
-    "sId" : "241636",
-    "sNumber" : "DOST05-39",
-    "sName" : "Dummy name DOST05-39",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "241636",
+    "number" : "DOST05-39",
+    "name" : "Dummy name DOST05-39",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-2",
-    "lParentId" : NumberLong(40159),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-2",
+    "parentsIds" : NumberLong(40159),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -932,22 +932,22 @@ db.getCollection('feature').insertMany([
 
 /* 43 */
 ,{
-    "sId" : "241637",
-    "sNumber" : "DOST05-40",
-    "sName" : "Dummy name DOST05-40",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "241637",
+    "number" : "DOST05-40",
+    "name" : "Dummy name DOST05-40",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-14",
-    "lParentId" : NumberLong(40172),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-14",
+    "parentsIds" : NumberLong(40172),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -956,20 +956,20 @@ db.getCollection('feature').insertMany([
 
 /* 44 */
 ,{
-    "sId" : "243302",
-    "sNumber" : "DOST05-77",
-    "sName" : "Dummy name DOST05-77",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "243302",
+    "number" : "DOST05-77",
+    "name" : "Dummy name DOST05-77",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -978,22 +978,22 @@ db.getCollection('feature').insertMany([
 
 /* 45 */
 ,{
-    "sId" : "243027",
-    "sNumber" : "DOST05-53",
-    "sName" : "Dummy name DOST05-53",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "243027",
+    "number" : "DOST05-53",
+    "name" : "Dummy name DOST05-53",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-3",
-    "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-3",
+    "parentsIds" : NumberLong(40155),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1002,22 +1002,22 @@ db.getCollection('feature').insertMany([
 
 /* 46 */
 ,{
-    "sId" : "243026",
-    "sNumber" : "DOST05-52",
-    "sName" : "Dummy name DOST05-52",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "243026",
+    "number" : "DOST05-52",
+    "name" : "Dummy name DOST05-52",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-3",
-    "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-3",
+    "parentsIds" : NumberLong(40155),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1026,22 +1026,22 @@ db.getCollection('feature').insertMany([
 
 /* 47 */
 ,{
-    "sId" : "242701",
-    "sNumber" : "DOST05-45",
-    "sName" : "Dummy name DOST05-45",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "242701",
+    "number" : "DOST05-45",
+    "name" : "Dummy name DOST05-45",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-37",
-    "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-37",
+    "parentsIds" : NumberLong(40177),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1050,22 +1050,22 @@ db.getCollection('feature').insertMany([
 
 /* 48 */
 ,{
-    "sId" : "242700",
-    "sNumber" : "DOST05-44",
-    "sName" : "Dummy name DOST05-44",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "242700",
+    "number" : "DOST05-44",
+    "name" : "Dummy name DOST05-44",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "990",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "990",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-08T08:00:46.677Z"),
     "sprintEndDate" : ISODate("2017-02-21T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-37",
-    "lParentId" : NumberLong(40177),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-37",
+    "parentsIds" : NumberLong(40177),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1074,20 +1074,20 @@ db.getCollection('feature').insertMany([
 
 /* 49 */
 ,{
-    "sId" : "241830",
-    "sNumber" : "DOST05-43",
-    "sName" : "Dummy name DOST05-43",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "241830",
+    "number" : "DOST05-43",
+    "name" : "Dummy name DOST05-43",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1096,22 +1096,22 @@ db.getCollection('feature').insertMany([
 
 /* 50 */
 ,{
-    "sId" : "241810",
-    "sNumber" : "DOST05-41",
-    "sName" : "Dummy name DOST05-41",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "241810",
+    "number" : "DOST05-41",
+    "name" : "Dummy name DOST05-41",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-11",
-    "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-11",
+    "parentsIds" : NumberLong(40152),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1120,19 +1120,19 @@ db.getCollection('feature').insertMany([
 
 /* 51 */
 ,{
-    "sId" : "246086",
-    "sNumber" : "DOST05-83",
-    "sName" : "Dummy name DOST05-83",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "246086",
+    "number" : "DOST05-83",
+    "name" : "Dummy name DOST05-83",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-1",
-    "lParentId" : NumberLong(38628),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-1",
+    "parentsIds" : NumberLong(38628),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1141,22 +1141,22 @@ db.getCollection('feature').insertMany([
 
 /* 52 */
 ,{
-    "sId" : "247179",
-    "sNumber" : "DOST05-94",
-    "sName" : "Dummy name DOST05-94",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "247179",
+    "number" : "DOST05-94",
+    "name" : "Dummy name DOST05-94",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-3",
-    "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-3",
+    "parentsIds" : NumberLong(40155),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1165,17 +1165,17 @@ db.getCollection('feature').insertMany([
 
 /* 53 */
 ,{
-    "sId" : "243022",
-    "sNumber" : "DOST05-48",
-    "sName" : "Dummy name DOST05-48",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "243022",
+    "number" : "DOST05-48",
+    "name" : "Dummy name DOST05-48",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-11",
-    "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-11",
+    "parentsIds" : NumberLong(40152),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1184,22 +1184,22 @@ db.getCollection('feature').insertMany([
 
 /* 54 */
 ,{
-    "sId" : "245374",
-    "sNumber" : "DOST05-81",
-    "sName" : "Dummy name DOST05-81",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "245374",
+    "number" : "DOST05-81",
+    "name" : "Dummy name DOST05-81",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-11",
-    "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-11",
+    "parentsIds" : NumberLong(40152),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1208,15 +1208,15 @@ db.getCollection('feature').insertMany([
 
 /* 55 */
 ,{
-    "sId" : "243307",
-    "sNumber" : "DOST05-78",
-    "sName" : "Dummy name DOST05-78",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "243307",
+    "number" : "DOST05-78",
+    "name" : "Dummy name DOST05-78",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1225,22 +1225,22 @@ db.getCollection('feature').insertMany([
 
 /* 56 */
 ,{
-    "sId" : "246419",
-    "sNumber" : "DOST05-93",
-    "sName" : "Dummy name DOST05-93",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 8.0,
+    "issueId" : "246419",
+    "number" : "DOST05-93",
+    "name" : "Dummy name DOST05-93",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 8.0,
     "priority" : "Medium",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1249,17 +1249,17 @@ db.getCollection('feature').insertMany([
 
 /* 57 */
 ,{
-    "sId" : "243811",
-    "sNumber" : "DOST05-79",
-    "sName" : "Dummy name DOST05-79",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "243811",
+    "number" : "DOST05-79",
+    "name" : "Dummy name DOST05-79",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1268,20 +1268,20 @@ db.getCollection('feature').insertMany([
 
 /* 58 */
 ,{
-    "sId" : "243105",
-    "sNumber" : "DOST05-54",
-    "sName" : "Dummy name DOST05-54",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 8.0,
+    "issueId" : "243105",
+    "number" : "DOST05-54",
+    "name" : "Dummy name DOST05-54",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 8.0,
     "priority" : "High",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1290,22 +1290,22 @@ db.getCollection('feature').insertMany([
 
 /* 59 */
 ,{
-    "sId" : "243301",
-    "sNumber" : "DOST05-76",
-    "sName" : "Dummy name DOST05-76",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "243301",
+    "number" : "DOST05-76",
+    "name" : "Dummy name DOST05-76",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-115",
-    "lParentId" : NumberLong(54886),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-115",
+    "parentsIds" : NumberLong(54886),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1315,72 +1315,59 @@ db.getCollection('feature').insertMany([
 /* 60 */
 ,{
     "collectorId" : "mirrorgate-collectors-jira",
-    "sId" : "245372",
-    "sNumber" : "DOST05-80",
-    "sName" : "Dummy name DOST05-80",
-    "sTypeId" : "10000",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
-    "sState" : "Done",
-    "sEstimate" : "0",
-    "sEstimateTime" : 0,
-    "sUrl" : "https://fake.com/jira/browse/DOST05-80",
+    "issueId" : "245372",
+    "number" : "DOST05-80",
+    "name" : "Dummy name DOST05-80",
+    "typeId" : "10000",
+    "type" : "Feature",
+    "status" : "Done",
+    "state" : "Done",
+    "url" : "https://fake.com/jira/browse/DOST05-80",
     "changeDate" : "2017-03-06T11:56:07.0000000",
     "isDeleted" : "False",
-    "sOwnersID" : [],
-    "sOwnersIsDeleted" : [],
-    "sOwnersChangeDate" : [],
-    "sOwnersState" : [
-        "Active"
-    ],
-    "sOwnersUsername" : [],
-    "sOwnersFullName" : [],
-    "sOwnersShortName" : [],
-    "sTeamIsDeleted" : "False",
-    "sTeamAssetState" : "",
-    "sTeamChangeDate" : "",
-    "sSprintIsDeleted" : "False",
-    "sSprintChangeDate" : "",
-    "sSprintAssetState" : "",
-    "sSprintEndDate" : "",
-    "sSprintBeginDate" : "",
-    "sSprintName" : "",
-    "sSprintID" : "",
-    "sEpicIsDeleted" : "False",
-    "sEpicChangeDate" : "",
-    "sEpicAssetState" : "",
-    "sEpicType" : "",
-    "sEpicEndDate" : "",
-    "sEpicBeginDate" : "",
-    "sEpicName" : "",
-    "sEpicNumber" : "",
-    "sEpicID" : "",
-    "sProjectPath" : "",
-    "sProjectIsDeleted" : "False",
-    "sProjectState" : "",
-    "sProjectChangeDate" : "",
-    "sProjectEndDate" : "",
-    "sProjectBeginDate" : "",
-    "sProjectName" : "MirrorGate2",
-    "sProjectID" : "12508",
-    "dEstimate" : 0.0,
+    "owners" : [],
+    "sprintIsDeleted" : "False",
+    "sprintChangeDate" : "",
+    "sprintAssetState" : "",
+    "sprintEndDate" : "",
+    "sprintBeginDate" : "",
+    "sprintName" : "",
+    "sprintId" : "",
+    "epicIsDeleted" : "False",
+    "spicChangeDate" : "",
+    "spicAssetState" : "",
+    "epicType" : "",
+    "epicEndDate" : "",
+    "epicBeginDate" : "",
+    "epicName" : "",
+    "epicNumber" : "",
+    "epicId" : "",
+    "projectPath" : "",
+    "projectIsDeleted" : "False",
+    "projectState" : "",
+    "projectChangeDate" : "",
+    "projectEndDate" : "",
+    "projectBeginDate" : "",
+    "projectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "estimation" : 0.0,
     "sprintEndDate" : ISODate("1970-01-01T00:00:00.000Z"),
     "sprintBeginDate" : ISODate("1970-01-01T00:00:00.000Z")
 }
 
 /* 61 */
 ,{
-    "sId" : "243020",
-    "sNumber" : "DOST05-46",
-    "sName" : "Dummy name DOST05-46",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "243020",
+    "number" : "DOST05-46",
+    "name" : "Dummy name DOST05-46",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-11",
-    "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-11",
+    "parentsIds" : NumberLong(40152),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1389,20 +1376,20 @@ db.getCollection('feature').insertMany([
 
 /* 62 */
 ,{
-    "sId" : "241811",
-    "sNumber" : "DOST05-42",
-    "sName" : "Dummy name DOST05-42",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "241811",
+    "number" : "DOST05-42",
+    "name" : "Dummy name DOST05-42",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Low",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1412,78 +1399,65 @@ db.getCollection('feature').insertMany([
 /* 63 */
 ,{
     "collectorId" : "mirrorgate-collectors-jira",
-    "sId" : "246089",
-    "sNumber" : "DOST05-86",
-    "sName" : "Dummy name DOST05-86",
-    "sTypeId" : "10001",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "sState" : "Backlog",
-    "sEstimate" : "3",
-    "sEstimateTime" : 0,
-    "sUrl" : "https://fake.com/jira/browse/DOST05-86",
+    "issueId" : "246089",
+    "number" : "DOST05-86",
+    "name" : "Dummy name DOST05-86",
+    "typeId" : "10001",
+    "type" : "Story",
+    "status" : "Backlog",
+    "state" : "Backlog",
+    "url" : "https://fake.com/jira/browse/DOST05-86",
     "changeDate" : "2017-03-02T14:46:52.0000000",
     "isDeleted" : "False",
-    "sOwnersID" : [],
-    "sOwnersIsDeleted" : [],
-    "sOwnersChangeDate" : [],
-    "sOwnersState" : [
-        "Active"
-    ],
-    "sOwnersUsername" : [],
-    "sOwnersFullName" : [],
-    "sOwnersShortName" : [],
-    "sTeamIsDeleted" : "False",
-    "sTeamAssetState" : "",
-    "sTeamChangeDate" : "",
-    "sSprintIsDeleted" : "False",
-    "sSprintChangeDate" : "",
-    "sSprintAssetState" : "",
-    "sSprintEndDate" : "",
-    "sSprintBeginDate" : "",
-    "sSprintName" : "",
-    "sSprintID" : "",
-    "sEpicIsDeleted" : "False",
-    "sEpicChangeDate" : "",
-    "sEpicAssetState" : "New",
-    "sEpicType" : "",
-    "sEpicEndDate" : "",
-    "sEpicBeginDate" : "2017-03-02T14:41:03.0000000",
-    "sEpicName" : "Basic Marketplace implementation",
-    "sEpicUrl" : "https://fake.com/jira/browse/DOST05-84",
-    "sEpicNumber" : "DOST05-84",
-    "sEpicID" : "46087",
-    "sProjectPath" : "",
-    "sProjectIsDeleted" : "False",
-    "sProjectState" : "",
-    "sProjectChangeDate" : "",
-    "sProjectEndDate" : "",
-    "sProjectBeginDate" : "",
-    "sProjectName" : "MirrorGate2",
-    "sProjectID" : "12508",
-    "dEstimate" : 3.0,
+    "owners" : [],
+    "sprintIsDeleted" : "False",
+    "sprintChangeDate" : "",
+    "sprintAssetState" : "",
+    "sprintEndDate" : "",
+    "sprintBeginDate" : "",
+    "sprintName" : "",
+    "sprintId" : "",
+    "epicIsDeleted" : "False",
+    "spicChangeDate" : "",
+    "spicAssetState" : "New",
+    "epicType" : "",
+    "epicEndDate" : "",
+    "epicBeginDate" : "2017-03-02T14:41:03.0000000",
+    "epicName" : "Basic Marketplace implementation",
+    "epicUrl" : "https://fake.com/jira/browse/DOST05-84",
+    "epicNumber" : "DOST05-84",
+    "epicId" : "46087",
+    "projectPath" : "",
+    "projectIsDeleted" : "False",
+    "projectState" : "",
+    "projectChangeDate" : "",
+    "projectEndDate" : "",
+    "projectBeginDate" : "",
+    "projectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "estimation" : 3.0,
     "sprintEndDate" : ISODate("1970-01-01T00:00:00.000Z"),
     "sprintBeginDate" : ISODate("1970-01-01T00:00:00.000Z")
 }
 
 /* 64 */
 ,{
-    "sId" : "246092",
-    "sNumber" : "DOST05-89",
-    "sName" : "Dummy name DOST05-89",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "246092",
+    "number" : "DOST05-89",
+    "name" : "Dummy name DOST05-89",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-82",
-    "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-82",
+    "parentsIds" : NumberLong(46085),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1492,22 +1466,22 @@ db.getCollection('feature').insertMany([
 
 /* 65 */
 ,{
-    "sId" : "247181",
-    "sNumber" : "DOST05-95",
-    "sName" : "Dummy name DOST05-95",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "247181",
+    "number" : "DOST05-95",
+    "name" : "Dummy name DOST05-95",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1516,19 +1490,19 @@ db.getCollection('feature').insertMany([
 
 /* 66 */
 ,{
-    "sId" : "246085",
-    "sNumber" : "DOST05-82",
-    "sName" : "Dummy name DOST05-82",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "246085",
+    "number" : "DOST05-82",
+    "name" : "Dummy name DOST05-82",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI01"
     ],
-    "sParentKey" : "DOT-82",
-    "lParentId" : NumberLong(46083),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-82",
+    "parentsIds" : NumberLong(46083),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1537,22 +1511,22 @@ db.getCollection('feature').insertMany([
 
 /* 67 */
 ,{
-    "sId" : "243136",
-    "sNumber" : "DOST05-73",
-    "sName" : "Dummy name DOST05-73",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "243136",
+    "number" : "DOST05-73",
+    "name" : "Dummy name DOST05-73",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1003",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1003",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-02-22T06:00:27.314Z"),
     "sprintEndDate" : ISODate("2017-03-07T18:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-11",
-    "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-11",
+    "parentsIds" : NumberLong(40152),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1561,22 +1535,22 @@ db.getCollection('feature').insertMany([
 
 /* 68 */
 ,{
-    "sId" : "249152",
-    "sNumber" : "DOST05-101",
-    "sName" : "Dummy name DOST05-101",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 3.0,
+    "issueId" : "249152",
+    "number" : "DOST05-101",
+    "name" : "Dummy name DOST05-101",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-82",
-    "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-82",
+    "parentsIds" : NumberLong(46085),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1585,22 +1559,22 @@ db.getCollection('feature').insertMany([
 
 /* 69 */
 ,{
-    "sId" : "247719",
-    "sNumber" : "DOST05-96",
-    "sName" : "Dummy name DOST05-96",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "247719",
+    "number" : "DOST05-96",
+    "name" : "Dummy name DOST05-96",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1225",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP4",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1225",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP4",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-21T21:00:50.305Z"),
     "sprintEndDate" : ISODate("2017-04-04T20:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-3",
-    "lParentId" : NumberLong(40155),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-3",
+    "parentsIds" : NumberLong(40155),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1609,22 +1583,22 @@ db.getCollection('feature').insertMany([
 
 /* 70 */
 ,{
-    "sId" : "249140",
-    "sNumber" : "DOST05-99",
-    "sName" : "Dummy name DOST05-99",
-    "sTypeName" : "Story",
-    "sStatus" : "In Progress",
-    "dEstimate" : 1.0,
+    "issueId" : "249140",
+    "number" : "DOST05-99",
+    "name" : "Dummy name DOST05-99",
+    "type" : "Story",
+    "status" : "In Progress",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1225",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP4",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1225",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP4",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-21T21:00:50.305Z"),
     "sprintEndDate" : ISODate("2017-04-04T20:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-82",
-    "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-82",
+    "parentsIds" : NumberLong(46085),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1633,17 +1607,17 @@ db.getCollection('feature').insertMany([
 
 /* 71 */
 ,{
-    "sId" : "249151",
-    "sNumber" : "DOST05-100",
-    "sName" : "Dummy name DOST05-100",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "249151",
+    "number" : "DOST05-100",
+    "name" : "Dummy name DOST05-100",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-82",
-    "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-82",
+    "parentsIds" : NumberLong(46085),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1652,22 +1626,22 @@ db.getCollection('feature').insertMany([
 
 /* 72 */
 ,{
-    "sId" : "248885",
-    "sNumber" : "DOST05-98",
-    "sName" : "Dummy name DOST05-98",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "248885",
+    "number" : "DOST05-98",
+    "name" : "Dummy name DOST05-98",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1225",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP4",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1225",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP4",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-21T21:00:50.305Z"),
     "sprintEndDate" : ISODate("2017-04-04T20:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1676,17 +1650,17 @@ db.getCollection('feature').insertMany([
 
 /* 73 */
 ,{
-    "sId" : "249153",
-    "sNumber" : "DOST05-102",
-    "sName" : "Dummy name DOST05-102",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "249153",
+    "number" : "DOST05-102",
+    "name" : "Dummy name DOST05-102",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-2",
-    "lParentId" : NumberLong(40159),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-2",
+    "parentsIds" : NumberLong(40159),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1695,17 +1669,17 @@ db.getCollection('feature').insertMany([
 
 /* 74 */
 ,{
-    "sId" : "250281",
-    "sNumber" : "DOST05-104",
-    "sName" : "Dummy name DOST05-104",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "250281",
+    "number" : "DOST05-104",
+    "name" : "Dummy name DOST05-104",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-92",
-    "lParentId" : NumberLong(46095),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-92",
+    "parentsIds" : NumberLong(46095),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1714,17 +1688,17 @@ db.getCollection('feature').insertMany([
 
 /* 75 */
 ,{
-    "sId" : "250282",
-    "sNumber" : "DOST05-105",
-    "sName" : "Dummy name DOST05-105",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "250282",
+    "number" : "DOST05-105",
+    "name" : "Dummy name DOST05-105",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-92",
-    "lParentId" : NumberLong(46095),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-92",
+    "parentsIds" : NumberLong(46095),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1733,17 +1707,17 @@ db.getCollection('feature').insertMany([
 
 /* 76 */
 ,{
-    "sId" : "250283",
-    "sNumber" : "DOST05-106",
-    "sName" : "Dummy name DOST05-106",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "250283",
+    "number" : "DOST05-106",
+    "name" : "Dummy name DOST05-106",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-92",
-    "lParentId" : NumberLong(46095),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-92",
+    "parentsIds" : NumberLong(46095),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1752,15 +1726,15 @@ db.getCollection('feature').insertMany([
 
 /* 77 */
 ,{
-    "sId" : "249714",
-    "sNumber" : "DOST05-103",
-    "sName" : "Dummy name DOST05-103",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "249714",
+    "number" : "DOST05-103",
+    "name" : "Dummy name DOST05-103",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1769,22 +1743,22 @@ db.getCollection('feature').insertMany([
 
 /* 78 */
 ,{
-    "sId" : "243021",
-    "sNumber" : "DOST05-47",
-    "sName" : "Dummy name DOST05-47",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "243021",
+    "number" : "DOST05-47",
+    "name" : "Dummy name DOST05-47",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-11",
-    "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-11",
+    "parentsIds" : NumberLong(40152),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1793,22 +1767,22 @@ db.getCollection('feature').insertMany([
 
 /* 79 */
 ,{
-    "sId" : "255726",
-    "sNumber" : "DOST05-147",
-    "sName" : "Dummy name DOST05-147",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "255726",
+    "number" : "DOST05-147",
+    "name" : "Dummy name DOST05-147",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-117",
-    "lParentId" : NumberLong(54890),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-117",
+    "parentsIds" : NumberLong(54890),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1817,17 +1791,17 @@ db.getCollection('feature').insertMany([
 
 /* 80 */
 ,{
-    "sId" : "255728",
-    "sNumber" : "DOST05-149",
-    "sName" : "Dummy name DOST05-149",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "255728",
+    "number" : "DOST05-149",
+    "name" : "Dummy name DOST05-149",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-119",
-    "lParentId" : NumberLong(54893),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-119",
+    "parentsIds" : NumberLong(54893),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1836,22 +1810,22 @@ db.getCollection('feature').insertMany([
 
 /* 81 */
 ,{
-    "sId" : "255715",
-    "sNumber" : "DOST05-140",
-    "sName" : "Dummy name DOST05-140",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "255715",
+    "number" : "DOST05-140",
+    "name" : "Dummy name DOST05-140",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-111",
-    "lParentId" : NumberLong(54871),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-111",
+    "parentsIds" : NumberLong(54871),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1860,22 +1834,22 @@ db.getCollection('feature').insertMany([
 
 /* 82 */
 ,{
-    "sId" : "255735",
-    "sNumber" : "DOST05-155",
-    "sName" : "Dummy name DOST05-155",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "255735",
+    "number" : "DOST05-155",
+    "name" : "Dummy name DOST05-155",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-123",
-    "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-123",
+    "parentsIds" : NumberLong(54906),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1884,19 +1858,19 @@ db.getCollection('feature').insertMany([
 
 /* 83 */
 ,{
-    "sId" : "254871",
-    "sNumber" : "DOST05-111",
-    "sName" : "Dummy name DOST05-111",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "254871",
+    "number" : "DOST05-111",
+    "name" : "Dummy name DOST05-111",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI02"
     ],
-    "sParentKey" : "DOT-37",
-    "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-37",
+    "parentsIds" : NumberLong(40223),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1905,22 +1879,22 @@ db.getCollection('feature').insertMany([
 
 /* 84 */
 ,{
-    "sId" : "255706",
-    "sNumber" : "DOST05-134",
-    "sName" : "Dummy name DOST05-134",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "255706",
+    "number" : "DOST05-134",
+    "name" : "Dummy name DOST05-134",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-22",
-    "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-22",
+    "parentsIds" : NumberLong(40173),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1929,22 +1903,22 @@ db.getCollection('feature').insertMany([
 
 /* 85 */
 ,{
-    "sId" : "255733",
-    "sNumber" : "DOST05-154",
-    "sName" : "Dummy name DOST05-154",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "255733",
+    "number" : "DOST05-154",
+    "name" : "Dummy name DOST05-154",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-125",
-    "lParentId" : NumberLong(54910),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-125",
+    "parentsIds" : NumberLong(54910),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1953,22 +1927,22 @@ db.getCollection('feature').insertMany([
 
 /* 86 */
 ,{
-    "sId" : "246095",
-    "sNumber" : "DOST05-92",
-    "sName" : "Dummy name DOST05-92",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 8.0,
+    "issueId" : "246095",
+    "number" : "DOST05-92",
+    "name" : "Dummy name DOST05-92",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 8.0,
     "priority" : "Medium",
-    "sSprintID" : "1058",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1058",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-08T08:00:11.020Z"),
     "sprintEndDate" : ISODate("2017-03-22T08:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-7",
-    "lParentId" : NumberLong(40164),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-7",
+    "parentsIds" : NumberLong(40164),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1977,19 +1951,19 @@ db.getCollection('feature').insertMany([
 
 /* 87 */
 ,{
-    "sId" : "254886",
-    "sNumber" : "DOST05-115",
-    "sName" : "Dummy name DOST05-115",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "254886",
+    "number" : "DOST05-115",
+    "name" : "Dummy name DOST05-115",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI03"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -1998,22 +1972,22 @@ db.getCollection('feature').insertMany([
 
 /* 88 */
 ,{
-    "sId" : "255701",
-    "sNumber" : "DOST05-131",
-    "sName" : "Dummy name DOST05-131",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "255701",
+    "number" : "DOST05-131",
+    "name" : "Dummy name DOST05-131",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-10",
-    "lParentId" : NumberLong(40167),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-10",
+    "parentsIds" : NumberLong(40167),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2022,22 +1996,22 @@ db.getCollection('feature').insertMany([
 
 /* 89 */
 ,{
-    "sId" : "255713",
-    "sNumber" : "DOST05-138",
-    "sName" : "Dummy name DOST05-138",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "255713",
+    "number" : "DOST05-138",
+    "name" : "Dummy name DOST05-138",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-1",
-    "lParentId" : NumberLong(40166),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-1",
+    "parentsIds" : NumberLong(40166),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2",
         "UX"
@@ -2047,19 +2021,19 @@ db.getCollection('feature').insertMany([
 
 /* 90 */
 ,{
-    "sId" : "254913",
-    "sNumber" : "DOST05-127",
-    "sName" : "Dummy name DOST05-127",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "254913",
+    "number" : "DOST05-127",
+    "name" : "Dummy name DOST05-127",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-38",
-    "lParentId" : NumberLong(40224),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-38",
+    "parentsIds" : NumberLong(40224),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2068,19 +2042,19 @@ db.getCollection('feature').insertMany([
 
 /* 91 */
 ,{
-    "sId" : "254880",
-    "sNumber" : "DOST05-113",
-    "sName" : "Dummy name DOST05-113",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "254880",
+    "number" : "DOST05-113",
+    "name" : "Dummy name DOST05-113",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI02"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2089,22 +2063,22 @@ db.getCollection('feature').insertMany([
 
 /* 92 */
 ,{
-    "sId" : "255722",
-    "sNumber" : "DOST05-144",
-    "sName" : "Dummy name DOST05-144",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "255722",
+    "number" : "DOST05-144",
+    "name" : "Dummy name DOST05-144",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-114",
-    "lParentId" : NumberLong(54882),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-114",
+    "parentsIds" : NumberLong(54882),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2113,22 +2087,22 @@ db.getCollection('feature').insertMany([
 
 /* 93 */
 ,{
-    "sId" : "255738",
-    "sNumber" : "DOST05-156",
-    "sName" : "Dummy name DOST05-156",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "255738",
+    "number" : "DOST05-156",
+    "name" : "Dummy name DOST05-156",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-123",
-    "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-123",
+    "parentsIds" : NumberLong(54906),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2137,19 +2111,19 @@ db.getCollection('feature').insertMany([
 
 /* 94 */
 ,{
-    "sId" : "254890",
-    "sNumber" : "DOST05-117",
-    "sName" : "Dummy name DOST05-117",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "254890",
+    "number" : "DOST05-117",
+    "name" : "Dummy name DOST05-117",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI02"
     ],
-    "sParentKey" : "DOT-37",
-    "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-37",
+    "parentsIds" : NumberLong(40223),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2158,19 +2132,19 @@ db.getCollection('feature').insertMany([
 
 /* 95 */
 ,{
-    "sId" : "254900",
-    "sNumber" : "DOST05-122",
-    "sName" : "Dummy name DOST05-122",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "254900",
+    "number" : "DOST05-122",
+    "name" : "Dummy name DOST05-122",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
-    "sParentKey" : "DOT-38",
-    "lParentId" : NumberLong(40224),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-38",
+    "parentsIds" : NumberLong(40224),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2179,19 +2153,19 @@ db.getCollection('feature').insertMany([
 
 /* 96 */
 ,{
-    "sId" : "254910",
-    "sNumber" : "DOST05-125",
-    "sName" : "Dummy name DOST05-125",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "254910",
+    "number" : "DOST05-125",
+    "name" : "Dummy name DOST05-125",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI03"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2200,22 +2174,22 @@ db.getCollection('feature').insertMany([
 
 /* 97 */
 ,{
-    "sId" : "254940",
-    "sNumber" : "DOST05-128",
-    "sName" : "Dummy name DOST05-128",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "254940",
+    "number" : "DOST05-128",
+    "name" : "Dummy name DOST05-128",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2224,22 +2198,22 @@ db.getCollection('feature').insertMany([
 
 /* 98 */
 ,{
-    "sId" : "255714",
-    "sNumber" : "DOST05-139",
-    "sName" : "Dummy name DOST05-139",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "255714",
+    "number" : "DOST05-139",
+    "name" : "Dummy name DOST05-139",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-111",
-    "lParentId" : NumberLong(54871),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-111",
+    "parentsIds" : NumberLong(54871),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2248,19 +2222,19 @@ db.getCollection('feature').insertMany([
 
 /* 99 */
 ,{
-    "sId" : "254893",
-    "sNumber" : "DOST05-119",
-    "sName" : "Dummy name DOST05-119",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "254893",
+    "number" : "DOST05-119",
+    "name" : "Dummy name DOST05-119",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "Backlog_PI"
     ],
-    "sParentKey" : "DOT-38",
-    "lParentId" : NumberLong(40224),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-38",
+    "parentsIds" : NumberLong(40224),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2269,22 +2243,22 @@ db.getCollection('feature').insertMany([
 
 /* 100 */
 ,{
-    "sId" : "255700",
-    "sNumber" : "DOST05-130",
-    "sName" : "Dummy name DOST05-130",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "255700",
+    "number" : "DOST05-130",
+    "name" : "Dummy name DOST05-130",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-10",
-    "lParentId" : NumberLong(40167),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-10",
+    "parentsIds" : NumberLong(40167),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2293,22 +2267,22 @@ db.getCollection('feature').insertMany([
 
 /* 101 */
 ,{
-    "sId" : "255705",
-    "sNumber" : "DOST05-133",
-    "sName" : "Dummy name DOST05-133",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 1.0,
+    "issueId" : "255705",
+    "number" : "DOST05-133",
+    "name" : "Dummy name DOST05-133",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-22",
-    "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-22",
+    "parentsIds" : NumberLong(40173),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2317,19 +2291,19 @@ db.getCollection('feature').insertMany([
 
 /* 102 */
 ,{
-    "sId" : "254894",
-    "sNumber" : "DOST05-120",
-    "sName" : "Dummy name DOST05-120",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "254894",
+    "number" : "DOST05-120",
+    "name" : "Dummy name DOST05-120",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI02"
     ],
-    "sParentKey" : "DOT-37",
-    "lParentId" : NumberLong(40223),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-37",
+    "parentsIds" : NumberLong(40223),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2338,19 +2312,19 @@ db.getCollection('feature').insertMany([
 
 /* 103 */
 ,{
-    "sId" : "254897",
-    "sNumber" : "DOST05-121",
-    "sName" : "Dummy name DOST05-121",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "254897",
+    "number" : "DOST05-121",
+    "name" : "Dummy name DOST05-121",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
-    "sParentKey" : "DOT-116",
-    "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-116",
+    "parentsIds" : NumberLong(77725),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2359,19 +2333,19 @@ db.getCollection('feature').insertMany([
 
 /* 104 */
 ,{
-    "sId" : "254908",
-    "sNumber" : "DOST05-124",
-    "sName" : "Dummy name DOST05-124",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "254908",
+    "number" : "DOST05-124",
+    "name" : "Dummy name DOST05-124",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI02"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2380,22 +2354,22 @@ db.getCollection('feature').insertMany([
 
 /* 105 */
 ,{
-    "sId" : "255707",
-    "sNumber" : "DOST05-135",
-    "sName" : "Dummy name DOST05-135",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "255707",
+    "number" : "DOST05-135",
+    "name" : "Dummy name DOST05-135",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-22",
-    "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-22",
+    "parentsIds" : NumberLong(40173),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2404,19 +2378,19 @@ db.getCollection('feature').insertMany([
 
 /* 106 */
 ,{
-    "sId" : "254882",
-    "sNumber" : "DOST05-114",
-    "sName" : "Dummy name DOST05-114",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "254882",
+    "number" : "DOST05-114",
+    "name" : "Dummy name DOST05-114",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI02"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2425,17 +2399,17 @@ db.getCollection('feature').insertMany([
 
 /* 107 */
 ,{
-    "sId" : "255711",
-    "sNumber" : "DOST05-136",
-    "sName" : "Dummy name DOST05-136",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "255711",
+    "number" : "DOST05-136",
+    "name" : "Dummy name DOST05-136",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-1",
-    "lParentId" : NumberLong(40166),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-1",
+    "parentsIds" : NumberLong(40166),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2444,22 +2418,22 @@ db.getCollection('feature').insertMany([
 
 /* 108 */
 ,{
-    "sId" : "255718",
-    "sNumber" : "DOST05-141",
-    "sName" : "Dummy name DOST05-141",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "255718",
+    "number" : "DOST05-141",
+    "name" : "Dummy name DOST05-141",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-113",
-    "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-113",
+    "parentsIds" : NumberLong(54880),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2468,17 +2442,17 @@ db.getCollection('feature').insertMany([
 
 /* 109 */
 ,{
-    "sId" : "255731",
-    "sNumber" : "DOST05-152",
-    "sName" : "Dummy name DOST05-152",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 3.0,
+    "issueId" : "255731",
+    "number" : "DOST05-152",
+    "name" : "Dummy name DOST05-152",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-126",
-    "lParentId" : NumberLong(54911),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-126",
+    "parentsIds" : NumberLong(54911),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2487,17 +2461,17 @@ db.getCollection('feature').insertMany([
 
 /* 110 */
 ,{
-    "sId" : "255719",
-    "sNumber" : "DOST05-142",
-    "sName" : "Dummy name DOST05-142",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 2.0,
+    "issueId" : "255719",
+    "number" : "DOST05-142",
+    "name" : "Dummy name DOST05-142",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-113",
-    "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-113",
+    "parentsIds" : NumberLong(54880),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2506,19 +2480,19 @@ db.getCollection('feature').insertMany([
 
 /* 111 */
 ,{
-    "sId" : "254891",
-    "sNumber" : "DOST05-118",
-    "sName" : "Dummy name DOST05-118",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "254891",
+    "number" : "DOST05-118",
+    "name" : "Dummy name DOST05-118",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
-    "sParentKey" : "DOT-116",
-    "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-116",
+    "parentsIds" : NumberLong(77725),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2527,22 +2501,22 @@ db.getCollection('feature').insertMany([
 
 /* 112 */
 ,{
-    "sId" : "255729",
-    "sNumber" : "DOST05-150",
-    "sName" : "Dummy name DOST05-150",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 1.0,
+    "issueId" : "255729",
+    "number" : "DOST05-150",
+    "name" : "Dummy name DOST05-150",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-121",
-    "lParentId" : NumberLong(54897),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-121",
+    "parentsIds" : NumberLong(54897),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2551,22 +2525,22 @@ db.getCollection('feature').insertMany([
 
 /* 113 */
 ,{
-    "sId" : "255730",
-    "sNumber" : "DOST05-151",
-    "sName" : "Dummy name DOST05-151",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "255730",
+    "number" : "DOST05-151",
+    "name" : "Dummy name DOST05-151",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-124",
-    "lParentId" : NumberLong(54908),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-124",
+    "parentsIds" : NumberLong(54908),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2575,22 +2549,22 @@ db.getCollection('feature').insertMany([
 
 /* 114 */
 ,{
-    "sId" : "255740",
-    "sNumber" : "DOST05-157",
-    "sName" : "Dummy name DOST05-157",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "255740",
+    "number" : "DOST05-157",
+    "name" : "Dummy name DOST05-157",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-123",
-    "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-123",
+    "parentsIds" : NumberLong(54906),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2599,19 +2573,19 @@ db.getCollection('feature').insertMany([
 
 /* 115 */
 ,{
-    "sId" : "254889",
-    "sNumber" : "DOST05-116",
-    "sName" : "Dummy name DOST05-116",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "254889",
+    "number" : "DOST05-116",
+    "name" : "Dummy name DOST05-116",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
-    "sParentKey" : "DOT-116",
-    "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-116",
+    "parentsIds" : NumberLong(77725),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2620,15 +2594,15 @@ db.getCollection('feature').insertMany([
 
 /* 116 */
 ,{
-    "sId" : "255195",
-    "sNumber" : "DOST05-129",
-    "sName" : "Dummy name DOST05-129",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "255195",
+    "number" : "DOST05-129",
+    "name" : "Dummy name DOST05-129",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2637,17 +2611,17 @@ db.getCollection('feature').insertMany([
 
 /* 117 */
 ,{
-    "sId" : "255725",
-    "sNumber" : "DOST05-146",
-    "sName" : "Dummy name DOST05-146",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 2.0,
+    "issueId" : "255725",
+    "number" : "DOST05-146",
+    "name" : "Dummy name DOST05-146",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-116",
-    "lParentId" : NumberLong(54889),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-116",
+    "parentsIds" : NumberLong(54889),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2656,19 +2630,19 @@ db.getCollection('feature').insertMany([
 
 /* 118 */
 ,{
-    "sId" : "254906",
-    "sNumber" : "DOST05-123",
-    "sName" : "Dummy name DOST05-123",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "254906",
+    "number" : "DOST05-123",
+    "name" : "Dummy name DOST05-123",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI02"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2678,78 +2652,64 @@ db.getCollection('feature').insertMany([
 /* 119 */
 ,{
     "collectorId" : "mirrorgate-collectors-jira",
-    "sId" : "254878",
-    "sNumber" : "DOST05-112",
-    "sName" : "Dummy name DOST05-112",
-    "sTypeId" : "10000",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
-    "sState" : "Done",
-    "sEstimate" : "0",
-    "sEstimateTime" : 0,
-    "sUrl" : "https://fake.com/jira/browse/DOST05-112",
+    "issueId" : "254878",
+    "number" : "DOST05-112",
+    "name" : "Dummy name DOST05-112",
+    "typeId" : "10000",
+    "type" : "Feature",
+    "status" : "Done",
+    "state" : "Done",
+    "url" : "https://fake.com/jira/browse/DOST05-112",
     "changeDate" : "2017-04-19T08:24:00.0000000",
     "isDeleted" : "False",
-    "sOwnersID" : [],
-    "sOwnersIsDeleted" : [],
-    "sOwnersChangeDate" : [],
-    "sOwnersState" : [
-        "Active"
-    ],
-    "sOwnersUsername" : [],
-    "sOwnersFullName" : [],
-    "sOwnersShortName" : [],
-    "sTeamIsDeleted" : "False",
-    "sTeamAssetState" : "",
-    "sTeamChangeDate" : "",
-    "sTeamID" : "{\"self\":\"https:\\/\\/fake.com\\/jira\\/rest\\/api\\/2\\/customFieldOption\\/15444\",\"value\":\"Team Fast Feedback\",\"id\":\"15444\"}",
-    "sSprintIsDeleted" : "False",
-    "sSprintChangeDate" : "",
-    "sSprintAssetState" : "",
-    "sSprintEndDate" : "",
-    "sSprintBeginDate" : "",
-    "sSprintName" : "",
-    "sSprintID" : "",
-    "sEpicIsDeleted" : "False",
-    "sEpicChangeDate" : "",
-    "sEpicAssetState" : "",
-    "sEpicType" : "",
-    "sEpicEndDate" : "",
-    "sEpicBeginDate" : "",
-    "sEpicName" : "",
-    "sEpicNumber" : "",
-    "sEpicID" : "",
-    "sProjectPath" : "",
-    "sProjectIsDeleted" : "False",
-    "sProjectState" : "",
-    "sProjectChangeDate" : "",
-    "sProjectEndDate" : "",
-    "sProjectBeginDate" : "",
-    "sProjectName" : "MirrorGate2",
-    "sProjectID" : "12508",
-    "dEstimate" : 0.0,
+    "owners" : [],
+    "sprintIsDeleted" : "False",
+    "sprintChangeDate" : "",
+    "sprintAssetState" : "",
+    "sprintEndDate" : "",
+    "sprintBeginDate" : "",
+    "sprintName" : "",
+    "sprintId" : "",
+    "epicIsDeleted" : "False",
+    "spicChangeDate" : "",
+    "spicAssetState" : "",
+    "epicType" : "",
+    "epicEndDate" : "",
+    "epicBeginDate" : "",
+    "epicName" : "",
+    "epicNumber" : "",
+    "epicId" : "",
+    "projectPath" : "",
+    "projectIsDeleted" : "False",
+    "projectState" : "",
+    "projectChangeDate" : "",
+    "projectEndDate" : "",
+    "projectBeginDate" : "",
+    "projectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "estimation" : 0.0,
     "sprintEndDate" : ISODate("1970-01-01T00:00:00.000Z"),
     "sprintBeginDate" : ISODate("1970-01-01T00:00:00.000Z")
 }
 
 /* 120 */
 ,{
-    "sId" : "255703",
-    "sNumber" : "DOST05-132",
-    "sName" : "Dummy name DOST05-132",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "255703",
+    "number" : "DOST05-132",
+    "name" : "Dummy name DOST05-132",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-22",
-    "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-22",
+    "parentsIds" : NumberLong(40173),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2758,23 +2718,23 @@ db.getCollection('feature').insertMany([
 
 /* 121 */
 ,{
-    "sId" : "255712",
-    "sNumber" : "DOST05-137",
-    "sName" : "Dummy name DOST05-137",
-    "sTypeName" : "Story",
-    "sStatus" : "In Progress",
-    "dEstimate" : 2.0,
+    "issueId" : "255712",
+    "number" : "DOST05-137",
+    "name" : "Dummy name DOST05-137",
+    "type" : "Story",
+    "status" : "In Progress",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-1",
-    "lParentId" : NumberLong(40166),
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-1",
+    "parentsIds" : NumberLong(40166),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -2782,22 +2742,22 @@ db.getCollection('feature').insertMany([
 
 /* 122 */
 ,{
-    "sId" : "255724",
-    "sNumber" : "DOST05-145",
-    "sName" : "Dummy name DOST05-145",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "255724",
+    "number" : "DOST05-145",
+    "name" : "Dummy name DOST05-145",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-115",
-    "lParentId" : NumberLong(54886),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-115",
+    "parentsIds" : NumberLong(54886),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2806,17 +2766,17 @@ db.getCollection('feature').insertMany([
 
 /* 123 */
 ,{
-    "sId" : "255732",
-    "sNumber" : "DOST05-153",
-    "sName" : "Dummy name DOST05-153",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "255732",
+    "number" : "DOST05-153",
+    "name" : "Dummy name DOST05-153",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-127",
-    "lParentId" : NumberLong(54913),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-127",
+    "parentsIds" : NumberLong(54913),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2825,17 +2785,17 @@ db.getCollection('feature').insertMany([
 
 /* 124 */
 ,{
-    "sId" : "256230",
-    "sNumber" : "DOST05-158",
-    "sName" : "Dummy name DOST05-158",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 2.0,
+    "issueId" : "256230",
+    "number" : "DOST05-158",
+    "name" : "Dummy name DOST05-158",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-124",
-    "lParentId" : NumberLong(54908),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-124",
+    "parentsIds" : NumberLong(54908),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2844,19 +2804,19 @@ db.getCollection('feature').insertMany([
 
 /* 125 */
 ,{
-    "sId" : "254911",
-    "sNumber" : "DOST05-126",
-    "sName" : "Dummy name DOST05-126",
-    "sTypeName" : "Feature",
-    "sStatus" : "In Progress",
+    "issueId" : "254911",
+    "number" : "DOST05-126",
+    "name" : "Dummy name DOST05-126",
+    "type" : "Feature",
+    "status" : "In Progress",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
-    "sParentKey" : "DOT-116",
-    "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-116",
+    "parentsIds" : NumberLong(77725),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2865,22 +2825,22 @@ db.getCollection('feature').insertMany([
 
 /* 126 */
 ,{
-    "sId" : "255720",
-    "sNumber" : "DOST05-143",
-    "sName" : "Dummy name DOST05-143",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "255720",
+    "number" : "DOST05-143",
+    "name" : "Dummy name DOST05-143",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-113",
-    "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-113",
+    "parentsIds" : NumberLong(54880),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2889,17 +2849,17 @@ db.getCollection('feature').insertMany([
 
 /* 127 */
 ,{
-    "sId" : "255727",
-    "sNumber" : "DOST05-148",
-    "sName" : "Dummy name DOST05-148",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 2.0,
+    "issueId" : "255727",
+    "number" : "DOST05-148",
+    "name" : "Dummy name DOST05-148",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-118",
-    "lParentId" : NumberLong(54891),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-118",
+    "parentsIds" : NumberLong(54891),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2908,22 +2868,22 @@ db.getCollection('feature').insertMany([
 
 /* 128 */
 ,{
-    "sId" : "256749",
-    "sNumber" : "DOST05-164",
-    "sName" : "Dummy name DOST05-164",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "256749",
+    "number" : "DOST05-164",
+    "name" : "Dummy name DOST05-164",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2932,15 +2892,15 @@ db.getCollection('feature').insertMany([
 
 /* 129 */
 ,{
-    "sId" : "257378",
-    "sNumber" : "DOST05-171",
-    "sName" : "Dummy name DOST05-171",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "257378",
+    "number" : "DOST05-171",
+    "name" : "Dummy name DOST05-171",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2949,22 +2909,22 @@ db.getCollection('feature').insertMany([
 
 /* 130 */
 ,{
-    "sId" : "257537",
-    "sNumber" : "DOST05-174",
-    "sName" : "Dummy name DOST05-174",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "257537",
+    "number" : "DOST05-174",
+    "name" : "Dummy name DOST05-174",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2973,17 +2933,17 @@ db.getCollection('feature').insertMany([
 
 /* 131 */
 ,{
-    "sId" : "257511",
-    "sNumber" : "DOST05-173",
-    "sName" : "Dummy name DOST05-173",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "257511",
+    "number" : "DOST05-173",
+    "name" : "Dummy name DOST05-173",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -2992,22 +2952,22 @@ db.getCollection('feature').insertMany([
 
 /* 132 */
 ,{
-    "sId" : "256969",
-    "sNumber" : "DOST05-168",
-    "sName" : "Dummy name DOST05-168",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "256969",
+    "number" : "DOST05-168",
+    "name" : "Dummy name DOST05-168",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3016,17 +2976,17 @@ db.getCollection('feature').insertMany([
 
 /* 133 */
 ,{
-    "sId" : "256754",
-    "sNumber" : "DOST05-165",
-    "sName" : "Dummy name DOST05-165",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "256754",
+    "number" : "DOST05-165",
+    "name" : "Dummy name DOST05-165",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-123",
-    "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-123",
+    "parentsIds" : NumberLong(54906),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3035,22 +2995,22 @@ db.getCollection('feature').insertMany([
 
 /* 134 */
 ,{
-    "sId" : "256756",
-    "sNumber" : "DOST05-167",
-    "sName" : "Dummy name DOST05-167",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "256756",
+    "number" : "DOST05-167",
+    "name" : "Dummy name DOST05-167",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-22",
-    "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-22",
+    "parentsIds" : NumberLong(40173),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3059,22 +3019,22 @@ db.getCollection('feature').insertMany([
 
 /* 135 */
 ,{
-    "sId" : "256741",
-    "sNumber" : "DOST05-159",
-    "sName" : "Dummy name DOST05-159",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "256741",
+    "number" : "DOST05-159",
+    "name" : "Dummy name DOST05-159",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-22",
-    "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-22",
+    "parentsIds" : NumberLong(40173),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3083,22 +3043,22 @@ db.getCollection('feature').insertMany([
 
 /* 136 */
 ,{
-    "sId" : "256747",
-    "sNumber" : "DOST05-162",
-    "sName" : "Dummy name DOST05-162",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "256747",
+    "number" : "DOST05-162",
+    "name" : "Dummy name DOST05-162",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-114",
-    "lParentId" : NumberLong(54882),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-114",
+    "parentsIds" : NumberLong(54882),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3107,22 +3067,22 @@ db.getCollection('feature').insertMany([
 
 /* 137 */
 ,{
-    "sId" : "256755",
-    "sNumber" : "DOST05-166",
-    "sName" : "Dummy name DOST05-166",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "256755",
+    "number" : "DOST05-166",
+    "name" : "Dummy name DOST05-166",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-10",
-    "lParentId" : NumberLong(40167),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-10",
+    "parentsIds" : NumberLong(40167),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3131,17 +3091,17 @@ db.getCollection('feature').insertMany([
 
 /* 138 */
 ,{
-    "sId" : "256748",
-    "sNumber" : "DOST05-163",
-    "sName" : "Dummy name DOST05-163",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 1.0,
+    "issueId" : "256748",
+    "number" : "DOST05-163",
+    "name" : "Dummy name DOST05-163",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-115",
-    "lParentId" : NumberLong(54886),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-115",
+    "parentsIds" : NumberLong(54886),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3150,22 +3110,22 @@ db.getCollection('feature').insertMany([
 
 /* 139 */
 ,{
-    "sId" : "257510",
-    "sNumber" : "DOST05-172",
-    "sName" : "Dummy name DOST05-172",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "257510",
+    "number" : "DOST05-172",
+    "name" : "Dummy name DOST05-172",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sSprintID" : "1824",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1824",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-31T09:27:14.218Z"),
     "sprintEndDate" : ISODate("2017-06-13T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-210",
-    "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-210",
+    "parentsIds" : NumberLong(66867),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3174,17 +3134,17 @@ db.getCollection('feature').insertMany([
 
 /* 140 */
 ,{
-    "sId" : "256745",
-    "sNumber" : "DOST05-160",
-    "sName" : "Dummy name DOST05-160",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 1.0,
+    "issueId" : "256745",
+    "number" : "DOST05-160",
+    "name" : "Dummy name DOST05-160",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-116",
-    "lParentId" : NumberLong(54889),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-116",
+    "parentsIds" : NumberLong(54889),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3193,22 +3153,22 @@ db.getCollection('feature').insertMany([
 
 /* 141 */
 ,{
-    "sId" : "256971",
-    "sNumber" : "DOST05-169",
-    "sName" : "Dummy name DOST05-169",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "256971",
+    "number" : "DOST05-169",
+    "name" : "Dummy name DOST05-169",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1430",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1430",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-04-19T07:00:14.848Z"),
     "sprintEndDate" : ISODate("2017-04-28T16:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-113",
-    "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-113",
+    "parentsIds" : NumberLong(54880),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3217,22 +3177,22 @@ db.getCollection('feature').insertMany([
 
 /* 142 */
 ,{
-    "sId" : "256746",
-    "sNumber" : "DOST05-161",
-    "sName" : "Dummy name DOST05-161",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "256746",
+    "number" : "DOST05-161",
+    "name" : "Dummy name DOST05-161",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-126",
-    "lParentId" : NumberLong(54911),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-126",
+    "parentsIds" : NumberLong(54911),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3241,15 +3201,15 @@ db.getCollection('feature').insertMany([
 
 /* 143 */
 ,{
-    "sId" : "257359",
-    "sNumber" : "DOST05-170",
-    "sName" : "Dummy name DOST05-170",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "257359",
+    "number" : "DOST05-170",
+    "name" : "Dummy name DOST05-170",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3258,20 +3218,20 @@ db.getCollection('feature').insertMany([
 
 /* 144 */
 ,{
-    "sId" : "258722",
-    "sNumber" : "DOST05-176",
-    "sName" : "Dummy name DOST05-176",
-    "sTypeName" : "Story",
-    "sStatus" : "In Progress",
-    "dEstimate" : 3.0,
+    "issueId" : "258722",
+    "number" : "DOST05-176",
+    "name" : "Dummy name DOST05-176",
+    "type" : "Story",
+    "status" : "In Progress",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3280,20 +3240,20 @@ db.getCollection('feature').insertMany([
 
 /* 145 */
 ,{
-    "sId" : "259161",
-    "sNumber" : "DOST05-177",
-    "sName" : "Dummy name DOST05-177",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "259161",
+    "number" : "DOST05-177",
+    "name" : "Dummy name DOST05-177",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3302,20 +3262,20 @@ db.getCollection('feature').insertMany([
 
 /* 146 */
 ,{
-    "sId" : "259167",
-    "sNumber" : "DOST05-178",
-    "sName" : "Dummy name DOST05-178",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "259167",
+    "number" : "DOST05-178",
+    "name" : "Dummy name DOST05-178",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3324,20 +3284,20 @@ db.getCollection('feature').insertMany([
 
 /* 147 */
 ,{
-    "sId" : "258721",
-    "sNumber" : "DOST05-175",
-    "sName" : "Dummy name DOST05-175",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "258721",
+    "number" : "DOST05-175",
+    "name" : "Dummy name DOST05-175",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1431",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1431",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-03T07:00:34.714Z"),
     "sprintEndDate" : ISODate("2017-05-16T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3346,17 +3306,17 @@ db.getCollection('feature').insertMany([
 
 /* 148 */
 ,{
-    "sId" : "260298",
-    "sNumber" : "DOST05-179",
-    "sName" : "Dummy name DOST05-179",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 1.0,
+    "issueId" : "260298",
+    "number" : "DOST05-179",
+    "name" : "Dummy name DOST05-179",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-233",
-    "lParentId" : NumberLong(69985),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-233",
+    "parentsIds" : NumberLong(69985),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3365,22 +3325,22 @@ db.getCollection('feature').insertMany([
 
 /* 149 */
 ,{
-    "sId" : "246094",
-    "sNumber" : "DOST05-91",
-    "sName" : "Dummy name DOST05-91",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 5.0,
+    "issueId" : "246094",
+    "number" : "DOST05-91",
+    "name" : "Dummy name DOST05-91",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 5.0,
     "priority" : "Medium",
-    "sSprintID" : "1225",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP4",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1225",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP4",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-21T21:00:50.305Z"),
     "sprintEndDate" : ISODate("2017-04-04T20:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-82",
-    "lParentId" : NumberLong(46085),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-82",
+    "parentsIds" : NumberLong(46085),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3389,17 +3349,17 @@ db.getCollection('feature').insertMany([
 
 /* 150 */
 ,{
-    "sId" : "260690",
-    "sNumber" : "DOST05-180",
-    "sName" : "Dummy name DOST05-180",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "260690",
+    "number" : "DOST05-180",
+    "name" : "Dummy name DOST05-180",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-111",
-    "lParentId" : NumberLong(54871),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-111",
+    "parentsIds" : NumberLong(54871),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3408,15 +3368,15 @@ db.getCollection('feature').insertMany([
 
 /* 151 */
 ,{
-    "sId" : "260941",
-    "sNumber" : "DOST05-181",
-    "sName" : "Dummy name DOST05-181",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "260941",
+    "number" : "DOST05-181",
+    "name" : "Dummy name DOST05-181",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3425,22 +3385,22 @@ db.getCollection('feature').insertMany([
 
 /* 152 */
 ,{
-    "sId" : "260973",
-    "sNumber" : "DOST05-183",
-    "sName" : "Dummy name DOST05-183",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "260973",
+    "number" : "DOST05-183",
+    "name" : "Dummy name DOST05-183",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-123",
-    "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-123",
+    "parentsIds" : NumberLong(54906),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3449,15 +3409,15 @@ db.getCollection('feature').insertMany([
 
 /* 153 */
 ,{
-    "sId" : "261721",
-    "sNumber" : "DOST05-185",
-    "sName" : "Dummy name DOST05-185",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "261721",
+    "number" : "DOST05-185",
+    "name" : "Dummy name DOST05-185",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3466,22 +3426,22 @@ db.getCollection('feature').insertMany([
 
 /* 154 */
 ,{
-    "sId" : "260966",
-    "sNumber" : "DOST05-182",
-    "sName" : "Dummy name DOST05-182",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "260966",
+    "number" : "DOST05-182",
+    "name" : "Dummy name DOST05-182",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-123",
-    "lParentId" : NumberLong(54906),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-123",
+    "parentsIds" : NumberLong(54906),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3490,22 +3450,22 @@ db.getCollection('feature').insertMany([
 
 /* 155 */
 ,{
-    "sId" : "246093",
-    "sNumber" : "DOST05-90",
-    "sName" : "Dummy name DOST05-90",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "246093",
+    "number" : "DOST05-90",
+    "name" : "Dummy name DOST05-90",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1225",
-    "sSprintName" : "MIRRORGATE_PI01_2017_SP4",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1225",
+    "sprintName" : "MIRRORGATE_PI01_2017_SP4",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-03-21T21:00:50.305Z"),
     "sprintEndDate" : ISODate("2017-04-04T20:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-83",
-    "lParentId" : NumberLong(46086),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-83",
+    "parentsIds" : NumberLong(46086),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3514,15 +3474,15 @@ db.getCollection('feature').insertMany([
 
 /* 156 */
 ,{
-    "sId" : "261720",
-    "sNumber" : "DOST05-184",
-    "sName" : "Dummy name DOST05-184",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "261720",
+    "number" : "DOST05-184",
+    "name" : "Dummy name DOST05-184",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3531,20 +3491,20 @@ db.getCollection('feature').insertMany([
 
 /* 157 */
 ,{
-    "sId" : "262876",
-    "sNumber" : "DOST05-187",
-    "sName" : "Dummy name DOST05-187",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "262876",
+    "number" : "DOST05-187",
+    "name" : "Dummy name DOST05-187",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3553,20 +3513,20 @@ db.getCollection('feature').insertMany([
 
 /* 158 */
 ,{
-    "sId" : "262963",
-    "sNumber" : "DOST05-189",
-    "sName" : "Dummy name DOST05-189",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "262963",
+    "number" : "DOST05-189",
+    "name" : "Dummy name DOST05-189",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3575,20 +3535,20 @@ db.getCollection('feature').insertMany([
 
 /* 159 */
 ,{
-    "sId" : "263428",
-    "sNumber" : "DOST05-190",
-    "sName" : "Dummy name DOST05-190",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "263428",
+    "number" : "DOST05-190",
+    "name" : "Dummy name DOST05-190",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3597,20 +3557,20 @@ db.getCollection('feature').insertMany([
 
 /* 160 */
 ,{
-    "sId" : "262877",
-    "sNumber" : "DOST05-188",
-    "sName" : "Dummy name DOST05-188",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "262877",
+    "number" : "DOST05-188",
+    "name" : "Dummy name DOST05-188",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3619,15 +3579,15 @@ db.getCollection('feature').insertMany([
 
 /* 161 */
 ,{
-    "sId" : "263472",
-    "sNumber" : "DOST05-198",
-    "sName" : "Dummy name DOST05-198",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "263472",
+    "number" : "DOST05-198",
+    "name" : "Dummy name DOST05-198",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "High",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3636,20 +3596,20 @@ db.getCollection('feature').insertMany([
 
 /* 162 */
 ,{
-    "sId" : "263430",
-    "sNumber" : "DOST05-191",
-    "sName" : "Dummy name DOST05-191",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "263430",
+    "number" : "DOST05-191",
+    "name" : "Dummy name DOST05-191",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3658,15 +3618,15 @@ db.getCollection('feature').insertMany([
 
 /* 163 */
 ,{
-    "sId" : "262179",
-    "sNumber" : "DOST05-186",
-    "sName" : "Dummy name DOST05-186",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "262179",
+    "number" : "DOST05-186",
+    "name" : "Dummy name DOST05-186",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3675,20 +3635,20 @@ db.getCollection('feature').insertMany([
 
 /* 164 */
 ,{
-    "sId" : "263436",
-    "sNumber" : "DOST05-192",
-    "sName" : "Dummy name DOST05-192",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "263436",
+    "number" : "DOST05-192",
+    "name" : "Dummy name DOST05-192",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3697,20 +3657,20 @@ db.getCollection('feature').insertMany([
 
 /* 165 */
 ,{
-    "sId" : "265019",
-    "sNumber" : "DOST05-205",
-    "sName" : "Dummy name DOST05-205",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "265019",
+    "number" : "DOST05-205",
+    "name" : "Dummy name DOST05-205",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3719,20 +3679,20 @@ db.getCollection('feature').insertMany([
 
 /* 166 */
 ,{
-    "sId" : "264970",
-    "sNumber" : "DOST05-201",
-    "sName" : "Dummy name DOST05-201",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "264970",
+    "number" : "DOST05-201",
+    "name" : "Dummy name DOST05-201",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3741,20 +3701,20 @@ db.getCollection('feature').insertMany([
 
 /* 167 */
 ,{
-    "sId" : "264999",
-    "sNumber" : "DOST05-204",
-    "sName" : "Dummy name DOST05-204",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "264999",
+    "number" : "DOST05-204",
+    "name" : "Dummy name DOST05-204",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3763,20 +3723,20 @@ db.getCollection('feature').insertMany([
 
 /* 168 */
 ,{
-    "sId" : "264996",
-    "sNumber" : "DOST05-202",
-    "sName" : "Dummy name DOST05-202",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "264996",
+    "number" : "DOST05-202",
+    "name" : "Dummy name DOST05-202",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3785,20 +3745,20 @@ db.getCollection('feature').insertMany([
 
 /* 169 */
 ,{
-    "sId" : "265023",
-    "sNumber" : "DOST05-208",
-    "sName" : "Dummy name DOST05-208",
-    "sTypeName" : "Story",
-    "sStatus" : "Impeded",
-    "dEstimate" : 1.0,
+    "issueId" : "265023",
+    "number" : "DOST05-208",
+    "name" : "Dummy name DOST05-208",
+    "type" : "Story",
+    "status" : "Impeded",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3807,20 +3767,20 @@ db.getCollection('feature').insertMany([
 
 /* 170 */
 ,{
-    "sId" : "264997",
-    "sNumber" : "DOST05-203",
-    "sName" : "Dummy name DOST05-203",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "264997",
+    "number" : "DOST05-203",
+    "name" : "Dummy name DOST05-203",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3829,21 +3789,21 @@ db.getCollection('feature').insertMany([
 
 /* 171 */
 ,{
-    "sId" : "264969",
-    "sNumber" : "DOST05-200",
-    "sName" : "Dummy name DOST05-200",
-    "sTypeName" : "Story",
-    "sStatus" : "In Progress",
-    "dEstimate" : 1.0,
+    "issueId" : "264969",
+    "number" : "DOST05-200",
+    "name" : "Dummy name DOST05-200",
+    "type" : "Story",
+    "status" : "In Progress",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
+    "projectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -3851,15 +3811,15 @@ db.getCollection('feature').insertMany([
 
 /* 172 */
 ,{
-    "sId" : "264404",
-    "sNumber" : "DOST05-199",
-    "sName" : "Dummy name DOST05-199",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "264404",
+    "number" : "DOST05-199",
+    "name" : "Dummy name DOST05-199",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3868,20 +3828,20 @@ db.getCollection('feature').insertMany([
 
 /* 173 */
 ,{
-    "sId" : "265022",
-    "sNumber" : "DOST05-207",
-    "sName" : "Dummy name DOST05-207",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "265022",
+    "number" : "DOST05-207",
+    "name" : "Dummy name DOST05-207",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3890,20 +3850,20 @@ db.getCollection('feature').insertMany([
 
 /* 174 */
 ,{
-    "sId" : "265020",
-    "sNumber" : "DOST05-206",
-    "sName" : "Dummy name DOST05-206",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "265020",
+    "number" : "DOST05-206",
+    "name" : "Dummy name DOST05-206",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1432",
-    "sSprintName" : "MIRRORGATE_PI02_2017_SP3",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1432",
+    "sprintName" : "MIRRORGATE_PI02_2017_SP3",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-16T22:00:43.103Z"),
     "sprintEndDate" : ISODate("2017-05-30T22:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3912,19 +3872,19 @@ db.getCollection('feature').insertMany([
 
 /* 175 */
 ,{
-    "sId" : "267116",
-    "sNumber" : "DOST05-213",
-    "sName" : "Dummy name DOST05-213",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "267116",
+    "number" : "DOST05-213",
+    "name" : "Dummy name DOST05-213",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3933,19 +3893,19 @@ db.getCollection('feature').insertMany([
 
 /* 176 */
 ,{
-    "sId" : "266868",
-    "sNumber" : "DOST05-211",
-    "sName" : "Dummy name DOST05-211",
-    "sTypeName" : "Feature",
-    "sStatus" : "In Progress",
+    "issueId" : "266868",
+    "number" : "DOST05-211",
+    "name" : "Dummy name DOST05-211",
+    "type" : "Feature",
+    "status" : "In Progress",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI03"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3954,19 +3914,19 @@ db.getCollection('feature').insertMany([
 
 /* 177 */
 ,{
-    "sId" : "266869",
-    "sNumber" : "DOST05-212",
-    "sName" : "Dummy name DOST05-212",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "266869",
+    "number" : "DOST05-212",
+    "name" : "Dummy name DOST05-212",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI03"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3975,19 +3935,19 @@ db.getCollection('feature').insertMany([
 
 /* 178 */
 ,{
-    "sId" : "266867",
-    "sNumber" : "DOST05-210",
-    "sName" : "Dummy name DOST05-210",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "266867",
+    "number" : "DOST05-210",
+    "name" : "Dummy name DOST05-210",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI03"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -3996,15 +3956,15 @@ db.getCollection('feature').insertMany([
 
 /* 179 */
 ,{
-    "sId" : "266291",
-    "sNumber" : "DOST05-209",
-    "sName" : "Dummy name DOST05-209",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "266291",
+    "number" : "DOST05-209",
+    "name" : "Dummy name DOST05-209",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4013,22 +3973,22 @@ db.getCollection('feature').insertMany([
 
 /* 180 */
 ,{
-    "sId" : "268242",
-    "sNumber" : "DOST05-216",
-    "sName" : "Dummy name DOST05-216",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "268242",
+    "number" : "DOST05-216",
+    "name" : "Dummy name DOST05-216",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1824",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1824",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-31T09:27:14.218Z"),
     "sprintEndDate" : ISODate("2017-06-13T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-212",
-    "lParentId" : NumberLong(66869),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-212",
+    "parentsIds" : NumberLong(66869),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4037,22 +3997,22 @@ db.getCollection('feature').insertMany([
 
 /* 181 */
 ,{
-    "sId" : "269988",
-    "sNumber" : "DOST05-236",
-    "sName" : "Dummy name DOST05-236",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "269988",
+    "number" : "DOST05-236",
+    "name" : "Dummy name DOST05-236",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-233",
-    "lParentId" : NumberLong(69985),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-233",
+    "parentsIds" : NumberLong(69985),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4061,22 +4021,22 @@ db.getCollection('feature').insertMany([
 
 /* 182 */
 ,{
-    "sId" : "269986",
-    "sNumber" : "DOST05-234",
-    "sName" : "Dummy name DOST05-234",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "269986",
+    "number" : "DOST05-234",
+    "name" : "Dummy name DOST05-234",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-233",
-    "lParentId" : NumberLong(69985),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-233",
+    "parentsIds" : NumberLong(69985),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4085,22 +4045,22 @@ db.getCollection('feature').insertMany([
 
 /* 183 */
 ,{
-    "sId" : "268253",
-    "sNumber" : "DOST05-219",
-    "sName" : "Dummy name DOST05-219",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "268253",
+    "number" : "DOST05-219",
+    "name" : "Dummy name DOST05-219",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-210",
-    "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-210",
+    "parentsIds" : NumberLong(66867),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4109,22 +4069,22 @@ db.getCollection('feature').insertMany([
 
 /* 184 */
 ,{
-    "sId" : "268259",
-    "sNumber" : "DOST05-221",
-    "sName" : "Dummy name DOST05-221",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "268259",
+    "number" : "DOST05-221",
+    "name" : "Dummy name DOST05-221",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-210",
-    "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-210",
+    "parentsIds" : NumberLong(66867),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4133,23 +4093,23 @@ db.getCollection('feature').insertMany([
 
 /* 185 */
 ,{
-    "sId" : "268268",
-    "sNumber" : "DOST05-227",
-    "sName" : "Dummy name DOST05-227",
-    "sTypeName" : "Story",
-    "sStatus" : "In Progress",
-    "dEstimate" : 1.0,
+    "issueId" : "268268",
+    "number" : "DOST05-227",
+    "name" : "Dummy name DOST05-227",
+    "type" : "Story",
+    "status" : "In Progress",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-211",
-    "lParentId" : NumberLong(66868),
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-211",
+    "parentsIds" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -4157,22 +4117,22 @@ db.getCollection('feature').insertMany([
 
 /* 186 */
 ,{
-    "sId" : "268243",
-    "sNumber" : "DOST05-217",
-    "sName" : "Dummy name DOST05-217",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 3.0,
+    "issueId" : "268243",
+    "number" : "DOST05-217",
+    "name" : "Dummy name DOST05-217",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1824",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1824",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-31T09:27:14.218Z"),
     "sprintEndDate" : ISODate("2017-06-13T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-212",
-    "lParentId" : NumberLong(66869),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-212",
+    "parentsIds" : NumberLong(66869),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4181,22 +4141,22 @@ db.getCollection('feature').insertMany([
 
 /* 187 */
 ,{
-    "sId" : "268272",
-    "sNumber" : "DOST05-229",
-    "sName" : "Dummy name DOST05-229",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "268272",
+    "number" : "DOST05-229",
+    "name" : "Dummy name DOST05-229",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1824",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1824",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-31T09:27:14.218Z"),
     "sprintEndDate" : ISODate("2017-06-13T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-230",
-    "lParentId" : NumberLong(68282),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-230",
+    "parentsIds" : NumberLong(68282),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4205,23 +4165,23 @@ db.getCollection('feature').insertMany([
 
 /* 188 */
 ,{
-    "sId" : "270005",
-    "sNumber" : "DOST05-238",
-    "sName" : "Dummy name DOST05-238",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 2.0,
+    "issueId" : "270005",
+    "number" : "DOST05-238",
+    "name" : "Dummy name DOST05-238",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-211",
-    "lParentId" : NumberLong(66868),
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-211",
+    "parentsIds" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -4229,22 +4189,22 @@ db.getCollection('feature').insertMany([
 
 /* 189 */
 ,{
-    "sId" : "268260",
-    "sNumber" : "DOST05-222",
-    "sName" : "Dummy name DOST05-222",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "268260",
+    "number" : "DOST05-222",
+    "name" : "Dummy name DOST05-222",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-211",
-    "lParentId" : NumberLong(66868),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-211",
+    "parentsIds" : NumberLong(66868),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4253,22 +4213,22 @@ db.getCollection('feature').insertMany([
 
 /* 190 */
 ,{
-    "sId" : "268271",
-    "sNumber" : "DOST05-228",
-    "sName" : "Dummy name DOST05-228",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "268271",
+    "number" : "DOST05-228",
+    "name" : "Dummy name DOST05-228",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1824",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1824",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-31T09:27:14.218Z"),
     "sprintEndDate" : ISODate("2017-06-13T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-113",
-    "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-113",
+    "parentsIds" : NumberLong(54880),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4277,22 +4237,22 @@ db.getCollection('feature').insertMany([
 
 /* 191 */
 ,{
-    "sId" : "268251",
-    "sNumber" : "DOST05-218",
-    "sName" : "Dummy name DOST05-218",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "268251",
+    "number" : "DOST05-218",
+    "name" : "Dummy name DOST05-218",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1824",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1824",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-31T09:27:14.218Z"),
     "sprintEndDate" : ISODate("2017-06-13T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-210",
-    "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-210",
+    "parentsIds" : NumberLong(66867),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4301,19 +4261,19 @@ db.getCollection('feature').insertMany([
 
 /* 192 */
 ,{
-    "sId" : "268282",
-    "sNumber" : "DOST05-230",
-    "sName" : "Dummy name DOST05-230",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "268282",
+    "number" : "DOST05-230",
+    "name" : "Dummy name DOST05-230",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI03"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4322,23 +4282,23 @@ db.getCollection('feature').insertMany([
 
 /* 193 */
 ,{
-    "sId" : "268266",
-    "sNumber" : "DOST05-226",
-    "sName" : "Dummy name DOST05-226",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "268266",
+    "number" : "DOST05-226",
+    "name" : "Dummy name DOST05-226",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-211",
-    "lParentId" : NumberLong(66868),
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-211",
+    "parentsIds" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -4346,22 +4306,22 @@ db.getCollection('feature').insertMany([
 
 /* 194 */
 ,{
-    "sId" : "268255",
-    "sNumber" : "DOST05-220",
-    "sName" : "Dummy name DOST05-220",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "268255",
+    "number" : "DOST05-220",
+    "name" : "Dummy name DOST05-220",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1824",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP1",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1824",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP1",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-05-31T09:27:14.218Z"),
     "sprintEndDate" : ISODate("2017-06-13T17:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-210",
-    "lParentId" : NumberLong(66867),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-210",
+    "parentsIds" : NumberLong(66867),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4371,81 +4331,67 @@ db.getCollection('feature').insertMany([
 /* 195 */
 ,{
     "collectorId" : "mirrorgate-collectors-jira",
-    "sId" : "271516",
-    "sNumber" : "DOST05-247",
-    "sName" : "Dummy name DOST05-247",
-    "sTypeId" : "10001",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "sState" : "Done",
-    "sEstimate" : "2.0",
-    "sEstimateTime" : 0,
-    "sUrl" : "https://fake.com/jira/browse/DOST05-247",
-    "dEstimate" : 2.0,
+    "issueId" : "271516",
+    "number" : "DOST05-247",
+    "name" : "Dummy name DOST05-247",
+    "typeId" : "10001",
+    "type" : "Story",
+    "status" : "Done",
+    "state" : "Done",
+    "url" : "https://fake.com/jira/browse/DOST05-247",
+    "estimation" : 2.0,
     "changeDate" : "2017-06-14T08:26:26.0000000",
     "isDeleted" : "False",
     "keywords" : [
         "Team Fast Feedback",
         "MirrorGate2"
     ],
-    "sOwnersID" : [],
-    "sOwnersIsDeleted" : [],
-    "sOwnersChangeDate" : [],
-    "sOwnersState" : [
-        "Active"
-    ],
-    "sOwnersUsername" : [],
-    "sOwnersFullName" : [],
-    "sOwnersShortName" : [],
-    "sTeamIsDeleted" : "False",
-    "sTeamAssetState" : "",
-    "sTeamChangeDate" : "",
-    "sTeamID" : "Team Fast Feedback",
-    "sSprintIsDeleted" : "False",
-    "sSprintChangeDate" : "",
-    "sSprintAssetState" : "",
-    "sSprintEndDate" : "",
-    "sSprintBeginDate" : "",
-    "sSprintName" : "",
-    "sSprintID" : "",
-    "sEpicIsDeleted" : "False",
-    "sEpicChangeDate" : "",
-    "sEpicAssetState" : "New",
-    "sEpicType" : "",
-    "sEpicEndDate" : "",
-    "sEpicBeginDate" : "2017-02-04T16:51:58.0000000",
-    "sEpicName" : "[USR] Groups and Access management",
-    "sEpicUrl" : "https://fake.com/jira/browse/DOST05-1",
-    "sEpicNumber" : "DOST05-1",
-    "sEpicID" : "40166",
-    "sProjectPath" : "",
-    "sProjectIsDeleted" : "False",
-    "sProjectState" : "",
-    "sProjectChangeDate" : "",
-    "sProjectEndDate" : "",
-    "sProjectBeginDate" : "",
-    "sProjectName" : "MirrorGate2",
-    "sProjectID" : "12508"
+    "owners" : [],
+    "sprintIsDeleted" : "False",
+    "sprintChangeDate" : "",
+    "sprintAssetState" : "",
+    "sprintEndDate" : "",
+    "sprintBeginDate" : "",
+    "sprintName" : "",
+    "sprintId" : "",
+    "epicIsDeleted" : "False",
+    "spicChangeDate" : "",
+    "spicAssetState" : "New",
+    "epicType" : "",
+    "epicEndDate" : "",
+    "epicBeginDate" : "2017-02-04T16:51:58.0000000",
+    "epicName" : "[USR] Groups and Access management",
+    "epicUrl" : "https://fake.com/jira/browse/DOST05-1",
+    "epicNumber" : "DOST05-1",
+    "epicId" : "40166",
+    "projectPath" : "",
+    "projectIsDeleted" : "False",
+    "projectState" : "",
+    "projectChangeDate" : "",
+    "projectEndDate" : "",
+    "projectBeginDate" : "",
+    "projectName" : "MirrorGate2",
+    "projectId" : "12508"
 }
 
 /* 196 */
 ,{
-    "sId" : "271188",
-    "sNumber" : "DOST05-242",
-    "sName" : "Dummy name DOST05-242",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "271188",
+    "number" : "DOST05-242",
+    "name" : "Dummy name DOST05-242",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-113",
-    "lParentId" : NumberLong(54880),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-113",
+    "parentsIds" : NumberLong(54880),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4454,22 +4400,22 @@ db.getCollection('feature').insertMany([
 
 /* 197 */
 ,{
-    "sId" : "271190",
-    "sNumber" : "DOST05-243",
-    "sName" : "Dummy name DOST05-243",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "271190",
+    "number" : "DOST05-243",
+    "name" : "Dummy name DOST05-243",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-22",
-    "lParentId" : NumberLong(40173),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-22",
+    "parentsIds" : NumberLong(40173),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4478,22 +4424,22 @@ db.getCollection('feature').insertMany([
 
 /* 198 */
 ,{
-    "sId" : "271194",
-    "sNumber" : "DOST05-245",
-    "sName" : "Dummy name DOST05-245",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "271194",
+    "number" : "DOST05-245",
+    "name" : "Dummy name DOST05-245",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-11",
-    "lParentId" : NumberLong(40152),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-11",
+    "parentsIds" : NumberLong(40152),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4502,15 +4448,15 @@ db.getCollection('feature').insertMany([
 
 /* 199 */
 ,{
-    "sId" : "271466",
-    "sNumber" : "DOST05-246",
-    "sName" : "Dummy name DOST05-246",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "271466",
+    "number" : "DOST05-246",
+    "name" : "Dummy name DOST05-246",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4519,20 +4465,20 @@ db.getCollection('feature').insertMany([
 
 /* 200 */
 ,{
-    "sId" : "271163",
-    "sNumber" : "DOST05-240",
-    "sName" : "Dummy name DOST05-240",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "271163",
+    "number" : "DOST05-240",
+    "name" : "Dummy name DOST05-240",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4541,20 +4487,20 @@ db.getCollection('feature').insertMany([
 
 /* 201 */
 ,{
-    "sId" : "271164",
-    "sNumber" : "DOST05-241",
-    "sName" : "Dummy name DOST05-241",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "271164",
+    "number" : "DOST05-241",
+    "name" : "Dummy name DOST05-241",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4563,23 +4509,23 @@ db.getCollection('feature').insertMany([
 
 /* 202 */
 ,{
-    "sId" : "270004",
-    "sNumber" : "DOST05-237",
-    "sName" : "Dummy name DOST05-237",
-    "sTypeName" : "Story",
-    "sStatus" : "In Progress",
-    "dEstimate" : 3.0,
+    "issueId" : "270004",
+    "number" : "DOST05-237",
+    "name" : "Dummy name DOST05-237",
+    "type" : "Story",
+    "status" : "In Progress",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-211",
-    "lParentId" : NumberLong(66868),
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-211",
+    "parentsIds" : NumberLong(66868),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -4587,19 +4533,19 @@ db.getCollection('feature').insertMany([
 
 /* 203 */
 ,{
-    "sId" : "269985",
-    "sNumber" : "DOST05-233",
-    "sName" : "Dummy name DOST05-233",
-    "sTypeName" : "Feature",
-    "sStatus" : "Done",
+    "issueId" : "269985",
+    "number" : "DOST05-233",
+    "name" : "Dummy name DOST05-233",
+    "type" : "Feature",
+    "status" : "Done",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "2017_PI03"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4608,23 +4554,23 @@ db.getCollection('feature').insertMany([
 
 /* 204 */
 ,{
-    "sId" : "269987",
-    "sNumber" : "DOST05-235",
-    "sName" : "Dummy name DOST05-235",
-    "sTypeName" : "Story",
-    "sStatus" : "In Progress",
-    "dEstimate" : 2.0,
+    "issueId" : "269987",
+    "number" : "DOST05-235",
+    "name" : "Dummy name DOST05-235",
+    "type" : "Story",
+    "status" : "In Progress",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-233",
-    "lParentId" : NumberLong(69985),
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-233",
+    "parentsIds" : NumberLong(69985),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -4632,15 +4578,15 @@ db.getCollection('feature').insertMany([
 
 /* 205 */
 ,{
-    "sId" : "271155",
-    "sNumber" : "DOST05-239",
-    "sName" : "Dummy name DOST05-239",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.0,
+    "issueId" : "271155",
+    "number" : "DOST05-239",
+    "name" : "Dummy name DOST05-239",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4649,23 +4595,23 @@ db.getCollection('feature').insertMany([
 
 /* 206 */
 ,{
-    "sId" : "273638",
-    "sNumber" : "DOST05-249",
-    "sName" : "Dummy name DOST05-249",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "273638",
+    "number" : "DOST05-249",
+    "name" : "Dummy name DOST05-249",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-1",
-    "lParentId" : NumberLong(40166),
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-1",
+    "parentsIds" : NumberLong(40166),
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -4673,15 +4619,15 @@ db.getCollection('feature').insertMany([
 
 /* 207 */
 ,{
-    "sId" : "273646",
-    "sNumber" : "DOST05-251",
-    "sName" : "Dummy name DOST05-251",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "273646",
+    "number" : "DOST05-251",
+    "name" : "Dummy name DOST05-251",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4690,15 +4636,15 @@ db.getCollection('feature').insertMany([
 
 /* 208 */
 ,{
-    "sId" : "274387",
-    "sNumber" : "DOST05-254",
-    "sName" : "Dummy name DOST05-254",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 1.0,
+    "issueId" : "274387",
+    "number" : "DOST05-254",
+    "name" : "Dummy name DOST05-254",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4707,20 +4653,20 @@ db.getCollection('feature').insertMany([
 
 /* 209 */
 ,{
-    "sId" : "274390",
-    "sNumber" : "DOST05-256",
-    "sName" : "Dummy name DOST05-256",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "274390",
+    "number" : "DOST05-256",
+    "name" : "Dummy name DOST05-256",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4729,15 +4675,15 @@ db.getCollection('feature').insertMany([
 
 /* 210 */
 ,{
-    "sId" : "273016",
-    "sNumber" : "DOST05-248",
-    "sName" : "Dummy name DOST05-248",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "273016",
+    "number" : "DOST05-248",
+    "name" : "Dummy name DOST05-248",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4746,20 +4692,20 @@ db.getCollection('feature').insertMany([
 
 /* 211 */
 ,{
-    "sId" : "273642",
-    "sNumber" : "DOST05-250",
-    "sName" : "Dummy name DOST05-250",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "273642",
+    "number" : "DOST05-250",
+    "name" : "Dummy name DOST05-250",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4768,15 +4714,15 @@ db.getCollection('feature').insertMany([
 
 /* 212 */
 ,{
-    "sId" : "274389",
-    "sNumber" : "DOST05-255",
-    "sName" : "Dummy name DOST05-255",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 3.0,
+    "issueId" : "274389",
+    "number" : "DOST05-255",
+    "name" : "Dummy name DOST05-255",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4785,20 +4731,20 @@ db.getCollection('feature').insertMany([
 
 /* 213 */
 ,{
-    "sId" : "274124",
-    "sNumber" : "DOST05-252",
-    "sName" : "Dummy name DOST05-252",
-    "sTypeName" : "Bug",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "274124",
+    "number" : "DOST05-252",
+    "name" : "Dummy name DOST05-252",
+    "type" : "Bug",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4807,15 +4753,15 @@ db.getCollection('feature').insertMany([
 
 /* 214 */
 ,{
-    "sId" : "274386",
-    "sNumber" : "DOST05-253",
-    "sName" : "Dummy name DOST05-253",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 1.0,
+    "issueId" : "274386",
+    "number" : "DOST05-253",
+    "name" : "Dummy name DOST05-253",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4824,20 +4770,20 @@ db.getCollection('feature').insertMany([
 
 /* 215 */
 ,{
-    "sId" : "275700",
-    "sNumber" : "DOST05-258",
-    "sName" : "Dummy name DOST05-258",
-    "sTypeName" : "Story",
-    "sStatus" : "In Progress",
-    "dEstimate" : 2.0,
+    "issueId" : "275700",
+    "number" : "DOST05-258",
+    "name" : "Dummy name DOST05-258",
+    "type" : "Story",
+    "status" : "In Progress",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4846,15 +4792,15 @@ db.getCollection('feature').insertMany([
 
 /* 216 */
 ,{
-    "sId" : "275706",
-    "sNumber" : "DOST05-260",
-    "sName" : "Dummy name DOST05-260",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 2.0,
+    "issueId" : "275706",
+    "number" : "DOST05-260",
+    "name" : "Dummy name DOST05-260",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4863,15 +4809,15 @@ db.getCollection('feature').insertMany([
 
 /* 217 */
 ,{
-    "sId" : "276327",
-    "sNumber" : "DOST05-264",
-    "sName" : "Dummy name DOST05-264",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 0.0,
+    "issueId" : "276327",
+    "number" : "DOST05-264",
+    "name" : "Dummy name DOST05-264",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 0.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4880,21 +4826,21 @@ db.getCollection('feature').insertMany([
 
 /* 218 */
 ,{
-    "sId" : "276313",
-    "sNumber" : "DOST05-261",
-    "sName" : "Dummy name DOST05-261",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 2.0,
+    "issueId" : "276313",
+    "number" : "DOST05-261",
+    "name" : "Dummy name DOST05-261",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 2.0,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
+    "projectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -4902,21 +4848,21 @@ db.getCollection('feature').insertMany([
 
 /* 219 */
 ,{
-    "sId" : "276314",
-    "sNumber" : "DOST05-262",
-    "sName" : "Dummy name DOST05-262",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 0.5,
+    "issueId" : "276314",
+    "number" : "DOST05-262",
+    "name" : "Dummy name DOST05-262",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 0.5,
     "priority" : "Medium",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
+    "projectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -4924,21 +4870,21 @@ db.getCollection('feature').insertMany([
 
 /* 220 */
 ,{
-    "sId" : "276318",
-    "sNumber" : "DOST05-263",
-    "sName" : "Dummy name DOST05-263",
-    "sTypeName" : "Bug",
-    "sStatus" : "In Progress",
-    "dEstimate" : 2.0,
+    "issueId" : "276318",
+    "number" : "DOST05-263",
+    "name" : "Dummy name DOST05-263",
+    "type" : "Bug",
+    "status" : "In Progress",
+    "estimation" : 2.0,
     "priority" : "High",
-    "sSprintID" : "1941",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP3",
-    "sSprintAssetState" : "ACTIVE",
+    "sprintId" : "1941",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP3",
+    "sprintAssetState" : "ACTIVE",
     "sprintBeginDate" : ISODate("2017-06-28T07:00:15.296Z"),
     "sprintEndDate" : ISODate("2017-07-11T19:00:00.000Z"),
-    "sProjectId" : "12508",
+    "projectId" : "12508",
     "collectorId" : "mirrorgate-collectors-jira",
-    "sProjectName" : "MirrorGate2",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ]
@@ -4946,20 +4892,20 @@ db.getCollection('feature').insertMany([
 
 /* 221 */
 ,{
-    "sId" : "275669",
-    "sNumber" : "DOST05-257",
-    "sName" : "Dummy name DOST05-257",
-    "sTypeName" : "Story",
-    "sStatus" : "Done",
-    "dEstimate" : 1.0,
+    "issueId" : "275669",
+    "number" : "DOST05-257",
+    "name" : "Dummy name DOST05-257",
+    "type" : "Story",
+    "status" : "Done",
+    "estimation" : 1.0,
     "priority" : "Medium",
-    "sSprintID" : "1879",
-    "sSprintName" : "MIRRORGATE_PI03_2017_SP2",
-    "sSprintAssetState" : "CLOSED",
+    "sprintId" : "1879",
+    "sprintName" : "MIRRORGATE_PI03_2017_SP2",
+    "sprintAssetState" : "CLOSED",
     "sprintBeginDate" : ISODate("2017-06-14T09:59:37.474Z"),
     "sprintEndDate" : ISODate("2017-06-27T16:59:00.000Z"),
-    "sProjectId" : "12508",
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4968,17 +4914,17 @@ db.getCollection('feature').insertMany([
 
 /* 222 */
 ,{
-    "sId" : "275703",
-    "sNumber" : "DOST05-259",
-    "sName" : "Dummy name DOST05-259",
-    "sTypeName" : "Story",
-    "sStatus" : "Backlog",
-    "dEstimate" : 3.0,
+    "issueId" : "275703",
+    "number" : "DOST05-259",
+    "name" : "Dummy name DOST05-259",
+    "type" : "Story",
+    "status" : "Backlog",
+    "estimation" : 3.0,
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sParentKey" : "DOST05-213",
-    "lParentId" : NumberLong(67116),
-    "sProjectName" : "MirrorGate2",
+    "projectId" : "12508",
+    "parentsKeys" : "DOST05-213",
+    "parentsIds" : NumberLong(67116),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -4987,19 +4933,19 @@ db.getCollection('feature').insertMany([
 
 /* 223 */
 ,{
-    "sId" : "277964",
-    "sNumber" : "DOST05-267",
-    "sName" : "Dummy name DOST05-267",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "277964",
+    "number" : "DOST05-267",
+    "name" : "Dummy name DOST05-267",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -5008,19 +4954,19 @@ db.getCollection('feature').insertMany([
 
 /* 224 */
 ,{
-    "sId" : "277962",
-    "sNumber" : "DOST05-265",
-    "sName" : "Dummy name DOST05-265",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "277962",
+    "number" : "DOST05-265",
+    "name" : "Dummy name DOST05-265",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
-    "sParentKey" : "DOT-116",
-    "lParentId" : NumberLong(77725),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-116",
+    "parentsIds" : NumberLong(77725),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],
@@ -5029,19 +4975,19 @@ db.getCollection('feature').insertMany([
 
 /* 225 */
 ,{
-    "sId" : "277963",
-    "sNumber" : "DOST05-266",
-    "sName" : "Dummy name DOST05-266",
-    "sTypeName" : "Feature",
-    "sStatus" : "Backlog",
+    "issueId" : "277963",
+    "number" : "DOST05-266",
+    "name" : "Dummy name DOST05-266",
+    "type" : "Feature",
+    "status" : "Backlog",
     "priority" : "Medium",
-    "sProjectId" : "12508",
-    "sPiNames" : [
+    "projectId" : "12508",
+    "piNames" : [
         "AE_2017_PI04_(2017/07/12-2017/08/22)"
     ],
-    "sParentKey" : "DOT-4",
-    "lParentId" : NumberLong(38645),
-    "sProjectName" : "MirrorGate2",
+    "parentsKeys" : "DOT-4",
+    "parentsIds" : NumberLong(38645),
+    "projectName" : "MirrorGate2",
     "keywords" : [
         "MirrorGate2"
     ],

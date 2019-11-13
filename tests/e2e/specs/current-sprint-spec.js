@@ -30,7 +30,7 @@ describe('current-sprint', function () {
     });
 
     it('should change the completion amount and reflect status change', function () {
-        expect(element(by.css('current-sprint-tile div[rv-show="sprint.doneRatio"] .rate-completed')).getText()).toContain('17')
+        expect(element(by.css('current-sprint-tile div[rv-show="sprint.doneRatio"] .rate-completed')).getText()).toContain('17');
         data.stories.backlog.forEach((story) => api.stories.send(story, {status:'DONE'}));
         browser.wait(until.presenceOf(element(by.css('current-sprint-tile.module-ok'))));
         expect(element(by.css('current-sprint-tile div[rv-show="sprint.doneRatio"] .rate-completed')).getText()).toContain('70');

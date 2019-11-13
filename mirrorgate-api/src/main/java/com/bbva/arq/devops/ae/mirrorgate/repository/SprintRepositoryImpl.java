@@ -16,7 +16,7 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
+import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.model.Sprint;
 import com.mongodb.BasicDBObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,44 +43,40 @@ public class SprintRepositoryImpl implements SprintRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    private static final Map<String,String> FEATURE_FIELDS = new HashMap<String, String>() {{
-        for(Field f : Feature.class.getDeclaredFields()) {
+    private static final Map<String, String> ISSUE_FIELDS = new HashMap<String, String>() {{
+        for (Field f : Issue.class.getDeclaredFields()) {
             put(f.getName(), "$" + f.getName());
         }
     }};
 
     private static final Map<String,String> SPRINT_FIELDS = new HashMap<String,String>(){{
-        put("sSprintID","sid");
-        put("sSprintName","name");
-        put("sSprintAssetState","status");
+        put("sprintId", "sprintId");
+        put("sprintName", "name");
+        put("sprintAssetState", "status");
         put("sprintBeginDate","startDate");
         put("sprintEndDate","endDate");
     }};
 
-    private static GroupOperation firstFeatureFields(GroupOperation operation) {
-
-        return FEATURE_FIELDS.keySet().stream()
+    private static GroupOperation firstIssueFields(GroupOperation operation) {
+        return ISSUE_FIELDS.keySet().stream()
                 .reduce(operation, (o,s) -> o.first(s).as(s), (old,o) -> o);
-
     }
 
     private static GroupOperation firstSprintFields(GroupOperation operation) {
-
         return SPRINT_FIELDS.keySet().stream()
                 .reduce(operation, (o,s) -> o.first(s).as(SPRINT_FIELDS.get(s)), (old,o) -> o);
-
     }
 
     @Override
     public List<Sprint> getSprintSampleForStatus(String[] status, String collectorId) {
         Aggregation agg = newAggregation(
-            match(where("sSprintAssetState").in(Arrays.asList(status)).and("collectorId").is(collectorId)),
-                firstFeatureFields(group("sSprintID","sSprintAssetState")),
-                firstSprintFields(group("sSprintID","sSprintAssetState"))
-                        .push(new BasicDBObject(FEATURE_FIELDS)).as("features")
+            match(where("sprintAssetState").in(Arrays.asList(status)).and("collectorId").is(collectorId)),
+            firstIssueFields(group("sprintId", "sprintAssetState")),
+            firstSprintFields(group("sprintId", "sprintAssetState"))
+                .push(new BasicDBObject(ISSUE_FIELDS)).as("issues")
         );
         AggregationResults<Sprint> aggregate =
-                mongoTemplate.aggregate(agg, "feature", Sprint.class);
+            mongoTemplate.aggregate(agg, "issue", Sprint.class);
 
         return aggregate.getMappedResults();
     }
@@ -88,13 +84,13 @@ public class SprintRepositoryImpl implements SprintRepository {
     @Override
     public Sprint getSprintForId(String id, String collectorId) {
         Aggregation agg = newAggregation(
-                match(where("sSprintID").is(id).and("collectorId").is(collectorId)),
-                firstSprintFields(group("sSprintID"))
-                        .push(new BasicDBObject(FEATURE_FIELDS)).as("features")
+            match(where("sprintId").is(id).and("collectorId").is(collectorId)),
+            firstSprintFields(group("sprintId"))
+                .push(new BasicDBObject(ISSUE_FIELDS)).as("issues")
         );
 
         AggregationResults<Sprint> aggregate =
-                mongoTemplate.aggregate(agg, "feature", Sprint.class);
+            mongoTemplate.aggregate(agg, "issue", Sprint.class);
 
         return aggregate.getUniqueMappedResult();
     }

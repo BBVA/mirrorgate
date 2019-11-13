@@ -15,9 +15,9 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.exception;
 
-public class FeatureNotFoundException extends RuntimeException {
+public class IssueNotFoundException extends RuntimeException {
 
-    public FeatureNotFoundException(String message) {
+    public IssueNotFoundException(final String message) {
         super(message);
     }
 }

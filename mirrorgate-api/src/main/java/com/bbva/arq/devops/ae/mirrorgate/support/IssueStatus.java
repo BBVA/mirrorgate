@@ -21,7 +21,12 @@ import java.util.Map;
 
 public enum IssueStatus {
 
-    IN_PROGRESS("In Progress"), DONE("Done"), BACKLOG("Backlog"), WAITING("Waiting"), IMPEDED("Impeded");
+    IN_PROGRESS("In Progress"),
+    DONE("Done"),
+    ACCEPTED("Accepted"),
+    BACKLOG("Backlog"),
+    WAITING("Waiting"),
+    IMPEDED("Impeded");
 
     private static final Map<String, IssueStatus> NAME_MAP = new HashMap<String, IssueStatus>(){{
         for(IssueStatus st : IssueStatus.values()) {

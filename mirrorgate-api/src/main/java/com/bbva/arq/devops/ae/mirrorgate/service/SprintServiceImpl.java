@@ -20,11 +20,12 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.SprintDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.SprintMapper;
 import com.bbva.arq.devops.ae.mirrorgate.repository.SprintRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Component
 public class SprintServiceImpl implements SprintService {
@@ -34,11 +35,12 @@ public class SprintServiceImpl implements SprintService {
 
     @Override
     public List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses, String collectorId) {
-        return sprintRepository.getSprintSampleForStatus(Arrays.stream(sprintStatuses)
+        return sprintRepository.getSprintSampleForStatus(
+            Arrays.stream(sprintStatuses)
                 .map(Object::toString)
                 .collect(Collectors.toList())
                 .toArray(new String[]{}),
-                collectorId
+            collectorId
         ).stream()
                 .map(SprintMapper::map)
                 .peek((s) -> {

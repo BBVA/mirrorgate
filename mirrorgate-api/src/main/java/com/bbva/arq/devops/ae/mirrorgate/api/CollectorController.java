@@ -30,30 +30,26 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-
-/**
- * Defines feature rest methods
- */
 @RestController
 public class CollectorController {
 
     private final CollectorService collectorService;
 
     @Autowired
-    public CollectorController(CollectorService collectorService) {
+    public CollectorController(final CollectorService collectorService) {
         this.collectorService = collectorService;
     }
 
     @RequestMapping(value = "/api/collectors/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Date> getLastExecutionDate(@PathVariable("id") String id) {
-         Date date = collectorService.getLastExecutionDate(id);
+    public ResponseEntity<Date> getLastExecutionDate(final @PathVariable("id") String id) {
+         final Date date = collectorService.getLastExecutionDate(id);
 
          return date == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(date);
 
     }
 
     @RequestMapping(value = "/api/collectors/{id}", method = PUT, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity setLastExecutionDate(@PathVariable("id") String id, @RequestBody Date executionDate) {
+    public ResponseEntity setLastExecutionDate(final @PathVariable("id") String id, final @RequestBody Date executionDate) {
         collectorService.saveLastExecutionDate(id, executionDate);
         return ResponseEntity.ok().build();
     }

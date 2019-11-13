@@ -16,6 +16,8 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.SprintStats;
+import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
+import com.bbva.arq.devops.ae.mirrorgate.support.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -37,7 +39,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.newA
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 
-public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
+public class IssueRepositoryImpl implements IssueRepositoryCustom {
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -48,12 +50,12 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
         Aggregation agg = newAggregation(
             match(Criteria
                 .where("keywords").in(boards)
-                .and("sSprintAssetState").ne("ACTIVE")
-                .and("sTypeName").in(Arrays.asList("Story","Bug"))
-                .and("sStatus").nin(Arrays.asList("Accepted", "Done"))
+                .and("sprintAssetState").ne("ACTIVE")
+                .and("type").in(Arrays.asList(IssueType.STORY.getName(),IssueType.BUG.getName()))
+                .and("status").nin(Arrays.asList(IssueStatus.ACCEPTED.getName(), IssueStatus.DONE.getName()))
             ),
             group()
-                .sum("dEstimate")
+                .sum("estimation")
                 .as("value"),
             project("value")
                 .andExclude("_id")
@@ -61,7 +63,7 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
 
         AggregationResults<DoubleValue> groupResults
-            = mongoTemplate.aggregate(agg, "feature", DoubleValue.class);
+            = mongoTemplate.aggregate(agg, "issue", DoubleValue.class);
         DoubleValue val = groupResults.getUniqueMappedResult();
 
         return val == null ? 0 : val.value;
@@ -73,14 +75,14 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
         Aggregation agg = newAggregation(
             match(Criteria
                 .where("keywords").in(boards)
-                .and("sSprintAssetState").is("CLOSED")
-                .and("sTypeName").in(Arrays.asList("Story","Bug"))
-                .and("sStatus").in(Arrays.asList("Accepted", "Done"))
+                .and("sprintAssetState").is("CLOSED")
+                .and("type").in(Arrays.asList(IssueType.STORY.getName(),IssueType.BUG.getName()))
+                .and("status").in(Arrays.asList(IssueStatus.ACCEPTED.getName(), IssueStatus.DONE.getName()))
             ),
-            group("sSprintName")
+            group("sprintName")
                 .first("sprintBeginDate").as("start")
                 .first("sprintEndDate").as("end")
-                .sum("dEstimate").as("estimate")
+                .sum("estimation").as("estimate")
             ,
             group()
                 .avg("estimate").as("estimateAvg")
@@ -96,7 +98,7 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
         );
 
         AggregationResults<SprintStats> groupResults
-            = mongoTemplate.aggregate(agg, "feature", SprintStats.class);
+            = mongoTemplate.aggregate(agg, "issue", SprintStats.class);
         return groupResults.getUniqueMappedResult();
 
     }
@@ -106,19 +108,19 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
         Aggregation agg = newAggregation(
             match(Criteria
-                .where("sParentKey").in(programIncrementFeatures)
+                .where("parentsKeys").in(programIncrementFeatures)
                 .and("keywords").in(boards)
             ),
-            unwind("sParentKey"),
+            unwind("parentsKeys"),
             group()
-                .addToSet("sParentKey")
+                .addToSet("parentsKeys")
                 .as("features"),
             project("features")
                 .andExclude("_id")
         );
 
         AggregationResults<ProgramIncrementBoardFeatures> aggregationResult
-            = mongoTemplate.aggregate(agg, "feature", ProgramIncrementBoardFeatures.class);
+            = mongoTemplate.aggregate(agg, "issue", ProgramIncrementBoardFeatures.class);
 
         return aggregationResult.getUniqueMappedResult() != null ? aggregationResult.getUniqueMappedResult().features : new ArrayList<>();
     }
@@ -128,18 +130,18 @@ public class FeatureRepositoryImpl implements FeatureRepositoryCustom{
 
         Aggregation agg = newAggregation(
             match(Criteria
-                    .where("sTypeName").is("Feature")
+                    .where("type").is(IssueType.FEATURE.getName())
             ),
-            project("sPiNames").andExclude("_id"),
-            unwind("sPiNames"),
+            project("piNames").andExclude("_id"),
+            unwind("piNames"),
             match(Criteria
-                .where("sPiNames").is(pi)
+                .where("piNames").is(pi)
             ),
-            group().addToSet("sPiNames").as("piNames")
+            group().addToSet("piNames").as("piNames")
         );
 
         AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult
-            = mongoTemplate.aggregate(agg, "feature", ProgramIncrementNamesAggregationResult.class);
+            = mongoTemplate.aggregate(agg, "issue", ProgramIncrementNamesAggregationResult.class);
 
         return aggregationResult.getUniqueMappedResult();
     }

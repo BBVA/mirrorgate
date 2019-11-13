@@ -15,43 +15,43 @@
  */
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-import com.bbva.arq.devops.ae.mirrorgate.dto.FeatureStats;
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+import com.bbva.arq.devops.ae.mirrorgate.dto.IssueStats;
+import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
+import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepositoryImpl.ProgramIncrementNamesAggregationResult;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Service for Feature model
+ * Service for Issue model
  */
-public interface FeatureService {
+public interface IssueService {
 
     /**
      * Get active user stories of a project
      *
      * @param boards List of boards names
-     * @return List of active Features
+     * @return List of active Issues
      */
-    List<Feature> getActiveUserStoriesByBoards(List<String> boards);
+    List<Issue> getActiveUserStoriesByBoards(List<String> boards);
 
-    FeatureStats getFeatureStatsByKeywords(List<String> boards);
+    IssueStats getIssueStatsByKeywords(List<String> boards);
 
     Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issues, String collectorId);
 
     IssueDTO deleteStory(String id, String collectorId);
 
-    List<Feature> getFeatureRelatedIssues(List<String> featuresKeys);
+    List<Issue> getFeatureRelatedIssues(List<String> featuresKeys);
 
-    List<Feature> getProductIncrementFeatures(String name);
+    List<Issue> getProductIncrementFeatures(String name);
 
     ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(Pattern pi);
 
     List<String> getProgramIncrementFeaturesByBoard(List<String> boards, List<String> programIncrementFeatures);
 
-    Iterable<Feature> getFeaturesById(List<String> ids);
+    Iterable<Issue> getIssuesById(List<String> ids);
 
-    List<Feature> getEpicsBySNumber(List<String> keys);
+    List<Issue> getEpicsByNumber(List<String> keys);
 
 }

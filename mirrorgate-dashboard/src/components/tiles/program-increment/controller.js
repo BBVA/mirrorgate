@@ -21,7 +21,7 @@
 var ProgramIncrementController = (
   function(dashboardId){
     var observable = new Event('ProgramIncrementController');
-    var service = Service.get(Service.types.programincrement, dashboardId);
+    var service = Service.get(Service.types.programIncrement, dashboardId);
 
     function buildProgramIncrementReport (programIncrement) {
       if(!programIncrement.stories || !programIncrement.features) {
@@ -167,7 +167,7 @@ var ProgramIncrementController = (
       var remainingWorkingDays = programIncrement.getDaysLeft();
       var timePassed = (totalWorkingDays - remainingWorkingDays) /totalWorkingDays * 100;
 
-      //If no more than 10% of time has passed, don't take a decission yet
+      //If no more than 10% of time has passed, don't take a decision yet
       var diff = timePassed > 10 ? (programIncrement.report.completed - timePassed) : 0;
 
       return diff < - 20 || isNaN(diff) ? diff < -40 ?

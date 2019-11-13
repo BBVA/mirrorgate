@@ -6,7 +6,7 @@ import java.util.Map;
 public enum EventType {
     DETAIL("DashboardType"),
     BUILD("BuildType"),
-    FEATURE("FeatureType"),
+    ISSUE("IssueType"),
     REVIEW("ReviewType"),
     PING("PingType"),
     NOTIFICATION("NotificationType");
@@ -24,7 +24,7 @@ public enum EventType {
     private static final Map<String, EventType> MAPPING = new HashMap<>();
 
     static{
-        MAPPING.put("FeatureType", FEATURE);
+        MAPPING.put("IssueType", ISSUE);
         MAPPING.put("BuildType", BUILD);
         MAPPING.put("ReviewType", REVIEW);
         MAPPING.put("DashboardType", DETAIL);
@@ -39,6 +39,5 @@ public enum EventType {
             throw new IllegalArgumentException();
         }
     }
-
 
 }

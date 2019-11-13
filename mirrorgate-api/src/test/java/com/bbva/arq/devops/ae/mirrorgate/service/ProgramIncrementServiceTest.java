@@ -2,7 +2,7 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepositoryImpl.ProgramIncrementNamesAggregationResult;
+import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 public class ProgramIncrementServiceTest {
 
     @Mock
-    private FeatureService featureService;
+    private IssueService issueService;
     @Mock
     private DashboardService dashboardService;
 
@@ -41,27 +41,25 @@ public class ProgramIncrementServiceTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProgramIncrementServiceTest.class);
 
-
     @Test
     public void testNoCurrentPIName() {
 
         when(dashboardService.getDashboard(anyString())).thenReturn(new DashboardDTO());
 
-        ProgramIncrementDTO programIncrementDTO = piService.getProgramIncrementFeatures("MirrorGate");
+        final ProgramIncrementDTO programIncrementDTO = piService.getProgramIncrement("MirrorGate");
 
         assertNull(programIncrementDTO.getProgramIncrementFeatures());
         verify(dashboardService, times(1)).getDashboard(anyString());
     }
 
-
     @Test
     public void testProductIncrementNameWithUserDefinedRegex() {
 
-        List<String> piNamesList = Arrays.asList("AE_2017_PI03_(2016/12/04-2017/01/28)", "AE_2017_PI04_(2017/01/28-2017/04/14)", "AE_2016_PI02_(2016/11/04-2016/12/03)");
-        ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
+        final List<String> piNamesList = Arrays.asList("AE_2017_PI03_(2016/12/04-2017/01/28)", "AE_2017_PI04_(2017/01/28-2017/04/14)", "AE_2016_PI02_(2016/11/04-2016/12/03)");
+        final ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
-        ProgramIncrementDTO activePI = piService.getProductIncrementNameAndDatesForExpression("AE_2017_PI0._.*");
+        when(issueService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
+        final ProgramIncrementDTO activePI = piService.getProductIncrementNameAndDatesForExpression("AE_2017_PI0._.*");
 
         assertEquals("AE_2017_PI04_(2017/01/28-2017/04/14)", activePI.getProgramIncrementName());
     }
@@ -71,15 +69,15 @@ public class ProgramIncrementServiceTest {
 
         Date expectedStartDate = new Date();
         Date expectedEndDate = new Date();
-        String expectedProductIncrement = generateProductIncrementName(2);
+        final String expectedProductIncrement = generateProductIncrementName(2);
 
-        List<String> piNamesList = Arrays.asList("AE_2016_PI02_(2016/11/04-2016/12/03)", "AE_2017_PI03_(" + expectedProductIncrement + ")");
-        ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
+        final List<String> piNamesList = Arrays.asList("AE_2016_PI02_(2016/11/04-2016/12/03)", "AE_2017_PI03_(" + expectedProductIncrement + ")");
+        final ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
-        ProgramIncrementDTO activePI = piService.getProductIncrementNameAndDatesForExpression("AE.*\\((?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})\\)");
+        when(issueService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
+        final ProgramIncrementDTO activePI = piService.getProductIncrementNameAndDatesForExpression("AE.*\\((?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})\\)");
 
-        String[] expectedDates = expectedProductIncrement.split("-");
+        final String[] expectedDates = expectedProductIncrement.split("-");
 
         try {
             expectedStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(expectedDates[0]);
@@ -95,13 +93,13 @@ public class ProgramIncrementServiceTest {
     @Test
     public void testProductIncrementEndsToday() {
 
-        String expectedProductIncrement = generateProductIncrementName(-2);
+        final String expectedProductIncrement = generateProductIncrementName(-2);
 
-        List<String> piNamesList = Arrays.asList(expectedProductIncrement, "2016/11/04-2016/12/03");
-        ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
+        final List<String> piNamesList = Arrays.asList(expectedProductIncrement, "2016/11/04-2016/12/03");
+        final ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
-        ProgramIncrementDTO activePI = piService.getProductIncrementNameAndDatesForExpression("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})");
+        when(issueService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
+        final ProgramIncrementDTO activePI = piService.getProductIncrementNameAndDatesForExpression("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})");
 
         assertEquals(expectedProductIncrement, activePI.getProgramIncrementName());
     }
@@ -109,25 +107,25 @@ public class ProgramIncrementServiceTest {
     @Test
     public void testProductIncrementStartsToday() {
 
-        String expectedProductIncrement = generateProductIncrementName(2);
+        final String expectedProductIncrement = generateProductIncrementName(2);
 
-        List<String> piNamesList = Arrays.asList(expectedProductIncrement, "2016/11/04-2016/12/03");
-        ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
+        final List<String> piNamesList = Arrays.asList(expectedProductIncrement, "2016/11/04-2016/12/03");
+        final ProgramIncrementNamesAggregationResult piNames = new ProgramIncrementNamesAggregationResult(piNamesList);
 
-        when(featureService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
-        ProgramIncrementDTO activePI = piService.getProductIncrementNameAndDatesForExpression("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})");
+        when(issueService.getProductIncrementFromPiPattern(any(Pattern.class))).thenReturn(piNames);
+        final ProgramIncrementDTO activePI = piService.getProductIncrementNameAndDatesForExpression("(?<startDate>[0-9]{4}/[0-9]{2}/[0-9]{2})-(?<endDate>[0-9]{4}/[0-9]{2}/[0-9]{2})");
 
         assertEquals(expectedProductIncrement, activePI.getProgramIncrementName());
     }
 
     private String generateProductIncrementName(int months) {
-        String pattern = "%1s-%2s";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        final String pattern = "%1s-%2s";
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
-        LocalDate now = LocalDate.now();
-        LocalDate changeMonthDate = now.plusMonths(months);
-        String formattedChangeMonthDate = changeMonthDate.format(formatter);
-        String formattedNow = now.format(formatter);
+        final LocalDate now = LocalDate.now();
+        final LocalDate changeMonthDate = now.plusMonths(months);
+        final String formattedChangeMonthDate = changeMonthDate.format(formatter);
+        final String formattedNow = now.format(formatter);
 
         return months < 0 ?
             String.format(pattern, formattedChangeMonthDate, formattedNow) :

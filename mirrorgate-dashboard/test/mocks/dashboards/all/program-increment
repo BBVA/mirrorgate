@@ -1,5 +1,5 @@
 {
-  "programIncrementEpics": [
+  "programIncrementFeatures": [
     {
       "id": 10025,
       "name": "Epic1",
@@ -7,7 +7,6 @@
       "status": "In Progress",
       "estimate": 8.0,
       "jiraKey": "PIT05-50",
-      "url":"http://fake.com/fake",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",
@@ -16,10 +15,10 @@
         "endDate": 1491343200000
       },
       "project": {
-        "name": "Project1"
+        "name": "Project2"
       },
       "keywords": [
-        "Project1"
+        "Project2"
       ]
     },
     {
@@ -29,7 +28,6 @@
       "status": "In Progress",
       "estimate": 8.0,
       "jiraKey": "PIT05-51",
-      "url":"http://fake.com/fake",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",
@@ -38,10 +36,10 @@
         "endDate": 1491343200000
       },
       "project": {
-        "name": "Project1"
+        "name": "Project2"
       },
       "keywords": [
-        "Project1"
+        "Project2"
       ]
     }
   ],
@@ -82,10 +80,10 @@
         "endDate": 1491343200000
       },
       "project": {
-        "name": "Project1"
+        "name": "Project2"
       },
       "keywords": [
-        "Project1"
+        "Project2"
       ]
     },
     {
@@ -137,8 +135,7 @@
       "status": "DONE",
       "estimate": 8.0,
       "jiraKey": "PIT05-52",
-      "parentKey": ["PIT05-50"],
-      "url":"http://fake.com/fake",
+      "parentsKeys": "PIT05-50",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",
@@ -147,10 +144,10 @@
         "endDate": 1491343200000
       },
       "project": {
-        "name": "Project1"
+        "name": "Project2"
       },
       "keywords": [
-        "Project1"
+        "Project2"
       ]
     },{
       "id": 10028,
@@ -159,8 +156,6 @@
       "status": "DONE",
       "estimate": 8.0,
       "jiraKey": "PIT05-53",
-      "parentKey": ["PIT05-51"],
-      "url":"http://fake.com/fake",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",
@@ -169,10 +164,10 @@
         "endDate": 1491343200000
       },
       "project": {
-        "name": "Project1"
+        "name": "Project2"
       },
       "keywords": [
-        "Project1"
+        "Project2"
       ]
     }
   ],
@@ -183,7 +178,7 @@
       "type": "Story",
       "estimate": 8.0,
       "jiraKey": "PIT05-49",
-      "parentKey": ["PIT05-42"],
+      "parentsKeys": "PIT05-42",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",
@@ -204,7 +199,7 @@
       "type": "Story",
       "estimate": 8.0,
       "jiraKey": "PIT05-149",
-      "parentKey": ["PIT05-42"],
+      "parentsKeys": "PIT05-42",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",
@@ -226,7 +221,7 @@
       "status": "DONE",
       "estimate": 8.0,
       "jiraKey": "PIT05-48",
-      "parentKey": ["PIT05-47"],
+      "parentsKeys": "PIT05-47",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",
@@ -235,10 +230,10 @@
         "endDate": 1491343200000
       },
       "project": {
-        "name": "Project1"
+        "name": "Project2"
       },
       "keywords": [
-        "Project1"
+        "Project2"
       ]
     },{
       "id": 10029,
@@ -247,8 +242,7 @@
       "status": "DONE",
       "estimate": 8.0,
       "jiraKey": "PIT05-54",
-      "parentKey": ["PIT05-53"],
-      "url":"http://fake.com/fake",
+      "parentsKeys": "PIT05-53",
       "sprint": {
         "id": "1225",
         "name": "PROGRAM_INCREMENT_SP4",
@@ -257,10 +251,10 @@
         "endDate": 1491343200000
       },
       "project": {
-        "name": "Project1"
+        "name": "Project2"
       },
       "keywords": [
-        "Project1"
+        "Project2"
       ]
     }
   ]

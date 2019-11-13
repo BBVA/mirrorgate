@@ -21,20 +21,20 @@ import java.util.List;
 
 public class Sprint {
 
-    private String sid;
+    private String sprintId;
     private String name;
     private String status;
     private Date startDate;
     private Date endDate;
     private Date completeDate;
-    private List<Feature> features;
+    private List<Issue> issues;
 
-    public String getId() {
-        return sid;
+    public String getSprintId() {
+        return sprintId;
     }
 
-    public Sprint setId(String id) {
-        this.sid = id;
+    public Sprint setSprintId(String id) {
+        this.sprintId = id;
         return this;
     }
 
@@ -83,12 +83,12 @@ public class Sprint {
         return this;
     }
 
-    public List<Feature> getFeatures() {
-        return features;
+    public List<Issue> getIssues() {
+        return issues;
     }
 
-    public Sprint setFeatures(List<Feature> features) {
-        this.features = features;
+    public Sprint setIssues(List<Issue> issues) {
+        this.issues = issues;
         return this;
     }
 }

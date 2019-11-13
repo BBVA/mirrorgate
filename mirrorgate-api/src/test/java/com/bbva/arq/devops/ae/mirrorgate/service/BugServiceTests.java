@@ -17,8 +17,8 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Feature;
-import com.bbva.arq.devops.ae.mirrorgate.repository.FeatureRepository;
+import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
+import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
@@ -43,7 +43,7 @@ import static org.mockito.Mockito.when;
 public class BugServiceTests {
 
     @Mock
-    private FeatureRepository featureRepository;
+    private IssueRepository issueRepository;
     @InjectMocks
     private BugServiceImpl bugService;
 
@@ -52,14 +52,14 @@ public class BugServiceTests {
 
         DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        Feature bug1 = TestObjectFactory.createBug();
-        Feature bug2 = TestObjectFactory.createBug();
+        Issue bug1 = TestObjectFactory.createBug();
+        Issue bug2 = TestObjectFactory.createBug();
 
-        List<Feature> bugs = new ArrayList<>();
+        List<Issue> bugs = new ArrayList<>();
         bugs.add(bug1);
         bugs.add(bug2);
 
-        when(featureRepository.findByKeywordsInAndSTypeNameAndSStatusNot(
+        when(issueRepository.findByKeywordsInAndTypeAndStatusNot(
             Collections.singletonList(dashboard.getName()),
                 IssueType.BUG.getName(),
                 IssueStatus.DONE.getName())
@@ -67,18 +67,17 @@ public class BugServiceTests {
 
         List<BugDTO> activeBugsByDashboardName
                 = bugService.getActiveBugsByBoards(Collections.singletonList(dashboard.getName()));
-        verify(featureRepository, times(1))
-                .findByKeywordsInAndSTypeNameAndSStatusNot(
+        verify(issueRepository, times(1))
+            .findByKeywordsInAndTypeAndStatusNot(
                     Collections.singletonList(dashboard.getName()),
                         IssueType.BUG.getName(),
                         IssueStatus.DONE.getName()
                 );
 
-        assertThat(activeBugsByDashboardName.get(0).getId()).isEqualTo(bug1.getsNumber());
+        assertThat(activeBugsByDashboardName.get(0).getId()).isEqualTo(bug1.getNumber());
         assertThat(activeBugsByDashboardName.get(0).getPriority()).isEqualTo(BugPriority.fromName(bug1.getPriority()));
         assertThat(activeBugsByDashboardName.get(0).getStatus()).isNotEqualTo(BugStatus.DONE);
-
-        assertThat(activeBugsByDashboardName.get(1).getId()).isEqualTo(bug2.getsNumber());
+        assertThat(activeBugsByDashboardName.get(1).getId()).isEqualTo(bug2.getNumber());
         assertThat(activeBugsByDashboardName.get(1).getPriority()).isEqualTo(BugPriority.fromName(bug2.getPriority()));
         assertThat(activeBugsByDashboardName.get(1).getStatus()).isNotEqualTo(BugStatus.DONE);
     }

@@ -23,7 +23,8 @@ module.exports = {
             },
             keywords: [
                 'MirrorGate',
-            ]
+            ],
+            collectorId: 'mirrorgate-collectors-jira'
         },
         {
             id: 46093,
@@ -45,7 +46,8 @@ module.exports = {
             },
             keywords: [
                 'MirrorGate',
-            ]
+            ],
+            collectorId: 'mirrorgate-collectors-jira'
         },
         {
             id: 46095,
@@ -67,7 +69,8 @@ module.exports = {
             },
             keywords: [
                 'MirrorGate',
-            ]
+            ],
+            collectorId: 'mirrorgate-collectors-jira'
         },
         {
             id: 46094,
@@ -89,7 +92,8 @@ module.exports = {
             },
             keywords: [
                 'MirrorGate',
-            ]
+            ],
+            collectorId: 'mirrorgate-collectors-jira'
         },
         {
             id: 49140,
@@ -111,7 +115,8 @@ module.exports = {
             },
             keywords: [
                 'MirrorGate',
-            ]
+            ],
+            collectorId: 'mirrorgate-collectors-jira'
         }]
     }
 };

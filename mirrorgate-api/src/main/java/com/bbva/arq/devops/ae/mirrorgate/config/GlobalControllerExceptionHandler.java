@@ -19,7 +19,7 @@ import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardForbiddenException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
-import com.bbva.arq.devops.ae.mirrorgate.exception.FeatureNotFoundException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.IssueNotFoundException;
 import com.bbva.arq.devops.ae.mirrorgate.exception.ReviewsConflictException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +35,7 @@ public class GlobalControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({
         DashboardNotFoundException.class,
-        FeatureNotFoundException.class
+        IssueNotFoundException.class
     })
     @ResponseBody
     public String handleNotFound(Exception ex) {

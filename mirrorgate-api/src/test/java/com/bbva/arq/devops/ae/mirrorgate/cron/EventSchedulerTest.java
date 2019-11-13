@@ -58,7 +58,7 @@ public class EventSchedulerTest {
     @Test
     public void testSchedulerTimestampIsModified() {
 
-        when(eventService.getEventsSinceTimestamp(anyLong())).thenReturn(Arrays.asList(createBuildEvent(),createFeatureEvent()));
+        when(eventService.getEventsSinceTimestamp(anyLong())).thenReturn(Arrays.asList(createBuildEvent(), createIssueEvent()));
         when(eventService.getLastEvent()).thenReturn(null);
         when(eventsHandler.getDashboardsWithSession()).thenReturn(new HashSet<>(Collections.singletonList("123")));
 
@@ -78,12 +78,12 @@ public class EventSchedulerTest {
         return buildEvent;
     }
 
-    private Event createFeatureEvent(){
+    private Event createIssueEvent() {
 
         Event buildEvent = new Event();
 
         buildEvent.setTimestamp(1234567L);
-        buildEvent.setEventType(EventType.FEATURE);
+        buildEvent.setEventType(EventType.ISSUE);
 
         return buildEvent;
     }

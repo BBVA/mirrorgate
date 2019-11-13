@@ -29,9 +29,9 @@ var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 4));
 
 'Removing old issues until: ' + purgeDate;
 
-db.getCollection('feature').remove({
+db.getCollection('issue').remove({
   timestamp: {'$lt' : purgeDate.getTime()},
-  sTypeName: { $nin : [ "Bug", "Epic", "Feature"]},
-  sStatus: "Done",
-  sSprintAssetState: { $ne : 'ACTIVE'}
+  type: { $nin : [ "Bug", "Epic", "Feature", "Story"]},
+  status: "Done",
+  sprintAssetState: { $ne : 'ACTIVE'}
 });
