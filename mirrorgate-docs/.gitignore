@@ -2,4 +2,3 @@ src/vendor
 src/changelog.md
 dist
 node_modules
-package-lock.json
