@@ -27,7 +27,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "browser-sync": "2.26.7",
-    "glob": "7.1.5",
+    "glob": "7.1.6",
     "gulp": "4.0.2",
     "gulp-cachebust": "0.0.11",
     "gulp-clean": "0.4.0",
@@ -45,7 +45,7 @@
     "gulp-uglify-es": "2.0.0",
     "gulp-useref": "4.0.0",
     "jasmine-core": "3.5.0",
-    "jshint": "2.10.2",
+    "jshint": "2.10.3",
     "karma": "4.4.1",
     "karma-coverage": "2.0.1",
     "karma-jasmine": "2.0.1",
@@ -55,11 +55,11 @@
     "lodash": "4.17.15",
     "selenium-standalone": "6.16.0",
     "sinon": "7.5.0",
-    "uglify-js": "3.6.4"
+    "uglify-js": "3.6.9"
   },
   "dependencies": {
     "@webcomponents/html-imports": "1.2.2",
-    "@webcomponents/webcomponentsjs": "2.3.0",
+    "@webcomponents/webcomponentsjs": "2.4.0",
     "bootstrap": "4.3.1",
     "d3": "5.12.0",
     "font-awesome": "4.7.0",
