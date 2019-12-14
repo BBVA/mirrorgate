@@ -36,7 +36,7 @@
     "gulp-filter": "6.0.0",
     "gulp-if": "3.0.0",
     "gulp-jshint": "2.1.0",
-    "gulp-rename": "1.4.0",
+    "gulp-rename": "2.0.0",
     "gulp-rev": "9.0.0",
     "gulp-rev-format": "1.0.5",
     "gulp-rev-replace": "0.4.4",
@@ -53,15 +53,15 @@
     "karma-sinon": "1.0.5",
     "karma-webdriver-launcher": "1.0.7",
     "lodash": "4.17.15",
-    "selenium-standalone": "6.16.0",
+    "selenium-standalone": "6.17.0",
     "sinon": "7.5.0",
-    "uglify-js": "3.6.9"
+    "uglify-js": "3.7.2"
   },
   "dependencies": {
     "@webcomponents/html-imports": "1.2.2",
     "@webcomponents/webcomponentsjs": "2.4.0",
-    "bootstrap": "4.3.1",
-    "d3": "5.12.0",
+    "bootstrap": "4.4.1",
+    "d3": "5.14.2",
     "font-awesome": "4.7.0",
     "jquery": "3.4.1",
     "jquery.dotdotdot": "3.2.3",
