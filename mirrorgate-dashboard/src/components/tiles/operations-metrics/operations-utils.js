@@ -111,6 +111,21 @@ var OperationsUtils = (function() {
             metric.name = 'errorsNumber';
         }
 
+        // Mark AWS Lambda Invocations metric as requestNumber
+        if(metric.name === 'invocations') {
+          metric.name = 'requestsNumber';
+        }
+
+        // Mark AWS Lambda Errors metric as errorsNumber
+        if(metric.name === 'errors') {
+          metric.name = 'errorsNumber';
+        }
+
+        // Mark AWS Lambda Duration metric as responseTime
+        if(metric.name === 'duration') {
+          metric.name = 'responseTime';
+        }
+
         if(metricsMap[metric.name] === undefined) {
           metricsMap[metric.name] = {
             lastValue: 0,

@@ -52,7 +52,7 @@ db.getCollection('dashboards').insertMany([
         "slackTeam": "All",
         "urlAlerts": "alerts",
         "analyticViews": ["1234123"],
-        "operationViews": ["123412"]
+        "operationViews": ["AWS/1234123"]
     },
     {
         "name":"program-increment",
@@ -98,5 +98,15 @@ db.getCollection('dashboards').insertMany([
             "empty",
             "all"
         ]
-    }
+    },
+    {
+        "name":"mirrorgate-operations",
+        "logoUrl":"/mirrorgate/img/logo.png",
+        "type" : "Custom",
+        "columns":[
+          [ "operations-metrics" ]
+        ],
+        "operationViews": ["AWS/1234123"],
+        "infraCost": true
+    },
 ]);

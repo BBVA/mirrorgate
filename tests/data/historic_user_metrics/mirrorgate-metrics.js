@@ -233,7 +233,7 @@ db.getCollection('historic_user_metrics').insertMany([
     "historicType" : "MINUTES",
   },
   {
-    "viewId" : "1234123",
+    "viewId" : "AWS/1234123",
     "identifier" : "AWS/1234123nullAWSinfrastructureCostcollector1",
     "platform" : "AWS",
     "name" : "infrastructureCost",
@@ -244,7 +244,7 @@ db.getCollection('historic_user_metrics').insertMany([
     "historicType" : "HOURS"
   },
   {
-    "viewId" : "1234123",
+    "viewId" : "AWS/1234123",
     "identifier" : "AWS/1234123nullAWSinfrastructureCostcollector1",
     "platform" : "AWS",
     "name" : "infrastructureCost",
@@ -253,5 +253,203 @@ db.getCollection('historic_user_metrics').insertMany([
     "timestamp" : startOfDay,
     "collectorId" : "collector1",
     "historicType" : "DAYS"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSinvocationscollector1",
+    "platform" : "AWS",
+    "name" : "invocations",
+    "value" : 2,
+    "sampleSize": 1,
+    "timestamp" : startOfMinute,
+    "historicType" : "MINUTES",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSinvocationscollector1",
+    "platform" : "AWS",
+    "name" : "invocations",
+    "value" : 45,
+    "sampleSize": 60,
+    "timestamp" : startOfHour,
+    "historicType" : "HOURS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSinvocationscollector1",
+    "platform" : "AWS",
+    "name" : "invocations",
+    "value" : 1096,
+    "sampleSize": 1440,
+    "timestamp" : startOfDay,
+    "historicType" : "DAYS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSerrorscollector1",
+    "platform" : "AWS",
+    "name" : "errors",
+    "value" : 1,
+    "sampleSize": 1,
+    "timestamp" : startOfMinute,
+    "historicType" : "MINUTES",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSerrorscollector1",
+    "platform" : "AWS",
+    "name" : "errors",
+    "value" : 10,
+    "sampleSize": 60,
+    "timestamp" : startOfHour,
+    "historicType" : "HOURS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSerrorscollector1",
+    "platform" : "AWS",
+    "name" : "errors",
+    "value" : 247,
+    "sampleSize": 1440,
+    "timestamp" : startOfDay,
+    "historicType" : "DAYS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSdurationcollector1",
+    "platform" : "AWS",
+    "name" : "duration",
+    "value" : 24.50,
+    "sampleSize": 1,
+    "timestamp" : startOfMinute,
+    "historicType" : "MINUTES",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSdurationcollector1",
+    "platform" : "AWS",
+    "name" : "duration",
+    "value" : 1370.87,
+    "sampleSize": 60,
+    "timestamp" : startOfHour,
+    "historicType" : "HOURS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSdurationcollector1",
+    "platform" : "AWS",
+    "name" : "duration",
+    "value" : 33280.53,
+    "sampleSize": 1440,
+    "timestamp" : startOfDay,
+    "historicType" : "DAYS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSinvocationscollector1",
+    "platform" : "AWS",
+    "name" : "invocations",
+    "value" : 5,
+    "sampleSize": 1,
+    "timestamp" : startOfMinute,
+    "historicType" : "MINUTES",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSinvocationscollector1",
+    "platform" : "AWS",
+    "name" : "invocations",
+    "value" : 248,
+    "sampleSize": 60,
+    "timestamp" : startOfHour,
+    "historicType" : "HOURS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSinvocationscollector1",
+    "platform" : "AWS",
+    "name" : "invocations",
+    "value" : 5952,
+    "sampleSize": 1440,
+    "timestamp" : startOfDay,
+    "historicType" : "DAYS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSerrorscollector1",
+    "platform" : "AWS",
+    "name" : "errors",
+    "value" : 3,
+    "sampleSize": 1,
+    "timestamp" : startOfMinute,
+    "historicType" : "MINUTES",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSerrorscollector1",
+    "platform" : "AWS",
+    "name" : "errors",
+    "value" : 244,
+    "sampleSize": 60,
+    "timestamp" : startOfHour,
+    "historicType" : "HOURS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSerrorscollector1",
+    "platform" : "AWS",
+    "name" : "errors",
+    "value" : 5950,
+    "sampleSize": 1440,
+    "timestamp" : startOfDay,
+    "historicType" : "DAYS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSdurationcollector1",
+    "platform" : "AWS",
+    "name" : "duration",
+    "value" : 8.90,
+    "sampleSize": 1,
+    "timestamp" : startOfMinute,
+    "historicType" : "MINUTES",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSdurationcollector1",
+    "platform" : "AWS",
+    "name" : "duration",
+    "value" : 526.78,
+    "sampleSize": 60,
+    "timestamp" : startOfHour,
+    "historicType" : "HOURS",
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSdurationcollector1",
+    "platform" : "AWS",
+    "name" : "duration",
+    "value" : 12242.72,
+    "sampleSize": 1440,
+    "timestamp" : startOfDay,
+    "historicType" : "DAYS",
+    "collectorId" : "collector1"
   }
 ]);

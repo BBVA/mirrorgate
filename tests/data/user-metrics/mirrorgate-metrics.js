@@ -128,5 +128,65 @@ db.getCollection('user-metrics').insertMany([
     "value" : 300,
     "timestamp" : startOfDay,
     "collectorId" : "collector1",
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSinvocationscollector1",
+    "platform" : "AWS",
+    "name" : "invocations",
+    "value" : 2,
+    "sampleSize": 1,
+    "timestamp" : startOfHour,
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSerrorscollector1",
+    "platform" : "AWS",
+    "name" : "errors",
+    "value" : 1,
+    "sampleSize": 1,
+    "timestamp" : startOfHour,
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda1",
+    "identifier": "AWS/1234123/lambda1AWSdurationcollector1",
+    "platform" : "AWS",
+    "name" : "duration",
+    "value" : 24.50,
+    "sampleSize": 1,
+    "timestamp" : startOfHour,
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSinvocationscollector1",
+    "platform" : "AWS",
+    "name" : "invocations",
+    "value" : 5,
+    "sampleSize": 1,
+    "timestamp" : startOfHour,
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSerrorscollector1",
+    "platform" : "AWS",
+    "name" : "errors",
+    "value" : 3,
+    "sampleSize": 1,
+    "timestamp" : startOfHour,
+    "collectorId" : "collector1"
+  },
+  {
+    "viewId" : "AWS/1234123/lambda2",
+    "identifier": "AWS/1234123/lambda2AWSdurationcollector1",
+    "platform" : "AWS",
+    "name" : "duration",
+    "value" : 8.90,
+    "sampleSize": 1,
+    "timestamp" : startOfHour,
+    "collectorId" : "collector1"
   }
 ]);
