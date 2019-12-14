@@ -23,6 +23,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Dashboard info model
@@ -289,10 +290,7 @@ public class Dashboard extends BaseIdModel {
     }
 
     public Float getResponseTimeAlertingLevelWarning() {
-        if(responseTimeAlertingLevelWarning == null){
-            return .3f;
-        }
-        return responseTimeAlertingLevelWarning;
+        return Objects.requireNonNullElse(responseTimeAlertingLevelWarning, .3f);
     }
 
     public Dashboard setResponseTimeAlertingLevelWarning(Float responseTimeAlertingLevelWarning) {
@@ -301,10 +299,7 @@ public class Dashboard extends BaseIdModel {
     }
 
     public Float getResponseTimeAlertingLevelError() {
-        if(responseTimeAlertingLevelError == null){
-            return .5f;
-        }
-        return responseTimeAlertingLevelError;
+        return Objects.requireNonNullElse(responseTimeAlertingLevelError, .5f);
     }
 
     public Dashboard setResponseTimeAlertingLevelError(Float responseTimeAlertingLevelError) {
@@ -313,10 +308,7 @@ public class Dashboard extends BaseIdModel {
     }
 
     public Float getErrorsRateAlertingLevelWarning() {
-        if(errorsRateAlertingLevelWarning == null){
-            return .3f;
-        }
-        return errorsRateAlertingLevelWarning;
+        return Objects.requireNonNullElse(errorsRateAlertingLevelWarning, .3f);
     }
 
     public Dashboard setErrorsRateAlertingLevelWarning(Float errorsRateAlertingLevelWarning) {
@@ -325,10 +317,7 @@ public class Dashboard extends BaseIdModel {
     }
 
     public Float getErrorsRateAlertingLevelError() {
-        if(errorsRateAlertingLevelError == null){
-            return .5f;
-        }
-        return errorsRateAlertingLevelError;
+        return Objects.requireNonNullElse(errorsRateAlertingLevelError, .5f);
     }
 
     public Dashboard setErrorsRateAlertingLevelError(Float errorsRateAlertingLevelError) {

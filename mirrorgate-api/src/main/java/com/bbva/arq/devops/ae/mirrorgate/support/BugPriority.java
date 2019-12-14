@@ -25,7 +25,7 @@ public enum BugPriority {
     MEDIUM("Medium"),
     MINOR("Minor");
 
-    private static final Map<String, BugPriority> NAME_MAP = new HashMap<String, BugPriority>() {
+    private static final Map<String, BugPriority> NAME_MAP = new HashMap<>() {
         {
             for (BugPriority st : BugPriority.values()) {
                 put(st.getName(), st);

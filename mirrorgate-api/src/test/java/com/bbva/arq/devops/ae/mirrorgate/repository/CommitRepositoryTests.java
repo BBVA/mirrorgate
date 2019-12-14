@@ -56,13 +56,13 @@ public class CommitRepositoryTests {
         int timestamp1 = ONE_DAY_AGO - (60 * 60);
         int timestamp2 = ONE_DAY_AGO - (2 * 60 * 60);
 
-        HashMap<String, Integer> branches1 = new HashMap<String, Integer>(){
+        HashMap<String, Integer> branches1 = new HashMap<>() {
             {
                 put("refs/remotes/origin/master", ONE_DAY_AGO);
             }
         };
 
-        HashMap<String, Integer> branches2 = new HashMap<String, Integer>(){
+        HashMap<String, Integer> branches2 = new HashMap<>() {
             {
                 put("refs/remotes/origin/master", ONE_DAY_AGO);
             }
@@ -89,13 +89,13 @@ public class CommitRepositoryTests {
     public void getSecondsToMasterByRepoPathListTest() {
         int timestamp = FIFTEEN_DAYS_AGO - (60 * 60);
 
-        HashMap<String, Integer> branches1 = new HashMap<String, Integer>(){
+        HashMap<String, Integer> branches1 = new HashMap<>() {
             {
                 put("refs/remotes/origin/master", ONE_DAY_AGO);
             }
         };
 
-        HashMap<String, Integer> branches2 = new HashMap<String, Integer>(){
+        HashMap<String, Integer> branches2 = new HashMap<>() {
             {
                 put("refs/remotes/origin/master", SEVEN_DAYS_AGO);
             }

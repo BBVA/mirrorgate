@@ -49,7 +49,7 @@ public class CollectorController {
     }
 
     @RequestMapping(value = "/api/collectors/{id}", method = PUT, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity setLastExecutionDate(final @PathVariable("id") String id, final @RequestBody Date executionDate) {
+    public ResponseEntity<?> setLastExecutionDate(final @PathVariable("id") String id, final @RequestBody Date executionDate) {
         collectorService.saveLastExecutionDate(id, executionDate);
         return ResponseEntity.ok().build();
     }

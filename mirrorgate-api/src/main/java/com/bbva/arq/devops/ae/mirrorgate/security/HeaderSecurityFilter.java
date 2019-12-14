@@ -42,7 +42,7 @@ public class HeaderSecurityFilter extends OncePerRequestFilter {
         throws ServletException, IOException {
 
         List<String> headerNames = new ArrayList<>();
-        Enumeration headers = Objects.requireNonNull(request).getHeaderNames();
+        Enumeration<?> headers = Objects.requireNonNull(request).getHeaderNames();
 
         while (headers.hasMoreElements()) {
             headerNames.add((String) headers.nextElement());

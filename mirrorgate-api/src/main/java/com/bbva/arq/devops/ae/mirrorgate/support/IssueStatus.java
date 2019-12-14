@@ -28,8 +28,8 @@ public enum IssueStatus {
     WAITING("Waiting"),
     IMPEDED("Impeded");
 
-    private static final Map<String, IssueStatus> NAME_MAP = new HashMap<String, IssueStatus>(){{
-        for(IssueStatus st : IssueStatus.values()) {
+    private static final Map<String, IssueStatus> NAME_MAP = new HashMap<>() {{
+        for (IssueStatus st : IssueStatus.values()) {
             put(st.getName(), st);
         }
     }};

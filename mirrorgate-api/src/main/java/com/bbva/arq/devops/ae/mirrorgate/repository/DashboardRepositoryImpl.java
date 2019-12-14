@@ -31,7 +31,7 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +53,7 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
     @Autowired
     private GridFsTemplate gridFsTemplate;
 
-    private static final Map<String, String> DASHBOARD_FIELDS = new HashMap<String, String>() {{
+    private static final Map<String, String> DASHBOARD_FIELDS = new HashMap<>() {{
         for (Field f : Dashboard.class.getDeclaredFields()) {
             put(f.getName(), "$" + f.getName());
         }
@@ -82,7 +82,7 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         Aggregation aggregation = newAggregation(
             sort(Sort.by(Sort.Direction.DESC, "lastModification")),
             firstDashboardFields(group("name")),
-            match(Criteria.where("status").nin(Arrays.asList(status))),
+            match(Criteria.where("status").nin(Collections.singletonList(status))),
             project(DASHBOARD_FIELDS.keySet().toArray(new String[]{})).andExclude("_id")
         );
 

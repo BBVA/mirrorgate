@@ -23,7 +23,7 @@ public enum BugStatus {
 
     IN_PROGRESS("In Progress"), DONE("Done"), BACKLOG("Backlog"), WAITING("Waiting"), IMPEDED("Impeded");
 
-    private static final Map<String, BugStatus> NAME_MAP = new HashMap<String, BugStatus>() {
+    private static final Map<String, BugStatus> NAME_MAP = new HashMap<>() {
         {
             for (BugStatus st : BugStatus.values()) {
                 put(st.getName(), st);

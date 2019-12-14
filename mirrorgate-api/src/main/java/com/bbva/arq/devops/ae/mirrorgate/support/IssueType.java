@@ -26,7 +26,7 @@ public enum IssueType {
     BUG("Bug"),
     TASK("Task");
 
-    private static final Map<String, IssueStatus> NAME_MAP = new HashMap<String, IssueStatus>() {
+    private static final Map<String, IssueStatus> NAME_MAP = new HashMap<>() {
         {
             for (IssueStatus st : IssueStatus.values()) {
                 put(st.getName(), st);

@@ -26,7 +26,7 @@ public enum IssuePriority {
     LOW("Low"),
     LOWEST("Lowest");
 
-    private static final Map<String, IssuePriority> NAME_MAP = new HashMap<String, IssuePriority>() {
+    private static final Map<String, IssuePriority> NAME_MAP = new HashMap<>() {
         {
             for (IssuePriority st : IssuePriority.values()) {
                 put(st.getName(), st);

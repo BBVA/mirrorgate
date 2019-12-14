@@ -45,7 +45,7 @@ class MapperTestingSupport {
             if (method.getName().startsWith("set")) {
                 String getter = method.getName().replaceFirst("set", "get");
                 if(o.getClass().getDeclaredMethod(getter).invoke(o) == null) {
-                    Class argumentType = method.getParameterTypes()[0];
+                    Class<?> argumentType = method.getParameterTypes()[0];
                     if (argumentType == String.class) {
                         method.invoke(o, String.valueOf(count++));
                     } else if (argumentType == Integer.class) {

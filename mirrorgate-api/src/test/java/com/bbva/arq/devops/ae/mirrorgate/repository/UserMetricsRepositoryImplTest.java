@@ -61,7 +61,7 @@ public class UserMetricsRepositoryImplTest {
 
         List<UserMetric> userMetrics = userMetricsRepository.findAllStartingWithViewId(viewIds);
 
-        assertEquals(new ArrayList(), userMetrics);
+        assertEquals(Collections.emptyList(), userMetrics);
     }
 
     @Test
