@@ -248,7 +248,7 @@
           })
           .on('click', function (d) {
             var data = d.data;
-            data && data.url && window.open(data.url, "IssueUrl");
+            data && data.url && window.open(data.url);
           })
           .attr("d", arc)
           .attr("class", storyClassBuilder('status-'));

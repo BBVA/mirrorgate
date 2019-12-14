@@ -260,7 +260,7 @@
           })
           .on('click', function (d) {
             var data = d.data && d.data.data;
-            data && window.open(data.buildUrl, "JenkinsBuild");
+            data && window.open(data.buildUrl);
           })
           .attr('d', arc)
           .attr('class', classBuilder)

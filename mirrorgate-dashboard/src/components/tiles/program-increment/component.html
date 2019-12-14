@@ -283,7 +283,7 @@
             .append('path')
             .on('mouseenter', mouseEnterHandler)
             .on('click', function (d) {
-              d.data.url && window.open(d.data.url, "IssueUrl");
+              d.data.url && window.open(d.data.url);
             })
             .attr('d', arc)
             .attr('class', storyClassBuilder('status-'));
