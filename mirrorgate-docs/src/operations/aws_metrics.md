@@ -9,6 +9,7 @@ Since this collector is intended to gather information from different AWS Cloudw
 **delegated-cloudwatch-metrics-role**
 
 with the following trust relationship:
+
 ```json
 {
   "Version": "2012-10-17",
@@ -26,7 +27,9 @@ with the following trust relationship:
   ]
 }
 ```
+
 and a policy that allows that role to access the following resources
+
 ```json
 {
     "Version": "2012-10-17",
@@ -38,7 +41,8 @@ and a policy that allows that role to access the following resources
                 "cloudwatch:getMetricStatistics",
                 "elasticloadbalancing:DescribeLoadBalancers",
                 "ce:GetCostAndUsage",
-                "elasticloadbalancing:DescribeTargetGroups"
+                "elasticloadbalancing:DescribeTargetGroups",
+                "lambda:ListFunctions"
             ],
             "Resource": [
                 "*"
@@ -47,8 +51,10 @@ and a policy that allows that role to access the following resources
     ]
 }
 ```
+
 Note that the permissions can be fine grained to allow only queries to the methods and resources employed.
 This allows the user or role used for running the code to impersonate a user in the receiving account and perform the queries to Cloudwatch.
+
 - _{AWS_Account}_ : Refers to the Amazon account number from where the code of the AWS collector is being executed.
 - _{role}_: Refers to the Amazon role used by the collector.
 - _{UserId}_: Refers to the Amazon user id used by a user that wants to test the requests that the collector makes.
@@ -57,8 +63,10 @@ This allows the user or role used for running the code to impersonate a user in 
 
 The AWS collector will filter the results and will only take the ones that come with the *AWS/* prefix. The expected info from the GET endpoint
 should follow this patterns:
+
+```text
+  AWS/{AWS_Account}
+  AWS/{AWS_Account}/{LB_name}
 ```
-AWS/{AWS_Account}
-AWS/{AWS_Account}/{LB_name}
-```
+
 where `{LB_name}` is the name of a Load Balancer (Classic or Application LB).
