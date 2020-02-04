@@ -22,3 +22,4 @@ load('./remove_duplicated_issues.js');
 load('./remove_old_commits.js');
 load('./remove_old_user_metrics.js');
 load('./remove_old_historic_user_metrics.js');
+load('./remove_old_dashboards.js');
