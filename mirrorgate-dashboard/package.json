@@ -54,8 +54,8 @@
     "karma-webdriver-launcher": "1.0.7",
     "lodash": "4.17.15",
     "selenium-standalone": "6.17.0",
-    "sinon": "8.1.0",
-    "uglify-js": "3.7.6"
+    "sinon": "8.1.1",
+    "uglify-js": "3.7.7"
   },
   "dependencies": {
     "@webcomponents/html-imports": "1.2.2",
@@ -67,7 +67,7 @@
     "jquery.dotdotdot": "3.2.3",
     "moment": "2.24.0",
     "moment-weekday-calc": "1.1.4",
-    "popper.js": "1.16.0",
+    "popper.js": "1.16.1",
     "resize-observer-polyfill": "1.5.1",
     "rivets": "0.9.6",
     "roboto-fontface": "0.10.0",
