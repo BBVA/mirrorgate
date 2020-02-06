@@ -81,7 +81,7 @@ export class ListComponent {
   }
 
   openDashboard(dashboard: Dashboard) {
-    document.location.href = this.configService.getConfig('MIRRORGATE_API_URL') + '?board=' + encodeURIComponent(dashboard.name);
+    document.location.href = this.configService.getConfig('MIRRORGATE_DASHBOARD_URL') + '?board=' + encodeURIComponent(dashboard.name);
   }
 
   searchDashboard(value?) {
