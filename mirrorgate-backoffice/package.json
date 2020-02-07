@@ -27,6 +27,7 @@
     "lodash-es": "4.17.15",
     "popper.js": "1.16.1",
     "roboto-fontface": "0.10.0",
+    "tslib": "1.10.0",
     "web-animations-js": "2.3.2",
     "zone.js": "0.10.2"
   },
