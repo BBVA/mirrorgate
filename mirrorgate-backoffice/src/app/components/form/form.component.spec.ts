@@ -33,7 +33,8 @@ import { MockConfigService } from '../../../../test/mocks/services/mock.config.s
 import { MockSlackService } from '../../../../test/mocks/services/mock.slack.service';
 
 import { FormComponent } from './form.component';
-import { MatChipsModule, MatAutocompleteModule } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 import { DragulaModule } from 'ng2-dragula';
 import { SlackService } from '../../services/slack.service';
 

@@ -15,7 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import { ElementRef, Renderer, ViewChild } from '@angular/core';
+import { ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -47,7 +47,7 @@ export class ListComponent {
   constructor(
     private dashboardsService: DashboardsService,
     private configService: ConfigService,
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -65,10 +65,7 @@ export class ListComponent {
       this.filterBoards = boards.filter((b) => recentIds.indexOf(b.name) < 0);
       this.searchDashboard();
     });
-    this.renderer.invokeElementMethod(
-      this.searchInputRef.nativeElement,
-      'focus'
-    );
+    this.searchInputRef.nativeElement.focus();
   }
 
   getDashboards(): Observable<Dashboard[]> {

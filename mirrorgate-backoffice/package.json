@@ -9,16 +9,16 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@angular/animations": "8.2.14",
-    "@angular/cdk": "8.2.3",
-    "@angular/common": "8.2.14",
-    "@angular/compiler": "8.2.14",
-    "@angular/core": "8.2.14",
-    "@angular/forms": "8.2.14",
-    "@angular/material": "8.2.3",
-    "@angular/platform-browser": "8.2.14",
-    "@angular/platform-browser-dynamic": "8.2.14",
-    "@angular/router": "8.2.14",
+    "@angular/animations": "9.0.0",
+    "@angular/cdk": "9.0.0",
+    "@angular/common": "9.0.0",
+    "@angular/compiler": "9.0.0",
+    "@angular/core": "9.0.0",
+    "@angular/forms": "9.0.0",
+    "@angular/material": "9.0.0",
+    "@angular/platform-browser": "9.0.0",
+    "@angular/platform-browser-dynamic": "9.0.0",
+    "@angular/router": "9.0.0",
     "@fortawesome/fontawesome-free": "5.12.1",
     "bootstrap": "4.4.1",
     "classlist.js": "1.1.20150312",
@@ -32,9 +32,9 @@
     "zone.js": "0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.803.25",
-    "@angular/cli": "8.3.25",
-    "@angular/compiler-cli": "8.2.14",
+    "@angular-devkit/build-angular": "0.900.1",
+    "@angular/cli": "9.0.1",
+    "@angular/compiler-cli": "9.0.0",
     "@types/jasmine": "3.5.3",
     "@types/lodash-es": "4.17.3",
     "@types/node": "13.7.0",
@@ -49,7 +49,7 @@
     "ng2-dragula": "2.1.1",
     "rimraf": "3.0.1",
     "rxjs": "6.5.4",
-    "typescript": "3.5.3"
+    "typescript": "3.7.5"
   },
   "scripts": {
     "ng": "ng",
@@ -60,6 +60,7 @@
     "serve": "ng serve -c local",
     "serve-mocks": "http-server test/mocks",
     "test": "ng test --codeCoverage=true --watch=false --browsers=ChromeHeadlessNoSandbox",
-    "e2e": "echo ToDo"
+    "e2e": "echo ToDo",
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   }
 }

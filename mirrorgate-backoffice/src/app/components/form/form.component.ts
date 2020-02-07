@@ -28,11 +28,8 @@ import { ConfigService } from '../../services/config.service';
 import { DragulaService } from 'ng2-dragula';
 
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
-import {
-  MatChipInputEvent,
-  MatAutocompleteSelectedEvent,
-  MatAutocomplete
-} from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { FormControl } from '@angular/forms';
@@ -93,8 +90,8 @@ export class FormComponent {
   dashboardFilteredList: Observable<string[]>;
   aggregatedDashboardsCtrl = new FormControl();
 
-  @ViewChild('aggregatedDashboardsInput', { static: false }) aggregatedDashboardsInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
+  @ViewChild('aggregatedDashboardsInput') aggregatedDashboardsInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   readonly MAX_COLUMNS = 5;
 
