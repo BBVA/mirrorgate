@@ -9,33 +9,35 @@ These Scripts aim to help MirrorGate development and deployment helping to conso
 * buildAll.sh: build all project modules at the same time.
 * buildAndRun.sh: build and run all project modules at the same time.
 * mongoDump.sh: this utility create a dump of the database with current date extension only if it is executed in a secondary node of a replica set environment. Very useful for maintaining a backup strategy. It needs to set following environment variables:
-  *  MONGO_HOST: mongo host (127.0.0.1 by default).
-  *  MONGO_PORT: mongo port (27017 by default).
-  *  MONGO_AUTHDB: mongo database to be dumped.
-  *  MONGO_USER: mongo username with Read Access to MONGO_AUTHDB.
-  *  MONGO_PASS: mongo password for MONGO_USER.
+  * MONGO_HOST: mongo host (127.0.0.1 by default).
+  * MONGO_PORT: mongo port (27017 by default).
+  * MONGO_AUTHDB: mongo database to be dumped.
+  * MONGO_USER: mongo username with Read Access to MONGO_AUTHDB.
+  * MONGO_PASS: mongo password for MONGO_USER.
 
   It also allows two parameters for uploading resulted dump to a S3 Bucket of AWS, i.e.
 
   ```sh
-  ./mongoDump.sh --secrets-file {{ secrets_file }} --bucket {{ backups_bucket }}
+    ./mongoDump.sh --secrets-file {{ secrets_file }} --bucket {{ backups_bucket }}
   ```
+
 * mongoCleanUp.sh: this utility run clean up mongo scripts only if it is executed in a secondary node of a replica set environment. Environment variables:
-  *  MONGO_HOST: mongo host (127.0.0.1 by default).
-  *  MONGO_PORT: mongo port (27017 by default).
-  *  MONGO_AUTHDB: mongo database to be dumped.
-  *  MONGO_USER: mongo username with Read Access to MONGO_AUTHDB.
-  *  MONGO_PASS: mongo password for MONGO_USER.
+  * MONGO_HOST: mongo host (127.0.0.1 by default).
+  * MONGO_PORT: mongo port (27017 by default).
+  * MONGO_AUTHDB: mongo database to be dumped.
+  * MONGO_USER: mongo username with Read Access to MONGO_AUTHDB.
+  * MONGO_PASS: mongo password for MONGO_USER.
 
-### Mongo Scripts
+## Mongo Scripts
 
-* remove_old_events.js: remove events documents older than 1 day from database.
-* remove_old_issues.js: remove unnecessary issues older than 3 months from database.
-* remove_old_not_latest_builds.js: remove not latest builds documents older than 3 months from database.
-* remove_old_commits.js: remove commits with date of merge to master branch older than 3 months from database.
-* remove_old_user_metrics.js: remove user metrics older than 3 months from database.
-* remove_old_historic_user_metrics.js: remove historic user metrics older than 3 months from database.
-* clean_mirrorgate_db.js: run previous scripts to clean mirrorgate database from old documents.
+* **remove_old_commits.js**: remove commits with date of merge to master branch older than 3 months from database.
+* **remove_old_dashboards.js**: remove dashboard not used in the last year.
+* **remove_old_events.js**: remove events documents older than 1 day from database.
+* **remove_old_historic_user_metrics.js**: remove historic user metrics older than 3 months from database.
+* **remove_old_issues.js**: remove unnecessary issues older than 3 months from database.
+* **remove_old_not_latest_builds.js**: remove not latest builds documents older than 3 months from database.
+* **remove_old_user_metrics.js**: remove user metrics older than 3 months from database.
+* **clean_mirrorgate_db.js**: run previous scripts to clean mirrorgate database from old documents.
 
 # Contributing
 

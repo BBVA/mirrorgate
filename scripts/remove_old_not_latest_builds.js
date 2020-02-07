@@ -16,12 +16,12 @@
 
 var db;
 
-if(typeof mongo_user == "undefined"){
+if (typeof mongo_user == 'undefined') {
     var conn = new Mongo();
     db = conn.getDB(mongo_authdb);
 } else {
-    db = connect(mongo_host + ":" + mongo_port + "/" + mongo_authdb);
-    db.auth(mongo_user,mongo_pass);
+    db = connect(mongo_host + ':' + mongo_port + '/' + mongo_authdb);
+    db.auth(mongo_user, mongo_pass);
     db = db.getSiblingDB(mongo_authdb);
 }
 
@@ -30,6 +30,6 @@ var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 3));
 'Removing old builds until: ' + purgeDate;
 
 db.getCollection('builds').remove({
-  timestamp: {'$lt' : purgeDate.getTime()},
-  latest: {$ne: true}
+    timestamp: { $lt: purgeDate.getTime() },
+    latest: { $ne: true }
 });

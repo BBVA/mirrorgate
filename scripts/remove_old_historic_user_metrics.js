@@ -16,33 +16,38 @@
 
 var db;
 
-if(typeof mongo_user == "undefined"){
+if (typeof mongo_user == 'undefined') {
     var conn = new Mongo();
     db = conn.getDB(mongo_authdb);
 } else {
-    db = connect(mongo_host + ":" + mongo_port + "/" + mongo_authdb);
-    db.auth(mongo_user,mongo_pass);
+    db = connect(mongo_host + ':' + mongo_port + '/' + mongo_authdb);
+    db.auth(mongo_user, mongo_pass);
     db = db.getSiblingDB(mongo_authdb);
 }
 
-var TWO_MONTHS_AGO_DATE = new Date(new Date().setMonth(new Date().getMonth() - 2));
+var TWO_MONTHS_AGO_DATE = new Date(
+    new Date().setMonth(new Date().getMonth() - 2)
+);
 var TWO_DAYS_AGO_DATE = new Date(new Date().setDate(new Date().getDate() - 2));
-var TWO_HOURS_AGO_DATE = new Date(new Date().setHours(new Date().getHours() - 2));
+var TWO_HOURS_AGO_DATE = new Date(
+    new Date().setHours(new Date().getHours() - 2)
+);
 
 'Removing old historic user metrics of type DAYS until: ' + TWO_MONTHS_AGO_DATE;
 db.getCollection('historic_user_metrics').remove({
-  timestamp: {'$lt' : TWO_MONTHS_AGO_DATE.getTime()},
-  historicType: 'DAYS'
+    timestamp: { $lt: TWO_MONTHS_AGO_DATE.getTime() },
+    historicType: 'DAYS'
 });
 
 'Removing old historic user metrics of type HOURS until: ' + TWO_DAYS_AGO_DATE;
 db.getCollection('historic_user_metrics').remove({
-  timestamp: {'$lt' : TWO_DAYS_AGO_DATE.getTime()},
-  historicType: 'HOURS'
+    timestamp: { $lt: TWO_DAYS_AGO_DATE.getTime() },
+    historicType: 'HOURS'
 });
 
-'Removing old historic user metrics of type MINUTES until: ' + TWO_HOURS_AGO_DATE;
+'Removing old historic user metrics of type MINUTES until: ' +
+    TWO_HOURS_AGO_DATE;
 db.getCollection('historic_user_metrics').remove({
-  timestamp: {'$lt' : TWO_HOURS_AGO_DATE.getTime()},
-  historicType: 'MINUTES'
+    timestamp: { $lt: TWO_HOURS_AGO_DATE.getTime() },
+    historicType: 'MINUTES'
 });

@@ -16,30 +16,40 @@
 
 var db;
 
-if(typeof mongo_user == "undefined"){
+if (typeof mongo_user == 'undefined') {
     var conn = new Mongo();
     db = conn.getDB(mongo_authdb);
 } else {
-    db = connect(mongo_host + ":" + mongo_port + "/" + mongo_authdb);
-    db.auth(mongo_user,mongo_pass);
+    db = connect(mongo_host + ':' + mongo_port + '/' + mongo_authdb);
+    db.auth(mongo_user, mongo_pass);
     db = db.getSiblingDB(mongo_authdb);
 }
 
-db.getCollection('issue').aggregate([
-    {$group: {
-        _id: {issueId: "$issueId"},
-        uniqueIds: {$addToSet: "$_id"},
-        timestamp: {$addToSet: "$timestamp"},
-        last: { $last: "$timestamp" },
-        count: {$sum: 1}
+db.getCollection('issue')
+    .aggregate(
+        [
+            {
+                $group: {
+                    _id: { issueId: '$issueId' },
+                    uniqueIds: { $addToSet: '$_id' },
+                    timestamp: { $addToSet: '$timestamp' },
+                    last: { $last: '$timestamp' },
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $match: {
+                    count: { $gt: 1 }
+                }
+            }
+        ],
+        {
+            allowDiskUse: true
         }
-    },
-    {$match: {
-        count: {"$gt": 1}
-        }
-    }
-], {
-    allowDiskUse: true
-}).forEach(function(doc){
-    db.getCollection('issue').remove({"issueId": doc._id.issueId, "timestamp": { $ne : doc.last}});
-});
+    )
+    .forEach(function(doc) {
+        db.getCollection('issue').remove({
+            issueId: doc._id.issueId,
+            timestamp: { $ne: doc.last }
+        });
+    });

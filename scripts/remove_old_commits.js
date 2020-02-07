@@ -16,20 +16,20 @@
 
 var db;
 
-if(typeof mongo_user == "undefined"){
+if (typeof mongo_user == 'undefined') {
     var conn = new Mongo();
     db = conn.getDB(mongo_authdb);
 } else {
-    db = connect(mongo_host + ":" + mongo_port + "/" + mongo_authdb);
-    db.auth(mongo_user,mongo_pass);
+    db = connect(mongo_host + ':' + mongo_port + '/' + mongo_authdb);
+    db.auth(mongo_user, mongo_pass);
     db = db.getSiblingDB(mongo_authdb);
 }
 
 var purgeDate = new Date(new Date().setMonth(new Date().getMonth() - 3));
-var timestamp = Math.round(purgeDate.getTime()/1000);
+var timestamp = Math.round(purgeDate.getTime() / 1000);
 
 'Removing old commits until: ' + purgeDate;
 
 db.getCollection('commits').remove({
-    "branches.refs/remotes/origin/master": {'$lt' : timestamp}
-})
+    'branches.refs/remotes/origin/master': { $lt: timestamp }
+});
