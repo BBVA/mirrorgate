@@ -39,7 +39,7 @@ describe('MarketsController', () => {
     }
 
     controller.observable.attach((response) => {
-      expect(_.isEqual(response.apps, apps)).toBe(true);
+      expect(response.apps).toEqual(apps);
       done();
     });
   });

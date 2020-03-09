@@ -133,10 +133,10 @@ var BaseComponent = (function() {
 var MGComponent = function (spec) {
 
   function findTemplate(node) {
-    var childs = node.children;
-    for(var i = 0; i < childs.length; i++) {
-      if(childs[i].tagName === 'TEMPLATE') {
-        return childs[i];
+    var children = node.children;
+    for(var i = 0; i < children.length; i++) {
+      if(children[i].tagName === 'TEMPLATE') {
+        return children[i];
       }
     }
     return node.querySelector('template');

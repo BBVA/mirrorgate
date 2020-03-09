@@ -56,7 +56,7 @@ function genericTileComponentTest(type, contentProveSelector, focus) {
           this.removeEventListener('dashboard-updated', handler);
           expect(e.detail.status).not.toBe('server-error');
           done();
-        };
+        }
 
         createTestComponent(type).then(function (component) {
           component.addEventListener('dashboard-updated', handler);
@@ -69,7 +69,7 @@ function genericTileComponentTest(type, contentProveSelector, focus) {
           this.removeEventListener('dashboard-updated', handler);
           expect(e.detail.status).toBe('server-error');
           done();
-        };
+        }
 
         createTestComponent(type).then(function (component) {
           component.addEventListener('dashboard-updated', handler);

@@ -50,7 +50,7 @@ describe('TeamController', () => {
     }
 
     controller.observable.attach((response) => {
-      expect(_.isEqual(response.currentSprint, sprint)).toBe(true);
+      expect(response.currentSprint).toEqual(sprint);
       done();
     });
   });
