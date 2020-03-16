@@ -31,7 +31,7 @@
     "gulp": "4.0.2",
     "gulp-cachebust": "0.0.11",
     "gulp-clean": "0.4.0",
-    "gulp-clean-css": "4.2.0",
+    "gulp-clean-css": "4.3.0",
     "gulp-cli": "2.2.0",
     "gulp-filter": "6.0.0",
     "gulp-if": "3.0.0",
@@ -54,7 +54,7 @@
     "karma-webdriver-launcher": "1.0.7",
     "lodash": "4.17.15",
     "selenium-standalone": "6.17.0",
-    "sinon": "9.0.0",
+    "sinon": "9.0.1",
     "uglify-js": "3.8.0"
   },
   "dependencies": {
