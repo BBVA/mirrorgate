@@ -3,17 +3,6 @@
   "version": "0.0.1",
   "description": "Dashboard of MirrorGate project",
   "main": "index.js",
-  "scripts": {
-    "build": "gulp build",
-    "dist": "gulp dist",
-    "serve": "gulp serve",
-    "start": "npm run serve",
-    "test": "gulp test",
-    "test:local": "gulp test:local",
-    "test:watch": "gulp test:watch",
-    "postinstall": "java -version && selenium-standalone install || true",
-    "watch": "gulp build:watch"
-  },
   "keywords": [
     "Dashboard",
     "BBVA",
@@ -47,6 +36,7 @@
     "jasmine-core": "3.5.0",
     "jshint": "2.11.0",
     "karma": "4.4.1",
+    "karma-chrome-launcher": "3.1.0",
     "karma-coverage": "2.0.1",
     "karma-jasmine": "3.1.1",
     "karma-read-json": "1.1.0",
@@ -73,5 +63,17 @@
     "roboto-fontface": "0.10.0",
     "sightglass": "0.2.6",
     "typeahead.js": "0.11.1"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "dist": "gulp dist",
+    "serve": "gulp serve",
+    "start": "npm run serve",
+    "test": "gulp test",
+    "test:allBrowsers": "gulp test:allBrowsers",
+    "test:watch": "gulp test:watch",
+    "test:withSelenium": "gulp test:withSelenium",
+    "postinstall": "java -version && selenium-standalone install || true",
+    "watch": "gulp build:watch"
   }
 }

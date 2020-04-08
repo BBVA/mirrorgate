@@ -194,21 +194,37 @@ gulp.task('serve:noclean', gulp.series(':build', serve, 'watch:noclean'));
 gulp.task('test', (done) => {
   server = new Server({
     configFile: __dirname + '/karma.conf.js',
+  }, done);
+  server.start();
+});
+
+gulp.task('test:allBrowsers', (done) => {
+  server = new Server({
+    configFile: __dirname + '/karma.conf.js',
+    browsers: ['chrome', 'firefox']
+  }, done);
+  server.start();
+});
+
+gulp.task('test:watch', (done) => {
+  server = new Server({
+    singleRun: false,
+    autoWatch: true,
+    configFile: __dirname + '/karma.conf.js',
+    browsers: ['chrome']
+  }, done);
+  server.start();
+});
+
+gulp.task('test:coverage', (done) => {
+  server = new Server({
+    configFile: __dirname + '/karma.conf.js',
     reporters: ['progress', 'coverage'],
     preprocessors: {
       'src/js/**/*.js': ['coverage'],
       'src/components/**/*.js': ['coverage']
     },
-    coverageReporter: {type: 'html', dir: 'coverage/'}
-  }, done);
-  server.start();
-});
-
-gulp.task(':test:watch', (done) => {
-  server = new Server({
-    singleRun: false,
-    autoWatch: true,
-    configFile: __dirname + '/karma.conf.js',
+    coverageReporter: {type: 'html', dir: 'coverage/'},
   }, done);
   server.start();
 });
@@ -229,10 +245,9 @@ function endSelenium(done) {
   }
 }
 
-gulp.task('test:local', gulp.series(startSelenium, 'build', 'test', endSelenium));
-gulp.task('test:watch', gulp.series(startSelenium, 'build', ':test:watch', endSelenium));
+gulp.task('test:withSelenium', gulp.series(startSelenium, 'build', 'test:allBrowsers', endSelenium));
 
-gulp.task('default', gulp.series('build', 'test:local'));
+gulp.task('default', gulp.series('build', 'test'));
 
 function getVersionId() {
   let version = new Date().toISOString();

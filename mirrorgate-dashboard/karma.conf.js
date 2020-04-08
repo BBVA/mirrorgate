@@ -89,6 +89,7 @@ module.exports = function(config) {
     // karma server port
     port: 9876,
 
+    // karma server hostname
     hostname: process.env.HOSTNAME || 'localhost',
 
 
@@ -105,7 +106,7 @@ module.exports = function(config) {
     autoWatch: false,
 
 
-    // custome launch for WebDriver
+    // custom launchers for WebDriver
     customLaunchers: {
       'chrome': {
         base: 'WebDriver',
@@ -128,19 +129,18 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['chrome'],
+    browsers: ['ChromeHeadless'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: true,
 
+
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity,
 
-    // No activity browser Timeout
-    browserNoActivityTimeout: 10000
 
   });
 };

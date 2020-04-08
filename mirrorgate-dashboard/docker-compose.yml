@@ -14,13 +14,13 @@ services:
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
-      command: bash -c "npm install"
+      command: "npm install"
   build:
       image: "node:12"
       volumes:
         - .:/tmp/repo
       working_dir: "/tmp/repo"
-      command: "./node_modules/.bin/gulp dist"
+      command: "npm run build"
   test:
     image: "node:12"
     links:
@@ -32,4 +32,4 @@ services:
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
-    command: "npm test"
+    command: "npm run test:allBrowsers"
