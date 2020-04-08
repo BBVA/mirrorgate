@@ -1,27 +1,35 @@
 version: "3.7"
 
 services:
+  selenium-chrome:
+    image: "selenium/standalone-chrome:latest"
+    volumes:
+      - /dev/shm:/dev/shm
+  selenium-firefox:
+    image: "selenium/standalone-firefox:latest"
+    volumes:
+      - /dev/shm:/dev/shm
   install:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    image: "node:12"
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
-    command: bash -c "npm install"
+    command: "npm install"
   build:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    image: "node:12"
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
     command: "npm run build"
   test:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    image: "node:12"
+    links:
+      - selenium-chrome
+      - selenium-firefox
+    environment:
+      - SELENIUM_HOST_CHROME=selenium-chrome
+      - SELENIUM_HOST_FIREFOX=selenium-firefox
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
-    command: "npm test"
+    command: "npm run test:allBrowsers"

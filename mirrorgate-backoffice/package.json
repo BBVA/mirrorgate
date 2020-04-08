@@ -46,6 +46,7 @@
     "karma-coverage-istanbul-reporter": "2.1.1",
     "karma-jasmine": "3.1.1",
     "karma-jasmine-html-reporter": "1.5.3",
+    "karma-webdriver-launcher": "1.0.7",
     "ng2-dragula": "2.1.1",
     "rimraf": "3.0.2",
     "rxjs": "6.5.4",
@@ -59,7 +60,9 @@
     "start": "concurrently --kill-others \"npm run serve-mocks\" \"npm run serve\"",
     "serve": "ng serve -c local",
     "serve-mocks": "http-server test/mocks",
-    "test": "ng test --codeCoverage=true --watch=false --browsers=ChromeHeadlessNoSandbox",
+    "test": "ng test --codeCoverage=true",
+    "test:allBrowsers": "ng test --codeCoverage=true --watch=false --browsers=chrome,firefox",
+    "test:watch": "ng test --codeCoverage=true --watch=true --browsers=chrome",
     "e2e": "echo ToDo",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   }
