@@ -51,15 +51,31 @@ services:
       - 8080:8080
       - 5005:5005
 
-  selenium-chrome:
-    image: selenium/standalone-chrome:latest
-    volumes:
-      - /dev/shm:/dev/shm
+  selenium-hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
 
-  selenium-firefox:
-    image: selenium/standalone-firefox:latest
+  chrome:
+    image: selenium/node-chrome:latest
     volumes:
       - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+
+  firefox:
+    image: selenium/node-firefox:latest
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
 
   e2e-tests:
     image: node:12
@@ -69,13 +85,17 @@ services:
     depends_on:
       - mongo-populate-test
       - mirrorgate
-      - selenium-chrome
-      - selenium-firefox
+      - chrome
+      - firefox
+    environment:
+      - SELENIUM_HOST=selenium-hub
+      - SELENIUM_PORT=4444
+      - APP_HOST=mirrorgate
     command:
       - /bin/sh
       - -c
       - |
         until curl http://mirrorgate:8080/mirrorgate/dashboards/mirrorgate/details; do >&2 echo Dashboard is unavailable - sleeping & sleep 1; done
         npm install
-        BROWSER=chrome SELENIUM_HOST=selenium-chrome APP_HOST=mirrorgate npm test
-        BROWSER=firefox SELENIUM_HOST=selenium-firefox APP_HOST=mirrorgate npm test
+        BROWSER=chrome npm test
+        BROWSER=firefox npm test
