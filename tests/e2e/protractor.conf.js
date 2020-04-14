@@ -16,10 +16,6 @@ var config = {
 
     baseUrl: 'http://' + appHost + ':' + appPort + '/',
 
-    plugins: [{
-        package: 'protractor-testability-plugin'
-    }],
-
     // Spec patterns are relative to the current working directly when
     // protractor is called.
     specs: ['specs/**/*.js'],
@@ -33,6 +29,7 @@ var config = {
 
     onPrepare: function(){
         browser.manage().timeouts().implicitlyWait(0);
+        browser.waitForAngularEnabled(false);
     },
 };
 
