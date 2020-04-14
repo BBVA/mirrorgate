@@ -51,13 +51,13 @@ services:
       - 8080:8080
       - 5005:5005
 
-  selenium-chrome-3.13:
-    image: selenium/standalone-chrome:3.13
+  selenium-chrome:
+    image: selenium/standalone-chrome:latest
     volumes:
       - /dev/shm:/dev/shm
 
-  selenium-firefox-3.13:
-    image: selenium/standalone-firefox:3.13
+  selenium-firefox:
+    image: selenium/standalone-firefox:latest
     volumes:
       - /dev/shm:/dev/shm
 
@@ -69,13 +69,13 @@ services:
     depends_on:
       - mongo-populate-test
       - mirrorgate
-      - selenium-chrome-3.13
-      - selenium-firefox-3.13
+      - selenium-chrome
+      - selenium-firefox
     command:
       - /bin/sh
       - -c
       - |
         until curl http://mirrorgate:8080/mirrorgate/dashboards/mirrorgate/details; do >&2 echo Dashboard is unavailable - sleeping & sleep 1; done
         npm install
-        BROWSER=chrome SELENIUM_HOST=selenium-chrome-3.13 APP_HOST=mirrorgate npm test
-        #BROWSER=firefox SELENIUM_HOST=selenium-firefox-3.13 APP_HOST=mirrorgate npm test
+        BROWSER=chrome SELENIUM_HOST=selenium-chrome APP_HOST=mirrorgate npm test
+        BROWSER=firefox SELENIUM_HOST=selenium-firefox APP_HOST=mirrorgate npm test
