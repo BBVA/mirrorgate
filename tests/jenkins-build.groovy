@@ -15,24 +15,20 @@
  */
 
 def build() {
-
-  try {
-
-      stage('Running E2E tests') {
-          sh """
-              docker-compose -p \${BUILD_TAG} run -u \$(id -u) e2e-tests
-          """
-      }
-
-  } catch (e) {
-      println e
-      currentBuild.result = "UNSTABLE"
-  } finally {
-      sh """
-          docker-compose -p \${BUILD_TAG} down --volumes
-      """
-  }
-
+    try {
+        stage('Running E2E tests') {
+            sh """
+                docker-compose -p \${BUILD_TAG} run -u \$(id -u) e2e-tests
+            """
+        }
+    } catch (e) {
+        println e
+        currentBuild.result = 'UNSTABLE'
+    } finally {
+        sh """
+            docker-compose -p \${BUILD_TAG} down --volumes
+        """
+    }
 }
 
-return this;
+return this
