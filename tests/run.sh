@@ -22,4 +22,4 @@ else
     docker-compose -p ${BUILD_TAG} run -u $(id -u) mongo-populate-test
 fi
 
-docker-compose -p ${BUILD_TAG} run -u $(id -u) --service-ports app
+docker-compose -p ${BUILD_TAG} run -u $(id -u) --service-ports mirrorgate
