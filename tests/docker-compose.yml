@@ -29,7 +29,7 @@ services:
       - mongo
 
   mirrorgate:
-    image: openjdk:13-jdk
+    image: openjdk:14-jdk
     container_name: mirrorgate
     volumes:
       - ../mirrorgate-api/build/libs:/temp
