@@ -2,12 +2,12 @@ version: '3.7'
 
 services:
   mongo:
-    image: mongo:4.2.1
+    image: mongo:4.2.5
     ports:
       - 27017:27017
 
   mongo-populate-test:
-    image: mongo:4.2.1
+    image: mongo:4.2.5
     volumes:
       - .:/temp
     working_dir: /temp
@@ -18,7 +18,7 @@ services:
       - mongo
 
   mongo-populate-dump:
-    image: mongo:4.2.1
+    image: mongo:4.2.5
     volumes:
       - /tmp/latest_mongo_dump:/temp
     working_dir: /temp
