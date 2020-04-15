@@ -2,13 +2,13 @@ version: '3.7'
 
 services:
   install:
-    image: "node:12"
+    image: "node:12.16.1"
     volumes:
       - .:/tmp/repo
     working_dir: "/tmp/repo"
     command: bash -c "npm install"
   build:
-    image: "node:12"
+    image: "node:12.16.1"
     volumes:
       - ..:/tmp/repo
     working_dir: "/tmp/repo/mirrorgate-docs"

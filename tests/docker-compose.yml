@@ -78,7 +78,7 @@ services:
       - HUB_PORT=4444
 
   e2e-tests:
-    image: node:12
+    image: node:12.16.1
     volumes:
       - .:/temp/
     working_dir: /temp
