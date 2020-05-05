@@ -26,14 +26,22 @@ describe('<details-tile>', () => {
   });
 
   it('should show dashboard details information', (done) => {
-    createTestComponent('details-tile').then((component) => {
-      server.respond();
+
+    function handler(component) {
+      // Wait until rivets finishes render
       setTimeout(function () {
         let img = component.shadowRoot.querySelector('img');
         let span = component.shadowRoot.querySelector('span');
         expect(img.attributes.src.value).toBe(detailsForTesting.logoUrl);
         expect(span.textContent).toBe(detailsForTesting.displayName);
         done();
+      }, 100);
+    }
+
+    createTestComponent('details-tile').then((component) => {
+      component.addEventListener('component-ready', function () {
+        component.addEventListener('dashboard-updated', handler(component));
+        server.respond();
       });
     });
   });

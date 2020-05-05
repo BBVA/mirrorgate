@@ -29,10 +29,10 @@ describe('<program-increment-tile>', () => {
   });
 
   it('should give each product a 1 total size', (done) => {
-    createTestComponent('program-increment-tile').then(function (component) {
-      server.respond();
 
-      setTimeout(function () {
+    function handler(component) {
+      // Wait until rivets finishes render
+      setTimeout(function() {
         let total = 0;
         let pi = component.getModel().programIncrement;
 
@@ -53,8 +53,14 @@ describe('<program-increment-tile>', () => {
 
         expect(total).toBeCloseTo(pi.products.length,5);
         done();
-      });
+      }, 100);
+    }
 
+    createTestComponent('program-increment-tile').then(function (component) {
+      component.addEventListener('component-ready', function () {
+        component.addEventListener('dashboard-updated', handler(component));
+        server.respond();
+      });
     });
   });
 });

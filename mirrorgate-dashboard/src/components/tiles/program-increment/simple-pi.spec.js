@@ -36,7 +36,7 @@ describe('<simple-program-increment>', function() {
         let pi = component.getModel().programIncrement;
         expect(pi.stats).not.toBe(undefined);
         done();
-      });
+      }, 100);
 
     });
   });

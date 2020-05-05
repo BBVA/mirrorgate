@@ -39,13 +39,21 @@ function genericTileComponentTest(type, contentProveSelector, focus) {
     });
 
     it('should show content', (done) => {
-      createTestComponent(type).then((component) => {
-        component.addEventListener('component-ready', function () {
+      function handler(component) {
+
+        // Wait until rivets finishes render
+        setTimeout(function() {
           let items = component.getRootElement().querySelectorAll(contentProveSelector);
           expect(items.length).not.toBe(0);
           done();
+        }, 100);
+      }
+
+      createTestComponent(type).then((component) => {
+        component.addEventListener('component-ready', function () {
+          component.addEventListener('dashboard-updated', handler(component));
+          server.respond();
         });
-        server.respond();
       });
     });
 
@@ -59,8 +67,10 @@ function genericTileComponentTest(type, contentProveSelector, focus) {
         }
 
         createTestComponent(type).then(function (component) {
-          component.addEventListener('dashboard-updated', handler);
-          server.respond();
+          component.addEventListener('component-ready', function () {
+            component.addEventListener('dashboard-updated', handler);
+            server.respond();
+          });
         });
       });
 
@@ -72,8 +82,10 @@ function genericTileComponentTest(type, contentProveSelector, focus) {
         }
 
         createTestComponent(type).then(function (component) {
-          component.addEventListener('dashboard-updated', handler);
-          server.lastRequest.error();
+          component.addEventListener('component-ready', function () {
+            component.addEventListener('dashboard-updated', handler);
+            server.lastRequest.error();
+          });
         });
 
       });

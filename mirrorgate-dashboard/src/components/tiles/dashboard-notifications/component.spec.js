@@ -14,19 +14,25 @@
  * limitations under the License.
  */
 
-describe('dashboard-notifications', function(){
+describe('dashboard-notifications', function () {
 
   var type = 'dashboard-notifications';
   var contentProveSelector = '.notifications';
 
   it('should show content', (done) => {
-    createTestComponent(type).then((component) => {
+    function handler(component) {
+      // Wait until rivets finishes render
       setTimeout(function () {
         let items = component.getRootElement().querySelectorAll(contentProveSelector);
         expect(items.length).not.toBe(0);
         done();
+      }, 100);
+    }
+
+    createTestComponent(type).then((component) => {
+      component.addEventListener('component-ready', function () {
+        component.addEventListener('dashboard-updated', handler(component));
       });
     });
   });
-
 });
