@@ -83,7 +83,7 @@ describe('ConfigService', () => {
     const req = httpMock.expectOne(textsUrl, 'Get config file');
     expect(req.request.method).toBe('GET');
 
-    req.flush('Not Found Error', httpError);
+    req.flush(httpError.error, httpError);
 
     httpMock.verify();
   });

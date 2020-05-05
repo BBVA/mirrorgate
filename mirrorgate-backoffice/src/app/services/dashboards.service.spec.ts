@@ -138,18 +138,24 @@ describe('DashboardsService', () => {
 
   it('should get an error if dashboard does not exists', () => {
     const fakeName = 'fakeName';
+    const httpError = new HttpErrorResponse({
+      error: 'Not Found Error',
+      status: 404,
+      statusText: 'Not Found'
+    });
+
     service.getDashboard(fakeName).subscribe(
-      (error: any) => { expect(error.status).toBe(404);}
+      data => fail('Should have failed with 404 error. Data: ' + JSON.stringify(data)),
+      (error: HttpErrorResponse) => {
+        expect(error.status).toEqual(httpError.status);
+        expect(error.error).toContain(httpError.error);
+      }
     );
 
     const req = httpMock.expectOne(dashboardsUrl + '/'+ fakeName +'/details', 'Get details of fakeName');
     expect(req.request.method).toBe('GET');
 
-    req.flush('Not Found Error', new HttpErrorResponse({
-      error: 'test 404 error',
-      status: 404,
-      statusText: 'Not Found'
-    }));
+    req.flush(httpError.error, httpError);
 
     httpMock.verify();
   });

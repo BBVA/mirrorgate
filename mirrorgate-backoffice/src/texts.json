@@ -43,7 +43,7 @@
     "planning_block": {
       "title": "Planning data",
       "boards_input": "Story keywords",
-      "boards_help": "Add a comma separated list with your jira keywords. You can use the team names, project names or project codes as keywords to match jira issues.",
+      "boards_help": "Add a comma separated list with your jira keywords. You can use the team names, board names, project names or project codes as keywords to match jira issues.",
       "pi_input": "Program Increment",
       "pi_help": "<p>Add a regular expression matching your Program Increment name if you want it's data to be displayed on your dashboard.</p> <p> If start and end dates are included in the name in <code>yyyy/MM/dd</code> format, you can capture them in the regexp so they are included in the dashboard and the remaining labour days is displayed.</p><p>An example of this regexp could be:</p><p><kbd>MyPI (?&lt;startDate&gt;\\d+/\\d+/\\d+)-(?&lt;endDate&gt;\\d+/\\d+/\\d+)</kbd></p><p>This regexp will match for example <code>MyPI 2017/05/10-2017/06/20</code></p><div class=\"alert alert-warning\" role=\"alert\">Note that if yout want a fixed value, you will have to escape special characters like <kbd>.</kbd> or <kbd>(</kbd></div>"
     },

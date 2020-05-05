@@ -36,7 +36,7 @@ export class ConfigService {
         },
         error => {
           ConfigService.config = {};
-          console.error('Load configuration error: ' + error);
+          console.error('Load configuration error: ' + JSON.stringify(error));
           reject(error);
         }
       );
