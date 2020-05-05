@@ -251,11 +251,11 @@ var Utils = (function() {
 })();
 
 rivets.formatters.dateFrom = function(value, now) {
-  return moment(value).from(now);
+  return value && now && moment(value).from(now);
 };
 
 rivets.formatters.date = function(value, now) {
-  return moment(value).calendar(now);
+    return value && now && moment(value).calendar(now);
 };
 
 rivets.formatters.textCleanUp = function(value) {
