@@ -185,7 +185,6 @@
             model.daysLeft = model.programIncrement.getDaysLeft()
           }
 
-
           model.programIncrement.products && model.programIncrement.products.forEach(function (product) {
             //All product should take the same space, so we take a count of
             //per product totals to use them as factor
@@ -238,6 +237,12 @@
           var width = parseFloat(style.width.substring(0, style.width.length - 2)),
             height = parseFloat(style.height.substring(0, style.height.length - 2)),
             radius = Math.min(width, height) / 2;
+
+          // Check if radius has space to be render
+          if (isNaN(radius)) {
+            return
+          }
+
           width = 2 * radius;
 
           var container = d3.select(this.getRootElement()).select("svg")

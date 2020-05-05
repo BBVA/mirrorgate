@@ -184,13 +184,18 @@
           height = parseFloat(style.height.substring(0, style.height.length - 2)),
           radius = Math.min(width, height) / 2;
 
+        // Check if radius has space to be render
+        if (isNaN(radius)) {
+          return
+        }
+
         width = 2 * radius;
 
         var container = d3.select(this.getRootElement()).select("svg");
 
         container
           .attr('preserveAspectRatio', 'xMidYMid meet')
-          .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 1.75))
+          .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 1.75));
         var svg = container
           .select("g.main").attr("transform",
             "translate(" + radius + "," + (radius + marginTop) + ") " +
