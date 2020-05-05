@@ -19,19 +19,19 @@
 <script src="controller.js"></script>
 <!-- endbuild -->
 
-<link rel="import" href="../../board-column/component.html" >
-<link rel="import" href="../../tile-container/component.html" >
-<link rel="import" href="../../details/component.html" >
-<link rel="import" href="../../tiles/builds/simple-builds.html" >
-<link rel="import" href="../../tiles/team/simple-sprint.html" >
-<link rel="import" href="../../tiles/program-increment/simple-pi.html" >
-<link rel="import" href="../../tiles/markets/simple-markets.html" >
-<link rel="import" href="../../tiles/user-metrics/simple-component.html" >
-<link rel="import" href="../../tiles/feedback/simple-feedback.html" >
-<link rel="import" href="../../tiles/operations-metrics/simple-operations-component.html" >
-<link rel="import" href="../../tiles/alerts/simple-alerts.html" >
-<link rel="import" href="../../tiles/notifications/simple-component.html" >
-<link rel="import" href="../../shards/header-title.html" >
+<link rel="import" href="../../board-column/component.html">
+<link rel="import" href="../../tile-container/component.html">
+<link rel="import" href="../../details/component.html">
+<link rel="import" href="../../tiles/builds/simple-builds.html">
+<link rel="import" href="../../tiles/team/simple-sprint.html">
+<link rel="import" href="../../tiles/program-increment/simple-pi.html">
+<link rel="import" href="../../tiles/markets/simple-markets.html">
+<link rel="import" href="../../tiles/user-metrics/simple-component.html">
+<link rel="import" href="../../tiles/feedback/simple-feedback.html">
+<link rel="import" href="../../tiles/operations-metrics/simple-operations-component.html">
+<link rel="import" href="../../tiles/alerts/simple-alerts.html">
+<link rel="import" href="../../tiles/notifications/simple-component.html">
+<link rel="import" href="../../shards/header-title.html">
 
 <template>
   <style>
@@ -41,22 +41,22 @@
     <board-column class="board-container">
       <board-row>
         <tile-container enabled="true" class="title-tile">
-           <!-- placeholder for logos -->
+          <!-- placeholder for logos -->
         </tile-container>
         <tile-container enabled="true" class="for-simple-sprint">
           <header-title title="Current Sprint" class="header-title simple-tile"></header-title>
         </tile-container>
         <tile-container enabled="true" class="for-simple-program-increment">
-            <header-title class="header-title simple-tile" title="Current PI Features"></header-title>
+          <header-title class="header-title simple-tile" title="Current PI Features"></header-title>
         </tile-container>
         <tile-container enabled="true" class="for-simple-builds-tile">
-            <header-title class="header-title simple-tile" title="Builds"></header-title>
+          <header-title class="header-title simple-tile" title="Builds"></header-title>
         </tile-container>
         <tile-container enabled="true" class="mid-tile for-simple-feedback-tile">
-            <header-title class="header-title simple-tile" title="Feedback"></header-title>
+          <header-title class="header-title simple-tile" title="Feedback"></header-title>
         </tile-container>
         <tile-container enabled="true" class="for-simple-operations-metrics-tile">
-            <header-title class="header-title simple-tile" title="Operations"></header-title>
+          <header-title class="header-title simple-tile" title="Operations"></header-title>
         </tile-container>
         <tile-container enabled="true" class="mid-tile for-simple-alerts">
           <header-title class="header-title simple-tile" title="Alerts"></header-title>
@@ -145,37 +145,45 @@
     controllerClass: AggregateDashboardController,
     lightDOM: true,
 
-    render: function (data) {
-      this.getModel().boards = data;
-    },
-
     onCreated: function () {
       this.addEventListener('dashboard-updated', function () {
         var names = {};
-        var tiles = this.querySelectorAll ?
-          this.querySelectorAll('.optional-tile'):
-          document.querySelectorAll('.optional-tile');
-        for(var e in tiles) {
-          if(tiles[e].tagName) {
+        var tiles = this.querySelectorAll
+          ? this.querySelectorAll('.optional-tile')
+          : document.querySelectorAll('.optional-tile');
+
+        for (var e in tiles) {
+          if (tiles[e].tagName) {
             names[tiles[e].tagName.toLowerCase()] = true;
           }
         }
 
         Object.keys(names).forEach(function (name) {
-          this.querySelectorAll('tile-container.for-' + name).forEach(function(tile) {
+          this.querySelectorAll('tile-container.for-' + name).forEach(function (tile) {
             tile.classList.remove('visible');
           });
-        },this);
+        }, this);
 
         //Separate the loop so that legends can be shared
         Object.keys(names).forEach(function (name) {
-          if(this.querySelector(name + '[enabled=true]')) {
-            this.querySelectorAll('tile-container.for-' + name).forEach(function(tile) {
+          if (this.querySelector(name + '[enabled=true]')) {
+            this.querySelectorAll('tile-container.for-' + name).forEach(function (tile) {
               tile.classList.add('visible');
             });
           }
-        },this);
+        }, this);
       });
+    },
+
+    processAlerts: function (data) {
+      Utils.raiseEvent(this, {
+        status: data ? 'ok' : 'server-error'
+      });
+    },
+
+    render: function (data) {
+      this.getModel().boards = data;
     }
+
   });
 </script>

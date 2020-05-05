@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var Tile = (function() {
+var Tile = (function () {
   'use strict';
 
   // Creates an object based in the HTML Element prototype
@@ -38,16 +38,16 @@ var Tile = (function() {
   Object.setPrototypeOf(Tile.prototype, DashboardComponent.prototype);
   Object.setPrototypeOf(Tile, DashboardComponent);
 
-  Tile.prototype.connectedCallback = function() {
+  Tile.prototype.connectedCallback = function () {
     this.forceEnabled = this.getAttribute('enabled') === 'true';
-    if(this.getAttribute('config')) {
+    if (this.getAttribute('config')) {
       this.getModel().config = this.getAttribute('config');
     }
     return DashboardComponent.prototype.connectedCallback.call(this, arguments);
   };
 
-  Tile.prototype._dispose = function() {
-    if(!this._inited) {
+  Tile.prototype._dispose = function () {
+    if (!this._inited) {
       return;
     }
     this._inited = false;
@@ -58,12 +58,12 @@ var Tile = (function() {
     this.onDispose();
   };
 
-  Tile.prototype.getDashboardId = function() {
+  Tile.prototype.getDashboardId = function () {
     return this.getConfig() && this.getConfig().name;
   };
 
-  Tile.prototype.readyPromise = function() {
-    if(this._awaitingBootstrapPromise.resolved) {
+  Tile.prototype.readyPromise = function () {
+    if (this._awaitingBootstrapPromise.resolved) {
       return Promise.resolve();
     } else {
       return this.__loadingPromise;
@@ -71,16 +71,16 @@ var Tile = (function() {
   };
 
   // Fires when an instance of the element is created
-  Tile.prototype._init = function() {
+  Tile.prototype._init = function () {
     var config = this.getConfig();
     if (!this._inited && config) {
       var CtrlClass = this.getControllerClass();
-      if(CtrlClass) {
+      if (CtrlClass) {
         this.controller = new CtrlClass(this.getDashboardId());
 
-        if(this.controller.observable) {
+        if (this.controller.observable) {
           this.controller.observable.attach(function (data) {
-            if(data) {
+            if (data) {
               this.getModel().updatedDate = Date.now();
             }
             this.refresh(data);
@@ -94,10 +94,10 @@ var Tile = (function() {
           this._resolveBootstrapping();
           return true;
         }.bind(this)).catch(function (err) {
-          if(err) {
+          if (err) {
             console.error(err);
           }
-          Utils.raiseEvent(this,{});
+          Utils.raiseEvent(this, {});
           this._setEnabled('false');
           return false;
         }.bind(this));
@@ -115,9 +115,9 @@ var Tile = (function() {
   Tile.prototype.bootstrap = function () {
     return DashboardComponent.prototype.bootstrap.call(this, arguments).then(function () {
       this._init().then(function (loaded) {
-        if(loaded) {
-          window.addEventListener('dashboard-updated', function() {
-            if(this.isEnabled()){
+        if (loaded) {
+          window.addEventListener('dashboard-updated', function () {
+            if (this.isEnabled()) {
               setTimeout(this._computeSize.bind(this));
             }
           }.bind(this));
@@ -129,12 +129,12 @@ var Tile = (function() {
   };
 
   Tile.prototype._resolveBootstrapping = function () {
-    if(this.getConfig() && this._awaitingBootstrapPromise) {
+    if (this.getConfig() && this._awaitingBootstrapPromise) {
       this._awaitingBootstrapPromise.resolve();
     }
   };
 
-  Tile.prototype.getConfig = function() {
+  Tile.prototype.getConfig = function () {
     return this.getModel().config && JSON.parse(this.getModel().config);
   };
 
@@ -142,13 +142,13 @@ var Tile = (function() {
     return this.getAttribute('enabled') !== 'false' || this.forceEnabled;
   };
 
-  Tile.prototype._setEnabled = function(value) {
-    if(this.getAttribute('enabled') !== value) {
+  Tile.prototype._setEnabled = function (value) {
+    if (this.getAttribute('enabled') !== value) {
       this.setAttribute('enabled', value);
     }
   };
 
-  Tile.prototype._processEnabled = function() {
+  Tile.prototype._processEnabled = function () {
     if (!this.isEnabled()) {
       this._dispose();
     } else {
@@ -156,17 +156,17 @@ var Tile = (function() {
     }
   };
 
-  Tile.prototype._processConfig = function() {
+  Tile.prototype._processConfig = function () {
     if (this.isEnabled()) {
       this._dispose();
       this._init();
     }
   };
 
-  Tile.observedAttributes = ['config','pid','enabled'];
+  Tile.observedAttributes = ['config', 'pid', 'enabled'];
 
-  Tile.prototype.attributeChangedCallback = function(
-      attributeName, oldValue, newValue, namespace) {
+  Tile.prototype.attributeChangedCallback = function (
+    attributeName, oldValue, newValue, namespace) {
     DashboardComponent.prototype.attributeChangedCallback.call(this, arguments);
     switch (attributeName) {
       case 'enabled':
@@ -179,26 +179,32 @@ var Tile = (function() {
     }
   };
 
-  Tile.prototype.getControllerClass = function() {
+  Tile.prototype.getControllerClass = function () {
     return this.controllerClass;
   };
 
-  Tile.prototype.render = function() {
+  Tile.prototype.render = function () {
     throw 'Render not implemented';
+  };
+
+  Tile.prototype.processAlerts = function () {
+    console.warn('processAlerts not implemented');
   };
 
   Tile.prototype.refresh = function (data) {
     DashboardComponent.prototype.refresh.call(this, arguments);
-    this._prevData = data ? Utils.clone(data): this._prevData;
-    if(this.__pending_refresh) return;
+    this._prevData = data ? Utils.clone(data) : this._prevData;
+    if (this.__pending_refresh) return;
     this.__pending_refresh = setTimeout(function () {
       this.__pending_refresh = undefined;
-      this.render(this._prevData && Utils.clone(this._prevData));
+      var data = this._prevData && Utils.clone(this._prevData);
+      this.render(data);
+      this.processAlerts(data, this.getConfig());
     }.bind(this));
   };
 
-  Tile.prototype.onInit = function () {};
-  Tile.prototype.onDispose = function () {};
+  Tile.prototype.onInit = function () { };
+  Tile.prototype.onDispose = function () { };
 
   customElements.define('tile-component', Tile);
 

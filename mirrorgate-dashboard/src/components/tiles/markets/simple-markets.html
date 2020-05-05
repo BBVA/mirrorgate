@@ -46,7 +46,7 @@
           </div>
 
           <div class="rate__tag">
-            <span rv-show="app.rateShortTerm" >{app.votesShortTerm} votes / last {marketsStatsDays} days</span>
+            <span rv-show="app.rateShortTerm">{app.votesShortTerm} votes / last {marketsStatsDays} days</span>
           </div>
         </div>
       </div>
@@ -64,22 +64,19 @@
     processAlerts: function (data) {
       Utils.raiseEvent(this, {
         status: data && data.total ?
-          data.total.tendencyChange < -5 ? 'error':
-            data.total.tendencyChange < -1 ? 'warn': 'ok':
+          data.total.tendencyChange < -5 ? 'error' :
+            data.total.tendencyChange < -1 ? 'warn' : 'ok' :
           'server-error'
       });
     },
 
     render: function (data) {
-      this.processAlerts(data);
-
-      if(data && data.total) {
+      if (data && data.total) {
         var app = this.getModel().app = data.total;
         app.starsTotal = this.controller.calculateStars(app.rateTotal);
         app.starsShortTerm = this.controller.calculateStars(app.rateShortTerm);
         this.getModel().marketsStatsDays = data.marketsStatsDays;
       }
-
     }
   });
 

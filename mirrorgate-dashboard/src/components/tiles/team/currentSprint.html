@@ -71,8 +71,8 @@
                 <foreignObject x="-350" y="250" width="700" height="100">
                   <div xmlns="http://www.w3.org/1999/xhtml" class="innerData">
                     <span class="days-left" rv-show="dateRange">
-                        {sprint.daysLeft} days left
-                      </span>
+                      {sprint.daysLeft} days left
+                    </span>
                   </div>
                 </foreignObject>
               </g>
@@ -94,9 +94,11 @@
         <span class="legend__color legend__color--red"></span>Blocked
       </div>
 
-      <!--<div class="legend__item">
-              <span class="legend__color legend__color--yellow"></span>Unplanned
-          </div>-->
+      <!--
+        <div class="legend__item">
+          <span class="legend__color legend__color--yellow"></span>Unplanned
+        </div>
+      -->
 
       <div class="legend__item">
         <span class="legend__color"></span>To Do
@@ -142,23 +144,26 @@
       controllerClass: TeamController,
       parent: Tile,
 
-      render: function (sprintData) {
-        var sprint = sprintData && sprintData.currentSprint;
-        var model = this.getModel();
-
+      processAlerts: function (data) {
         Utils.raiseEvent(this, {
-          status: sprintData ? {
+          status: data ? {
             'Bad': 'error',
             'Good': 'warn'
-          }[sprint.getAdvanceSprintStatus()] || 'ok' : 'server-error'
+          }[data && data.currentSprint.getAdvanceSprintStatus()] || 'ok' : 'server-error'
         });
+      },
+
+      render: function (data) {
+        var sprint = data && data.currentSprint;
+        var model = this.getModel();
 
         var format = "MMMM Do";
 
-        var range = sprint && sprint.startDate ? moment(sprint.startDate).format(format) + ' - ' +
-          moment(sprint.endDate).format(format) :
-          'No active sprints found';
-          model.dateRange = range;
+        var range = sprint && sprint.startDate
+          ? moment(sprint.startDate).format(format) + ' - ' + moment(sprint.endDate).format(format)
+          : 'No active sprints found';
+
+        model.dateRange = range;
 
         if (sprint && sprint.startDate) {
           model.sprint = {
@@ -188,10 +193,9 @@
           .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 1.75))
         var svg = container
           .select("g.main").attr("transform",
-          "translate(" + radius + "," + (radius + marginTop) + ") " +
-          "scale(" + (radius / 500) + ")"
+            "translate(" + radius + "," + (radius + marginTop) + ") " +
+            "scale(" + (radius / 500) + ")"
           );
-
 
         var daysPassed = 2;
         var daysInSprint = 10;
@@ -253,7 +257,6 @@
           .attr("d", arc)
           .attr("class", storyClassBuilder('status-'));
         arcUpdate.exit().remove();
-
       }
     });
   })(window, document);

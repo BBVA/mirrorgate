@@ -54,14 +54,14 @@
     name: 'buildsstats-tile',
     controllerClass: BuildsStatsController,
     parent: Tile,
+
     processAlerts: function (data) {
       Utils.raiseEvent(this, {
         status: data ? (data.stats && data.stats.count) ? 'unknown' : 'empty' : 'server-error'
       });
     },
-    render: function (data) {
-      this.processAlerts(data);
 
+    render: function (data) {
       var model = this.getModel();
       model.stats = data ? data.stats : {};
       model.avgBuildTime = {};

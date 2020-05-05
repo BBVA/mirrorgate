@@ -44,11 +44,11 @@
       </div>
       <div class="versions" rv-show="metrics.versions">
         <ol>
-          <li rv-each-version="metrics.versions" rv-show="version.width" >
+          <li rv-each-version="metrics.versions" rv-show="version.width">
             <span class="version-name">{version.name}</span>
             <span class="version-usage">
               <span class="progress-bar" rv-width="version.width">
-                  <span class="progress__bar" role="progressbar" rv-pclass-fill-generic="index"></span>
+                <span class="progress__bar" role="progressbar" rv-pclass-fill-generic="index"></span>
               </span>
             </span>
             <span class="version-legend">{version.percent | round}%</span>
@@ -64,6 +64,7 @@
     name: 'user-metrics-tile',
     controllerClass: UserMetricsController,
     parent: Tile,
+
     processAlerts: function (data) {
       Utils.raiseEvent(this, {
         status: data ? (data.metrics ? 'unknown' : 'empty') : 'server-error'
@@ -71,10 +72,9 @@
     },
 
     render: function (data) {
-      this.processAlerts(data);
       if (data && data.metrics) {
         var total = 0;
-        if(data.metrics.versions) {
+        if (data.metrics.versions) {
           var max = data.metrics.versions.reduce(function (accum, version) {
             total += version.value;
             return Math.max(accum, version.value);
@@ -88,12 +88,12 @@
 
           data.metrics.versions.concat().sort(function (a, b) {
             return b.value - a.value;
-          }).forEach(function(version, index) {
+          }).forEach(function (version, index) {
             var width = version.value / max * 80;
             var percent = version.value / total * 100;
 
             //We cut the list at 5% keeping atleast 3 items and max 5 items.
-            if((index > 2 && percent < 5) || index > 5) {
+            if ((index > 2 && percent < 5) || index > 5) {
               other.width += width;
               other.percent += percent;
             } else {
@@ -102,7 +102,7 @@
             }
           }, this);
           data.metrics.versions.push(other);
-          data.metrics.versions = data.metrics.versions.filter(function (v) {return v.percent;});
+          data.metrics.versions = data.metrics.versions.filter(function (v) { return v.percent; });
         }
         this.getModel().metrics = data.metrics;
       }

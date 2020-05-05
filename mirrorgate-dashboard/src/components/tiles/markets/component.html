@@ -83,23 +83,24 @@
     name: 'markets-tile',
     controllerClass: MarketsController,
     parent: Tile,
-    render: function (data) {
 
+    processAlerts: function (data) {
+      Utils.raiseEvent(this, {
+        status: data && data.apps ? 'unknown' : 'server-error'
+      });
+    },
+
+    render: function (data) {
       var apps = data && data.apps;
 
-      Utils.raiseEvent(this, {
-        status: apps ? 'unknown' : 'server-error'
-      });
-
-      if(apps) {
+      if (apps) {
         this.getModel().apps = apps;
-        this.getModel().apps.forEach(function(app) {
+        this.getModel().apps.forEach(function (app) {
           app.starsTotal = this.controller.calculateStars(app.rateTotal);
           app.starsShortTerm = this.controller.calculateStars(app.rateShortTerm);
         }, this);
         this.getModel().marketsStatsDays = data.marketsStatsDays;
       }
-
     }
   });
 

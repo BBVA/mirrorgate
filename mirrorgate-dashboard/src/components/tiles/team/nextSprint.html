@@ -83,7 +83,7 @@
       }
     }
 
-    function getComponentState(stats){
+    function getComponentState(stats) {
       var percentage = (stats.backlogEstimate * 100) / stats.velocity;
       return percentage < 70 ? 'error' : percentage < 90 ? 'warn' : 'unknown';
     }
@@ -92,27 +92,26 @@
       name: 'next-sprint-tile',
       controllerClass: TeamController,
       parent: Tile,
-      processAlerts: function (sprintData) {
+
+      processAlerts: function (data) {
         Utils.raiseEvent(this, {
-          status: sprintData ? (sprintData.stats && sprintData.stats.velocity ? getComponentState(sprintData.stats) : 'unknown') : 'server-error'
+          status: data ? (data.stats && data.stats.velocity ? getComponentState(data.stats) : 'unknown') : 'server-error'
         });
       },
 
-      render: function (sprintData) {
-        if (sprintData) {
+      render: function (data) {
+        if (data) {
           var model = this.getModel();
-          model.stats = sprintData.stats || {};
+          model.stats = data.stats || {};
 
           if (model.stats.sprintStats) {
-            var sprintDays = (sprintData.currentSprint && sprintData.currentSprint.getTotalDays()) || model.stats.sprintStats.daysDurationAvg;
+            var sprintDays = (data.currentSprint && data.currentSprint.getTotalDays()) || model.stats.sprintStats.daysDurationAvg;
             model.stats.velocity = model.stats.sprintStats.daysDurationAvg != 0 ? (Math.floor(sprintDays *
               model.stats.sprintStats.estimateAvg / model.stats.sprintStats.daysDurationAvg)) : 0;
 
             model.stats.backlogFillRate = model.stats.velocity != 0 ? (70 * model.stats.backlogEstimate / model.stats.velocity) : 0;
           }
         }
-
-        this.processAlerts(sprintData);
       }
     });
 

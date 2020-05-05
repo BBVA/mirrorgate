@@ -74,8 +74,8 @@
               <foreignObject x="-350" y="250" width="700" height="100" rv-show="programIncrement.features">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="innerData">
                   <span class="days-left" rv-show="dateRange">
-                      {daysLeft} days left
-                    </span>
+                    {daysLeft} days left
+                  </span>
                 </div>
               </foreignObject>
             </g>
@@ -95,9 +95,9 @@
         <span class="legend__build-item  legend__build-item--branches"></span>Story
       </div>
       <div class="legend__item" rv-show="programIncrement.report.completed">
-          * 80% trust
-        </div>
+        * 80% trust
       </div>
+    </div>
   </div>
 </template>
 
@@ -115,12 +115,12 @@
     //D3JS initializations
     function completedRate(item) {
       var children = item.children;
-      if(!children || !children.length) {
+      if (!children || !children.length) {
         return order[item.status];
       }
       var count = 0;
-      children.forEach(function(element) {
-        count+= completedRate(element);
+      children.forEach(function (element) {
+        count += completedRate(element);
       });
       return count / children.length;
     }
@@ -136,16 +136,16 @@
     };
 
     var arc = d3.arc()
-        .startAngle(function(d) { return d.x0 - 3 * Math.PI/4; })
-        .endAngle(function(d) { return d.x0 + (d.x1 - d.x0)  - 3 * Math.PI/4; })
-        .padAngle(Math.PI/180)
-        .cornerRadius(20)
-        .innerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0-0.25) - 10; })
-        .outerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0-0.25 + (d.y1-d.y0)) -31; });
+      .startAngle(function (d) { return d.x0 - 3 * Math.PI / 4; })
+      .endAngle(function (d) { return d.x0 + (d.x1 - d.x0) - 3 * Math.PI / 4; })
+      .padAngle(Math.PI / 180)
+      .cornerRadius(20)
+      .innerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0 - 0.25) - 10; })
+      .outerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0 - 0.25 + (d.y1 - d.y0)) - 31; });
 
     function storyClassBuilder(prefix) {
       return function (d) {
-        if(d.data.status) {
+        if (d.data.status) {
           return prefix + Utils.toClassName(d.data.status);
         } else {
           return prefix + 'product';
@@ -160,7 +160,7 @@
 
       processAlerts: function (data) {
         Utils.raiseEvent(this, {
-          status: data ? this.controller.getProgramIncrementStatus(data): 'server-error'
+          status: data ? this.controller.getProgramIncrementStatus(data) : 'server-error'
         });
       },
 
@@ -168,12 +168,10 @@
       render: function (data) {
         var model = this.getModel();
 
-        function mouseEnterHandler (d) {
+        function mouseEnterHandler(d) {
           model.selected = d.data;
           svg.classed('dimmed', true);
         }
-
-        this.processAlerts(data);
 
         if (data) {
           let format = "MMMM Do";
@@ -182,25 +180,25 @@
 
           model.programIncrement = data;
 
-          if (data.startDate){
+          if (data.startDate) {
             model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
             model.daysLeft = model.programIncrement.getDaysLeft()
           }
 
 
-          model.programIncrement.products && model.programIncrement.products.forEach(function(product) {
+          model.programIncrement.products && model.programIncrement.products.forEach(function (product) {
             //All product should take the same space, so we take a count of
             //per product totals to use them as factor
             let productStories = 0;
             let productPoints = 0;
             let storyFactor = 0;
 
-            product.children.forEach(function(feature) {
+            product.children.forEach(function (feature) {
               depth = Math.max(depth, 2);
 
-              if(feature.children.length) {
+              if (feature.children.length) {
                 depth = Math.max(depth, 3);
-                feature.children.forEach(function(story) {
+                feature.children.forEach(function (story) {
                   productStories++;
                   productPoints += story.estimate;
                 });
@@ -213,15 +211,15 @@
             //25% of the space is given to story points when estimates are given
             storyFactor = productPoints ? 0.25 : 0;
 
-            product.children.forEach(function(feature) {
+            product.children.forEach(function (feature) {
               //This is ignored if feature contains 1 or more stories
               //It's equivalent to asuming it only has one 0 points story
               feature.size = (1 - storyFactor) / productStories;
 
-              if(feature.children.length) {
-                feature.children.forEach(function(story) {
+              if (feature.children.length) {
+                feature.children.forEach(function (story) {
                   story.size = (1 - storyFactor) / productStories
-                      + (productPoints ? storyFactor * story.estimate / productPoints : 0);
+                    + (productPoints ? storyFactor * story.estimate / productPoints : 0);
                 });
               }
             });
@@ -229,8 +227,8 @@
             totalStories += productStories;
           });
 
-          if(totalStories > 50) {
-            arc.padAngle(Math.PI/360).cornerRadius(5)
+          if (totalStories > 50) {
+            arc.padAngle(Math.PI / 360).cornerRadius(5)
           }
 
           var style = window.getComputedStyle(this.getRootElement().querySelector('.component__body'));
@@ -248,20 +246,20 @@
 
           var svg = container
             .select("g.main").attr("transform",
-            "translate(" + radius + "," + (radius + marginTop) + ") " +
-            "scale(" + (radius / 500) + ")"
+              "translate(" + radius + "," + (radius + marginTop) + ") " +
+              "scale(" + (radius / 500) + ")"
             ).on('mouseout', function (d) {
               svg.classed('dimmed', false);
               model.selected = undefined;
             });
 
           var partition = d3.partition()
-            .size([3/2 * Math.PI, 1 - (0.25 * (3-depth))]);
+            .size([3 / 2 * Math.PI, 1 - (0.25 * (3 - depth))]);
 
           var root = d3.hierarchy({
             children: model.programIncrement.products
           })
-            .sum(function(d) {
+            .sum(function (d) {
               return !d.children || d.children.length === 0 ? d.size : 0;
             })
             .sort(function (a, b) {

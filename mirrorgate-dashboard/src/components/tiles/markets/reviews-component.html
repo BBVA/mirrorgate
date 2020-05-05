@@ -61,6 +61,7 @@
     name: 'reviews-tile',
     controllerClass: MarketsController,
     parent: Tile,
+
     onCreated: function () {
       this.addEventListener('component-resized', this._setSize.bind(this));
       window.addEventListener("layout-ready", function(){
@@ -73,6 +74,17 @@
           window.open(url);
         }
       }
+    },
+
+    processAlerts: function (data) {
+      Utils.raiseEvent(this,{
+          status: data && data.reviews ? (data.reviews.length > 0 ? 'unknown' : 'empty') :'server-error'
+      });
+    },
+
+    render: function (data) {
+      this.getModel().data = data;
+      this._setSize();
     },
 
     _setSize: function (e) {
@@ -98,16 +110,6 @@
       }
 
       this._loadData();
-    },
-
-    render: function (data) {
-
-      Utils.raiseEvent(this,{
-          status: data && data.reviews ? (data.reviews.length > 0 ? 'unknown' : 'empty') :'server-error'
-      });
-
-      this.getModel().data = data;
-      this._setSize();
     },
 
     _loadData: function () {

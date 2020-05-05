@@ -25,14 +25,14 @@
 <link rel="import" href="../../tiles/markets/component.html">
 <link rel="import" href="../../tiles/markets/reviews-component.html">
 <link rel="import" href="../../tiles/program-increment/component.html">
-<link rel="import" href="../../tiles/bugs/component.html" >
-<link rel="import" href="../../tiles/scm-metrics/component.html" >
-<link rel="import" href="../../tiles/notifications/component.html" >
-<link rel="import" href="../../tiles/dashboard-notifications/component.html" >
-<link rel="import" href="../../tiles/alerts/component.html" >
-<link rel="import" href="../../tiles/user-metrics/component.html" >
-<link rel="import" href="../../tiles/operations-metrics/operations-component.html" >
-<link rel="import" href="../../tiles/operations-metrics/basic-operations-component.html" >
+<link rel="import" href="../../tiles/bugs/component.html">
+<link rel="import" href="../../tiles/scm-metrics/component.html">
+<link rel="import" href="../../tiles/notifications/component.html">
+<link rel="import" href="../../tiles/dashboard-notifications/component.html">
+<link rel="import" href="../../tiles/alerts/component.html">
+<link rel="import" href="../../tiles/user-metrics/component.html">
+<link rel="import" href="../../tiles/operations-metrics/operations-component.html">
+<link rel="import" href="../../tiles/operations-metrics/basic-operations-component.html">
 
 <template>
   <style>
@@ -47,7 +47,6 @@
       height: auto;
       padding: 0;
     }
-
   </style>
   <div>
     <!-- .dashboard -->
@@ -94,26 +93,34 @@
     name: 'detail-dashboard',
     parent: Tile,
     lightDOM: true,
+
     onCreated: function () {
       this.getModel().layout = {};
     },
+
+    processAlerts: function (data) {
+      Utils.raiseEvent(this, {
+        status: data ? 'ok' : 'server-error'
+      });
+    },
+
     render: function (config) {
       this.getModel().layout.withFooter =
-          config.slackTeam || (config.codeRepos && config.codeRepos.length) ? true: false;
+        config.slackTeam || (config.codeRepos && config.codeRepos.length) ? true : false;
 
-      if(config.columns
+      if (config.columns
         && ((config.columns[0] && config.columns[0].length > 0) ||
-            (config.columns[1] && config.columns[1].length > 0) ||
-            (config.columns[2] && config.columns[2].length > 0) ||
-            (config.columns[3] && config.columns[3].length > 0) ||
-            (config.columns[4] && config.columns[4].length > 0))) {
+          (config.columns[1] && config.columns[1].length > 0) ||
+          (config.columns[2] && config.columns[2].length > 0) ||
+          (config.columns[3] && config.columns[3].length > 0) ||
+          (config.columns[4] && config.columns[4].length > 0))) {
         var columns = config.columns;
-      }else{
+      } else {
         var columns = new Array(5);
         columns[0] = new Array("bugs", "current-sprint", "next-sprint");
         columns[1] = new Array("scm-metrics", "program-increment");
-        columns[2] = new Array("builds","buildsstats");
-        columns[3] = new Array("markets","reviews","user-metrics","operations-metrics");
+        columns[2] = new Array("builds", "buildsstats");
+        columns[3] = new Array("markets", "reviews", "user-metrics", "operations-metrics");
         columns[4] = new Array("alerts");
       }
       this.getModel().columns = columns;

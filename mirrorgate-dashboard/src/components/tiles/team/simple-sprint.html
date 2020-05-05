@@ -57,7 +57,16 @@
     controllerClass: TeamController,
     parent: Tile,
 
-    render: function (sprintData) {
+    processAlerts: function (data) {
+      Utils.raiseEvent(this, {
+        status: data ? {
+          'Bad': 'error',
+          'Good': 'warn'
+        }[data && data.currentSprint.getAdvanceSprintStatus()] || 'ok' : 'server-error'
+      });
+    },
+
+    render: function (data) {
 
       var order = {
         'Done': 0,
@@ -68,15 +77,8 @@
         'Backlog': 4
       };
 
-      var sprint = sprintData && sprintData.currentSprint;
+      var sprint = data && data.currentSprint;
       var model = this.getModel();
-
-      Utils.raiseEvent(this, {
-        status: sprintData ? {
-          'Bad': 'error',
-          'Good': 'warn'
-        }[sprint.getAdvanceSprintStatus()] || 'ok' : 'server-error'
-      });
 
       var format = "MMMM Do";
 

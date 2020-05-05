@@ -28,7 +28,8 @@
         <div class="notifications__content">
           <div class="notification__type">
             <span class="notification__title">{notification.title}</span>
-            <span class="date title-desc" rv-show="notification.date">{ notification.date | date updatedDate}</span></div>
+            <span class="date title-desc" rv-show="notification.date">{ notification.date | date updatedDate}</span>
+          </div>
           <div rv-show="notification.description">{ notification.description }</div>
           <div rv-hidden="notification.description">No dashboard notifications</div>
         </div>
@@ -52,7 +53,7 @@
         });
       },
 
-      onCreated: function() {
+      onCreated: function () {
         document.addEventListener('HeadsUp', this.render.bind(this));
       },
 
@@ -61,8 +62,7 @@
         this.processAlerts(data);
 
         if (data && data.detail) {
-
-          if(breakTimeout) {
+          if (breakTimeout) {
             clearTimeout(breakTimeout);
           }
           breakTimeout = setTimeout(function () {

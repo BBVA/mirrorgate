@@ -32,7 +32,7 @@
         <span rv-hide="stats">No metrics collected</span>
         <span rv-show="stats.requestsNumber | >= 0">{stats.requestsNumber | bigNumber} requests</span>
         <span rv-show="stats.requestsNumberTendency" class="tendency" rv-pclass-tendency="stats.requestsNumberTendency"></span>
-    </h3>
+      </h3>
     </div>
     <div class="component__body">
       <div class="indicator__bar">
@@ -68,19 +68,19 @@
 
       var levelEvent = ['ok', 'warn', 'error', 'server-error'];
       var status = data ? (data.stats ? levelEvent[OperationsUtils.getComponentState(
-          data.stats,
-          {
-            warning: config.responseTimeAlertingLevelWarning,
-            error: config.responseTimeAlertingLevelError
-          },
-          {
-            warning: config.errorsRateAlertingLevelWarning,
-            error: config.errorsRateAlertingLevelError
-          },
-          {
-            warning: config.availabilityRateAlertingLevelWarning,
-            error: config.availabilityRateAlertingLevelError
-          })] : 'empty') : levelEvent[3];
+        data.stats,
+        {
+          warning: config.responseTimeAlertingLevelWarning,
+          error: config.responseTimeAlertingLevelError
+        },
+        {
+          warning: config.errorsRateAlertingLevelWarning,
+          error: config.errorsRateAlertingLevelError
+        },
+        {
+          warning: config.availabilityRateAlertingLevelWarning,
+          error: config.availabilityRateAlertingLevelError
+        })] : 'empty') : levelEvent[3];
 
       d3.select(this)
         .classed('module-error', status === 'error')
@@ -99,19 +99,17 @@
         config = this.getConfig();
 
         var viewId = data.viewId.split('/'); // Avoid large viewId
-        viewId.splice(1, viewId.length-2);
+        viewId.splice(1, viewId.length - 2);
         model.viewId = viewId.join('/');
         model.viewTitle = data.viewId
 
         model.stats = data.stats;
 
-        if(model.stats !== undefined) {
+        if (model.stats !== undefined) {
           this.setAttribute('enabled', model.stats !== undefined);
           OperationsUtils.checkOperationMetricsToSendEvent(model.viewId, model.stats, config);
         }
       }
-
-      this.processAlerts(data, config);
     }
   });
 

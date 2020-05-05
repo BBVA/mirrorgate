@@ -60,13 +60,11 @@
 
     processAlerts: function (data) {
       Utils.raiseEvent(this, {
-        status: data ? (data.critical || data.major ? 'error' : data.medium ? 'warn' : data.total ? 'ok': 'empty') : 'server-error'
+        status: data ? (data.critical || data.major ? 'error' : data.medium ? 'warn' : data.total ? 'ok' : 'empty') : 'server-error'
       });
     },
 
     render: function (data) {
-
-      this.processAlerts(data);
 
       var model = this.getModel();
 

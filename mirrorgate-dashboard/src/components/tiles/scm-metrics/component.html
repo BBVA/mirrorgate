@@ -85,7 +85,6 @@
     },
 
     render: function (data) {
-      this.processAlerts(data);
       if (data && data.metrics) {
         var model = this.getModel();
         model.metrics = {};

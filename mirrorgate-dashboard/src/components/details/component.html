@@ -21,6 +21,7 @@
 <template>
   <style>
     @import "css/{skin}.css";
+
     .details.component__content {
       padding: 0;
     }
@@ -43,15 +44,20 @@
     name: 'details-tile',
     controllerClass: DetailsController,
     parent: Tile,
+
+    processAlerts: function (data) {
+      Utils.raiseEvent(this, {
+        status: data ? 'ok' : 'server-error'
+      });
+    },
+
     render: function (details) {
       var model = this.getModel();
-      model.logo = details.logoUrl == '#UPLOADED#' ?
-              'dashboards/' + this.getDashboardId() + '/image' :
-              details.logoUrl;
+      model.logo = details.logoUrl == '#UPLOADED#'
+        ? 'dashboards/' + this.getDashboardId() + '/image'
+        : details.logoUrl;
       model.name = details.displayName || details.name || '';
       model.url = '?board=' + encodeURIComponent(details.name);
-
-      Utils.raiseEvent(this, {status: 'ok'});
     }
   });
 </script>

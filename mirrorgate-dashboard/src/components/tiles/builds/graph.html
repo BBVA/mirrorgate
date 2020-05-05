@@ -85,8 +85,8 @@
       };
 
       return builds.reduce((level, build) => {
-        return Math.max(level, levelMapping[build.status] || 0, getState(build.children) -1);
-      },0);
+        return Math.max(level, levelMapping[build.status] || 0, getState(build.children) - 1);
+      }, 0);
     }
 
     var formatNumber = d3.format(',d');
@@ -104,12 +104,12 @@
     };
 
     var arc = d3.arc()
-      .startAngle(function(d) { return 2 * d.x0 * Math.PI; })
-      .endAngle(function(d) { return 2 * (d.x0 + (d.x1-d.x0)) * Math.PI; })
-      .padAngle(Math.PI/180)
+      .startAngle(function (d) { return 2 * d.x0 * Math.PI; })
+      .endAngle(function (d) { return 2 * (d.x0 + (d.x1 - d.x0)) * Math.PI; })
+      .padAngle(Math.PI / 180)
       .cornerRadius(20)
-      .innerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0-0.25) + 20; })
-      .outerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0-0.25 + (d.y1-d.y0)) -1; });
+      .innerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0 - 0.25) + 20; })
+      .outerRadius(function (d) { return d.y0 === 0 ? 0 : y(d.y0 - 0.25 + (d.y1 - d.y0)) - 1; });
 
     MGComponent({
       name: 'builds-tile',
@@ -117,29 +117,29 @@
       parent: Tile,
       buildsMap: {},
 
-      checkRepoBuildToSendEvent: function (repoBuild){
-        if(repoBuild.data) {
+      checkRepoBuildToSendEvent: function (repoBuild) {
+        if (repoBuild.data) {
           var jobId = [repoBuild.data.branch, repoBuild.data.repoName, repoBuild.data.projectName].join('-');
 
-          if((repoBuild.data.branch === 'master' || repoBuild.data.branch === 'develop') &&
-                repoBuild.data.buildStatus !== 'InProgress' &&
-                this.buildsMap[jobId] !== repoBuild.data.buildStatus) {
+          if ((repoBuild.data.branch === 'master' || repoBuild.data.branch === 'develop') &&
+            repoBuild.data.buildStatus !== 'InProgress' &&
+            this.buildsMap[jobId] !== repoBuild.data.buildStatus) {
 
-                  if(this.buildsMap[jobId]) {
-                    var color = repoBuild.data.branch === 'master' && repoBuild.data.buildStatus !== 'Success' ? 'red'
-                      : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus !== 'Success' ? 'yellow'
-                      : 'blue';
-                    document.dispatchEvent(new CustomEvent('HeadsUp', {
-                      detail: {
-                        title: (color === 'blue' ? 'Fixed' : 'Broken') + (repoBuild.data.culprits ? ' by ' + repoBuild.data.culprits : ''),
-                        description: 'Details: ' + repoBuild.data.repoName + (repoBuild.data.branch ? '/' + repoBuild.data.branch : ''),
-                        date: new Date() ,
-                        url: repoBuild.data.buildUrl,
-                        color: color
-                      }
-                    }));
-                  }
-                  this.buildsMap[jobId] = repoBuild.data.buildStatus;
+            if (this.buildsMap[jobId]) {
+              var color = repoBuild.data.branch === 'master' && repoBuild.data.buildStatus !== 'Success' ? 'red'
+                : repoBuild.data.branch === 'develop' && repoBuild.data.buildStatus !== 'Success' ? 'yellow'
+                  : 'blue';
+              document.dispatchEvent(new CustomEvent('HeadsUp', {
+                detail: {
+                  title: (color === 'blue' ? 'Fixed' : 'Broken') + (repoBuild.data.culprits ? ' by ' + repoBuild.data.culprits : ''),
+                  description: 'Details: ' + repoBuild.data.repoName + (repoBuild.data.branch ? '/' + repoBuild.data.branch : ''),
+                  date: new Date(),
+                  url: repoBuild.data.buildUrl,
+                  color: color
+                }
+              }));
+            }
+            this.buildsMap[jobId] = repoBuild.data.buildStatus;
           }
         }
       },
@@ -166,21 +166,19 @@
 
         var fadeOutLimitTimeSpan = 2 * 14 * 24 * 3600 * 1000;
         var config = this.getConfig();
-        if(config.filters && config.filters.timeSpan) {
+        if (config.filters && config.filters.timeSpan) {
           fadeOutLimitTimeSpan = config.filters.timeSpan || fadeOutLimitTimeSpan;
         }
-
-        this.processAlerts(data);
 
         var style = window.getComputedStyle(this.getRootElement().querySelector('.component__body'));
 
         var model = this.getModel();
         model.stats = data ? data.stats : {};
 
-        var buildRoot = data && {children: data.buildRoot};
+        var buildRoot = data && { children: data.buildRoot };
         var depth = 1;
 
-        if(buildRoot && !buildRoot.children.length) {
+        if (buildRoot && !buildRoot.children.length) {
           buildRoot.children.push({});
         }
 
@@ -194,20 +192,20 @@
             repoBuild.children && repoBuild.children.forEach(function (repoBuild) {
               depth = Math.max(depth, 3);
               this.checkRepoBuildToSendEvent(repoBuild);
-            },this);
-          },this);
-        },this);
+            }, this);
+          }, this);
+        }, this);
 
         buildRoot = buildRoot || [];
 
         var width = parseFloat(style.width.substring(0, style.width.length - 2)),
           height = parseFloat(style.height.substring(0, style.height.length - 2)),
           radius = Math.min(width, height) / 2;
-          width = 2 * radius;
+        width = 2 * radius;
 
         var container = d3.select(this.getRootElement()).select("svg");
 
-        if(data && !model.hover) {
+        if (data && !model.hover) {
           container
             .select('.slices')
             .classed('select', true);
@@ -219,15 +217,15 @@
           .attr('viewBox', '0 0 ' + (radius * 2) + ' ' + (radius * 2))
 
           .select('g.main').attr('transform',
-          'translate(' + radius + ',' + radius + ') ' +
-          'scale(' + (radius / 530) + ')'
+            'translate(' + radius + ',' + radius + ') ' +
+            'scale(' + (radius / 530) + ')'
           );
 
         var partition = d3.partition()
-          .size([1, 1 - (0.25 * (3-depth))]);
+          .size([1, 1 - (0.25 * (3 - depth))]);
 
         var root = d3.hierarchy(buildRoot)
-          .count(function(d) {
+          .count(function (d) {
             return d.size;
           })
           .sort(function (d1, d2) {
@@ -244,8 +242,8 @@
           .attr('class', classBuilder)
           .style('fill-opacity', function (d) {
             var data = d.data && d.data.data;
-            if(!data) return;
-            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - (data.timestamp - 10 * 60 * 1000)) / (fadeOutLimitTimeSpan),1/2));
+            if (!data) return;
+            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - (data.timestamp - 10 * 60 * 1000)) / (fadeOutLimitTimeSpan), 1 / 2));
           });
 
         buildsData.enter()
@@ -266,8 +264,8 @@
           .attr('class', classBuilder)
           .style('fill-opacity', function (d) {
             var data = d.data && d.data.data;
-            if(!data) return;
-            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - (data.timestamp - 10 * 60 * 1000)) / (fadeOutLimitTimeSpan),1/2));
+            if (!data) return;
+            return Math.max(0.3, 1 - Math.pow((new Date().getTime() - (data.timestamp - 10 * 60 * 1000)) / (fadeOutLimitTimeSpan), 1 / 2));
           });
 
         buildsData.exit().remove();

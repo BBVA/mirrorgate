@@ -62,11 +62,11 @@
   (function (window, document, undefined) {
 
     var order = {
-      'DONE':'DONE',
-      'IN_PROGRESS':'IN_PROGRESS',
-      'IMPEDED':'IMPEDED',
-      'WAITING':'BACKLOG',
-      'BACKLOG':'BACKLOG'
+      'DONE': 'DONE',
+      'IN_PROGRESS': 'IN_PROGRESS',
+      'IMPEDED': 'IMPEDED',
+      'WAITING': 'BACKLOG',
+      'BACKLOG': 'BACKLOG'
     };
 
     MGComponent({
@@ -76,7 +76,7 @@
 
       processAlerts: function (data) {
         Utils.raiseEvent(this, {
-          status: data ? this.controller.getProgramIncrementStatus(data): 'server-error'
+          status: data ? this.controller.getProgramIncrementStatus(data) : 'server-error'
         });
       },
 
@@ -84,31 +84,29 @@
       render: function (data) {
         var model = this.getModel();
 
-         this.processAlerts(data);
-
         if (data) {
           let format = "MMMM Do";
 
           model.programIncrement = data;
 
-          if(data.endDate) {
+          if (data.endDate) {
             model.daysLeft = data.getDaysLeft();
           }
 
-          if (data.startDate){
+          if (data.startDate) {
             model.dateRange = moment(data.startDate).format(format) + ' - ' + moment(data.endDate).format(format);
           }
 
-          if(data.report) {
+          if (data.report) {
 
             model.items = [];
             var remain = 100;
 
-            for(var i in order) {
+            for (var i in order) {
               var width = 100 * data.report.perStatus[i] / data.report.totalEstimate;
-              if(width) {
+              if (width) {
                 remain -= width;
-                if(!model.items[i]) {
+                if (!model.items[i]) {
                   model.items.push({
                     status: i,
                     width: width
@@ -119,7 +117,7 @@
               }
             }
 
-            if(remain && remain > 0.01) {
+            if (remain && remain > 0.01) {
               model.items.push({
                 status: 'remain',
                 width: remain

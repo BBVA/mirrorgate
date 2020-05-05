@@ -19,8 +19,8 @@
 <script src="controller.js"></script>
 <!-- endbuild -->
 
-<link rel="import" href="../markets/simple-markets.html" >
-<link rel="import" href="../user-metrics/simple-component.html" >
+<link rel="import" href="../markets/simple-markets.html">
+<link rel="import" href="../user-metrics/simple-component.html">
 
 <template>
   <style>
@@ -67,7 +67,7 @@
             </div>
 
             <div class="rate__tag">
-              <span rv-show="markets.rateShortTerm" >{markets.votesShortTerm} votes / last {marketsStatsDays} days</span>
+              <span rv-show="markets.rateShortTerm">{markets.votesShortTerm} votes / last {marketsStatsDays} days</span>
             </div>
           </div>
         </div>
@@ -84,49 +84,46 @@
     controllerClass: FeedbackController,
     parent: Tile,
 
-    metricsStatus : 'empty',
-    marketsStatus : 'empty',
+    metricsStatus: 'empty',
+    marketsStatus: 'empty',
 
-    processAlert: function(data) {
-      Utils.raiseEvent(this, {
-        status: !data ? 'server-error' :
-          (this.metricsStatus === 'server-error' && this.marketsStatus === 'server-error' ? 'server-error' :
-          (this.metricsStatus === 'error' || this.marketsStatus === 'error' ? 'error' :
-          (this.metricsStatus === 'warn' || this.marketsStatus === 'warn' ? 'warn' :
-          (this.metricsStatus === 'ok' || this.marketsStatus || 'ok' ? 'ok':
-          'empty'))))
-      });
-    },
-
-    processMetricsAlerts: function (data) {
+    _processMetricsAlerts: function (data) {
       this.metricStatus = data ? (data.metrics ? 'ok' : 'empty') : 'server-error';
     },
 
-    processMarketsAlerts: function (data) {
+    _processMarketsAlerts: function (data) {
       this.marketsStatus = data && data.total ?
-        data.total.tendencyChange < -5 ? 'error':
-          data.total.tendencyChange < -1 ? 'warn': 'ok':
+        data.total.tendencyChange < -5 ? 'error' :
+          data.total.tendencyChange < -1 ? 'warn' : 'ok' :
         'server-error';
     },
 
-    render: function (data) {
+    processAlerts: function (data) {
+      Utils.raiseEvent(this, {
+        status: !data ? 'server-error' :
+          (this.metricsStatus === 'server-error' && this.marketsStatus === 'server-error' ? 'server-error' :
+            (this.metricsStatus === 'error' || this.marketsStatus === 'error' ? 'error' :
+              (this.metricsStatus === 'warn' || this.marketsStatus === 'warn' ? 'warn' :
+                (this.metricsStatus === 'ok' || this.marketsStatus || 'ok' ? 'ok' :
+                  'empty'))))
+      });
+    },
 
+    render: function (data) {
       if (data && data.metrics) {
-        this.processMetricsAlerts(data);
+        this._processMetricsAlerts(data);
 
         this.getModel().metrics = data.metrics;
       }
 
-      if(data && data.total) {
-        this.processMarketsAlerts(data);
+      if (data && data.total) {
+        this._processMarketsAlerts(data);
 
         var markets = this.getModel().markets = data.total;
         markets.starsTotal = this.controller.calculateStars(markets.rateTotal);
         markets.starsShortTerm = this.controller.calculateStars(markets.rateShortTerm);
         this.getModel().marketsStatsDays = data.marketsStatsDays;
       }
-
-      this.processAlert(data);
     }
   });
 </script>

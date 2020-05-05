@@ -60,19 +60,19 @@
 
     lastEvent: undefined,
 
-    getStatus: function(data) {
+    getStatus: function (data) {
       return data.failedMasterBuildsCount > 0 ? 'error' :
-        data.unstableMasterBuildsCount > 0 || data.failedDevelopBuildsCount > 0 || data.unstableDevelopBuildsCount > 0? 'warn' :
-        'ok';
+        data.unstableMasterBuildsCount > 0 || data.failedDevelopBuildsCount > 0 || data.unstableDevelopBuildsCount > 0 ? 'warn' :
+          'ok';
     },
 
-    checkSendEvent: function(model){
+    checkSendEvent: function (model) {
 
-      if(!this.lastEvent && model.status === 'ok') {
+      if (!this.lastEvent && model.status === 'ok') {
         return;
       }
 
-      var event =  {
+      var event = {
         detail: {
           title: 'Builds from dashboard ' + this.getDashboardId(),
           description: model.description,
@@ -81,7 +81,7 @@
         }
       }
 
-      if(!this.lastEvent || this.lastEvent.title !== event.detail.title || this.lastEvent.description !== event.detail.description || this.lastEvent.color !== event.detail.color) {
+      if (!this.lastEvent || this.lastEvent.title !== event.detail.title || this.lastEvent.description !== event.detail.description || this.lastEvent.color !== event.detail.color) {
         this.lastEvent = {
           title: event.detail.title,
           description: event.detail.description,
@@ -95,14 +95,11 @@
       Utils.raiseEvent(this, {
         status: !data ? 'server-error' :
           !data.stats || !data.stats.count ? 'empty' :
-          this.getStatus(data)
+            this.getStatus(data)
       });
     },
 
     render: function (data) {
-
-      this.processAlerts(data);
-
       var model = this.getModel();
       model.stats = data ? data.stats : {};
       model.avgBuildTime = {};
@@ -123,11 +120,11 @@
         model.failedDevelopBuildsCount = data.failedDevelopBuildsCount;
         model.unstableDevelopBuildsCount = data.unstableDevelopBuildsCount;
         model.status = this.getStatus(data);
-        model.description =  model.status === 'error' ? model.failedMasterBuildsCount + ' of ' + model.masterBuildsCount + 'master branches failed'
+        model.description = model.status === 'error' ? model.failedMasterBuildsCount + ' of ' + model.masterBuildsCount + 'master branches failed'
           : model.unstableMasterBuildsCount > 0 ? model.unstableMasterBuildsCount + ' of ' + model.masterBuildsCount + ' master branches are unstable'
-          : model.failedDevelopBuildsCount > 0 ? model.failedDevelopBuildsCount + ' of ' + model.developBuildsCount + ' develop branches failed'
-          : model.unstableDevelopBuildsCount > 0 ? model.unstableDevelopBuildsCount + ' of ' + model.developBuildsCount + 'develop branches are unstable'
-          : 'Everything looks fine';
+            : model.failedDevelopBuildsCount > 0 ? model.failedDevelopBuildsCount + ' of ' + model.developBuildsCount + ' develop branches failed'
+              : model.unstableDevelopBuildsCount > 0 ? model.unstableDevelopBuildsCount + ' of ' + model.developBuildsCount + 'develop branches are unstable'
+                : 'Everything looks fine';
 
         this.checkSendEvent(model);
       }

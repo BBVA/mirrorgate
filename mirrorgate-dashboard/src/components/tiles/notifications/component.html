@@ -24,21 +24,19 @@
     @import "css/{skin}.css";
   </style>
   <div class="notifications">
-      <div class="notification__icon" rv-pclass-notification__color="notification.color">
-        <i class="fa fa-slack" aria-hidden="true"></i>
-      </div>
+    <div class="notification__icon" rv-pclass-notification__color="notification.color">
+      <i class="fa fa-slack" aria-hidden="true"></i>
+    </div>
 
-      <div class="notifications__content">
-        <div class="notification__type">
-          <span class="notification__title">Slack message
-            <span rv-show="notification.user"> from {notification.user}</span>
-          </span>
-
-          <span class="date title-desc" rv-show="notification.date">{ notification.date | date updatedDate}</span></div>
-
-        <div rv-show="notification.description">{ notification.description }</div>
-        <div rv-hidden="notification.description">No notifications</div>
-      </div>
+    <div class="notifications__content">
+      <div class="notification__type">
+        <span class="notification__title">Slack message
+          <span rv-show="notification.user"> from {notification.user}</span>
+        </span>
+        <span class="date title-desc" rv-show="notification.date">{ notification.date | date updatedDate}</span></div>
+      <div rv-show="notification.description">{ notification.description }</div>
+      <div rv-hidden="notification.description">No notifications</div>
+    </div>
   </div>
 </template>
 
@@ -56,7 +54,7 @@
         });
       },
 
-      onCreated: function() {
+      onCreated: function () {
         document.addEventListener('Message', this.render.bind(this));
       },
 

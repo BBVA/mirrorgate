@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-var BaseComponent = (function() {
-'use strict';
+var BaseComponent = (function () {
+  'use strict';
 
   // Creates an object based in the HTML Element prototype
   function BaseComponent() {
@@ -25,13 +25,13 @@ var BaseComponent = (function() {
   Object.setPrototypeOf(BaseComponent.prototype, HTMLElement.prototype);
   Object.setPrototypeOf(BaseComponent, HTMLElement);
 
-  BaseComponent.prototype.connectedCallback = function() {
+  BaseComponent.prototype.connectedCallback = function () {
     //Rivets might detach and attach the node several times...
-    if(this._initialized) {
+    if (this._initialized) {
       return Promise.resolve();
     }
     this._initialized = true;
-    for(var i = 0; i < this.attributes.length; i++) {
+    for (var i = 0; i < this.attributes.length; i++) {
       var attr = this.attributes[i];
       this.getModel().attrs[attr.name] = attr.value;
     }
@@ -42,16 +42,16 @@ var BaseComponent = (function() {
       //Replace skin placeholder as rivets ignore style tags :-(
       var styles = rootElement.querySelectorAll('style');
 
-      for(var i = 0; i < styles.length; i++) {
+      for (var i = 0; i < styles.length; i++) {
         var tag = styles[i];
         tag.innerText = tag.innerText.replace(/{skin}/, Utils.getSkin());
       }
 
       //Don't create wrapper for container nodes
-      if(this.lightDOM && (this.childNodes.length === 0 || !this.innerHTML.trim().length)) {
+      if (this.lightDOM && (this.childNodes.length === 0 || !this.innerHTML.trim().length)) {
         var wrapper = document.createElement('div');
         wrapper.className = "component-wrapper " + this.className;
-        wrapper.setAttribute("rv-ignore","true");
+        wrapper.setAttribute("rv-ignore", "true");
 
         var container = document.createElement('div');
         container.className = "component-host " + this.className;
@@ -60,8 +60,8 @@ var BaseComponent = (function() {
         container.appendChild(rootElement);
         this._fakeShadowRoot = container;
         this._wrapper = wrapper;
-      } else if(!this.lightDOM && (this.childNodes.length === 0 || !this.innerHTML.trim().length)){
-        if(this.attachShadow) {
+      } else if (!this.lightDOM && (this.childNodes.length === 0 || !this.innerHTML.trim().length)) {
+        if (this.attachShadow) {
           this.attachShadow({
             mode: 'open'
           });
@@ -73,13 +73,12 @@ var BaseComponent = (function() {
       }
 
       return this.bootstrap()
-      .then(function () {
-
+        .then(function () {
           setTimeout(function () {
-            this.dispatchEvent(new CustomEvent('component-ready', {bubbles: false}));
+            this.dispatchEvent(new CustomEvent('component-ready', { bubbles: false }));
           }.bind(this));
         }.bind(this))
-      .catch(function (err) {
+        .catch(function (err) {
           console.error('Error Bootstrapping tag ', this.tagName, err);
         }.bind(this));
 
@@ -92,8 +91,8 @@ var BaseComponent = (function() {
     return this._fakeShadowRoot || this.shadowRoot;
   };
 
-  BaseComponent.prototype.getModel = function() {
-    if(!this._model) {
+  BaseComponent.prototype.getModel = function () {
+    if (!this._model) {
       this._model = {
         true: true,
         attrs: {}
@@ -101,23 +100,23 @@ var BaseComponent = (function() {
     }
     return this._model;
   };
-  BaseComponent.prototype.onCreated = function() {};
-  BaseComponent.prototype.getTemplate = function() {
+  BaseComponent.prototype.onCreated = function () { };
+  BaseComponent.prototype.getTemplate = function () {
     throw 'getTemplate not implemented';
   };
 
-  BaseComponent.prototype.bootstrap = function() {
-    if(this._fakeShadowRoot || this.shadowRoot) {
+  BaseComponent.prototype.bootstrap = function () {
+    if (this._fakeShadowRoot || this.shadowRoot) {
       this.__view = rivets.bind($(this._fakeShadowRoot || this.shadowRoot), this.getModel());
     }
-    if(this._wrapper) {
+    if (this._wrapper) {
       this.appendChild(this._wrapper);
     }
     return Promise.resolve();
   };
 
-  BaseComponent.prototype.attributeChangedCallback = function(
-      attributeName, oldValue, newValue, namespace) {
+  BaseComponent.prototype.attributeChangedCallback = function (
+    attributeName, oldValue, newValue, namespace) {
     this.getModel().attrs[attributeName] = newValue;
   };
 
@@ -134,22 +133,22 @@ var MGComponent = function (spec) {
 
   function findTemplate(node) {
     var children = node.children;
-    for(var i = 0; i < children.length; i++) {
-      if(children[i].tagName === 'TEMPLATE') {
+    for (var i = 0; i < children.length; i++) {
+      if (children[i].tagName === 'TEMPLATE') {
         return children[i];
       }
     }
     return node.querySelector('template');
   }
 
-  if(MGComponent.cache[spec.name]) {
+  if (MGComponent.cache[spec.name]) {
     console.error("Tag already defined " + spec.name);
     return;
   }
 
   var parentClass = spec.parent || BaseComponent;
-  var Component = (function(spec, parentClass) {
-    return function (){
+  var Component = (function (spec, parentClass) {
+    return function () {
       var _ = Reflect.construct(parentClass, [], Object.getPrototypeOf(this).constructor);
       _.lightDOM = spec.lightDOM ||
         /*In shake of testability */
@@ -162,10 +161,10 @@ var MGComponent = function (spec) {
 
   var thisDoc;
 
-  if(typeof HTMLImports !== 'undefined') {
+  if (typeof HTMLImports !== 'undefined') {
     thisDoc = HTMLImports.importForElement(document.currentScript);
   } else {
-    thisDoc= (document._currentScript || document.currentScript).ownerDocument;
+    thisDoc = (document._currentScript || document.currentScript).ownerDocument;
   }
 
   var template = findTemplate(thisDoc);
@@ -180,7 +179,7 @@ var MGComponent = function (spec) {
     getTemplate: function () {
       return template;
     }
-  },spec);
+  }, spec);
 
   customElements.define(name, Component);
   return Component;

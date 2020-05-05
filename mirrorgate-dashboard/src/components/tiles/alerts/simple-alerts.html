@@ -41,7 +41,7 @@
       <div rv-show="alerts" class="progress-bar">
         <div rv-each-item="items" rv-show="item.width" class="progress__bar" role="progressbar" rv-pclass-fill="item.status" rv-width="item.width"></div>
       </div>
-      <div rv-if="accomplishedAlertsPercentage"class="indicator__bar">
+      <div rv-if="accomplishedAlertsPercentage" class="indicator__bar">
         <div class="indicator alert__accomplished">
           <div class="stats">{accomplishedAlertsPercentage}%<span class="builds-tendency" rv-pclass-tendency="accomplishedAlerts"></span></div>
           <div class="stat-desc">Accomplished</div>
@@ -61,17 +61,14 @@
     processAlerts: function (data) {
       Utils.raiseEvent(this, {
         status: !data || !data.alert_groups ? 'server-error' :
-                data.alert_groups.length == 0 ? 'empty' :
-                data.failedAlertsCount > 0 ? 'error' :
-                data.unstableAlertsCount > 0 ? 'warn' :
+          data.alert_groups.length == 0 ? 'empty' :
+            data.failedAlertsCount > 0 ? 'error' :
+              data.unstableAlertsCount > 0 ? 'warn' :
                 'ok'
       });
     },
 
     render: function (data) {
-
-      this.processAlerts(data);
-
       var model = this.getModel();
       if (data && data.alert_groups) {
         model.alerts = data.alert_groups;
@@ -83,8 +80,8 @@
         model.accomplishedAlertsPercentage = Math.floor((model.accomplishedAlertsCount / model.totalAlertsCount) * 100);
 
         model.status = data.failedAlertsCount > 0 ? 'error' :
-                       data.unstableAlertsCount > 0 ? 'warn' :
-                       'ok';
+          data.unstableAlertsCount > 0 ? 'warn' :
+            'ok';
 
         var items = [];
         var order = {
@@ -93,14 +90,14 @@
           'bad': 2
         };
 
-        model.alerts.forEach(function(alertGroup){
-          alertGroup.children.forEach(function(alert){
+        model.alerts.forEach(function (alertGroup) {
+          alertGroup.children.forEach(function (alert) {
             var item = {};
-            if(alert.state === 'green'){
+            if (alert.state === 'green') {
               item.status = 'excellent';
-            }else if(alert.state === 'black'){
+            } else if (alert.state === 'black') {
               item.status = 'good';
-            }else{
+            } else {
               item.status = 'bad';
             }
             item.width = 0;
@@ -110,7 +107,7 @@
 
         var joinedItemsMap = [];
 
-        items.forEach(function(item){
+        items.forEach(function (item) {
           var pos = order[item.status];
           joinedItemsMap[pos] = joinedItemsMap[pos] || item;
           joinedItemsMap[pos].width += (100 / model.totalAlertsCount);
