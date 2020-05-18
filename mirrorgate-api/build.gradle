@@ -16,7 +16,7 @@
 
 buildscript {
     ext {
-        springBootVersion = '2.2.6.RELEASE'
+        springBootVersion = '2.3.0.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -68,6 +68,7 @@ dependencies {
         'org.springframework.boot:spring-boot-starter-data-mongodb',
         'org.springframework.boot:spring-boot-starter-actuator',
         'org.springframework.boot:spring-boot-starter-websocket',
+        'org.springframework.boot:spring-boot-starter-validation',
         'io.springfox:springfox-swagger2:2.9.2',
         'com.github.allbegray:slack-api:1.7.0.RELEASE'
     )
