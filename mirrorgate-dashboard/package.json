@@ -34,8 +34,8 @@
     "gulp-uglify-es": "2.0.0",
     "gulp-useref": "4.0.1",
     "jasmine-core": "3.5.0",
-    "jshint": "2.11.0",
-    "karma": "5.0.4",
+    "jshint": "2.11.1",
+    "karma": "5.0.7",
     "karma-chrome-launcher": "3.1.0",
     "karma-coverage": "2.0.2",
     "karma-jasmine": "3.1.1",
@@ -45,12 +45,12 @@
     "lodash": "4.17.15",
     "selenium-standalone": "6.17.0",
     "sinon": "9.0.2",
-    "uglify-js": "3.9.2"
+    "uglify-js": "3.9.3"
   },
   "dependencies": {
     "@webcomponents/html-imports": "1.2.4",
     "@webcomponents/webcomponentsjs": "2.4.3",
-    "bootstrap": "4.4.1",
+    "bootstrap": "4.5.0",
     "d3": "5.16.0",
     "font-awesome": "4.7.0",
     "jquery": "3.5.1",
