@@ -9,7 +9,7 @@
   "author": "BBVA",
   "license": "Apache-2.0",
   "devDependencies": {
-    "protractor": "5.4.4"
+    "protractor": "7.0.0"
   },
   "dependencies": {
     "request": "2.88.2"
