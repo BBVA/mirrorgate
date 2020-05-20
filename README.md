@@ -42,6 +42,17 @@ It also offers a view where you can display several product dashboards in a sing
 
 ![ScreenCatpure](./mirrorgate-docs/src/assets/img/aggregate.png)
 
+### Smart components
+
+Some components get all available space to display more detailed information. For instance:
+
+* **Feedback**
+
+![ScreenCatpure](./mirrorgate-docs/src/assets/img/feedback.png)
+
+* **Operations**
+
+![ScreenCatpure](./mirrorgate-docs/src/assets/img/operations.png)
 
 ### Backoffice
 
