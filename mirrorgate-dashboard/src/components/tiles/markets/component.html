@@ -36,36 +36,36 @@
       <div class="platform-rates">
 
         <div rv-each-app="apps" class="platform-rate">
-          <div class="rate-short-term-data">
+          <div rv-class="app.platform">
             <div class="rate-stars" rv-if="app.starsTotal">
 
               <span class="rate__total">
                 <a rv-href="app.url" target="reviews">
                   <i aria-hidden="true" rv-pclass-fa="app.icon" class="rate__os fa"></i>
 
-                  <span rv-show="app.rateShortTerm">
+                  <span rv-if="app.rateShortTerm">
                     <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
                   </span>
-                  <span class="no-reviews-in-short-term" rv-hide="app.rateShortTerm">
+                  <span class="no-reviews-in-short-term" rv-if="app.rateShortTerm | undefined">
                     <i rv-each-star="app.starsShortTerm" aria-hidden="true" class="fa fa-star-o"></i>
                   </span>
                 </a>
               </span>
-              <span class="sr-only" rv-show="app.rateShortTerm">{app.rateShortTerm}</span>
+              <span class="sr-only" rv-if="app.rateShortTerm">{app.rateShortTerm}</span>
 
-              <span class="tendency" rv-show="app.rateShortTerm" rv-pclass-tendency="app.tendency"></span>
+              <span class="tendency" rv-if="app.rateShortTerm" rv-pclass-tendency="app.tendency"></span>
 
-              <span class="rate__tag" rv-show="app.rateShortTerm">
-                ({app.votesShortTerm} votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
+              <span class="rate__tag" rv-if="app.rateShortTerm">
+                (<span class="value">{app.votesShortTerm}</span> votes) <span class="tendency sr-only" rv-pclass-tendency="app.voteTendency"></span>
               </span>
-              <span class="rate__tag" rv-hide="app.rateShortTerm">(No votes)</span>
+              <span class="rate__tag" rv-if="app.rateShortTerm | undefined">(No votes)</span>
 
               <div class="rate__total-data">
                 <span>All times: <span class="rate-value sr-only">{app.rateTotal}</span> </span>
 
                 <i rv-each-star="app.starsTotal" aria-hidden="true" class="fa" rv-pclass-fa="star"></i>
 
-                <span class="rate-legend-votes">({app.votesTotal} votes)</span>
+                <span class="rate-legend-votes">(<span class="value">{app.votesTotal}</span> votes)</span>
               </div>
 
             </div>
