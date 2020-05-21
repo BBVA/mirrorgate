@@ -94,15 +94,17 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     public List<ApplicationDTO> getAverageRateByAppNamesAfterTimestamp(List<String> names, Long timestamp) {
 
         Aggregation aggregation = newAggregation(
-                match(Criteria.where("appname").in(names).and("timestamp").gte(timestamp)),
-                group("appname", "platform")
-                        .count().as("votesShortTerm")
-                        .sum("starrating").as("ratingShortTerm")
+            match(Criteria.where("appname").in(names).and("timestamp").gte(timestamp)),
+            group("appname", "platform")
+                .first("appname").as("appname")
+                .first("platform").as("platform")
+                .count().as("votesShortTerm")
+                .sum("starrating").as("ratingShortTerm")
         );
 
         //Convert the aggregation result into a List
         AggregationResults<ApplicationDTO> groupResults
-                = mongoTemplate.aggregate(aggregation, Review.class, ApplicationDTO.class);
+            = mongoTemplate.aggregate(aggregation, Review.class, ApplicationDTO.class);
 
         return groupResults.getMappedResults();
 
