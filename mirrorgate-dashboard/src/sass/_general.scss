@@ -15,12 +15,10 @@
  */
 
 * {
-    transition: fill-opacity 0.3s ease-in-out,
-        fill 0.3s ease-in-out,
-        display 0.3s ease-in-out;
+    transition: fill-opacity 0.3s ease-in-out, fill 0.3s ease-in-out, display 0.3s ease-in-out;
 }
 
-html{
+html {
     font-size: $default-size;
 }
 
@@ -32,11 +30,17 @@ body {
     font-size: 14px;
 }
 
-b, strong {
+b,
+strong {
     font-weight: $font-weight-bold;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: $headers-color;
     font-weight: $headers-weight;
     text-align: center;
@@ -52,35 +56,35 @@ h3 {
     font-size: 1.5rem;
 }
 
-a{
+a {
     color: $blue;
 
     &:hover,
-    &:focus{
-        color: darken( $blue, 30)
+    &:focus {
+        color: darken($blue, 30);
     }
 }
 
 //LAYOUT
 
 #unsupported-msg {
-  margin-top: 200px;
-  font-weight: 400;
+    margin-top: 200px;
+    font-weight: 400;
 }
 
-.bottom{
+.bottom {
     flex: 0 0 auto;
     width: 100%;
 
-    .tile, .notification {
+    .tile,
+    .notification {
         background-color: transparent;
         width: 100%;
         overflow: visible;
     }
-
 }
 
-tile-container{
+tile-container {
     display: block;
     margin: 5px 10px;
     padding: 5px 10px;
@@ -92,11 +96,11 @@ tile-container{
     }
 }
 
-@media all and (min-width: $l){
-    html{
+@media all and (min-width: $l) {
+    html {
         font-size: $default-size - 0.2;
     }
-    body{
+    body {
         overflow: hidden;
         height: 100%;
     }
@@ -119,16 +123,27 @@ tile-container{
 
     .dashboard {
         display: flex;
-        //need to interpolate the $header-footer-height in order to have it print out the px there
-        height: calc(100vh - #{$header-height});
-        height: -moz-calc(100vh - #{$header-height});
-        height: -webkit-calc(100vh - #{$header-height});
+        height: 100vh;
         padding: 5px;
 
+        &.with-header {
+            height: calc(100vh - #{$header-height});
+            height: -moz-calc(100vh - #{$header-height});
+            height: -webkit-calc(100vh - #{$header-height});
+        }
+
         &.with-footer {
-          height: calc(100vh - #{$header-footer-height});
-          height: -moz-calc(100vh - #{$header-footer-height});
-          height: -webkit-calc(100vh - #{$header-footer-height});
+            height: calc(100vh - #{$footer-height});
+            height: -moz-calc(100vh - #{$footer-height});
+            height: -webkit-calc(100vh - #{$footer-height});
+        }
+
+        &.with-header {
+            &.with-footer {
+                height: calc(100vh - #{$header-footer-height});
+                height: -moz-calc(100vh - #{$header-footer-height});
+                height: -webkit-calc(100vh - #{$header-footer-height});
+            }
         }
     }
 
@@ -139,12 +154,12 @@ tile-container{
         min-height: 0; /* min-height to prevent overflowing */
 
         // Alerts column
-        &[data-size="fixed-right"]{
+        &[data-size="fixed-right"] {
             max-width: $alerts-column-width;
             overflow: hidden;
         }
 
-        &[data-count-y="4"]{
+        &[data-count-y="4"] {
             tile-container {
                 min-height: 20%;
             }
@@ -165,35 +180,34 @@ tile-container{
 
     //TILES
 
-    tile-container{
+    tile-container {
         margin: 0;
         padding: 5px;
         width: 100%;
     }
 
-    .bottom{
+    .bottom {
         flex: 0 0 auto;
         width: 100%;
     }
 }
 
-@media all and (min-width: $xl){
-    html{
+@media all and (min-width: $xl) {
+    html {
         font-size: $default-size - 0.2;
     }
 }
 
-@media all and (min-width: $xxl){
-    html{
+@media all and (min-width: $xxl) {
+    html {
         font-size: $default-size;
     }
 
     .dashboard {
-
         &.with-footer {
-          height: calc(100vh - #{$header-footer-height-xxl});
-          height: -moz-calc(100vh - #{$header-footer-height-xxl});
-          height: -webkit-calc(100vh - #{$header-footer-height-xxl});
+            height: calc(100vh - #{$header-footer-height-xxl});
+            height: -moz-calc(100vh - #{$header-footer-height-xxl});
+            height: -webkit-calc(100vh - #{$header-footer-height-xxl});
         }
     }
 
@@ -204,24 +218,24 @@ tile-container{
 }
 
 /* Bootstrap overwrites */
-.dropdown-menu>li>a{
+.dropdown-menu > li > a {
     font-weight: $font-weight-medium;
 }
 
 .easter-egg {
-   position:absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   z-index: 10000;
-   pointer-events: none;
-   display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000;
+    pointer-events: none;
+    display: none;
 }
 
 .header {
-  width: 100%;
+    width: 100%;
 }
 
 .subheader {
-  flex: 1 1 auto;
+    flex: 1 1 auto;
 }

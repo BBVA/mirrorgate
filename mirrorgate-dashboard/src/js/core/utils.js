@@ -158,6 +158,10 @@ var Utils = (function() {
       return diff;
     },
 
+    isFramed: function() {
+      var searchParams = new URLSearchParams(window.location.search);
+      return searchParams.get('framed') === 'true' ? true : false;
+    },
 
     raiseEvent: function(source, detail) {
       source.dispatchEvent(

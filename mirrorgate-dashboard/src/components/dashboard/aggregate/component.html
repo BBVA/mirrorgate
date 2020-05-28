@@ -37,7 +37,7 @@
   <style>
     @import "css/{skin}.css";
   </style>
-  <div class="dashboard">
+  <div class="dashboard" rv-class-with-header="layout.withHeader">
     <board-column class="board-container">
       <board-row>
         <tile-container enabled="true" class="title-tile">
@@ -183,6 +183,7 @@
 
     render: function (data) {
       this.getModel().boards = data;
+      this.getModel().layout.withHeader = !Utils.isFramed();
     }
 
   });

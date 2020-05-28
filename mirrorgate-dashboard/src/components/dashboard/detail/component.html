@@ -50,7 +50,7 @@
   </style>
   <div>
     <!-- .dashboard -->
-    <div class="dashboard adaptable" rv-class-with-footer="layout.withFooter">
+    <div class="dashboard adaptable" rv-class-with-header="layout.withHeader" rv-class-with-footer="layout.withFooter">
       <board-column rv-each-column="columns">
         <board-row rv-each-tile="column">
           <tile-container>
@@ -105,6 +105,7 @@
     },
 
     render: function (config) {
+      this.getModel().layout.withHeader = !Utils.isFramed();
       this.getModel().layout.withFooter =
         config.slackTeam || (config.codeRepos && config.codeRepos.length) ? true : false;
 
