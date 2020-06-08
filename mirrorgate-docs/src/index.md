@@ -14,11 +14,11 @@ That said, to be honest, it all comes from this dialog from `The Never Ending St
 * Falcor: So what? That won't be too hard for him.
 * Engywook: Oh, that's what everyone thinks! But kind people find out that they are cruel. Brave men discover that they are really cowards! Confronted by their true selves, most men run away screaming!
 
-# Functionality
+## Functionality
 
 Right now MirrorGate offers different dashboard types and views:
 
-## Detail dashboard
+### Detail dashboard
 
 Offers information on:
 * Sprint advance status and backlog refinement.
@@ -36,14 +36,25 @@ Offers information on:
 
 We expect to be adding much more information in the near future so stay tuned.
 
-## Aggregate dashboard
+### Aggregate dashboard
 
 It also offers a view where you can display several product dashboards in a single view with a more summed up information.
 
 ![ScreenCatpure](assets/img/aggregate.png)
 
+### Smart components
 
-## Backoffice
+Some components get all available space to display more detailed information. For instance:
+
+* **Feedback**
+
+![ScreenCatpure](assets/img/feedback.png)
+
+* **Operations**
+
+![ScreenCatpure](assets/img/operations.png)
+
+### Backoffice
 
 Additionally, MirrorGate offers a backoffice application where dashboards can be configured.
 
