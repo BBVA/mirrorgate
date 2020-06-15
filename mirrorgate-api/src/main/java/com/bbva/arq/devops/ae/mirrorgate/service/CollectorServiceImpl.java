@@ -18,10 +18,9 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Collector;
 import com.bbva.arq.devops.ae.mirrorgate.repository.CollectorsRepository;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 @Component
 public class CollectorServiceImpl implements CollectorService {
@@ -30,13 +29,13 @@ public class CollectorServiceImpl implements CollectorService {
     CollectorsRepository collectorsRepository;
 
     @Override
-    public Date getLastExecutionDate(String id) {
-        Collector c = collectorsRepository.findById(id);
+    public Date getLastExecutionDate(final String id) {
+        final Collector c = collectorsRepository.findById(id);
         return c == null ? null : c.getLastExecution();
     }
 
     @Override
-    public void saveLastExecutionDate(String id, Date executionDate) {
+    public void saveLastExecutionDate(final String id, final Date executionDate) {
         collectorsRepository.save(
             new Collector()
                 .setCollectorId(id)

@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bbva.arq.devops.ae.mirrorgate.security;
 
+package com.bbva.arq.devops.ae.mirrorgate.security;
 
 public enum SecurityAuthoritiesEnum {
     REGULAR,

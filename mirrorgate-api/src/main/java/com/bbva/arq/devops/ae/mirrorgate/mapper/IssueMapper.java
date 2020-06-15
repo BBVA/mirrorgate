@@ -23,7 +23,6 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
-
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -32,11 +31,11 @@ public class IssueMapper {
     private IssueMapper() {
     }
 
-    public static Issue map(IssueDTO source) {
+    public static Issue map(final IssueDTO source) {
         return map(source, new Issue());
     }
 
-    public static Issue map(IssueDTO source, Issue target) {
+    public static Issue map(final IssueDTO source, final Issue target) {
         target
             .setEstimation(source.getEstimate())
             .setName(source.getName())
@@ -46,7 +45,12 @@ public class IssueMapper {
             .setKeywords(source.getKeywords())
             .setType(source.getType())
             .setNumber(source.getJiraKey())
-            .setParentsIds(source.getParentId() == null ? null : source.getParentId().stream().map(Long::parseLong).collect(Collectors.toList()))
+            .setParentsIds(
+                source.getParentId() == null ? null : source.getParentId()
+                    .stream()
+                    .map(Long::parseLong)
+                    .collect(Collectors.toList())
+            )
             .setParentsKeys(source.getParentKey())
             .setPiNames(source.getPiNames())
             .setCollectorId(source.getCollectorId())
@@ -54,7 +58,7 @@ public class IssueMapper {
             .setTimestamp(source.getUpdatedDate() == null ? null : source.getUpdatedDate().getTime())
             .setTeamName(source.getTeamName());
 
-        SprintDTO sprint = source.getSprint();
+        final SprintDTO sprint = source.getSprint();
         if (sprint != null) {
             target.setSprintId(sprint.getId())
                 .setSprintName(sprint.getName())
@@ -69,7 +73,7 @@ public class IssueMapper {
                 .setSprintEndDate(null);
         }
 
-        ProjectDTO project = source.getProject();
+        final ProjectDTO project = source.getProject();
         if (project != null) {
             target.setProjectId(project.getId() == null ? null : project.getId().toString())
                 .setProjectName(project.getName());
@@ -81,11 +85,11 @@ public class IssueMapper {
         return target;
     }
 
-    public static IssueDTO map(Issue source) {
+    public static IssueDTO map(final Issue source) {
         return map(source, new IssueDTO());
     }
 
-    private static IssueDTO map(Issue source, IssueDTO target) {
+    private static IssueDTO map(final Issue source, final IssueDTO target) {
         return target
             .setEstimate(source.getEstimation())
             .setName(source.getName())
@@ -95,14 +99,21 @@ public class IssueMapper {
             .setSprint(new SprintDTO()
                 .setId(source.getSprintId())
                 .setName(source.getSprintName())
-                .setStatus(source.getSprintAssetState() == null ? null : SprintStatus.valueOf(source.getSprintAssetState()))
+                .setStatus(
+                    source.getSprintAssetState() == null ? null : SprintStatus.valueOf(source.getSprintAssetState())
+                )
                 .setStartDate(source.getSprintBeginDate())
                 .setEndDate(source.getSprintEndDate()))
             .setProject(new ProjectDTO()
                 .setId(source.getProjectId() == null ? null : Long.parseLong(source.getProjectId()))
                 .setName(source.getProjectName()))
             .setParentKey(source.getParentsKeys())
-            .setParentId(source.getParentsIds() == null ? null : source.getParentsIds().stream().map(String::valueOf).collect(Collectors.toList()))
+            .setParentId(
+                source.getParentsIds() == null ? null : source.getParentsIds()
+                    .stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.toList())
+            )
             .setJiraKey(source.getNumber())
             .setKeywords(source.getKeywords())
             .setPiNames(source.getPiNames())

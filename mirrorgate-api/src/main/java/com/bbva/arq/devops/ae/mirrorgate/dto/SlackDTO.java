@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 public class SlackDTO {
 
     private boolean ok;
-    private String access_token;
+    private String accessToken;
     private String text;
     private String url;
     private String error;
@@ -27,17 +28,17 @@ public class SlackDTO {
         return ok;
     }
 
-    public SlackDTO setOk(boolean ok) {
+    public SlackDTO setOk(final boolean ok) {
         this.ok = ok;
         return this;
     }
 
-    public String getAccess_token() {
-        return access_token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public SlackDTO setAccess_token(String access_token) {
-        this.access_token = access_token;
+    public SlackDTO setAccess_token(final String accessToken) {
+        this.accessToken = accessToken;
         return this;
     }
 
@@ -45,7 +46,7 @@ public class SlackDTO {
         return text;
     }
 
-    public SlackDTO setText(String text) {
+    public SlackDTO setText(final String text) {
         this.text = text;
         return this;
     }
@@ -54,7 +55,7 @@ public class SlackDTO {
         return url;
     }
 
-    public SlackDTO setUrl(String url) {
+    public SlackDTO setUrl(final String url) {
         this.url = url;
         return this;
     }
@@ -63,7 +64,7 @@ public class SlackDTO {
         return error;
     }
 
-    public SlackDTO setError(String error) {
+    public SlackDTO setError(final String error) {
         this.error = error;
         return this;
     }

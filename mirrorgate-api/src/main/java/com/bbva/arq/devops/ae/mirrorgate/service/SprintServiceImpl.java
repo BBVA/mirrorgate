@@ -18,14 +18,14 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.SprintDTO;
 import com.bbva.arq.devops.ae.mirrorgate.mapper.SprintMapper;
+import com.bbva.arq.devops.ae.mirrorgate.model.Sprint;
 import com.bbva.arq.devops.ae.mirrorgate.repository.SprintRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class SprintServiceImpl implements SprintService {
@@ -34,7 +34,7 @@ public class SprintServiceImpl implements SprintService {
     SprintRepository sprintRepository;
 
     @Override
-    public List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses, String collectorId) {
+    public List<SprintDTO> getSampleForStatus(final SprintStatus[] sprintStatuses, final String collectorId) {
         return sprintRepository.getSprintSampleForStatus(
             Arrays.stream(sprintStatuses)
                 .map(Object::toString)
@@ -42,23 +42,23 @@ public class SprintServiceImpl implements SprintService {
                 .toArray(new String[]{}),
             collectorId
         ).stream()
-                .map(SprintMapper::map)
-                .peek((s) -> {
-                    //We are already returning the sprint... don't loop
-                    if(s.getIssues() != null) {
-                        s.getIssues().forEach((i) -> i.setSprint(null));
-                    }
-                })
-                .collect(Collectors.toList());
+            .map(SprintMapper::map)
+            .peek((s) -> {
+                //We are already returning the sprint... don't loop
+                if (s.getIssues() != null) {
+                    s.getIssues().forEach((i) -> i.setSprint(null));
+                }
+            })
+            .collect(Collectors.toList());
     }
 
     @Override
-    public SprintDTO getSprint(Long id, String collectorId) {
-        com.bbva.arq.devops.ae.mirrorgate.model.Sprint sourceSprint = sprintRepository.getSprintForId(id.toString(), collectorId);
-        SprintDTO sprint = SprintMapper.map(sourceSprint);
+    public SprintDTO getSprint(final Long id, final String collectorId) {
+        final Sprint sourceSprint = sprintRepository.getSprintForId(id.toString(), collectorId);
+        final SprintDTO sprint = SprintMapper.map(sourceSprint);
 
         //We are already returning the sprint... don't loop
-        if(sprint != null) {
+        if (sprint != null) {
             sprint.getIssues().forEach((i) -> i.setSprint(null));
         }
         return sprint;

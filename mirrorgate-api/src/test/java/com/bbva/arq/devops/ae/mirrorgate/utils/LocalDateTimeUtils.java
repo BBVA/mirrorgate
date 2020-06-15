@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.utils;
 
 import java.time.LocalDateTime;
@@ -20,9 +21,28 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 public class LocalDateTimeUtils {
-    public static final long TODAY = LocalDateTime.now(ZoneId.of("UTC")).toInstant(ZoneOffset.UTC).toEpochMilli();
-    public static final long YESTERDAY = LocalDateTime.now(ZoneId.of("UTC")).minusDays(1).toInstant(ZoneOffset.UTC).toEpochMilli();
-    public static final long ONE_WEEK_AGO = LocalDateTime.now(ZoneId.of("UTC")).minusDays(7).toInstant(ZoneOffset.UTC).toEpochMilli();
-    public static final long ONE_MONTH_AGO = LocalDateTime.now(ZoneId.of("UTC")).minusDays(30).toInstant(ZoneOffset.UTC).toEpochMilli();
-    public static final long THREE_HOURS_AGO = LocalDateTime.now(ZoneId.of("UTC")).minusHours(2).toInstant(ZoneOffset.UTC).toEpochMilli();
+    public static final long TODAY = LocalDateTime
+        .now(ZoneId.of("UTC"))
+        .toInstant(ZoneOffset.UTC)
+        .toEpochMilli();
+    public static final long YESTERDAY = LocalDateTime
+        .now(ZoneId.of("UTC"))
+        .minusDays(1)
+        .toInstant(ZoneOffset.UTC)
+        .toEpochMilli();
+    public static final long ONE_WEEK_AGO = LocalDateTime
+        .now(ZoneId.of("UTC"))
+        .minusDays(7)
+        .toInstant(ZoneOffset.UTC)
+        .toEpochMilli();
+    public static final long ONE_MONTH_AGO = LocalDateTime
+        .now(ZoneId.of("UTC"))
+        .minusDays(30)
+        .toInstant(ZoneOffset.UTC)
+        .toEpochMilli();
+    public static final long THREE_HOURS_AGO = LocalDateTime
+        .now(ZoneId.of("UTC"))
+        .minusHours(2)
+        .toInstant(ZoneOffset.UTC)
+        .toEpochMilli();
 }

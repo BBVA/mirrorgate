@@ -13,12 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.CommitDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.CommitService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +36,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
  * Commit controller.
@@ -47,7 +47,7 @@ public class CommitController {
     private final DashboardService dashboardService;
 
     @Autowired
-    public CommitController(CommitService commitService, DashboardService dashboardService) {
+    public CommitController(final CommitService commitService, final DashboardService dashboardService) {
         this.commitService = commitService;
         this.dashboardService = dashboardService;
     }
@@ -67,28 +67,28 @@ public class CommitController {
     }
 
     @RequestMapping(value = "/api/commits", method = PUT,
-            consumes = APPLICATION_JSON_VALUE,
-            produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> saveCommits(@Valid @RequestBody Iterable<CommitDTO> request) {
+        consumes = APPLICATION_JSON_VALUE,
+        produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> saveCommits(final @Valid @RequestBody Iterable<CommitDTO> request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(commitService.saveCommits(request));
     }
 
     @RequestMapping(value = "/api/commits/lastcommits", method = GET,
         produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getLastCommit(
-        @RequestParam(value = "repo") String repo,
-        @RequestParam(value = "timestamp") Integer timestamp
-        ) {
+        final @RequestParam(value = "repo") String repo,
+        final @RequestParam(value = "timestamp") Integer timestamp
+    ) {
         return ResponseEntity.status(HttpStatus.OK).body(commitService.getLastCommits(repo, timestamp));
     }
 
     @RequestMapping(value = "/dashboards/{name}/scm-metrics", method = GET,
-            produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getScmMetricsByBoardName(@PathVariable("name") String name) {
+        produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getScmMetricsByBoardName(final @PathVariable("name") String name) {
 
-        DashboardDTO dashboard = dashboardService.getDashboard(name);
+        final DashboardDTO dashboard = dashboardService.getDashboard(name);
         if (dashboard == null || dashboard.getGitRepos() == null
-                || dashboard.getGitRepos().isEmpty()) {
+            || dashboard.getGitRepos().isEmpty()) {
             return null;
         }
 

@@ -18,12 +18,9 @@ package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import java.util.Date;
 
-/**
- * Created by alfonso on 28/05/17.
- */
 public interface CollectorService {
 
-    Date getLastExecutionDate(String id);
+    Date getLastExecutionDate(final String id);
 
-    void saveLastExecutionDate(String id, Date executionDate);
+    void saveLastExecutionDate(final String id, final Date executionDate);
 }

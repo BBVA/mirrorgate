@@ -20,8 +20,9 @@ import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 
-public interface HistoricUserMetricRepository extends CrudRepository<HistoricUserMetric, ObjectId>, HistoricUserMetricRepositoryCustom {
+public interface HistoricUserMetricRepository
+    extends CrudRepository<HistoricUserMetric, ObjectId>, HistoricUserMetricRepositoryCustom {
 
-    HistoricUserMetric findById(String id);
+    HistoricUserMetric findById(final String id);
 
 }

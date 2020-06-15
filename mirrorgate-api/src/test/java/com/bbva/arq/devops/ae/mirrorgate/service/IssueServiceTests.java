@@ -13,24 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
-
-import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
-import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepository;
-import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.anyList;
@@ -38,6 +22,22 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
+import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepository;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 public class IssueServiceTests {
@@ -78,10 +78,12 @@ public class IssueServiceTests {
     }
 
     @Test
-    public void testTransientDashboardIsCreated(){
+    public void testTransientDashboardIsCreated() {
 
-        final IssueDTO story1 = TestObjectFactory.createIssueDTO(10L, "name1", "collector", "teamName1");
-        final IssueDTO story2 = TestObjectFactory.createIssueDTO(11L, "name2", "collector", "teamName1");
+        final IssueDTO story1 = TestObjectFactory
+            .createIssueDTO(10L, "name1", "collector", "teamName1");
+        final IssueDTO story2 = TestObjectFactory
+            .createIssueDTO(11L, "name2", "collector", "teamName1");
 
         when(issueRepository.saveAll(anyList())).thenReturn(Collections.emptyList());
         issueService.saveOrUpdateStories(Arrays.asList(story1, story2), "collector");
@@ -90,7 +92,7 @@ public class IssueServiceTests {
     }
 
     @Test
-    public void testTransientDashboardIsNotCreated(){
+    public void testTransientDashboardIsNotCreated() {
 
         final IssueDTO story1 = TestObjectFactory.createIssueDTO(10L, "name1", "collector");
         final IssueDTO story2 = TestObjectFactory.createIssueDTO(11L, "name2", "collector");
@@ -100,5 +102,4 @@ public class IssueServiceTests {
 
         verify(dashboardService, times(0)).createDashboardForJiraTeam(anyString());
     }
-
 }

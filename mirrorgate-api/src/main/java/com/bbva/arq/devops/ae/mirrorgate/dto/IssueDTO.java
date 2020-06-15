@@ -18,11 +18,10 @@ package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.IssuePriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
-
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
 public class IssueDTO implements Serializable {
 
@@ -63,7 +62,7 @@ public class IssueDTO implements Serializable {
         return id;
     }
 
-    public IssueDTO setId(Long id) {
+    public IssueDTO setId(final Long id) {
         this.id = id;
         return this;
     }
@@ -72,7 +71,7 @@ public class IssueDTO implements Serializable {
         return name;
     }
 
-    public IssueDTO setName(String name) {
+    public IssueDTO setName(final String name) {
         this.name = name;
         return this;
     }
@@ -81,7 +80,7 @@ public class IssueDTO implements Serializable {
         return type;
     }
 
-    public IssueDTO setType(String type) {
+    public IssueDTO setType(final String type) {
         this.type = type;
         return this;
     }
@@ -90,7 +89,7 @@ public class IssueDTO implements Serializable {
         return status;
     }
 
-    public IssueDTO setStatus(IssueStatus status) {
+    public IssueDTO setStatus(final IssueStatus status) {
         this.status = status;
         return this;
     }
@@ -99,7 +98,7 @@ public class IssueDTO implements Serializable {
         return priority;
     }
 
-    public IssueDTO setPriority(IssuePriority priority) {
+    public IssueDTO setPriority(final IssuePriority priority) {
         this.priority = priority;
         return this;
     }
@@ -108,7 +107,7 @@ public class IssueDTO implements Serializable {
         return jiraKey;
     }
 
-    public IssueDTO setJiraKey(String jiraKey) {
+    public IssueDTO setJiraKey(final String jiraKey) {
         this.jiraKey = jiraKey;
         return this;
     }
@@ -117,7 +116,7 @@ public class IssueDTO implements Serializable {
         return estimate;
     }
 
-    public IssueDTO setEstimate(Double estimate) {
+    public IssueDTO setEstimate(final Double estimate) {
         this.estimate = estimate;
         return this;
     }
@@ -126,7 +125,7 @@ public class IssueDTO implements Serializable {
         return parentKey;
     }
 
-    public IssueDTO setParentKey(List<String> parentKey) {
+    public IssueDTO setParentKey(final List<String> parentKey) {
         this.parentKey = parentKey;
         return this;
     }
@@ -135,7 +134,7 @@ public class IssueDTO implements Serializable {
         return parentId;
     }
 
-    public IssueDTO setParentId(List<String> parentId) {
+    public IssueDTO setParentId(final List<String> parentId) {
         this.parentId = parentId;
         return this;
     }
@@ -144,7 +143,7 @@ public class IssueDTO implements Serializable {
         return piNames;
     }
 
-    public IssueDTO setPiNames(List<String> piNames) {
+    public IssueDTO setPiNames(final List<String> piNames) {
         this.piNames = piNames;
         return this;
     }
@@ -153,7 +152,7 @@ public class IssueDTO implements Serializable {
         return keywords;
     }
 
-    public IssueDTO setKeywords(List<String> keyword) {
+    public IssueDTO setKeywords(final List<String> keyword) {
         this.keywords = keyword;
         return this;
     }
@@ -162,7 +161,7 @@ public class IssueDTO implements Serializable {
         return sprint;
     }
 
-    public IssueDTO setSprint(SprintDTO sprint) {
+    public IssueDTO setSprint(final SprintDTO sprint) {
         this.sprint = sprint;
         return this;
     }
@@ -176,7 +175,7 @@ public class IssueDTO implements Serializable {
         return project;
     }
 
-    public IssueDTO setProject(ProjectDTO project) {
+    public IssueDTO setProject(final ProjectDTO project) {
         this.project = project;
         return this;
     }
@@ -185,7 +184,7 @@ public class IssueDTO implements Serializable {
         return updatedDate == null ? null : new Date(updatedDate.getTime());
     }
 
-    public IssueDTO setUpdatedDate(Date updatedDate) {
+    public IssueDTO setUpdatedDate(final Date updatedDate) {
         this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
         return this;
     }
@@ -194,7 +193,7 @@ public class IssueDTO implements Serializable {
         return collectorId;
     }
 
-    public IssueDTO setCollectorId(String collectorId) {
+    public IssueDTO setCollectorId(final String collectorId) {
         this.collectorId = collectorId;
         return this;
     }
@@ -203,7 +202,7 @@ public class IssueDTO implements Serializable {
         return url;
     }
 
-    public IssueDTO setUrl(String url) {
+    public IssueDTO setUrl(final String url) {
         this.url = url;
         return this;
     }
@@ -212,7 +211,7 @@ public class IssueDTO implements Serializable {
         return teamName;
     }
 
-    public IssueDTO setTeamName(String teamName) {
+    public IssueDTO setTeamName(final String teamName) {
         this.teamName = teamName;
         return this;
     }

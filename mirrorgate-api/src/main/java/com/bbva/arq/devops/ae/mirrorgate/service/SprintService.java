@@ -21,7 +21,7 @@ import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
 import java.util.List;
 
 public interface SprintService {
-    List<SprintDTO> getSampleForStatus(SprintStatus[] sprintStatuses, String collectorId);
+    List<SprintDTO> getSampleForStatus(final SprintStatus[] sprintStatuses, final String collectorId);
 
-    SprintDTO getSprint(Long id, String collectorId);
+    SprintDTO getSprint(final Long id, final String collectorId);
 }

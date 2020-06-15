@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-
 @SpringBootApplication
 @EnableScheduling
-public class MirrorgateApiApplication {
+public class MirrorGateApiApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MirrorgateApiApplication.class, args);
+    public static void main(final String[] args) {
+        SpringApplication.run(MirrorGateApiApplication.class, args);
     }
 }

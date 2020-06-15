@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.Filters;
+import java.util.List;
+import java.util.Objects;
+import javax.validation.constraints.NotNull;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Objects;
-
 /**
- * Dashboard info model
+ * Dashboard info model.
  */
 @Document(collection = "dashboards")
 @CompoundIndex (name = "lastModificationByStatus", def = "{ 'lastModification': 1, 'status': 1 }")
@@ -38,7 +38,7 @@ public class Dashboard extends BaseIdModel {
     private String displayName;
     private String logoUrl;
     private String type;
-    private List<List <String>> columns;
+    private List<List<String>> columns;
 
     private List<String> codeRepos;
     private List<String> adminUsers;
@@ -80,6 +80,7 @@ public class Dashboard extends BaseIdModel {
     public String getName() {
         return name;
     }
+
     public Dashboard setName(String name) {
         this.name = name;
         return this;
@@ -88,7 +89,8 @@ public class Dashboard extends BaseIdModel {
     public String getLogoUrl() {
         return logoUrl;
     }
-    public Dashboard setLogoUrl(String logoUrl) {
+
+    public Dashboard setLogoUrl(final String logoUrl) {
         this.logoUrl = logoUrl;
         return this;
     }
@@ -96,7 +98,8 @@ public class Dashboard extends BaseIdModel {
     public List<String> getCodeRepos() {
         return codeRepos;
     }
-    public Dashboard setCodeRepos(List<String> codeRepos) {
+
+    public Dashboard setCodeRepos(final List<String> codeRepos) {
         this.codeRepos = codeRepos;
         return this;
     }
@@ -104,7 +107,8 @@ public class Dashboard extends BaseIdModel {
     public String getsProductName() {
         return sProductName;
     }
-    public Dashboard setsProductName(String sProductName) {
+
+    public Dashboard setsProductName(final String sProductName) {
         this.sProductName = sProductName;
         return this;
     }
@@ -113,7 +117,7 @@ public class Dashboard extends BaseIdModel {
         return applications;
     }
 
-    public Dashboard setApplications(List<String> applications) {
+    public Dashboard setApplications(final List<String> applications) {
         this.applications = applications;
         return this;
     }
@@ -122,7 +126,7 @@ public class Dashboard extends BaseIdModel {
         return boards;
     }
 
-    public Dashboard setBoards(List<String> boards) {
+    public Dashboard setBoards(final List<String> boards) {
         this.boards = boards;
         return this;
     }
@@ -131,7 +135,7 @@ public class Dashboard extends BaseIdModel {
         return filters;
     }
 
-    public Dashboard setFilters(Filters filters) {
+    public Dashboard setFilters(final Filters filters) {
         this.filters = filters;
         return this;
     }
@@ -140,7 +144,7 @@ public class Dashboard extends BaseIdModel {
         return displayName;
     }
 
-    public Dashboard setDisplayName(String displayName) {
+    public Dashboard setDisplayName(final String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -149,7 +153,7 @@ public class Dashboard extends BaseIdModel {
         return status;
     }
 
-    public Dashboard setStatus(DashboardStatus status) {
+    public Dashboard setStatus(final DashboardStatus status) {
         this.status = status;
         return this;
     }
@@ -158,7 +162,7 @@ public class Dashboard extends BaseIdModel {
         return lastUserEdit;
     }
 
-    public Dashboard setLastUserEdit(String lastUserEdit) {
+    public Dashboard setLastUserEdit(final String lastUserEdit) {
         this.lastUserEdit = lastUserEdit;
         return this;
     }
@@ -167,7 +171,7 @@ public class Dashboard extends BaseIdModel {
         return lastTimeUsed;
     }
 
-    public Dashboard setLastTimeUsed(Long lastTimeUsed) {
+    public Dashboard setLastTimeUsed(final Long lastTimeUsed) {
         this.lastTimeUsed = lastTimeUsed;
         return this;
     }
@@ -176,7 +180,7 @@ public class Dashboard extends BaseIdModel {
         return lastModification;
     }
 
-    public Dashboard setLastModification(Long lastModification) {
+    public Dashboard setLastModification(final Long lastModification) {
         this.lastModification = lastModification;
         return this;
     }
@@ -185,7 +189,7 @@ public class Dashboard extends BaseIdModel {
         return slackToken;
     }
 
-    public Dashboard setSlackToken(String slackToken) {
+    public Dashboard setSlackToken(final String slackToken) {
         this.slackToken = slackToken;
         return this;
     }
@@ -194,7 +198,7 @@ public class Dashboard extends BaseIdModel {
         return slackTeam;
     }
 
-    public Dashboard setSlackTeam(String slackTeam) {
+    public Dashboard setSlackTeam(final String slackTeam) {
         this.slackTeam = slackTeam;
         return this;
     }
@@ -203,7 +207,7 @@ public class Dashboard extends BaseIdModel {
         return programIncrement;
     }
 
-    public Dashboard setProgramIncrement(String programIncrement) {
+    public Dashboard setProgramIncrement(final String programIncrement) {
         this.programIncrement = programIncrement;
         return this;
     }
@@ -212,7 +216,7 @@ public class Dashboard extends BaseIdModel {
         return urlAlerts;
     }
 
-    public Dashboard setUrlAlerts(String urlAlerts) {
+    public Dashboard setUrlAlerts(final String urlAlerts) {
         this.urlAlerts = urlAlerts;
         return this;
     }
@@ -221,7 +225,7 @@ public class Dashboard extends BaseIdModel {
         return author;
     }
 
-    public Dashboard setAuthor(String author) {
+    public Dashboard setAuthor(final String author) {
         this.author = author;
         return this;
     }
@@ -230,7 +234,7 @@ public class Dashboard extends BaseIdModel {
         return slackChannel;
     }
 
-    public Dashboard setSlackChannel(String slackChannel) {
+    public Dashboard setSlackChannel(final String slackChannel) {
         this.slackChannel = slackChannel;
         return this;
     }
@@ -239,7 +243,7 @@ public class Dashboard extends BaseIdModel {
         return adminUsers;
     }
 
-    public Dashboard setAdminUsers(List<String> adminUsers) {
+    public Dashboard setAdminUsers(final List<String> adminUsers) {
         this.adminUsers = adminUsers;
         return this;
     }
@@ -248,7 +252,7 @@ public class Dashboard extends BaseIdModel {
         return teamMembers;
     }
 
-    public Dashboard setTeamMembers(List<String> teamMembers) {
+    public Dashboard setTeamMembers(final List<String> teamMembers) {
         this.teamMembers = teamMembers;
         return this;
     }
@@ -257,7 +261,7 @@ public class Dashboard extends BaseIdModel {
         return analyticViews;
     }
 
-    public Dashboard setAnalyticViews(List<String> analyticViews) {
+    public Dashboard setAnalyticViews(final List<String> analyticViews) {
         this.analyticViews = analyticViews;
         return this;
     }
@@ -266,7 +270,7 @@ public class Dashboard extends BaseIdModel {
         return operationViews;
     }
 
-    public Dashboard setOperationViews(List<String> operationViews) {
+    public Dashboard setOperationViews(final List<String> operationViews) {
         this.operationViews = operationViews;
         return this;
     }
@@ -275,7 +279,7 @@ public class Dashboard extends BaseIdModel {
         return infraCost;
     }
 
-    public Dashboard setInfraCost(Boolean infraCost) {
+    public Dashboard setInfraCost(final Boolean infraCost) {
         this.infraCost = infraCost;
         return this;
     }
@@ -284,7 +288,7 @@ public class Dashboard extends BaseIdModel {
         return lastVersion;
     }
 
-    public Dashboard setLastVersion(String lastVersion) {
+    public Dashboard setLastVersion(final String lastVersion) {
         this.lastVersion = lastVersion;
         return this;
     }
@@ -293,7 +297,7 @@ public class Dashboard extends BaseIdModel {
         return Objects.requireNonNullElse(responseTimeAlertingLevelWarning, .3f);
     }
 
-    public Dashboard setResponseTimeAlertingLevelWarning(Float responseTimeAlertingLevelWarning) {
+    public Dashboard setResponseTimeAlertingLevelWarning(final Float responseTimeAlertingLevelWarning) {
         this.responseTimeAlertingLevelWarning = responseTimeAlertingLevelWarning;
         return this;
     }
@@ -302,7 +306,7 @@ public class Dashboard extends BaseIdModel {
         return Objects.requireNonNullElse(responseTimeAlertingLevelError, .5f);
     }
 
-    public Dashboard setResponseTimeAlertingLevelError(Float responseTimeAlertingLevelError) {
+    public Dashboard setResponseTimeAlertingLevelError(final Float responseTimeAlertingLevelError) {
         this.responseTimeAlertingLevelError = responseTimeAlertingLevelError;
         return this;
     }
@@ -311,7 +315,7 @@ public class Dashboard extends BaseIdModel {
         return Objects.requireNonNullElse(errorsRateAlertingLevelWarning, .3f);
     }
 
-    public Dashboard setErrorsRateAlertingLevelWarning(Float errorsRateAlertingLevelWarning) {
+    public Dashboard setErrorsRateAlertingLevelWarning(final Float errorsRateAlertingLevelWarning) {
         this.errorsRateAlertingLevelWarning = errorsRateAlertingLevelWarning;
         return this;
     }
@@ -320,7 +324,7 @@ public class Dashboard extends BaseIdModel {
         return Objects.requireNonNullElse(errorsRateAlertingLevelError, .5f);
     }
 
-    public Dashboard setErrorsRateAlertingLevelError(Float errorsRateAlertingLevelError) {
+    public Dashboard setErrorsRateAlertingLevelError(final Float errorsRateAlertingLevelError) {
         this.errorsRateAlertingLevelError = errorsRateAlertingLevelError;
         return this;
     }
@@ -329,7 +333,7 @@ public class Dashboard extends BaseIdModel {
         return urlAlertsAuthorization;
     }
 
-    public Dashboard setUrlAlertsAuthorization(String urlAlertsAuthorization) {
+    public Dashboard setUrlAlertsAuthorization(final String urlAlertsAuthorization) {
         this.urlAlertsAuthorization = urlAlertsAuthorization;
         return this;
     }
@@ -338,7 +342,7 @@ public class Dashboard extends BaseIdModel {
         return skin;
     }
 
-    public Dashboard setSkin(String skin) {
+    public Dashboard setSkin(final String skin) {
         this.skin = skin;
         return this;
     }
@@ -347,7 +351,7 @@ public class Dashboard extends BaseIdModel {
         return aggregatedDashboards;
     }
 
-    public Dashboard setAggregatedDashboards(List<String> aggregatedDashboards) {
+    public Dashboard setAggregatedDashboards(final List<String> aggregatedDashboards) {
         this.aggregatedDashboards = aggregatedDashboards;
         return this;
     }
@@ -356,7 +360,7 @@ public class Dashboard extends BaseIdModel {
         return type;
     }
 
-    public Dashboard setType(String type) {
+    public Dashboard setType(final String type) {
         this.type = type;
         return this;
     }
@@ -365,7 +369,7 @@ public class Dashboard extends BaseIdModel {
         return columns;
     }
 
-    public Dashboard setColumns(List<List<String>> columns) {
+    public Dashboard setColumns(final List<List<String>> columns) {
         this.columns = columns;
         return this;
     }
@@ -373,7 +377,8 @@ public class Dashboard extends BaseIdModel {
     public String getCategory() {
         return category;
     }
-    public Dashboard setCategory(String category) {
+
+    public Dashboard setCategory(final String category) {
         this.category = category;
         return this;
     }
@@ -381,7 +386,8 @@ public class Dashboard extends BaseIdModel {
     public Integer getMarketsStatsDays() {
         return marketsStatsDays;
     }
-    public Dashboard setMarketsStatsDays(Integer marketsStatsDays) {
+
+    public Dashboard setMarketsStatsDays(final Integer marketsStatsDays) {
         this.marketsStatsDays = marketsStatsDays;
         return this;
     }
@@ -390,7 +396,7 @@ public class Dashboard extends BaseIdModel {
         return gitRepos;
     }
 
-    public Dashboard setGitRepos(List<String> gitRepos) {
+    public Dashboard setGitRepos(final List<String> gitRepos) {
         this.gitRepos = gitRepos;
         return this;
     }

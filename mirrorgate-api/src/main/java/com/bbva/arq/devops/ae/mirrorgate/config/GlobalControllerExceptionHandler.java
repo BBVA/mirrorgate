@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.config;
 
 import com.bbva.arq.devops.ae.mirrorgate.exception.BuildConflictException;
@@ -38,14 +39,14 @@ public class GlobalControllerExceptionHandler {
         IssueNotFoundException.class
     })
     @ResponseBody
-    public String handleNotFound(Exception ex) {
+    public String handleNotFound(final Exception ex) {
         return ex.getMessage();
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(DashboardForbiddenException.class)
     @ResponseBody
-    public String handleForbidden(Exception ex) {
+    public String handleForbidden(final Exception ex) {
         return ex.getMessage();
     }
 
@@ -56,12 +57,12 @@ public class GlobalControllerExceptionHandler {
         ReviewsConflictException.class
     })
     @ResponseBody
-    public String handleConflict(Exception ex) {
+    public String handleConflict(final Exception ex) {
         return ex.getMessage();
     }
 
     @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<?> handleClientError(HttpClientErrorException ex) {
+    public ResponseEntity<?> handleClientError(final HttpClientErrorException ex) {
         return ResponseEntity.status(ex.getStatusCode()).body(ex.getMessage());
     }
 }

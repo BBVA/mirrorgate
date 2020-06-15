@@ -16,7 +16,14 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+
 import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
+import java.util.List;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -25,22 +32,14 @@ import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Cei
 import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Subtract;
 import org.springframework.data.mongodb.core.query.Criteria;
 
-import java.util.List;
-import java.util.regex.Pattern;
-
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
-
 public class CommitRepositoryImpl implements CommitRepositoryCustom {
 
     @Autowired
     MongoTemplate mongoTemplate;
 
     @Override
-    public Double getSecondsToMaster(List<String> repositories, long timestamp) {
-        Aggregation agg = newAggregation(
+    public Double getSecondsToMaster(final List<String> repositories, final long timestamp) {
+        final Aggregation agg = newAggregation(
             match(getCriteriaExpressionsForRepositories(repositories)
                 .and("timestamp").gte(timestamp)
             ),
@@ -54,17 +53,17 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
                 .andExclude("_id")
         );
 
-        AggregationResults<DoubleValue> secondsToMaster
-                = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
-        DoubleValue seconds = secondsToMaster.getUniqueMappedResult();
+        final AggregationResults<DoubleValue> secondsToMaster = mongoTemplate
+            .aggregate(agg, "commits", DoubleValue.class);
+        final DoubleValue seconds = secondsToMaster.getUniqueMappedResult();
 
         return seconds != null ? seconds.value : null;
     }
 
     @Override
-    public Double getCommitsPerDay(List<String> repositories, long timestamp, int daysBefore) {
+    public Double getCommitsPerDay(final List<String> repositories, final long timestamp, final int daysBefore) {
 
-        Aggregation agg = newAggregation(
+        final Aggregation agg = newAggregation(
             match(getCriteriaExpressionsForRepositories(repositories)
                 .and("timestamp").gte(timestamp)
             ),
@@ -74,14 +73,14 @@ public class CommitRepositoryImpl implements CommitRepositoryCustom {
                 .andExclude("_id").and("value").divide(daysBefore)
         );
 
-        AggregationResults<DoubleValue> commitsPerDay
+        final AggregationResults<DoubleValue> commitsPerDay
             = mongoTemplate.aggregate(agg, "commits", DoubleValue.class);
-        DoubleValue commits = commitsPerDay.getUniqueMappedResult();
+        final DoubleValue commits = commitsPerDay.getUniqueMappedResult();
 
         return commits != null ? commits.value : null;
     }
 
-    private Criteria getCriteriaExpressionsForRepositories(List<String> repos) {
+    private Criteria getCriteriaExpressionsForRepositories(final List<String> repos) {
         return Criteria.where("repository")
             .in(repos.stream().map(repo -> Pattern.compile("^.*" + repo + "$")).toArray());
     }

@@ -13,29 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
-
-import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
-import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
-import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
 import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
@@ -51,6 +30,27 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
+import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardNotFoundException;
+import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(DashboardController.class)
@@ -70,7 +70,7 @@ public class DashboardControllerTests {
 
     @Test
     public void getDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
 
@@ -82,60 +82,60 @@ public class DashboardControllerTests {
 
     @Test
     public void getNonexistentDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new DashboardNotFoundException(""))
-                .when(dashboardService).getDashboard(dashboard.getName());
+            .when(dashboardService).getDashboard(dashboard.getName());
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/details"))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+            .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
     public void getDeletedDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setStatus(DELETED);
 
         doThrow(new DashboardNotFoundException(""))
-                .when(dashboardService).getDashboard(dashboard.getName());
+            .when(dashboardService).getDashboard(dashboard.getName());
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/details"))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+            .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
     public void getActiveDashboardsTest() throws Exception {
-        DashboardDTO dashboard1 = TestObjectFactory.createDashboardDTO();
-        DashboardDTO dashboard2 = TestObjectFactory.createDashboardDTO();
-        List<DashboardDTO> dashboards = new ArrayList<>();
+        final DashboardDTO dashboard1 = TestObjectFactory.createDashboardDTO();
+        final DashboardDTO dashboard2 = TestObjectFactory.createDashboardDTO();
+        final List<DashboardDTO> dashboards = new ArrayList<>();
         dashboards.add(dashboard1);
         dashboards.add(dashboard2);
 
         when(dashboardService.getActiveDashboards()).thenReturn(dashboards);
 
         this.mockMvc.perform(get("/dashboards"))
-                .andExpect(status().is(HttpStatus.OK.value()))
-                .andExpect(jsonPath("$[0].name", equalTo(dashboard1.getName())))
-                .andExpect(jsonPath("$[0].logoUrl", equalTo(dashboard1.getLogoUrl())))
-                .andExpect(jsonPath("$[1].name", equalTo(dashboard2.getName())))
-                .andExpect(jsonPath("$[1].logoUrl", equalTo(dashboard2.getLogoUrl())));
+            .andExpect(status().is(HttpStatus.OK.value()))
+            .andExpect(jsonPath("$[0].name", equalTo(dashboard1.getName())))
+            .andExpect(jsonPath("$[0].logoUrl", equalTo(dashboard1.getLogoUrl())))
+            .andExpect(jsonPath("$[1].name", equalTo(dashboard2.getName())))
+            .andExpect(jsonPath("$[1].logoUrl", equalTo(dashboard2.getLogoUrl())));
     }
 
     @Test
     public void newDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardService.newDashboard(dashboard)).thenReturn(dashboard);
 
         this.mockMvc.perform(post("/dashboards")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(dashboard)))
-                .andExpect(status().is(HttpStatus.CREATED.value()));
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(dashboard)))
+            .andExpect(status().is(HttpStatus.CREATED.value()));
     }
 
     @Test
     public void newTransientDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setStatus(TRANSIENT);
 
         when(dashboardService.newTransientDashboard(dashboard)).thenReturn(dashboard);
@@ -148,92 +148,91 @@ public class DashboardControllerTests {
 
     @Test
     public void newPreviousDeletedDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setStatus(DELETED);
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(dashboardService.updateDashboard(dashboard.getName(),dashboard)).thenReturn(dashboard);
+        when(dashboardService.updateDashboard(dashboard.getName(), dashboard)).thenReturn(dashboard);
 
         this.mockMvc.perform(post("/dashboards")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(dashboard)))
-                .andExpect(status().is(HttpStatus.CREATED.value()));
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(dashboard)))
+            .andExpect(status().is(HttpStatus.CREATED.value()));
     }
 
     @Test
     public void newPreviousCreatedDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new DashboardConflictException(""))
-                .when(dashboardService).newDashboard(any());
+            .when(dashboardService).newDashboard(any());
 
         this.mockMvc.perform(post("/dashboards")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(dashboard)))
-                .andExpect(status().is(HttpStatus.CONFLICT.value()));
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(dashboard)))
+            .andExpect(status().is(HttpStatus.CONFLICT.value()));
     }
 
 
     @Test
     public void deleteDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         doNothing().when(dashboardService).deleteDashboard(dashboard.getName());
 
         this.mockMvc.perform(delete("/dashboards/" + dashboard.getName()))
-                .andExpect(status().is(HttpStatus.OK.value()));
+            .andExpect(status().is(HttpStatus.OK.value()));
     }
 
     @Test
     public void deleteWrongDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new DashboardNotFoundException(""))
-                .when(dashboardService).deleteDashboard(dashboard.getName());
+            .when(dashboardService).deleteDashboard(dashboard.getName());
 
         this.mockMvc.perform(delete("/dashboards/" + dashboard.getName()))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+            .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
     public void updateDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(dashboardService.updateDashboard(dashboard.getName(),dashboard)).thenReturn(dashboard);
+        when(dashboardService.updateDashboard(dashboard.getName(), dashboard)).thenReturn(dashboard);
 
         this.mockMvc.perform(put("/dashboards/" + dashboard.getName())
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(dashboard)))
-                .andExpect(status().is(HttpStatus.OK.value()));
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(dashboard)))
+            .andExpect(status().is(HttpStatus.OK.value()));
     }
 
     @Test
     public void updateWrongDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
-        DashboardDTO wrongDashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO wrongDashboard = TestObjectFactory.createDashboard();
         wrongDashboard.setName("Wrong");
 
         doThrow(new DashboardConflictException(""))
-                .when(dashboardService).updateDashboard(anyString(), any(DashboardDTO.class));
+            .when(dashboardService).updateDashboard(anyString(), any(DashboardDTO.class));
 
         this.mockMvc.perform(put("/dashboards/" + dashboard.getName())
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(wrongDashboard)))
-                .andExpect(status().is(HttpStatus.CONFLICT.value()));
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(wrongDashboard)))
+            .andExpect(status().is(HttpStatus.CONFLICT.value()));
     }
 
     @Test
     public void updateNonexistentDashboardTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         doThrow(new DashboardNotFoundException(""))
-                .when(dashboardService).updateDashboard(anyString(), any(DashboardDTO.class));
+            .when(dashboardService).updateDashboard(anyString(), any(DashboardDTO.class));
 
         this.mockMvc.perform(put("/dashboards/" + dashboard.getName())
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(dashboard)))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(dashboard)))
+            .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
-
 }

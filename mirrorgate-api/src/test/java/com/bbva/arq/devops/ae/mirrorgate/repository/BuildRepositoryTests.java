@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
+import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest
@@ -42,16 +42,16 @@ public class BuildRepositoryTests {
 
     @Test
     public void getLastByRepoNameAndByTeamMembers() {
-        List<String> repos = Collections.singletonList(REPO_NAME);
-        List<String> teamMembers = Arrays.asList(CULPRITS[1], CULPRITS[2]);
+        final List<String> repos = Collections.singletonList(REPO_NAME);
+        final List<String> teamMembers = Arrays.asList(CULPRITS[1], CULPRITS[2]);
 
-        Build build1 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[0]))
+        final Build build1 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[0]))
             .setBuildUrl("Build1");
-        Build build2 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[2]))
+        final Build build2 = makeBuild(REPO_NAME, "develop", Collections.singletonList(CULPRITS[2]))
             .setBuildUrl("Build1");
-        Build build3 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[2]))
+        final Build build3 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[2]))
             .setBuildUrl("Build2");
-        Build build4 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[1]))
+        final Build build4 = makeBuild(REPO_NAME, "master", Collections.singletonList(CULPRITS[1]))
             .setBuildUrl("Build2");
 
         repository.save(build1);
@@ -59,8 +59,7 @@ public class BuildRepositoryTests {
         repository.save(build3);
         repository.save(build4);
 
-        List<Build> builds = repository
-              .findLastBuildsByKeywordsAndByTeamMembers(repos, teamMembers);
+        final List<Build> builds = repository.findLastBuildsByKeywordsAndByTeamMembers(repos, teamMembers);
 
         assertThat(builds.size()).isEqualTo(2);
         assertThat(builds.get(0).getTimestamp()).isEqualTo(build4.getTimestamp());
@@ -71,18 +70,17 @@ public class BuildRepositoryTests {
 
     @Test
     public void getLastByRepoNameAndByTeamMembersWithoutTeamMembers() {
-        List<String> repos = Collections.singletonList(REPO_NAME);
+        final List<String> repos = Collections.singletonList(REPO_NAME);
 
-        Build build1 = makeBuild(REPO_NAME, "develop");
-        Build build2 = makeBuild(REPO_NAME, "master");
-        Build build3 = makeBuild(REPO_NAME, "master");
+        final Build build1 = makeBuild(REPO_NAME, "develop");
+        final Build build2 = makeBuild(REPO_NAME, "master");
+        final Build build3 = makeBuild(REPO_NAME, "master");
 
         repository.save(build1);
         repository.save(build2);
         repository.save(build3);
 
-        List<Build> builds = repository
-                .findLastBuildsByKeywordsAndByTeamMembers(repos, null);
+        final List<Build> builds = repository.findLastBuildsByKeywordsAndByTeamMembers(repos, null);
 
         assertThat(builds.get(0).getTimestamp()).isEqualTo(build3.getTimestamp());
         assertThat(builds.get(0).getBranch()).isEqualTo(build3.getBranch());
@@ -116,5 +114,4 @@ public class BuildRepositoryTests {
     public void after() {
         repository.deleteAll();
     }
-
 }

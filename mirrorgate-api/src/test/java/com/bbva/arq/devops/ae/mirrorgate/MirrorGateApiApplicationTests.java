@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate;
 
 import com.bbva.arq.devops.ae.mirrorgate.cron.handler.EventHandler;
@@ -27,24 +28,22 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MirrorgateApiApplicationTests {
+public class MirrorGateApiApplicationTests {
 
     @Autowired
     private BeanFactory beanFactory;
 
     @Test
     public void contextLoads() {
-        long port = (Math.round(Math.random() * 10000) + 10000);
-        MirrorgateApiApplication.main(new String[]{"--server.port=" + port});
+        final long port = (Math.round(Math.random() * 10000) + 10000);
+        MirrorGateApiApplication.main(new String[]{"--server.port=" + port});
     }
 
     @Test
     public void testBeanPerEventType() {
-
         EnumSet.allOf(EventType.class)
-                .stream().filter((e) -> e != EventType.PING)
-                .forEach(eventType -> beanFactory.getBean(eventType.getValue(), EventHandler.class));
+            .stream().filter((e) -> e != EventType.PING)
+            .forEach(eventType -> beanFactory.getBean(eventType.getValue(), EventHandler.class));
 
     }
-
 }

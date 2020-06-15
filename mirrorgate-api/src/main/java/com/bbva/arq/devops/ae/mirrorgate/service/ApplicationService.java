@@ -16,14 +16,13 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import java.util.List;
 
 public interface ApplicationService {
 
     /**
-     * Get the last build of a repository
+     * Get the last build of a repository.
      *
      * @return list with application and the last review id
      */

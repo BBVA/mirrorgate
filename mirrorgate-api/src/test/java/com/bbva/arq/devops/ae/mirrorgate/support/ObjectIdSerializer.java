@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.support;
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -21,14 +22,17 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import org.bson.types.ObjectId;
 
-
 /**
  * Serialize Mongo ObjectId's as Strings.
  */
 class ObjectIdSerializer extends JsonSerializer<ObjectId> {
 
     @Override
-    public void serialize(ObjectId value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(
+        final ObjectId value,
+        final JsonGenerator gen,
+        final SerializerProvider serializers
+    ) throws IOException {
         gen.writeString(value.toString());
     }
 }

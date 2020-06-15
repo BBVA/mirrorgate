@@ -32,7 +32,7 @@ public enum Platform {
 
     private final String name;
 
-    Platform(String name) {
+    Platform(final String name) {
         this.name = name;
     }
 
@@ -43,17 +43,17 @@ public enum Platform {
     private static final Map<String, Platform> MAPPING = new HashMap<>();
 
     static {
-        for (Platform platform : values()) {
+        for (final Platform platform : values()) {
             MAPPING.put(platform.getName().toLowerCase(), platform);
         }
     }
 
-    public static Platform fromString(String value) {
-        String key = (value != null) ? value.toLowerCase() : "All";
+    public static Platform fromString(final String value) {
+        final String key = (value != null) ? value.toLowerCase() : "All";
         return MAPPING.getOrDefault(key, Unknown);
     }
 
-    public static String toString(Platform platform) {
+    public static String toString(final Platform platform) {
         return platform == null ? null : platform.getName();
     }
 }

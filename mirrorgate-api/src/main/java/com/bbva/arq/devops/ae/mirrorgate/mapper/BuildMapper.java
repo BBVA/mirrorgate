@@ -19,7 +19,6 @@ package com.bbva.arq.devops.ae.mirrorgate.mapper;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,13 +27,13 @@ public class BuildMapper {
 
     private BuildMapper(){}
 
-    public static Build map(BuildDTO source) {
+    public static Build map(final BuildDTO source) {
         return map(source, new Build());
     }
 
-    public static Build map(BuildDTO source, Build target) {
+    public static Build map(final BuildDTO source, Build target) {
 
-        List<String> keywords = source.getKeywords() != null ? source.getKeywords() : new ArrayList<>();
+        final List<String> keywords = source.getKeywords() != null ? source.getKeywords() : new ArrayList<>();
 
         if (keywords.isEmpty()) { // To keep compatibility with Mirrorgate Jenkins Plugin older than v0.0.9
             keywords.add(source.getBuildUrl());
@@ -58,11 +57,11 @@ public class BuildMapper {
             .setKeywords(keywords);
     }
 
-    public static BuildDTO map(Build source) {
+    public static BuildDTO map(final Build source) {
         return map(source, new BuildDTO());
     }
 
-    private static BuildDTO map(Build source, BuildDTO target) {
+    private static BuildDTO map(final Build source, final BuildDTO target) {
 
         return target
             .setBuildUrl(source.getBuildUrl())

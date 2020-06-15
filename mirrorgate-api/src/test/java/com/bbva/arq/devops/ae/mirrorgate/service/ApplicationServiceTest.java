@@ -23,8 +23,8 @@ import static org.mockito.Mockito.when;
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
-import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,34 +48,39 @@ public class ApplicationServiceTest {
     private ApplicationServiceImpl applicationService;
 
     @Test
-    public void testApplicationService(){
-        DashboardDTO dashboard1 = TestObjectFactory.createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
-        DashboardDTO dashboard2 = TestObjectFactory.createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
-        List<DashboardDTO> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
+    public void testApplicationService() {
+        final DashboardDTO dashboard1 = TestObjectFactory
+            .createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
+        final DashboardDTO dashboard2 = TestObjectFactory
+            .createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
+        final List<DashboardDTO> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
 
-        ApplicationReviewsDTO applicationReviewsDTO1 = TestObjectFactory.createApplicationDTO("mirrorgate", Platform.IOS);
-        List<ApplicationReviewsDTO> applicationReviewsDTOList = Collections.singletonList(applicationReviewsDTO1);
+        final ApplicationReviewsDTO applicationReviewsDTO1 = TestObjectFactory
+            .createApplicationDTO("mirrorgate", Platform.IOS);
+        final List<ApplicationReviewsDTO> applicationReviewsDTOList = Collections.singletonList(applicationReviewsDTO1);
 
         when(dashboardService.getActiveDashboards()).thenReturn(listOfDashboards);
         when(reviewRepository.getLastReviewPerApplication(anyList())).thenReturn(applicationReviewsDTOList);
 
-        List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
+        final List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
 
         assertEquals(4, reviews.size());
     }
 
     @Test
-    public void testNoReviewsForAnyApp(){
-        DashboardDTO dashboard1 = TestObjectFactory.createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
-        DashboardDTO dashboard2 = TestObjectFactory.createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
-        List<DashboardDTO> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
+    public void testNoReviewsForAnyApp() {
+        final DashboardDTO dashboard1 = TestObjectFactory
+            .createDashboardDTO("mirrorgate", Arrays.asList("mirrorgate", "mood"));
+        final DashboardDTO dashboard2 = TestObjectFactory
+            .createDashboardDTO("samuel", Arrays.asList("samuel1", "samuel2"));
+        final List<DashboardDTO> listOfDashboards = Arrays.asList(dashboard1, dashboard2);
 
-        List<ApplicationReviewsDTO> applicationReviewsDTOList = new ArrayList<>();
+        final List<ApplicationReviewsDTO> applicationReviewsDTOList = new ArrayList<>();
 
         when(dashboardService.getActiveDashboards()).thenReturn(listOfDashboards);
         when(reviewRepository.getLastReviewPerApplication(anyList())).thenReturn(applicationReviewsDTOList);
 
-        List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
+        final List<ApplicationReviewsDTO> reviews = applicationService.getApplicationsAndReviews();
 
         assertEquals(4, reviews.size());
     }

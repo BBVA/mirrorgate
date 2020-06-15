@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
-import org.springframework.core.io.InputStreamResource;
-
 import java.io.InputStream;
 import java.util.List;
+import org.springframework.core.io.InputStreamResource;
 
 public interface DashboardRepositoryCustom {
 
@@ -27,7 +27,7 @@ public interface DashboardRepositoryCustom {
 
     List<Dashboard> getActiveDashboards();
 
-    void saveFile(InputStream image, String name);
+    void saveFile(final InputStream image, final String name);
 
-    InputStreamResource readFile(String name);
+    InputStreamResource readFile(final String name);
 }

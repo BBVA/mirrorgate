@@ -13,11 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardServiceImpl;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpHeaders;
 import org.slf4j.Logger;
@@ -37,31 +50,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
 /**
  * Dashboards controller.
  */
 @RestController
 public class DashboardController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DashboardServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DashboardServiceImpl.class);
 
     private final DashboardService dashboardService;
 
     @Autowired
-    public DashboardController(DashboardService dashboardService) {
+    public DashboardController(final DashboardService dashboardService) {
         this.dashboardService = dashboardService;
     }
 
@@ -70,7 +70,7 @@ public class DashboardController {
         method = GET,
         produces = APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<DashboardDTO> getDashboard(@PathVariable("name") String name) {
+    public ResponseEntity<DashboardDTO> getDashboard(final @PathVariable("name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(dashboardService.getDashboard(name));
     }
 
@@ -79,7 +79,7 @@ public class DashboardController {
         method = DELETE,
         produces = APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<String> deleteDashboard(@PathVariable("name") String name) {
+    public ResponseEntity<String> deleteDashboard(final @PathVariable("name") String name) {
         dashboardService.deleteDashboard(name);
         return ResponseEntity.status(HttpStatus.OK).body("Dashboard was deleted successfully");
     }
@@ -89,8 +89,11 @@ public class DashboardController {
         method = GET,
         produces = APPLICATION_JSON_VALUE
     )
-    public List<DashboardDTO> getActiveDashboards(@RequestParam(name = "transient", required = false, defaultValue = "false") boolean alsoTransient) {
-        return !alsoTransient ? dashboardService.getActiveDashboards() : dashboardService.getActiveAndTransientDashboards();
+    public List<DashboardDTO> getActiveDashboards(
+        final @RequestParam(name = "transient", required = false, defaultValue = "false") boolean alsoTransient
+    ) {
+        return ! alsoTransient ? dashboardService.getActiveDashboards()
+            : dashboardService.getActiveAndTransientDashboards();
     }
 
     @RequestMapping(
@@ -98,7 +101,7 @@ public class DashboardController {
         consumes = APPLICATION_JSON_VALUE,
         produces = APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<DashboardDTO> newDashboard(@Valid @RequestBody DashboardDTO request) {
+    public ResponseEntity<DashboardDTO> newDashboard(final @Valid @RequestBody DashboardDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newDashboard(request));
     }
 
@@ -107,7 +110,7 @@ public class DashboardController {
         consumes = APPLICATION_JSON_VALUE,
         produces = APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<DashboardDTO> newTransientDashboard(@Valid @RequestBody DashboardDTO request) {
+    public ResponseEntity<DashboardDTO> newTransientDashboard(final @Valid @RequestBody DashboardDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dashboardService.newTransientDashboard(request));
     }
 
@@ -117,37 +120,38 @@ public class DashboardController {
         produces = APPLICATION_JSON_VALUE
     )
     public ResponseEntity<DashboardDTO> updateDashboard(
-        @PathVariable("name") String name,
-        @Valid @RequestBody DashboardDTO request) {
-        DashboardDTO updatedDashboard = dashboardService.updateDashboard(name, request);
+        final @PathVariable("name") String name,
+        final @Valid @RequestBody DashboardDTO request
+    ) {
+        final DashboardDTO updatedDashboard = dashboardService.updateDashboard(name, request);
 
         return ResponseEntity.ok(updatedDashboard);
-
     }
 
     @RequestMapping(value = "/dashboards/{name}/image", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> uploadFile(
-        @PathVariable("name") String name,
-        @RequestParam("uploadfile") MultipartFile uploadfile) {
+        final @PathVariable("name") String name,
+        final @RequestParam("uploadfile") MultipartFile uploadfile
+    ) {
         try {
             dashboardService.saveDashboardImage(name, uploadfile.getInputStream());
             return ResponseEntity.ok("Saved successfully");
         } catch (IOException e) {
-            LOGGER.error("Error getting input stream", e);
+            LOG.error("Error getting input stream", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
     }
 
     @RequestMapping(value = "/dashboards/{name}/image", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<?> getFile(
-        HttpServletRequest request,
-        HttpServletResponse response,
-        @PathVariable("name") String name) {
+        final HttpServletRequest request,
+        final HttpServletResponse response,
+        final @PathVariable("name") String name
+    ) {
 
-        InputStreamResource resource = dashboardService.getDashboardImage(name);
+        final InputStreamResource resource = dashboardService.getDashboardImage(name);
 
         if (resource == null) {
             return ResponseEntity.notFound().build();
@@ -155,10 +159,10 @@ public class DashboardController {
 
         try {
 
-            byte[] content = StreamUtils.copyToByteArray(resource.getInputStream());
+            final byte[] content = StreamUtils.copyToByteArray(resource.getInputStream());
 
-            String eTag = DigestUtils.md5Hex(content);
-            String expectedETag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
+            final String eTag = DigestUtils.md5Hex(content);
+            final String expectedETag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
 
             if (eTag.equals(expectedETag)) {
                 return ResponseEntity
@@ -174,11 +178,10 @@ public class DashboardController {
                 .eTag(eTag)
                 .body(content);
         } catch (IOException e) {
-            LOGGER.error("Error copying streams for dashboard " + name, e);
+            LOG.error("Error copying streams for dashboard " + name, e);
             return ResponseEntity
                 .status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR)
                 .build();
         }
     }
-
 }

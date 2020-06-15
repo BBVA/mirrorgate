@@ -17,7 +17,6 @@
 package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +35,7 @@ public class SprintDTO implements Serializable {
         return id;
     }
 
-    public SprintDTO setId(String id) {
+    public SprintDTO setId(final String id) {
         this.id = id;
         return this;
     }
@@ -45,7 +44,7 @@ public class SprintDTO implements Serializable {
         return name;
     }
 
-    public SprintDTO setName(String name) {
+    public SprintDTO setName(final String name) {
         this.name = name;
         return this;
     }
@@ -54,7 +53,7 @@ public class SprintDTO implements Serializable {
         return status;
     }
 
-    public SprintDTO setStatus(SprintStatus status) {
+    public SprintDTO setStatus(final SprintStatus status) {
         this.status = status;
         return this;
     }
@@ -63,7 +62,7 @@ public class SprintDTO implements Serializable {
         return startDate == null ? null : new Date(startDate.getTime());
     }
 
-    public SprintDTO setStartDate(Date startDate) {
+    public SprintDTO setStartDate(final Date startDate) {
         this.startDate = startDate == null ? null : new Date(startDate.getTime());
         return this;
     }
@@ -72,7 +71,7 @@ public class SprintDTO implements Serializable {
         return endDate == null ? null : new Date(endDate.getTime());
     }
 
-    public SprintDTO setEndDate(Date endDate) {
+    public SprintDTO setEndDate(final Date endDate) {
         this.endDate = endDate == null ? null : new Date(endDate.getTime());
         return this;
     }
@@ -81,7 +80,7 @@ public class SprintDTO implements Serializable {
         return completeDate == null ? null : new Date(completeDate.getTime());
     }
 
-    public SprintDTO setCompleteDate(Date completeDate) {
+    public SprintDTO setCompleteDate(final Date completeDate) {
         this.completeDate = completeDate == null ? null : new Date(completeDate.getTime());
         return this;
     }
@@ -90,7 +89,7 @@ public class SprintDTO implements Serializable {
         return issues;
     }
 
-    public SprintDTO setIssues(List<IssueDTO> issues) {
+    public SprintDTO setIssues(final List<IssueDTO> issues) {
         this.issues = issues;
         return this;
     }

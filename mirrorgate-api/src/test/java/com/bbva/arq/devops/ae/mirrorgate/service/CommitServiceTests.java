@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.ScmDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 import com.bbva.arq.devops.ae.mirrorgate.repository.CommitRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 public class CommitServiceTests {
@@ -49,34 +49,36 @@ public class CommitServiceTests {
 
     @Test
     public void getScmStatsByRepoListTest() {
-        ScmDTO scmDTO = new ScmDTO()
+        final ScmDTO scmDTO = new ScmDTO()
             .setSecondsToMaster(259200D)
             .setCommitsPerDay(25D);
 
-        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-        long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
+        final long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        final long thirtyDaysAgo = now - (30 * 60 * 60 * 24);
 
         when(commitRepository.getSecondsToMaster(Arrays.asList(GIT_REPO_URLS), thirtyDaysAgo))
             .thenReturn(scmDTO.getSecondsToMaster());
         when(commitRepository.getCommitsPerDay(Arrays.asList(GIT_REPO_URLS), thirtyDaysAgo, 30))
             .thenReturn(scmDTO.getCommitsPerDay());
 
-        ScmDTO scmStats = commitService.getScmStats(Arrays.asList(GIT_REPO_URLS));
+        final ScmDTO scmStats = commitService.getScmStats(Arrays.asList(GIT_REPO_URLS));
 
         assertThat(scmStats).isEqualToComparingFieldByField(scmDTO);
     }
 
     @Test
     public void getLastCommitsByRepoNameTest() {
-        Commit commit = new Commit().setHash("1");
+        final Commit commit = new Commit().setHash("1");
 
-        when(commitRepository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(GIT_REPO_URLS[0], 1))
+        when(commitRepository
+            .findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(GIT_REPO_URLS[0], 1))
             .thenReturn(new ArrayList<>());
-        when(commitRepository.findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(GIT_REPO_URLS[0], 2))
+        when(commitRepository
+            .findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(GIT_REPO_URLS[0], 2))
             .thenReturn(Collections.singletonList(commit));
 
-        List<String> commits1 = commitService.getLastCommits(GIT_REPO_URLS[0], 1);
-        List<String> commits2 = commitService.getLastCommits(GIT_REPO_URLS[0], 2);
+        final List<String> commits1 = commitService.getLastCommits(GIT_REPO_URLS[0], 1);
+        final List<String> commits2 = commitService.getLastCommits(GIT_REPO_URLS[0], 2);
 
         assertThat(commits1).isEqualTo(new ArrayList<String>());
         assertThat(commits2.get(0)).isEqualTo(commit.getHash());

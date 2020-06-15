@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.NotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
@@ -24,28 +29,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 @RestController
 public class NotificationController {
 
     private final NotificationService notificationService;
 
     @Autowired
-    public NotificationController(NotificationService eventNotificationService) {
+    public NotificationController(final NotificationService eventNotificationService) {
         this.notificationService = eventNotificationService;
     }
 
 
     @RequestMapping(method = GET, value = "/dashboards/{name}/event-notification", produces = APPLICATION_JSON_VALUE)
-    public Notification getNotificationForDashboard(@PathVariable("name") String dashboardId) {
+    public Notification getNotificationForDashboard(final @PathVariable("name") String dashboardId) {
         return notificationService.getNotificationForDashboard(dashboardId);
     }
 
     @RequestMapping(method = POST, value = "/api/event-notification", produces = APPLICATION_JSON_VALUE)
-    public Notification insertNotification(@RequestBody NotificationDTO eventNotificationDTO) {
+    public Notification insertNotification(final @RequestBody NotificationDTO eventNotificationDTO) {
         return notificationService.saveNotification(eventNotificationDTO);
     }
 }

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.security;
 
 import java.util.Collection;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-
 
 public class MirrorgateAuthenticationToken extends AbstractAuthenticationToken {
 
@@ -27,11 +27,14 @@ public class MirrorgateAuthenticationToken extends AbstractAuthenticationToken {
     /**
      * Creates a token with the supplied array of authorities.
      *
-     * @param username user authenticated
+     * @param username    user authenticated
      * @param authorities the collection of <tt>GrantedAuthority</tt>s for the principal
      *                    represented by this authentication object.
      */
-    public MirrorgateAuthenticationToken(String username, Collection<? extends GrantedAuthority> authorities) {
+    public MirrorgateAuthenticationToken(
+        final String username,
+        final Collection<? extends GrantedAuthority> authorities
+    ) {
         super(authorities);
         this.username = username;
     }

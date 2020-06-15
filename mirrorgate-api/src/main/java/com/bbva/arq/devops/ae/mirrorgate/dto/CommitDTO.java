@@ -36,7 +36,7 @@ public class CommitDTO {
         return hash;
     }
 
-    public CommitDTO setHash(String hash) {
+    public CommitDTO setHash(final String hash) {
         this.hash = hash;
         return this;
     }
@@ -45,7 +45,7 @@ public class CommitDTO {
         return repository;
     }
 
-    public CommitDTO setRepository(String repository) {
+    public CommitDTO setRepository(final String repository) {
         this.repository = repository;
         return this;
     }
@@ -54,7 +54,7 @@ public class CommitDTO {
         return timestamp;
     }
 
-    public CommitDTO setTimestamp(Integer timestamp) {
+    public CommitDTO setTimestamp(final Integer timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -63,7 +63,7 @@ public class CommitDTO {
         return message;
     }
 
-    public CommitDTO setMessage(String message) {
+    public CommitDTO setMessage(final String message) {
         this.message = message;
         return this;
     }
@@ -72,7 +72,7 @@ public class CommitDTO {
         return authorName;
     }
 
-    public CommitDTO setAuthorName(String authorName) {
+    public CommitDTO setAuthorName(final String authorName) {
         this.authorName = authorName;
         return this;
     }
@@ -81,7 +81,7 @@ public class CommitDTO {
         return authorEmail;
     }
 
-    public CommitDTO setAuthorEmail(String authorEmail) {
+    public CommitDTO setAuthorEmail(final String authorEmail) {
         this.authorEmail = authorEmail;
         return this;
     }
@@ -90,7 +90,7 @@ public class CommitDTO {
         return committerName;
     }
 
-    public CommitDTO setCommitterName(String committerName) {
+    public CommitDTO setCommitterName(final String committerName) {
         this.committerName = committerName;
         return this;
     }
@@ -99,7 +99,7 @@ public class CommitDTO {
         return committerEmail;
     }
 
-    public CommitDTO setCommitterEmail(String committerEmail) {
+    public CommitDTO setCommitterEmail(final String committerEmail) {
         this.committerEmail = committerEmail;
         return this;
     }
@@ -108,7 +108,7 @@ public class CommitDTO {
         return parentsIds;
     }
 
-    public CommitDTO setParentsIds(List<String> parentsIds) {
+    public CommitDTO setParentsIds(final List<String> parentsIds) {
         this.parentsIds = parentsIds;
         return this;
     }
@@ -117,7 +117,7 @@ public class CommitDTO {
         return branches;
     }
 
-    public CommitDTO setBranches(Map<String, Integer> branches) {
+    public CommitDTO setBranches(final Map<String, Integer> branches) {
         this.branches = branches;
         return this;
     }

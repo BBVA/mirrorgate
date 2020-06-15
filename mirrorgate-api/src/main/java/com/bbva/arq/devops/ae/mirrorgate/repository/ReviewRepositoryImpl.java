@@ -13,20 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
-
-import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Review;
-import com.mongodb.BasicDBObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.query.Criteria;
-
-import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
@@ -35,8 +23,20 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.newA
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.Review;
+import com.mongodb.BasicDBObject;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
+
 /**
- * Reviews Repository
+ * Reviews Repository.
  */
 public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
@@ -44,16 +44,16 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public List<ApplicationDTO> getAppInfoByAppNames(List<String> names) {
+    public List<ApplicationDTO> getAppInfoByAppNames(final List<String> names) {
 
-        Aggregation aggregation = newAggregation(
+        final Aggregation aggregation = newAggregation(
             match(Criteria.where("appname").in(names).and("timestamp").exists(true)),
             sort(Sort.by(DESC, "timestamp")),
             project("appname", "platform", "starrating",
-                        "timestamp", "comment", "authorName","url"),
+                "timestamp", "comment", "authorName", "url"),
             group("appname", "platform")
                 .push(new BasicDBObject("author", "$authorName")
-                    .append("rate", "$starrating" )
+                    .append("rate", "$starrating")
                     .append("timestamp", "$timestamp")
                     .append("comment", "$comment")
                     .append("url", "$url")
@@ -63,16 +63,16 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         );
 
         //Convert the aggregation result into a List
-        AggregationResults<ApplicationDTO> groupResults
-                = mongoTemplate.aggregate(aggregation, Review.class, ApplicationDTO.class);
+        final AggregationResults<ApplicationDTO> groupResults
+            = mongoTemplate.aggregate(aggregation, Review.class, ApplicationDTO.class);
 
         return groupResults.getMappedResults();
     }
 
     @Override
-    public List<ApplicationReviewsDTO> getLastReviewPerApplication(List<String> names){
+    public List<ApplicationReviewsDTO> getLastReviewPerApplication(final List<String> names) {
 
-        Aggregation aggregation = newAggregation(
+        final Aggregation aggregation = newAggregation(
             match(Criteria.where("appname").in(names)),
             sort(Sort.by(DESC, "timestamp")),
             group("appname", "platform")
@@ -83,17 +83,16 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         );
 
         //Convert the aggregation result into a List
-        AggregationResults<ApplicationReviewsDTO> groupResults
+        final AggregationResults<ApplicationReviewsDTO> groupResults
             = mongoTemplate.aggregate(aggregation, Review.class, ApplicationReviewsDTO.class);
 
         return groupResults.getMappedResults();
-
     }
 
     @Override
-    public List<ApplicationDTO> getAverageRateByAppNamesAfterTimestamp(List<String> names, Long timestamp) {
+    public List<ApplicationDTO> getAverageRateByAppNamesAfterTimestamp(final List<String> names, final Long timestamp) {
 
-        Aggregation aggregation = newAggregation(
+        final Aggregation aggregation = newAggregation(
             match(Criteria.where("appname").in(names).and("timestamp").gte(timestamp)),
             group("appname", "platform")
                 .first("appname").as("appname")
@@ -103,11 +102,9 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         );
 
         //Convert the aggregation result into a List
-        AggregationResults<ApplicationDTO> groupResults
+        final AggregationResults<ApplicationDTO> groupResults
             = mongoTemplate.aggregate(aggregation, Review.class, ApplicationDTO.class);
 
         return groupResults.getMappedResults();
-
     }
-
 }

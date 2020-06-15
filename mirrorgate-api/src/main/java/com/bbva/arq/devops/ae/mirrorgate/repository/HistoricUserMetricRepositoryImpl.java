@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-
 package com.bbva.arq.devops.ae.mirrorgate.repository;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetricStats;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -26,35 +34,35 @@ import org.springframework.data.mongodb.core.aggregation.ConditionalOperators;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
-
 public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepositoryCustom {
 
     private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public HistoricUserMetricRepositoryImpl(MongoTemplate mongoTemplate){
+    public HistoricUserMetricRepositoryImpl(final MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
     @Override
-    public List<HistoricUserMetricStats> getUserMetricTendencyForPeriod(List<String> viewIds, ChronoUnit unit, long timestamp) {
+    public List<HistoricUserMetricStats> getUserMetricTendencyForPeriod(
+        final List<String> viewIds,
+        final ChronoUnit unit,
+        final long timestamp
+    ) {
 
-        TypedAggregation<HistoricUserMetric> aggregation = newAggregation(HistoricUserMetric.class,
+        final TypedAggregation<HistoricUserMetric> aggregation = newAggregation(HistoricUserMetric.class,
             match(Criteria.where("viewId").in(getPatternsForViewIds(viewIds))
                 .and("historicType").is(unit)
                 .and("timestamp").gte(timestamp)),
-            project("identifier", "viewId", "appVersion", "platform", "name", "value", "sampleSize", "collectorId")
+            project(
+                "identifier", "viewId", "appVersion", "platform",
+                "name", "value", "sampleSize", "collectorId"
+            )
                 .and(ConditionalOperators.ifNull("sampleSize").then(1L)).as("sampleSize")
-                .and(ConditionalOperators.when(Criteria.where("sampleSize").gt(0)).thenValueOf("$sampleSize").otherwise(1L)).as("sampleSize"),
+                .and(
+                    ConditionalOperators.when(Criteria.where("sampleSize").gt(0))
+                        .thenValueOf("$sampleSize")
+                        .otherwise(1L)).as("sampleSize"),
             group("identifier")
                 .sum("sampleSize").as("sampleSize")
                 .sum("value").as("value")
@@ -64,16 +72,19 @@ public class HistoricUserMetricRepositoryImpl implements HistoricUserMetricRepos
                 .first("appVersion").as("appVersion")
                 .first("platform").as("platform")
                 .first("collectorId").as("collectorId"),
-            project("identifier", "viewId", "appVersion", "platform", "name", "value", "sampleSize", "collectorId")
+            project(
+                "identifier", "viewId", "appVersion", "platform",
+                "name", "value", "sampleSize", "collectorId"
+            )
                 .andExclude("_id"));
 
-        AggregationResults<HistoricUserMetricStats> groupResults
-            = mongoTemplate.aggregate(aggregation, "historic_user_metrics", HistoricUserMetricStats.class);
+        final AggregationResults<HistoricUserMetricStats> groupResults = mongoTemplate
+            .aggregate(aggregation, "historic_user_metrics", HistoricUserMetricStats.class);
 
         return groupResults.getMappedResults();
     }
 
-    private List<Pattern> getPatternsForViewIds(List<String> viewIds) {
+    private List<Pattern> getPatternsForViewIds(final List<String> viewIds) {
         return viewIds
             .stream()
             .map((String id) -> Pattern.compile("^" + id + ".*$"))

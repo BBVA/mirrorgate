@@ -16,9 +16,19 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
+
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -26,17 +36,6 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
-
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 
 public class BuildRepositoryImpl implements BuildRepositoryCustom {
 
@@ -50,8 +49,11 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     MongoTemplate mongoTemplate;
 
     @Override
-    public List<Build> findLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
-        TypedAggregation<Build> agg = newAggregation(Build.class,
+    public List<Build> findLastBuildsByKeywordsAndByTeamMembers(
+        final List<String> keywords,
+        final List<String> teamMembers
+    ) {
+        final TypedAggregation<Build> agg = newAggregation(Build.class,
             match(new Criteria()
                 .andOperator(
                     getCriteriaExpressionsForKeywords(keywords),
@@ -97,7 +99,7 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
         );
 
         //Convert the aggregation result into a List
-        AggregationResults<Build> groupResults
+        final AggregationResults<Build> groupResults
             = mongoTemplate.aggregate(agg, Build.class);
 
         return groupResults.getMappedResults();
@@ -105,8 +107,12 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
     }
 
     @Override
-    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> keywords, List<String> teamMembers, Long timestamp) {
-        Aggregation agg = newAggregation(
+    public Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(
+        final List<String> keywords,
+        final List<String> teamMembers,
+        final Long timestamp
+    ) {
+        final Aggregation agg = newAggregation(
             match(new Criteria()
                 .andOperator(
                     getCriteriaExpressionsForKeywords(keywords),
@@ -129,12 +135,12 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
                 .andExclude("_id")
         );
 
-        AggregationResults<BuildStatsEntry> groupResults
-            = mongoTemplate.aggregate(agg, "builds", BuildStatsEntry.class);
+        final AggregationResults<BuildStatsEntry> groupResults = mongoTemplate
+            .aggregate(agg, "builds", BuildStatsEntry.class);
 
-        List<BuildStatsEntry> statEntries = groupResults.getMappedResults();
+        final List<BuildStatsEntry> statEntries = groupResults.getMappedResults();
 
-        Map<BuildStatus, BuildStats> result = new EnumMap<>(BuildStatus.class);
+        final Map<BuildStatus, BuildStats> result = new EnumMap<>(BuildStatus.class);
 
         statEntries.forEach(
             stat -> result.put(stat.buildStatus,
@@ -149,13 +155,13 @@ public class BuildRepositoryImpl implements BuildRepositoryCustom {
         return result;
     }
 
-    private Criteria getCriteriaExpressionsForKeywords(List<String> keywords) {
+    private Criteria getCriteriaExpressionsForKeywords(final List<String> keywords) {
         return Criteria
             .where("keywords")
             .in(keywords.stream().map(kw -> Pattern.compile("^" + kw + "$")).toArray());
     }
 
-    private Criteria getCriteriaExpressionsForTeamMembers(List<String> teamMembers) {
+    private Criteria getCriteriaExpressionsForTeamMembers(final List<String> teamMembers) {
         if (teamMembers == null || teamMembers.isEmpty()) {
             return new Criteria();
         }

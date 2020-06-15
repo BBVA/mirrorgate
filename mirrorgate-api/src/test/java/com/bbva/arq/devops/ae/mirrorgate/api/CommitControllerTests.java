@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -67,17 +68,15 @@ public class CommitControllerTests {
 
     @Test
     public void getScmMetricsByBoardNameTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setGitRepos(Arrays.asList(GIT_REPO_URLS));
 
-        ScmDTO scmDTO = new ScmDTO()
+        final ScmDTO scmDTO = new ScmDTO()
             .setSecondsToMaster(259200D)
             .setCommitsPerDay(25D);
 
-        when(dashboardService.getDashboard(dashboard.getName()))
-            .thenReturn(dashboard);
-        when(commitService.getScmStats(dashboard.getGitRepos()))
-            .thenReturn(scmDTO);
+        when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
+        when(commitService.getScmStats(dashboard.getGitRepos())).thenReturn(scmDTO);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/scm-metrics"))
             .andExpect(status().isOk())
@@ -87,22 +86,19 @@ public class CommitControllerTests {
 
     @Test
     public void getNullScmMetricsByBoardNameTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
         dashboard.setGitRepos(Arrays.asList(GIT_REPO_URLS));
 
-        ScmDTO scmDTO = new ScmDTO()
+        final ScmDTO scmDTO = new ScmDTO()
             .setSecondsToMaster(null)
             .setCommitsPerDay(null);
 
-        when(dashboardService.getDashboard(dashboard.getName()))
-            .thenReturn(dashboard);
-        when(commitService.getScmStats(dashboard.getGitRepos()))
-            .thenReturn(scmDTO);
+        when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
+        when(commitService.getScmStats(dashboard.getGitRepos())).thenReturn(scmDTO);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/scm-metrics"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.secondsToMaster", equalTo(null)))
             .andExpect(jsonPath("$.commitsPerDay", equalTo(null)));
     }
-
 }

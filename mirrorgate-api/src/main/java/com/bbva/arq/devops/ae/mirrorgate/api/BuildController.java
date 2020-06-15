@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
@@ -21,6 +26,10 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,16 +37,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 
 /**
  * Build controller.
@@ -49,29 +48,29 @@ public class BuildController {
     private final DashboardService dashboardService;
 
     @Autowired
-    public BuildController(BuildService buildService, DashboardService dashboardService) {
+    public BuildController(final BuildService buildService, final DashboardService dashboardService) {
         this.buildService = buildService;
         this.dashboardService = dashboardService;
     }
 
     @RequestMapping(value = "/dashboards/{name}/builds", method = GET,
-            produces = APPLICATION_JSON_VALUE)
-    public Map<String, ?> getBuildsByBoardName(@PathVariable("name") String name) {
+        produces = APPLICATION_JSON_VALUE)
+    public Map<String, ?> getBuildsByBoardName(final @PathVariable("name") String name) {
 
-        DashboardDTO dashboard = dashboardService.getDashboard(name);
+        final DashboardDTO dashboard = dashboardService.getDashboard(name);
         if (dashboard == null || dashboard.getCodeRepos() == null
             || dashboard.getCodeRepos().isEmpty()) {
             return null;
         }
 
-        List<Build> builds = buildService.getLastBuildsByKeywordsAndByTeamMembers(
+        final List<Build> builds = buildService.getLastBuildsByKeywordsAndByTeamMembers(
             dashboard.getCodeRepos(), dashboard.getTeamMembers()
         );
-        BuildStats stats = buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
+        final BuildStats stats = buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
             dashboard.getCodeRepos(), dashboard.getTeamMembers()
         );
 
-        Map<String, Object> response = new HashMap<>();
+        final Map<String, Object> response = new HashMap<>();
         response.put("lastBuilds", builds);
         response.put("stats", stats);
 
@@ -80,9 +79,9 @@ public class BuildController {
 
     @RequestMapping(value = "/dashboards/{name}/builds/rate", method = GET,
         produces = APPLICATION_JSON_VALUE)
-    public BuildStats getStats(@PathVariable("name") String name) {
+    public BuildStats getStats(final @PathVariable("name") String name) {
 
-        DashboardDTO dashboard = dashboardService.getDashboard(name);
+        final DashboardDTO dashboard = dashboardService.getDashboard(name);
         if (dashboard == null || dashboard.getCodeRepos() == null
             || dashboard.getCodeRepos().isEmpty()) {
             return null;
@@ -95,12 +94,11 @@ public class BuildController {
     }
 
     @RequestMapping(value = "/api/builds", method = POST,
-            consumes = APPLICATION_JSON_VALUE,
-            produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<BuildDTO> createBuilds(@Valid @RequestBody BuildDTO request) {
+        consumes = APPLICATION_JSON_VALUE,
+        produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<BuildDTO> createBuilds(final @Valid @RequestBody BuildDTO request) {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(buildService.createOrUpdate(request));
     }
-
 }

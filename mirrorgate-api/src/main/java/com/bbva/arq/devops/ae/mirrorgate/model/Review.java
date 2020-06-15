@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
+import java.util.Objects;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Objects;
-
 /**
  * Market reviews model.
- * <p>
  * Collectors:
  * Google Play Store, Apple App Store
  */
@@ -55,7 +54,7 @@ public class Review extends BaseIdModel {
         return commentTitle;
     }
 
-    public Review setCommentTitle(String commentTitle) {
+    public Review setCommentTitle(final String commentTitle) {
         this.commentTitle = commentTitle;
         return this;
     }
@@ -64,7 +63,7 @@ public class Review extends BaseIdModel {
         return commentId;
     }
 
-    public Review setCommentId(String commentId) {
+    public Review setCommentId(final String commentId) {
         this.commentId = commentId;
         return this;
     }
@@ -73,7 +72,7 @@ public class Review extends BaseIdModel {
         return appname;
     }
 
-    public Review setAppname(String appname) {
+    public Review setAppname(final String appname) {
         this.appname = appname;
         return this;
     }
@@ -82,7 +81,7 @@ public class Review extends BaseIdModel {
         return timestamp;
     }
 
-    public Review setTimestamp(Long timestamp) {
+    public Review setTimestamp(final Long timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -91,7 +90,7 @@ public class Review extends BaseIdModel {
         return authorName;
     }
 
-    public Review setAuthorName(String authorName) {
+    public Review setAuthorName(final String authorName) {
         this.authorName = authorName;
         return this;
     }
@@ -100,7 +99,7 @@ public class Review extends BaseIdModel {
         return starrating;
     }
 
-    public Review setStarrating(double starrating) {
+    public Review setStarrating(final double starrating) {
         this.starrating = starrating;
         return this;
     }
@@ -109,7 +108,7 @@ public class Review extends BaseIdModel {
         return comment;
     }
 
-    public Review setComment(String comment) {
+    public Review setComment(final String comment) {
         this.comment = comment;
         return this;
     }
@@ -118,7 +117,7 @@ public class Review extends BaseIdModel {
         return platform;
     }
 
-    public Review setPlatform(Platform platform) {
+    public Review setPlatform(final Platform platform) {
         this.platform = platform;
         return this;
     }
@@ -127,34 +126,43 @@ public class Review extends BaseIdModel {
         return amount;
     }
 
-    public Review setAmount(int amount) {
+    public Review setAmount(final int amount) {
         this.amount = amount;
         return this;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(timestamp, platform, commentId, appname, authorName, starrating, comment, url, commentTitle, amount);
+        return Objects.hash(
+            timestamp,
+            platform,
+            commentId,
+            appname,
+            authorName,
+            starrating,
+            comment,
+            url,
+            commentTitle,
+            amount
+        );
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         return o instanceof Review && equals((Review) o);
     }
 
-    public boolean equals(Review review) {
-
-        return this.getPlatform() == review.getPlatform() &&
-            this.getStarrating() == review.getStarrating() &&
-            stringEquals(this.getCommentId(), review.getCommentId()) &&
-            stringEquals(this.getAppname(), review.getAppname()) &&
-            stringEquals(this.getAuthorName(), review.getAuthorName()) &&
-            stringEquals(this.getCommentTitle(), review.getCommentTitle()) &&
-            stringEquals(this.getComment(), review.getComment());
-
+    public boolean equals(final Review review) {
+        return this.getPlatform() == review.getPlatform()
+            && this.getStarrating() == review.getStarrating()
+            && stringEquals(this.getCommentId(), review.getCommentId())
+            && stringEquals(this.getAppname(), review.getAppname())
+            && stringEquals(this.getAuthorName(), review.getAuthorName())
+            && stringEquals(this.getCommentTitle(), review.getCommentTitle())
+            && stringEquals(this.getComment(), review.getComment());
     }
 
-    private static boolean stringEquals(String s1, String s2) {
+    private static boolean stringEquals(final String s1, final String s2) {
         return (s1 == null && s2 == null) || (s1 != null && s1.equals(s2));
     }
 
@@ -162,7 +170,7 @@ public class Review extends BaseIdModel {
         return url;
     }
 
-    public Review setUrl(String url) {
+    public Review setUrl(final String url) {
         this.url = url;
         return this;
     }

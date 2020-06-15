@@ -16,20 +16,19 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 import com.bbva.arq.devops.ae.mirrorgate.dto.SprintDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.SprintService;
 import com.bbva.arq.devops.ae.mirrorgate.support.SprintStatus;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 public class SprintController {
@@ -43,12 +42,16 @@ public class SprintController {
 
     @RequestMapping(value = "/api/sprints/changing-sample", method = GET, produces = APPLICATION_JSON_VALUE)
     public List<SprintDTO> getChangingSprintsSample(final @RequestParam("collectorId") String collectorId) {
-
-        return sprintService.getSampleForStatus(new SprintStatus[]{SprintStatus.ACTIVE, SprintStatus.FUTURE}, collectorId);
+        return sprintService.getSampleForStatus(
+            new SprintStatus[]{SprintStatus.ACTIVE, SprintStatus.FUTURE}, collectorId
+        );
     }
 
     @RequestMapping(value = "/api/sprints/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<SprintDTO> getChangingSprint(final @PathVariable("id") Long id, final @RequestParam("collectorId") String collectorId) {
+    public ResponseEntity<SprintDTO> getChangingSprint(
+        final @PathVariable("id") Long id,
+        final @RequestParam("collectorId") String collectorId
+    ) {
 
         final SprintDTO sprint = sprintService.getSprint(id, collectorId);
 

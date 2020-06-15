@@ -22,5 +22,9 @@ import java.util.List;
 
 public interface HistoricUserMetricRepositoryCustom {
 
-    List<HistoricUserMetricStats> getUserMetricTendencyForPeriod(List<String> views, ChronoUnit unit, long timestamp);
+    List<HistoricUserMetricStats> getUserMetricTendencyForPeriod(
+        final List<String> views,
+        final ChronoUnit unit,
+        final long timestamp
+    );
 }

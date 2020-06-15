@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.documentation;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import io.github.robwin.markup.builder.MarkupLanguage;
 import org.junit.Before;
@@ -29,9 +33,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
@@ -52,17 +53,17 @@ public class SwaggerToMarkupTest {
     @Test
     public void convertSwaggerToAsciiDoc() throws Exception {
         this.mockMvc.perform(get("/v2/api-docs")
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(Swagger2MarkupResultHandler.outputDirectory("src/docs/asciidoc/generated").build())
-                .andExpect(status().isOk());
+            .accept(MediaType.APPLICATION_JSON))
+            .andDo(Swagger2MarkupResultHandler.outputDirectory("src/docs/asciidoc/generated").build())
+            .andExpect(status().isOk());
     }
 
     @Test
     public void convertSwaggerToMarkdown() throws Exception {
         this.mockMvc.perform(get("/v2/api-docs")
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(Swagger2MarkupResultHandler.outputDirectory("src/docs/markdown/generated")
-                        .withMarkupLanguage(MarkupLanguage.MARKDOWN).build())
-                .andExpect(status().isOk());
+            .accept(MediaType.APPLICATION_JSON))
+            .andDo(Swagger2MarkupResultHandler.outputDirectory("src/docs/markdown/generated")
+                .withMarkupLanguage(MarkupLanguage.MARKDOWN).build())
+            .andExpect(status().isOk());
     }
 }

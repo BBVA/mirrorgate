@@ -13,12 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bbva.arq.devops.ae.mirrorgate.utils;
 
-import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+package com.bbva.arq.devops.ae.mirrorgate.utils;
 
 import static com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency.down;
 import static com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency.equal;
@@ -26,71 +22,71 @@ import static com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency.up;
 import static com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils.failureTendency;
 import static org.junit.Assert.assertEquals;
 
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 @RunWith(JUnit4.class)
 public class BuildStatsUtilsTests {
 
     @Test
     public void itShouldReturnAnEmptyResultWhenCalledWithNoResults() {
-        BuildStats stats = BuildStatsUtils.combineBuildStats();
+        final BuildStats stats = BuildStatsUtils.combineBuildStats();
 
         assertEquals(stats.getCount(), 0);
-        assertEquals(stats.getDuration(), .0,0);
+        assertEquals(stats.getDuration(), .0, 0);
         assertEquals(stats.getFailureRate(), .0, 0);
-
     }
 
 
     @Test
     public void itShouldReturnAnEmptyResultWhenCalledWithEmptyResults() {
-        BuildStats stats = BuildStatsUtils.combineBuildStats(new BuildStats());
+        final BuildStats stats = BuildStatsUtils.combineBuildStats(new BuildStats());
 
         assertEquals(stats.getCount(), 0);
         assertEquals(stats.getDuration(), .0, 0);
         assertEquals(stats.getFailureRate(), .0, 0);
-
     }
 
     @Test
     public void itShouldAddCounts() {
-        BuildStats stats = BuildStatsUtils.combineBuildStats(
-                new BuildStats().setCount(1),
-                new BuildStats().setCount(2),
-                new BuildStats().setCount(3)
+        final BuildStats stats = BuildStatsUtils.combineBuildStats(
+            new BuildStats().setCount(1),
+            new BuildStats().setCount(2),
+            new BuildStats().setCount(3)
         );
 
         assertEquals(stats.getCount(), 6);
-
     }
 
     @Test
     public void itShouldAverageFailureRates() {
-        BuildStats stats = BuildStatsUtils.combineBuildStats(
-                new BuildStats().setCount(1),
-                new BuildStats().setCount(2),
-                new BuildStats().setCount(3).setFailureRate(100)
+        final BuildStats stats = BuildStatsUtils.combineBuildStats(
+            new BuildStats().setCount(1),
+            new BuildStats().setCount(2),
+            new BuildStats().setCount(3).setFailureRate(100)
         );
 
         assertEquals(stats.getFailureRate(), 50.0, 0);
-
     }
 
     @Test
     public void itShouldAverageDurations() {
-        BuildStats stats = BuildStatsUtils.combineBuildStats(
-                new BuildStats().setCount(1).setDuration(100),
-                new BuildStats().setCount(2).setDuration(200),
-                new BuildStats().setCount(4).setDuration(400)
+        final BuildStats stats = BuildStatsUtils.combineBuildStats(
+            new BuildStats().setCount(1).setDuration(100),
+            new BuildStats().setCount(2).setDuration(200),
+            new BuildStats().setCount(4).setDuration(400)
         );
 
-        assertEquals(stats.getDuration(), 300,0);
-
+        assertEquals(stats.getDuration(), 300, 0);
     }
 
     @Test
     public void itShouldReturnTheCorrectFailureTendency() {
-        assertEquals(failureTendency(100,300), down);
-        assertEquals(failureTendency(300,100), up);
-        assertEquals(failureTendency(10,10), equal);
-        assertEquals(failureTendency(0,10), down);
+        assertEquals(failureTendency(100, 300), down);
+        assertEquals(failureTendency(300, 100), up);
+        assertEquals(failureTendency(10, 10), equal);
+        assertEquals(failureTendency(0, 10), down);
     }
 }

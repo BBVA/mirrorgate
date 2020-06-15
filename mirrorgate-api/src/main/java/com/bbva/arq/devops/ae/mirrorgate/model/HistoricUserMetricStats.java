@@ -45,7 +45,7 @@ public class HistoricUserMetricStats {
             + collectorId;
     }
 
-    public HistoricUserMetricStats setIdentifier(String identifier) {
+    public HistoricUserMetricStats setIdentifier(final String identifier) {
         this.identifier = identifier;
         return this;
     }
@@ -54,7 +54,7 @@ public class HistoricUserMetricStats {
         return viewId;
     }
 
-    public HistoricUserMetricStats setViewId(String viewId) {
+    public HistoricUserMetricStats setViewId(final String viewId) {
         this.viewId = viewId;
         return this;
     }
@@ -63,7 +63,7 @@ public class HistoricUserMetricStats {
         return appVersion;
     }
 
-    public HistoricUserMetricStats setAppVersion(String appVersion) {
+    public HistoricUserMetricStats setAppVersion(final String appVersion) {
         this.appVersion = appVersion;
         return this;
     }
@@ -72,7 +72,7 @@ public class HistoricUserMetricStats {
         return platform;
     }
 
-    public HistoricUserMetricStats setPlatform(String platform) {
+    public HistoricUserMetricStats setPlatform(final String platform) {
         this.platform = platform;
         return this;
     }
@@ -81,7 +81,7 @@ public class HistoricUserMetricStats {
         return name;
     }
 
-    public HistoricUserMetricStats setName(String name) {
+    public HistoricUserMetricStats setName(final String name) {
         this.name = name;
         return this;
     }
@@ -90,7 +90,7 @@ public class HistoricUserMetricStats {
         return value;
     }
 
-    public HistoricUserMetricStats setValue(double value) {
+    public HistoricUserMetricStats setValue(final double value) {
         this.value = value;
         return this;
     }
@@ -99,7 +99,7 @@ public class HistoricUserMetricStats {
         return timestamp;
     }
 
-    public HistoricUserMetricStats setTimestamp(long timestamp) {
+    public HistoricUserMetricStats setTimestamp(final long timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -108,7 +108,7 @@ public class HistoricUserMetricStats {
         return sampleSize;
     }
 
-    public HistoricUserMetricStats setSampleSize(long sampleSize) {
+    public HistoricUserMetricStats setSampleSize(final long sampleSize) {
         this.sampleSize = sampleSize;
         return this;
     }
@@ -117,7 +117,7 @@ public class HistoricUserMetricStats {
         return collectorId;
     }
 
-    public HistoricUserMetricStats setCollectorId(String collectorId) {
+    public HistoricUserMetricStats setCollectorId(final String collectorId) {
         this.collectorId = collectorId;
         return this;
     }

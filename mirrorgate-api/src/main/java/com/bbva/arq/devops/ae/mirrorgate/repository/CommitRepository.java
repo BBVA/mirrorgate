@@ -17,16 +17,18 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 /**
  * Commits repository.
  */
 public interface CommitRepository extends CrudRepository<Commit, ObjectId>, CommitRepositoryCustom {
 
-    List<Commit> findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(String repository, Integer timestamp);
+    List<Commit> findByRepositoryAndTimestampGreaterThanOrderByTimestampDesc(
+        final String repository,
+        final Integer timestamp
+    );
 
 }

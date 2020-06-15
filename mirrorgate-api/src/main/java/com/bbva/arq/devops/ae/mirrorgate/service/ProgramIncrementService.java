@@ -4,6 +4,6 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.ProgramIncrementDTO;
 
 public interface ProgramIncrementService {
 
-    ProgramIncrementDTO getProgramIncrement(String dashboardName);
+    ProgramIncrementDTO getProgramIncrement(final String dashboardName);
 
 }

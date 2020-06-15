@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * Dashboard Data Transfer Object
+ * Dashboard Data Transfer Object.
  */
 public class DashboardDTO {
 
@@ -67,7 +67,7 @@ public class DashboardDTO {
     private List<String> aggregatedDashboards;
 
     private DashboardType type = DashboardType.Detail;
-    private List<List <String>> columns;
+    private List<List<String>> columns;
 
     private Integer marketsStatsDays = 7;
 
@@ -76,7 +76,8 @@ public class DashboardDTO {
     public String getName() {
         return name;
     }
-    public DashboardDTO setName(String name) {
+
+    public DashboardDTO setName(final String name) {
         this.name = name;
         return this;
     }
@@ -84,21 +85,26 @@ public class DashboardDTO {
     public String getLogoUrl() {
         return logoUrl;
     }
-    public DashboardDTO setLogoUrl(String logoUrl) {
+
+    public DashboardDTO setLogoUrl(final String logoUrl) {
         this.logoUrl = logoUrl;
         return this;
     }
+
     public List<String> getCodeRepos() {
         return codeRepos;
     }
-    public DashboardDTO setCodeRepos(List<String> codeRepos) {
+
+    public DashboardDTO setCodeRepos(final List<String> codeRepos) {
         this.codeRepos = codeRepos;
         return this;
     }
+
     public String getsProductName() {
         return sProductName;
     }
-    public DashboardDTO setsProductName(String sProductName) {
+
+    public DashboardDTO setsProductName(final String sProductName) {
         this.sProductName = sProductName;
         return this;
     }
@@ -107,7 +113,7 @@ public class DashboardDTO {
         return applications;
     }
 
-    public DashboardDTO setApplications(List<String> applications) {
+    public DashboardDTO setApplications(final List<String> applications) {
         this.applications = applications;
         return this;
     }
@@ -116,7 +122,7 @@ public class DashboardDTO {
         return boards;
     }
 
-    public DashboardDTO setBoards(List<String> boards) {
+    public DashboardDTO setBoards(final List<String> boards) {
         this.boards = boards;
         return this;
     }
@@ -125,7 +131,7 @@ public class DashboardDTO {
         return filters;
     }
 
-    public DashboardDTO setFilters(Filters filters) {
+    public DashboardDTO setFilters(final Filters filters) {
         this.filters = filters;
         return this;
     }
@@ -134,7 +140,7 @@ public class DashboardDTO {
         return displayName;
     }
 
-    public DashboardDTO setDisplayName(String displayName) {
+    public DashboardDTO setDisplayName(final String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -143,7 +149,7 @@ public class DashboardDTO {
         return status;
     }
 
-    public DashboardDTO setStatus(DashboardStatus status) {
+    public DashboardDTO setStatus(final DashboardStatus status) {
         this.status = status;
         return this;
     }
@@ -152,7 +158,7 @@ public class DashboardDTO {
         return lastUserEdit;
     }
 
-    public DashboardDTO setLastUserEdit(String lastUserEdit) {
+    public DashboardDTO setLastUserEdit(final String lastUserEdit) {
         this.lastUserEdit = lastUserEdit;
         return this;
     }
@@ -161,7 +167,7 @@ public class DashboardDTO {
         return lastModification;
     }
 
-    public DashboardDTO setLastModification(Long lastModification) {
+    public DashboardDTO setLastModification(final Long lastModification) {
         this.lastModification = lastModification;
         return this;
     }
@@ -170,7 +176,7 @@ public class DashboardDTO {
         return lastTimeUsed;
     }
 
-    public DashboardDTO setLastTimeUsed(Long lastTimeUsed) {
+    public DashboardDTO setLastTimeUsed(final Long lastTimeUsed) {
         this.lastTimeUsed = lastTimeUsed;
         return this;
     }
@@ -179,7 +185,7 @@ public class DashboardDTO {
         return adminUsers;
     }
 
-    public DashboardDTO setAdminUsers(List<String> adminUsers) {
+    public DashboardDTO setAdminUsers(final List<String> adminUsers) {
         this.adminUsers = adminUsers;
         return this;
     }
@@ -188,7 +194,7 @@ public class DashboardDTO {
         return teamMembers;
     }
 
-    public DashboardDTO setTeamMembers(List<String> teamMembers) {
+    public DashboardDTO setTeamMembers(final List<String> teamMembers) {
         this.teamMembers = teamMembers;
         return this;
     }
@@ -197,7 +203,7 @@ public class DashboardDTO {
         return analyticViews;
     }
 
-    public DashboardDTO setAnalyticViews(List<String> analyticViews) {
+    public DashboardDTO setAnalyticViews(final List<String> analyticViews) {
         this.analyticViews = analyticViews;
         return this;
     }
@@ -206,7 +212,7 @@ public class DashboardDTO {
         return operationViews;
     }
 
-    public DashboardDTO setOperationViews(List<String> operationViews) {
+    public DashboardDTO setOperationViews(final List<String> operationViews) {
         this.operationViews = operationViews;
         return this;
     }
@@ -215,7 +221,7 @@ public class DashboardDTO {
         return infraCost;
     }
 
-    public DashboardDTO setInfraCost(Boolean infraCost) {
+    public DashboardDTO setInfraCost(final Boolean infraCost) {
         this.infraCost = infraCost;
         return this;
     }
@@ -224,7 +230,7 @@ public class DashboardDTO {
         return lastVersion;
     }
 
-    public DashboardDTO setLastVersion(String lastVersion) {
+    public DashboardDTO setLastVersion(final String lastVersion) {
         this.lastVersion = lastVersion;
         return this;
     }
@@ -233,7 +239,7 @@ public class DashboardDTO {
         return responseTimeAlertingLevelWarning;
     }
 
-    public DashboardDTO setResponseTimeAlertingLevelWarning(Float responseTimeAlertingLevelWarning) {
+    public DashboardDTO setResponseTimeAlertingLevelWarning(final Float responseTimeAlertingLevelWarning) {
         this.responseTimeAlertingLevelWarning = responseTimeAlertingLevelWarning;
         return this;
     }
@@ -242,7 +248,7 @@ public class DashboardDTO {
         return responseTimeAlertingLevelError;
     }
 
-    public DashboardDTO setResponseTimeAlertingLevelError(Float responseTimeAlertingLevelError) {
+    public DashboardDTO setResponseTimeAlertingLevelError(final Float responseTimeAlertingLevelError) {
         this.responseTimeAlertingLevelError = responseTimeAlertingLevelError;
         return this;
     }
@@ -251,7 +257,7 @@ public class DashboardDTO {
         return errorsRateAlertingLevelWarning;
     }
 
-    public DashboardDTO setErrorsRateAlertingLevelWarning(Float errorsRateAlertingLevelWarning) {
+    public DashboardDTO setErrorsRateAlertingLevelWarning(final Float errorsRateAlertingLevelWarning) {
         this.errorsRateAlertingLevelWarning = errorsRateAlertingLevelWarning;
         return this;
     }
@@ -260,7 +266,7 @@ public class DashboardDTO {
         return errorsRateAlertingLevelError;
     }
 
-    public DashboardDTO setErrorsRateAlertingLevelError(Float errorsRateAlertingLevelError) {
+    public DashboardDTO setErrorsRateAlertingLevelError(final Float errorsRateAlertingLevelError) {
         this.errorsRateAlertingLevelError = errorsRateAlertingLevelError;
         return this;
     }
@@ -269,7 +275,7 @@ public class DashboardDTO {
         return skin;
     }
 
-    public DashboardDTO setSkin(String skin) {
+    public DashboardDTO setSkin(final String skin) {
         this.skin = skin;
         return this;
     }
@@ -278,7 +284,7 @@ public class DashboardDTO {
         return slackChannel;
     }
 
-    public DashboardDTO setSlackChannel(String slackChannel) {
+    public DashboardDTO setSlackChannel(final String slackChannel) {
         this.slackChannel = slackChannel;
         return this;
     }
@@ -287,7 +293,7 @@ public class DashboardDTO {
         return slackTeam;
     }
 
-    public DashboardDTO setSlackTeam(String slackTeam) {
+    public DashboardDTO setSlackTeam(final String slackTeam) {
         this.slackTeam = slackTeam;
         return this;
     }
@@ -296,7 +302,7 @@ public class DashboardDTO {
         return slackToken;
     }
 
-    public DashboardDTO setSlackToken(String slackToken) {
+    public DashboardDTO setSlackToken(final String slackToken) {
         this.slackToken = slackToken;
         return this;
     }
@@ -305,7 +311,7 @@ public class DashboardDTO {
         return programIncrement;
     }
 
-    public DashboardDTO setProgramIncrement(String programIncrement) {
+    public DashboardDTO setProgramIncrement(final String programIncrement) {
         this.programIncrement = programIncrement;
         return this;
     }
@@ -314,22 +320,21 @@ public class DashboardDTO {
         return author;
     }
 
-    public DashboardDTO setAuthor(String author) {
+    public DashboardDTO setAuthor(final String author) {
         this.author = author;
         return this;
     }
-
 
     public String getUrlAlerts() {
         return urlAlerts;
     }
 
-    public DashboardDTO setUrlAlerts(String urlAlerts) {
+    public DashboardDTO setUrlAlerts(final String urlAlerts) {
         this.urlAlerts = urlAlerts;
         return this;
     }
 
-    public DashboardDTO setUrlAlertsAuthorization(String urlAlertsAuthorization) {
+    public DashboardDTO setUrlAlertsAuthorization(final String urlAlertsAuthorization) {
         this.urlAlertsAuthorization = urlAlertsAuthorization;
         return this;
     }
@@ -338,7 +343,7 @@ public class DashboardDTO {
         return urlAlertsAuthorization;
     }
 
-    public DashboardDTO setAggregatedDashboards(List<String> aggregatedDashboards) {
+    public DashboardDTO setAggregatedDashboards(final List<String> aggregatedDashboards) {
         this.aggregatedDashboards = aggregatedDashboards;
         return this;
     }
@@ -351,7 +356,7 @@ public class DashboardDTO {
         return type;
     }
 
-    public DashboardDTO setType(DashboardType type) {
+    public DashboardDTO setType(final DashboardType type) {
         this.type = type;
         return this;
     }
@@ -360,7 +365,7 @@ public class DashboardDTO {
         return columns;
     }
 
-    public DashboardDTO setColumns(List<List<String>> columns) {
+    public DashboardDTO setColumns(final List<List<String>> columns) {
         this.columns = columns;
         return this;
     }
@@ -369,7 +374,7 @@ public class DashboardDTO {
         return category;
     }
 
-    public DashboardDTO setCategory(String category) {
+    public DashboardDTO setCategory(final String category) {
         this.category = category;
         return this;
     }
@@ -377,7 +382,8 @@ public class DashboardDTO {
     public Integer getMarketsStatsDays() {
         return marketsStatsDays;
     }
-    public DashboardDTO setMarketsStatsDays(Integer marketsStatsDays) {
+
+    public DashboardDTO setMarketsStatsDays(final Integer marketsStatsDays) {
         this.marketsStatsDays = marketsStatsDays;
         return this;
     }
@@ -386,7 +392,7 @@ public class DashboardDTO {
         return gitRepos;
     }
 
-    public DashboardDTO setGitRepos(List<String> gitRepos) {
+    public DashboardDTO setGitRepos(final List<String> gitRepos) {
         this.gitRepos = gitRepos;
         return this;
     }

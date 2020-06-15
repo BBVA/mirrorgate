@@ -25,12 +25,14 @@ public class ReviewDTO {
 
     private String author;
 
-    @Min(1) @Max(5)
+    @Min(1)
+    @Max(5)
     private double rate;
 
     private long timestamp;
 
-    @NotNull @Size(min=1)
+    @NotNull
+    @Size(min = 1)
     private String comment;
 
     private String commentTitle;
@@ -41,7 +43,7 @@ public class ReviewDTO {
         return author;
     }
 
-    public ReviewDTO setAuthor(String author) {
+    public ReviewDTO setAuthor(final String author) {
         this.author = author;
         return this;
     }
@@ -50,7 +52,7 @@ public class ReviewDTO {
         return rate;
     }
 
-    public ReviewDTO setRate(double rate) {
+    public ReviewDTO setRate(final double rate) {
         this.rate = rate;
         return this;
     }
@@ -59,7 +61,7 @@ public class ReviewDTO {
         return timestamp;
     }
 
-    public ReviewDTO setTimestamp(long timestamp) {
+    public ReviewDTO setTimestamp(final long timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -68,7 +70,7 @@ public class ReviewDTO {
         return comment;
     }
 
-    public ReviewDTO setComment(String comment) {
+    public ReviewDTO setComment(final String comment) {
         this.comment = comment;
         return this;
     }
@@ -77,12 +79,12 @@ public class ReviewDTO {
         return url;
     }
 
-    public ReviewDTO setUrl(String url) {
+    public ReviewDTO setUrl(final String url) {
         this.url = url;
         return this;
     }
 
-    public ReviewDTO setCommentTitle(String commentTitle) {
+    public ReviewDTO setCommentTitle(final String commentTitle) {
         this.commentTitle = commentTitle;
         return this;
     }

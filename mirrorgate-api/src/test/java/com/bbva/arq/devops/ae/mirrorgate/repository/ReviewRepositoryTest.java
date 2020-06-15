@@ -16,14 +16,13 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
-import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -44,16 +43,44 @@ public class ReviewRepositoryTest {
     private ReviewRepository reviewRepository;
 
     private final Review review1 = TestObjectFactory.createReview(
-            Platform.IOS, "mirrorgate", "123456", "comment 1", 1, 3.5, 1);
+        Platform.IOS,
+        "mirrorgate",
+        "123456",
+        "comment 1",
+        1,
+        3.5,
+        1
+    );
     private final Review review2 = TestObjectFactory.createReview(
-            Platform.IOS, "mirrorgate", "123457", "comment 2", 2, 5, 10);
+        Platform.IOS,
+        "mirrorgate",
+        "123457",
+        "comment 2",
+        2,
+        5,
+        10
+    );
     private final Review review3 = TestObjectFactory.createReview(
-            Platform.Android, "mirrorgate", "com.mirrorgate", "comment 1", 3, 3.5, 1);
+        Platform.Android,
+        "mirrorgate",
+        "com.mirrorgate",
+        "comment 1",
+        3,
+        3.5,
+        1
+    );
     private final Review review4 = TestObjectFactory.createReview(
-            Platform.Android, "mirrorgate", "com.mirrorgate", "comment 2", 4, 5, 10);
+        Platform.Android,
+        "mirrorgate",
+        "com.mirrorgate",
+        "comment 2",
+        4,
+        5,
+        10
+    );
 
     @Before
-    public void init(){
+    public void init() {
         reviewRepository.save(review1);
         reviewRepository.save(review2);
         reviewRepository.save(review3);
@@ -61,38 +88,37 @@ public class ReviewRepositoryTest {
     }
 
     @After
-    public void clean(){
+    public void clean() {
         reviewRepository.deleteAll();
     }
 
     @Test
-    public void testAggregationNoResults(){
+    public void testAggregationNoResults() {
 
-        List<String> appNamesList = Collections.singletonList("mood");
-        List<ApplicationReviewsDTO> reviews = reviewRepository.getLastReviewPerApplication(appNamesList);
-
-        assertTrue(reviews.isEmpty());
-    }
-
-    @Test
-    public void testAggregationNoApps(){
-
-        List<String> appNamesList = new ArrayList<>();
-        List<ApplicationReviewsDTO> reviews = reviewRepository.getLastReviewPerApplication(appNamesList);
+        final List<String> appNamesList = Collections.singletonList("mood");
+        final List<ApplicationReviewsDTO> reviews = reviewRepository.getLastReviewPerApplication(appNamesList);
 
         assertTrue(reviews.isEmpty());
     }
 
     @Test
-    public void testRegularAggregation(){
+    public void testAggregationNoApps() {
 
-        List<String> appNamesList = Arrays.asList("mirrorgate", "mirrorgato", "mood");
-        List<ApplicationReviewsDTO> reviews = reviewRepository.getLastReviewPerApplication(appNamesList);
+        final List<String> appNamesList = new ArrayList<>();
+        final List<ApplicationReviewsDTO> reviews = reviewRepository.getLastReviewPerApplication(appNamesList);
+
+        assertTrue(reviews.isEmpty());
+    }
+
+    @Test
+    public void testRegularAggregation() {
+
+        final List<String> appNamesList = Arrays.asList("mirrorgate", "mirrorgato", "mood");
+        final List<ApplicationReviewsDTO> reviews = reviewRepository.getLastReviewPerApplication(appNamesList);
 
         assertEquals("mirrorgate", reviews.get(0).getAppId());
         assertEquals("mirrorgate", reviews.get(0).getAppName());
         assertEquals("123457", reviews.get(0).getCommentId());
         assertEquals(reviews.get(0).getPlatform(), Platform.IOS);
     }
-
 }

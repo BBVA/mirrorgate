@@ -32,16 +32,13 @@ public class ApplicationController {
     private final ApplicationService applicationService;
 
     @Autowired
-    public ApplicationController(ApplicationService applicationService){
-
+    public ApplicationController(final ApplicationService applicationService) {
         this.applicationService = applicationService;
     }
 
     @RequestMapping(value = "/api/applications", method = GET,
         produces = APPLICATION_JSON_VALUE)
-    public List<ApplicationReviewsDTO> getApplicationsInfo(){
-
+    public List<ApplicationReviewsDTO> getApplicationsInfo() {
         return applicationService.getApplicationsAndReviews();
     }
-
 }

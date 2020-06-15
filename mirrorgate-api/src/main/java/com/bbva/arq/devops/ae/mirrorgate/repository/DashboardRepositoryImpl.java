@@ -13,10 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
+
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Sort;
@@ -29,22 +45,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsCriteria;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
-
 public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
 
     @Autowired
@@ -53,18 +53,18 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
     @Autowired
     private GridFsTemplate gridFsTemplate;
 
-    private static final Map<String, String> DASHBOARD_FIELDS = new HashMap<>() {{
-        for (Field f : Dashboard.class.getDeclaredFields()) {
-            put(f.getName(), "$" + f.getName());
+    private static final Map<String, String> DASHBOARD_FIELDS = new HashMap<>() {
+        {
+            for (final Field f : Dashboard.class.getDeclaredFields()) {
+                put(f.getName(), "$" + f.getName());
+            }
+            remove("id");
         }
-        remove("id");
-    }};
+    };
 
-    private static GroupOperation firstDashboardFields(GroupOperation operation) {
-
+    private static GroupOperation firstDashboardFields(final GroupOperation operation) {
         return DASHBOARD_FIELDS.keySet().stream()
             .reduce(operation, (o, s) -> o.first(s).as(s), (old, o) -> o);
-
     }
 
     @Override
@@ -78,8 +78,8 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         return getDashboardsNotInStatus(DELETED, TRANSIENT);
     }
 
-    private List<Dashboard> getDashboardsNotInStatus(DashboardStatus... status) {
-        Aggregation aggregation = newAggregation(
+    private List<Dashboard> getDashboardsNotInStatus(final DashboardStatus... status) {
+        final Aggregation aggregation = newAggregation(
             sort(Sort.by(Sort.Direction.DESC, "lastModification")),
             firstDashboardFields(group("name")),
             match(Criteria.where("status").nin(Collections.singletonList(status))),
@@ -87,20 +87,20 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         );
 
         //Convert the aggregation result into a List
-        AggregationResults<Dashboard> groupResults
+        final AggregationResults<Dashboard> groupResults
             = mongoTemplate.aggregate(aggregation, Dashboard.class, Dashboard.class);
+
         return groupResults.getMappedResults();
     }
 
     @Override
-    public void saveFile(InputStream image, String name) {
+    public void saveFile(final InputStream image, final String name) {
         gridFsTemplate.delete(new Query(GridFsCriteria.whereFilename().is(name)));
         gridFsTemplate.store(image, name);
     }
 
     @Override
-    public InputStreamResource readFile(String name) {
+    public InputStreamResource readFile(final String name) {
         return gridFsTemplate.getResource(Objects.requireNonNull(name));
     }
-
 }

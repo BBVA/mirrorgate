@@ -17,15 +17,11 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Sprint;
-
 import java.util.List;
 
-/**
- * Created by alfonso on 13/03/17.
- */
 public interface SprintRepository {
 
-    List<Sprint> getSprintSampleForStatus(String[] status, String collectorId);
+    List<Sprint> getSprintSampleForStatus(final String[] status, final String collectorId);
 
-    Sprint getSprintForId(String id, String collectorId);
+    Sprint getSprintForId(final String id, final String collectorId);
 }

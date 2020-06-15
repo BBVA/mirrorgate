@@ -16,9 +16,19 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
 import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.model.Sprint;
 import com.mongodb.BasicDBObject;
+import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -26,70 +36,63 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-
 @Component
 public class SprintRepositoryImpl implements SprintRepository {
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    private static final Map<String, String> ISSUE_FIELDS = new HashMap<>() {{
-        for (Field f : Issue.class.getDeclaredFields()) {
-            put(f.getName(), "$" + f.getName());
+    private static final Map<String, String> ISSUE_FIELDS = new HashMap<>() {
+        {
+            for (final Field f : Issue.class.getDeclaredFields()) {
+                put(f.getName(), "$" + f.getName());
+            }
         }
-    }};
+    };
 
-    private static final Map<String,String> SPRINT_FIELDS = new HashMap<>() {{
-        put("sprintId", "sprintId");
-        put("sprintName", "name");
-        put("sprintAssetState", "status");
-        put("sprintBeginDate", "startDate");
-        put("sprintEndDate", "endDate");
-    }};
+    private static final Map<String, String> SPRINT_FIELDS = new HashMap<>() {
+        {
+            put("sprintId", "sprintId");
+            put("sprintName", "name");
+            put("sprintAssetState", "status");
+            put("sprintBeginDate", "startDate");
+            put("sprintEndDate", "endDate");
+        }
+    };
 
-    private static GroupOperation firstIssueFields(GroupOperation operation) {
+    private static GroupOperation firstIssueFields(final GroupOperation operation) {
         return ISSUE_FIELDS.keySet().stream()
-                .reduce(operation, (o,s) -> o.first(s).as(s), (old,o) -> o);
+            .reduce(operation, (o, s) -> o.first(s).as(s), (old, o) -> o);
     }
 
-    private static GroupOperation firstSprintFields(GroupOperation operation) {
+    private static GroupOperation firstSprintFields(final GroupOperation operation) {
         return SPRINT_FIELDS.keySet().stream()
-                .reduce(operation, (o,s) -> o.first(s).as(SPRINT_FIELDS.get(s)), (old,o) -> o);
+            .reduce(operation, (o, s) -> o.first(s).as(SPRINT_FIELDS.get(s)), (old, o) -> o);
     }
 
     @Override
-    public List<Sprint> getSprintSampleForStatus(String[] status, String collectorId) {
-        Aggregation agg = newAggregation(
+    public List<Sprint> getSprintSampleForStatus(final String[] status, final String collectorId) {
+        final Aggregation agg = newAggregation(
             match(where("sprintAssetState").in(Collections.singletonList(status)).and("collectorId").is(collectorId)),
             firstIssueFields(group("sprintId", "sprintAssetState")),
             firstSprintFields(group("sprintId", "sprintAssetState"))
                 .push(new BasicDBObject(ISSUE_FIELDS)).as("issues")
         );
-        AggregationResults<Sprint> aggregate =
+        final AggregationResults<Sprint> aggregate =
             mongoTemplate.aggregate(agg, "issue", Sprint.class);
 
         return aggregate.getMappedResults();
     }
 
     @Override
-    public Sprint getSprintForId(String id, String collectorId) {
-        Aggregation agg = newAggregation(
+    public Sprint getSprintForId(final String id, final String collectorId) {
+        final Aggregation agg = newAggregation(
             match(where("sprintId").is(id).and("collectorId").is(collectorId)),
             firstSprintFields(group("sprintId"))
                 .push(new BasicDBObject(ISSUE_FIELDS)).as("issues")
         );
 
-        AggregationResults<Sprint> aggregate =
+        final AggregationResults<Sprint> aggregate =
             mongoTemplate.aggregate(agg, "issue", Sprint.class);
 
         return aggregate.getUniqueMappedResult();

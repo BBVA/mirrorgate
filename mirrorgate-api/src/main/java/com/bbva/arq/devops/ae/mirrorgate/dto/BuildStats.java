@@ -27,7 +27,7 @@ public class BuildStats {
         return duration;
     }
 
-    public BuildStats setDuration(double duration) {
+    public BuildStats setDuration(final double duration) {
         this.duration = duration;
         return this;
     }
@@ -36,7 +36,7 @@ public class BuildStats {
         return count;
     }
 
-    public BuildStats setCount(long count) {
+    public BuildStats setCount(final long count) {
         this.count = count;
         return this;
     }
@@ -45,7 +45,7 @@ public class BuildStats {
         return failureRate;
     }
 
-    public BuildStats setFailureRate(double failureRate) {
+    public BuildStats setFailureRate(final double failureRate) {
         this.failureRate = failureRate;
         return this;
     }
@@ -54,7 +54,7 @@ public class BuildStats {
         return failureTendency;
     }
 
-    public BuildStats setFailureTendency(FailureTendency failureTendency) {
+    public BuildStats setFailureTendency(final FailureTendency failureTendency) {
         this.failureTendency = failureTendency;
         return this;
     }

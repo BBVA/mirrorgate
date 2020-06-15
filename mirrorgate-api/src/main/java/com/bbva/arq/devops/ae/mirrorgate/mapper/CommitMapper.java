@@ -21,40 +21,40 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Commit;
 
 public class CommitMapper {
 
-    public static CommitDTO map(Commit source) {
+    public static CommitDTO map(final Commit source) {
         return map(source, new CommitDTO());
     }
 
-    private static CommitDTO map(Commit source, CommitDTO target) {
+    private static CommitDTO map(final Commit source, final CommitDTO target) {
         return target
-                .setHash(source.getHash())
-                .setRepository(source.getRepository())
-                .setTimestamp(source.getTimestamp())
-                .setMessage(source.getMessage())
-                .setAuthorName(source.getAuthorName())
-                .setAuthorEmail(source.getAuthorEmail())
-                .setCommitterName(source.getCommitterName())
-                .setCommitterEmail(source.getCommitterEmail())
-                .setParentsIds(source.getParentsIds())
-                .setBranches(source.getBranches());
+            .setHash(source.getHash())
+            .setRepository(source.getRepository())
+            .setTimestamp(source.getTimestamp())
+            .setMessage(source.getMessage())
+            .setAuthorName(source.getAuthorName())
+            .setAuthorEmail(source.getAuthorEmail())
+            .setCommitterName(source.getCommitterName())
+            .setCommitterEmail(source.getCommitterEmail())
+            .setParentsIds(source.getParentsIds())
+            .setBranches(source.getBranches());
     }
 
-    public static Commit map(CommitDTO source) {
+    public static Commit map(final CommitDTO source) {
         return map(source, new Commit());
     }
 
-    private static Commit map(CommitDTO source, Commit target) {
+    private static Commit map(final CommitDTO source, final Commit target) {
         return target
-                .setHash(source.getHash())
-                .setRepository(source.getRepository())
-                .setTimestamp(source.getTimestamp())
-                .setMessage(source.getMessage())
-                .setAuthorName(source.getAuthorName())
-                .setAuthorEmail(source.getAuthorEmail())
-                .setCommitterName(source.getCommitterName())
-                .setCommitterEmail(source.getCommitterEmail())
-                .setParentsIds(source.getParentsIds())
-                .setBranches(source.getBranches());
+            .setHash(source.getHash())
+            .setRepository(source.getRepository())
+            .setTimestamp(source.getTimestamp())
+            .setMessage(source.getMessage())
+            .setAuthorName(source.getAuthorName())
+            .setAuthorEmail(source.getAuthorEmail())
+            .setCommitterName(source.getCommitterName())
+            .setCommitterEmail(source.getCommitterEmail())
+            .setParentsIds(source.getParentsIds())
+            .setBranches(source.getBranches());
     }
 
 }

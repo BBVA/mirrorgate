@@ -29,7 +29,7 @@ public class ApplicationReviewsDTO {
         return platform;
     }
 
-    public ApplicationReviewsDTO setPlatform(Platform platform) {
+    public ApplicationReviewsDTO setPlatform(final Platform platform) {
         this.platform = platform;
         return this;
     }
@@ -38,7 +38,7 @@ public class ApplicationReviewsDTO {
         return appId;
     }
 
-    public ApplicationReviewsDTO setAppId(String appId) {
+    public ApplicationReviewsDTO setAppId(final String appId) {
         this.appId = appId;
         return this;
     }
@@ -47,7 +47,7 @@ public class ApplicationReviewsDTO {
         return appName;
     }
 
-    public ApplicationReviewsDTO setAppName(String appName) {
+    public ApplicationReviewsDTO setAppName(final String appName) {
         this.appName = appName;
         return this;
     }
@@ -56,7 +56,7 @@ public class ApplicationReviewsDTO {
         return commentId;
     }
 
-    public ApplicationReviewsDTO setCommentId(String commentId) {
+    public ApplicationReviewsDTO setCommentId(final String commentId) {
         this.commentId = commentId;
         return this;
     }

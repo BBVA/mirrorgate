@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface EventService {
 
-    void saveEvent(BaseModel model, EventType type);
+    void saveEvent(final BaseModel model, final EventType type);
 
-    void saveEvents(Iterable<? extends BaseModel> models, EventType type);
+    void saveEvents(final Iterable<? extends BaseModel> models, final EventType type);
 
     Event getLastEvent();
 
-    List<Event> getEventsSinceTimestamp(Long timestamp);
+    List<Event> getEventsSinceTimestamp(final Long timestamp);
 
 }

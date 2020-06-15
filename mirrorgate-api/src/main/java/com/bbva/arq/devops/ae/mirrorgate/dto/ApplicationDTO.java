@@ -44,7 +44,7 @@ public class ApplicationDTO {
         return appname;
     }
 
-    public ApplicationDTO setAppname(String appname) {
+    public ApplicationDTO setAppname(final String appname) {
         this.appname = appname;
         return this;
     }
@@ -53,7 +53,7 @@ public class ApplicationDTO {
         return platform;
     }
 
-    public ApplicationDTO setPlatform(Platform platform) {
+    public ApplicationDTO setPlatform(final Platform platform) {
         this.platform = platform;
         return this;
     }
@@ -62,7 +62,7 @@ public class ApplicationDTO {
         return reviews;
     }
 
-    public ApplicationDTO setReviews(List<ReviewDTO> reviews) {
+    public ApplicationDTO setReviews(final List<ReviewDTO> reviews) {
         this.reviews = reviews;
         return this;
     }
@@ -71,7 +71,7 @@ public class ApplicationDTO {
         return votesTotal;
     }
 
-    public ApplicationDTO setVotesTotal(long votesTotal) {
+    public ApplicationDTO setVotesTotal(final long votesTotal) {
         this.votesTotal = votesTotal;
         return this;
     }
@@ -80,7 +80,7 @@ public class ApplicationDTO {
         return ratingTotal;
     }
 
-    public ApplicationDTO setRatingTotal(long ratingTotal) {
+    public ApplicationDTO setRatingTotal(final long ratingTotal) {
         this.ratingTotal = ratingTotal;
         return this;
     }
@@ -89,7 +89,7 @@ public class ApplicationDTO {
         return votesShortTerm;
     }
 
-    public ApplicationDTO setVotesShortTerm(long votesShortTerm) {
+    public ApplicationDTO setVotesShortTerm(final long votesShortTerm) {
         this.votesShortTerm = votesShortTerm;
         return this;
     }
@@ -98,7 +98,7 @@ public class ApplicationDTO {
         return ratingShortTerm;
     }
 
-    public ApplicationDTO setRatingShortTerm(long ratingShortTerm) {
+    public ApplicationDTO setRatingShortTerm(final long ratingShortTerm) {
         this.ratingShortTerm = ratingShortTerm;
         return this;
     }
@@ -107,7 +107,7 @@ public class ApplicationDTO {
         return ratingLongTerm;
     }
 
-    public ApplicationDTO setRatingLongTerm(long ratingLongTerm) {
+    public ApplicationDTO setRatingLongTerm(final long ratingLongTerm) {
         this.ratingLongTerm = ratingLongTerm;
         return this;
     }
@@ -116,7 +116,7 @@ public class ApplicationDTO {
         return votesLongTerm;
     }
 
-    public ApplicationDTO setVotesLongTerm(long votesLongTerm) {
+    public ApplicationDTO setVotesLongTerm(final long votesLongTerm) {
         this.votesLongTerm = votesLongTerm;
         return this;
     }
@@ -125,7 +125,7 @@ public class ApplicationDTO {
         return shortTermLength;
     }
 
-    public ApplicationDTO setShortTermLength(int shortTermLength) {
+    public ApplicationDTO setShortTermLength(final int shortTermLength) {
         this.shortTermLength = shortTermLength;
         return this;
     }
@@ -134,12 +134,12 @@ public class ApplicationDTO {
         return longTermLength;
     }
 
-    public ApplicationDTO setLongTermLength(int longTermLength) {
+    public ApplicationDTO setLongTermLength(final int longTermLength) {
         this.longTermLength = longTermLength;
         return this;
     }
 
-    public ApplicationDTO setUrl(String url) {
+    public ApplicationDTO setUrl(final String url) {
         this.url = url;
         return this;
     }

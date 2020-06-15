@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.support;
+
+import static com.bbva.arq.devops.ae.mirrorgate.support.IssueType.BUG;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BugDTO;
@@ -23,15 +26,12 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
-import org.bson.types.ObjectId;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
-import static com.bbva.arq.devops.ae.mirrorgate.support.IssueType.BUG;
+import org.bson.types.ObjectId;
 
 public class TestObjectFactory {
 
@@ -47,9 +47,9 @@ public class TestObjectFactory {
     private static final String SLACK_ERROR = "SLACK_ERROR";
 
     public static DashboardDTO createDashboard() {
-        String urlRepo1 = "http.//repo1.git";
-        String urlRepo2 = "http.//repo2.git";
-        List<String> codeRepos = new ArrayList<>();
+        final String urlRepo1 = "http.//repo1.git";
+        final String urlRepo2 = "http.//repo2.git";
+        final List<String> codeRepos = new ArrayList<>();
         codeRepos.add(urlRepo1);
         codeRepos.add(urlRepo2);
 
@@ -104,9 +104,9 @@ public class TestObjectFactory {
     }
 
     public static DashboardDTO createDashboardDTO() {
-        String urlRepo1 = "http.//repo1.git";
-        String urlRepo2 = "http.//repo2.git";
-        List<String> codeRepos = new ArrayList<>();
+        final String urlRepo1 = "http.//repo1.git";
+        final String urlRepo2 = "http.//repo2.git";
+        final List<String> codeRepos = new ArrayList<>();
         codeRepos.add(urlRepo1);
         codeRepos.add(urlRepo2);
 
@@ -117,13 +117,13 @@ public class TestObjectFactory {
             .setBoards(Collections.singletonList(PROJECT_NAME));
     }
 
-    public static DashboardDTO createDashboardDTO(String name, List<String> applications) {
+    public static DashboardDTO createDashboardDTO(final String name, final List<String> applications) {
         return createDashboardDTO()
             .setName(name)
             .setApplications(applications);
     }
 
-    public static ApplicationReviewsDTO createApplicationDTO(String name, Platform platform) {
+    public static ApplicationReviewsDTO createApplicationDTO(final String name, final Platform platform) {
         return new ApplicationReviewsDTO()
             .setCommentId("12")
             .setAppId(name)
@@ -131,7 +131,15 @@ public class TestObjectFactory {
             .setPlatform(platform);
     }
 
-    public static Review createReview(Platform platform, String appName, String commentId, String comment, long timestamp, double rate, int amount) {
+    public static Review createReview(
+        final Platform platform,
+        final String appName,
+        final String commentId,
+        final String comment,
+        final long timestamp,
+        final double rate,
+        final int amount
+    ) {
         return new Review()
             .setTimestamp(timestamp)
             .setAppname(appName)
@@ -158,11 +166,16 @@ public class TestObjectFactory {
             .setKeywords(Arrays.asList("buildUrl", "mirrorgate", "develop"));
     }
 
-    public static IssueDTO createIssueDTO(Long id, String name, String collectorId) {
+    public static IssueDTO createIssueDTO(final Long id, final String name, final String collectorId) {
         return createIssueDTO(id, name, collectorId, null);
     }
 
-    public static IssueDTO createIssueDTO(Long id, String name, String collectorId, String teamName) {
+    public static IssueDTO createIssueDTO(
+        final Long id,
+        final String name,
+        final String collectorId,
+        final String teamName
+    ) {
         return new IssueDTO()
             .setId(id)
             .setCollectorId(collectorId)
@@ -170,5 +183,4 @@ public class TestObjectFactory {
             .setStatus(IssueStatus.DONE)
             .setTeamName(teamName);
     }
-
 }

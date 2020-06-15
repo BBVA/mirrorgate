@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
@@ -24,15 +25,15 @@ public class DashboardMapper {
     private DashboardMapper() {
     }
 
-    public static DashboardDTO map(Dashboard source) {
+    public static DashboardDTO map(final Dashboard source) {
         return map(source, new DashboardDTO());
     }
 
-    public static Dashboard map(DashboardDTO source) {
+    public static Dashboard map(final DashboardDTO source) {
         return map(source, new Dashboard());
     }
 
-    private static DashboardDTO map(Dashboard source, DashboardDTO target) {
+    private static DashboardDTO map(final Dashboard source, final DashboardDTO target) {
         return target.setAdminUsers(source.getAdminUsers())
             .setApplications(source.getApplications())
             .setType(source.getType() == null ? null : DashboardType.valueOf(source.getType()))
@@ -72,7 +73,7 @@ public class DashboardMapper {
             .setGitRepos(source.getGitRepos());
     }
 
-    private static Dashboard map(DashboardDTO source, Dashboard target) {
+    private static Dashboard map(final DashboardDTO source, final Dashboard target) {
         return target.setAdminUsers(source.getAdminUsers())
             .setApplications(source.getApplications())
             .setName(source.getName())
@@ -110,5 +111,4 @@ public class DashboardMapper {
             .setMarketsStatsDays(source.getMarketsStatsDays())
             .setGitRepos(source.getGitRepos());
     }
-
 }

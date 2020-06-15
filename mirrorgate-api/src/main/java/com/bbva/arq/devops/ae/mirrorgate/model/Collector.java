@@ -16,10 +16,9 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.Date;
 
 @Document(collection = "collectors")
 public class Collector implements BaseModel {
@@ -33,7 +32,7 @@ public class Collector implements BaseModel {
         return collectorId;
     }
 
-    public Collector setCollectorId(String collectorId) {
+    public Collector setCollectorId(final String collectorId) {
         this.collectorId = collectorId;
         this.id = collectorId;
         return this;
@@ -43,7 +42,7 @@ public class Collector implements BaseModel {
         return lastExecution == null ? null : new Date(lastExecution.getTime());
     }
 
-    public Collector setLastExecution(Date lastExecution) {
+    public Collector setLastExecution(final Date lastExecution) {
         this.lastExecution = new Date(lastExecution.getTime());
         return this;
     }

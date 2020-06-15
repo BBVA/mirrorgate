@@ -21,8 +21,8 @@ import java.util.Map;
 public class Filters {
 
     private int timeSpan;
-    private Map<String,Boolean> branch;
-    private Map<String,Boolean> status;
+    private Map<String, Boolean> branch;
+    private Map<String, Boolean> status;
 
     public int getTimeSpan() {
         return timeSpan;

@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper.map;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
@@ -24,15 +27,12 @@ import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
 import com.bbva.arq.devops.ae.mirrorgate.utils.BuildStatsUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.BuildMapper.map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BuildServiceImpl implements BuildService {
@@ -44,35 +44,42 @@ public class BuildServiceImpl implements BuildService {
     private final DashboardService dashboardService;
 
     @Autowired
-    public BuildServiceImpl(BuildRepository buildRepository, EventService eventService, DashboardService dashboardService) {
+    public BuildServiceImpl(
+        final BuildRepository buildRepository,
+        final EventService eventService,
+        final DashboardService dashboardService
+    ) {
         this.buildRepository = buildRepository;
         this.eventService = eventService;
         this.dashboardService = dashboardService;
     }
 
     @Override
-    public List<Build> getLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
+    public List<Build> getLastBuildsByKeywordsAndByTeamMembers(
+        final List<String> keywords,
+        final List<String> teamMembers
+    ) {
         return buildRepository.findLastBuildsByKeywordsAndByTeamMembers(keywords, teamMembers);
     }
 
     @Override
-    public BuildDTO createOrUpdate(BuildDTO request) {
-        Build toSave = getBuildToSave(request);
+    public BuildDTO createOrUpdate(final BuildDTO request) {
+        final Build toSave = getBuildToSave(request);
 
-        boolean shouldUpdateLatest = shouldUpdateLatest(toSave);
+        final boolean shouldUpdateLatest = shouldUpdateLatest(toSave);
 
         if (shouldUpdateLatest) {
             toSave.setLatest(true);
         }
 
-        Build build = buildRepository.save(toSave);
+        final Build build = buildRepository.save(toSave);
 
         eventService.saveEvent(build, EventType.BUILD);
 
         dashboardService.createDashboardForBuildProject(build);
 
         if (shouldUpdateLatest) {
-            List<Build> toUpdate =
+            final List<Build> toUpdate =
                 buildRepository.findAllByProjectNameAndRepoNameAndBranchAndLatestIsTrue(
                     toSave.getProjectName(),
                     toSave.getRepoName(),
@@ -94,14 +101,17 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public BuildStats getStatsAndTendenciesByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers) {
+    public BuildStats getStatsAndTendenciesByKeywordsAndByTeamMembers(
+        final List<String> keywords,
+        final List<String> teamMembers
+    ) {
 
-        BuildStats statsSevenDaysBefore =
+        final BuildStats statsSevenDaysBefore =
             getStatsByKeywordsAndByTeamMembersAfterTimestamp(keywords, teamMembers, 7);
-        BuildStats statsFifteenDaysBefore =
+        final BuildStats statsFifteenDaysBefore =
             getStatsByKeywordsAndByTeamMembersAfterTimestamp(keywords, teamMembers, 15);
 
-        FailureTendency failureTendency = BuildStatsUtils.failureTendency(
+        final FailureTendency failureTendency = BuildStatsUtils.failureTendency(
             statsSevenDaysBefore.getFailureRate(),
             statsFifteenDaysBefore.getFailureRate());
 
@@ -111,14 +121,17 @@ public class BuildServiceImpl implements BuildService {
     }
 
     @Override
-    public List<BuildDTO> getBuildsByIds(List<String> ids) {
+    public List<BuildDTO> getBuildsByIds(final List<String> ids) {
         return buildRepository.findAllByIdIn(ids).stream().map(BuildMapper::map).collect(Collectors.toList());
     }
 
-    private BuildStats getStatsByKeywordsAndByTeamMembersAfterTimestamp(List<String> keywords, List<String> teamMembers, int daysBefore) {
-        Date numberOfDaysBefore
-            = new Date(System.currentTimeMillis() - (daysBefore * DAY_IN_MS));
-        Map<BuildStatus, BuildStats> info = buildRepository.getBuildStatusStatsAfterTimestamp(
+    private BuildStats getStatsByKeywordsAndByTeamMembersAfterTimestamp(
+        final List<String> keywords,
+        final List<String> teamMembers,
+        final int daysBefore
+    ) {
+        final Date numberOfDaysBefore = new Date(System.currentTimeMillis() - (daysBefore * DAY_IN_MS));
+        final Map<BuildStatus, BuildStats> info = buildRepository.getBuildStatusStatsAfterTimestamp(
             keywords, teamMembers, numberOfDaysBefore.getTime());
 
         return BuildStatsUtils.combineBuildStats(
@@ -126,7 +139,7 @@ public class BuildServiceImpl implements BuildService {
     }
 
 
-    private Build getBuildToSave(BuildDTO request) {
+    private Build getBuildToSave(final BuildDTO request) {
         Build build = null;
         if (BuildStatus.fromString(request.getBuildStatus()) != BuildStatus.Deleted && request.getBuildUrl() != null) {
             build = buildRepository.findById(request.getBuildUrl());
@@ -137,7 +150,7 @@ public class BuildServiceImpl implements BuildService {
         return map(request, build);
     }
 
-    private boolean shouldUpdateLatest(Build build) {
+    private boolean shouldUpdateLatest(final Build build) {
         return build.getBuildStatus() != BuildStatus.Aborted
             && build.getBuildStatus() != BuildStatus.Unknown
             && build.getBuildStatus() != BuildStatus.InProgress

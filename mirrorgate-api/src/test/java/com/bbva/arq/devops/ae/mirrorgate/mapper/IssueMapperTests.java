@@ -32,10 +32,10 @@ public class IssueMapperTests {
 
     @Test
     public void itShouldMapAllFields() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        Issue issue = new Issue()
-                .setStatus(IssueStatus.DONE.getName())
-                .setSprintAssetState(SprintStatus.CLOSED.name())
-                .setPriority(IssuePriority.MEDIUM.getName());
+        final Issue issue = new Issue()
+            .setStatus(IssueStatus.DONE.getName())
+            .setSprintAssetState(SprintStatus.CLOSED.name())
+            .setPriority(IssuePriority.MEDIUM.getName());
 
         MapperTestingSupport.initializeTypicalSetters(issue);
         MapperTestingSupport.assertBeanValues(issue, map(map(issue)));

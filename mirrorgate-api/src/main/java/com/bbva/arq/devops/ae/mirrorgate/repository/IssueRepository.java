@@ -13,29 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
+import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
 public interface IssueRepository extends CrudRepository<Issue, String>, IssueRepositoryCustom {
 
     @Query(value = "{$or:[{projectName: {$in: ?0 }},{keywords:{$elemMatch:{$in: ?0 }}}], sprintAssetState: 'ACTIVE'}")
-    List<Issue> findActiveUserStoriesByBoards(List<String> boards, Sort sort);
+    List<Issue> findActiveUserStoriesByBoards(final List<String> boards, final Sort sort);
 
-    List<Issue> findAllByTypeAndPiNames(String type, String piName);
+    List<Issue> findAllByTypeAndPiNames(final String type, final String piName);
 
-    Issue findFirstByIssueIdAndCollectorId(String issueId, String collectorId);
+    Issue findFirstByIssueIdAndCollectorId(final String issueId, final String collectorId);
 
-    List<Issue> findAllByParentsKeysIn(List<String> keys);
+    List<Issue> findAllByParentsKeysIn(final List<String> keys);
 
-    List<Issue> findAllByNumberInAndType(List<String> keys, String type);
+    List<Issue> findAllByNumberInAndType(final List<String> keys, final String type);
 
-    void deleteByIssueIdAndCollectorId(String id, String collectorId);
+    void deleteByIssueIdAndCollectorId(final String id, final String collectorId);
 
-    List<Issue> findByKeywordsInAndTypeAndStatusNot(List<String> boards, String type, String status);
+    List<Issue> findByKeywordsInAndTypeAndStatusNot(final List<String> boards, final String type, final String status);
 }

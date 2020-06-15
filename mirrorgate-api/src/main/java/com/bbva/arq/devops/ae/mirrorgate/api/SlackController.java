@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
+import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.SlackDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.SlackService;
 import io.micrometer.core.instrument.util.StringUtils;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
-import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping(value = "/slack")
@@ -42,31 +42,35 @@ public class SlackController {
     private final SlackService slackService;
 
     @Autowired
-    public SlackController(DashboardService dashboardService, SlackService slackService) {
+    public SlackController(final DashboardService dashboardService, final SlackService slackService) {
         this.dashboardService = dashboardService;
         this.slackService = slackService;
     }
 
     @RequestMapping(value = "/code-capturer",
-            method = GET,
-            produces = TEXT_HTML_VALUE)
-    public String getSlackCode(@RequestParam("code") String code) {
-        return "<html><head><script>opener.postMessage('"+code+"',document.location.origin);window.close();</script></head></html>";
+        method = GET,
+        produces = TEXT_HTML_VALUE)
+    public String getSlackCode(final @RequestParam("code") String code) {
+        return "<html>"
+            + "<head>"
+            + "<script>opener.postMessage('" + code + "',document.location.origin);window.close();</script>"
+            + "</head>"
+            + "</html>";
     }
 
     @RequestMapping(value = "/channels",
-            method = GET,
-            produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String,String>> getDashboardChannels(
-            @RequestParam("dashboard") String dashboardId,
-            @RequestParam("token") String token
+        method = GET,
+        produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, String>> getDashboardChannels(
+        final @RequestParam("dashboard") String dashboardId,
+        final @RequestParam("token") String token
     ) {
 
-        if(StringUtils.isBlank(token)) {
+        if (StringUtils.isBlank(token)) {
             return ResponseEntity.badRequest().build();
         }
 
-        DashboardDTO dashboard = dashboardService.getDashboard(dashboardId);
+        final DashboardDTO dashboard = dashboardService.getDashboard(dashboardId);
 
         if (dashboard == null) {
             return ResponseEntity.badRequest().build();
@@ -77,24 +81,22 @@ public class SlackController {
         }
 
         return ResponseEntity.ok(slackService.getChannelList(dashboard.getSlackToken()));
-
     }
 
     @RequestMapping(value = "/token-generator",
             method = GET,
             produces = TEXT_PLAIN_VALUE)
     public ResponseEntity<?> getSlackToken(
-            @RequestParam("code") String code,
-            @RequestParam("clientId") String clientId,
-            @RequestParam("team") String team,
-            @RequestParam("clientSecret") String clientSecret
+        final @RequestParam("code") String code,
+        final @RequestParam("clientId") String clientId,
+        final @RequestParam("team") String team,
+        final @RequestParam("clientSecret") String clientSecret
     ) {
 
-        SlackDTO notification = slackService.getToken(team, clientId, clientSecret, code);
+        final SlackDTO notification = slackService.getToken(team, clientId, clientSecret, code);
 
-        return notification.isOk() ?
-            ResponseEntity.ok(notification.getAccess_token()) :
-            ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
+        return notification.isOk()
+            ? ResponseEntity.ok(notification.getAccessToken())
+            : ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
     }
-
 }

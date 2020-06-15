@@ -1,10 +1,25 @@
-package com.bbva.arq.devops.ae.mirrorgate.model;
+/*
+ * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A..
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import java.util.List;
 import java.util.Map;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "commits")
 @CompoundIndex(name = "stats", def = "{'repository' :  1, 'timestamp': 1}")
@@ -25,7 +40,7 @@ public class Commit extends BaseIdModel {
         return hash;
     }
 
-    public Commit setHash(String hash) {
+    public Commit setHash(final String hash) {
         this.hash = hash;
         return this;
     }
@@ -34,7 +49,7 @@ public class Commit extends BaseIdModel {
         return timestamp;
     }
 
-    public Commit setTimestamp(Integer timestamp) {
+    public Commit setTimestamp(final Integer timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -43,7 +58,7 @@ public class Commit extends BaseIdModel {
         return message;
     }
 
-    public Commit setMessage(String message) {
+    public Commit setMessage(final String message) {
         this.message = message;
         return this;
     }
@@ -52,7 +67,7 @@ public class Commit extends BaseIdModel {
         return authorName;
     }
 
-    public Commit setAuthorName(String authorName) {
+    public Commit setAuthorName(final String authorName) {
         this.authorName = authorName;
         return this;
     }
@@ -61,7 +76,7 @@ public class Commit extends BaseIdModel {
         return authorEmail;
     }
 
-    public Commit setAuthorEmail(String authorEmail) {
+    public Commit setAuthorEmail(final String authorEmail) {
         this.authorEmail = authorEmail;
         return this;
     }
@@ -70,7 +85,7 @@ public class Commit extends BaseIdModel {
         return committerName;
     }
 
-    public Commit setCommitterName(String committerName) {
+    public Commit setCommitterName(final String committerName) {
         this.committerName = committerName;
         return this;
     }
@@ -79,7 +94,7 @@ public class Commit extends BaseIdModel {
         return committerEmail;
     }
 
-    public Commit setCommitterEmail(String committerEmail) {
+    public Commit setCommitterEmail(final String committerEmail) {
         this.committerEmail = committerEmail;
         return this;
     }
@@ -88,7 +103,7 @@ public class Commit extends BaseIdModel {
         return parentsIds;
     }
 
-    public Commit setParentsIds(List<String> parentsIds) {
+    public Commit setParentsIds(final List<String> parentsIds) {
         this.parentsIds = parentsIds;
         return this;
     }
@@ -97,7 +112,7 @@ public class Commit extends BaseIdModel {
         return repository;
     }
 
-    public Commit setRepository(String repository) {
+    public Commit setRepository(final String repository) {
         this.repository = repository;
         return this;
     }
@@ -106,7 +121,7 @@ public class Commit extends BaseIdModel {
         return branches;
     }
 
-    public Commit setBranches(Map<String, Integer> branches) {
+    public Commit setBranches(final Map<String, Integer> branches) {
         this.branches = branches;
         return this;
     }

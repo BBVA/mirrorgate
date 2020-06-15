@@ -25,6 +25,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserMetricsRepository extends CrudRepository<UserMetric, ObjectId>, UserMetricsRepositoryCustom {
 
     @Query(value = "{ collectorId:?0, value: { $ne:0}}")
-    List<UserMetric> findAllByCollectorId(String collectorId);
+    List<UserMetric> findAllByCollectorId(final String collectorId);
 
 }

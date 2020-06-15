@@ -17,20 +17,18 @@
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
+import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 /**
  * Continuous Integration build model.
- *
  * Collectors:
  *   Jenkins
  */
-@Document(collection="builds")
+@Document(collection = "builds")
 @CompoundIndexes({
     @CompoundIndex(name = "repositories", def = "{'projectName' : 1, 'repoName': 1, 'branch': 1, 'latest': 1}"),
     @CompoundIndex(name = "stats", def = "{'keywords': 1, 'teamMembers': 1, 'buildStatus': 1, 'timestamp': 1}")
@@ -63,7 +61,7 @@ public class Build implements BaseModel {
         return timestamp;
     }
 
-    public Build setTimestamp(long timestamp) {
+    public Build setTimestamp(final long timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -72,7 +70,7 @@ public class Build implements BaseModel {
         return number;
     }
 
-    public Build setNumber(String number) {
+    public Build setNumber(final String number) {
         this.number = number;
         return this;
     }
@@ -81,7 +79,7 @@ public class Build implements BaseModel {
         return buildUrl;
     }
 
-    public Build setBuildUrl(String buildUrl) {
+    public Build setBuildUrl(final String buildUrl) {
         this.buildUrl = buildUrl;
         this.id = buildUrl;
         return this;
@@ -91,7 +89,7 @@ public class Build implements BaseModel {
         return startTime;
     }
 
-    public Build setStartTime(long startTime) {
+    public Build setStartTime(final long startTime) {
         this.startTime = startTime;
         return this;
     }
@@ -100,7 +98,7 @@ public class Build implements BaseModel {
         return endTime;
     }
 
-    public Build setEndTime(long endTime) {
+    public Build setEndTime(final long endTime) {
         this.endTime = endTime;
         return this;
     }
@@ -109,7 +107,7 @@ public class Build implements BaseModel {
         return duration;
     }
 
-    public Build setDuration(long duration) {
+    public Build setDuration(final long duration) {
         this.duration = duration;
         return this;
     }
@@ -118,7 +116,7 @@ public class Build implements BaseModel {
         return buildStatus;
     }
 
-    public Build setBuildStatus(BuildStatus buildStatus) {
+    public Build setBuildStatus(final BuildStatus buildStatus) {
         this.buildStatus = buildStatus;
         return this;
     }
@@ -127,7 +125,7 @@ public class Build implements BaseModel {
         return culprits;
     }
 
-    public Build setCulprits(List<String> culprits) {
+    public Build setCulprits(final List<String> culprits) {
         this.culprits = culprits;
         return this;
     }
@@ -136,7 +134,7 @@ public class Build implements BaseModel {
         return projectName;
     }
 
-    public Build setProjectName(String projectName) {
+    public Build setProjectName(final String projectName) {
         this.projectName = projectName;
         return this;
     }
@@ -145,7 +143,7 @@ public class Build implements BaseModel {
         return repoName;
     }
 
-    public Build setRepoName(String repoName) {
+    public Build setRepoName(final String repoName) {
         this.repoName = repoName;
         return this;
     }
@@ -154,7 +152,7 @@ public class Build implements BaseModel {
         return branch;
     }
 
-    public Build setBranch(String branch) {
+    public Build setBranch(final String branch) {
         this.branch = branch;
         return this;
     }
@@ -163,7 +161,7 @@ public class Build implements BaseModel {
         return latest;
     }
 
-    public Build setLatest(Boolean latest) {
+    public Build setLatest(final Boolean latest) {
         this.latest = latest;
         return this;
     }
@@ -172,7 +170,7 @@ public class Build implements BaseModel {
         return keywords;
     }
 
-    public Build setKeywords(List<String> keywords) {
+    public Build setKeywords(final List<String> keywords) {
         this.keywords = keywords;
         return this;
     }

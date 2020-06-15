@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepositoryImpl.ProgramIncrementNamesAggregationResult;
-
 import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Service for Issue model
+ * Service for Issue model.
  */
 public interface IssueService {
 
     /**
-     * Get active user stories of a project
+     * Get active user stories of a project.
      *
      * @param boards List of boards names
      * @return List of active Issues

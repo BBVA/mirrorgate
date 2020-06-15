@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 public class BugController {
@@ -36,16 +36,16 @@ public class BugController {
     private final BugService bugService;
 
     @Autowired
-    public BugController(DashboardService dashboardService, BugService bugService) {
+    public BugController(final DashboardService dashboardService, final BugService bugService) {
         this.dashboardService = dashboardService;
         this.bugService = bugService;
     }
 
     @RequestMapping(value = "/dashboards/{name}/bugs",
-            method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBugs(@PathVariable("name") String name) {
-        DashboardDTO dashboard = dashboardService.getDashboard(name);
-        List<String> boards = dashboard.getBoards();
+        method = GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getBugs(final @PathVariable("name") String name) {
+        final DashboardDTO dashboard = dashboardService.getDashboard(name);
+        final List<String> boards = dashboard.getBoards();
         return ResponseEntity.ok(bugService.getActiveBugsByBoards(boards));
     }
 

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.config;
 
 import com.bbva.arq.devops.ae.mirrorgate.security.HeaderSecurityFilter;
@@ -29,7 +30,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 
 /**
- * Application Configuration with basic http security
+ * Application Configuration with basic http security.
  */
 @Configuration
 @Profile("default")
@@ -44,29 +45,37 @@ public class RestConfig {
     private static class WebSecurityConfigurerAdapterImpl extends WebSecurityConfigurerAdapter {
 
         @Override
-        protected void configure(HttpSecurity http) throws Exception {
+        protected void configure(final HttpSecurity http) throws Exception {
             http
-                    .addFilterBefore(new HeaderSecurityFilter(), SecurityContextHolderAwareRequestFilter.class)
-                    .cors()
-                        .and()
-                    .csrf()
-                        .disable()
-                    .authorizeRequests()
-                        .antMatchers("/health").permitAll()
-                        .antMatchers("/websocket").permitAll()
-                        .antMatchers(HttpMethod.OPTIONS,"**").permitAll()
-                        .antMatchers(HttpMethod.POST, "/api/**").hasAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString())
-                        .antMatchers(HttpMethod.DELETE, "/api/**").hasAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString())
-                        .antMatchers(HttpMethod.POST, "/reviews/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
-                        .antMatchers(HttpMethod.GET, "/dashboards/**").hasAnyAuthority(SecurityAuthoritiesEnum.REGULAR.toString(), SecurityAuthoritiesEnum.SCREEN.toString())
-                        .antMatchers(HttpMethod.GET, "/emitter/**").hasAnyAuthority(SecurityAuthoritiesEnum.REGULAR.toString(), SecurityAuthoritiesEnum.SCREEN.toString())
-                        .antMatchers(HttpMethod.POST, "/dashboards/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
-                        .antMatchers(HttpMethod.DELETE, "/dashboards/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
-                        .antMatchers(HttpMethod.PUT, "/dashboards/**").hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString());
+                .addFilterBefore(new HeaderSecurityFilter(), SecurityContextHolderAwareRequestFilter.class)
+                .cors()
+                .and()
+                .csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/health").permitAll()
+                .antMatchers("/websocket").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/**")
+                .hasAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString())
+                .antMatchers(HttpMethod.DELETE, "/api/**")
+                .hasAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString())
+                .antMatchers(HttpMethod.POST, "/reviews/**")
+                .hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
+                .antMatchers(HttpMethod.GET, "/dashboards/**")
+                .hasAnyAuthority(SecurityAuthoritiesEnum.REGULAR.toString(), SecurityAuthoritiesEnum.SCREEN.toString())
+                .antMatchers(HttpMethod.GET, "/emitter/**")
+                .hasAnyAuthority(SecurityAuthoritiesEnum.REGULAR.toString(), SecurityAuthoritiesEnum.SCREEN.toString())
+                .antMatchers(HttpMethod.POST, "/dashboards/**")
+                .hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
+                .antMatchers(HttpMethod.DELETE, "/dashboards/**")
+                .hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString())
+                .antMatchers(HttpMethod.PUT, "/dashboards/**")
+                .hasAuthority(SecurityAuthoritiesEnum.REGULAR.toString());
         }
 
         @Override
-        public void configure(AuthenticationManagerBuilder auth) {
+        public void configure(final AuthenticationManagerBuilder auth) {
             auth.authenticationProvider(new MirrorGateAuthenticationProvider());
         }
     }

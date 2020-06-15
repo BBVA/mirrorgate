@@ -16,11 +16,18 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.THREE_HOURS_AGO;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.TODAY;
+import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.YESTERDAY;
+import static org.junit.Assert.assertEquals;
+
 import com.bbva.arq.devops.ae.mirrorgate.mapper.HistoricUserMetricMapper;
 import com.bbva.arq.devops.ae.mirrorgate.model.HistoricUserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 import com.bbva.arq.devops.ae.mirrorgate.repository.HistoricUserMetricRepository;
 import com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeHelper;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,15 +35,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.THREE_HOURS_AGO;
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.TODAY;
-import static com.bbva.arq.devops.ae.mirrorgate.utils.LocalDateTimeUtils.YESTERDAY;
-import static org.junit.Assert.assertEquals;
-
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -51,43 +49,65 @@ public class HistoricUserMetricServiceImplTest {
     private static Iterable<UserMetric> userMetrics;
 
     @BeforeClass
-    public static void init(){
+    public static void init() {
 
-        UserMetric userMetric1 = new UserMetric()
+        final UserMetric userMetric1 = new UserMetric()
             .setViewId("viewId1")
             .setName("requestsNumber")
             .setValue(12d)
             .setIdentifier("AWSRequestNumber")
             .setTimestamp(TODAY);
-        UserMetric userMetric2 = new UserMetric()
+        final UserMetric userMetric2 = new UserMetric()
             .setViewId("viewId1")
             .setName("requestsNumber")
             .setValue(12d)
             .setIdentifier("AWSRequestNumber")
             .setTimestamp(YESTERDAY);
-        UserMetric userMetric3 = new UserMetric()
+        final UserMetric userMetric3 = new UserMetric()
             .setViewId("viewId1")
             .setName("requestsNumber")
             .setValue(12d)
             .setIdentifier("AWSRequestNumber")
             .setTimestamp(THREE_HOURS_AGO);
+        final UserMetric userMetric4 = new UserMetric()
+            .setViewId("viewId1")
+            .setName("responseTime")
+            .setIdentifier("AWSResponseTime")
+            .setValue(15d)
+            .setSampleSize(100L)
+            .setTimestamp(TODAY);
+        final UserMetric userMetric5 = new UserMetric()
+            .setViewId("viewId1")
+            .setName("responseTime")
+            .setIdentifier("AWSResponseTime")
+            .setValue(10d)
+            .setSampleSize(150L)
+            .setTimestamp(TODAY);
+        final UserMetric userMetric6 = new UserMetric()
+            .setViewId("viewId1")
+            .setName("availabilityRate")
+            .setIdentifier("AWSAvailabilityRate")
+            .setValue(100d)
+            .setTimestamp(TODAY);
+        final UserMetric userMetric7 = new UserMetric()
+            .setViewId("viewId1")
+            .setName("availabilityRate")
+            .setIdentifier("AWSAvailabilityRate")
+            .setValue(75d)
+            .setTimestamp(TODAY);
 
-        UserMetric userMetric4 = new UserMetric().setViewId("viewId1").setName("responseTime").setIdentifier("AWSResponseTime").setValue(15d).setSampleSize(100L).setTimestamp(TODAY);
-        UserMetric userMetric5 = new UserMetric().setViewId("viewId1").setName("responseTime").setIdentifier("AWSResponseTime").setValue(10d).setSampleSize(150L).setTimestamp(TODAY);
-
-        UserMetric userMetric6 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setIdentifier("AWSAvailabilityRate").setValue(100d).setTimestamp(TODAY);
-        UserMetric userMetric7 = new UserMetric().setViewId("viewId1").setName("availabilityRate").setIdentifier("AWSAvailabilityRate").setValue(75d).setTimestamp(TODAY);
-
-        userMetrics = Arrays.asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5, userMetric6, userMetric7);
+        userMetrics = Arrays.asList(
+            userMetric1, userMetric2, userMetric3, userMetric4, userMetric5, userMetric6, userMetric7
+        );
     }
 
     @Test
-    public void testAddingToExistingHistoricUserMetric(){
+    public void testAddingToExistingHistoricUserMetric() {
 
         service.addToCurrentPeriod(userMetrics);
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findById(
+        final HistoricUserMetric result = repository.findById(
             HistoricUserMetricMapper.generateId(
                 "AWSRequestNumber",
                 ChronoUnit.DAYS,
@@ -102,11 +122,11 @@ public class HistoricUserMetricServiceImplTest {
     }
 
     @Test
-    public void testAddingToUnExistingHistoricUserMetric(){
+    public void testAddingToUnExistingHistoricUserMetric() {
 
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findById(
+        final HistoricUserMetric result = repository.findById(
             HistoricUserMetricMapper.generateId(
                 "AWSRequestNumber",
                 ChronoUnit.DAYS,
@@ -121,10 +141,10 @@ public class HistoricUserMetricServiceImplTest {
     }
 
     @Test
-    public void testAddWithSampleSize(){
+    public void testAddWithSampleSize() {
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findById(
+        final HistoricUserMetric result = repository.findById(
             HistoricUserMetricMapper.generateId(
                 "AWSResponseTime",
                 ChronoUnit.DAYS,
@@ -140,10 +160,10 @@ public class HistoricUserMetricServiceImplTest {
     }
 
     @Test
-    public void testAvailabilityRate(){
+    public void testAvailabilityRate() {
         service.addToCurrentPeriod(userMetrics);
 
-        HistoricUserMetric result = repository.findById(
+        final HistoricUserMetric result = repository.findById(
             HistoricUserMetricMapper.generateId(
                 "AWSAvailabilityRate",
                 ChronoUnit.HOURS,
@@ -159,8 +179,7 @@ public class HistoricUserMetricServiceImplTest {
     }
 
     @After
-    public void cleanCollection(){
+    public void cleanCollection() {
         repository.deleteAll();
     }
-
 }

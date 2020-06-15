@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
@@ -22,7 +23,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
- * Service to handle Reviews
+ * Service to handle Reviews.
  */
 public interface ReviewService {
 
@@ -31,13 +32,12 @@ public interface ReviewService {
      *
      * @param names A list with the name of the applications
      * @param marketsStatsDays Number of days for searching
-     * @return Al List of ApplicationDTO objects with name and rate of every
-     * application
+     * @return Al List of ApplicationDTO objects with name and rate of every application
      */
     List<ApplicationDTO> getAverageRateByAppNames(List<String> names, int marketsStatsDays);
 
     /**
-     * Save reviews
+     * Save reviews.
      *
      * @param reviews List of reviews to save
      * @return List of Id of new Reviews

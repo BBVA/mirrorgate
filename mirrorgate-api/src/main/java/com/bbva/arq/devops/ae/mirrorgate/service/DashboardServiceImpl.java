@@ -13,7 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.ACTIVE;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
+import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.exception.DashboardConflictException;
@@ -25,6 +31,10 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.repository.DashboardRepository;
 import com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +44,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.io.InputStream;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.ACTIVE;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.DELETED;
-import static com.bbva.arq.devops.ae.mirrorgate.support.DashboardStatus.TRANSIENT;
-
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DashboardServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DashboardServiceImpl.class);
     private static final Sort SORT_BY_LAST_MODIFICATION
         = Sort.by(Sort.Direction.DESC, "lastModification");
 
@@ -55,19 +55,19 @@ public class DashboardServiceImpl implements DashboardService {
     private final EventService eventService;
 
     @Autowired
-    private DashboardServiceImpl(DashboardRepository dashboardRepository, EventService eventService) {
+    private DashboardServiceImpl(final DashboardRepository dashboardRepository, final EventService eventService) {
         this.dashboardRepository = dashboardRepository;
         this.eventService = eventService;
     }
 
     @Override
-    public DashboardDTO getDashboard(String name) {
-        Dashboard dashboard = getRepositoryDashboard(name);
+    public DashboardDTO getDashboard(final String name) {
+        final Dashboard dashboard = getRepositoryDashboard(name);
         return map(dashboardRepository.save(dashboard.setLastTimeUsed(System.currentTimeMillis())));
     }
 
-    private Dashboard getRepositoryDashboard(String name) {
-        Dashboard dashboard = dashboardRepository.findFirstByName(name, SORT_BY_LAST_MODIFICATION);
+    private Dashboard getRepositoryDashboard(final String name) {
+        final Dashboard dashboard = dashboardRepository.findFirstByName(name, SORT_BY_LAST_MODIFICATION);
 
         if (dashboard == null) {
             throw new DashboardNotFoundException("Dashboard not Found");
@@ -80,25 +80,31 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public List<String> getApplicationsByDashboardName(String name) {
-        DashboardDTO dashboard = this.getDashboard(name);
+    public List<String> getApplicationsByDashboardName(final String name) {
+        final DashboardDTO dashboard = this.getDashboard(name);
         return dashboard.getApplications();
     }
 
     @Override
     public List<DashboardDTO> getActiveAndTransientDashboards() {
-        return dashboardRepository.getActiveAndTransientDashboards().stream().map(DashboardMapper::map).collect(Collectors.toList());
+        return dashboardRepository.getActiveAndTransientDashboards()
+            .stream()
+            .map(DashboardMapper::map)
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<DashboardDTO> getActiveDashboards() {
-        return dashboardRepository.getActiveDashboards().stream().map(DashboardMapper::map).collect(Collectors.toList());
+        return dashboardRepository.getActiveDashboards()
+            .stream()
+            .map(DashboardMapper::map)
+            .collect(Collectors.toList());
     }
 
     @Override
-    public void deleteDashboard(String name) {
-        Dashboard toDelete = this.getRepositoryDashboard(name);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    public void deleteDashboard(final String name) {
+        final Dashboard toDelete = this.getRepositoryDashboard(name);
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         String authUser = "anonymous";
 
@@ -114,13 +120,16 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public DashboardDTO newDashboard(DashboardDTO dashboard) {
+    public DashboardDTO newDashboard(final DashboardDTO dashboard) {
 
         if (dashboard.getName().isEmpty()) {
             throw new DashboardConflictException("Dashboard name must not be empty");
         }
 
-        Dashboard oldDashboard = dashboardRepository.findFirstByName(dashboard.getName(), SORT_BY_LAST_MODIFICATION);
+        final Dashboard oldDashboard = dashboardRepository.findFirstByName(
+            dashboard.getName(),
+            SORT_BY_LAST_MODIFICATION
+        );
 
         if (oldDashboard != null && oldDashboard.getStatus() != DELETED) {
             throw new DashboardConflictException("A Dashboard with name '" + dashboard.getName() + "' already exists");
@@ -129,7 +138,7 @@ public class DashboardServiceImpl implements DashboardService {
         if (dashboard.getStatus() != TRANSIENT) {
             dashboard.setStatus(ACTIVE);
 
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
             if (auth != null && null != auth.getPrincipal()) {
                 dashboard.setAuthor(auth.getPrincipal().toString());
@@ -144,15 +153,15 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public DashboardDTO newTransientDashboard(DashboardDTO dashboard) {
+    public DashboardDTO newTransientDashboard(final DashboardDTO dashboard) {
         dashboard.setStatus(DashboardStatus.TRANSIENT);
         return newDashboard(dashboard);
     }
 
     @Override
-    public DashboardDTO updateDashboard(String dashboardName, DashboardDTO updatedDashboard) {
-        Dashboard currentDashboard = this.getRepositoryDashboard(dashboardName);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    public DashboardDTO updateDashboard(final String dashboardName, final DashboardDTO updatedDashboard) {
+        final Dashboard currentDashboard = this.getRepositoryDashboard(dashboardName);
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         String authUser = "anonymous";
 
@@ -167,9 +176,9 @@ public class DashboardServiceImpl implements DashboardService {
             updatedDashboard.getAdminUsers().add(authUser);
         }
 
-        Dashboard toSave = mergeDashboard(currentDashboard, map(updatedDashboard), authUser);
+        final Dashboard toSave = mergeDashboard(currentDashboard, map(updatedDashboard), authUser);
 
-        Dashboard saved = dashboardRepository.save(toSave);
+        final Dashboard saved = dashboardRepository.save(toSave);
 
         eventService.saveEvent(saved, EventType.DETAIL);
 
@@ -177,60 +186,60 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public void saveDashboardImage(String dashboardName, InputStream uploadFile) {
-        Dashboard currentDashboard = this.getRepositoryDashboard(dashboardName);
+    public void saveDashboardImage(final String dashboardName, final InputStream uploadFile) {
+        final Dashboard currentDashboard = this.getRepositoryDashboard(dashboardName);
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
-            String authUser = (String) auth.getPrincipal();
+            final String authUser = (String) auth.getPrincipal();
             canEdit(authUser, currentDashboard);
         }
         dashboardRepository.saveFile(uploadFile, dashboardName);
     }
 
     @Override
-    public InputStreamResource getDashboardImage(String dashboardName) {
+    public InputStreamResource getDashboardImage(final String dashboardName) {
         //Used to ensure the dashboard is present and active
         this.getDashboard(dashboardName);
         return dashboardRepository.readFile(dashboardName);
     }
 
     @Override
-    public List<Dashboard> getDashboardWithNames(List<String> dashboardNames) {
+    public List<Dashboard> getDashboardWithNames(final List<String> dashboardNames) {
         return dashboardRepository.findByNameIn(dashboardNames);
     }
 
     @Override
-    public void createDashboardForBuildProject(Build build) {
+    public void createDashboardForBuildProject(final Build build) {
 
-        DashboardDTO newDashboard = new DashboardDTO();
+        final DashboardDTO newDashboard = new DashboardDTO();
         newDashboard.setCodeRepos(Collections.singletonList(build.getProjectName()));
 
         createTransientDashboard(newDashboard, build.getProjectName());
     }
 
     @Override
-    public void createDashboardForJiraTeam(String teamName) {
+    public void createDashboardForJiraTeam(final String teamName) {
 
-        DashboardDTO newDashboard = new DashboardDTO();
+        final DashboardDTO newDashboard = new DashboardDTO();
         newDashboard.setBoards(Collections.singletonList(teamName));
 
         createTransientDashboard(newDashboard, teamName);
     }
 
-    private void createTransientDashboard(DashboardDTO newDashboard, String identifier) {
+    private void createTransientDashboard(final DashboardDTO newDashboard, final String identifier) {
         try {
             newDashboard.setName(identifier);
             newDashboard.setDisplayName(identifier);
 
             newTransientDashboard(newDashboard);
         } catch (DashboardConflictException e) {
-            LOGGER.debug("Dashboard with name {} already exists", identifier);
+            LOG.debug("Dashboard with name {} already exists", identifier);
         }
     }
 
-    private Dashboard mergeDashboard(Dashboard dashboard, Dashboard request, String principal) {
+    private Dashboard mergeDashboard(final Dashboard dashboard, final Dashboard request, final String principal) {
 
         request.setId(dashboard.getId());
         request.setLastUserEdit(principal);
@@ -247,7 +256,7 @@ public class DashboardServiceImpl implements DashboardService {
         return request;
     }
 
-    private void canEdit(String authUser, Dashboard toEdit) {
+    private void canEdit(final String authUser, final Dashboard toEdit) {
 
         if (authUser == null) {
             throw new DashboardForbiddenException("Authenticated user not found");

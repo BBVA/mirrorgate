@@ -16,7 +16,6 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
-
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationReviewsDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.repository.ReviewRepository;
@@ -35,20 +34,21 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final ReviewRepository reviewRepository;
 
     @Autowired
-    public ApplicationServiceImpl(DashboardService dashboardRepository, ReviewRepository reviewRepository){
+    public ApplicationServiceImpl(final DashboardService dashboardRepository, final ReviewRepository reviewRepository) {
         this.dashboardRepository = dashboardRepository;
         this.reviewRepository = reviewRepository;
     }
 
     @Override
-    public List<ApplicationReviewsDTO> getApplicationsAndReviews(){
+    public List<ApplicationReviewsDTO> getApplicationsAndReviews() {
 
-        List<String> activeApplicationNames = getApplicationNames(dashboardRepository.getActiveDashboards());
+        final List<String> activeApplicationNames = getApplicationNames(dashboardRepository.getActiveDashboards());
 
-        List<ApplicationReviewsDTO> appsWithReview = reviewRepository.getLastReviewPerApplication(activeApplicationNames);
-        Set<String> appsWithoutReview = getApplicationsWithoutReviews(activeApplicationNames, appsWithReview);
+        final List<ApplicationReviewsDTO> appsWithReview = reviewRepository
+            .getLastReviewPerApplication(activeApplicationNames);
+        final Set<String> appsWithoutReview = getApplicationsWithoutReviews(activeApplicationNames, appsWithReview);
 
-        List<ApplicationReviewsDTO> appsReviews = new ArrayList<>();
+        final List<ApplicationReviewsDTO> appsReviews = new ArrayList<>();
 
         appsReviews.addAll(buildApplicationsWithoutReviews(appsWithoutReview));
         appsReviews.addAll(appsWithReview);
@@ -56,29 +56,30 @@ public class ApplicationServiceImpl implements ApplicationService {
         return appsReviews;
     }
 
-    private Set<String> getApplicationsWithoutReviews(List<String> activeApplicationNames,
-        List<ApplicationReviewsDTO> appsWithReview){
+    private Set<String> getApplicationsWithoutReviews(
+        final List<String> activeApplicationNames,
+        final List<ApplicationReviewsDTO> appsWithReview
+    ) {
 
-        Set<String> applicationWithoutReviewNames = new HashSet<>(activeApplicationNames);
+        final Set<String> applicationWithoutReviewNames = new HashSet<>(activeApplicationNames);
 
-        List<String> applicationsWithReviewNames =
-            appsWithReview
-                .stream()
-                .map(ApplicationReviewsDTO::getAppName)
-                .collect(Collectors.toList());
+        final List<String> applicationsWithReviewNames = appsWithReview
+            .stream()
+            .map(ApplicationReviewsDTO::getAppName)
+            .collect(Collectors.toList());
 
         applicationWithoutReviewNames.removeAll(applicationsWithReviewNames);
 
         return applicationWithoutReviewNames;
     }
 
-    private List<ApplicationReviewsDTO> buildApplicationsWithoutReviews(Set<String> activeApplicationNames){
+    private List<ApplicationReviewsDTO> buildApplicationsWithoutReviews(final Set<String> activeApplicationNames) {
 
-        List<ApplicationReviewsDTO> applicationsWithoutReviews = new ArrayList<>();
+        final List<ApplicationReviewsDTO> applicationsWithoutReviews = new ArrayList<>();
 
         activeApplicationNames.forEach(
             name -> {
-                ApplicationReviewsDTO newApplicationReview = new ApplicationReviewsDTO();
+                final ApplicationReviewsDTO newApplicationReview = new ApplicationReviewsDTO();
 
                 newApplicationReview.setAppName(name);
                 newApplicationReview.setAppId(name);
@@ -91,16 +92,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationsWithoutReviews;
     }
 
-    private List<String> getApplicationNames(Iterable<DashboardDTO> activeDashboards) {
-        List<String> appNames = new ArrayList<>();
+    private List<String> getApplicationNames(final Iterable<DashboardDTO> activeDashboards) {
+        final List<String> appNames = new ArrayList<>();
         activeDashboards.forEach(dashboard -> {
-            List<String> dApps = dashboard.getApplications();
-            if(dApps != null) {
+            final List<String> dApps = dashboard.getApplications();
+            if (dApps != null) {
                 appNames.addAll(dApps);
             }
         });
 
         return appNames;
     }
-
 }

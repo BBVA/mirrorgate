@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.model;
 
+import java.util.List;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.List;
 
 @Document(collection = "notification")
 @CompoundIndex (name = "dashboard_and_timestamp", def = "{ 'dashboardsToNotify': 1, 'timestamp': 1 }")
@@ -32,23 +32,26 @@ public class Notification extends BaseIdModel {
         return message;
     }
 
-    public void setMessage(String message) {
+    public Notification setMessage(final String message) {
         this.message = message;
+        return this;
     }
 
     public List<String> getDashboardsToNotify() {
         return dashboardsToNotify;
     }
 
-    public void setDashboardsToNotify(List<String> dashboardsToNotify) {
+    public Notification setDashboardsToNotify(final List<String> dashboardsToNotify) {
         this.dashboardsToNotify = dashboardsToNotify;
+        return this;
     }
 
     public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public Notification setTimestamp(final long timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 }

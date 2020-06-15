@@ -13,7 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
+
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.SlackDTO;
@@ -33,18 +45,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.context.WebApplicationContext;
-
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(SlackNotificationController.class)
@@ -69,50 +69,50 @@ public class SlackNotificationControllerTests {
 
     @Test
     public void getWebSocketTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
-        SlackDTO notification = TestObjectFactory.createSlackDTO();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final SlackDTO notification = TestObjectFactory.createSlackDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getWebSocket(
-                dashboard.getSlackTeam(),
-                dashboard.getSlackToken()
+            dashboard.getSlackTeam(),
+            dashboard.getSlackToken()
         )).thenReturn(notification);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/notifications"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$", is(notification.getUrl())));
     }
 
     @Test
     public void getWebSocketFakeDashboardTest() throws Exception {
-        String name = "fake";
+        final String name = "fake";
         when(dashboardService.getDashboard(name)).thenReturn(null);
 
         verify(slackService, never()).getWebSocket(any(), any());
 
         this.mockMvc.perform(get("/dashboards/" + name + "/notifications"))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+            .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
     public void getWebSocketSlackErrorTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
-        SlackDTO error_notification = TestObjectFactory.createSlackErrorDTO();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final SlackDTO error_notification = TestObjectFactory.createSlackErrorDTO();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getWebSocket(
-                dashboard.getSlackTeam(),
-                dashboard.getSlackToken()
+            dashboard.getSlackTeam(),
+            dashboard.getSlackToken()
         )).thenReturn(error_notification);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/notifications"))
-                .andExpect(status().is(HttpStatus.CONFLICT.value()));
+            .andExpect(status().is(HttpStatus.CONFLICT.value()));
     }
 
     @Test
     public void getWebSocketSlackExceptionTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(slackService.getWebSocket(

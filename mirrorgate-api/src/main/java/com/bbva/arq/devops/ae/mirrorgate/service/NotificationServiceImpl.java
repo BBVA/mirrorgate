@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.NotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
 import com.bbva.arq.devops.ae.mirrorgate.repository.NotificationRepository;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
@@ -53,12 +53,12 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public Notification saveNotification(NotificationDTO eventNotificationDTO) {
 
-        Notification notification = new Notification();
-        notification.setDashboardsToNotify(eventNotificationDTO.getDashboardIds());
-        notification.setMessage(eventNotificationDTO.getMessage());
-        notification.setTimestamp(System.currentTimeMillis());
+        final Notification notification = new Notification()
+            .setDashboardsToNotify(eventNotificationDTO.getDashboardIds())
+            .setMessage(eventNotificationDTO.getMessage())
+            .setTimestamp(System.currentTimeMillis());
 
-        Notification result = repository.save(notification);
+        final Notification result = repository.save(notification);
 
         eventService.saveEvent(notification, EventType.NOTIFICATION);
 

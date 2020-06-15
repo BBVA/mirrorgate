@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.support;
 
 import java.util.HashMap;
@@ -27,7 +28,7 @@ public enum BugPriority {
 
     private static final Map<String, BugPriority> NAME_MAP = new HashMap<>() {
         {
-            for (BugPriority st : BugPriority.values()) {
+            for (final BugPriority st : BugPriority.values()) {
                 put(st.getName(), st);
             }
         }
@@ -43,7 +44,7 @@ public enum BugPriority {
         return name;
     }
 
-    public static BugPriority fromName(String name) {
+    public static BugPriority fromName(final String name) {
         return name == null ? null : NAME_MAP.get(name);
     }
 

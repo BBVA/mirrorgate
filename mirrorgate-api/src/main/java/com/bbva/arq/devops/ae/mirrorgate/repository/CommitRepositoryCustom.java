@@ -23,8 +23,8 @@ import java.util.List;
  */
 public interface CommitRepositoryCustom {
 
-    Double getSecondsToMaster(List<String> repositories, long timestamp);
+    Double getSecondsToMaster(final List<String> repositories, final long timestamp);
 
-    Double getCommitsPerDay(List<String> repositories, long timestamp, int daysBefore);
+    Double getCommitsPerDay(final List<String> repositories, final long timestamp, final int daysBefore);
 
 }

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Banco Bilbao Vizcaya Argentaria, S.A.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
@@ -14,13 +30,13 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @RestController
 public class ServerSentEventsController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServerSentEventsController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServerSentEventsController.class);
 
     private final ConnectionHandler handler;
 
     private static class NotCachedSseEmitter extends SseEmitter {
         @Override
-        protected void extendResponse(ServerHttpResponse outputMessage) {
+        protected void extendResponse(final ServerHttpResponse outputMessage) {
             outputMessage.getHeaders().add("X-Accel-Buffering", "no");
             outputMessage.getHeaders().add("Cache-Control", "no-cache;");
 
@@ -30,17 +46,16 @@ public class ServerSentEventsController {
 
 
     @Autowired
-    public ServerSentEventsController(ConnectionHandler handler){
-
+    public ServerSentEventsController(final ConnectionHandler handler) {
         this.handler = handler;
     }
 
     @GetMapping(value = "/emitter/{dashboardId}")
-    public SseEmitter serverSideEmitter(@PathVariable String dashboardId) throws IOException {
+    public SseEmitter serverSideEmitter(final @PathVariable String dashboardId) throws IOException {
 
-        LOGGER.info("Creating SseEmitter for dashboard {}", dashboardId);
+        LOG.info("Creating SseEmitter for dashboard {}", dashboardId);
 
-        SseEmitter sseEmitter = new NotCachedSseEmitter();
+        final SseEmitter sseEmitter = new NotCachedSseEmitter();
 
         sseEmitter.onCompletion(() -> {
             handler.removeFromSessionsMap(sseEmitter, dashboardId);
@@ -57,6 +72,5 @@ public class ServerSentEventsController {
         sseEmitter.send(SseEmitter.event().reconnectTime(0L));
 
         return sseEmitter;
-
     }
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import allbegray.slack.SlackClientFactory;
@@ -36,37 +37,37 @@ public class SlackServiceImpl implements SlackService {
     private RestTemplate restTemplate;
 
     @Override
-    public SlackDTO getToken(String team, String client_id, String client_secret, String code) {
-        UriComponents uri = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host(team + ".slack.com")
-                .path("/api/oauth.access")
-                .queryParam("client_id", client_id)
-                .queryParam("client_secret", client_secret)
-                .queryParam("code", code)
-                .build()
-                .encode();
+    public SlackDTO getToken(final String team, final String clientId, final String clientSecret, final String code) {
+        final UriComponents uri = UriComponentsBuilder.newInstance()
+            .scheme("https")
+            .host(team + ".slack.com")
+            .path("/api/oauth.access")
+            .queryParam("client_id", clientId)
+            .queryParam("client_secret", clientSecret)
+            .queryParam("code", code)
+            .build()
+            .encode();
 
         return restTemplate.getForObject(uri.toUriString(), SlackDTO.class);
     }
 
     @Override
-    public SlackDTO getWebSocket(String team, String token) throws ResourceAccessException {
-        UriComponents uri = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host(team + ".slack.com")
-                .path("/api/rtm.connect")
-                .queryParam("token", token)
-                .build()
-                .encode();
+    public SlackDTO getWebSocket(final String team, final String token) throws ResourceAccessException {
+        final UriComponents uri = UriComponentsBuilder.newInstance()
+            .scheme("https")
+            .host(team + ".slack.com")
+            .path("/api/rtm.connect")
+            .queryParam("token", token)
+            .build()
+            .encode();
 
         return restTemplate.getForObject(uri.toUriString(), SlackDTO.class);
     }
 
     @Override
-    public Map<String, String> getChannelList(String slackToken) {
-        SlackWebApiClient webApiClient = SlackClientFactory.createWebApiClient(slackToken);
-        List<Channel> channelList = webApiClient.getChannelList();
+    public Map<String, String> getChannelList(final String slackToken) {
+        final SlackWebApiClient webApiClient = SlackClientFactory.createWebApiClient(slackToken);
+        final List<Channel> channelList = webApiClient.getChannelList();
         return channelList.stream().collect(Collectors.toMap(Channel::getId, Channel::getName));
     }
 

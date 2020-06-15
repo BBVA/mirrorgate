@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.IssueDTO;
@@ -24,16 +25,15 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepository;
 import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.stereotype.Service;
-
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.stereotype.Service;
 
 @Service
 public class IssueServiceImpl implements IssueService {
@@ -43,7 +43,11 @@ public class IssueServiceImpl implements IssueService {
     private final EventService eventService;
 
     @Autowired
-    public IssueServiceImpl(IssueRepository repository, DashboardService dashboardService, EventService eventService) {
+    public IssueServiceImpl(
+        final IssueRepository repository,
+        final DashboardService dashboardService,
+        final EventService eventService
+    ) {
         this.repository = repository;
         this.dashboardService = dashboardService;
         this.eventService = eventService;
@@ -51,32 +55,35 @@ public class IssueServiceImpl implements IssueService {
 
 
     @Override
-    public List<Issue> getActiveUserStoriesByBoards(List<String> boards) {
+    public List<Issue> getActiveUserStoriesByBoards(final List<String> boards) {
         return repository.findActiveUserStoriesByBoards(boards, Sort.by(Order.by("status")));
     }
 
     @Override
-    public List<Issue> getFeatureRelatedIssues(List<String> featuresKeys) {
+    public List<Issue> getFeatureRelatedIssues(final List<String> featuresKeys) {
         return repository.findAllByParentsKeysIn(featuresKeys);
     }
 
     @Override
-    public List<Issue> getProductIncrementFeatures(String name) {
+    public List<Issue> getProductIncrementFeatures(final String name) {
         return repository.findAllByTypeAndPiNames(IssueType.FEATURE.getName(), name);
     }
 
     @Override
-    public ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(Pattern pi) {
+    public ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(final Pattern pi) {
         return repository.getProductIncrementFromPiPattern(pi);
     }
 
     @Override
-    public List<String> getProgramIncrementFeaturesByBoard(List<String> boards, List<String> programIncrementFeatures) {
+    public List<String> getProgramIncrementFeaturesByBoard(
+        final List<String> boards,
+        final List<String> programIncrementFeatures
+    ) {
         return repository.programIncrementBoardFeatures(boards, programIncrementFeatures);
     }
 
     @Override
-    public IssueStats getIssueStatsByKeywords(List<String> boards) {
+    public IssueStats getIssueStatsByKeywords(final List<String> boards) {
         final IssueStats result = new IssueStats();
 
         result.setBacklogEstimate(repository.getBacklogEstimateByKeywords(boards));
@@ -85,7 +92,10 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Iterable<IssueDTO> saveOrUpdateStories(List<IssueDTO> issuesDTO, String collectorId) {
+    public Iterable<IssueDTO> saveOrUpdateStories(
+        final List<IssueDTO> issuesDTO,
+        final String collectorId
+    ) {
 
         final List<Issue> issues = issuesDTO.stream()
             .map(issue -> IssueMapper.map(issue).setCollectorId(collectorId))
@@ -106,7 +116,7 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public IssueDTO deleteStory(String id, String collectorId) {
+    public IssueDTO deleteStory(final String id, final String collectorId) {
         final Issue issue = repository.findFirstByIssueIdAndCollectorId(id, collectorId);
 
         if (issue == null) {
@@ -122,21 +132,20 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Iterable<Issue> getIssuesById(List<String> ids) {
+    public Iterable<Issue> getIssuesById(final List<String> ids) {
         return repository.findAllById(ids);
     }
 
     @Override
-    public List<Issue> getEpicsByNumber(List<String> keys) {
+    public List<Issue> getEpicsByNumber(final List<String> keys) {
         return repository.findAllByNumberInAndType(keys, IssueType.EPIC.getName());
     }
 
-    private void createTransientDashboardsForTeams(List<Issue> issues) {
+    private void createTransientDashboardsForTeams(final List<Issue> issues) {
         issues.stream()
             .map(Issue::getTeamName)
             .filter(teamName -> teamName != null && !teamName.isEmpty())
             .distinct()
             .forEach(dashboardService::createDashboardForJiraTeam);
     }
-
 }

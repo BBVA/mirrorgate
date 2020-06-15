@@ -13,30 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
-
-import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
-import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency;
-import com.bbva.arq.devops.ae.mirrorgate.model.Build;
-import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
-import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
-import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Arrays;
 
 import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
 import static org.hamcrest.Matchers.equalTo;
@@ -48,6 +26,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.FailureTendency;
+import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.service.BuildService;
+import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
+import java.util.Arrays;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(BuildController.class)
@@ -77,97 +77,100 @@ public class BuildControllerTests {
 
     @Test
     public void getBuildsByDashboardNameTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
-        dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
-        Build build1 = makeBuild(REPO_NAMES[0]);
-        Build build2 = makeBuild(REPO_NAMES[1]);
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard()
+            .setCodeRepos(Arrays.asList(REPO_NAMES));
+        final Build build1 = makeBuild(REPO_NAMES[0]);
+        final Build build2 = makeBuild(REPO_NAMES[1]);
 
-        when(dashboardService.getDashboard(dashboard.getName()))
-                .thenReturn(dashboard);
+        when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(buildService.getLastBuildsByKeywordsAndByTeamMembers(dashboard.getCodeRepos(), dashboard.getTeamMembers()))
-                .thenReturn(Arrays.asList(build1, build2));
+            .thenReturn(Arrays.asList(build1, build2));
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/builds"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.lastBuilds[0].repoName", equalTo(build1.getRepoName())))
-                .andExpect(jsonPath("$.lastBuilds[1].repoName", equalTo(build2.getRepoName())));
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.lastBuilds[0].repoName", equalTo(build1.getRepoName())))
+            .andExpect(jsonPath("$.lastBuilds[1].repoName", equalTo(build2.getRepoName())));
     }
 
     @Test
     public void getFailureRateTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
-        dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
-        BuildStats buildStats = new BuildStats()
-                .setDuration(0D)
-                .setCount(3)
-                .setFailureRate(33)
-                .setFailureTendency(FailureTendency.equal);
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard()
+            .setCodeRepos(Arrays.asList(REPO_NAMES));
+        final BuildStats buildStats = new BuildStats()
+            .setDuration(0D)
+            .setCount(3)
+            .setFailureRate(33)
+            .setFailureTendency(FailureTendency.equal);
 
         when(dashboardService.getDashboard(dashboard.getName()))
-                .thenReturn(dashboard);
-        when(buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
-                .thenReturn(buildStats);
+            .thenReturn(dashboard);
+        when(buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
+            eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())
+        )).thenReturn(buildStats);
 
         this.mockMvc.perform(
-                get("/dashboards/" + dashboard.getName() + "/builds/rate"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"duration\":0.0,\"count\":3,\""
-                        + "failureRate\":33.0,\"failureTendency\":\"equal\"}"));
+            get("/dashboards/" + dashboard.getName() + "/builds/rate"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(
+                "{\"duration\":0.0,\"count\":3,\"failureRate\":33.0,\"failureTendency\":\"equal\"}")
+            );
     }
 
     @Test
     public void getFailureRateWithoutBuildsTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
-        dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
-        BuildStats buildStats = new BuildStats()
-                .setDuration(0D)
-                .setCount(0)
-                .setFailureRate(0)
-                .setFailureTendency(FailureTendency.equal);
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard()
+            .setCodeRepos(Arrays.asList(REPO_NAMES));
+        final BuildStats buildStats = new BuildStats()
+            .setDuration(0D)
+            .setCount(0)
+            .setFailureRate(0)
+            .setFailureTendency(FailureTendency.equal);
 
         when(dashboardService.getDashboard(dashboard.getName()))
-                .thenReturn(dashboard);
-        when(buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
-                .thenReturn(buildStats);
+            .thenReturn(dashboard);
+        when(buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
+            eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())
+        )).thenReturn(buildStats);
 
         this.mockMvc.perform(
-                get("/dashboards/" + dashboard.getName() + "/builds/rate"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"duration\":0.0,\"count\":0,\""
-                        + "failureRate\":0.0,\"failureTendency\":\"equal\"}"));
+            get("/dashboards/" + dashboard.getName() + "/builds/rate"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(
+                "{\"duration\":0.0,\"count\":0,\"failureRate\":0.0,\"failureTendency\":\"equal\"}")
+            );
     }
 
     @Test
     public void getFailureRateWithoutFailureBuildsTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
-        dashboard.setCodeRepos(Arrays.asList(REPO_NAMES));
-        BuildStats buildStats = new BuildStats()
-                .setCount(3)
-                .setDuration(0D)
-                .setFailureRate(0)
-                .setFailureTendency(FailureTendency.equal);
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard()
+            .setCodeRepos(Arrays.asList(REPO_NAMES));
+        final BuildStats buildStats = new BuildStats()
+            .setCount(3)
+            .setDuration(0D)
+            .setFailureRate(0)
+            .setFailureTendency(FailureTendency.equal);
 
-        when(dashboardService.getDashboard(dashboard.getName()))
-                .thenReturn(dashboard);
-        when(buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())))
-                .thenReturn(buildStats);
+        when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
+        when(buildService.getStatsAndTendenciesByKeywordsAndByTeamMembers(
+            eq(dashboard.getCodeRepos()), eq(dashboard.getTeamMembers())
+        )).thenReturn(buildStats);
 
         this.mockMvc.perform(
-                get("/dashboards/" + dashboard.getName() + "/builds/rate"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"duration\":0.0,\"count\":3,\""
-                        + "failureRate\":0.0,\"failureTendency\":\"equal\"}"));
+            get("/dashboards/" + dashboard.getName() + "/builds/rate"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(
+                "{\"duration\":0.0,\"count\":3,\"failureRate\":0.0,\"failureTendency\":\"equal\"}"
+            ));
     }
 
     @Test
     public void createBuildTest() throws Exception {
-        BuildDTO request = TestObjectFactory.createBuildDTO();
-        when(buildService.createOrUpdate(any(BuildDTO.class)))
-                .thenReturn(request);
-        this.mockMvc.perform(post("/api/builds")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(request)))
-                .andExpect(status().isCreated());
-    }
+        final BuildDTO request = TestObjectFactory.createBuildDTO();
+        when(buildService.createOrUpdate(any(BuildDTO.class))).thenReturn(request);
 
+        this.mockMvc.perform(post("/api/builds")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(request)))
+            .andExpect(status().isCreated());
+    }
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.security;
 
 import static org.junit.Assert.assertTrue;
@@ -23,41 +24,51 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 public class TokenCreatorTest {
 
     @Test
-    public void testScreenUser(){
-        MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken("testuser@bbva.com");
-        SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.REGULAR.toString());
+    public void testScreenUser() {
+        final MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken("testuser@bbva.com");
+        final SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(
+            SecurityAuthoritiesEnum.REGULAR.toString()
+        );
 
         assertTrue(token.getCredentials().contains(expectedAuthority));
     }
 
     @Test
-    public void testEmptyHeader(){
-        MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken("");
-        SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString());
+    public void testEmptyHeader() {
+        final MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken("");
+        final SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(
+            SecurityAuthoritiesEnum.COLLECTOR.toString()
+        );
 
         assertTrue(token.getCredentials().contains(expectedAuthority));
     }
 
     @Test
-    public void testNullHeader(){
-        MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken(null);
-        SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString());
+    public void testNullHeader() {
+        final MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken(null);
+        final SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(
+            SecurityAuthoritiesEnum.COLLECTOR.toString()
+        );
 
         assertTrue(token.getCredentials().contains(expectedAuthority));
     }
 
     @Test
-    public void testRegularUser(){
-        MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken("ANONYMOUS");
-        SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.SCREEN.toString());
+    public void testRegularUser() {
+        final MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken("ANONYMOUS");
+        final SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(
+            SecurityAuthoritiesEnum.SCREEN.toString()
+        );
 
         assertTrue(token.getCredentials().contains(expectedAuthority));
     }
 
     @Test
-    public void testCollectorUser(){
-        MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken("COLLECTOR");
-        SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(SecurityAuthoritiesEnum.COLLECTOR.toString());
+    public void testCollectorUser() {
+        final MirrorgateAuthenticationToken token = TokenCreator.createHeaderBasedToken("COLLECTOR");
+        final SimpleGrantedAuthority expectedAuthority = new SimpleGrantedAuthority(
+            SecurityAuthoritiesEnum.COLLECTOR.toString()
+        );
 
         assertTrue(token.getCredentials().contains(expectedAuthority));
     }

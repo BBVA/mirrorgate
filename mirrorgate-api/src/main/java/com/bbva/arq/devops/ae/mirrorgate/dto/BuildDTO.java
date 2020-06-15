@@ -45,7 +45,7 @@ public class BuildDTO {
         return number;
     }
 
-    public BuildDTO setNumber(String number) {
+    public BuildDTO setNumber(final String number) {
         this.number = number;
         return this;
     }
@@ -54,7 +54,7 @@ public class BuildDTO {
         return buildUrl;
     }
 
-    public BuildDTO setBuildUrl(String buildUrl) {
+    public BuildDTO setBuildUrl(final String buildUrl) {
         this.buildUrl = buildUrl;
         return this;
     }
@@ -63,7 +63,7 @@ public class BuildDTO {
         return startTime;
     }
 
-    public BuildDTO setStartTime(long startTime) {
+    public BuildDTO setStartTime(final long startTime) {
         this.startTime = startTime;
         return this;
     }
@@ -72,7 +72,7 @@ public class BuildDTO {
         return endTime;
     }
 
-    public BuildDTO setEndTime(long endTime) {
+    public BuildDTO setEndTime(final long endTime) {
         this.endTime = endTime;
         return this;
     }
@@ -81,7 +81,7 @@ public class BuildDTO {
         return duration;
     }
 
-    public BuildDTO setDuration(long duration) {
+    public BuildDTO setDuration(final long duration) {
         this.duration = duration;
         return this;
     }
@@ -90,7 +90,7 @@ public class BuildDTO {
         return buildStatus;
     }
 
-    public BuildDTO setBuildStatus(String buildStatus) {
+    public BuildDTO setBuildStatus(final String buildStatus) {
         this.buildStatus = buildStatus;
         return this;
     }
@@ -99,7 +99,7 @@ public class BuildDTO {
         return culprits;
     }
 
-    public BuildDTO setCulprits(List<String> culprits) {
+    public BuildDTO setCulprits(final List<String> culprits) {
         this.culprits = culprits;
         return this;
     }
@@ -108,7 +108,7 @@ public class BuildDTO {
         return projectName;
     }
 
-    public BuildDTO setProjectName(String projectName) {
+    public BuildDTO setProjectName(final String projectName) {
         this.projectName = projectName;
         return this;
     }
@@ -117,7 +117,7 @@ public class BuildDTO {
         return repoName;
     }
 
-    public BuildDTO setRepoName(String repoName) {
+    public BuildDTO setRepoName(final String repoName) {
         this.repoName = repoName;
         return this;
     }
@@ -126,7 +126,7 @@ public class BuildDTO {
         return branch;
     }
 
-    public BuildDTO setBranch(String branch) {
+    public BuildDTO setBranch(final String branch) {
         this.branch = branch;
         return this;
     }
@@ -135,7 +135,7 @@ public class BuildDTO {
         return keywords;
     }
 
-    public BuildDTO setKeywords(List<String> keywords) {
+    public BuildDTO setKeywords(final List<String> keywords) {
         this.keywords = keywords;
         return this;
     }
@@ -144,7 +144,7 @@ public class BuildDTO {
         return timestamp;
     }
 
-    public BuildDTO setTimestamp(Long timestamp) {
+    public BuildDTO setTimestamp(final Long timestamp) {
         this.timestamp = timestamp;
         return this;
     }

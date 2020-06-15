@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,10 +24,10 @@ import org.bson.types.ObjectId;
  * Custom object mapper that knows how to serialize Mongo ObjectIds.
  */
 class CustomObjectMapper extends ObjectMapper {
-	private static final long serialVersionUID = 2035695746790240402L;
+    private static final long serialVersionUID = 2035695746790240402L;
 
-	public CustomObjectMapper() {
-        SimpleModule module = new SimpleModule("ObjectIdModule");
+    public CustomObjectMapper() {
+        final SimpleModule module = new SimpleModule("ObjectIdModule");
         module.addSerializer(ObjectId.class, new ObjectIdSerializer());
         this.registerModule(module);
     }

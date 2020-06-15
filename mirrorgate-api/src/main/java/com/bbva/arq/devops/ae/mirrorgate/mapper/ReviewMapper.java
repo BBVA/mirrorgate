@@ -21,11 +21,11 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Review;
 
 public class ReviewMapper {
 
-    public static ReviewDTO map(Review source) {
+    public static ReviewDTO map(final Review source) {
         return map(source, new ReviewDTO());
     }
 
-    private static ReviewDTO map(Review source, ReviewDTO target) {
+    private static ReviewDTO map(final Review source, final ReviewDTO target) {
         return target
             .setAuthor(source.getAuthorName())
             .setRate(source.getStarrating())
@@ -35,11 +35,11 @@ public class ReviewMapper {
             .setCommentTitle(source.getCommentTitle());
     }
 
-    public static Review map(ReviewDTO source) {
+    public static Review map(final ReviewDTO source) {
         return map(source, new Review());
     }
 
-    private static Review map(ReviewDTO source, Review target) {
+    private static Review map(final ReviewDTO source, final Review target) {
         return target.setTimestamp(source.getTimestamp())
             .setAuthorName(source.getAuthor())
             .setStarrating(source.getRate())

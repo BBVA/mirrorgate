@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.CommitDTO;
@@ -21,10 +22,10 @@ import java.util.List;
 
 public interface CommitService {
 
-    List<CommitDTO> saveCommits(Iterable<CommitDTO> commits);
+    List<CommitDTO> saveCommits(final Iterable<CommitDTO> commits);
 
-    ScmDTO getScmStats(List <String> repos);
+    ScmDTO getScmStats(final List<String> repos);
 
-    List<String> getLastCommits(String repo, Integer timestamp);
+    List<String> getLastCommits(final String repo, final Integer timestamp);
 
 }

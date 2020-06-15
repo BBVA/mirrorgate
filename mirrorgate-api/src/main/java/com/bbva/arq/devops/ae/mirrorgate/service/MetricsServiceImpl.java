@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
@@ -38,7 +39,11 @@ public class MetricsServiceImpl implements MetricsService {
     private final HistoricUserMetricService historicUserMetricService;
 
     @Autowired
-    public MetricsServiceImpl(DashboardService dashboardService, UserMetricsRepository userMetricsRepository, HistoricUserMetricService historicUserMetricService) {
+    public MetricsServiceImpl(
+        final DashboardService dashboardService,
+        final UserMetricsRepository userMetricsRepository,
+        final HistoricUserMetricService historicUserMetricService
+    ) {
         this.dashboardService = dashboardService;
         this.userMetricsRepository = userMetricsRepository;
         this.historicUserMetricService = historicUserMetricService;
@@ -48,7 +53,7 @@ public class MetricsServiceImpl implements MetricsService {
     public List<String> getAnalyticViewIds() {
         return dashboardService.getActiveDashboards().stream()
             .flatMap((d) -> {
-                List<String> analyticsViews = new ArrayList<>();
+                final List<String> analyticsViews = new ArrayList<>();
                 if (d.getAnalyticViews() != null) {
                     analyticsViews.addAll(d.getAnalyticViews());
                 }
@@ -62,18 +67,18 @@ public class MetricsServiceImpl implements MetricsService {
     }
 
     @Override
-    public List<UserMetricDTO> getMetricsByCollectorId(String collectorId) {
+    public List<UserMetricDTO> getMetricsByCollectorId(final String collectorId) {
         return userMetricsRepository.findAllByCollectorId(collectorId).stream()
-                .map(UserMetricMapper::map).collect(Collectors.toList());
+            .map(UserMetricMapper::map).collect(Collectors.toList());
     }
 
     @Override
-    public List<UserMetricDTO> saveMetrics(Iterable<UserMetricDTO> metrics) {
-        List<UserMetric> toSave = StreamSupport.stream(metrics.spliterator(), false)
-                .map(UserMetricMapper::map)
-                .collect(Collectors.toList());
+    public List<UserMetricDTO> saveMetrics(final Iterable<UserMetricDTO> metrics) {
+        final List<UserMetric> toSave = StreamSupport.stream(metrics.spliterator(), false)
+            .map(UserMetricMapper::map)
+            .collect(Collectors.toList());
 
-        Iterable<UserMetric> saved = userMetricsRepository.saveAll(toSave);
+        final Iterable<UserMetric> saved = userMetricsRepository.saveAll(toSave);
 
         //send to historic
         historicUserMetricService.addToCurrentPeriod(saved);
@@ -82,13 +87,13 @@ public class MetricsServiceImpl implements MetricsService {
     }
 
     @Override
-    public List<UserMetricDTO> getMetricsForDashboard(DashboardDTO dashboard) {
-        List<String> views = Stream.of(dashboard.getAnalyticViews(), dashboard.getOperationViews())
+    public List<UserMetricDTO> getMetricsForDashboard(final DashboardDTO dashboard) {
+        final List<String> views = Stream.of(dashboard.getAnalyticViews(), dashboard.getOperationViews())
             .filter(Objects::nonNull)
             .flatMap(Collection::stream)
             .collect(Collectors.toList());
 
-        if(views.isEmpty()){
+        if (views.isEmpty()) {
             return new ArrayList<>();
         }
 

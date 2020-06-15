@@ -32,12 +32,12 @@ public class DashboardMapperTests {
 
     @Test
     public void itShouldMapAllFields() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        Dashboard dashboard = new Dashboard()
-                .setStatus(DashboardStatus.ACTIVE)
-                .setType(DashboardType.Detail.name())
-                .setFilters(new Filters())
-                .setInfraCost(false)
-                .setLastTimeUsed(1L);
+        final Dashboard dashboard = new Dashboard()
+            .setStatus(DashboardStatus.ACTIVE)
+            .setType(DashboardType.Detail.name())
+            .setFilters(new Filters())
+            .setInfraCost(false)
+            .setLastTimeUsed(1L);
 
         MapperTestingSupport.initializeTypicalSetters(dashboard);
         MapperTestingSupport.assertBeanValues(dashboard, map(map(dashboard)));

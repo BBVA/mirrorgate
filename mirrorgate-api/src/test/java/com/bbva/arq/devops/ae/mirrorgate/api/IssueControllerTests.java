@@ -13,12 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.IssueService;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,17 +41,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.DashboardMapper.map;
-import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(IssueController.class)
@@ -63,25 +63,25 @@ public class IssueControllerTests {
 
     @Test
     public void getActiveUserStoriesTest() throws Exception {
-        String dashboardName = "mirrorgate";
-        String sprintProjectName = "mirrorgate";
+        final String dashboardName = "mirrorgate";
+        final String sprintProjectName = "mirrorgate";
 
-        Dashboard dashboard = new Dashboard()
+        final Dashboard dashboard = new Dashboard()
             .setName(dashboardName)
             .setsProductName(sprintProjectName)
             .setBoards(Collections.singletonList(sprintProjectName));
 
-        Issue story1 = new Issue()
+        final Issue story1 = new Issue()
             .setIssueId("1")
             .setSprintAssetState("Active")
             .setProjectName(dashboardName);
 
-        Issue story2 = new Issue()
+        final Issue story2 = new Issue()
             .setIssueId("2")
             .setSprintAssetState("Active")
             .setProjectName(dashboardName);
 
-        List<Issue> stories = Arrays.asList(story1, story2);
+        final List<Issue> stories = Arrays.asList(story1, story2);
 
         when(dashboardService.getDashboard(dashboardName)).thenReturn(map(dashboard));
         when(issueService.getActiveUserStoriesByBoards(Collections.singletonList(dashboardName)))

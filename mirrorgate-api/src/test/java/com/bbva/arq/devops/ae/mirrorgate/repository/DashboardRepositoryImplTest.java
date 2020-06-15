@@ -40,31 +40,32 @@ public class DashboardRepositoryImplTest {
     @Autowired
     private DashboardRepository dashboardRepository;
 
-
     @Before
-    public void init(){
+    public void init() {
 
-        Dashboard regularDashboard = new Dashboard();
+        final Dashboard regularDashboard = new Dashboard();
         regularDashboard.setName("regularDashboard");
         regularDashboard.setStatus(DashboardStatus.ACTIVE);
 
-        Dashboard nullStatusDashboard = new Dashboard();
+        final Dashboard nullStatusDashboard = new Dashboard();
         nullStatusDashboard.setName("nullStatusDashboard");
         regularDashboard.setStatus(null);
 
-        Dashboard transientDashboard = new Dashboard();
+        final Dashboard transientDashboard = new Dashboard();
         transientDashboard.setName("transientDashboard");
         transientDashboard.setStatus(DashboardStatus.TRANSIENT);
 
-        Dashboard deletedDashboard = new Dashboard();
+        final Dashboard deletedDashboard = new Dashboard();
         deletedDashboard.setName("deletedDashboard");
         deletedDashboard.setStatus(DashboardStatus.DELETED);
 
-        dashboardRepository.saveAll(Arrays.asList(regularDashboard, nullStatusDashboard, transientDashboard, deletedDashboard));
+        dashboardRepository.saveAll(
+            Arrays.asList(regularDashboard, nullStatusDashboard, transientDashboard, deletedDashboard)
+        );
     }
 
     @After
-    public void clean(){
+    public void clean() {
         dashboardRepository.deleteAll();
     }
 
@@ -72,9 +73,12 @@ public class DashboardRepositoryImplTest {
     @Ignore
     @Test
     public void transientAndDeletedDashboardsAreNotReturnedTest() {
-        List<Dashboard> activeDashboards = dashboardRepository.getActiveDashboards();
+        final List<Dashboard> activeDashboards = dashboardRepository.getActiveDashboards();
 
-        List<String> dashboardNames = activeDashboards.stream().map(Dashboard::getName).collect(Collectors.toList());
+        final List<String> dashboardNames = activeDashboards
+            .stream()
+            .map(Dashboard::getName)
+            .collect(Collectors.toList());
 
         assertTrue(dashboardNames.contains("regularDashboard"));
         assertTrue(dashboardNames.contains("nullStatusDashboard"));
@@ -82,10 +86,14 @@ public class DashboardRepositoryImplTest {
     }
 
     @Test
-    public void testGetSeveralDashboards(){
-        List<Dashboard> activeDashboards = dashboardRepository.findByNameIn(Arrays.asList("regularDashboard","nullStatusDashboard",""));
+    public void testGetSeveralDashboards() {
+        final List<Dashboard> activeDashboards = dashboardRepository
+            .findByNameIn(Arrays.asList("regularDashboard", "nullStatusDashboard", ""));
 
-        List<String> dashboardNames = activeDashboards.stream().map(Dashboard::getName).collect(Collectors.toList());
+        final List<String> dashboardNames = activeDashboards
+            .stream()
+            .map(Dashboard::getName)
+            .collect(Collectors.toList());
 
         assertTrue(dashboardNames.contains("regularDashboard"));
         assertTrue(dashboardNames.contains("nullStatusDashboard"));

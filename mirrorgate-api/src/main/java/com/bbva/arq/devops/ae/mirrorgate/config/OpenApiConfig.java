@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.config;
 
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
 @Configuration
 @EnableSwagger2
 public class OpenApiConfig {
@@ -31,9 +31,9 @@ public class OpenApiConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.bbva.arq.devops.ae.mirrorgate.api"))
-                .paths(PathSelectors.any())
-                .build();
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("com.bbva.arq.devops.ae.mirrorgate.api"))
+            .paths(PathSelectors.any())
+            .build();
     }
 }

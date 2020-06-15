@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.UserMetricDTO;
@@ -21,11 +22,11 @@ import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
 
 public class UserMetricMapper {
 
-    public static UserMetricDTO map(UserMetric source) {
+    public static UserMetricDTO map(final UserMetric source) {
         return map(source, new UserMetricDTO());
     }
 
-    private static UserMetricDTO map(UserMetric source, UserMetricDTO target) {
+    private static UserMetricDTO map(final UserMetric source, final UserMetricDTO target) {
         return target
             .setIdentifier(source.getIdentifier())
             .setViewId(source.getViewId())
@@ -38,11 +39,11 @@ public class UserMetricMapper {
             .setCollectorId(source.getCollectorId());
     }
 
-    public static UserMetric map(UserMetricDTO source) {
+    public static UserMetric map(final UserMetricDTO source) {
         return map(source, new UserMetric());
     }
 
-    private static UserMetric map(UserMetricDTO source, UserMetric target) {
+    private static UserMetric map(final UserMetricDTO source, final UserMetric target) {
         return target
             .setIdentifier(source.getIdentifier())
             .setViewId(source.getViewId())

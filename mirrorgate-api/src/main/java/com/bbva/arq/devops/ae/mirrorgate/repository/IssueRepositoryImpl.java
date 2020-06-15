@@ -13,12 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.SprintStats;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.utils.MirrorGateUtils.DoubleValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -28,30 +39,19 @@ import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Div
 import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators.Subtract;
 import org.springframework.data.mongodb.core.query.Criteria;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
-
 public class IssueRepositoryImpl implements IssueRepositoryCustom {
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
     @Override
-    public double getBacklogEstimateByKeywords(List<String> boards) {
+    public double getBacklogEstimateByKeywords(final List<String> boards) {
 
-        Aggregation agg = newAggregation(
+        final Aggregation agg = newAggregation(
             match(Criteria
                 .where("keywords").in(boards)
                 .and("sprintAssetState").ne("ACTIVE")
-                .and("type").in(Arrays.asList(IssueType.STORY.getName(),IssueType.BUG.getName()))
+                .and("type").in(Arrays.asList(IssueType.STORY.getName(), IssueType.BUG.getName()))
                 .and("status").nin(Arrays.asList(IssueStatus.ACCEPTED.getName(), IssueStatus.DONE.getName()))
             ),
             group()
@@ -61,29 +61,27 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom {
                 .andExclude("_id")
         );
 
-
-        AggregationResults<DoubleValue> groupResults
+        final AggregationResults<DoubleValue> groupResults
             = mongoTemplate.aggregate(agg, "issue", DoubleValue.class);
-        DoubleValue val = groupResults.getUniqueMappedResult();
+        final DoubleValue val = groupResults.getUniqueMappedResult();
 
         return val == null ? 0 : val.value;
     }
 
     @Override
-    public SprintStats getSprintStatsByKeywords(List<String> boards) {
+    public SprintStats getSprintStatsByKeywords(final List<String> boards) {
 
-        Aggregation agg = newAggregation(
+        final Aggregation agg = newAggregation(
             match(Criteria
                 .where("keywords").in(boards)
                 .and("sprintAssetState").is("CLOSED")
-                .and("type").in(Arrays.asList(IssueType.STORY.getName(),IssueType.BUG.getName()))
+                .and("type").in(Arrays.asList(IssueType.STORY.getName(), IssueType.BUG.getName()))
                 .and("status").in(Arrays.asList(IssueStatus.ACCEPTED.getName(), IssueStatus.DONE.getName()))
             ),
             group("sprintName")
                 .first("sprintBeginDate").as("start")
                 .first("sprintEndDate").as("end")
-                .sum("estimation").as("estimate")
-            ,
+                .sum("estimation").as("estimate"),
             group()
                 .avg("estimate").as("estimateAvg")
                 .avg(
@@ -93,20 +91,23 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom {
                         ).divideBy(3600 * 1000 * 24)
                     )
                 ).as("daysDurationAvg"),
-            project("daysDurationAvg","estimateAvg")
+            project("daysDurationAvg", "estimateAvg")
                 .andExclude("_id")
         );
 
-        AggregationResults<SprintStats> groupResults
+        final AggregationResults<SprintStats> groupResults
             = mongoTemplate.aggregate(agg, "issue", SprintStats.class);
-        return groupResults.getUniqueMappedResult();
 
+        return groupResults.getUniqueMappedResult();
     }
 
     @Override
-    public List<String> programIncrementBoardFeatures(List<String> boards, List<String> programIncrementFeatures){
+    public List<String> programIncrementBoardFeatures(
+        final List<String> boards,
+        final List<String> programIncrementFeatures
+    ) {
 
-        Aggregation agg = newAggregation(
+        final Aggregation agg = newAggregation(
             match(Criteria
                 .where("parentsKeys").in(programIncrementFeatures)
                 .and("keywords").in(boards)
@@ -119,18 +120,19 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom {
                 .andExclude("_id")
         );
 
-        AggregationResults<ProgramIncrementBoardFeatures> aggregationResult
+        final AggregationResults<ProgramIncrementBoardFeatures> aggregationResult
             = mongoTemplate.aggregate(agg, "issue", ProgramIncrementBoardFeatures.class);
 
-        return aggregationResult.getUniqueMappedResult() != null ? aggregationResult.getUniqueMappedResult().features : new ArrayList<>();
+        return aggregationResult.getUniqueMappedResult() != null ? aggregationResult.getUniqueMappedResult().features
+            : new ArrayList<>();
     }
 
     @Override
-    public ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(Pattern pi) {
+    public ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(final Pattern pi) {
 
-        Aggregation agg = newAggregation(
+        final Aggregation agg = newAggregation(
             match(Criteria
-                    .where("type").is(IssueType.FEATURE.getName())
+                .where("type").is(IssueType.FEATURE.getName())
             ),
             project("piNames").andExclude("_id"),
             unwind("piNames"),
@@ -140,7 +142,7 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom {
             group().addToSet("piNames").as("piNames")
         );
 
-        AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult
+        final AggregationResults<ProgramIncrementNamesAggregationResult> aggregationResult
             = mongoTemplate.aggregate(agg, "issue", ProgramIncrementNamesAggregationResult.class);
 
         return aggregationResult.getUniqueMappedResult();
@@ -149,7 +151,7 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom {
     private static class ProgramIncrementBoardFeatures {
         private final List<String> features;
 
-        ProgramIncrementBoardFeatures(List<String> features){
+        ProgramIncrementBoardFeatures(final List<String> features) {
             this.features = features;
         }
     }
@@ -158,7 +160,7 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom {
 
         private List<String> piNames;
 
-        public ProgramIncrementNamesAggregationResult(List<String> piNames){
+        public ProgramIncrementNamesAggregationResult(final List<String> piNames) {
             this.piNames = piNames;
         }
 
@@ -166,7 +168,7 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom {
             return piNames;
         }
 
-        public ProgramIncrementNamesAggregationResult setPiNames(List<String> piNames) {
+        public ProgramIncrementNamesAggregationResult setPiNames(final List<String> piNames) {
             this.piNames = piNames;
             return this;
         }

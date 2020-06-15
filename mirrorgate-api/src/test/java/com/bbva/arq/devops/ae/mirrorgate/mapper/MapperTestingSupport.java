@@ -16,21 +16,23 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.mapper;
 
-import org.junit.Assert;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import org.junit.Assert;
 
 class MapperTestingSupport {
 
-    static void assertBeanValues(Object o1, Object o2) throws IllegalAccessException, InvocationTargetException {
-        for (Method method : o1.getClass().getDeclaredMethods()) {
+    static void assertBeanValues(
+        final Object o1,
+        final Object o2
+    ) throws IllegalAccessException, InvocationTargetException {
+        for (final Method method : o1.getClass().getDeclaredMethods()) {
             if (method.getName().startsWith("get")) {
-                Object value = method.invoke(o1);
+                final Object value = method.invoke(o1);
 
                 Assert.assertNotNull(method.getName(), value);
                 Assert.assertEquals(method.getName(), value, method.invoke(o2));
@@ -38,14 +40,16 @@ class MapperTestingSupport {
         }
     }
 
-    static void initializeTypicalSetters(Object o) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    static void initializeTypicalSetters(
+        final Object o
+    ) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         int count = 0;
 
-        for (Method method : o.getClass().getDeclaredMethods()) {
+        for (final Method method : o.getClass().getDeclaredMethods()) {
             if (method.getName().startsWith("set")) {
-                String getter = method.getName().replaceFirst("set", "get");
-                if(o.getClass().getDeclaredMethod(getter).invoke(o) == null) {
-                    Class<?> argumentType = method.getParameterTypes()[0];
+                final String getter = method.getName().replaceFirst("set", "get");
+                if (o.getClass().getDeclaredMethod(getter).invoke(o) == null) {
+                    final Class<?> argumentType = method.getParameterTypes()[0];
                     if (argumentType == String.class) {
                         method.invoke(o, String.valueOf(count++));
                     } else if (argumentType == Integer.class) {

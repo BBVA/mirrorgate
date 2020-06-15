@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import static org.mockito.Mockito.when;
@@ -24,7 +25,7 @@ import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.BugService;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -61,21 +62,18 @@ public class BugControllerTests {
     @Test
     public void getBugsTest() throws Exception {
 
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        BugDTO bug1 = TestObjectFactory.createBugDTO();
-        BugDTO bug2 = TestObjectFactory.createBugDTO();
+        final BugDTO bug1 = TestObjectFactory.createBugDTO();
+        final BugDTO bug2 = TestObjectFactory.createBugDTO();
 
-        List<BugDTO> bugs = new ArrayList<>();
-        bugs.add(bug1);
-        bugs.add(bug2);
+        final List<BugDTO> bugs = Arrays.asList(bug1, bug2);
 
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
         when(bugService.getActiveBugsByBoards(Collections.singletonList(dashboard.getsProductName())))
-                .thenReturn(bugs);
+            .thenReturn(bugs);
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/bugs"))
-                .andExpect(status().isOk());
+            .andExpect(status().isOk());
     }
-
 }

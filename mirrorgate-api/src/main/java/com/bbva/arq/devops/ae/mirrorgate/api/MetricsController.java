@@ -16,23 +16,22 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.UserMetricDTO;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
 import com.bbva.arq.devops.ae.mirrorgate.service.MetricsService;
+import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import java.util.List;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class MetricsController {
@@ -41,7 +40,7 @@ public class MetricsController {
     private final DashboardService dashboardService;
 
     @Autowired
-    public MetricsController(MetricsService metricsService, DashboardService dashboardService) {
+    public MetricsController(final MetricsService metricsService, final DashboardService dashboardService) {
         this.metricsService = metricsService;
         this.dashboardService = dashboardService;
     }
@@ -52,23 +51,23 @@ public class MetricsController {
     }
 
     @RequestMapping(
-            method = GET,
-            value = "/api/user-metrics",
-            produces = APPLICATION_JSON_VALUE)
+        method = GET,
+        value = "/api/user-metrics",
+        produces = APPLICATION_JSON_VALUE)
     public List<UserMetricDTO> getAnalyticViewIdsByCollectorId(
-            @RequestParam("collectorId") String collectorId) {
+        final @RequestParam("collectorId") String collectorId
+    ) {
         return metricsService.getMetricsByCollectorId(collectorId);
     }
 
-    @RequestMapping(method = POST, value ="/api/user-metrics", produces = APPLICATION_JSON_VALUE)
-    public List<UserMetricDTO> saveMetrics(@Valid @RequestBody Iterable<UserMetricDTO> metrics) {
+    @RequestMapping(method = POST, value = "/api/user-metrics", produces = APPLICATION_JSON_VALUE)
+    public List<UserMetricDTO> saveMetrics(final @Valid @RequestBody Iterable<UserMetricDTO> metrics) {
         return metricsService.saveMetrics(metrics);
     }
 
-    @RequestMapping(method = GET, value ="/dashboards/{name}/user-metrics", produces = APPLICATION_JSON_VALUE)
-    public List<UserMetricDTO> getMetricsForBoard(@PathVariable("name") String name) {
-        DashboardDTO dashboard = dashboardService.getDashboard(name);
+    @RequestMapping(method = GET, value = "/dashboards/{name}/user-metrics", produces = APPLICATION_JSON_VALUE)
+    public List<UserMetricDTO> getMetricsForBoard(final @PathVariable("name") String name) {
+        final DashboardDTO dashboard = dashboardService.getDashboard(name);
         return metricsService.getMetricsForDashboard(dashboard);
     }
-
 }

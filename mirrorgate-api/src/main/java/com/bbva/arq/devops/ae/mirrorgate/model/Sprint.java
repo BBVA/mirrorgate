@@ -33,7 +33,7 @@ public class Sprint {
         return sprintId;
     }
 
-    public Sprint setSprintId(String id) {
+    public Sprint setSprintId(final String id) {
         this.sprintId = id;
         return this;
     }
@@ -42,7 +42,7 @@ public class Sprint {
         return name;
     }
 
-    public Sprint setName(String name) {
+    public Sprint setName(final String name) {
         this.name = name;
         return this;
     }
@@ -51,7 +51,7 @@ public class Sprint {
         return status;
     }
 
-    public Sprint setStatus(String status) {
+    public Sprint setStatus(final String status) {
         this.status = status;
         return this;
     }
@@ -69,7 +69,7 @@ public class Sprint {
         return endDate == null ? null : new Date(endDate.getTime());
     }
 
-    public Sprint setEndDate(Date endDate) {
+    public Sprint setEndDate(final Date endDate) {
         this.endDate = endDate == null ? null : new Date(endDate.getTime());
         return this;
     }
@@ -78,7 +78,7 @@ public class Sprint {
         return completeDate == null ? null : new Date(completeDate.getTime());
     }
 
-    public Sprint setCompleteDate(Date completeDate) {
+    public Sprint setCompleteDate(final Date completeDate) {
         this.completeDate = completeDate == null ? null : new Date(completeDate.getTime());
         return this;
     }
@@ -87,7 +87,7 @@ public class Sprint {
         return issues;
     }
 
-    public Sprint setIssues(List<Issue> issues) {
+    public Sprint setIssues(final List<Issue> issues) {
         this.issues = issues;
         return this;
     }

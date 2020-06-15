@@ -16,10 +16,17 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Issue;
 import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepositoryImpl.ProgramIncrementNamesAggregationResult;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueType;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
@@ -29,15 +36,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 @RunWith(SpringRunner.class)
 @DataMongoTest
 public class IssueRepositoryImplTest {
@@ -46,7 +44,7 @@ public class IssueRepositoryImplTest {
     private IssueRepository issueRepository;
 
     @Before
-    public void init(){
+    public void init() {
         issueRepository.save(createFeature(Arrays.asList("PI2", "PI5", "PI3"), "feature1"));
         issueRepository.save(createFeature(Arrays.asList("PI3", "PI4", "PI1"), "feature2"));
         issueRepository.save(createActiveStory("mirrorgate", "issue1"));
@@ -56,21 +54,25 @@ public class IssueRepositoryImplTest {
     }
 
     @After
-    public void clean(){
+    public void clean() {
         issueRepository.deleteAll();
     }
 
     @Test
-    public void testFeatureAndPIComeFromTeam(){
-        final List<String> boardPIFeatures = issueRepository.programIncrementBoardFeatures(Collections.singletonList("mirrorgate"), Arrays.asList("issue1", "issue2"));
+    public void testFeatureAndPIComeFromTeam() {
+        final List<String> boardPIFeatures = issueRepository.programIncrementBoardFeatures(
+            Collections.singletonList("mirrorgate"), Arrays.asList("issue1", "issue2")
+        );
 
         assertEquals(2, boardPIFeatures.size());
     }
 
 
     @Test
-    public void testAggregationWithResults(){
-        final ProgramIncrementNamesAggregationResult piNames = issueRepository.getProductIncrementFromPiPattern(Pattern.compile("^PI.*$"));
+    public void testAggregationWithResults() {
+        final ProgramIncrementNamesAggregationResult piNames = issueRepository.getProductIncrementFromPiPattern(
+            Pattern.compile("^PI.*$")
+        );
 
         assertEquals(piNames.getPiNames().size(), 5);
         assertTrue(piNames.getPiNames().contains("PI1"));
@@ -81,12 +83,14 @@ public class IssueRepositoryImplTest {
     }
 
     @Test
-    public void testAggregationWithoutResults(){
-        final ProgramIncrementNamesAggregationResult piNames = issueRepository.getProductIncrementFromPiPattern(Pattern.compile("aaa"));
+    public void testAggregationWithoutResults() {
+        final ProgramIncrementNamesAggregationResult piNames = issueRepository.getProductIncrementFromPiPattern(
+            Pattern.compile("aaa")
+        );
         assertNull(piNames);
     }
 
-    private Issue createFeature(List<String> piNames, String number) {
+    private Issue createFeature(final List<String> piNames, final String number) {
         return new Issue()
             .setProjectName("mirrorgate")
             .setPiNames(piNames)
@@ -95,7 +99,7 @@ public class IssueRepositoryImplTest {
             .setNumber(number);
     }
 
-    private static Issue createActiveStory(String projectName, String parentKey) {
+    private static Issue createActiveStory(final String projectName, final String parentKey) {
         return new Issue()
             .setIssueId(ObjectId.get().toString())
             .setSprintAssetState("Active")
@@ -104,5 +108,4 @@ public class IssueRepositoryImplTest {
             .setParentsKeys(Collections.singletonList(parentKey))
             .setKeywords(Collections.singletonList(projectName));
     }
-
 }

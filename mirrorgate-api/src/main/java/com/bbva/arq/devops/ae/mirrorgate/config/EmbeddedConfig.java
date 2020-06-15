@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.config;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
@@ -23,7 +24,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * Application Configuration with basic http security
+ * Application Configuration with basic http security.
  */
 @Configuration
 @Profile("embedded")
@@ -31,14 +32,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class EmbeddedConfig  extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http
             .cors()
-                .and()
+            .and()
             .csrf()
-                .disable()
+            .disable()
             .authorizeRequests()
-                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll(); // Disabling actuation security
+            .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll(); // Disabling actuation security
     }
 
 }

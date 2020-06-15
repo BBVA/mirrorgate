@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.BugDTO;
@@ -22,13 +23,12 @@ import com.bbva.arq.devops.ae.mirrorgate.support.BugPriority;
 import com.bbva.arq.devops.ae.mirrorgate.support.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BugServiceImpl implements BugService {
@@ -37,9 +37,13 @@ public class BugServiceImpl implements BugService {
     private IssueRepository repository;
 
     @Override
-    public List<BugDTO> getActiveBugsByBoards(List<String> boards) {
+    public List<BugDTO> getActiveBugsByBoards(final List<String> boards) {
 
-        final List<Issue> issues = repository.findByKeywordsInAndTypeAndStatusNot(boards, IssueType.BUG.getName(), IssueStatus.DONE.getName());
+        final List<Issue> issues = repository.findByKeywordsInAndTypeAndStatusNot(
+            boards,
+            IssueType.BUG.getName(),
+            IssueStatus.DONE.getName()
+        );
 
         return issues.stream()
             .map((issue) -> new BugDTO()
@@ -49,12 +53,14 @@ public class BugServiceImpl implements BugService {
             ).collect(Collectors.toList());
     }
 
-    private static final Map<String, BugPriority> PRIORITY_MAP = new HashMap<>() {{
-        put("Highest", BugPriority.CRITICAL);
-        put("High", BugPriority.MAJOR);
-        put("Medium", BugPriority.MEDIUM);
-        put("Low", BugPriority.MINOR);
-        put("Lowest", BugPriority.MINOR);
-    }};
+    private static final Map<String, BugPriority> PRIORITY_MAP = new HashMap<>() {
+        {
+            put("Highest", BugPriority.CRITICAL);
+            put("High", BugPriority.MAJOR);
+            put("Medium", BugPriority.MEDIUM);
+            put("Low", BugPriority.MINOR);
+            put("Lowest", BugPriority.MINOR);
+        }
+    };
 
 }

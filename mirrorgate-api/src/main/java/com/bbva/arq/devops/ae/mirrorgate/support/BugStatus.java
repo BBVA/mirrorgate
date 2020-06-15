@@ -21,11 +21,15 @@ import java.util.Map;
 
 public enum BugStatus {
 
-    IN_PROGRESS("In Progress"), DONE("Done"), BACKLOG("Backlog"), WAITING("Waiting"), IMPEDED("Impeded");
+    IN_PROGRESS("In Progress"),
+    DONE("Done"),
+    BACKLOG("Backlog"),
+    WAITING("Waiting"),
+    IMPEDED("Impeded");
 
     private static final Map<String, BugStatus> NAME_MAP = new HashMap<>() {
         {
-            for (BugStatus st : BugStatus.values()) {
+            for (final BugStatus st : BugStatus.values()) {
                 put(st.getName(), st);
             }
         }
@@ -33,7 +37,7 @@ public enum BugStatus {
 
     private final String name;
 
-    BugStatus(String name) {
+    BugStatus(final String name) {
         this.name = name;
     }
 
@@ -41,7 +45,7 @@ public enum BugStatus {
         return name;
     }
 
-    public static BugStatus fromName(String name) {
+    public static BugStatus fromName(final String name) {
         return name == null ? null : NAME_MAP.get(name);
     }
 

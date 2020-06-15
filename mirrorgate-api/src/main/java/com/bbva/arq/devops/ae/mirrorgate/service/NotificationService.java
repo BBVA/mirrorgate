@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.NotificationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
-import org.bson.types.ObjectId;
-
 import java.util.List;
+import org.bson.types.ObjectId;
 
 public interface NotificationService {
 

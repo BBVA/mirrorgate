@@ -17,11 +17,10 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.UserMetric;
-
 import java.util.List;
 
 public interface UserMetricsRepositoryCustom {
 
-    List<UserMetric> findAllStartingWithViewId(List<String> viewIds);
+    List<UserMetric> findAllStartingWithViewId(final List<String> viewIds);
 
 }

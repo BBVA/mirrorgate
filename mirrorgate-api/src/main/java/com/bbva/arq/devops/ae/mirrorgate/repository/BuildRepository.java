@@ -17,20 +17,23 @@
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 /**
  * Builds repository.
  */
 public interface BuildRepository extends CrudRepository<Build, ObjectId>, BuildRepositoryCustom {
 
-    Build findById(String buildUrl);
+    Build findById(final String buildUrl);
 
-    List<Build> findAllByIdIn(List<String> ids);
+    List<Build> findAllByIdIn(final List<String> ids);
 
-    List<Build> findAllByProjectNameAndRepoNameAndBranchAndLatestIsTrue(String projectName, String repoName, String branch);
+    List<Build> findAllByProjectNameAndRepoNameAndBranchAndLatestIsTrue(
+        final String projectName,
+        final String repoName,
+        final String branch
+    );
 
 }

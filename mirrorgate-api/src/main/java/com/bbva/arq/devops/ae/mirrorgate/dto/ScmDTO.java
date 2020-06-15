@@ -25,7 +25,7 @@ public class ScmDTO {
         return secondsToMaster;
     }
 
-    public ScmDTO setSecondsToMaster(Double secondsToMaster) {
+    public ScmDTO setSecondsToMaster(final Double secondsToMaster) {
         this.secondsToMaster = secondsToMaster;
         return this;
     }
@@ -34,7 +34,7 @@ public class ScmDTO {
         return commitsPerDay;
     }
 
-    public ScmDTO setCommitsPerDay(Double commitsPerDay) {
+    public ScmDTO setCommitsPerDay(final Double commitsPerDay) {
         this.commitsPerDay = commitsPerDay;
         return this;
     }

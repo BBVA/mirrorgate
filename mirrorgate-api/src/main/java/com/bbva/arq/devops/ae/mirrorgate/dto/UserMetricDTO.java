@@ -69,7 +69,7 @@ public class UserMetricDTO {
             + collectorId;
     }
 
-    public UserMetricDTO setIdentifier(String identifier) {
+    public UserMetricDTO setIdentifier(final String identifier) {
         this.identifier = identifier;
         return this;
     }
@@ -78,7 +78,7 @@ public class UserMetricDTO {
         return viewId;
     }
 
-    public UserMetricDTO setViewId(String viewId) {
+    public UserMetricDTO setViewId(final String viewId) {
         this.viewId = viewId;
         return this;
     }
@@ -87,7 +87,7 @@ public class UserMetricDTO {
         return appVersion;
     }
 
-    public UserMetricDTO setAppVersion(String appVersion) {
+    public UserMetricDTO setAppVersion(final String appVersion) {
         this.appVersion = appVersion;
         return this;
     }
@@ -96,7 +96,7 @@ public class UserMetricDTO {
         return platform;
     }
 
-    public UserMetricDTO setPlatform(String platform) {
+    public UserMetricDTO setPlatform(final String platform) {
         this.platform = platform;
         return this;
     }
@@ -105,7 +105,7 @@ public class UserMetricDTO {
         return name;
     }
 
-    public UserMetricDTO setName(String name) {
+    public UserMetricDTO setName(final String name) {
         this.name = name;
         return this;
     }
@@ -114,7 +114,7 @@ public class UserMetricDTO {
         return value;
     }
 
-    public UserMetricDTO setValue(Double value) {
+    public UserMetricDTO setValue(final Double value) {
         this.value = value;
         return this;
     }
@@ -123,7 +123,7 @@ public class UserMetricDTO {
         return sampleSize;
     }
 
-    public UserMetricDTO setSampleSize(long sampleSize) {
+    public UserMetricDTO setSampleSize(final long sampleSize) {
         this.sampleSize = sampleSize;
         return this;
     }
@@ -132,7 +132,7 @@ public class UserMetricDTO {
         return timestamp;
     }
 
-    public UserMetricDTO setTimestamp(long timestamp) {
+    public UserMetricDTO setTimestamp(final long timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -141,7 +141,7 @@ public class UserMetricDTO {
         return oneHourValue;
     }
 
-    public UserMetricDTO setOneHourValue(Double oneHourValue) {
+    public UserMetricDTO setOneHourValue(final Double oneHourValue) {
         this.oneHourValue = oneHourValue;
         return this;
     }
@@ -150,7 +150,7 @@ public class UserMetricDTO {
         return oneHourSampleSize;
     }
 
-    public UserMetricDTO setOneHourSampleSize(Long oneHourSampleSize) {
+    public UserMetricDTO setOneHourSampleSize(final Long oneHourSampleSize) {
         this.oneHourSampleSize = oneHourSampleSize;
         return this;
     }
@@ -159,7 +159,7 @@ public class UserMetricDTO {
         return eightHoursValue;
     }
 
-    public UserMetricDTO setEightHoursValue(Double eightHoursValue) {
+    public UserMetricDTO setEightHoursValue(final Double eightHoursValue) {
         this.eightHoursValue = eightHoursValue;
         return this;
     }
@@ -168,7 +168,7 @@ public class UserMetricDTO {
         return eightHoursSampleSize;
     }
 
-    public UserMetricDTO setEightHoursSampleSize(Long eightHoursSampleSize) {
+    public UserMetricDTO setEightHoursSampleSize(final Long eightHoursSampleSize) {
         this.eightHoursSampleSize = eightHoursSampleSize;
         return this;
     }
@@ -177,7 +177,7 @@ public class UserMetricDTO {
         return oneDayValue;
     }
 
-    public UserMetricDTO setOneDayValue(Double oneDayValue) {
+    public UserMetricDTO setOneDayValue(final Double oneDayValue) {
         this.oneDayValue = oneDayValue;
         return this;
     }
@@ -186,7 +186,7 @@ public class UserMetricDTO {
         return oneDaySampleSize;
     }
 
-    public UserMetricDTO setOneDaySampleSize(Long oneDaySampleSize) {
+    public UserMetricDTO setOneDaySampleSize(final Long oneDaySampleSize) {
         this.oneDaySampleSize = oneDaySampleSize;
         return this;
     }
@@ -195,7 +195,7 @@ public class UserMetricDTO {
         return sevenDaysValue;
     }
 
-    public UserMetricDTO setSevenDaysValue(Double sevenDaysValue) {
+    public UserMetricDTO setSevenDaysValue(final Double sevenDaysValue) {
         this.sevenDaysValue = sevenDaysValue;
         return this;
     }
@@ -204,7 +204,7 @@ public class UserMetricDTO {
         return sevenDaysSampleSize;
     }
 
-    public UserMetricDTO setSevenDaysSampleSize(Long sevenDaysSampleSize) {
+    public UserMetricDTO setSevenDaysSampleSize(final Long sevenDaysSampleSize) {
         this.sevenDaysSampleSize = sevenDaysSampleSize;
         return this;
     }
@@ -213,7 +213,7 @@ public class UserMetricDTO {
         return thirtyDaysValue;
     }
 
-    public UserMetricDTO setThirtyDaysValue(Double thirtyDaysValue) {
+    public UserMetricDTO setThirtyDaysValue(final Double thirtyDaysValue) {
         this.thirtyDaysValue = thirtyDaysValue;
         return this;
     }
@@ -222,7 +222,7 @@ public class UserMetricDTO {
         return thirtyDaysSampleSize;
     }
 
-    public UserMetricDTO setThirtyDaysSampleSize(Long thirtyDaysSampleSize) {
+    public UserMetricDTO setThirtyDaysSampleSize(final Long thirtyDaysSampleSize) {
         this.thirtyDaysSampleSize = thirtyDaysSampleSize;
         return this;
     }
@@ -231,7 +231,7 @@ public class UserMetricDTO {
         return ninetyDaysValue;
     }
 
-    public UserMetricDTO setNinetyDaysValue(Double ninetyDaysValue) {
+    public UserMetricDTO setNinetyDaysValue(final Double ninetyDaysValue) {
         this.ninetyDaysValue = ninetyDaysValue;
         return this;
     }
@@ -240,7 +240,7 @@ public class UserMetricDTO {
         return ninetyDaysSampleSize;
     }
 
-    public UserMetricDTO setNinetyDaysSampleSize(Long ninetyDaysSampleSize) {
+    public UserMetricDTO setNinetyDaysSampleSize(final Long ninetyDaysSampleSize) {
         this.ninetyDaysSampleSize = ninetyDaysSampleSize;
         return this;
     }
@@ -249,7 +249,7 @@ public class UserMetricDTO {
         return collectorId;
     }
 
-    public UserMetricDTO setCollectorId(String collectorId) {
+    public UserMetricDTO setCollectorId(final String collectorId) {
         this.collectorId = collectorId;
         return this;
     }

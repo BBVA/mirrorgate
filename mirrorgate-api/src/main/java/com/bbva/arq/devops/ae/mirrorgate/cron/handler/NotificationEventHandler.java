@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.cron.handler;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
@@ -20,15 +21,14 @@ import com.bbva.arq.devops.ae.mirrorgate.model.Event;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.model.Notification;
 import com.bbva.arq.devops.ae.mirrorgate.service.NotificationService;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component(value = "NotificationType")
 public class NotificationEventHandler implements EventHandler {
@@ -37,31 +37,32 @@ public class NotificationEventHandler implements EventHandler {
     private final NotificationService notificationService;
 
     @Autowired
-    public NotificationEventHandler(ProcessEventsHelper eventsHelper,
-                                    NotificationService notificationService) {
-
+    public NotificationEventHandler(
+        final ProcessEventsHelper eventsHelper,
+        final NotificationService notificationService
+    ) {
         this.eventsHelper = eventsHelper;
         this.notificationService = notificationService;
     }
 
 
     @Override
-    public void processEvents(List<Event> eventList, Set<String> dashboardIds) {
+    public void processEvents(final List<Event> eventList, final Set<String> dashboardIds) {
 
-        List<ObjectId> idList = eventList.stream()
+        final List<ObjectId> idList = eventList.stream()
             .map(Event::getCollectionId)
             .filter(ObjectId.class::isInstance)
             .map(ObjectId.class::cast)
             .collect(Collectors.toList());
 
-        List<Notification> listOfNotifications = notificationService.getNotificationsById(idList);
+        final List<Notification> listOfNotifications = notificationService.getNotificationsById(idList);
 
-        List<String> listOfDashboardsToNotify = listOfNotifications
+        final List<String> listOfDashboardsToNotify = listOfNotifications
             .stream()
             .flatMap(n -> n.getDashboardsToNotify() == null ? Stream.empty() : n.getDashboardsToNotify().stream())
             .collect(Collectors.toList());
 
-        Predicate<Dashboard> dashboardFilter = d -> listOfDashboardsToNotify.contains(d.getName());
+        final Predicate<Dashboard> dashboardFilter = d -> listOfDashboardsToNotify.contains(d.getName());
         eventsHelper.processEvents(dashboardIds, dashboardFilter, EventType.NOTIFICATION);
     }
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -37,16 +38,16 @@ public class SlackNotificationController {
     private final SlackService slackService;
 
     @Autowired
-    public SlackNotificationController(DashboardService dashboardService, SlackService slackService) {
+    public SlackNotificationController(final DashboardService dashboardService, final SlackService slackService) {
         this.dashboardService = dashboardService;
         this.slackService = slackService;
     }
 
     @RequestMapping(value = "/dashboards/{name}/notifications",
-            method = GET,
-            produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getWebSocket(@PathVariable("name") String name) {
-        DashboardDTO dashboard = dashboardService.getDashboard(name);
+        method = GET,
+        produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getWebSocket(final @PathVariable("name") String name) {
+        final DashboardDTO dashboard = dashboardService.getDashboard(name);
 
         if (dashboard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Dashboard not found");
@@ -57,12 +58,14 @@ public class SlackNotificationController {
             notification = slackService.getWebSocket(
                 dashboard.getSlackTeam(),
                 dashboard.getSlackToken());
-        } catch(ResourceAccessException e) {
-            return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("Error getting slack web socket: " + e.getMessage());
+        } catch (ResourceAccessException e) {
+            return ResponseEntity
+                .status(HttpStatus.FAILED_DEPENDENCY)
+                .body("Error getting slack web socket: " + e.getMessage());
         }
 
-        return notification.isOk() ?
-            ResponseEntity.ok(notification.getUrl()) :
-            ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
+        return notification.isOk()
+            ? ResponseEntity.ok(notification.getUrl())
+            : ResponseEntity.status(HttpStatus.CONFLICT).body(notification.getError());
     }
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import static junit.framework.TestCase.assertTrue;
@@ -42,14 +43,14 @@ public class DashboardServiceTestsIT {
 
     @Test
     public void testMongo() {
-        Dashboard dashboard = new Dashboard()
-                .setName("mirrorgate")
-                .setsProductName("mirrorgate")
-                .setApplications(Collections.singletonList("mirrorgate"));
+        final Dashboard dashboard = new Dashboard()
+            .setName("mirrorgate")
+            .setsProductName("mirrorgate")
+            .setApplications(Collections.singletonList("mirrorgate"));
 
         dashboardRepository.save(dashboard);
 
-        List<String> dashboardFromMongo = dashboardService.getApplicationsByDashboardName("mirrorgate");
+        final List<String> dashboardFromMongo = dashboardService.getApplicationsByDashboardName("mirrorgate");
 
         assertTrue(dashboardFromMongo.contains("mirrorgate"));
 

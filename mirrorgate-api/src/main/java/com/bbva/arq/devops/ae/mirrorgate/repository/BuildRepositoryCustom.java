@@ -19,14 +19,20 @@ package com.bbva.arq.devops.ae.mirrorgate.repository;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
-
 import java.util.List;
 import java.util.Map;
 
 public interface BuildRepositoryCustom {
 
-    List<Build> findLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
+    List<Build> findLastBuildsByKeywordsAndByTeamMembers(
+        final List<String> keywords,
+        final List<String> teamMembers
+    );
 
-    Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(List<String> keywords, List<String> teamMembers, Long timestamp);
+    Map<BuildStatus, BuildStats> getBuildStatusStatsAfterTimestamp(
+        final List<String> keywords,
+        final List<String> teamMembers,
+        final Long timestamp
+    );
 
 }

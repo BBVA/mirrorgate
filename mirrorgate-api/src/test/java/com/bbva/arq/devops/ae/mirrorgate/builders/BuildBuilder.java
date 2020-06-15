@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.builders;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
 import com.bbva.arq.devops.ae.mirrorgate.support.BuildStatus;
-import org.bson.types.ObjectId;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 public class BuildBuilder {
     private BuildBuilder() {}
@@ -30,18 +30,17 @@ public class BuildBuilder {
         return makeBuild("http://repo1.com/");
     }
 
-    public static Build makeBuild(String repoName, String branchName) {
+    public static Build makeBuild(final String repoName, final String branchName) {
         return makeBuild(repoName)
-                .setBranch(branchName);
+            .setBranch(branchName);
     }
 
-    public static Build makeBuild(String repoName,
-            String branchName, List<String> teamMembers) {
+    public static Build makeBuild(final String repoName, final String branchName, final List<String> teamMembers) {
         return makeBuild(repoName, branchName)
-                .setCulprits(teamMembers);
+            .setCulprits(teamMembers);
     }
 
-    public static Build makeBuild(String repoName) {
+    public static Build makeBuild(final String repoName) {
         return new Build()
             .setTimestamp(System.currentTimeMillis())
             .setNumber("1")
@@ -56,5 +55,4 @@ public class BuildBuilder {
             .setBranch("test")
             .setKeywords(Arrays.asList("buildUrl", "mirrorgate", repoName));
     }
-
 }

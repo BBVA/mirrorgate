@@ -6,7 +6,7 @@ import java.util.List;
 
 interface HistoricUserMetricService {
 
-    void addToCurrentPeriod(Iterable<UserMetric> saved);
+    void addToCurrentPeriod(final Iterable<UserMetric> saved);
 
-    List<UserMetricDTO> getHistoricMetrics(List<String> views);
+    List<UserMetricDTO> getHistoricMetrics(final List<String> views);
 }

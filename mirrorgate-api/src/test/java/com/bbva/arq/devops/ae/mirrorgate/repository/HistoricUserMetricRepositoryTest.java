@@ -44,8 +44,8 @@ public class HistoricUserMetricRepositoryTest {
     private HistoricUserMetricRepository repository;
 
     @Before
-    public void init(){
-        HistoricUserMetric userMetric1 = new HistoricUserMetric()
+    public void init() {
+        final HistoricUserMetric userMetric1 = new HistoricUserMetric()
             .setIdentifier("requestsNumber1")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -53,7 +53,7 @@ public class HistoricUserMetricRepositoryTest {
             .setValue(12d)
             .setSampleSize(0L)
             .setTimestamp(TODAY);
-        HistoricUserMetric userMetric2 = new HistoricUserMetric()
+        final HistoricUserMetric userMetric2 = new HistoricUserMetric()
             .setIdentifier("requestsNumber2")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -61,7 +61,7 @@ public class HistoricUserMetricRepositoryTest {
             .setValue(16d)
             .setSampleSize(0L)
             .setTimestamp(TODAY);
-        HistoricUserMetric userMetric3 = new HistoricUserMetric()
+        final HistoricUserMetric userMetric3 = new HistoricUserMetric()
             .setIdentifier("requestsNumber3")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -69,7 +69,7 @@ public class HistoricUserMetricRepositoryTest {
             .setValue(14d)
             .setSampleSize(0L)
             .setTimestamp(TODAY);
-        HistoricUserMetric userMetric4 = new HistoricUserMetric()
+        final HistoricUserMetric userMetric4 = new HistoricUserMetric()
             .setIdentifier("responseTime4")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -77,7 +77,7 @@ public class HistoricUserMetricRepositoryTest {
             .setValue(3000d)
             .setSampleSize(100L)
             .setTimestamp(TODAY);
-        HistoricUserMetric userMetric5 = new HistoricUserMetric()
+        final HistoricUserMetric userMetric5 = new HistoricUserMetric()
             .setIdentifier("responseTime5")
             .setViewId("AWS/Mirrorgate")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -85,7 +85,7 @@ public class HistoricUserMetricRepositoryTest {
             .setValue(2000d)
             .setSampleSize(150L)
             .setTimestamp(TODAY);
-        HistoricUserMetric userMetric6 = new HistoricUserMetric()
+        final HistoricUserMetric userMetric6 = new HistoricUserMetric()
             .setIdentifier("requestsNumber6")
             .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -93,7 +93,7 @@ public class HistoricUserMetricRepositoryTest {
             .setValue(12d)
             .setSampleSize(0L)
             .setTimestamp(TODAY);
-        HistoricUserMetric userMetric7 = new HistoricUserMetric()
+        final HistoricUserMetric userMetric7 = new HistoricUserMetric()
             .setIdentifier("requestsNumber7")
             .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -101,7 +101,7 @@ public class HistoricUserMetricRepositoryTest {
             .setValue(16d)
             .setSampleSize(0L)
             .setTimestamp(TODAY);
-        HistoricUserMetric userMetric8 = new HistoricUserMetric()
+        final HistoricUserMetric userMetric8 = new HistoricUserMetric()
             .setIdentifier("requestsNumber8")
             .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -109,7 +109,7 @@ public class HistoricUserMetricRepositoryTest {
             .setValue(14d)
             .setSampleSize(0L)
             .setTimestamp(TODAY);
-        HistoricUserMetric userMetric9 = new HistoricUserMetric()
+        final HistoricUserMetric userMetric9 = new HistoricUserMetric()
             .setIdentifier("responseTime9")
             .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -117,7 +117,7 @@ public class HistoricUserMetricRepositoryTest {
             .setValue(1500d)
             .setSampleSize(100L)
             .setTimestamp(TODAY);
-        HistoricUserMetric userMetric10 = new HistoricUserMetric()
+        final HistoricUserMetric userMetric10 = new HistoricUserMetric()
             .setIdentifier("responseTime10")
             .setViewId("ga:0000")
             .setHistoricType(ChronoUnit.MINUTES)
@@ -126,18 +126,31 @@ public class HistoricUserMetricRepositoryTest {
             .setSampleSize(150L)
             .setTimestamp(TODAY);
 
-        Iterable<HistoricUserMetric> minuteUserMetrics = Arrays
-            .asList(userMetric1, userMetric2, userMetric3, userMetric4, userMetric5, userMetric6, userMetric7, userMetric8, userMetric9, userMetric10);
+        final Iterable<HistoricUserMetric> minuteUserMetrics = Arrays.asList(
+            userMetric1,
+            userMetric2,
+            userMetric3,
+            userMetric4,
+            userMetric5,
+            userMetric6,
+            userMetric7,
+            userMetric8,
+            userMetric9,
+            userMetric10
+        );
 
         repository.saveAll(minuteUserMetrics);
     }
 
     @Test
-    public void testOperationMetricsAverages(){
-        List<HistoricUserMetricStats> result = repository
-            .getUserMetricTendencyForPeriod(Arrays.asList("ga:0000", "AWS/Mirrorgate"), ChronoUnit.MINUTES, LocalDateTimeHelper.getTimestampForNUnitsAgo(METRIC_MINUTES_PERIOD, ChronoUnit.MINUTES));
+    public void testOperationMetricsAverages() {
+        final List<HistoricUserMetricStats> result = repository.getUserMetricTendencyForPeriod(
+            Arrays.asList("ga:0000", "AWS/Mirrorgate"),
+            ChronoUnit.MINUTES,
+            LocalDateTimeHelper.getTimestampForNUnitsAgo(METRIC_MINUTES_PERIOD, ChronoUnit.MINUTES)
+        );
 
-        List<HistoricUserMetricStats> responseTimeResult = result
+        final List<HistoricUserMetricStats> responseTimeResult = result
             .stream()
             .filter(metric -> metric.getName().contains("responseTime"))
             .collect(Collectors.toList());
@@ -148,8 +161,7 @@ public class HistoricUserMetricRepositoryTest {
     }
 
     @After
-    public void clean(){
+    public void clean() {
         repository.deleteAll();
     }
-
 }

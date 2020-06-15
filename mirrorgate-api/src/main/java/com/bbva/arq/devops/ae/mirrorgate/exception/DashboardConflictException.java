@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.exception;
 
-/**
- *
- * @author enrique
- */
 public class DashboardConflictException extends RuntimeException {
 
-    public DashboardConflictException(String message) {
+    public DashboardConflictException(final String message) {
         super(message);
     }
 

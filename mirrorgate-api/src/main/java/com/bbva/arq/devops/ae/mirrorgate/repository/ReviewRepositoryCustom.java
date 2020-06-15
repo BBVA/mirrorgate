@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
@@ -25,17 +26,17 @@ public interface ReviewRepositoryCustom {
      * Get information from the applications with a list of the last reviews.
      *
      * @param names A list with the name of the applications
-     * @return List<ApplicationDTO>
+     * @return A List of Application
      */
-    List<ApplicationDTO> getAppInfoByAppNames(List<String> names);
+    List<ApplicationDTO> getAppInfoByAppNames(final List<String> names);
 
     /**
-     * Get the last review for each application
+     * Get the last review for each application.
      *
      * @param names A list with the name of the applications
-     * @return Al List of ApplicationReviews objects with reviews data
+     * @return A List of ApplicationReviews objects with reviews data
      */
-    List<ApplicationReviewsDTO> getLastReviewPerApplication(List<String> names);
+    List<ApplicationReviewsDTO> getLastReviewPerApplication(final List<String> names);
 
     /**
      * Get the average of star rating after the specified time of every application form a list of names.
@@ -44,6 +45,6 @@ public interface ReviewRepositoryCustom {
      * @param timestamp Looking applications rating after timestamp
      * @return the rating average
      */
-    List<ApplicationDTO> getAverageRateByAppNamesAfterTimestamp(List<String> names, Long timestamp);
+    List<ApplicationDTO> getAverageRateByAppNamesAfterTimestamp(final List<String> names, final Long timestamp);
 
 }

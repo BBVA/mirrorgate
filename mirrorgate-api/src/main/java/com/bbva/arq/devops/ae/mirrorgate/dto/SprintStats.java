@@ -25,7 +25,7 @@ public class SprintStats {
         return estimateAvg;
     }
 
-    public void setEstimateAvg(double estimateAvg) {
+    public void setEstimateAvg(final double estimateAvg) {
         this.estimateAvg = estimateAvg;
     }
 
@@ -33,7 +33,7 @@ public class SprintStats {
         return daysDurationAvg;
     }
 
-    public void setDaysDurationAvg(double daysDurationAvg) {
+    public void setDaysDurationAvg(final double daysDurationAvg) {
         this.daysDurationAvg = daysDurationAvg;
     }
 }

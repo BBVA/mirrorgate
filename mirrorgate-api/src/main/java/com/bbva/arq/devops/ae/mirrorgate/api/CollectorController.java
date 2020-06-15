@@ -16,19 +16,18 @@
 
 package com.bbva.arq.devops.ae.mirrorgate.api;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
 import com.bbva.arq.devops.ae.mirrorgate.service.CollectorService;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @RestController
 public class CollectorController {
@@ -42,14 +41,16 @@ public class CollectorController {
 
     @RequestMapping(value = "/api/collectors/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Date> getLastExecutionDate(final @PathVariable("id") String id) {
-         final Date date = collectorService.getLastExecutionDate(id);
+        final Date date = collectorService.getLastExecutionDate(id);
 
-         return date == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(date);
-
+        return date == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(date);
     }
 
     @RequestMapping(value = "/api/collectors/{id}", method = PUT, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> setLastExecutionDate(final @PathVariable("id") String id, final @RequestBody Date executionDate) {
+    public ResponseEntity<?> setLastExecutionDate(
+        final @PathVariable("id") String id,
+        final @RequestBody Date executionDate
+    ) {
         collectorService.saveLastExecutionDate(id, executionDate);
         return ResponseEntity.ok().build();
     }

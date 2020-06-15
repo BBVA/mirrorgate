@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Review;
@@ -30,8 +31,8 @@ public interface ReviewRepository extends CrudRepository<Review, ObjectId>, Revi
     List<Review> findAllHistorical();
 
     @Query(value = "{appname: {$in: ?0}, timestamp: null}")
-    List<Review> findHistoricalForApps(List<String> appname);
+    List<Review> findHistoricalForApps(final List<String> appname);
 
-    List<Review> findAllByCommentIdIn(List<String> commentIds);
+    List<Review> findAllByCommentIdIn(final List<String> commentIds);
 
 }

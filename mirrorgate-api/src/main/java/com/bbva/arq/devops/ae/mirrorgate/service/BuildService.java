@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.BuildStats;
 import com.bbva.arq.devops.ae.mirrorgate.model.Build;
-
 import java.util.List;
 
 /**
@@ -30,29 +30,32 @@ public interface BuildService {
      * Get last builds by keywords (repositories names, projects names or builds urls)
      * and filtered by team members if those exist.
      *
-     * @param keywords Keywords for searching
+     * @param keywords    Keywords for searching
      * @param teamMembers Team Members for searching
      * @return List of builds
      */
-    List<Build> getLastBuildsByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
+    List<Build> getLastBuildsByKeywordsAndByTeamMembers(final List<String> keywords, final List<String> teamMembers);
 
     /**
-     * Create a build from a request
+     * Create a build from a request.
      *
      * @param request Build request type
      * @return Id of the new Build
      */
-    BuildDTO createOrUpdate(BuildDTO request);
+    BuildDTO createOrUpdate(final BuildDTO request);
 
     /**
      * Get statistics of builds by keywords (repositories names, projects names or builds urls)
      * and filtered by team members if those exist.
      *
-     * @param keywords Keywords for searching
+     * @param keywords    Keywords for searching
      * @param teamMembers Team Members for searching
      * @return The stats of getting builds
      */
-    BuildStats getStatsAndTendenciesByKeywordsAndByTeamMembers(List<String> keywords, List<String> teamMembers);
+    BuildStats getStatsAndTendenciesByKeywordsAndByTeamMembers(
+        final List<String> keywords,
+        final List<String> teamMembers
+    );
 
     /**
      * Get all builds by Ids.
@@ -60,6 +63,6 @@ public interface BuildService {
      * @param ids Builds' ids
      * @return List of builds
      */
-    List<BuildDTO> getBuildsByIds(List<String> ids);
+    List<BuildDTO> getBuildsByIds(final List<String> ids);
 
 }

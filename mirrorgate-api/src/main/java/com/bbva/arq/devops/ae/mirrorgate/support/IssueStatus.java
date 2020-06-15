@@ -28,11 +28,13 @@ public enum IssueStatus {
     WAITING("Waiting"),
     IMPEDED("Impeded");
 
-    private static final Map<String, IssueStatus> NAME_MAP = new HashMap<>() {{
-        for (IssueStatus st : IssueStatus.values()) {
-            put(st.getName(), st);
+    private static final Map<String, IssueStatus> NAME_MAP = new HashMap<>() {
+        {
+            for (final IssueStatus st : IssueStatus.values()) {
+                put(st.getName(), st);
+            }
         }
-    }};
+    };
 
     private final String name;
 
@@ -44,7 +46,7 @@ public enum IssueStatus {
         return name;
     }
 
-    public static IssueStatus fromName(String name) {
+    public static IssueStatus fromName(final String name) {
         return name == null ? null : NAME_MAP.get(name);
     }
 }

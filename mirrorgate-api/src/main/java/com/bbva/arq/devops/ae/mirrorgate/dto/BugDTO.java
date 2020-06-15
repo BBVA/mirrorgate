@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.dto;
 
 import com.bbva.arq.devops.ae.mirrorgate.support.BugPriority;
@@ -28,7 +29,7 @@ public class BugDTO {
         return id;
     }
 
-    public BugDTO setId(String id) {
+    public BugDTO setId(final String id) {
         this.id = id;
         return this;
     }
@@ -37,7 +38,7 @@ public class BugDTO {
         return priority;
     }
 
-    public BugDTO setPriority(BugPriority priority) {
+    public BugDTO setPriority(final BugPriority priority) {
         this.priority = priority;
         return this;
     }
@@ -46,7 +47,7 @@ public class BugDTO {
         return status;
     }
 
-    public BugDTO setStatus(BugStatus status) {
+    public BugDTO setStatus(final BugStatus status) {
         this.status = status;
         return this;
     }

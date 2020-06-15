@@ -59,7 +59,7 @@ public class UserMetric implements BaseModel {
         return viewId;
     }
 
-    public UserMetric setViewId(String viewId) {
+    public UserMetric setViewId(final String viewId) {
         this.viewId = viewId;
         return this;
     }
@@ -68,7 +68,7 @@ public class UserMetric implements BaseModel {
         return appVersion;
     }
 
-    public UserMetric setAppVersion(String appVersion) {
+    public UserMetric setAppVersion(final String appVersion) {
         this.appVersion = appVersion;
         return this;
     }
@@ -77,7 +77,7 @@ public class UserMetric implements BaseModel {
         return platform;
     }
 
-    public UserMetric setPlatform(String platform) {
+    public UserMetric setPlatform(final String platform) {
         this.platform = platform;
         return this;
     }
@@ -86,7 +86,7 @@ public class UserMetric implements BaseModel {
         return name;
     }
 
-    public UserMetric setName(String name) {
+    public UserMetric setName(final String name) {
         this.name = name;
         return this;
     }
@@ -95,7 +95,7 @@ public class UserMetric implements BaseModel {
         return value;
     }
 
-    public UserMetric setValue(Double value) {
+    public UserMetric setValue(final Double value) {
         this.value = value;
         return this;
     }
@@ -104,7 +104,7 @@ public class UserMetric implements BaseModel {
         return timestamp;
     }
 
-    public UserMetric setTimestamp(Long timestamp) {
+    public UserMetric setTimestamp(final Long timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -113,7 +113,7 @@ public class UserMetric implements BaseModel {
         return collectorId;
     }
 
-    public UserMetric setCollectorId(String collectorId) {
+    public UserMetric setCollectorId(final String collectorId) {
         this.collectorId = collectorId;
         return this;
     }
@@ -122,7 +122,7 @@ public class UserMetric implements BaseModel {
         return sampleSize;
     }
 
-    public UserMetric setSampleSize(Long sampleSize) {
+    public UserMetric setSampleSize(final Long sampleSize) {
         this.sampleSize = sampleSize;
         return this;
     }

@@ -20,52 +20,57 @@ import com.bbva.arq.devops.ae.mirrorgate.connection.handler.ConnectionHandler;
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.bbva.arq.devops.ae.mirrorgate.service.DashboardService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 @Service
 public class ProcessEventsHelper {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessEventsHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProcessEventsHelper.class);
 
     private final ConnectionHandler connectionHandler;
     private final DashboardService dashboardService;
 
-
     @Autowired
-    public ProcessEventsHelper(DashboardService dashboardService, ConnectionHandler connectionHandler){
-
+    public ProcessEventsHelper(final DashboardService dashboardService, final ConnectionHandler connectionHandler) {
         this.dashboardService = dashboardService;
         this.connectionHandler = connectionHandler;
     }
 
-    void processEvents(Set<String> dashboardIds, Predicate<Dashboard> dashboardFilter, EventType eventType) {
+    void processEvents(
+        final Set<String> dashboardIds,
+        final Predicate<Dashboard> dashboardFilter,
+        final EventType eventType
+    ) {
 
-        List<Dashboard> dashboards = dashboardService.getDashboardWithNames(new ArrayList<>(dashboardIds));
+        final List<Dashboard> dashboards = dashboardService.getDashboardWithNames(new ArrayList<>(dashboardIds));
 
-        Map<String, List<String>> sourceAndTargets = new HashMap<>();
+        final Map<String, List<String>> sourceAndTargets = new HashMap<>();
 
         dashboards
             .forEach(d -> {
                 accumulateDashboard(sourceAndTargets, d, d.getName());
-                if(d.getAggregatedDashboards() != null) {
+                if (d.getAggregatedDashboards() != null) {
                     d.getAggregatedDashboards().forEach(ad -> accumulateDashboard(sourceAndTargets, d, ad));
                 }
             });
 
-        List<String> aggregatedNames = dashboards.stream()
+        final List<String> aggregatedNames = dashboards.stream()
             .filter(d -> d.getAggregatedDashboards() != null)
             .flatMap(d -> d.getAggregatedDashboards().stream())
             .distinct()
             .collect(Collectors.toList());
 
-        if(!aggregatedNames.isEmpty()) {
+        if (! aggregatedNames.isEmpty()) {
             dashboards.addAll(dashboardService.getDashboardWithNames(aggregatedNames));
         }
 
@@ -77,14 +82,18 @@ public class ProcessEventsHelper {
                 try {
                     connectionHandler.sendEventUpdateMessage(eventType, dName);
                 } catch (Exception unhandledException) {
-                    LOGGER.error("Unhandled exception calculating response of event", unhandledException);
+                    LOG.error("Unhandled exception calculating response of event", unhandledException);
                 }
             });
     }
 
-    private static void accumulateDashboard(Map<String, List<String>> sourceAndTargets, Dashboard d, String ad) {
-        List<String> target = sourceAndTargets.computeIfAbsent(ad, k -> new ArrayList<>());
-        target.add(d.getName());
+    private static void accumulateDashboard(
+        final Map<String, List<String>> sourceAndTargets,
+        final Dashboard dashboard,
+        final String accumulateDashboard
+    ) {
+        final List<String> target = sourceAndTargets.computeIfAbsent(accumulateDashboard, k -> new ArrayList<>());
+        target.add(dashboard.getName());
     }
 
 }

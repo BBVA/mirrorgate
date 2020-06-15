@@ -13,7 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.BugDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
@@ -24,20 +30,14 @@ import com.bbva.arq.devops.ae.mirrorgate.support.BugStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueStatus;
 import com.bbva.arq.devops.ae.mirrorgate.support.IssueType;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class BugServiceTests {
@@ -50,29 +50,29 @@ public class BugServiceTests {
     @Test
     public void getActiveBugsByBoardsTest() {
 
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        Issue bug1 = TestObjectFactory.createBug();
-        Issue bug2 = TestObjectFactory.createBug();
+        final Issue bug1 = TestObjectFactory.createBug();
+        final Issue bug2 = TestObjectFactory.createBug();
 
-        List<Issue> bugs = new ArrayList<>();
+        final List<Issue> bugs = new ArrayList<>();
         bugs.add(bug1);
         bugs.add(bug2);
 
         when(issueRepository.findByKeywordsInAndTypeAndStatusNot(
             Collections.singletonList(dashboard.getName()),
-                IssueType.BUG.getName(),
-                IssueStatus.DONE.getName())
+            IssueType.BUG.getName(),
+            IssueStatus.DONE.getName())
         ).thenReturn(bugs);
 
-        List<BugDTO> activeBugsByDashboardName
-                = bugService.getActiveBugsByBoards(Collections.singletonList(dashboard.getName()));
+        final List<BugDTO> activeBugsByDashboardName
+            = bugService.getActiveBugsByBoards(Collections.singletonList(dashboard.getName()));
         verify(issueRepository, times(1))
             .findByKeywordsInAndTypeAndStatusNot(
-                    Collections.singletonList(dashboard.getName()),
-                        IssueType.BUG.getName(),
-                        IssueStatus.DONE.getName()
-                );
+                Collections.singletonList(dashboard.getName()),
+                IssueType.BUG.getName(),
+                IssueStatus.DONE.getName()
+            );
 
         assertThat(activeBugsByDashboardName.get(0).getId()).isEqualTo(bug1.getNumber());
         assertThat(activeBugsByDashboardName.get(0).getPriority()).isEqualTo(BugPriority.fromName(bug1.getPriority()));

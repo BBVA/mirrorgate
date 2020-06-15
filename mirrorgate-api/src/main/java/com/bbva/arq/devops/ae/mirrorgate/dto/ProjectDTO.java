@@ -28,7 +28,7 @@ public class ProjectDTO implements Serializable {
         return id;
     }
 
-    public ProjectDTO setId(Long id) {
+    public ProjectDTO setId(final Long id) {
         this.id = id;
         return this;
     }
@@ -37,7 +37,7 @@ public class ProjectDTO implements Serializable {
         return name;
     }
 
-    public ProjectDTO setName(String name) {
+    public ProjectDTO setName(final String name) {
         this.name = name;
         return this;
     }
@@ -46,7 +46,7 @@ public class ProjectDTO implements Serializable {
         return key;
     }
 
-    public ProjectDTO setKey(String key) {
+    public ProjectDTO setKey(final String key) {
         this.key = key;
         return this;
     }

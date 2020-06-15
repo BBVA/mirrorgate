@@ -25,23 +25,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * Created by alfonso on 28/05/17.
- */
-
 @Configuration
 public class Config {
 
     @Bean
     public Jackson2ObjectMapperBuilder objectMapperBuilder() {
-        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+        final Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder.serializationInclusion(JsonInclude.Include.NON_NULL);
         return builder;
     }
 
     @Bean
     public FilterRegistrationBean<OneTimeETagGenerationFilter> shallowETagHeaderFilter() {
-        FilterRegistrationBean<OneTimeETagGenerationFilter> frb = new FilterRegistrationBean<>();
+        final FilterRegistrationBean<OneTimeETagGenerationFilter> frb = new FilterRegistrationBean<>();
         frb.setFilter(new OneTimeETagGenerationFilter());
         frb.addUrlPatterns(
                 "/backoffice/*",
@@ -57,7 +53,7 @@ public class Config {
     }
 
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+    public RestTemplate restTemplate(final RestTemplateBuilder builder) {
         return builder.build();
     }
 

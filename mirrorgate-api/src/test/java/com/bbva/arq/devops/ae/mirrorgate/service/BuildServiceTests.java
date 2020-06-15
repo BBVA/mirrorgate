@@ -13,22 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
-
-import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
-import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
-import com.bbva.arq.devops.ae.mirrorgate.model.Build;
-import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
-import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static com.bbva.arq.devops.ae.mirrorgate.builders.BuildBuilder.makeBuild;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,6 +23,20 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import com.bbva.arq.devops.ae.mirrorgate.dto.BuildDTO;
+import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
+import com.bbva.arq.devops.ae.mirrorgate.model.Build;
+import com.bbva.arq.devops.ae.mirrorgate.repository.BuildRepository;
+import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 public class BuildServiceTests {
@@ -129,7 +129,9 @@ public class BuildServiceTests {
 
         when(buildRepository.findAllByIdIn(any())).thenReturn(Arrays.asList(build1, build2));
 
-        final List<BuildDTO> builds = buildService.getBuildsByIds(Arrays.asList(build1.getId().toString(), build2.getId().toString()));
+        final List<BuildDTO> builds = buildService.getBuildsByIds(
+            Arrays.asList(build1.getId().toString(), build2.getId().toString())
+        );
 
         assertThat(builds.get(0).getBuildUrl()).isEqualTo(build1.getBuildUrl());
         assertThat(builds.get(1).getBuildUrl()).isEqualTo(build2.getBuildUrl());

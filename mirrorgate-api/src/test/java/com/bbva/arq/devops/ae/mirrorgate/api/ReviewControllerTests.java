@@ -13,7 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.api;
+
+import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.ApplicationDTO;
 import com.bbva.arq.devops.ae.mirrorgate.dto.DashboardDTO;
@@ -25,6 +36,9 @@ import com.bbva.arq.devops.ae.mirrorgate.service.ReviewService;
 import com.bbva.arq.devops.ae.mirrorgate.support.Platform;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestObjectFactory;
 import com.bbva.arq.devops.ae.mirrorgate.support.TestUtil;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,20 +54,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static com.bbva.arq.devops.ae.mirrorgate.mapper.ReviewMapper.map;
-import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ReviewController.class)
@@ -76,13 +76,13 @@ public class ReviewControllerTests {
 
     @Test
     public void getApplicationReviewRatingsTest() throws Exception {
-        DashboardDTO dashboard = TestObjectFactory.createDashboard();
+        final DashboardDTO dashboard = TestObjectFactory.createDashboard();
 
-        String appName1 = "mirrorgateApp";
-        String appName2 = "mirrorgateApp2";
-        List<String> appsNames = Arrays.asList(appName1, appName2);
+        final String appName1 = "mirrorgateApp";
+        final String appName2 = "mirrorgateApp2";
+        final List<String> appsNames = Arrays.asList(appName1, appName2);
 
-        ApplicationDTO app1 = new ApplicationDTO()
+        final ApplicationDTO app1 = new ApplicationDTO()
             .setAppname(appName1)
             .setRatingTotal(1003)
             .setVotesTotal(2000L)
@@ -102,7 +102,7 @@ public class ReviewControllerTests {
             .setUrl("http://fake.org")
             .setShortTermLength(7)
             .setLongTermLength(30);
-        ApplicationDTO app2 = new ApplicationDTO()
+        final ApplicationDTO app2 = new ApplicationDTO()
             .setAppname(appName2)
             .setRatingTotal(1203)
             .setVotesTotal(56000L)
@@ -120,7 +120,8 @@ public class ReviewControllerTests {
 
         when(dashboardService.getApplicationsByDashboardName(dashboard.getName())).thenReturn(appsNames);
         when(dashboardService.getDashboard(dashboard.getName())).thenReturn(dashboard);
-        when(reviewService.getAverageRateByAppNames(appsNames, dashboard.getMarketsStatsDays())).thenReturn(Arrays.asList(app1, app2));
+        when(reviewService.getAverageRateByAppNames(appsNames, dashboard.getMarketsStatsDays()))
+            .thenReturn(Arrays.asList(app1, app2));
 
         this.mockMvc.perform(get("/dashboards/" + dashboard.getName() + "/applications"))
             .andExpect(status().isOk())
@@ -153,42 +154,42 @@ public class ReviewControllerTests {
 
     @Test
     public void createReviewTest() throws Exception {
-        Review review1 = createReview();
-        Review review2 = createReview();
+        final Review review1 = createReview();
+        final Review review2 = createReview();
 
-        List<Review> reviews = Arrays.asList(review1, review2);
-        List<String> ids = Arrays.asList(review1.getId().toString(),review2.getId().toString());
+        final List<Review> reviews = Arrays.asList(review1, review2);
+        final List<String> ids = Arrays.asList(review1.getId().toString(), review2.getId().toString());
 
         when(reviewService.saveAll(reviews)).thenReturn(ids);
 
         this.mockMvc.perform(post("/api/reviews")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(reviews)))
-                .andExpect(status().is(HttpStatus.CREATED.value()));
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(reviews)))
+            .andExpect(status().is(HttpStatus.CREATED.value()));
     }
 
     @Test
     public void createReviewFailTest() throws Exception {
-        Review review1 = createReview();
-        Review review2 = createReview();
+        final Review review1 = createReview();
+        final Review review2 = createReview();
 
-        List<Review> reviews = Arrays.asList(review1, review2);
+        final List<Review> reviews = Arrays.asList(review1, review2);
 
         when(reviewService.saveAll(any())).thenThrow(ReviewsConflictException.class);
 
         this.mockMvc.perform(post("/api/reviews")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(reviews)))
-                .andExpect(status().is(HttpStatus.CONFLICT.value()));
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(reviews)))
+            .andExpect(status().is(HttpStatus.CONFLICT.value()));
     }
 
     @Test
     public void createFeedbackReviewTest() throws Exception {
-        Review review = createFeedbackReview();
+        final Review review = createFeedbackReview();
 
         when(reviewService.saveApplicationReview(eq(review.getAppname()), any())).thenReturn(map(review));
 
-        MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
+        final MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
 
         this.mockMvc.perform(mockHSRB
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -199,11 +200,11 @@ public class ReviewControllerTests {
 
     @Test
     public void createFeedbackReviewBadRequestTest() throws Exception {
-        Review review = createFeedbackReview();
+        final Review review = createFeedbackReview();
 
         when(reviewService.saveApplicationReview(eq(review.getAppname()), any())).thenReturn(map(review));
 
-        MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
+        final MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
 
         this.mockMvc.perform(mockHSRB
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -228,11 +229,11 @@ public class ReviewControllerTests {
 
     @Test
     public void createFeedbackReviewRedirectTest() throws Exception {
-        Review review = createFeedbackReview();
+        final Review review = createFeedbackReview();
 
         when(reviewService.saveApplicationReview(eq(review.getAppname()), any())).thenReturn(map(review));
 
-        MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
+        final MockHttpServletRequestBuilder mockHSRB = post("/reviews/" + review.getAppname());
 
         this.mockMvc.perform(mockHSRB
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -243,7 +244,7 @@ public class ReviewControllerTests {
     }
 
     private Review createReview() {
-        Review review = new Review();
+        final Review review = new Review();
         review.setId(ObjectId.get());
         review.setAppname("MirrorGateApp");
         review.setAuthorName("Author");
@@ -255,7 +256,7 @@ public class ReviewControllerTests {
     }
 
     private Review createFeedbackReview() {
-        Review review = new Review();
+        final Review review = new Review();
         review.setId(ObjectId.get());
         review.setAppname("Foobar");
         review.setAuthorName("Author");
@@ -264,6 +265,4 @@ public class ReviewControllerTests {
 
         return review;
     }
-
 }
-

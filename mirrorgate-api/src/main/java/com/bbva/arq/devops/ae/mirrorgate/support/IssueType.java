@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.support;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public enum IssueType {
 
     private static final Map<String, IssueStatus> NAME_MAP = new HashMap<>() {
         {
-            for (IssueStatus st : IssueStatus.values()) {
+            for (final IssueStatus st : IssueStatus.values()) {
                 put(st.getName(), st);
             }
         }
@@ -44,7 +45,7 @@ public enum IssueType {
         return name;
     }
 
-    public static IssueStatus fromName(String name) {
+    public static IssueStatus fromName(final String name) {
         return name == null ? null : NAME_MAP.get(name);
     }
 

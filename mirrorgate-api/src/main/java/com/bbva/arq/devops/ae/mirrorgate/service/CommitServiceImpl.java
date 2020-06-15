@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.service;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.CommitDTO;
@@ -30,26 +31,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CommitServiceImpl implements CommitService{
+public class CommitServiceImpl implements CommitService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CommitServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CommitServiceImpl.class);
 
     private final CommitRepository repository;
 
     @Autowired
-    public CommitServiceImpl(CommitRepository repository){
+    public CommitServiceImpl(final CommitRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public List<CommitDTO> saveCommits(Iterable<CommitDTO> commits) {
-        LOGGER.info("Saving commits");
+    public List<CommitDTO> saveCommits(final Iterable<CommitDTO> commits) {
+        LOG.info("Saving commits");
 
-        List<Commit> toSave = StreamSupport.stream(commits.spliterator(), false)
+        final List<Commit> toSave = StreamSupport.stream(commits.spliterator(), false)
             .map(CommitMapper::map)
             .collect(Collectors.toList());
 
-        Iterable<Commit> saved = repository.saveAll(toSave);
+        final Iterable<Commit> saved = repository.saveAll(toSave);
 
         return StreamSupport.stream(saved.spliterator(), false)
             .map(CommitMapper::map)
@@ -57,13 +58,13 @@ public class CommitServiceImpl implements CommitService{
     }
 
     @Override
-    public ScmDTO getScmStats(List<String> repos) {
-        int daysBefore = 30;
-        long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-        long before = now - (daysBefore * 60 * 60 * 24);
+    public ScmDTO getScmStats(final List<String> repos) {
+        final int daysBefore = 30;
+        final long now = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        final long before = now - (daysBefore * 60 * 60 * 24);
 
-        Double secondsToMaster = repository.getSecondsToMaster(repos, before);
-        Double commitsPerDay = repository.getCommitsPerDay(repos, before, daysBefore);
+        final Double secondsToMaster = repository.getSecondsToMaster(repos, before);
+        final Double commitsPerDay = repository.getCommitsPerDay(repos, before, daysBefore);
 
         return new ScmDTO()
             .setSecondsToMaster(secondsToMaster)
@@ -76,5 +77,4 @@ public class CommitServiceImpl implements CommitService{
             .map(Commit::getHash)
             .collect(Collectors.toList());
     }
-
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.dto.SprintStats;
@@ -20,14 +21,13 @@ import com.bbva.arq.devops.ae.mirrorgate.repository.IssueRepositoryImpl.ProgramI
 import java.util.List;
 import java.util.regex.Pattern;
 
-
 public interface IssueRepositoryCustom {
 
-    double getBacklogEstimateByKeywords(List<String> boards);
+    double getBacklogEstimateByKeywords(final List<String> boards);
 
-    SprintStats getSprintStatsByKeywords(List<String> boards);
+    SprintStats getSprintStatsByKeywords(final List<String> boards);
 
-    ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(Pattern pi);
+    ProgramIncrementNamesAggregationResult getProductIncrementFromPiPattern(final Pattern pi);
 
-    List<String> programIncrementBoardFeatures(List<String> boards, List<String> programIncrementFeatures);
+    List<String> programIncrementBoardFeatures(final List<String> boards, final List<String> programIncrementFeatures);
 }

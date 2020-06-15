@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.repository;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.Dashboard;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
 /**
- * Dashboards Repository
+ * Dashboards Repository.
  */
 public interface DashboardRepository extends CrudRepository<Dashboard, ObjectId>, DashboardRepositoryCustom {
 
-    Dashboard findFirstByName(String name, Sort sort);
+    Dashboard findFirstByName(final String name, final Sort sort);
 
-    List<Dashboard> findByNameIn(List<String> dashboardNames);
+    List<Dashboard> findByNameIn(final List<String> dashboardNames);
 }

@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.bbva.arq.devops.ae.mirrorgate.exception;
 
-/**
- *
- * @author enrique
- */
 public class BuildConflictException extends RuntimeException {
 
-    public BuildConflictException(String message) {
+    public BuildConflictException(final String message) {
         super(message);
     }
 
