@@ -18,7 +18,6 @@ package com.bbva.arq.devops.ae.mirrorgate.connection.handler;
 
 import com.bbva.arq.devops.ae.mirrorgate.model.EventType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,10 +72,7 @@ public class ServerSentEventsHandler implements ConnectionHandler {
 
                 try {
                     final String jsonMessage = objectMapper.writeValueAsString(
-                        ImmutableMap
-                            .<String, String>builder()
-                            .put("type", event.getValue())
-                            .build()
+                        Map.of("type", event.getValue())
                     );
                     sseEmitter.send(jsonMessage, MediaType.APPLICATION_JSON);
                 } catch (IOException e) {
