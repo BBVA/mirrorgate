@@ -42,7 +42,7 @@
     "karma-read-json": "1.1.0",
     "karma-sinon": "1.0.5",
     "karma-webdriver-launcher": "1.0.8",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "selenium-standalone": "6.17.0",
     "sinon": "9.0.2",
     "uglify-js": "3.10.0"
