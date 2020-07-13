@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
+
 buildscript {
-    ext {
-        springBootVersion = '2.3.1.RELEASE'
-    }
+    ext.springBootVersion = '2.3.1.RELEASE'
     repositories {
         mavenCentral()
         jcenter()
@@ -58,8 +57,8 @@ jacocoTestReport {
     }
 }
 
-bootRun {
-    sourceResources sourceSets.main
+processResources {
+    expand(project.properties)
 }
 
 dependencies {
