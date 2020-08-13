@@ -16,8 +16,8 @@
     "harp": "0.32.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.13.1",
-    "bootstrap": "4.5.0",
+    "@fortawesome/fontawesome-free": "5.14.0",
+    "bootstrap": "4.5.2",
     "jquery": "3.5.1",
     "popper.js": "1.16.1"
   }
