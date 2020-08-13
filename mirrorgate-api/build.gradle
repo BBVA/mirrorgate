@@ -16,7 +16,7 @@
 
 
 buildscript {
-    ext.springBootVersion = '2.3.1.RELEASE'
+    ext.springBootVersion = '2.3.2.RELEASE'
     repositories {
         mavenCentral()
         jcenter()
@@ -24,7 +24,7 @@ buildscript {
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.28.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.29.0'
     }
 }
 
@@ -69,7 +69,7 @@ dependencies {
         'org.springframework.boot:spring-boot-starter-actuator',
         'org.springframework.boot:spring-boot-starter-websocket',
         'org.springframework.boot:spring-boot-starter-validation',
-        'org.springdoc:springdoc-openapi-ui:1.4.3',
+        'org.springdoc:springdoc-openapi-ui:1.4.4',
         'com.github.allbegray:slack-api:1.7.0.RELEASE'
     )
 
