@@ -14,63 +14,61 @@
  * limitations under the License.
  */
 
-.team{
+.team {
+  svg text {
+    fill: $headers-color;
+    text-anchor: middle;
+    font-size: 71px;
+  }
 
-    svg text {
-      fill: $headers-color;
-      text-anchor: middle;
-      font-size: 71px;
-    }
+  svg span {
+    font-size: 40px;
+  }
 
-    svg span {
-      font-size: 40px;
-    }
+  svg p > span {
+    text-align: center;
+    display: block;
+  }
 
-    svg p>span {
-      text-align: center;
-      display: block;
-    }
+  .story-name {
+    font-size: 40px;
+    line-height: 55px;
+    max-height: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+  }
 
-    .story-name {
-      font-size: 40px;
-      line-height: 55px;
-      max-height: 160px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      display: -webkit-box;
-    }
+  .story-estimate {
+    padding-top: 20px;
+    font-size: 30px;
+  }
 
-    .story-estimate {
-      padding-top: 20px;
-      font-size: 30px;
-    }
+  .story-points {
+    margin: 0px;
+    padding: 0px;
+    font-size: 200px;
+    line-height: 180px;
+  }
 
-    .story-points {
-      margin: 0px;
-      padding: 0px;
-      font-size: 200px;
-      line-height: 180px;
-    }
+  .dimmed path {
+    fill-opacity: 0.3;
+    stroke-opacity: 0.3;
+  }
 
-    .dimmed .outher path {
-      fill-opacity: 0.3;
-      stroke-opacity: 0.3;
-    }
-
-    .dimmed path:hover {
-      cursor: pointer;
-      fill-opacity: 1;
-      stroke-opacity: 1;
-    }
-
+  .dimmed path:hover {
+    fill-opacity: 1;
+    stroke-opacity: 1;
+    cursor: pointer;
+  }
 }
 
 @media all and (min-width: $l) {
-    .data-number{
-      font-size: $level-2;
-    }
+  .data-number {
+    font-size: $level-2;
+  }
 }
 
 @media all and (min-width: $xxl) {
@@ -90,7 +88,6 @@
 }
 
 .next-sprint {
-
   font-size: 1.5rem;
 
   .backlog-status {
@@ -98,7 +95,7 @@
   }
 
   .velocity-line {
-    background-color:invert($background-color);
+    background-color: invert($background-color);
     height: 33px;
     left: 70%;
     position: absolute;
@@ -129,5 +126,4 @@
   .backlog__bar-success {
     background-color: $green;
   }
-
 }
