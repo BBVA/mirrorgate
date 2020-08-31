@@ -3,7 +3,7 @@
   "stats":{"duration":251261.80597014926,"count":268,"failureRate":0.0},
   "lastBuilds": [
     {
-      "timestamp": 1491346611790,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -29,7 +29,7 @@
       "branch": "master"
     },
     {
-      "timestamp": 1490951397,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -42,7 +42,7 @@
       "branch": "test"
     },
     {
-      "timestamp": 1490884515691,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -55,7 +55,7 @@
       "branch": "test"
     },
     {
-      "timestamp": 1490955139,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -69,7 +69,7 @@
       "culprits": ["Xayide", "Gmork"]
     },
     {
-      "timestamp": 1491291464,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -82,7 +82,7 @@
       "branch": "br2"
     },
     {
-      "timestamp": 1491235135,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -95,7 +95,7 @@
       "branch": "null"
     },
     {
-      "timestamp": 1491315082,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -108,7 +108,7 @@
       "branch": "null"
     },
     {
-      "timestamp": 1491552418105,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -121,7 +121,7 @@
       "branch": "develop"
     },
     {
-      "timestamp": 1491584773370,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -134,7 +134,7 @@
       "branch": "feature/DOST"
     },
     {
-      "timestamp": 1491316557995,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
@@ -147,7 +147,7 @@
       "branch": "PR-1"
     },
     {
-      "timestamp": 1491316555453,
+      "timestamp": 1598864450000,
       "number": null,
       "buildUrl": "http://fake.url",
       "startTime": 0,
