@@ -238,7 +238,7 @@
           return order[a.status] < order[b.status] ? -1 : 1;
         });
 
-        svg.on('mouseout', function (d) {
+        svg.on('mouseout', function (event, d) {
           svg.classed('dimmed', false)
           model.selected = undefined;
         });
@@ -249,13 +249,13 @@
           .attr("d", arc)
           .attr("class", storyClassBuilder('status-'));
         arcUpdate.enter().append("path")
-          .on('mouseenter', function (d) {
+          .on('mouseenter', function (event, d) {
             if (!d.data.hide) {
               model.selected = d.data;
               svg.classed('dimmed', true);
             }
           })
-          .on('click', function (d) {
+          .on('click', function (event, d) {
             var data = d.data;
             data && data.url && window.open(data.url);
           })

@@ -168,7 +168,7 @@
       render: function (data) {
         var model = this.getModel();
 
-        function mouseEnterHandler(d) {
+        function mouseEnterHandler(event, d) {
           model.selected = d.data;
           svg.classed('dimmed', true);
         }
@@ -253,7 +253,7 @@
             .select("g.main").attr("transform",
               "translate(" + radius + "," + (radius + marginTop) + ") " +
               "scale(" + (radius / 500) + ")"
-            ).on('mouseout', function (d) {
+            ).on('mouseout', function (event, d) {
               svg.classed('dimmed', false);
               model.selected = undefined;
             });
@@ -285,7 +285,7 @@
           featureData.enter()
             .append('path')
             .on('mouseenter', mouseEnterHandler)
-            .on('click', function (d) {
+            .on('click', function (event, d) {
               d.data.url && window.open(d.data.url);
             })
             .attr('d', arc)

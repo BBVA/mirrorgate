@@ -45,13 +45,13 @@
     "lodash": "4.17.20",
     "selenium-standalone": "6.18.0",
     "sinon": "9.0.3",
-    "uglify-js": "3.10.1"
+    "uglify-js": "3.10.3"
   },
   "dependencies": {
     "@webcomponents/html-imports": "1.2.5",
     "@webcomponents/webcomponentsjs": "2.4.4",
     "bootstrap": "4.5.2",
-    "d3": "5.16.0",
+    "d3": "6.1.0",
     "font-awesome": "4.7.0",
     "jquery": "3.5.1",
     "jquery.dotdotdot": "3.2.3",

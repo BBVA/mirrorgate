@@ -253,7 +253,7 @@
 
         buildsData.enter()
           .append('path')
-          .on('mouseenter', function (d) {
+          .on('mouseenter', function (event, d) {
             model.hover = true;
             model.selectedBuild = d.data && d.data.data;
 
@@ -261,7 +261,7 @@
               .select('.slices')
               .classed('select', false)
           })
-          .on('click', function (d) {
+          .on('click', function (event, d) {
             var data = d.data && d.data.data;
             data && window.open(data.buildUrl);
           })
@@ -275,13 +275,15 @@
 
         buildsData.exit().remove();
 
-        svg.select('.slices').on('mouseout', function (d) {
-          container
-            .select('.slices')
-            .classed('select', true);
-          model.hover = false;
-          model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
-        });
+        svg
+          .select('.slices')
+          .on('mouseout', function (event, d) {
+            container
+              .select('.slices')
+              .classed('select', true);
+            model.hover = false;
+            model.selectedBuild = data.lastRelevantBuild && data.lastRelevantBuild.data;
+          });
       }
     });
 
