@@ -40,7 +40,7 @@
     "concurrently": "5.3.0",
     "gzip-all": "1.0.0",
     "http-server": "0.12.3",
-    "karma": "5.1.1",
+    "karma": "5.2.0",
     "karma-chrome-launcher": "3.1.0",
     "karma-coverage-istanbul-reporter": "3.0.3",
     "karma-jasmine": "4.0.1",
