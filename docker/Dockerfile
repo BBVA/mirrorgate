@@ -1,7 +1,13 @@
-FROM openjdk:14-jdk
+FROM openjdk:14.0.2-jdk
 
-# Install AWS CLI
-RUN yum -y install python curl unzip && cd /tmp && curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" && unzip awscli-bundle.zip && ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws && rm awscli-bundle.zip && rm -rf awscli-bundle
+# Install AWS CLI 2
+RUN microdnf -y install curl unzip \
+    && cd /tmp \
+    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && unzip awscliv2.zip \
+    && ./aws/install -i /usr/local -b /usr/local/bin -u \
+    && rm  -rf awscliv2.zip awscliv2 \
+    && aws --version
 
 # Copy the entry-point script
 COPY entrypoint.sh /mirrorgate/entrypoint.sh
